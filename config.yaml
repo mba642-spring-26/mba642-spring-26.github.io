@@ -1,6 +1,6 @@
 baseurl: "/"
-title: "Statistical Computing"
-author: "Colin Rundel"
+title: "Business Analytics in Healthcare Management"
+author: "Sangsuk Yoon"
 copyright: "&copy; 2025. All rights reserved."
 ignoreFiles: ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 publishDir: "docs"
@@ -26,8 +26,8 @@ menu:
     url: https://rstudio.stat.duke.edu
 
 params:
-  subtitle: "(Spring 2025)"
-  course: "Sta 323"
+  subtitle: "(Spring 2026)"
+  course: "MBA 642"
   highlightjs: androidstudio
   highlightjs_extra_languages:
     - yaml
@@ -38,10 +38,10 @@ params:
     - textbooks
     - about
   contact:
-    - name: Dr. Colin Rundel
-      email: colin.rundel@duke.edu
+    - name: Dr. Sangsuk Yoon
+      email: syoon1@udayton.edu
       hours:
-      - loc: 204 Old Chemistry / Zoom
+      - loc: Zoom
         day: TBD
         time: ""
   assignments:

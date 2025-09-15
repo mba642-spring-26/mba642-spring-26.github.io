@@ -1,3 +1,3 @@
 # Course Website
 
-https://sta323-sp25.github.io/
+https://mba642-spring-26.github.io/

@@ -1,4 +1,4 @@
-startdate: "2025-01-12"
+startdate: "2026-01-12"
 dateFormat: 'Mon, Jan 2'
 schedule:
 
@@ -8,7 +8,7 @@ schedule:
 
 - week: 0
   day: 5
-  lecture: "Welcome & Syllabus"
+  lecture: "Introduction"
   slides: Lec01
   screencast:
   suppmat:
