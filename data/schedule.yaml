@@ -20,11 +20,11 @@ schedule:
 
 - week: 1
   day: 2
-  lecture: No lab
+  lecture: No class
 
 - week: 1
   day: 3
-  lecture: "Types and Control Flow in R"
+  lecture: "Introduction session"
   slides: Lec02
   screencast:
   readings:
