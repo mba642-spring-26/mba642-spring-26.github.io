@@ -1,0 +1,282 @@
+[
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "schedule",
+    "section": "",
+    "text": "Week\nDate\nTopic\nReadings/Notes\nAssignments\n\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\nChapter 1\n\n\n\n\n2\nJan 21\nBasic Statistical Concepts\nChapter 2\nAssignment 1\n\n\n\n3\nJan 289\nA primer on R, R-Studio, and R-Markdown\n\nAssignment 2\n\n\n\n4\nFeb 4\nData visualization\nData Visualization by Keran Healy\nAssignment 3\n\n\n\n5\nFeb 11\nHealthcare survey data analysis\nChapter 9\nAssignment 4\n\n\n\n6\nFeb 18\nMean difference\n-\nAssignment 5\n\n\n\n7\nFeb 25\nBivariate relationship\n-\nAssignment 6\n\n\n\n8\nMar 4\nLinear regression analysis\nChapter 3\nAssignment 7\n\n\n\n9\nMar 11\nLogistic regression analysis\nChapter 4\nAssignment 8\n\n\n\n10\nMar 18\nSpring break (no class)\n-\n\n\n\n\n11\nMar 25\nCount data analysis\nChapter 5\nAssignment 9\n\n\n\n12\nApr 1\nCluster analysis\n-\nAssignment 10\n\n\n\n13\nApr 8\nCausal inference in healthcare\nChapter 8\nAssignment 11\n\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\nChapter 10\n\n\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\nChapter 10\nAssignment 12\n\n\n\n16\nApr 29\nFinal Exam"
+  },
+  {
+    "objectID": "schedule.html#tentative-schedule",
+    "href": "schedule.html#tentative-schedule",
+    "title": "schedule",
+    "section": "",
+    "text": "Week\nDate\nTopic\nReadings/Notes\nAssignments\n\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\nChapter 1\n\n\n\n\n2\nJan 21\nBasic Statistical Concepts\nChapter 2\nAssignment 1\n\n\n\n3\nJan 289\nA primer on R, R-Studio, and R-Markdown\n\nAssignment 2\n\n\n\n4\nFeb 4\nData visualization\nData Visualization by Keran Healy\nAssignment 3\n\n\n\n5\nFeb 11\nHealthcare survey data analysis\nChapter 9\nAssignment 4\n\n\n\n6\nFeb 18\nMean difference\n-\nAssignment 5\n\n\n\n7\nFeb 25\nBivariate relationship\n-\nAssignment 6\n\n\n\n8\nMar 4\nLinear regression analysis\nChapter 3\nAssignment 7\n\n\n\n9\nMar 11\nLogistic regression analysis\nChapter 4\nAssignment 8\n\n\n\n10\nMar 18\nSpring break (no class)\n-\n\n\n\n\n11\nMar 25\nCount data analysis\nChapter 5\nAssignment 9\n\n\n\n12\nApr 1\nCluster analysis\n-\nAssignment 10\n\n\n\n13\nApr 8\nCausal inference in healthcare\nChapter 8\nAssignment 11\n\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\nChapter 10\n\n\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\nChapter 10\nAssignment 12\n\n\n\n16\nApr 29\nFinal Exam"
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "syllabus",
+    "section": "",
+    "text": "Course Title: Business Analytics in Healthcare Management\nLevel: Graduate (Master’s)\nInstructor: Sangsuk Yoon (syoon1@udayton.edu)"
+  },
+  {
+    "objectID": "syllabus.html#course-description",
+    "href": "syllabus.html#course-description",
+    "title": "syllabus",
+    "section": "Course Description:",
+    "text": "Course Description:\nThis graduate-level course provides a comprehensive introduction to healthcare business analytics, progressing from basic statistical concepts to practical applications of data analytics in healthcare management decisions. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare data systems, including electronic health records, claims databases, clinical registries, and population health surveys. Students will gain hands-on experience with modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making."
+  },
+  {
+    "objectID": "syllabus.html#course-objectives",
+    "href": "syllabus.html#course-objectives",
+    "title": "syllabus",
+    "section": "Course Objectives:",
+    "text": "Course Objectives:\n\nUnderstand the role of analytics in modern healthcare management\nAnalyze different types of healthcare data (claims, electronic health records, claims data, surveys, etc.)\nApply appropriate statistical methods to healthcare management problems to extract meaningful insights\nInterpret and communicate analytical findings to stakeholders\nDevelop data-driven solutions for healthcare management challenges"
+  },
+  {
+    "objectID": "syllabus.html#course-website",
+    "href": "syllabus.html#course-website",
+    "title": "syllabus",
+    "section": "Course Website:",
+    "text": "Course Website:"
+  },
+  {
+    "objectID": "syllabus.html#textbook",
+    "href": "syllabus.html#textbook",
+    "title": "syllabus",
+    "section": "Textbook:",
+    "text": "Textbook:\n“Statistics for Data Science: An Organic Approach”"
+  },
+  {
+    "objectID": "syllabus.html#r-and-r-studio",
+    "href": "syllabus.html#r-and-r-studio",
+    "title": "syllabus",
+    "section": "R and R-Studio:",
+    "text": "R and R-Studio:\nThis course utilizes R and R-Studio as the primary analytical tools. R is a powerful, open-source programming language specifically designed for statistical data analysis, widely used in both academia and industry for analytics. R-Studio is an integrated development environment (IDE) that makes R programming more accessible and efficient through its user-friendly interface, offering features such as data visualization, code editing, debugging, and project management capabilities. Students will learn to use these tools to analyze healthcare data, create visualizations, develop statistical models, and generate reports. You can download R and R-Studio from the following links:\n\nR: https://www.r-project.org\nR-Studio: https://posit.co/downloads/"
+  },
+  {
+    "objectID": "syllabus.html#assignments-60-of-final-grade-12-assignments-5-each",
+    "href": "syllabus.html#assignments-60-of-final-grade-12-assignments-5-each",
+    "title": "syllabus",
+    "section": "Assignments: 60% of final grade (12 assignments; 5% each)",
+    "text": "Assignments: 60% of final grade (12 assignments; 5% each)\nThere will be 12 assignments. Each of the 12 assignments requires students to apply analytical methods learned in class to new healthcare data analytics scenarios. Assignments are due weekly by Sunday at 11:59 PM."
+  },
+  {
+    "objectID": "syllabus.html#class-participation-10-of-final-grade",
+    "href": "syllabus.html#class-participation-10-of-final-grade",
+    "title": "syllabus",
+    "section": "Class Participation: 10% of final grade",
+    "text": "Class Participation: 10% of final grade\nClass participation will be evaluated through attendance tracking and participation in class activities. After each class, students will be asked to submit their work on Canvas, and the submissions will be used for class participation and attendance grading. The deadline for class activity submissions is within 30 minutes after class ends (e.g., for a class ending at 12:00 PM, submissions are due by 12:30 PM)."
+  },
+  {
+    "objectID": "syllabus.html#final-exam-30-of-final-grade",
+    "href": "syllabus.html#final-exam-30-of-final-grade",
+    "title": "syllabus",
+    "section": "Final Exam: 30% of final grade",
+    "text": "Final Exam: 30% of final grade\nThere will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class. The exam will be during regular class time.\nFinal course letter grades will be assigned as follows:\n\n\n\nLetter Grade\nQuality Points\nPercentage Range\n\n\n\n\nA\n4.000\n93 - 100\n\n\nA-\n3.667\n90 - 92.99\n\n\nB+\n3.333\n87 - 89.99\n\n\nB\n3.000\n83 - 86.99\n\n\nB-\n2.667\n80 - 82.99\n\n\nC\n2.000\n70 - 79.99\n\n\nF\n0.000\n0 - 69.99"
+  },
+  {
+    "objectID": "syllabus.html#attendance-policy",
+    "href": "syllabus.html#attendance-policy",
+    "title": "syllabus",
+    "section": "Attendance Policy:",
+    "text": "Attendance Policy:\nThis course is delivered in-person and attendance is required. An attendance sheet will be circulated each class session for students to sign, documenting their presence."
+  },
+  {
+    "objectID": "syllabus.html#classroom-etiquette",
+    "href": "syllabus.html#classroom-etiquette",
+    "title": "syllabus",
+    "section": "Classroom Etiquette:",
+    "text": "Classroom Etiquette:\n\nTURN OFF or MUTE cell phones during class.\nTreat class time as a meeting in current/future professional life.\nShow respect for yourself, your peers, and our school; behave in a civil and appropriate manner for a school of business.\nFOOD is not permitted in the classroom. Coffee or beverages are allowed only in sealed containers. Students consuming food will be asked to step outside until finished.\nProfessional language is required in all class discussions and written assignments."
+  },
+  {
+    "objectID": "syllabus.html#technological-problems",
+    "href": "syllabus.html#technological-problems",
+    "title": "syllabus",
+    "section": "Technological Problems:",
+    "text": "Technological Problems:\n\nStudents are responsible for ensuring reliable internet connectivity when submitting assignments.\nAll students must maintain an active UD email account and Canvas access.\nTechnical issues with personal computers or software (including R and R-Studio) are the student’s responsibility.\nFor hardware issues, contact your device manufacturer. For software issues, contact UD IT services. I will provide guidance on course-specific technical matters when possible."
+  },
+  {
+    "objectID": "syllabus.html#late-submissions",
+    "href": "syllabus.html#late-submissions",
+    "title": "syllabus",
+    "section": "Late Submissions:",
+    "text": "Late Submissions:\nA late submission is subject to the following policy. - In-class activity must be submitted on time; late submissions are not accepted. If you cannot submit work on time, you have to inform me immediately after class. Email notifications or after-deadline communications about late work are not accepted. - For other assignments, a 20% grade deduction applies for each 24-hour period past the deadline. Assignments submitted more than 48 hours late will receive zero points."
+  },
+  {
+    "objectID": "syllabus.html#retaining-assignments-and-research-exercises",
+    "href": "syllabus.html#retaining-assignments-and-research-exercises",
+    "title": "syllabus",
+    "section": "Retaining Assignments and Research Exercises:",
+    "text": "Retaining Assignments and Research Exercises:\n\nStudents must keep a copy of each Assignment or Research Exercise, and any related documents. In the unlikely event that an Assignment or Research Exercise is misplaced or cannot be found, the onus is on you to provide a backup copy of the assignment.\nIn addition, you must keep your graded assignments. Any queries concerning the awarded grade (e.g., a discrepancy between what is posted on Canvas and what is on your paper) can only be resolved with the original assignment document."
+  },
+  {
+    "objectID": "syllabus.html#check-grades",
+    "href": "syllabus.html#check-grades",
+    "title": "syllabus",
+    "section": "Check Grades:",
+    "text": "Check Grades:\nStudents are responsible for regularly monitoring their grades on Canvas. If you think an assignment that you handed in was not graded, or that the grade that was posted is wrong, feel free to reach out to me for review and verification."
+  },
+  {
+    "objectID": "syllabus.html#civility-respect-and-privacy",
+    "href": "syllabus.html#civility-respect-and-privacy",
+    "title": "syllabus",
+    "section": "Civility, Respect, and Privacy",
+    "text": "Civility, Respect, and Privacy\nThe University of Dayton adopted a “Statement of Dignity which states the following: “A primary assertion of both our religious and civil traditions is the inviolable dignity of each person. Recognition of and respect for the person are central to our life as a Christian and education community and are what allow us to pursue our common mission while being many diverse persons. Thus discrimination, harassment, and any other conduct that diminishes the worth of a person are incompatible with our fundamental commitment as a Catholic university conducted in the Marianist tradition.”"
+  },
+  {
+    "objectID": "syllabus.html#classroom-climate-and-bias-experiences-and-process",
+    "href": "syllabus.html#classroom-climate-and-bias-experiences-and-process",
+    "title": "syllabus",
+    "section": "Classroom Climate and Bias Experiences and Process",
+    "text": "Classroom Climate and Bias Experiences and Process\nAs part of a University for the Common Good that aims to be an anti-racist university, I want all students to feel safe, respected, and valued in all of their classes. Should you have an experience in this class, or in any SBA class, where you feel devalued because of an incident in class, we would like to know. You are free to discuss the issue with me. You can also contact our Associate Dean, Dr. Marsha Keune (mkeune1@udayton.edu), share your experience with the Equity Compliance Office (equitycompliance@udayton.edu or 937-229-3622) or submit an incident report."
+  },
+  {
+    "objectID": "syllabus.html#intellectual-property-statement",
+    "href": "syllabus.html#intellectual-property-statement",
+    "title": "syllabus",
+    "section": "Intellectual Property Statement",
+    "text": "Intellectual Property Statement\nThe materials shared with you during this course are authored and owned by the instructor, the department, the school and/or the book publisher. Copyright laws must be respected at all times."
+  },
+  {
+    "objectID": "syllabus.html#academic-honesty",
+    "href": "syllabus.html#academic-honesty",
+    "title": "syllabus",
+    "section": "Academic Honesty",
+    "text": "Academic Honesty\nYou are expected to do your own written work on all assignments and projects. For specific UD policies concerning academic honesty, see the University’s Academic Honor Code in the Academic Catalog."
+  },
+  {
+    "objectID": "syllabus.html#contract-cheating",
+    "href": "syllabus.html#contract-cheating",
+    "title": "syllabus",
+    "section": "Contract Cheating",
+    "text": "Contract Cheating\nContract cheating occurs when a student pays someone (such as a person or company found online) to write essays or complete assignments for a class. This defeats the purpose of the course, and I encourage you to follow the academic honor code and seek to develop a personal sense of academic integrity which lays the foundation for an ethical life. Contract cheating is especially dangerous because of the risk of bribery and extortion (at any point after after college.) Students are often lured into contract cheating by signing up for online tutoring services. Remember that UD provides many learning support resources through the Office of Learning Resources."
+  },
+  {
+    "objectID": "syllabus.html#academic-integrity-and-chatgptai-generated-content",
+    "href": "syllabus.html#academic-integrity-and-chatgptai-generated-content",
+    "title": "syllabus",
+    "section": "Academic Integrity and ChatGPT/AI Generated Content",
+    "text": "Academic Integrity and ChatGPT/AI Generated Content\nAs a student at UD, you are expected to adhere to the Standards of Conduct outlined in the Academic Honor Code. One of the goals for your educational development is to develop your critical thinking and writing skills, which can be weakened by regularly utilizing AI for writing. Thus, for this course, all submitted writing should be your own, original work. If you quote or copy content from ChatGPT or other AI sources, it must be appropriately cited in your submissions. As your instructor, I am required to investigate all suspected violations of academic dishonesty and follow the honor code violation procedures, which can result in an NC for the course."
+  },
+  {
+    "objectID": "syllabus.html#dropping-the-course",
+    "href": "syllabus.html#dropping-the-course",
+    "title": "syllabus",
+    "section": "Dropping the Course",
+    "text": "Dropping the Course\nYou are responsible for understanding the University’s policies and procedures regarding withdrawing from courses. You should also be aware of the current deadlines and penalties for dropping classes. Information on withdrawal from courses is available in the Academic Catalog under Grades and Scholarship. You may also want to speak with your academic advisor."
+  },
+  {
+    "objectID": "syllabus.html#student-feedback-tool",
+    "href": "syllabus.html#student-feedback-tool",
+    "title": "syllabus",
+    "section": "Student Feedback Tool",
+    "text": "Student Feedback Tool\nThe University will ask for your anonymous feedback regarding instruction in this course through the online Student Feedback Tool (SFT). Your candid, respectful opinions and constructive suggestions have an impact on the quality of teaching at UD. Instructions for how to complete SFT will be sent to your UD email account towards the end of the term, and you will be given time in class to complete it. If you encounter teaching problems accessing SFT, contact the UDit Service Center at 937-229-3888 or itservicecenter@udayton.edu. To learn more about SFT, visit https://go.udayton.edu/sft."
+  },
+  {
+    "objectID": "syllabus.html#support-for-your-learning-in-this-course",
+    "href": "syllabus.html#support-for-your-learning-in-this-course",
+    "title": "syllabus",
+    "section": "Support for Your Learning in This Course",
+    "text": "Support for Your Learning in This Course\nThe Ryan C. Harris Learning Teaching Center’s Office of Learning Resources (OLR) is a learning resource for students, parents, faculty, and staff at the University of Dayton. Please contact OLR via email at OLR@udayton.edu or by calling 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing individuals) or visit the office on the ground floor of Roesch Library (LTC 023) if you would like to talk about how you could become a more effective learner. You can also check out the website: go.udayton.edu/learning."
+  },
+  {
+    "objectID": "syllabus.html#students-with-disabilities",
+    "href": "syllabus.html#students-with-disabilities",
+    "title": "syllabus",
+    "section": "Students with Disabilities",
+    "text": "Students with Disabilities\nIf you are a student with a disability and feel you may need a reasonable accommodation to fulfill the essential functions of this course, you are encouraged to connect with the Office of Learning Resources (OLR). OLR provides accommodations and services for students with a variety of disabilities, including physical, medical, and psychiatric. You may contact OLR to learn more about the process and procedures for requesting accommodations via email at disabilityservices@udayton.edu or at 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing), or by visiting the office in Roesch Library (LTC 023.)\nIf you need assistance with alternate formats of electronic course materials (such as converting a PDF into an accessible format), visit OLR’s website to use the tool, Sensus Access, for document conversion."
+  },
+  {
+    "objectID": "syllabus.html#wellbeing-and-success",
+    "href": "syllabus.html#wellbeing-and-success",
+    "title": "syllabus",
+    "section": "Wellbeing and Success",
+    "text": "Wellbeing and Success\nAt UD, we know health and wellbeing are important to your success. That’s why we help students of all backgrounds build a foundation for holistic wellbeing. We provide the services, resources and support you need to be successful on campus and in life. Health and Wellbeing resources include the following:\n\nDean of Students Office: Student Care and Advocacy at 937-229-1212\nCounseling Center at 937-229-3141\nStudent Health Center at 937-229-3131\nCenter for Alcohol and Other Drugs Resources and Education at go.udayton.edu/cadre\nBrook Center at go.udayton.edu/brook (includes LGBTQ+ Student Services)\nCampus Recreation at activeflyers.udayton.edu\nYOU@Dayton at wellbeing.udayton.edu"
+  },
+  {
+    "objectID": "syllabus.html#student-success-network",
+    "href": "syllabus.html#student-success-network",
+    "title": "syllabus",
+    "section": "Student Success Network",
+    "text": "Student Success Network\nUD makes student success a priority. For this reason, I will be using the Student Success Network (SSN) in this course as an early identification and intervention system designed to enable your academic success and graduation. If I notice that you are struggling with issues such as attendance, class participation, or assignment performance, I may choose to send notification through SSN in order to connect you with appropriate campus resources. These referrals are designed to maximize your chances for success, not as punishment, so please respond to any communications you may receive from me, your Academic Advisor, the Dean’s Office, or other campus offices regarding your academic progress in this course. Please see the Student Success Network website for more information."
+  },
+  {
+    "objectID": "syllabus.html#write-place",
+    "href": "syllabus.html#write-place",
+    "title": "syllabus",
+    "section": "Write Place",
+    "text": "Write Place\nThe Write Place offers free writing assistance on any assignment at any stage of the writing process. To make an appointment with the Write Place, email writeplace@udayton.edu."
+  },
+  {
+    "objectID": "syllabus.html#library-research-support",
+    "href": "syllabus.html#library-research-support",
+    "title": "syllabus",
+    "section": "Library Research Support",
+    "text": "Library Research Support\nRoesch Library’s reference services offer free research assistance on any assignment at any stage of the research process. Visit the first floor Information Desk to meet in-person, or connect remotely with a librarian via the Libraries’ Get Help page. Research consultation service hours are listed online. No appointment is necessary, although they are available. To make an appointment with a librarian, see either the Library Resources tab in Canvas or make an appointment online."
+  },
+  {
+    "objectID": "syllabus.html#religious-accommodations",
+    "href": "syllabus.html#religious-accommodations",
+    "title": "syllabus",
+    "section": "Religious Accommodations",
+    "text": "Religious Accommodations\nUD strives for an inclusive climate and welcomes students from all backgrounds, faiths and experiences. If religious observance impedes your ability to participate fully in classroom activities or a principal holiday from your religious tradition occurs during the semester and conflicts with class, please make me aware of this immediately to determine if a reasonable accommodation is possible. Find out more about how to request a religious accommodation."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
+    "section": "",
+    "text": "This is a class website for Business Analytics in Healthcare Management class.\nAll class materials will be posted here.\nPlease check the syllabus"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "lectures/Lecture1.html#welcome",
+    "href": "lectures/Lecture1.html#welcome",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "👋 Welcome!",
+    "text": "👋 Welcome!\nA quick overview of what we’ll cover today:\n\n\n\nWhat is Data Science?\nCourse logistics and syllabus review\nIntroduction to our tools (R, RStudio, Quarto)\nYour first analysis"
+  },
+  {
+    "objectID": "lectures/Lecture1.html#what-is-data-science",
+    "href": "lectures/Lecture1.html#what-is-data-science",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "What is Data Science?",
+    "text": "What is Data Science?\nIt’s an interdisciplinary field that uses scientific methods, processes, algorithms, and systems to extract knowledge and insights from data.\n\nIt’s a combination of:\n\nStatistics\nComputer Science\nDomain Knowledge\n\n\n\nSpeaker notes go here! Press ‘S’ on your keyboard to open the speaker view in a separate window. This is where you can write reminders for yourself."
+  },
+  {
+    "objectID": "lectures/Lecture1.html#two-column-layout",
+    "href": "lectures/Lecture1.html#two-column-layout",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "Two-Column Layout",
+    "text": "Two-Column Layout\nCourse Goals\n\n\n\nUnderstand the data science workflow\nLearn fundamental programming concepts\nBecome proficient in data visualization\nDevelop skills for reproducible research\n\n\n\n\nKey Tools\n\nR: A language for statistical computing\nRStudio: An IDE for R\nQuarto: For reporting and presentations (like this one!)\nGit/GitHub: For version control and collaboration"
+  },
+  {
+    "objectID": "lectures/Lecture1.html#including-code",
+    "href": "lectures/Lecture1.html#including-code",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "Including Code",
+    "text": "Including Code\nWe can show code and its output directly in the slides."
+  },
+  {
+    "objectID": "lectures/Lecture1.html#a-simple-calculation-in-r",
+    "href": "lectures/Lecture1.html#a-simple-calculation-in-r",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "A simple calculation in R",
+    "text": "A simple calculation in R\n\nThe result is: 15\n\n\n\n[1] 7.5"
+  },
+  {
+    "objectID": "lectures/Lecture1.html#additional-readings",
+    "href": "lectures/Lecture1.html#additional-readings",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "additional readings",
+    "text": "additional readings"
+  }
+]
