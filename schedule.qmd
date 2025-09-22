@@ -1,0 +1,24 @@
+---
+title: "schedule"
+---
+
+## Tentative Schedule
+
+| Week | Date    | Topic                                   | Readings/Notes |     |     |
+|:----------|:----------|:---------------|:----------|-----------|-----------|
+| 1    | Jan 14  | [Introduction & Course Overview](/lectures/Lecture1.qmd){target="_blank"}          | Chapter 1      |     |     |
+| 2    | Jan 21  | Basic Statistical Concepts              | Chapter 2      |     |     |
+| 3    | Jan 289 | A primer on R, R-Studio, and R-Markdown | Chapter 2      |     |     |
+| 4    | Feb 4   | Data visualization                      | Chapter 2      |     |     |
+| 5    | Feb 11  | Healthcare survey data analysis         | Chapter 2      |     |     |
+| 6    | Feb 18  | Mean difference                         | Chapter 2      |     |     |
+| 7    | Feb 25  | Bivariate relationship                  | Chapter 2      |     |     |
+| 8    | Mar 4   | Linear regression analysis              | Chapter 2      |     |     |
+| 9    | Mar 11  | Logistic regression analysis            | Chapter 2      |     |     |
+| 10   | Mar 18  | Spring break (no class)                 | Chapter 2      |     |     |
+| 11   | Mar 25  | Count data analysis                     | Chapter 2      |     |     |
+| 12   | Apr 1   | Cluster analysis                        | Chapter 2      |     |     |
+| 13   | Apr 8   | Causal inference in healthcare          | Chapter 2      |     |     |
+| 14   | Apr 15  | Predictive analytics 1                  | Chapter 2      |     |     |
+| 15   | Apr 22  | Predictive analytics 2                  | Chapter 2      |     |     |
+| 16   | Apr 29  | Variables, Data Types, & Operators      | Chapter 2      |     |     |

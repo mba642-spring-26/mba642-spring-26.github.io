@@ -1,0 +1,28 @@
+project:
+  type: website
+
+website:
+  title: "business analytics in healthcare management (MBA 642)"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: syllabus.qmd
+        text: Syllabus
+      - href: schedule.qmd
+        text: Schedule
+      - href: assignments.qmd
+        text: Assignments
+        
+    right:
+    - icon: github
+      href: https://github.com/<your-username>/<your-repo-name>
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

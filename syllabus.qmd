@@ -1,0 +1,175 @@
+---
+title: "syllabus"
+---
+
+# Course Information
+
+**Course Title:** Business Analytics in Healthcare Management
+
+**Level:** Graduate (Master's)
+
+**Instructor:** Sangsuk Yoon (syoon1\@udayton.edu)
+
+# Course Description and Objectives:
+
+## Course Description:
+
+This graduate-level course provides a comprehensive introduction to healthcare business analytics, progressing from basic statistical concepts to practical applications of data analytics in healthcare management decisions. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare data systems, including electronic health records, claims databases, clinical registries, and population health surveys. Students will gain hands-on experience with modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making.
+
+## Course Objectives:
+
+-   Understand the role of analytics in modern healthcare management
+-   Analyze different types of healthcare data (claims, electronic health records, claims data, surveys, etc.)
+-   Apply appropriate statistical methods to healthcare management problems to extract meaningful insights
+-   Interpret and communicate analytical findings to stakeholders
+-   Develop data-driven solutions for healthcare management challenges
+
+# Required Materials
+
+## Course Website:
+
+## Textbook:
+
+"Statistics for Data Science: An Organic Approach"
+
+## R and R-Studio:
+
+This course utilizes R and R-Studio as the primary analytical tools. R is a powerful, open-source programming language specifically designed for statistical data analysis, widely used in both academia and industry for analytics. R-Studio is an integrated development environment (IDE) that makes R programming more accessible and efficient through its user-friendly interface, offering features such as data visualization, code editing, debugging, and project management capabilities. Students will learn to use these tools to analyze healthcare data, create visualizations, develop statistical models, and generate reports. You can download R and R-Studio from the following links:
+
+-   R: <https://www.r-project.org>
+-   R-Studio: <https://posit.co/downloads/>
+
+# Grading Components:
+
+|      Component       | Weight |
+|:--------------------:|:------:|
+|     Assignments      |  60%   |
+| Class Participations |  10%   |
+|      Final Exam      |  30%   |
+
+## Assignments: 60% of final grade (12 assignments; 5% each)
+
+There will be 12 assignments. Each of the 12 assignments requires students to apply analytical methods learned in class to new healthcare data analytics scenarios. Assignments are due weekly by Sunday at 11:59 PM.
+
+## Class Participation: 10% of final grade
+
+Class participation will be evaluated through attendance tracking and participation in class activities. After each class, students will be asked to submit their work on Canvas, and the submissions will be used for class participation and attendance grading. The deadline for class activity submissions is within 30 minutes after class ends (e.g., for a class ending at 12:00 PM, submissions are due by 12:30 PM).
+
+## Final Exam: 30% of final grade
+
+There will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class. The exam will be during regular class time.
+
+Final course letter grades will be assigned as follows:
+
+| Letter Grade | Quality Points | Percentage Range |
+|:------------:|:--------------:|:----------------:|
+|      A       |     4.000      |     93 - 100     |
+|      A-      |     3.667      |    90 - 92.99    |
+|      B+      |     3.333      |    87 - 89.99    |
+|      B       |     3.000      |    83 - 86.99    |
+|      B-      |     2.667      |    80 - 82.99    |
+|      C       |     2.000      |    70 - 79.99    |
+|      F       |     0.000      |    0 - 69.99     |
+
+# Class Policies
+
+## Attendance Policy:
+
+This course is delivered in-person and attendance is required. An attendance sheet will be circulated each class session for students to sign, documenting their presence.
+
+## Classroom Etiquette:
+
+-   TURN OFF or MUTE cell phones during class.
+-   Treat class time as a meeting in current/future professional life.
+-   Show respect for yourself, your peers, and our school; behave in a civil and appropriate manner for a school of business.
+-   FOOD is not permitted in the classroom. Coffee or beverages are allowed only in sealed containers. Students consuming food will be asked to step outside until finished.
+-   Professional language is required in all class discussions and written assignments.
+
+## Technological Problems:
+
+-   Students are responsible for ensuring reliable internet connectivity when submitting assignments.
+-   All students must maintain an active UD email account and Canvas access.
+-   Technical issues with personal computers or software (including R and R-Studio) are the student’s responsibility.
+-   For hardware issues, contact your device manufacturer. For software issues, contact UD IT services. I will provide guidance on course-specific technical matters when possible.
+
+## Late Submissions:
+
+A late submission is subject to the following policy. - In-class activity must be submitted on time; late submissions are not accepted. If you cannot submit work on time, you have to inform me immediately after class. Email notifications or after-deadline communications about late work are not accepted. - For other assignments, a 20% grade deduction applies for each 24-hour period past the deadline. Assignments submitted more than 48 hours late will receive zero points.
+
+## Retaining Assignments and Research Exercises:
+
+-   Students must keep a copy of each Assignment or Research Exercise, and any related documents. In the unlikely event that an Assignment or Research Exercise is misplaced or cannot be found, the onus is on you to provide a backup copy of the assignment.
+-   In addition, you must keep your graded assignments. Any queries concerning the awarded grade (e.g., a discrepancy between what is posted on Canvas and what is on your paper) can only be resolved with the original assignment document.
+
+## Check Grades:
+
+Students are responsible for regularly monitoring their grades on Canvas. If you think an assignment that you handed in was not graded, or that the grade that was posted is wrong, feel free to reach out to me for review and verification.
+
+# University Policies 
+## Civility, Respect, and Privacy
+
+The University of Dayton adopted a “Statement of Dignity which states the following: “A primary assertion of both our religious and civil traditions is the inviolable dignity of each person. Recognition of and respect for the person are central to our life as a Christian and education community and are what allow us to pursue our common mission while being many diverse persons. Thus discrimination, harassment, and any other conduct that diminishes the worth of a person are incompatible with our fundamental commitment as a Catholic university conducted in the Marianist tradition.”
+
+
+## Classroom Climate and Bias Experiences and Process 
+
+As part of a University for the Common Good that aims to be an anti-racist university, I want all students to feel safe, respected, and valued in all of their classes. Should you have an experience in this class, or in any SBA class, where you feel devalued because of an incident in class, we would like to know. You are free to discuss the issue with me. You can also contact our Associate Dean, Dr. Marsha Keune (mkeune1@udayton.edu), share your experience with the Equity Compliance Office (equitycompliance@udayton.edu or 937-229-3622) or submit an incident report. 
+
+## Intellectual Property Statement 
+
+The materials shared with you during this course are authored and owned by the instructor, the department, the school and/or the book publisher. Copyright laws must be respected at all times. 
+
+## Academic Honesty 
+
+You are expected to do your own written work on all assignments and projects. For specific UD policies concerning academic honesty, see the University’s Academic Honor Code in the Academic Catalog.
+
+## Contract Cheating
+
+Contract cheating occurs when a student pays someone (such as a person or company found online) to write essays or complete assignments for a class. This defeats the purpose of the course, and I encourage you to follow the academic honor code and seek to develop a personal sense of academic integrity which lays the foundation for an ethical life. Contract cheating is especially dangerous because of the risk of bribery and extortion (at any point after after college.) Students are often lured into contract cheating by signing up for online tutoring services. Remember that UD provides many learning support resources through the Office of Learning Resources.
+
+## Academic Integrity and ChatGPT/AI Generated Content
+
+As a student at UD, you are expected to adhere to the Standards of Conduct outlined in the Academic Honor Code. One of the goals for your educational development is to develop your critical thinking and writing skills, which can be weakened by regularly utilizing AI for writing. Thus, for this course, all submitted writing should be your own, original work. If you quote or copy content from ChatGPT or other AI sources, it must be appropriately cited in your submissions. As your instructor, I am required to investigate all suspected violations of academic dishonesty and follow the honor code violation procedures, which can result in an NC for the course.
+
+## Dropping the Course
+You are responsible for understanding the University’s policies and procedures regarding withdrawing from courses. You should also be aware of the current deadlines and penalties for dropping classes. Information on withdrawal from courses is available in the Academic Catalog under Grades and Scholarship. You may also want to speak with your academic advisor. 
+
+## Student Feedback Tool
+The University will ask for your anonymous feedback regarding instruction in this course through the online Student Feedback Tool (SFT). Your candid, respectful opinions and constructive suggestions have an impact on the quality of teaching at UD. Instructions for how to complete SFT will be sent to your UD email account towards the end of the term, and you will be given time in class to complete it. If you encounter teaching problems accessing SFT, contact the UDit Service Center at 937-229-3888 or itservicecenter@udayton.edu. To learn more about SFT, visit https://go.udayton.edu/sft. 
+
+
+# University Services and Resources
+
+It’s the University’s goal that learning experiences be as accessible as possible. Your learning in class is important to me, so I want you to be aware of campus resources which are available to all UD students.
+
+## Support for Your Learning in This Course
+
+The Ryan C. Harris Learning Teaching Center's Office of Learning Resources (OLR) is a learning resource for students, parents, faculty, and staff at the University of Dayton. Please contact OLR via email at OLR@udayton.edu or by calling 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing individuals) or visit the office on the ground floor of Roesch Library (LTC 023) if you would like to talk about how you could become a more effective learner. You can also check out the website: go.udayton.edu/learning.
+
+## Students with Disabilities
+If you are a student with a disability and feel you may need a reasonable accommodation to fulfill the essential functions of this course, you are encouraged to connect with the Office of Learning Resources (OLR). OLR provides accommodations and services for students with a variety of disabilities, including physical, medical, and psychiatric. You may contact OLR to learn more about the process and procedures for requesting accommodations via email at disabilityservices@udayton.edu or at 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing), or by visiting the office in Roesch Library (LTC 023.)
+
+If you need assistance with alternate formats of electronic course materials (such as converting a PDF into an accessible format), visit OLR’s website to use the tool, Sensus Access, for document conversion. 
+
+## Wellbeing and Success
+At UD, we know health and wellbeing are important to your success. That’s why we help students of all backgrounds build a foundation for holistic wellbeing. We provide the services, resources and support you need to be successful on campus and in life. Health and Wellbeing resources include the following: 
+
+-	Dean of Students Office: Student Care and Advocacy at 937-229-1212
+-	Counseling Center at 937-229-3141
+-	Student Health Center at 937-229-3131 
+-	Center for Alcohol and Other Drugs Resources and Education at go.udayton.edu/cadre
+-	Brook Center at go.udayton.edu/brook (includes LGBTQ+ Student Services)
+-	Campus Recreation at activeflyers.udayton.edu
+-	YOU@Dayton at wellbeing.udayton.edu
+
+## Student Success Network
+UD makes student success a priority. For this reason, I will be using the Student Success Network (SSN) in this course as an early identification and intervention system designed to enable your academic success and graduation. If I notice that you are struggling with issues such as attendance, class participation, or assignment performance, I may choose to send notification through SSN in order to connect you with appropriate campus resources. These referrals are designed to maximize your chances for success, not as punishment, so please respond to any communications you may receive from me, your Academic Advisor, the Dean’s Office, or other campus offices regarding your academic progress in this course. Please see the Student Success Network website for more information. 
+
+## Write Place
+The Write Place offers free writing assistance on any assignment at any stage of the writing process. To make an appointment with the Write Place, email writeplace@udayton.edu.
+
+## Library Research Support
+Roesch Library's reference services offer free research assistance on any assignment at any stage of the research process. Visit the first floor Information Desk to meet in-person, or connect remotely with a librarian via the Libraries’ Get Help page. Research consultation service hours are listed online. No appointment is necessary, although they are available. To make an appointment with a librarian, see either the Library Resources tab in Canvas or make an appointment online.
+
+## Religious Accommodations
+UD strives for an inclusive climate and welcomes students from all backgrounds, faiths and experiences. If religious observance impedes your ability to participate fully in classroom activities or a principal holiday from your religious tradition occurs during the semester and conflicts with class, please make me aware of this immediately to determine if a reasonable accommodation is possible. Find out more about how to request a religious accommodation. 

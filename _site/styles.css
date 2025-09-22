@@ -1,0 +1,34 @@
+/* custom.css */
+
+/*-- Main Theme Colors --*/
+:root {
+  --r-main-font: "Lato", sans-serif; /* A nice, clean font */
+  --r-heading-font: "Montserrat", sans-serif;
+  --r-background-color: #ffffff; /* White background */
+  --r-main-color: #333333; /* Dark text for readability */
+  --r-heading-color: #003366; /* Centerville's Dark Blue for headings */
+  --r-link-color: #FFC72C; /* Centerville's Gold for links */
+}
+
+/*-- Custom Title Slide --*/
+.reveal .slide-title-heading {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: var(--r-heading-color);
+}
+
+.reveal .slide-subtitle-heading {
+  font-size: 1.2em;
+  color: #555555;
+}
+
+.reveal .slide-author-heading {
+  font-size: 0.9em;
+  color: #555555;
+}
+
+/*-- Make the footer less obtrusive --*/
+.reveal .footer {
+  font-size: 0.5em;
+  color: #888888;
+}
