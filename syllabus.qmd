@@ -105,21 +105,21 @@ A late submission is subject to the following policy. - In-class activity must b
 
 Students are responsible for regularly monitoring their grades on Canvas. If you think an assignment that you handed in was not graded, or that the grade that was posted is wrong, feel free to reach out to me for review and verification.
 
-# University Policies 
+# University Policies
+
 ## Civility, Respect, and Privacy
 
 The University of Dayton adopted a “Statement of Dignity which states the following: “A primary assertion of both our religious and civil traditions is the inviolable dignity of each person. Recognition of and respect for the person are central to our life as a Christian and education community and are what allow us to pursue our common mission while being many diverse persons. Thus discrimination, harassment, and any other conduct that diminishes the worth of a person are incompatible with our fundamental commitment as a Catholic university conducted in the Marianist tradition.”
 
+## Classroom Climate and Bias Experiences and Process
 
-## Classroom Climate and Bias Experiences and Process 
+As part of a University for the Common Good that aims to be an anti-racist university, I want all students to feel safe, respected, and valued in all of their classes. Should you have an experience in this class, or in any SBA class, where you feel devalued because of an incident in class, we would like to know. You are free to discuss the issue with me. You can also contact our Associate Dean, Dr. Marsha Keune (mkeune1\@udayton.edu), share your experience with the Equity Compliance Office (equitycompliance\@udayton.edu or 937-229-3622) or submit an incident report.
 
-As part of a University for the Common Good that aims to be an anti-racist university, I want all students to feel safe, respected, and valued in all of their classes. Should you have an experience in this class, or in any SBA class, where you feel devalued because of an incident in class, we would like to know. You are free to discuss the issue with me. You can also contact our Associate Dean, Dr. Marsha Keune (mkeune1@udayton.edu), share your experience with the Equity Compliance Office (equitycompliance@udayton.edu or 937-229-3622) or submit an incident report. 
+## Intellectual Property Statement
 
-## Intellectual Property Statement 
+The materials shared with you during this course are authored and owned by the instructor, the department, the school and/or the book publisher. Copyright laws must be respected at all times.
 
-The materials shared with you during this course are authored and owned by the instructor, the department, the school and/or the book publisher. Copyright laws must be respected at all times. 
-
-## Academic Honesty 
+## Academic Honesty
 
 You are expected to do your own written work on all assignments and projects. For specific UD policies concerning academic honesty, see the University’s Academic Honor Code in the Academic Catalog.
 
@@ -132,11 +132,12 @@ Contract cheating occurs when a student pays someone (such as a person or compan
 As a student at UD, you are expected to adhere to the Standards of Conduct outlined in the Academic Honor Code. One of the goals for your educational development is to develop your critical thinking and writing skills, which can be weakened by regularly utilizing AI for writing. Thus, for this course, all submitted writing should be your own, original work. If you quote or copy content from ChatGPT or other AI sources, it must be appropriately cited in your submissions. As your instructor, I am required to investigate all suspected violations of academic dishonesty and follow the honor code violation procedures, which can result in an NC for the course.
 
 ## Dropping the Course
-You are responsible for understanding the University’s policies and procedures regarding withdrawing from courses. You should also be aware of the current deadlines and penalties for dropping classes. Information on withdrawal from courses is available in the Academic Catalog under Grades and Scholarship. You may also want to speak with your academic advisor. 
+
+You are responsible for understanding the University’s policies and procedures regarding withdrawing from courses. You should also be aware of the current deadlines and penalties for dropping classes. Information on withdrawal from courses is available in the Academic Catalog under Grades and Scholarship. You may also want to speak with your academic advisor.
 
 ## Student Feedback Tool
-The University will ask for your anonymous feedback regarding instruction in this course through the online Student Feedback Tool (SFT). Your candid, respectful opinions and constructive suggestions have an impact on the quality of teaching at UD. Instructions for how to complete SFT will be sent to your UD email account towards the end of the term, and you will be given time in class to complete it. If you encounter teaching problems accessing SFT, contact the UDit Service Center at 937-229-3888 or itservicecenter@udayton.edu. To learn more about SFT, visit https://go.udayton.edu/sft. 
 
+The University will ask for your anonymous feedback regarding instruction in this course through the online Student Feedback Tool (SFT). Your candid, respectful opinions and constructive suggestions have an impact on the quality of teaching at UD. Instructions for how to complete SFT will be sent to your UD email account towards the end of the term, and you will be given time in class to complete it. If you encounter teaching problems accessing SFT, contact the UDit Service Center at 937-229-3888 or itservicecenter\@udayton.edu. To learn more about SFT, visit https://go.udayton.edu/sft.
 
 # University Services and Resources
 
@@ -144,32 +145,38 @@ It’s the University’s goal that learning experiences be as accessible as pos
 
 ## Support for Your Learning in This Course
 
-The Ryan C. Harris Learning Teaching Center's Office of Learning Resources (OLR) is a learning resource for students, parents, faculty, and staff at the University of Dayton. Please contact OLR via email at OLR@udayton.edu or by calling 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing individuals) or visit the office on the ground floor of Roesch Library (LTC 023) if you would like to talk about how you could become a more effective learner. You can also check out the website: go.udayton.edu/learning.
+The Ryan C. Harris Learning Teaching Center's Office of Learning Resources (OLR) is a learning resource for students, parents, faculty, and staff at the University of Dayton. Please contact OLR via email at OLR\@udayton.edu or by calling 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing individuals) or visit the office on the ground floor of Roesch Library (LTC 023) if you would like to talk about how you could become a more effective learner. You can also check out the website: go.udayton.edu/learning.
 
 ## Students with Disabilities
-If you are a student with a disability and feel you may need a reasonable accommodation to fulfill the essential functions of this course, you are encouraged to connect with the Office of Learning Resources (OLR). OLR provides accommodations and services for students with a variety of disabilities, including physical, medical, and psychiatric. You may contact OLR to learn more about the process and procedures for requesting accommodations via email at disabilityservices@udayton.edu or at 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing), or by visiting the office in Roesch Library (LTC 023.)
 
-If you need assistance with alternate formats of electronic course materials (such as converting a PDF into an accessible format), visit OLR’s website to use the tool, Sensus Access, for document conversion. 
+If you are a student with a disability and feel you may need a reasonable accommodation to fulfill the essential functions of this course, you are encouraged to connect with the Office of Learning Resources (OLR). OLR provides accommodations and services for students with a variety of disabilities, including physical, medical, and psychiatric. You may contact OLR to learn more about the process and procedures for requesting accommodations via email at disabilityservices\@udayton.edu or at 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing), or by visiting the office in Roesch Library (LTC 023.)
+
+If you need assistance with alternate formats of electronic course materials (such as converting a PDF into an accessible format), visit OLR’s website to use the tool, Sensus Access, for document conversion.
 
 ## Wellbeing and Success
-At UD, we know health and wellbeing are important to your success. That’s why we help students of all backgrounds build a foundation for holistic wellbeing. We provide the services, resources and support you need to be successful on campus and in life. Health and Wellbeing resources include the following: 
 
--	Dean of Students Office: Student Care and Advocacy at 937-229-1212
--	Counseling Center at 937-229-3141
--	Student Health Center at 937-229-3131 
--	Center for Alcohol and Other Drugs Resources and Education at go.udayton.edu/cadre
--	Brook Center at go.udayton.edu/brook (includes LGBTQ+ Student Services)
--	Campus Recreation at activeflyers.udayton.edu
--	YOU@Dayton at wellbeing.udayton.edu
+At UD, we know health and wellbeing are important to your success. That’s why we help students of all backgrounds build a foundation for holistic wellbeing. We provide the services, resources and support you need to be successful on campus and in life. Health and Wellbeing resources include the following:
+
+-   Dean of Students Office: Student Care and Advocacy at 937-229-1212
+-   Counseling Center at 937-229-3141
+-   Student Health Center at 937-229-3131
+-   Center for Alcohol and Other Drugs Resources and Education at go.udayton.edu/cadre
+-   Brook Center at go.udayton.edu/brook (includes LGBTQ+ Student Services)
+-   Campus Recreation at activeflyers.udayton.edu
+-   YOU\@Dayton at wellbeing.udayton.edu
 
 ## Student Success Network
-UD makes student success a priority. For this reason, I will be using the Student Success Network (SSN) in this course as an early identification and intervention system designed to enable your academic success and graduation. If I notice that you are struggling with issues such as attendance, class participation, or assignment performance, I may choose to send notification through SSN in order to connect you with appropriate campus resources. These referrals are designed to maximize your chances for success, not as punishment, so please respond to any communications you may receive from me, your Academic Advisor, the Dean’s Office, or other campus offices regarding your academic progress in this course. Please see the Student Success Network website for more information. 
+
+UD makes student success a priority. For this reason, I will be using the Student Success Network (SSN) in this course as an early identification and intervention system designed to enable your academic success and graduation. If I notice that you are struggling with issues such as attendance, class participation, or assignment performance, I may choose to send notification through SSN in order to connect you with appropriate campus resources. These referrals are designed to maximize your chances for success, not as punishment, so please respond to any communications you may receive from me, your Academic Advisor, the Dean’s Office, or other campus offices regarding your academic progress in this course. Please see the Student Success Network website for more information.
 
 ## Write Place
-The Write Place offers free writing assistance on any assignment at any stage of the writing process. To make an appointment with the Write Place, email writeplace@udayton.edu.
+
+The Write Place offers free writing assistance on any assignment at any stage of the writing process. To make an appointment with the Write Place, email writeplace\@udayton.edu.
 
 ## Library Research Support
+
 Roesch Library's reference services offer free research assistance on any assignment at any stage of the research process. Visit the first floor Information Desk to meet in-person, or connect remotely with a librarian via the Libraries’ Get Help page. Research consultation service hours are listed online. No appointment is necessary, although they are available. To make an appointment with a librarian, see either the Library Resources tab in Canvas or make an appointment online.
 
 ## Religious Accommodations
-UD strives for an inclusive climate and welcomes students from all backgrounds, faiths and experiences. If religious observance impedes your ability to participate fully in classroom activities or a principal holiday from your religious tradition occurs during the semester and conflicts with class, please make me aware of this immediately to determine if a reasonable accommodation is possible. Find out more about how to request a religious accommodation. 
+
+UD strives for an inclusive climate and welcomes students from all backgrounds, faiths and experiences. If religious observance impedes your ability to participate fully in classroom activities or a principal holiday from your religious tradition occurs during the semester and conflicts with class, please make me aware of this immediately to determine if a reasonable accommodation is possible. Find out more about how to request a religious accommodation.

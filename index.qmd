@@ -1,11 +1,9 @@
 ---
-title: "class-test"
+title: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
 ---
 
-This is a Quarto website.
+This is a class website for Business Analytics in Healthcare Management class.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+All class materials will be posted here.
 
-```{r}
-1 + 1
-```
+Please check the syllabus
