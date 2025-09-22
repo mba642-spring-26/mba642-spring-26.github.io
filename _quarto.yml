@@ -1,6 +1,5 @@
 project:
   type: website
-  output-dir: _site
 
 website:
   title: "business analytics in healthcare management (MBA 642)"

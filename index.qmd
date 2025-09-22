@@ -2,8 +2,8 @@
 title: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
 ---
 
-This is a class website for Business Analytics in Healthcare Management class.
+This is a class website for Business Analytics in Healthcare Management class. 
 
-All class materials will be posted here.
+All class materials will be posted here. 
 
-Please check the syllabus
+Please check the syllabus 
