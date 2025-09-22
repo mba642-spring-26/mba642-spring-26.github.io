@@ -1,73 +1,24 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
-    "section": "",
-    "text": "This is a class website for Business Analytics in Healthcare Management class.\nAll class materials will be posted here.\nPlease check the syllabus"
-  },
-  {
     "objectID": "schedule.html",
     "href": "schedule.html",
     "title": "schedule",
     "section": "",
-    "text": "Week\nDate\nTopic\nReadings/Notes\n\n\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\nChapter 1\n\n\n\n\n2\nJan 21\nBasic Statistical Concepts\nChapter 2\n\n\n\n\n3\nJan 289\nA primer on R, R-Studio, and R-Markdown\nChapter 2\n\n\n\n\n4\nFeb 4\nData visualization\nChapter 2\n\n\n\n\n5\nFeb 11\nHealthcare survey data analysis\nChapter 2\n\n\n\n\n6\nFeb 18\nMean difference\nChapter 2\n\n\n\n\n7\nFeb 25\nBivariate relationship\nChapter 2\n\n\n\n\n8\nMar 4\nLinear regression analysis\nChapter 2\n\n\n\n\n9\nMar 11\nLogistic regression analysis\nChapter 2\n\n\n\n\n10\nMar 18\nSpring break (no class)\nChapter 2\n\n\n\n\n11\nMar 25\nCount data analysis\nChapter 2\n\n\n\n\n12\nApr 1\nCluster analysis\nChapter 2\n\n\n\n\n13\nApr 8\nCausal inference in healthcare\nChapter 2\n\n\n\n\n14\nApr 15\nPredictive analytics 1\nChapter 2\n\n\n\n\n15\nApr 22\nPredictive analytics 2\nChapter 2\n\n\n\n\n16\nApr 29\nVariables, Data Types, & Operators\nChapter 2"
+    "text": "Week\nDate\nTopic\nReadings/Notes\nAssignments\n\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\nChapter 1\n\n\n\n\n2\nJan 21\nBasic Statistical Concepts\nChapter 2\nAssignment 1\n\n\n\n3\nJan 289\nA primer on R, R-Studio, and R-Markdown\n\nAssignment 2\n\n\n\n4\nFeb 4\nData visualization\nData Visualization by Keran Healy\nAssignment 3\n\n\n\n5\nFeb 11\nHealthcare survey data analysis\nChapter 9\nAssignment 4\n\n\n\n6\nFeb 18\nMean difference\n-\nAssignment 5\n\n\n\n7\nFeb 25\nBivariate relationship\n-\nAssignment 6\n\n\n\n8\nMar 4\nLinear regression analysis\nChapter 3\nAssignment 7\n\n\n\n9\nMar 11\nLogistic regression analysis\nChapter 4\nAssignment 8\n\n\n\n10\nMar 18\nSpring break (no class)\n-\n\n\n\n\n11\nMar 25\nCount data analysis\nChapter 5\nAssignment 9\n\n\n\n12\nApr 1\nCluster analysis\n-\nAssignment 10\n\n\n\n13\nApr 8\nCausal inference in healthcare\nChapter 8\nAssignment 11\n\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\nChapter 10\n\n\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\nChapter 10\nAssignment 12\n\n\n\n16\nApr 29\nFinal Exam"
   },
   {
     "objectID": "schedule.html#tentative-schedule",
     "href": "schedule.html#tentative-schedule",
     "title": "schedule",
     "section": "",
-    "text": "Week\nDate\nTopic\nReadings/Notes\n\n\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\nChapter 1\n\n\n\n\n2\nJan 21\nBasic Statistical Concepts\nChapter 2\n\n\n\n\n3\nJan 289\nA primer on R, R-Studio, and R-Markdown\nChapter 2\n\n\n\n\n4\nFeb 4\nData visualization\nChapter 2\n\n\n\n\n5\nFeb 11\nHealthcare survey data analysis\nChapter 2\n\n\n\n\n6\nFeb 18\nMean difference\nChapter 2\n\n\n\n\n7\nFeb 25\nBivariate relationship\nChapter 2\n\n\n\n\n8\nMar 4\nLinear regression analysis\nChapter 2\n\n\n\n\n9\nMar 11\nLogistic regression analysis\nChapter 2\n\n\n\n\n10\nMar 18\nSpring break (no class)\nChapter 2\n\n\n\n\n11\nMar 25\nCount data analysis\nChapter 2\n\n\n\n\n12\nApr 1\nCluster analysis\nChapter 2\n\n\n\n\n13\nApr 8\nCausal inference in healthcare\nChapter 2\n\n\n\n\n14\nApr 15\nPredictive analytics 1\nChapter 2\n\n\n\n\n15\nApr 22\nPredictive analytics 2\nChapter 2\n\n\n\n\n16\nApr 29\nVariables, Data Types, & Operators\nChapter 2"
+    "text": "Week\nDate\nTopic\nReadings/Notes\nAssignments\n\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\nChapter 1\n\n\n\n\n2\nJan 21\nBasic Statistical Concepts\nChapter 2\nAssignment 1\n\n\n\n3\nJan 289\nA primer on R, R-Studio, and R-Markdown\n\nAssignment 2\n\n\n\n4\nFeb 4\nData visualization\nData Visualization by Keran Healy\nAssignment 3\n\n\n\n5\nFeb 11\nHealthcare survey data analysis\nChapter 9\nAssignment 4\n\n\n\n6\nFeb 18\nMean difference\n-\nAssignment 5\n\n\n\n7\nFeb 25\nBivariate relationship\n-\nAssignment 6\n\n\n\n8\nMar 4\nLinear regression analysis\nChapter 3\nAssignment 7\n\n\n\n9\nMar 11\nLogistic regression analysis\nChapter 4\nAssignment 8\n\n\n\n10\nMar 18\nSpring break (no class)\n-\n\n\n\n\n11\nMar 25\nCount data analysis\nChapter 5\nAssignment 9\n\n\n\n12\nApr 1\nCluster analysis\n-\nAssignment 10\n\n\n\n13\nApr 8\nCausal inference in healthcare\nChapter 8\nAssignment 11\n\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\nChapter 10\n\n\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\nChapter 10\nAssignment 12\n\n\n\n16\nApr 29\nFinal Exam"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "syllabus",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "Lecture1.html#welcome",
-    "href": "Lecture1.html#welcome",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "👋 Welcome!",
-    "text": "👋 Welcome!\nA quick overview of what we’ll cover today:\n\n\n\nWhat is Data Science?\nCourse logistics and syllabus review\nIntroduction to our tools (R, RStudio, Quarto)\nYour first analysis"
-  },
-  {
-    "objectID": "Lecture1.html#what-is-data-science",
-    "href": "Lecture1.html#what-is-data-science",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "What is Data Science?",
-    "text": "What is Data Science?\nIt’s an interdisciplinary field that uses scientific methods, processes, algorithms, and systems to extract knowledge and insights from data.\n\nIt’s a combination of:\n\nStatistics\nComputer Science\nDomain Knowledge\n\n\n\nSpeaker notes go here! Press ‘S’ on your keyboard to open the speaker view in a separate window. This is where you can write reminders for yourself."
-  },
-  {
-    "objectID": "Lecture1.html#two-column-layout",
-    "href": "Lecture1.html#two-column-layout",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Two-Column Layout",
-    "text": "Two-Column Layout\nCourse Goals\n\n\n\nUnderstand the data science workflow\nLearn fundamental programming concepts\nBecome proficient in data visualization\nDevelop skills for reproducible research\n\n\n\n\nKey Tools\n\nR: A language for statistical computing\nRStudio: An IDE for R\nQuarto: For reporting and presentations (like this one!)\nGit/GitHub: For version control and collaboration"
-  },
-  {
-    "objectID": "Lecture1.html#including-code",
-    "href": "Lecture1.html#including-code",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Including Code",
-    "text": "Including Code\nWe can show code and its output directly in the slides."
-  },
-  {
-    "objectID": "Lecture1.html#a-simple-calculation-in-r",
-    "href": "Lecture1.html#a-simple-calculation-in-r",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "A simple calculation in R",
-    "text": "A simple calculation in R\n\nThe result is: 15\n\n\n\n[1] 7.5"
-  },
-  {
-    "objectID": "Lecture1.html#additional-readings",
-    "href": "Lecture1.html#additional-readings",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "additional readings",
-    "text": "additional readings"
+    "text": "Course Title: Business Analytics in Healthcare Management\nLevel: Graduate (Master’s)\nInstructor: Sangsuk Yoon (syoon1@udayton.edu)"
   },
   {
     "objectID": "syllabus.html#course-description",
@@ -138,20 +89,6 @@
     "title": "syllabus",
     "section": "Classroom Etiquette:",
     "text": "Classroom Etiquette:\n\nTURN OFF or MUTE cell phones during class.\nTreat class time as a meeting in current/future professional life.\nShow respect for yourself, your peers, and our school; behave in a civil and appropriate manner for a school of business.\nFOOD is not permitted in the classroom. Coffee or beverages are allowed only in sealed containers. Students consuming food will be asked to step outside until finished.\nProfessional language is required in all class discussions and written assignments."
-  },
-  {
-    "objectID": "Lecture1.html",
-    "href": "Lecture1.html",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "",
-    "text": "https://drganghe.github.io/quarto-academic-site-examples.html"
-  },
-  {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "syllabus",
-    "section": "",
-    "text": "Course Title: Business Analytics in Healthcare Management\nLevel: Graduate (Master’s)\nInstructor: Sangsuk Yoon (syoon1@udayton.edu)"
   },
   {
     "objectID": "syllabus.html#technological-problems",
@@ -287,11 +224,18 @@
     "text": "Religious Accommodations\nUD strives for an inclusive climate and welcomes students from all backgrounds, faiths and experiences. If religious observance impedes your ability to participate fully in classroom activities or a principal holiday from your religious tradition occurs during the semester and conflicts with class, please make me aware of this immediately to determine if a reasonable accommodation is possible. Find out more about how to request a religious accommodation."
   },
   {
-    "objectID": "syllabus.html#course-description-and-objectives",
-    "href": "syllabus.html#course-description-and-objectives",
-    "title": "syllabus",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
     "section": "",
-    "text": "This graduate-level course provides a comprehensive introduction to healthcare business analytics, progressing from basic statistical concepts to practical applications of data analytics in healthcare management decisions. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare data systems, including electronic health records, claims databases, clinical registries, and population health surveys. Students will gain hands-on experience with modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making."
+    "text": "This is a class website for Business Analytics in Healthcare Management class.\nAll class materials will be posted here.\nPlease check the syllabus"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
     "objectID": "lectures/Lecture1.html#welcome",
