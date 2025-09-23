@@ -14,6 +14,20 @@
     "text": "Week\nDate\nTopic\nReadings/Notes\nAssignments\n\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview \nChapter 1\n-\n\n\n\n2\nJan 21\nBasic Statistical Concepts\nChapter 2\nAssignment 1\n\n\n\n3\nJan 289\nA primer on R, R-Studio, and R-Markdown\n\nAssignment 2\n\n\n\n4\nFeb 4\nData visualization\nData Visualization by Keran Healy\nAssignment 3\n\n\n\n5\nFeb 11\nHealthcare survey data analysis\nChapter 9\nAssignment 4\n\n\n\n6\nFeb 18\nMean difference\n-\nAssignment 5\n\n\n\n7\nFeb 25\nBivariate relationship\n-\nAssignment 6\n\n\n\n8\nMar 4\nLinear regression analysis\nChapter 3\nAssignment 7\n\n\n\n9\nMar 11\nLogistic regression analysis\nChapter 4\nAssignment 8\n\n\n\n10\nMar 18\nSpring break (no class)\n-\n\n\n\n\n11\nMar 25\nCount data analysis\nChapter 5\nAssignment 9\n\n\n\n12\nApr 1\nCluster analysis\n-\nAssignment 10\n\n\n\n13\nApr 8\nCausal inference in healthcare\nChapter 8\nAssignment 11\n\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\nChapter 10\n\n\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\nChapter 10\nAssignment 12\n\n\n\n16\nApr 29\nFinal Exam"
   },
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
+    "section": "",
+    "text": "This is a class website for Business Analytics in Healthcare Management class.\nAll class materials will be posted here.\nPlease check the syllabus for course policies and grading information."
+  },
+  {
     "objectID": "syllabus.html",
     "href": "syllabus.html",
     "title": "syllabus",
@@ -224,18 +238,11 @@
     "text": "Religious Accommodations\nUD strives for an inclusive climate and welcomes students from all backgrounds, faiths and experiences. If religious observance impedes your ability to participate fully in classroom activities or a principal holiday from your religious tradition occurs during the semester and conflicts with class, please make me aware of this immediately to determine if a reasonable accommodation is possible. Find out more about how to request a religious accommodation."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
+    "objectID": "lectures/Lecture1.html",
+    "href": "lectures/Lecture1.html",
+    "title": "Lecture 1: Introduction to Class",
     "section": "",
-    "text": "This is a class website for Business Analytics in Healthcare Management class.\nAll class materials will be posted here.\nPlease check the syllabus for course policies and grading information."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "https://drganghe.github.io/quarto-academic-site-examples.html"
   },
   {
     "objectID": "lectures/Lecture1.html#welcome",
@@ -271,6 +278,13 @@
     "title": "Lecture 1: Introduction to Class",
     "section": "A simple calculation in R",
     "text": "A simple calculation in R\n\nGetting the meain of a numeric vector\n\n\ndays_hosptilized &lt;- c(3, 5, 2, 4, 5, 7, 1, 6, 4, 5)\nmean(days_hosptilized)\n\n[1] 4.2"
+  },
+  {
+    "objectID": "lectures/Lecture1.html#additional-readings",
+    "href": "lectures/Lecture1.html#additional-readings",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "additional readings",
+    "text": "additional readings"
   },
   {
     "objectID": "lectures/Lecture1.html#additional-images",
