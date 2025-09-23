@@ -2,6 +2,7 @@ project:
   type: website
   output-dir: "docs"
 
+
 website:
   title: "business analytics in healthcare management (MBA 642)"
   navbar:
