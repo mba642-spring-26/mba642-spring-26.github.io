@@ -9,8 +9,8 @@ format:
     css: custom.css
     slide-number: true # Show slide numbers
     chalkboard: true # Press 'B' for a chalkboard, 'C' for notes
-    logo: "/images/ud.jpg" # Optional: add a logo
-    footer: "MBA 642: Intro to Programming" # A footer on every slide
+    logo: "/images/ud_logo2.png" # Optional: add a logo
+    footer: "MBA 642: Business Analytics in Healthcare Management" # A footer on every slide
 ---
 
 https://drganghe.github.io/quarto-academic-site-examples.html
@@ -19,10 +19,8 @@ https://drganghe.github.io/quarto-academic-site-examples.html
 
 A quick overview of what we'll cover today:
 
-> -   What is Data Science?
+> -   Course overview and introduction
 > -   Course logistics and syllabus review
-> -   Introduction to our tools (R, RStudio, Quarto)
-> -   Your first analysis
 
 ------------------------------------------------------------------------
 
@@ -44,23 +42,29 @@ Speaker notes go here! Press 'S' on your keyboard to open the speaker view in a 
 
 ------------------------------------------------------------------------
 
-## Two-Column Layout {layout-ncol="2"}
+## Two-Column Layout
 
+:::::: columns
+::: {.column width="50%"}
 ### Course Goals
 
 > -   Understand the data science workflow
 > -   Learn fundamental programming concepts
 > -   Become proficient in data visualization
 > -   Develop skills for reproducible research
+:::
 
+:::: {.column width="50%"}
 ::: fragment
-### Key Tools
+### Key Tools {.column width="50%"}
 
 -   **R:** A language for statistical computing
 -   **RStudio:** An IDE for R
 -   **Quarto:** For reporting and presentations (like this one!)
 -   **Git/GitHub:** For version control and collaboration
 :::
+::::
+::::::
 
 ------------------------------------------------------------------------
 
@@ -72,17 +76,44 @@ We can show code and its output directly in the slides.
 
 ## A simple calculation in R
 
--   The result is: `r 5+10`
+-   Getting the meain of a numeric vector
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
+#| code-line-numbers: "|1|2"
 
-scores <- c(5, 10)
-mean(scores)
+days_hosptilized <- c(3, 5, 2, 4, 5, 7, 1, 6, 4, 5)
+mean(days_hosptilized)
 
 ```
 
 ------------------------------------------------------------------------
 
-## additional readings
+## additional images
+
+::::: columns
+::: {.column width="50%" style="text-align: left;"}
+With these code, you can add an image
+
+```{r}
+#| echo: true
+#| eval: false
+
+:::: {.columns}
+
+::: {.column width="50%" style="text-align: right;"}
+
+![](/images/ud.jpg){width=400px}
+
+:::
+
+::::
+
+```
+:::
+
+::: {.column width="50%" style="text-align: right;"}
+![](/images/ud.jpg){width="400px"}
+:::
+:::::

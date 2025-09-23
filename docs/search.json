@@ -242,7 +242,7 @@
     "href": "lectures/Lecture1.html#welcome",
     "title": "Lecture 1: Introduction to Class",
     "section": "👋 Welcome!",
-    "text": "👋 Welcome!\nA quick overview of what we’ll cover today:\n\n\n\nWhat is Data Science?\nCourse logistics and syllabus review\nIntroduction to our tools (R, RStudio, Quarto)\nYour first analysis"
+    "text": "👋 Welcome!\nA quick overview of what we’ll cover today:\n\n\n\nCourse overview and introduction\nCourse logistics and syllabus review"
   },
   {
     "objectID": "lectures/Lecture1.html#what-is-data-science",
@@ -256,7 +256,7 @@
     "href": "lectures/Lecture1.html#two-column-layout",
     "title": "Lecture 1: Introduction to Class",
     "section": "Two-Column Layout",
-    "text": "Two-Column Layout\nCourse Goals\n\n\n\nUnderstand the data science workflow\nLearn fundamental programming concepts\nBecome proficient in data visualization\nDevelop skills for reproducible research\n\n\n\n\nKey Tools\n\nR: A language for statistical computing\nRStudio: An IDE for R\nQuarto: For reporting and presentations (like this one!)\nGit/GitHub: For version control and collaboration"
+    "text": "Two-Column Layout\n\n\nCourse Goals\n\n\n\nUnderstand the data science workflow\nLearn fundamental programming concepts\nBecome proficient in data visualization\nDevelop skills for reproducible research\n\n\n\n\n\nKey Tools\n\nR: A language for statistical computing\nRStudio: An IDE for R\nQuarto: For reporting and presentations (like this one!)\nGit/GitHub: For version control and collaboration"
   },
   {
     "objectID": "lectures/Lecture1.html#including-code",
@@ -270,13 +270,13 @@
     "href": "lectures/Lecture1.html#a-simple-calculation-in-r",
     "title": "Lecture 1: Introduction to Class",
     "section": "A simple calculation in R",
-    "text": "A simple calculation in R\n\nThe result is: 15\n\n\n\n[1] 7.5"
+    "text": "A simple calculation in R\n\nGetting the meain of a numeric vector\n\n\ndays_hosptilized &lt;- c(3, 5, 2, 4, 5, 7, 1, 6, 4, 5)\nmean(days_hosptilized)\n\n[1] 4.2"
   },
   {
-    "objectID": "lectures/Lecture1.html#additional-readings",
-    "href": "lectures/Lecture1.html#additional-readings",
+    "objectID": "lectures/Lecture1.html#additional-images",
+    "href": "lectures/Lecture1.html#additional-images",
     "title": "Lecture 1: Introduction to Class",
-    "section": "additional readings",
-    "text": "additional readings"
+    "section": "additional images",
+    "text": "additional images\n\n\nWith these code, you can add an image\n\n:::: {.columns}\n\n::: {.column width=\"50%\" style=\"text-align: right;\"}\n\n![](/images/ud.jpg){width=400px}\n\n:::\n\n::::"
   }
 ]

@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Sangsuk Yoon">
-  <meta name="dcterms.date" content="2025-09-21">
+  <meta name="dcterms.date" content="2025-09-23">
   <title>business analytics in healthcare management (MBA 642) – Lecture 1: Introduction to Class</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,6 +29,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2c1b5f745a11cfad616ebade4a4a7d24.css">
   <link rel="stylesheet" href="custom.css">
@@ -142,7 +208,7 @@ Sangsuk Yoon
 </div>
 </div>
 
-  <p class="date">2025-09-21</p>
+  <p class="date">2025-09-23</p>
 </section>
 <section class="slide level2">
 
@@ -154,10 +220,8 @@ Sangsuk Yoon
 <blockquote>
 
 <ul>
-<li>What is Data Science?</li>
+<li>Course overview and introduction</li>
 <li>Course logistics and syllabus review</li>
-<li>Introduction to our tools (R, RStudio, Quarto)</li>
-<li>Your first analysis</li>
 </ul>
 
 </blockquote>
@@ -187,8 +251,10 @@ Sangsuk Yoon
           display:block!important;
       }</style></aside>
 </section>
-<section id="two-column-layout" class="slide level2" data-layout-ncol="2">
+<section id="two-column-layout" class="slide level2">
 <h2>Two-Column Layout</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <h3 id="course-goals">Course Goals</h3>
 <blockquote>
 
@@ -200,8 +266,9 @@ Sangsuk Yoon
 </ul>
 
 </blockquote>
+</div><div class="column" style="width:50%;">
 <div class="fragment">
-<h3 id="key-tools">Key Tools</h3>
+<h3 class="column" width="50%" id="key-tools">Key Tools</h3>
 <ul>
 <li><strong>R:</strong> A language for statistical computing</li>
 <li><strong>RStudio:</strong> An IDE for R</li>
@@ -209,6 +276,7 @@ Sangsuk Yoon
 <li><strong>Git/GitHub:</strong> For version control and collaboration</li>
 </ul>
 </div>
+</div></div>
 </section>
 <section id="including-code" class="slide level2">
 <h2>Including Code</h2>
@@ -217,24 +285,43 @@ Sangsuk Yoon
 <section id="a-simple-calculation-in-r" class="slide level2">
 <h2>A simple calculation in R</h2>
 <ul>
-<li>The result is: 15</li>
+<li>Getting the meain of a numeric vector</li>
 </ul>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="|1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>days_hosptilized <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb1-2"><a></a><span class="fu">mean</span>(days_hosptilized)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 7.5</code></pre>
+<pre><code>[1] 4.2</code></pre>
 </div>
 </div>
 </section>
-<section id="additional-readings" class="slide level2">
-<h2>additional readings</h2>
+<section id="additional-images" class="slide level2">
+<h2>additional images</h2>
+<div class="columns">
+<div class="column" style="text-align: left;">
+<p>With these code, you can add an image</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="sc">:::</span><span class="er">:</span> {.columns}</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a><span class="sc">:::</span> {.column width<span class="ot">=</span><span class="st">"50%"</span> style<span class="ot">=</span><span class="st">"text-align: right;"</span>}</span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a><span class="sc">!</span>[](<span class="sc">/</span>images<span class="sc">/</span>ud.jpg){width<span class="ot">=</span><span class="dv">400</span>px}</span>
+<span id="cb3-6"><a></a></span>
+<span id="cb3-7"><a></a><span class="sc">:::</span></span>
+<span id="cb3-8"><a></a></span>
+<span id="cb3-9"><a></a><span class="er">::::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="text-align: right;">
+<p><img data-src="../images/ud.jpg" width="400"></p>
+</div></div>
 
 
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="../images/ud.jpg" class="slide-logo"></p>
+<p><img src="../images/ud_logo2.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>MBA 642: Intro to Programming</p>
+<p>MBA 642: Business Analytics in Healthcare Management</p>
 </div>
 </div></div>
 
