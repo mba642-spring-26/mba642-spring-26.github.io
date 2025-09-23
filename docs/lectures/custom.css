@@ -1,10 +1,10 @@
 /*-- put the slide number on the bottom left --*/
 .reveal .slide-number {
-  position: fixed; !important
-  bottom: 15px; !important
-  left: 200px; !important
-  top: auto; !important
-  right: auto; !important
+  position: fixed !important;
+  bottom: 15px !important;
+  left: 200px !important;
+  top: auto !important;
+  right: auto !important;
 }
 
 

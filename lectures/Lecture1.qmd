@@ -9,7 +9,7 @@ format:
     css: custom.css
     slide-number: true # Show slide numbers
     chalkboard: true # Press 'B' for a chalkboard, 'C' for notes
-    logo: "/images/ud_logo2.png" # Optional: add a logo
+    logo: "./images/ud_logo2.png" # Optional: add a logo
     footer: "MBA 642: Business Analytics in Healthcare Management" # A footer on every slide
 ---
 
@@ -104,7 +104,7 @@ With these code, you can add an image
 
 ::: {.column width="50%" style="text-align: right;"}
 
-![](/images/ud.jpg){width=400px}
+![](./images/ud.jpg){width=400px}
 
 :::
 
@@ -114,6 +114,6 @@ With these code, you can add an image
 :::
 
 ::: {.column width="50%" style="text-align: right;"}
-![](/images/ud.jpg){width="400px"}
+![](./images/ud_logo2.png){width="400px"}
 :::
 :::::

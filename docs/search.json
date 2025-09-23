@@ -277,6 +277,6 @@
     "href": "lectures/Lecture1.html#additional-images",
     "title": "Lecture 1: Introduction to Class",
     "section": "additional images",
-    "text": "additional images\n\n\nWith these code, you can add an image\n\n:::: {.columns}\n\n::: {.column width=\"50%\" style=\"text-align: right;\"}\n\n![](/images/ud.jpg){width=400px}\n\n:::\n\n::::"
+    "text": "additional images\n\n\nWith these code, you can add an image\n\n:::: {.columns}\n\n::: {.column width=\"50%\" style=\"text-align: right;\"}\n\n![](./images/ud.jpg){width=400px}\n\n:::\n\n::::"
   }
 ]
