@@ -1,10 +1,12 @@
-/*-- put the slide number on the bottom left --*/
+/*-- Force slide number to bottom left --*/
+.reveal .slides .slide-number,
 .reveal .slide-number {
   position: fixed !important;
   bottom: 15px !important;
   left: 200px !important;
   top: auto !important;
   right: auto !important;
+  transform: none !important;
 }
 
 

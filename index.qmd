@@ -7,3 +7,5 @@ This is a class website for Business Analytics in Healthcare Management class.
 All class materials will be posted here.
 
 Please check the [syllabus](syllabus.qmd) for course policies and grading information.
+
+Please check the [schedule](schedule.qmd) for tentative course schedule.
