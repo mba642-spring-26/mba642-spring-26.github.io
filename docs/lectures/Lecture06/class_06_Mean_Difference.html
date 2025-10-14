@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Sangsuk Yoon">
+  <meta name="dcterms.date" content="2025-09-09">
+  <title>Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026) – Lecture 2: Key Statistical Concepts</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-d2fa9704022b6cc6efe47acf160c0964.css">
+  <link rel="stylesheet" href="../custom.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+<script src="_extensions/clean/mathjax-config.js"></script>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Lecture 2: Key Statistical Concepts</h1>
+  <p class="subtitle">MBA 642: Business Analytics in Healthcare Management (Spring 2026)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Sangsuk Yoon 
+</div>
+        <p class="quarto-title-affiliation">
+            University of Dayton
+          </p>
+    </div>
+</div>
+
+  <p class="date">September 9, 2025</p>
+</section>
+<section id="learning-objectives" class="slide level2">
+<h2>Learning Objectives</h2>
+<p>By the end of this session, you should be able to:</p>
+<ul>
+<li>Distinguish between populations, samples, and sub-populations</li>
+<li>Identify appropriate distributions for different healthcare outcomes</li>
+<li>Explain conditional vs.&nbsp;marginal means</li>
+<li>Understand overdispersion and between-individual heterogeneity</li>
+<li>Critically interpret p-values and hypothesis tests</li>
+<li>Recognize common pitfalls in statistical inference</li>
+</ul>
+<aside class="notes">
+<p>This chapter provides essential statistical foundations for analyzing healthcare data. Emphasize that healthcare outcomes rarely follow normal distributions, which motivates much of the material.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="populations-and-samples" class="slide level2">
+<h2>Populations and Samples</h2>
+<p><strong>Population</strong>: The complete group we want to learn about</p>
+<ul>
+<li>Well-defined (e.g., all Hiroshima atomic bomb survivors who survived 1+ years)</li>
+<li>Can be hypothetical (e.g., all breast cancer patients who have/will undergo mastectomy)</li>
+</ul>
+<p><strong>Sample</strong>: A subset of the population used for inference</p>
+<ul>
+<li>Random samples enable quantification of uncertainty</li>
+<li>Many healthcare studies use convenience samples or complete censuses</li>
+</ul>
+<p><strong>Sub-population</strong>: A population subset satisfying specific criteria</p>
+<ul>
+<li>Defined by fixed characteristics (e.g., men under 20 in Hiroshima cohort)</li>
+<li>Regression models estimate means for sub-populations defined by covariates</li>
+</ul>
+<aside class="notes">
+<p>Emphasize that representativeness is always a concern, regardless of how samples are obtained. Discuss how this relates to external validity.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="random-variables-in-healthcare" class="slide level2">
+<h2>Random Variables in Healthcare</h2>
+<p>Healthcare outcomes are random variables that vary across individuals:</p>
+<ul>
+<li><strong>Binary</strong>: Re-admission after surgery (Yes/No)</li>
+<li><strong>Categorical</strong>: Treatment type (surgery/radiation/hormonal)</li>
+<li><strong>Count</strong>: Number of outpatient visits, prescriptions filled</li>
+<li><strong>Continuous</strong>: Medical expenditures, length of stay</li>
+</ul>
+<p><strong>Notation</strong>: - Capital letters (X, Y) for generic/theoretical variables - Lowercase letters (x, y) for specific observed values</p>
+<aside class="notes">
+<p>Give concrete examples from students’ experience. Ask: What healthcare outcomes have they encountered? What types of variables are these?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="dependent-vs.-independent-variables" class="slide level2">
+<h2>Dependent vs.&nbsp;Independent Variables</h2>
+<p><strong>Research Question Determines the Relationship</strong></p>
+<ul>
+<li><strong>Dependent variable</strong> (Y): Outcome or response</li>
+<li><strong>Independent variable</strong> (X): Predictor or covariate</li>
+</ul>
+<p><strong>Example</strong>: Exercise and insomnia</p>
+<ul>
+<li>Exercise may reduce insomnia → Exercise is X, insomnia is Y</li>
+<li>Insomnia may reduce exercise ability → Insomnia is X, exercise is Y</li>
+<li>Both may be true (feedback loop) → Modeling challenge!</li>
+</ul>
+<p><strong>Key principle</strong>: Variables that co-evolve should often both be considered outcomes</p>
+<aside class="notes">
+<p>Discuss the importance of conceptual models (like Andersen-Newman) in sorting out variable relationships. Medical expenditures and hospitalizations example from the text.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="statistical-distributions" class="slide level2">
+<h2>Statistical Distributions</h2>
+<p>A distribution describes the probability that a variable takes any value in its range</p>
+<p><strong>For categorical variables</strong>: Finite set of probabilities (sum to 1)</p>
+<p><strong>For continuous variables</strong>: Probability density function (PDF)</p>
+<ul>
+<li>Area under PDF over an interval = probability of value in that interval</li>
+<li>Cumulative distribution function (CDF) = probability ≤ specified value</li>
+</ul>
+<p><strong>Key summaries</strong>: - <strong>Mean</strong> (expected value): Most typical value, influenced by extremes - <strong>Median</strong> (50th percentile): Center of distribution, robust to outliers</p>
+<aside class="notes">
+<p>Healthcare data is often right-skewed, so median may be more representative than mean. Show the MEPS expenditure histogram from Figure 2.1.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="meps-total-expenditure-example" class="slide level2">
+<h2>MEPS Total Expenditure Example</h2>
+
+<img data-src="images/fig2-1.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<li>Mean: $18,145</li>
+<li>Median: $9,664</li>
+<li>Extreme right skew with long tail</li>
+<li>Mean &gt; Median indicates right skewness</li>
+</ul>
+<aside class="notes">
+<p>This is typical of healthcare expenditure data. A few high-cost users drive up the mean substantially above the median.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="parameters-and-models" class="slide level2">
+<h2>Parameters and Models</h2>
+<p><strong>Parameters</strong>: Greek letters (μ, σ, α, β) that specify a distribution</p>
+<ul>
+<li>Normal distribution: mean μ, variance σ²</li>
+<li>Parametric methods: specify family, estimate parameters</li>
+</ul>
+<p><strong>Models</strong>: Assumptions and mathematical specifications for analysis</p>
+<ul>
+<li>Rarely unique - multiple models may address same question</li>
+<li>Model choice affects both estimates and their standard errors</li>
+<li>What constitutes a “good model” is a recurring theme</li>
+</ul>
+<aside class="notes">
+<p>Emphasize that model assumptions matter greatly. Healthcare outcomes often violate normality assumption, motivating specialized distributions.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="estimation-and-inference" class="slide level2">
+<h2>Estimation and Inference</h2>
+<p><strong>Estimation</strong>: Using sample data to learn about population</p>
+<ul>
+<li>Sample mean estimates population mean</li>
+<li>Sample median estimates population median</li>
+</ul>
+<p><strong>Statistical Inference</strong>: Using estimates to answer research questions</p>
+<ul>
+<li>Combines estimates with their uncertainty (standard errors)</li>
+<li>Hypothesis tests are one tool for inference</li>
+</ul>
+<p><strong>Standard Error (SE)</strong>: Quantifies variation over repeated samples</p>
+<ul>
+<li>Higher SE → greater expected variation</li>
+<li>Decreases with larger sample size</li>
+<li>Depends on the model used</li>
+</ul>
+<aside class="notes">
+<p>Different models can yield similar point estimates but very different standard errors, affecting inference. Preview the two-part model discussion from Chapter 6.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="conditional-vs.-marginal-means" class="slide level2">
+<h2>Conditional vs.&nbsp;Marginal Means</h2>
+<p><strong>MEPS 2017 Expenditures by Health Status</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Health Status</th>
+<th>% of Sample</th>
+<th>Expenditures</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Excellent</td>
+<td>34%</td>
+<td>$1,957</td>
+</tr>
+<tr class="even">
+<td>Very good</td>
+<td>29%</td>
+<td>$3,729</td>
+</tr>
+<tr class="odd">
+<td>Good</td>
+<td>25%</td>
+<td>$6,183</td>
+</tr>
+<tr class="even">
+<td>Fair</td>
+<td>10%</td>
+<td>$11,387</td>
+</tr>
+<tr class="odd">
+<td>Poor</td>
+<td>3%</td>
+<td>$22,619</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>This table illustrates both conditional and marginal means. Each expenditure is conditional on health status.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="conditional-vs.-marginal-means-cont." class="slide level2">
+<h2>Conditional vs.&nbsp;Marginal Means (cont.)</h2>
+<p><strong>Conditional mean</strong>: <span class="math inline">\(E(Y | X = x)\)</span> - mean for specific sub-population</p>
+<ul>
+<li><span class="math inline">\(E(Y | \text{Excellent}) = \$1,957\)</span></li>
+<li><span class="math inline">\(E(Y | \text{Poor}) = \$22,619\)</span></li>
+</ul>
+<p><strong>Marginal mean</strong>: <span class="math inline">\(E(Y)\)</span> - weighted average across all sub-populations</p>
+<p><span class="math display">\[E(Y) = 1957(0.34) + 3729(0.29) + 6183(0.25) + 11387(0.10) + 22619(0.03)\]</span> <span class="math display">\[= \$5,110\]</span></p>
+<p>Lower than highest categories because healthier (lower-cost) people are more common!</p>
+<aside class="notes">
+<p>This is a crucial concept for regression. Marginal mean averages over the distribution of X. Emphasize that weights matter.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="bernoulli-and-binomial-distributions" class="slide level2">
+<h2>Bernoulli and Binomial Distributions</h2>
+<p><strong>Bernoulli</strong>: Binary outcome (0 or 1)</p>
+<ul>
+<li>Parameter: <span class="math inline">\(p = P(Y = 1)\)</span></li>
+<li>Mean: <span class="math inline">\(E(Y) = p\)</span></li>
+<li>Variance: <span class="math inline">\(Var(Y) = p(1-p)\)</span></li>
+<li>Variance depends on mean!</li>
+</ul>
+<p><strong>Binomial</strong>: Sum of n independent Bernoulli variables</p>
+<ul>
+<li>Parameters: n (number of trials), p (success probability)</li>
+<li>Mean: <span class="math inline">\(np\)</span></li>
+<li>Variance: <span class="math inline">\(np(1-p)\)</span></li>
+</ul>
+<p><strong>Example</strong>: Hospital re-admissions after surgery</p>
+<aside class="notes">
+<p>Binary prediction is a classification problem. Statistical learning has different algorithms for this (Chapter 10). Emphasize that binomial requires independence - clustering violates this.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="binomial-distribution" class="slide level2">
+<h2>Binomial Distribution</h2>
+
+<img data-src="images/fig2-2.png" class="quarto-figure quarto-figure-center r-stretch"><p>Shape depends on both n and p.&nbsp;As n increases, distribution becomes more bell-shaped.</p>
+<aside class="notes">
+<p>Show how the distribution changes with parameters. When p=0.5 and n is large, it approaches normal distribution (Central Limit Theorem preview).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="multinomial-distribution" class="slide level2">
+<h2>Multinomial Distribution</h2>
+<p>Generalization of binomial for <strong>multiple categories</strong> (K &gt; 2)</p>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li>Treatment choice: surgery/radiation/hormonal (3 unordered categories)</li>
+<li>Health status: excellent/very good/good/fair/poor (5 ordered categories)</li>
+</ul>
+<p><strong>Parameters</strong>: K-1 independent probabilities (must sum to 1)</p>
+<p><strong>Analysis Goal</strong>: Identify factors predicting probability of each category</p>
+<ul>
+<li>How does diabetes affect <span class="math inline">\(P(Y = k)\)</span> for each health status category k?</li>
+</ul>
+<aside class="notes">
+<p>Ordered vs.&nbsp;unordered categories require different modeling approaches. Can treat ordered as continuous or use ordinal regression methods.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="poisson-distribution-for-counts" class="slide level2">
+<h2>Poisson Distribution for Counts</h2>
+<p>Basic distribution for count data (0, 1, 2, 3, …)</p>
+<p><strong>Assumptions</strong>: - Events occur at constant rate - Memoryless (past doesn’t affect future probability)</p>
+<p><strong>Parameter</strong>: λ (mean rate)</p>
+<p><strong>Key property</strong>: Mean = Variance = λ</p>
+<p><strong>Highly restrictive</strong> for healthcare data!</p>
+<aside class="notes">
+<p>Show Figure 2.3. The equal mean-variance assumption is almost always violated in practice. Healthcare counts typically show overdispersion.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="poisson-distribution" class="slide level2">
+<h2>Poisson Distribution</h2>
+
+<img data-src="images/fig2-3.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
+<p>As λ increases, distribution becomes more symmetric and bell-shaped.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="overdispersion-in-healthcare-data" class="slide level2">
+<h2>Overdispersion in Healthcare Data</h2>
+
+<img data-src="images/fig2-4.png" class="quarto-figure quarto-figure-center r-stretch"><p><strong>Observed MEPS outpatient visits</strong> vs.&nbsp;<strong>Simulated Poisson</strong></p>
+<ul>
+<li>Observed: Mean = 1.5, <strong>Variance = 24</strong> (16× mean!)</li>
+<li>More zeros and longer right tail than Poisson predicts</li>
+</ul>
+<aside class="notes">
+<p>This is typical of healthcare utilization data. Poisson assumption is too restrictive. Need alternative models.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="negative-binomial-distribution" class="slide level2">
+<h2>Negative Binomial Distribution</h2>
+<p><strong>Accommodates overdispersion</strong>: Variance &gt; Mean</p>
+<p><strong>Mechanism</strong>: Between-individual heterogeneity</p>
+<ul>
+<li>Each person has their own latent “frailty” or “susceptibility”</li>
+<li>Some rarely seek care (low frailty), others frequently (high frailty)</li>
+<li>Individual’s conditional mean: <span class="math inline">\(\mu r_i\)</span> (where <span class="math inline">\(r_i\)</span> is personal frailty)</li>
+</ul>
+<p><strong>Result</strong>: If frailties follow gamma distribution with mean 1, variance α - Marginal distribution of Y is negative binomial - Mean: μ - Variance: <span class="math inline">\(\mu(1 + \alpha\mu)\)</span> &gt; <span class="math inline">\(\mu\)</span></p>
+<aside class="notes">
+<p>This latent heterogeneity concept recurs in random effects and frailty models. Emphasize that it’s a specific mechanism for overdispersion.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="normal-distribution" class="slide level2">
+<h2>Normal Distribution</h2>
+<p>Symmetric, bell-shaped distribution</p>
+<p><strong>Parameters</strong>: mean μ, standard deviation σ</p>
+<p><strong>Key properties</strong>: - 67% of observations within 1 SD of mean - 95% within 2 SDs - Values &gt;2 SDs away are “atypical”</p>
+<p><strong>Standardization</strong>: <span class="math inline">\(Z = (Y - \mu)/\sigma\)</span> has mean 0, SD 1</p>
+<aside class="notes">
+<p>Show Figure 2.5. Most healthcare outcomes are NOT normal, but the normal is crucial because of the Central Limit Theorem - sample means are approximately normal.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="normal-distribution-1" class="slide level2">
+<h2>Normal Distribution</h2>
+
+<img data-src="images/fig2-5.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
+<p>Different σ values show different spreads. The distribution is completely determined by μ and σ.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="central-limit-theorem" class="slide level2">
+<h2>Central Limit Theorem</h2>
+<p><strong>Key insight</strong>: Even if data are non-normal, <strong>sample means are approximately normal</strong></p>
+<ul>
+<li>Distribution of sample mean <span class="math inline">\(\bar{Y}\)</span> approaches normal as n increases</li>
+<li>True regardless of the distribution of Y itself</li>
+<li>Enables hypothesis testing based on normal approximation</li>
+</ul>
+<p><strong>Crucial distinction</strong>: - Population data distribution: Often non-normal in healthcare - Sample estimate distribution: Approximately normal</p>
+<aside class="notes">
+<p>This is why we can use normal-based inference even with skewed healthcare data. But this applies to the sampling distribution of estimates, not the data itself.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="gamma-distribution" class="slide level2">
+<h2>Gamma Distribution</h2>
+<p>Flexible distribution for <strong>non-negative, continuous, right-skewed</strong> outcomes</p>
+<p><strong>Parameters</strong>: α (shape), β (rate)</p>
+<ul>
+<li>Mean: α/β</li>
+<li>Variance: α/β²</li>
+</ul>
+<p>Can accommodate various shapes from highly skewed to more symmetric</p>
+<p>Commonly used for medical expenditures</p>
+<aside class="notes">
+<p>Show Figure 2.6. The gamma is quite flexible and can match many right-skewed distributions. The variance can be greater or less than the mean.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="gamma-distribution-1" class="slide level2">
+<h2>Gamma Distribution</h2>
+
+<img data-src="images/fig2-6.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
+<p>As α increases (for fixed β), the distribution becomes more symmetric and bell-shaped.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="lognormal-distribution" class="slide level2">
+<h2>Lognormal Distribution</h2>
+<p>Y has lognormal distribution if <strong>log(Y) has normal distribution</strong></p>
+<p>If <span class="math inline">\(\log(Y) \sim N(\mu, \sigma^2)\)</span>, then:</p>
+<p><span class="math display">\[E(Y) = \exp\left(\mu + \frac{1}{2}\sigma^2\right) \neq \exp(\mu)\]</span></p>
+<p><strong>Critical point</strong>: Order of operations matters!</p>
+<ul>
+<li><span class="math inline">\(E[\log(Y)] \neq \log[E(Y)]\)</span></li>
+<li>Retransformation is not straightforward</li>
+</ul>
+<p><strong>Usage</strong>: Any log-transformed regression implicitly assumes lognormal outcomes</p>
+<aside class="notes">
+<p>This retransformation issue is a major challenge in cost regression (Chapter 6). Show Table 2.2 from MEPS data.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="retransformation-problem" class="slide level2">
+<h2>Retransformation Problem</h2>
+<p><strong>MEPS 2017 Example</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Expense Type</th>
+<th>Direct Mean</th>
+<th><span class="math inline">\(E[\log(Y)]\)</span></th>
+<th><span class="math inline">\(\exp\{E[\log(Y)]\}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total</td>
+<td>$5,995</td>
+<td>7.27</td>
+<td>$1,433</td>
+</tr>
+<tr class="even">
+<td>Outpatient</td>
+<td>$2,767</td>
+<td>6.59</td>
+<td>$728</td>
+</tr>
+<tr class="odd">
+<td>Inpatient</td>
+<td>$18,145</td>
+<td>9.10</td>
+<td>$8,967</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cannot simply exponentiate the mean of logged values!</strong></p>
+<p>Correction factor needed: <span class="math inline">\(\exp(\sigma^2/2)\)</span></p>
+<aside class="notes">
+<p>This is a common mistake. Emphasize that quantiles (like median) do transform directly, which motivates quantile regression.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="lognormal-distribution-1" class="slide level2">
+<h2>Lognormal Distribution</h2>
+
+<img data-src="images/fig2-7.png" class="quarto-figure quarto-figure-center r-stretch"><p>Right-skewed with heavy right tail, suitable for expenditure data</p>
+<aside class="notes">
+<p>Different σ values control the degree of skewness. Larger σ → heavier tail.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="hypothesis-testing-framework" class="slide level2">
+<h2>Hypothesis Testing Framework</h2>
+<p><strong>Purpose</strong>: Reach decision about hypothesis while quantifying error risk</p>
+<p><strong>Structure</strong>: - Null hypothesis <span class="math inline">\(H_0\)</span>: typically what we want to disprove - Alternative <span class="math inline">\(H_A\)</span>: what we believe - Test statistic from sample data - P-value: probability of observed data (or more extreme) if <span class="math inline">\(H_0\)</span> is true</p>
+<p><strong>Decision</strong>: - Reject <span class="math inline">\(H_0\)</span> if p-value is small - Cannot “accept” <span class="math inline">\(H_0\)</span>, only “fail to reject”</p>
+<aside class="notes">
+<p>Emphasize the one-way nature. Absence of evidence ≠ evidence of absence. This asymmetry is fundamental to the framework.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-p-values-actually-mean" class="slide level2">
+<h2>What P-values Actually Mean</h2>
+<p><strong>P-value</strong>: Probability of observing data as or more extreme than what we saw, <strong>assuming <span class="math inline">\(H_0\)</span> is true</strong></p>
+<p><strong>Common misconception</strong>: P-value = probability that <span class="math inline">\(H_0\)</span> is true ❌</p>
+<p><strong>Correct interpretation</strong>: P-value quantifies how inconsistent the data are with <span class="math inline">\(H_0\)</span></p>
+<ul>
+<li>Low p-value → data unlikely under <span class="math inline">\(H_0\)</span> → reject <span class="math inline">\(H_0\)</span></li>
+<li>High p-value → data not inconsistent with <span class="math inline">\(H_0\)</span> → <strong>cannot conclude anything</strong></li>
+</ul>
+<aside class="notes">
+<p>This is the most common misinterpretation. P-value is a statement about the data, not about the hypothesis. Many published papers get this wrong.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="problems-with-p-value-thresholds" class="slide level2">
+<h2>Problems with P-value Thresholds</h2>
+<p><strong>Traditional “rule”</strong>: p &lt; 0.05 = “statistically significant”</p>
+<p><strong>Problems</strong>:</p>
+<ol type="1">
+<li><strong>Large samples</strong>: Trivial effects can have tiny p-values
+<ul>
+<li>Effect size ≈ 0 but p &lt; 0.001</li>
+</ul></li>
+<li><strong>Small samples</strong>: Important effects may have large p-values
+<ul>
+<li>Low statistical power</li>
+</ul></li>
+<li><strong>Multiple comparisons</strong>: Error rate inflates
+<ul>
+<li>5 tests: P(at least 1 false positive) = 0.23</li>
+<li>10 tests: P(at least 1 false positive) = 0.40</li>
+</ul></li>
+<li><strong>Invites p-hacking</strong>: Manipulation to achieve p &lt; 0.05</li>
+</ol>
+<aside class="notes">
+<p>ASA statement (2016) and many journals now discourage bright-line thresholds. Focus on effect sizes and confidence intervals instead.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="p-hacking-and-researcher-degrees-of-freedom" class="slide level2">
+<h2>P-hacking and Researcher Degrees of Freedom</h2>
+<p><strong>P-hacking</strong>: Trying multiple analyses until finding p &lt; 0.05</p>
+<p><strong>Methods</strong>: - Selective reporting of results - Choosing convenient exclusion criteria - Dichotomizing continuous variables at chosen cut-points - Dropping certain missing data patterns - Choosing specific statistical tests</p>
+<p><strong>Solution</strong>: Pre-specify analysis plan, report all analyses conducted</p>
+<p><strong>Best practice</strong>: Focus on effect sizes and practical significance</p>
+<aside class="notes">
+<p>With large healthcare databases, this is especially tempting and problematic. Reproducibility crisis in science partly stems from this.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="multiple-comparisons-problem" class="slide level2">
+<h2>Multiple Comparisons Problem</h2>
+<p><strong>Example</strong>: Testing 10 covariates individually for association with expenditures</p>
+<ul>
+<li>Each test at α = 0.05</li>
+<li>P(at least 1 false positive) = <span class="math inline">\(1 - (0.95)^{10} = 0.40\)</span></li>
+</ul>
+<p><strong>Solutions</strong>:</p>
+<ol type="1">
+<li><strong>Bonferroni correction</strong>: Test each at α/k level</li>
+<li><strong>False discovery rate</strong>: Control proportion of false positives</li>
+<li><strong>Pre-specification</strong>: Develop strong conceptual model first</li>
+</ol>
+<aside class="notes">
+<p>In genomic studies with thousands of tests, this is critical. But even with 5-10 tests, the problem is real. Conceptual models help limit number of tests.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="best-practices-for-inference" class="slide level2">
+<h2>Best Practices for Inference</h2>
+<p><strong>Do</strong>: - Report effect sizes with confidence intervals - Consider practical significance alongside statistical significance - Acknowledge uncertainty in p-values themselves - Pre-specify hypotheses when possible - Report all analyses conducted - Consider multiple comparison adjustments</p>
+<p><strong>Don’t</strong>: - Treat p = 0.049 differently from p = 0.051 - Conclude <span class="math inline">\(H_0\)</span> is true from large p-value - Interpret p-value as P(<span class="math inline">\(H_0\)</span> is true) - Hide analyses that didn’t achieve p &lt; 0.05</p>
+<aside class="notes">
+<p>Growing recognition in scientific community of these limitations. Many journals now require pre-registration of analysis plans. Emphasize reproducibility.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="key-takeaways" class="slide level2">
+<h2>Key Takeaways</h2>
+<ol type="1">
+<li><p>Healthcare outcomes require specialized distributions (not just normal)</p></li>
+<li><p>Understand overdispersion and between-individual heterogeneity</p></li>
+<li><p>Conditional vs.&nbsp;marginal estimation is fundamental to regression</p></li>
+<li><p>Transformation requires careful retransformation</p></li>
+<li><p>P-values are widely misunderstood - focus on effect sizes</p></li>
+<li><p>Standard errors matter as much as point estimates</p></li>
+<li><p>Model assumptions affect both estimates and inference</p></li>
+</ol>
+<aside class="notes">
+<p>These concepts form the foundation for regression methods in subsequent chapters. Emphasize that appropriate distribution choice is driven by outcome type.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="looking-ahead" class="slide level2">
+<h2>Looking Ahead</h2>
+<p><strong>Chapter 3</strong>: Data visualization</p>
+<aside class="notes">
+<p>Preview that many of the distributions covered today will have corresponding regression methods. The regression model specifies how the parameters of these distributions depend on covariates.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../images/ud_bottom_logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>MBA 642 (Spring 2026): Chapter 2</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

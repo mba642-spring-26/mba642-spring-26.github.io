@@ -1,24 +1,41 @@
 ---
-title: "schedule"
+title: "Course Schedule"
 ---
 
-## Tentative Schedule
+```{=html}
+<style>
+table {
+  font-size: 15px;  /* Adjust font size */
+  width: 100%;      /* Adjust table width */
+  max-width: 1400px;
+}
 
-| Week | Date | Topic | Readings/Notes | Assignments |   |
-|:-----------|:-----------|:-----------|:-----------|------------|------------|
-| 1 | Jan 14 | Introduction & Course Overview [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 1 | \- |  |
-| 2 | Jan 21 | Basic Statistical Concepts | Chapter 2 | Assignment 1 |  |
-| 3 | Jan 289 | A primer on R, R-Studio, and R-Markdown |  | Assignment 2 |  |
-| 4 | Feb 4 | Data visualization | Data Visualization by Keran Healy | Assignment 3 |  |
-| 5 | Feb 11 | Healthcare survey data analysis | Chapter 9 | Assignment 4 |  |
-| 6 | Feb 18 | Mean difference | \- | Assignment 5 |  |
-| 7 | Feb 25 | Bivariate relationship | \- | Assignment 6 |  |
-| 8 | Mar 4 | Linear regression analysis | Chapter 3 | Assignment 7 |  |
-| 9 | Mar 11 | Logistic regression analysis | Chapter 4 | Assignment 8 |  |
-| 10 | Mar 18 | Spring break (no class) | \- |  |  |
-| 11 | Mar 25 | Count data analysis | Chapter 5 | Assignment 9 |  |
-| 12 | Apr 1 | Cluster analysis | \- | Assignment 10 |  |
-| 13 | Apr 8 | Causal inference in healthcare | Chapter 8 | Assignment 11 |  |
-| 14 | Apr 15 | Predictive analytics 1: Penalized Regression | Chapter 10 |  |  |
-| 15 | Apr 22 | Predictive analytics 2: Decision Trees | Chapter 10 | Assignment 12 |  |
-| 16 | Apr 29 | Final Exam |  |  |  |
+/* Optional: Adjust specific column widths */
+table th:nth-child(1), table td:nth-child(1) { width: 8%; }
+table th:nth-child(2), table td:nth-child(2) { width: 8%; }
+table th:nth-child(3), table td:nth-child(3) { width: 40%; }
+table th:nth-child(4), table td:nth-child(2) { width: 8%; }
+table th:nth-child(5), table td:nth-child(3) { width: 40%; }
+</style>
+```
+
+The schedule can vary depending on the progress of the course or unforeseen circumstances. Any changes will be announced in class and posted on the course website.
+
+| Week | Date | Topic | Slides | Readings | Assignments |
+|:----------:|:----------:|:-----------|:----------:|:-----------|------------|
+| 1 | Jan 14 | Introduction & Course Overview | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 1 | \- |
+| 2 | Jan 21 | A primer on R, R-Studio, and R-Markdown | [{{< fa file-lines >}}](/lectures/Lecture2.qmd){target="_blank"} | Chapter 2 | Assignment 1 |
+| 3 | Jan 28 | Basic Statistical Concepts | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} |  | Assignment 2 |
+| 4 | Feb 4 | Data visualization | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- Data Visualization by Keran Healy <br> - [Data visualization using R for Researchers who do not use R](https://journals.sagepub.com/doi/10.1177/25152459221074654){target="_blank"} | Assignment 3 |
+| 5 | Feb 11 | Mean difference 1: t-test | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 9 | Assignment 4 |
+| 6 | Feb 18 | Mean difference 2: ANOVA | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 5 |
+| 7 | Feb 25 | Bivariate relationship | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 6 |
+| 8 | Mar 4 | Linear regression analysis 1 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 3 | Assignment 7 |
+| 9 | Mar 11 | Linear regression analysis 2 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 4 | Assignment 8 |
+| 10 | Mar 18 | Spring break (no class) | . | \- |  |
+| 11 | Mar 25 | Logistic regression analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 5 | Assignment 9 |
+| 12 | Apr 1 | Count data analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 10 |
+| 13 | Apr 8 | Cluster analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 8 | Assignment 11 |
+| 14 | Apr 15 | Predictive analytics 1: Penalized Regression | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 |  |
+| 15 | Apr 22 | Predictive analytics 2: Decision Trees | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 | Assignment 12 |
+| 16 | Apr 29 | Text analysis using LLMs |  |  |  |

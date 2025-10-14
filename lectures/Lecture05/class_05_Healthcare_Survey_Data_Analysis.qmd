@@ -1,0 +1,302 @@
+---
+title: "Lecture 5: Healthcare Survey Data Analysis"
+subtitle: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
+author: "Sangsuk Yoon"
+institute: "University of Dayton"
+date: "09/09/2025"
+format: 
+  clean-revealjs:
+    theme: simple # A clean, minimalist theme. Others: dark, solarized, serif, blood
+    css: "../custom.css"
+    slide-number: true # Show slide numbers
+    chalkboard: true # Press 'B' for a chalkboard, 'C' for notes
+    preview-links: auto
+    logo: "../images/ud_bottom_logo.png" # Optional: add a logo
+    footer: "MBA 642 (Spring 2026): Chapter 2" # A footer on every slide
+---
+
+
+## Learning Objectives {.smaller}
+
+By the end of this session, you will be able to:
+
+1. Distinguish between simple random sampling and complex survey designs
+2. Explain how stratification and clustering affect variance estimation
+3. Apply survey weights correctly in statistical analysis
+4. Implement survey-appropriate methods using R
+5. Interpret results from complex survey data
+
+## Why Survey Methods Matter
+
+::::: {.columns}
+:::: {.column width="50%"}
+**The Problem:**
+
+- Health surveys rarely use simple random sampling
+- Ignoring survey design → **incorrect standard errors**
+- Wrong inference → poor policy decisions
+::::
+
+:::: {.column width="50%"}
+**Real Example:**
+
+- NHIS 2015: New diabetes cases declining
+- 1.7M (2009) → 1.4M (2014)
+- How reliable are these estimates?
+::::
+:::::
+
+# Survey Design Fundamentals
+
+## Three Major Health Surveys {.smaller}
+
+| Survey | Focus | Design |
+|--------|-------|--------|
+| **NHIS** | Largest in-person household survey | Cross-sectional, stratified multi-stage |
+| **NHANES** | Physical exam + blood tests | Cross-sectional, oversamples minorities |
+| **MEPS** | Utilization & expenditures | Longitudinal panel (2 years) |
+
+::: {.notes}
+- NHIS: ~35,000 households annually
+- NHANES: Objective health measures
+- MEPS: Links to NHIS households
+:::
+
+## Common Survey Biases {.smaller}
+
+**Three critical threats to validity:**
+
+1. **Non-response bias**: Systematically different responders
+   - Example: Satisfaction surveys over-represent dissatisfied patients
+
+2. **Recall bias**: Memory linked to outcome
+   - Cancer recurrence cases may recall treatment details better
+
+3. **Social desirability bias**: Under-reporting sensitive behaviors
+   - Alcohol use, medication adherence, mask-wearing
+
+::: {.callout-warning}
+Survey design and question validation are crucial mitigation strategies
+:::
+
+# Stratification
+
+## What is Stratification?
+
+**Definition**: Partition population into predetermined subgroups (strata), sample independently from each
+
+**Two main objectives:**
+
+1. Control sample composition
+2. Reduce variability in results
+
+## Stratification Example {.smaller}
+
+::::: {.columns}
+:::: {.column width="50%"}
+**NHIS Strategy:**
+
+- Geographic strata (states)
+- Demographic strata
+- Until 2016: oversampled minorities
+- 2016+: oversampled 10 least populous states
+::::
+
+:::: {.column width="50%"}
+**Why?**
+
+- Ensure rural areas represented
+- Sufficient minority samples
+- Enable subgroup analyses
+- Improve precision
+::::
+:::::
+
+## Stratification and Variance Reduction
+
+Consider self-reported health stratified by age:
+
+::: {.incremental}
+- Health status **declines with age** (between-strata heterogeneity)
+- Within age groups, more **similar** responses (within-strata homogeneity)
+- Fixed sampling fractions per stratum → **predictable composition**
+- Result: **Lower variance** than simple random sampling
+:::
+
+## Mathematical Insight {.smaller}
+
+For stratified design with $K$ strata:
+
+$$\text{Var}_{\text{stratified}} = \sum_{i=1}^{K} W_i^2 \sigma_i^2$$
+
+where:
+
+- $W_i$ = stratum weight (relative size)
+- $\sigma_i^2$ = within-stratum variance
+
+::: {.callout-tip}
+When strata are homogeneous within and heterogeneous between, variance is **smaller** than simple random sampling
+:::
+
+# Clustering
+
+## What is Clustering?
+
+**Definition**: Sample groups (clusters) together for convenience and cost-efficiency
+
+**Key difference from stratification:**
+
+| Stratification | Clustering |
+|---------------|-----------|
+| All strata represented | Not all clusters sampled |
+| Known in advance which strata | Random which clusters |
+| Reduces variance | **Increases variance** |
+
+## Clustering Example {.smaller}
+
+**NHIS Two-Stage Design:**
+
+1. **Primary Sampling Units (PSUs)**: Geographic regions (~400 from ~1900)
+2. **Secondary Sampling Units (SSUs)**: Households within PSUs
+
+**Why cluster?**
+
+- In-person interviews → must cluster by location
+- Cost efficiency vs. statistical efficiency tradeoff
+
+## Why Clustering Increases Variance
+
+::::: {.columns}
+:::: {.column width="50%"}
+**Intuition:**
+
+- Individuals in same cluster are **similar**
+- Not as much information as independent samples
+- Must account for **within-cluster correlation**
+::::
+
+:::: {.column width="50%"}
+**Extreme Example:**
+
+- Flu shot survey by families
+- All family members same behavior
+- 100 people = only 25 independent observations
+::::
+:::::
+
+## Variance Components
+
+For clustered design:
+
+$$\text{Var}_{\text{total}} = \text{Var}_{\text{between-cluster}} + \text{Var}_{\text{within-cluster}}$$
+
+::: {.callout-warning}
+Single-stage clustering: Only between-cluster variance matters (within-cluster variance = 0 if all sampled)
+
+Two-stage clustering: Both sources contribute
+:::
+
+# Survey Weights
+
+## Why Weights?
+
+**The fundamental issue:**
+
+- Stratified designs with oversampling are **not population-representative**
+- Need to reconstruct population composition
+- Use **weights** = inverse of sampling probabilities
+
+## Understanding Weights {.smaller}
+
+**Each weight represents:** Number of population individuals represented by one sample observation
+
+**Example (Maternal & Infant Health Survey):**
+
+| Stratum | Sampling Fraction | Weight |
+|---------|------------------|--------|
+| Black mothers, low birthweight | 1/14 | 14 |
+| Non-black mothers, normal birthweight | 1/720 | 720 |
+
+::: {.callout-note}
+Someone with weight = 100 represents 100 people in the population
+:::
+
+## Post-Stratification
+
+**The problem:** Non-response disrupts planned sampling fractions
+
+**The solution:** Adjust weights based on observed response rates
+
+**Example:**
+
+- Planned: 320 respondents age <25
+- Actual: 256 respondents (80% response)
+- Post-stratification multiplier: 5/4 = 1.25
+- Adjusted weight = original weight × 1.25
+
+## Raking
+
+**When:** Multiple stratification variables
+
+**What:** Iteratively adjust weights so weighted sample matches population on **each margin**
+
+**Example:** Maternal & Infant Health Survey
+- 6 strata: race (2 levels) × birthweight (3 levels)
+- Raking ensures marginal distributions correct for **both** race **and** birthweight
+
+# Variance Estimation
+
+## The Challenge {.smaller}
+
+Standard errors must account for:
+
+1. **Stratification** (reduces variance)
+2. **Clustering** (increases variance)  
+3. **Weights** (random, data-dependent)
+
+**Key principle:**
+
+> "Variance measures fluctuation if survey repeated many times in same population"
+
+## Two Main Approaches
+
+::::: {.columns}
+:::: {.column width="50%"}
+**1. Linearization (Delta Method)**
+
+- Mathematical approximation
+- Taylor series expansion
+- Valid in large samples
+- Computationally efficient
+::::
+
+:::: {.column width="50%"}
+**2. Replication Methods**
+
+- Create multiple replicate datasets
+- Re-estimate on each replicate
+- Empirical variance calculation
+- Includes: jackknife, bootstrap, balanced repeated replication
+::::
+:::::
+
+# Practical Analysis in R
+
+## Setting Up Survey Analysis {.smaller}
+```{r}
+#| echo: true
+#| eval: false
+
+library(survey)
+
+# Specify survey design
+design <- svydesign(
+  id = ~VARPSU,        # Cluster IDs
+  strata = ~VARSTR,     # Strata
+  weights = ~PERWT17F,  # Survey weights
+  data = meps_data,
+  nest = TRUE
+)
+
+# For subpopulation analysis
+subset_design <- subset(design, AGE >= 18)

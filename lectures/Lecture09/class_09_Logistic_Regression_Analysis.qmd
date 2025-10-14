@@ -1,0 +1,913 @@
+---
+title: "Lecture 9: Logistic Regression Analysis"
+subtitle: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
+author: "Sangsuk Yoon"
+institute: "University of Dayton"
+date: "09/09/2025"
+format: 
+  clean-revealjs:
+    theme: simple # A clean, minimalist theme. Others: dark, solarized, serif, blood
+    css: "../custom.css"
+    slide-number: true # Show slide numbers
+    chalkboard: true # Press 'B' for a chalkboard, 'C' for notes
+    preview-links: auto
+    logo: "../images/ud_bottom_logo.png" # Optional: add a logo
+    footer: "MBA 642 (Spring 2026): Chapter 2" # A footer on every slide
+---
+
+## Learning Objectives
+
+By the end of this session, you will be able to:
+
+- Explain why linear regression fails for binary outcomes
+- Interpret logistic regression coefficients as odds ratios
+- Calculate and interpret marginal effects on probability scale
+- Assess logistic regression model fit and predictive accuracy
+- Extend logistic regression to multinomial outcomes
+
+---
+
+## Motivation: The Obesity Epidemic
+
+**Research Question:** How has obesity prevalence changed in the US from 1999-2000 to 2015-2016?
+
+**Data:** NHANES adults aged 20-59 years (n=6,864)
+
+**Key Difference from Chapter 3:**
+- Chapter 3: Continuous BMI outcome
+- Chapter 4: Binary obesity indicator (BMI ≥ 30)
+
+**Why does this matter?** Different question → different statistical approach
+
+---
+
+# Binary Outcomes
+
+---
+
+## What Are Binary Outcomes?
+
+**Definition:** Outcome Y takes one of two values
+
+- Y = 1 (positive/success/event)
+- Y = 0 (negative/failure/no event)
+
+**Healthcare Examples:**
+
+- Hospital readmission (yes/no)
+- Disease presence (diabetic/not diabetic)
+- Treatment response (responded/did not respond)
+- Any medical expenditures (yes/no)
+
+---
+
+## Key Property of Binary Outcomes
+
+**Critical insight:**
+
+$$E(Y) = P(Y = 1)$$
+
+The **mean** of a binary outcome equals the **proportion** of positive outcomes
+
+**Example:** If 35% of people are obese, then:
+- P(Obese = 1) = 0.35
+- E(Obese) = 0.35
+
+**Therefore:** Modeling mean = modeling proportion
+
+---
+
+## Summarizing Change: NHANES Data
+
+**Absolute change:** +8% obese
+
+**But how do we express relative change?**
+
+---
+
+## Relative Risk (RR)
+
+**Definition:** Ratio of probabilities
+
+$$\text{RR} = \frac{P(Y=1|X=1)}{P(Y=1|X=0)}$$
+
+**Example:**
+$$\text{RR} = \frac{0.404}{0.325} = 1.24$$
+
+**Interpretation:** 24% relative increase in obesity prevalence
+
+**When RR is useful:** Intuitive for common outcomes
+
+---
+
+## Odds Ratio (OR)
+
+**Definition:** Ratio of odds
+
+$$\text{OR} = \frac{\text{Odds}(Y=1|X=1)}{\text{Odds}(Y=1|X=0)} = \frac{P(Y=1|X=1)/P(Y=0|X=1)}{P(Y=1|X=0)/P(Y=0|X=0)}$$
+
+**Example:**
+$$\text{OR} = \frac{1899 \times 1469}{914 \times 2165} = 1.41$$
+
+**Shortcut for 2×2 tables:** Product of diagonals!
+
+---
+
+## OR vs RR: Key Relationships
+
+**Three critical properties:**
+
+1. **Direction:** OR and RR always agree
+   - Both > 1 or both < 1 or both = 1
+
+2. **Magnitude:** OR always farther from 1 than RR
+   - If RR = 1.24, then OR = 1.41
+
+3. **Rare outcomes:** OR ≈ RR when outcome is rare (<10%)
+
+---
+
+## When OR ≠ RR: A Cautionary Tale
+
+**Critical point:** With common outcomes (like obesity at ~35%), OR can be **misleading** if interpreted as RR
+
+**Famous example:** 1999 NEJM cardiac catheterization study
+- OR = 0.60 (seemed dramatic)
+- RR = 0.93 (actually modest)
+
+---
+
+# Why Linear Regression Fails
+
+---
+
+## Can We Use Linear Regression?
+
+**Technically yes, but...**
+
+**Three major problems:**
+
+1. Predictions can be < 0 or > 1
+2. Binary outcomes aren't normally distributed
+3. Variance isn't constant across X values
+
+---
+
+## Problem 1: Impossible Predictions
+
+**Linear regression doesn't respect [0,1] bounds**
+
+Example predictions:
+- Age 20: -0.12 → Negative probability! ❌
+- Age 90: 1.31 → Probability > 1! ❌
+
+**What we need:** Model that **always** produces values in [0, 1]
+
+---
+
+## Linear vs Logistic: Visual Comparison
+
+![Comparison showing linear regression can go outside [0,1] bounds while logistic stays within]
+
+**Key observation:**
+- Linear: straight line (can exceed bounds)
+- Logistic: S-shaped curve (always between 0 and 1)
+
+---
+
+# The Logistic Regression Model
+
+---
+
+## The Logistic Transformation
+
+**Goal:** Transform linear combination to stay in [0, 1]
+
+**Solution:** Use the logistic function
+
+$$P(Y_i = 1) = \frac{\exp(\beta_0 + \beta_1X_{1i} + \cdots + \beta_kX_{ki})}{1 + \exp(\beta_0 + \beta_1X_{1i} + \cdots + \beta_kX_{ki})}$$
+
+**Why this works:**
+- As $\beta_0 + \beta X \to +\infty$, P(Y=1) → 1
+- As $\beta_0 + \beta X \to -\infty$, P(Y=1) → 0
+- Numerator always < denominator
+
+---
+
+## Alternative Formulation: The Logit
+
+**Equivalent formulation** (keeps linearity on transformed scale):
+
+$$\log\left[\frac{P(Y_i=1)}{P(Y_i=0)}\right] = \beta_0 + \beta_1X_{1i} + \cdots + \beta_kX_{ki}$$
+
+**Key insight:** We model the **log odds** (logit) as a linear function
+
+**Important terms:**
+- **Odds** = P(Y=1) / P(Y=0)
+- **Logit** = log(odds)
+- **Logistic function** = inverse of logit
+
+---
+
+## Why the Logit?
+
+**Advantages of modeling log(odds):**
+
+1. **Range:** Odds can be any positive number
+2. **Log of odds:** Can be any real number (-∞ to +∞)
+3. **Multiplicative interpretation:** Natural for odds ratios
+
+**Mathematical connection:**
+
+$$\text{If } \log(\text{odds}) = \beta_0 + \beta_1X$$
+
+$$\text{Then } \text{OR} = \exp(\beta_1)$$
+
+---
+
+## Estimation: Maximum Likelihood
+
+**Key difference from linear regression:**
+
+- Linear regression: Minimize sum of squared errors
+- Logistic regression: Maximize likelihood
+
+**What is likelihood?**
+- Probability of observing the data given parameters
+- Choose β values that make observed data most probable
+
+**Good news:** When outcome is normal, maximum likelihood = least squares!
+
+---
+
+# Interpreting Logistic Regression
+
+---
+
+## Example: Simple Model
+
+**How do we interpret these numbers?**
+
+---
+
+## Interpretation on Log Odds Scale
+
+**Coefficient = 0.343**
+
+**Interpretation:**
+The log odds of being obese increased by 0.343 from 1999-2000 to 2015-2016
+
+**Problem:** What does "log odds of 0.343" mean? 🤔
+
+**Solution:** Exponentiate to get odds ratio!
+
+---
+
+## Interpretation on Odds Scale
+
+**Odds Ratio:**
+$$\text{OR} = \exp(0.343) = 1.41$$
+
+**Interpretation:**
+The **odds** of being obese in 2015-2016 were 1.41 times the odds in 1999-2000
+
+**Slightly better, but...**
+- What does "1.41 times the odds" mean?
+- Most people think in probabilities, not odds!
+
+---
+
+## Calculating Probabilities
+
+**We can calculate predicted probabilities for specific groups:**
+
+**1999-2000:**
+$$P(\text{Obese}) = \frac{\exp(-0.731)}{1 + \exp(-0.731)} = 0.325$$
+
+**2015-2016:**
+$$P(\text{Obese}) = \frac{\exp(-0.731 + 0.343)}{1 + \exp(-0.731 + 0.343)} = 0.404$$
+
+**These match our two-way table exactly!**
+
+---
+
+## Multivariate Model: NHANES
+
+**How do we interpret these?**
+
+---
+
+## Interpreting Categorical Predictors
+
+**SEX = Female: OR = 1.48**
+
+**Correct interpretation:**
+Women have 1.48 times the **odds** of being obese compared to men, holding all other variables constant
+
+**What "holding constant" means:**
+This OR is the same for:
+- 25-year-old Non-Hispanic White in 1999-2000
+- 50-year-old Mexican American in 2015-2016
+- Any combination of other covariates
+
+---
+
+## Interpreting Continuous Predictors
+
+**AGE: Coefficient = 0.02, OR = 1.02**
+
+**Interpretation:**
+Each additional year of age is associated with 1.02 times the odds of being obese
+
+**For larger changes:**
+- 10 years: OR = exp(0.02 × 10) = exp(0.2) = 1.22
+- 20 years: OR = exp(0.02 × 20) = exp(0.4) = 1.49
+
+**Remember:** Effect is the same at ANY starting age (linearity assumption)
+
+---
+
+## Common Pitfall: OR ≠ RR
+
+**Wrong interpretation:** ❌
+"Women are 48% more likely to be obese"
+
+**Why wrong?**
+- OR = 1.48 means 48% increase in **odds**, not probability
+- With common outcomes, OR overstates the effect
+
+**Correct interpretation:** ✓
+"Women have 48% higher **odds** of obesity"
+
+**Better yet:**
+Calculate effect on probability scale (coming next!)
+
+---
+
+# Marginal Effects: Back to Probabilities
+
+---
+
+## The Problem
+
+**What we have:**
+- Effects on log odds scale (hard to interpret)
+- Effects on odds scale (better, but not intuitive)
+
+**What we want:**
+- Effects on probability scale (intuitive!)
+
+**The challenge:**
+Effects depend on values of OTHER covariates 😟
+
+---
+
+## Why Effects Depend on Other Covariates
+
+![Graph showing predicted probabilities by age, sex, and year]
+
+**Observations:**
+- Effect of YEAR varies by AGE and SEX
+- Absolute change larger for older people
+- Relative change larger for younger people
+- **Only OR is constant!**
+
+---
+
+## Solution: Marginal Effects
+
+**Idea:** Average the conditional effects across the population
+
+**Marginal Additive Effect:**
+1. For each person, calculate: P(Y=1|X=1) - P(Y=1|X=0)
+2. Average these differences across all people
+
+**Result:** Single number representing average change in probability
+
+---
+
+## Recycled Predictions Method
+
+**Step-by-step process:**
+
+1. **Fit logistic regression** with all covariates
+
+2. **For each person in data:**
+   - Set X to value 1, calculate predicted P(Y=1)
+   - Set X to value 0, calculate predicted P(Y=1)
+   - Take difference
+
+3. **Average all differences**
+
+4. **Get standard error** (using delta method or bootstrap)
+
+---
+
+## Example: Effect of Year
+
+**Marginal additive effect = 0.102 (95% CI: 0.077, 0.128)**
+
+**Interpretation:**
+The probability of being obese increased by about **10 percentage points** from 1999-2000 to 2015-2016
+
+**Compare to:**
+- OR = 1.55 (55% increase in odds)
+- Linear regression coefficient ≈ 0.098 (very close!)
+
+---
+
+## Marginal Effects: Key Points
+
+**Advantages:**
+- Intuitive interpretation (probability scale)
+- Single number summary
+- Adjusted for all covariates
+
+**Limitations:**
+- Depends on distribution of covariates in sample
+- May not generalize if sample not representative
+- Not actually "causal" (despite terminology)
+
+**Implementation:** Use `margins` package in R
+
+---
+
+# Model Assessment
+
+---
+
+## Three Types of Model Evaluation
+
+**Your objective determines evaluation criteria:**
+
+1. **Hypothesis testing:** Are assumptions satisfied?
+
+2. **Causal inference:** Are confounders controlled?
+
+3. **Prediction:** How accurate are predictions?
+
+**Different objectives → different evaluation methods**
+
+---
+
+## Comparing Models: Likelihood Ratio Test
+
+**For nested models:**
+
+- Restricted model: Excludes some variables
+- Full model: Includes all variables
+
+**Test statistic:**
+$$-2[\log L_{\text{restricted}} - \log L_{\text{full}}]$$
+
+Compare to χ² distribution
+
+**Example:** Testing if RACE matters (4 additional parameters)
+
+---
+
+## Comparing Models: AIC and BIC
+
+**For any models** (nested or not):
+
+$$\text{AIC} = -2\log L + 2k$$
+$$\text{BIC} = -2\log L + k\log(n)$$
+
+where k = number of parameters, n = sample size
+
+**Interpretation:** **Lower is better**
+
+**Difference:**
+- AIC: More lenient about complexity
+- BIC: Penalizes complexity more heavily
+
+---
+
+## Model Calibration: Hosmer-Lemeshow
+
+**Purpose:** Check if predicted probabilities match observed frequencies
+
+**Method:**
+1. Order observations by predicted probability
+2. Split into m groups (usually 10)
+3. Compare observed vs. expected counts in each group
+4. Calculate χ² statistic
+
+**Interpretation:**
+- Low p-value → poor calibration
+- BUT: Very sensitive with large n
+- Better used informally to identify patterns
+
+---
+
+## Example: H-L Test Results
+**Pearson residual** = (Observed - Predicted) / √Predicted
+
+**Look for:** Systematic patterns or extreme residuals
+
+---
+
+# Predictive Accuracy
+
+---
+
+## From Probabilities to Classifications
+
+**Logistic regression gives:** P(Y=1) ∈ [0,1]
+
+**Often need:** Binary prediction (0 or 1)
+
+**Solution:** Choose threshold T
+- If P(Y=1) > T → predict Y=1
+- If P(Y=1) ≤ T → predict Y=0
+
+**Common choice:** T = 0.5
+
+---
+
+## The 2×2 Classification Table
+
+**Four outcomes:**
+- True Negative (TN): Correctly predict negative
+- True Positive (TP): Correctly predict positive
+- False Positive (FP): Incorrectly predict positive (Type I error)
+- False Negative (FN): Incorrectly predict negative (Type II error)
+
+---
+
+## Key Performance Metrics
+
+**Sensitivity (True Positive Rate):**
+$$\text{Sensitivity} = \frac{TP}{TP + FN}$$
+Proportion of actual positives correctly identified
+
+**Specificity (True Negative Rate):**
+$$\text{Specificity} = \frac{TN}{TN + FP}$$
+Proportion of actual negatives correctly identified
+
+**Trade-off:** As threshold ↑, sensitivity ↓ but specificity ↑
+
+---
+
+## Example: Obesity Predictions (T=0.5)
+**Results:**
+- Sensitivity = 18.2% (poor!)
+- Specificity = 92.0% (good)
+
+**Why imbalanced?** Default threshold may not be optimal
+
+---
+
+## ROC Curve: Threshold-Free Evaluation
+
+**Receiver Operating Characteristic (ROC) curve:**
+
+- X-axis: False Positive Rate (1 - Specificity)
+- Y-axis: True Positive Rate (Sensitivity)
+- Plot for ALL possible thresholds
+
+**Interpretation:**
+- Perfect model: Hugs upper-left corner
+- Random guessing: 45-degree line
+- Better model: Curve above 45-degree line
+
+---
+
+## Area Under the Curve (AUC)
+
+**Definition:** Area under ROC curve
+
+**Interpretation:**
+- AUC = 1.0: Perfect predictions
+- AUC = 0.5: Random guessing
+- AUC = 0.7: Decent
+- AUC = 0.9: Excellent
+
+**Obesity example:** AUC = 0.63
+- Modest predictive power
+- Could improve with more/better predictors
+
+---
+
+## Clinical Context Matters
+
+**Example: COVID-19 Testing**
+
+**Diagnostic test (active infection):**
+- **Priority:** High sensitivity
+- **Why:** False negatives spread infection
+
+**Antibody test (past infection):**
+- **Priority:** High specificity
+- **Why:** False positives lead to risky behavior
+
+**Lesson:** Optimal threshold depends on consequences of errors
+
+---
+
+# Multinomial Regression
+
+---
+
+## Extension to >2 Categories
+
+**When to use:** Outcome has multiple categories
+
+**BMI Example:** 4 categories
+- Underweight (BMI < 18.5)
+- Normal (18.5 ≤ BMI < 25)
+- Overweight (25 ≤ BMI < 30)
+- Obese (BMI ≥ 30)
+
+**Question:** How did distribution across categories change from 1999-2000 to 2015-2016?
+
+---
+
+## Two-Way Table: BMI Categories
+**Observations:**
+- Large increase in obese
+- Decrease in normal and overweight
+- Little change in underweight
+
+---
+
+## Multinomial Logistic Regression
+
+**Key idea:** Run K-1 logistic regressions
+
+**For K=4 categories with "normal" as reference:**
+
+$$\log\left(\frac{P(Y=\text{underweight})}{P(Y=\text{normal})}\right) = \beta_0 + \beta_1X$$
+
+$$\log\left(\frac{P(Y=\text{overweight})}{P(Y=\text{normal})}\right) = \gamma_0 + \gamma_1X$$
+
+$$\log\left(\frac{P(Y=\text{obese})}{P(Y=\text{normal})}\right) = \delta_0 + \delta_1X$$
+
+**Each equation:** Separate set of coefficients!
+
+---
+
+## Multi-Category Odds Ratios
+
+**Definition:**
+$$\text{OR}_k = \frac{P(Y=k|X=1)/P(Y=\text{ref}|X=1)}{P(Y=k|X=0)/P(Y=\text{ref}|X=0)}$$
+
+**Example results for YEAR:**
+- Underweight: OR = 1.16
+- Overweight: OR = 1.18
+- Obese: OR = 1.69
+
+**Interpretation:** Shift from normal category into each non-normal category
+
+---
+
+## Separate Logistic vs. Multinomial
+
+**Two approaches:**
+
+1. **Separate:** Fit each category vs. reference separately
+2. **Joint:** Fit multinomial model
+
+**Result:** Nearly identical coefficients!
+
+**Why joint is better:**
+- More efficient
+- Predictions across categories sum to 1
+- Can test overall effect of predictor
+
+---
+
+## Multinomial Results: Interpretation
+
+**YEAR = 2015-2016 coefficients:**
+**Interpretation:**
+From 1999-2000 to 2015-2016:
+- 16% increase in odds of underweight vs. normal
+- 18% increase in odds of overweight vs. normal  
+- 69% increase in odds of obese vs. normal
+
+---
+
+## Marginal Effects for Multinomial
+
+**Same recycled predictions approach:**
+
+1. Calculate predicted probabilities for each category
+2. Set covariate to each value
+3. Take differences
+4. Average across sample
+
+**Result:** Change in probability for each category
+
+---
+
+## Marginal Effects: BMI Example
+
+**Interpretation:**
+- 7% decrease in probability of normal weight
+- 10% increase in probability of obese
+- Probabilities sum to 0 (as they must!)
+
+---
+
+## Ordered Logistic Regression
+
+**Proportional odds model:** Assumes ordered categories
+
+**Structure:**
+$$\logit[P(Y > k)] = \gamma_k + \beta X$$
+
+**Single coefficient β** describes effect on ALL thresholds
+
+**Strong assumption:** Effect is monotone across categories
+
+**Problem:** Often unrealistic
+- Example: Both underweight AND obese increase with age in elderly
+
+**Recommendation:** Use unordered multinomial unless specific hypothesis warrants ordered model
+
+---
+
+# Key Concepts Summary
+
+---
+
+## Critical Distinctions
+
+**Odds vs. Probability:**
+- Odds = P(Y=1) / P(Y=0)
+- Probability = P(Y=1)
+- They're different! (except when P(Y=1) is small)
+
+**OR vs. RR:**
+- Both measure association
+- OR always farther from 1
+- OR ≈ RR only when outcome is rare
+
+**Conditional vs. Marginal:**
+- Conditional: Effect at specific covariate values
+- Marginal: Average effect across population
+
+---
+
+## Why Not Linear Regression?
+
+**Three reasons:**
+
+1. Can predict impossible probabilities (<0 or >1)
+2. Binary outcomes aren't normally distributed
+3. Variance not constant
+
+**Solution:** Logistic regression using logit link
+
+---
+
+## Interpretation Hierarchy
+
+**Three levels of interpretation:**
+
+1. **Log odds:** β coefficients
+   - Hard to interpret directly
+
+2. **Odds:** exp(β) = OR
+   - Better, but still not intuitive
+   - Only measure that doesn't depend on other covariates
+
+3. **Probability:** Marginal effects
+   - Most intuitive
+   - Depends on covariate distribution in sample
+
+---
+
+## Model Assessment Summary
+
+**Different objectives:**
+
+| Objective | Key Question | Evaluation Method |
+|-----------|-------------|-------------------|
+| Inference | Assumptions OK? | Diagnostics |
+| Comparison | Better model? | AIC/BIC, LRT |
+| Calibration | Predictions accurate? | Hosmer-Lemeshow |
+| Prediction | Classification good? | ROC, AUC |
+
+---
+
+## Common Pitfalls
+
+❌ Interpreting OR as RR with common outcomes
+
+❌ Forgetting "holding other variables constant"
+
+❌ Ignoring that effects vary by covariate values
+
+❌ Over-interpreting small p-values with large n
+
+❌ Using proportional odds when assumption doesn't hold
+
+❌ Treating marginal effects as causal
+
+---
+
+## Best Practices
+
+✓ Always state what you're modeling (odds vs. probability)
+
+✓ Report both OR and marginal effects
+
+✓ Consider clinical/practical significance, not just statistical
+
+✓ Check model calibration, not just AUC
+
+✓ Choose threshold based on error consequences
+
+✓ Use unordered multinomial by default
+
+---
+
+## Practical Workflow
+
+1. **Exploratory analysis:** Look at frequencies/proportions
+
+2. **Fit model:** Use maximum likelihood
+
+3. **Check diagnostics:** Hosmer-Lemeshow, residuals
+
+4. **Interpret:** Report both OR and marginal effects
+
+5. **Assess prediction:** ROC curve, AUC if relevant
+
+6. **Communicate:** Use language appropriate for audience
+
+---
+
+# Connections
+
+---
+
+## Link to Chapter 3
+
+**Linear regression:**
+- Outcome: Continuous (BMI)
+- Models: E(Y|X) directly
+- Interpretation: β = change in mean
+
+**Logistic regression:**
+- Outcome: Binary (Obese/Not)
+- Models: log odds
+- Interpretation: exp(β) = OR
+
+**Similar principles, different scales**
+
+---
+
+## Preview of Chapter 5
+
+**Coming next: Count outcomes**
+
+- Outcomes: 0, 1, 2, 3, ... (hospitalizations, doctor visits)
+- Models: Poisson, Negative Binomial
+- Link function: log
+- Interpretation: Rate ratios
+
+**Pattern:** Choose model based on outcome type
+
+---
+
+## The Bigger Picture
+
+**Generalized Linear Models (GLMs):**
+
+1. **Linear:** Normal outcomes, identity link
+2. **Logistic:** Binary outcomes, logit link
+3. **Poisson:** Count outcomes, log link
+
+**Common framework:**
+$$g(E(Y|X)) = \beta_0 + \beta_1X_1 + \cdots$$
+
+where g() is the **link function**
+
+---
+
+# Practice Problems
+
+---
+
+## Practice Questions
+
+1. If OR = 2.5 for a treatment effect, can you say patients are "2.5 times more likely" to respond? Why or why not?
+
+2. You fit a logistic regression with AUC = 0.52. What does this mean?
+
+3. When would you prefer high sensitivity over high specificity?
+
+4. Why might separate logistic regressions give different results than multinomial regression?
+
+5. Can you interpret β coefficients from logistic regression the same way as from linear regression?
+
+---
+
+## Worked Example
+
+**Scenario:** Hospital readmission within 30 days
+
+**Model results:**

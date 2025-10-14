@@ -1,0 +1,620 @@
+---
+title: "Lecture 2: Key Statistical Concepts"
+subtitle: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
+author: "Sangsuk Yoon"
+institute: "University of Dayton"
+date: "09/09/2025"
+format: 
+  clean-revealjs:
+    theme: simple # A clean, minimalist theme. Others: dark, solarized, serif, blood
+    css: "../custom.css"
+    slide-number: true # Show slide numbers
+    chalkboard: true # Press 'B' for a chalkboard, 'C' for notes
+    preview-links: auto
+    logo: "../images/ud_bottom_logo.png" # Optional: add a logo
+    footer: "MBA 642 (Spring 2026): Chapter 2" # A footer on every slide
+---
+
+
+## Learning Objectives
+
+By the end of this session, you should be able to:
+
+- Distinguish between populations, samples, and sub-populations
+- Identify appropriate distributions for different healthcare outcomes
+- Explain conditional vs. marginal means
+- Understand overdispersion and between-individual heterogeneity
+- Critically interpret p-values and hypothesis tests
+- Recognize common pitfalls in statistical inference
+
+::: {.notes}
+This chapter provides essential statistical foundations for analyzing healthcare data. Emphasize that healthcare outcomes rarely follow normal distributions, which motivates much of the material.
+:::
+
+---
+
+## Populations and Samples
+
+**Population**: The complete group we want to learn about
+
+- Well-defined (e.g., all Hiroshima atomic bomb survivors who survived 1+ years)
+- Can be hypothetical (e.g., all breast cancer patients who have/will undergo mastectomy)
+
+**Sample**: A subset of the population used for inference
+
+- Random samples enable quantification of uncertainty
+- Many healthcare studies use convenience samples or complete censuses
+
+**Sub-population**: A population subset satisfying specific criteria
+
+- Defined by fixed characteristics (e.g., men under 20 in Hiroshima cohort)
+- Regression models estimate means for sub-populations defined by covariates
+
+::: {.notes}
+Emphasize that representativeness is always a concern, regardless of how samples are obtained. Discuss how this relates to external validity.
+:::
+
+---
+
+## Random Variables in Healthcare
+
+Healthcare outcomes are random variables that vary across individuals:
+
+- **Binary**: Re-admission after surgery (Yes/No)
+- **Categorical**: Treatment type (surgery/radiation/hormonal)
+- **Count**: Number of outpatient visits, prescriptions filled
+- **Continuous**: Medical expenditures, length of stay
+
+**Notation**:
+- Capital letters (X, Y) for generic/theoretical variables
+- Lowercase letters (x, y) for specific observed values
+
+::: {.notes}
+Give concrete examples from students' experience. Ask: What healthcare outcomes have they encountered? What types of variables are these?
+:::
+
+---
+
+## Dependent vs. Independent Variables
+
+**Research Question Determines the Relationship**
+
+- **Dependent variable** (Y): Outcome or response
+- **Independent variable** (X): Predictor or covariate
+
+**Example**: Exercise and insomnia
+
+- Exercise may reduce insomnia → Exercise is X, insomnia is Y
+- Insomnia may reduce exercise ability → Insomnia is X, exercise is Y
+- Both may be true (feedback loop) → Modeling challenge!
+
+**Key principle**: Variables that co-evolve should often both be considered outcomes
+
+::: {.notes}
+Discuss the importance of conceptual models (like Andersen-Newman) in sorting out variable relationships. Medical expenditures and hospitalizations example from the text.
+:::
+
+---
+
+## Statistical Distributions
+
+A distribution describes the probability that a variable takes any value in its range
+
+**For categorical variables**: Finite set of probabilities (sum to 1)
+
+**For continuous variables**: Probability density function (PDF)
+
+- Area under PDF over an interval = probability of value in that interval
+- Cumulative distribution function (CDF) = probability ≤ specified value
+
+**Key summaries**:
+- **Mean** (expected value): Most typical value, influenced by extremes
+- **Median** (50th percentile): Center of distribution, robust to outliers
+
+::: {.notes}
+Healthcare data is often right-skewed, so median may be more representative than mean. Show the MEPS expenditure histogram from Figure 2.1.
+:::
+
+---
+
+## MEPS Total Expenditure Example
+
+![](images/fig2-1.png){fig-align="center"}
+
+- Mean: $18,145
+- Median: $9,664
+- Extreme right skew with long tail
+- Mean > Median indicates right skewness
+
+::: {.notes}
+This is typical of healthcare expenditure data. A few high-cost users drive up the mean substantially above the median.
+:::
+
+---
+
+## Parameters and Models
+
+**Parameters**: Greek letters (μ, σ, α, β) that specify a distribution
+
+- Normal distribution: mean μ, variance σ²
+- Parametric methods: specify family, estimate parameters
+
+**Models**: Assumptions and mathematical specifications for analysis
+
+- Rarely unique - multiple models may address same question
+- Model choice affects both estimates and their standard errors
+- What constitutes a "good model" is a recurring theme
+
+::: {.notes}
+Emphasize that model assumptions matter greatly. Healthcare outcomes often violate normality assumption, motivating specialized distributions.
+:::
+
+---
+
+## Estimation and Inference
+
+**Estimation**: Using sample data to learn about population
+
+- Sample mean estimates population mean
+- Sample median estimates population median
+
+**Statistical Inference**: Using estimates to answer research questions
+
+- Combines estimates with their uncertainty (standard errors)
+- Hypothesis tests are one tool for inference
+
+**Standard Error (SE)**: Quantifies variation over repeated samples
+
+- Higher SE → greater expected variation
+- Decreases with larger sample size
+- Depends on the model used
+
+::: {.notes}
+Different models can yield similar point estimates but very different standard errors, affecting inference. Preview the two-part model discussion from Chapter 6.
+:::
+
+---
+
+## Conditional vs. Marginal Means
+
+**MEPS 2017 Expenditures by Health Status**
+
+| Health Status | % of Sample | Expenditures |
+|--------------|-------------|-------------|
+| Excellent | 34% | $1,957 |
+| Very good | 29% | $3,729 |
+| Good | 25% | $6,183 |
+| Fair | 10% | $11,387 |
+| Poor | 3% | $22,619 |
+
+::: {.notes}
+This table illustrates both conditional and marginal means. Each expenditure is conditional on health status.
+:::
+
+---
+
+## Conditional vs. Marginal Means (cont.)
+
+**Conditional mean**: $E(Y | X = x)$ - mean for specific sub-population
+
+- $E(Y | \text{Excellent}) = \$1,957$
+- $E(Y | \text{Poor}) = \$22,619$
+
+**Marginal mean**: $E(Y)$ - weighted average across all sub-populations
+
+$$E(Y) = 1957(0.34) + 3729(0.29) + 6183(0.25) + 11387(0.10) + 22619(0.03)$$
+$$= \$5,110$$
+
+Lower than highest categories because healthier (lower-cost) people are more common!
+
+::: {.notes}
+This is a crucial concept for regression. Marginal mean averages over the distribution of X. Emphasize that weights matter.
+:::
+
+---
+
+## Bernoulli and Binomial Distributions
+
+**Bernoulli**: Binary outcome (0 or 1)
+
+- Parameter: $p = P(Y = 1)$
+- Mean: $E(Y) = p$
+- Variance: $Var(Y) = p(1-p)$
+- Variance depends on mean!
+
+**Binomial**: Sum of n independent Bernoulli variables
+
+- Parameters: n (number of trials), p (success probability)
+- Mean: $np$
+- Variance: $np(1-p)$
+
+**Example**: Hospital re-admissions after surgery
+
+::: {.notes}
+Binary prediction is a classification problem. Statistical learning has different algorithms for this (Chapter 10). Emphasize that binomial requires independence - clustering violates this.
+:::
+
+---
+
+## Binomial Distribution
+
+![](images/fig2-2.png){fig-align="center"}
+
+Shape depends on both n and p. As n increases, distribution becomes more bell-shaped.
+
+::: {.notes}
+Show how the distribution changes with parameters. When p=0.5 and n is large, it approaches normal distribution (Central Limit Theorem preview).
+:::
+
+---
+
+## Multinomial Distribution
+
+Generalization of binomial for **multiple categories** (K > 2)
+
+**Examples**:
+
+- Treatment choice: surgery/radiation/hormonal (3 unordered categories)
+- Health status: excellent/very good/good/fair/poor (5 ordered categories)
+
+**Parameters**: K-1 independent probabilities (must sum to 1)
+
+**Analysis Goal**: Identify factors predicting probability of each category
+
+- How does diabetes affect $P(Y = k)$ for each health status category k?
+
+::: {.notes}
+Ordered vs. unordered categories require different modeling approaches. Can treat ordered as continuous or use ordinal regression methods.
+:::
+
+---
+
+## Poisson Distribution for Counts
+
+Basic distribution for count data (0, 1, 2, 3, ...)
+
+**Assumptions**:
+- Events occur at constant rate
+- Memoryless (past doesn't affect future probability)
+
+**Parameter**: λ (mean rate)
+
+**Key property**: Mean = Variance = λ
+
+**Highly restrictive** for healthcare data!
+
+::: {.notes}
+Show Figure 2.3. The equal mean-variance assumption is almost always violated in practice. Healthcare counts typically show overdispersion.
+:::
+
+---
+
+## Poisson Distribution
+
+![](images/fig2-3.png){fig-align="center"}
+
+::: {.notes}
+As λ increases, distribution becomes more symmetric and bell-shaped.
+:::
+
+---
+
+## Overdispersion in Healthcare Data
+
+![](images/fig2-4.png){fig-align="center"}
+
+**Observed MEPS outpatient visits** vs. **Simulated Poisson**
+
+- Observed: Mean = 1.5, **Variance = 24** (16× mean!)
+- More zeros and longer right tail than Poisson predicts
+
+::: {.notes}
+This is typical of healthcare utilization data. Poisson assumption is too restrictive. Need alternative models.
+:::
+
+---
+
+## Negative Binomial Distribution
+
+**Accommodates overdispersion**: Variance > Mean
+
+**Mechanism**: Between-individual heterogeneity
+
+- Each person has their own latent "frailty" or "susceptibility"
+- Some rarely seek care (low frailty), others frequently (high frailty)
+- Individual's conditional mean: $\mu r_i$ (where $r_i$ is personal frailty)
+
+**Result**: If frailties follow gamma distribution with mean 1, variance α
+- Marginal distribution of Y is negative binomial
+- Mean: μ
+- Variance: $\mu(1 + \alpha\mu)$ > $\mu$
+
+::: {.notes}
+This latent heterogeneity concept recurs in random effects and frailty models. Emphasize that it's a specific mechanism for overdispersion.
+:::
+
+---
+
+## Normal Distribution
+
+Symmetric, bell-shaped distribution
+
+**Parameters**: mean μ, standard deviation σ
+
+**Key properties**:
+- 67% of observations within 1 SD of mean
+- 95% within 2 SDs
+- Values >2 SDs away are "atypical"
+
+**Standardization**: $Z = (Y - \mu)/\sigma$ has mean 0, SD 1
+
+::: {.notes}
+Show Figure 2.5. Most healthcare outcomes are NOT normal, but the normal is crucial because of the Central Limit Theorem - sample means are approximately normal.
+:::
+
+---
+
+## Normal Distribution
+
+![](images/fig2-5.png){fig-align="center"}
+
+::: {.notes}
+Different σ values show different spreads. The distribution is completely determined by μ and σ.
+:::
+
+---
+
+## Central Limit Theorem
+
+**Key insight**: Even if data are non-normal, **sample means are approximately normal**
+
+- Distribution of sample mean $\bar{Y}$ approaches normal as n increases
+- True regardless of the distribution of Y itself
+- Enables hypothesis testing based on normal approximation
+
+**Crucial distinction**:
+- Population data distribution: Often non-normal in healthcare
+- Sample estimate distribution: Approximately normal
+
+::: {.notes}
+This is why we can use normal-based inference even with skewed healthcare data. But this applies to the sampling distribution of estimates, not the data itself.
+:::
+
+---
+
+## Gamma Distribution
+
+Flexible distribution for **non-negative, continuous, right-skewed** outcomes
+
+**Parameters**: α (shape), β (rate)
+
+- Mean: α/β
+- Variance: α/β²
+
+Can accommodate various shapes from highly skewed to more symmetric
+
+Commonly used for medical expenditures
+
+::: {.notes}
+Show Figure 2.6. The gamma is quite flexible and can match many right-skewed distributions. The variance can be greater or less than the mean.
+:::
+
+---
+
+## Gamma Distribution
+
+![](images/fig2-6.png){fig-align="center"}
+
+::: {.notes}
+As α increases (for fixed β), the distribution becomes more symmetric and bell-shaped.
+:::
+
+---
+
+## Lognormal Distribution
+
+Y has lognormal distribution if **log(Y) has normal distribution**
+
+If $\log(Y) \sim N(\mu, \sigma^2)$, then:
+
+$$E(Y) = \exp\left(\mu + \frac{1}{2}\sigma^2\right) \neq \exp(\mu)$$
+
+**Critical point**: Order of operations matters!
+
+- $E[\log(Y)] \neq \log[E(Y)]$
+- Retransformation is not straightforward
+
+**Usage**: Any log-transformed regression implicitly assumes lognormal outcomes
+
+::: {.notes}
+This retransformation issue is a major challenge in cost regression (Chapter 6). Show Table 2.2 from MEPS data.
+:::
+
+---
+
+## Retransformation Problem
+
+**MEPS 2017 Example**
+
+| Expense Type | Direct Mean | $E[\log(Y)]$ | $\exp\{E[\log(Y)]\}$ |
+|--------------|-------------|--------------|---------------------|
+| Total | $5,995 | 7.27 | $1,433 |
+| Outpatient | $2,767 | 6.59 | $728 |
+| Inpatient | $18,145 | 9.10 | $8,967 |
+
+**Cannot simply exponentiate the mean of logged values!**
+
+Correction factor needed: $\exp(\sigma^2/2)$
+
+::: {.notes}
+This is a common mistake. Emphasize that quantiles (like median) do transform directly, which motivates quantile regression.
+:::
+
+---
+
+## Lognormal Distribution
+
+![](images/fig2-7.png){fig-align="center"}
+
+Right-skewed with heavy right tail, suitable for expenditure data
+
+::: {.notes}
+Different σ values control the degree of skewness. Larger σ → heavier tail.
+:::
+
+---
+
+## Hypothesis Testing Framework
+
+**Purpose**: Reach decision about hypothesis while quantifying error risk
+
+**Structure**:
+- Null hypothesis $H_0$: typically what we want to disprove
+- Alternative $H_A$: what we believe
+- Test statistic from sample data
+- P-value: probability of observed data (or more extreme) if $H_0$ is true
+
+**Decision**:
+- Reject $H_0$ if p-value is small
+- Cannot "accept" $H_0$, only "fail to reject"
+
+::: {.notes}
+Emphasize the one-way nature. Absence of evidence ≠ evidence of absence. This asymmetry is fundamental to the framework.
+:::
+
+---
+
+## What P-values Actually Mean
+
+**P-value**: Probability of observing data as or more extreme than what we saw, **assuming $H_0$ is true**
+
+**Common misconception**: P-value = probability that $H_0$ is true ❌
+
+**Correct interpretation**: P-value quantifies how inconsistent the data are with $H_0$
+
+- Low p-value → data unlikely under $H_0$ → reject $H_0$
+- High p-value → data not inconsistent with $H_0$ → **cannot conclude anything**
+
+::: {.notes}
+This is the most common misinterpretation. P-value is a statement about the data, not about the hypothesis. Many published papers get this wrong.
+:::
+
+---
+
+## Problems with P-value Thresholds
+
+**Traditional "rule"**: p < 0.05 = "statistically significant"
+
+**Problems**:
+
+1. **Large samples**: Trivial effects can have tiny p-values
+   - Effect size ≈ 0 but p < 0.001
+
+2. **Small samples**: Important effects may have large p-values
+   - Low statistical power
+
+3. **Multiple comparisons**: Error rate inflates
+   - 5 tests: P(at least 1 false positive) = 0.23
+   - 10 tests: P(at least 1 false positive) = 0.40
+
+4. **Invites p-hacking**: Manipulation to achieve p < 0.05
+
+::: {.notes}
+ASA statement (2016) and many journals now discourage bright-line thresholds. Focus on effect sizes and confidence intervals instead.
+:::
+
+---
+
+## P-hacking and Researcher Degrees of Freedom
+
+**P-hacking**: Trying multiple analyses until finding p < 0.05
+
+**Methods**:
+- Selective reporting of results
+- Choosing convenient exclusion criteria
+- Dichotomizing continuous variables at chosen cut-points
+- Dropping certain missing data patterns
+- Choosing specific statistical tests
+
+**Solution**: Pre-specify analysis plan, report all analyses conducted
+
+**Best practice**: Focus on effect sizes and practical significance
+
+::: {.notes}
+With large healthcare databases, this is especially tempting and problematic. Reproducibility crisis in science partly stems from this.
+:::
+
+---
+
+## Multiple Comparisons Problem
+
+**Example**: Testing 10 covariates individually for association with expenditures
+
+- Each test at α = 0.05
+- P(at least 1 false positive) = $1 - (0.95)^{10} = 0.40$
+
+**Solutions**:
+
+1. **Bonferroni correction**: Test each at α/k level
+2. **False discovery rate**: Control proportion of false positives
+3. **Pre-specification**: Develop strong conceptual model first
+
+::: {.notes}
+In genomic studies with thousands of tests, this is critical. But even with 5-10 tests, the problem is real. Conceptual models help limit number of tests.
+:::
+
+---
+
+## Best Practices for Inference
+
+**Do**:
+- Report effect sizes with confidence intervals
+- Consider practical significance alongside statistical significance
+- Acknowledge uncertainty in p-values themselves
+- Pre-specify hypotheses when possible
+- Report all analyses conducted
+- Consider multiple comparison adjustments
+
+**Don't**:
+- Treat p = 0.049 differently from p = 0.051
+- Conclude $H_0$ is true from large p-value
+- Interpret p-value as P($H_0$ is true)
+- Hide analyses that didn't achieve p < 0.05
+
+::: {.notes}
+Growing recognition in scientific community of these limitations. Many journals now require pre-registration of analysis plans. Emphasize reproducibility.
+:::
+
+---
+
+## Key Takeaways
+
+1. Healthcare outcomes require specialized distributions (not just normal)
+
+2. Understand overdispersion and between-individual heterogeneity
+
+3. Conditional vs. marginal estimation is fundamental to regression
+
+4. Transformation requires careful retransformation
+
+5. P-values are widely misunderstood - focus on effect sizes
+
+6. Standard errors matter as much as point estimates
+
+7. Model assumptions affect both estimates and inference
+
+::: {.notes}
+These concepts form the foundation for regression methods in subsequent chapters. Emphasize that appropriate distribution choice is driven by outcome type.
+:::
+
+---
+
+## Looking Ahead
+
+**Chapter 3**: Data visualization
+
+
+
+::: {.notes}
+Preview that many of the distributions covered today will have corresponding regression methods. The regression model specifies how the parameters of these distributions depend on covariates.
+:::

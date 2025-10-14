@@ -4,7 +4,7 @@ project:
 
 
 website:
-  title: "business analytics in healthcare management (MBA 642)"
+  title: "Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)"
   navbar:
     left:
       - href: index.qmd
@@ -22,7 +22,7 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: simple
     css: styles.css
     toc: true
 

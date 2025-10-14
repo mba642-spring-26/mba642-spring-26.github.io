@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="Sangsuk Yoon">
-  <meta name="dcterms.date" content="2025-09-23">
-  <title>business analytics in healthcare management (MBA 642) – Lecture 1: Introduction to Class</title>
+  <meta name="dcterms.date" content="2025-09-09">
+  <title>Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026) – Lecture 5: Healthcare Survey Data Analysis</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -29,81 +29,15 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2c1b5f745a11cfad616ebade4a4a7d24.css">
-  <link rel="stylesheet" href="custom.css">
-  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-d2fa9704022b6cc6efe47acf160c0964.css">
+  <link rel="stylesheet" href="../custom.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -193,52 +127,101 @@
   </style>
 </head>
 <body class="quarto-light">
+<script src="_extensions/clean/mathjax-config.js"></script>
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Lecture 1: Introduction to Class</h1>
-  <p class="subtitle">MBA 642: Business Analytics in Healthcare Management</p>
+  <h1 class="title">Lecture 5: Healthcare Survey Data Analysis</h1>
+  <p class="subtitle">MBA 642: Business Analytics in Healthcare Management (Spring 2026)</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
 Sangsuk Yoon 
 </div>
+        <p class="quarto-title-affiliation">
+            University of Dayton
+          </p>
+    </div>
 </div>
-</div>
 
-  <p class="date">2025-09-23</p>
+  <p class="date">September 9, 2025</p>
 </section>
-<section class="slide level2">
-
-<p>https://drganghe.github.io/quarto-academic-site-examples.html</p>
+<section id="learning-objectives" class="slide level2 smaller">
+<h2>Learning Objectives</h2>
+<p>By the end of this session, you will be able to:</p>
+<ol type="1">
+<li>Distinguish between simple random sampling and complex survey designs</li>
+<li>Explain how stratification and clustering affect variance estimation</li>
+<li>Apply survey weights correctly in statistical analysis</li>
+<li>Implement survey-appropriate methods using R</li>
+<li>Interpret results from complex survey data</li>
+</ol>
 </section>
-<section id="welcome" class="slide level2">
-<h2>👋 Welcome!</h2>
-<p>A quick overview of what we’ll cover today:</p>
-<blockquote>
-
+<section id="why-survey-methods-matter" class="slide level2">
+<h2>Why Survey Methods Matter</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>The Problem:</strong></p>
 <ul>
-<li>Course overview and introduction</li>
-<li>Course logistics and syllabus review</li>
+<li>Health surveys rarely use simple random sampling</li>
+<li>Ignoring survey design → <strong>incorrect standard errors</strong></li>
+<li>Wrong inference → poor policy decisions</li>
 </ul>
-
-</blockquote>
-</section>
-<section id="what-is-data-science" class="slide level2">
-<h2>What is Data Science?</h2>
-<p>It’s an interdisciplinary field that uses scientific methods, processes, algorithms, and systems to extract knowledge and insights from data.</p>
-<div class="fragment">
-<p>It’s a combination of:</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Real Example:</strong></p>
 <ul>
-<li>Statistics</li>
-<li>Computer Science</li>
-<li>Domain Knowledge</li>
+<li>NHIS 2015: New diabetes cases declining</li>
+<li>1.7M (2009) → 1.4M (2014)</li>
+<li>How reliable are these estimates?</li>
 </ul>
-</div>
+</div></div>
+</section>
+<section>
+<section id="survey-design-fundamentals" class="title-slide slide level1 center">
+<h1>Survey Design Fundamentals</h1>
+
+</section>
+<section id="three-major-health-surveys" class="slide level2 smaller">
+<h2>Three Major Health Surveys</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 30%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Survey</th>
+<th>Focus</th>
+<th>Design</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>NHIS</strong></td>
+<td>Largest in-person household survey</td>
+<td>Cross-sectional, stratified multi-stage</td>
+</tr>
+<tr class="even">
+<td><strong>NHANES</strong></td>
+<td>Physical exam + blood tests</td>
+<td>Cross-sectional, oversamples minorities</td>
+</tr>
+<tr class="odd">
+<td><strong>MEPS</strong></td>
+<td>Utilization &amp; expenditures</td>
+<td>Longitudinal panel (2 years)</td>
+</tr>
+</tbody>
+</table>
 <aside class="notes">
-<p>Speaker notes go here! Press ‘S’ on your keyboard to open the speaker view in a separate window. This is where you can write reminders for yourself.</p>
+<ul>
+<li>NHIS: ~35,000 households annually</li>
+<li>NHANES: Objective health measures</li>
+<li>MEPS: Links to NHIS households</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -251,95 +234,343 @@ Sangsuk Yoon
           display:block!important;
       }</style></aside>
 </section>
-<section id="two-column-layout" class="slide level2">
-<h2>Two-Column Layout</h2>
+<section id="common-survey-biases" class="slide level2 smaller">
+<h2>Common Survey Biases</h2>
+<p><strong>Three critical threats to validity:</strong></p>
+<ol type="1">
+<li><strong>Non-response bias</strong>: Systematically different responders
+<ul>
+<li>Example: Satisfaction surveys over-represent dissatisfied patients</li>
+</ul></li>
+<li><strong>Recall bias</strong>: Memory linked to outcome
+<ul>
+<li>Cancer recurrence cases may recall treatment details better</li>
+</ul></li>
+<li><strong>Social desirability bias</strong>: Under-reporting sensitive behaviors
+<ul>
+<li>Alcohol use, medication adherence, mask-wearing</li>
+</ul></li>
+</ol>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Survey design and question validation are crucial mitigation strategies</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="stratification" class="title-slide slide level1 center">
+<h1>Stratification</h1>
+
+</section>
+<section id="what-is-stratification" class="slide level2">
+<h2>What is Stratification?</h2>
+<p><strong>Definition</strong>: Partition population into predetermined subgroups (strata), sample independently from each</p>
+<p><strong>Two main objectives:</strong></p>
+<ol type="1">
+<li>Control sample composition</li>
+<li>Reduce variability in results</li>
+</ol>
+</section>
+<section id="stratification-example" class="slide level2 smaller">
+<h2>Stratification Example</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="course-goals">Course Goals</h3>
-<blockquote>
-
+<p><strong>NHIS Strategy:</strong></p>
 <ul>
-<li>Understand the data science workflow</li>
-<li>Learn fundamental programming concepts</li>
-<li>Become proficient in data visualization</li>
-<li>Develop skills for reproducible research</li>
+<li>Geographic strata (states)</li>
+<li>Demographic strata</li>
+<li>Until 2016: oversampled minorities</li>
+<li>2016+: oversampled 10 least populous states</li>
 </ul>
-
-</blockquote>
 </div><div class="column" style="width:50%;">
-<div class="fragment">
-<h3 class="column" width="50%" id="key-tools">Key Tools</h3>
+<p><strong>Why?</strong></p>
 <ul>
-<li><strong>R:</strong> A language for statistical computing</li>
-<li><strong>RStudio:</strong> An IDE for R</li>
-<li><strong>Quarto:</strong> For reporting and presentations (like this one!)</li>
-<li><strong>Git/GitHub:</strong> For version control and collaboration</li>
+<li>Ensure rural areas represented</li>
+<li>Sufficient minority samples</li>
+<li>Enable subgroup analyses</li>
+<li>Improve precision</li>
 </ul>
-</div>
 </div></div>
 </section>
-<section id="including-code" class="slide level2">
-<h2>Including Code</h2>
-<p>We can show code and its output directly in the slides.</p>
-</section>
-<section id="a-simple-calculation-in-r" class="slide level2">
-<h2>A simple calculation in R</h2>
+<section id="stratification-and-variance-reduction" class="slide level2">
+<h2>Stratification and Variance Reduction</h2>
+<p>Consider self-reported health stratified by age:</p>
 <ul>
-<li>Getting the meain of a numeric vector</li>
+<li class="fragment">Health status <strong>declines with age</strong> (between-strata heterogeneity)</li>
+<li class="fragment">Within age groups, more <strong>similar</strong> responses (within-strata homogeneity)</li>
+<li class="fragment">Fixed sampling fractions per stratum → <strong>predictable composition</strong></li>
+<li class="fragment">Result: <strong>Lower variance</strong> than simple random sampling</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="|1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>days_hosptilized <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb1-2"><a></a><span class="fu">mean</span>(days_hosptilized)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.2</code></pre>
-</div>
-</div>
 </section>
-<section id="additional-images" class="slide level2">
-<h2>additional images</h2>
+<section id="mathematical-insight" class="slide level2 smaller">
+<h2>Mathematical Insight</h2>
+<p>For stratified design with <span class="math inline">\(K\)</span> strata:</p>
+<p><span class="math display">\[\text{Var}_{\text{stratified}} = \sum_{i=1}^{K} W_i^2 \sigma_i^2\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(W_i\)</span> = stratum weight (relative size)</li>
+<li><span class="math inline">\(\sigma_i^2\)</span> = within-stratum variance</li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>When strata are homogeneous within and heterogeneous between, variance is <strong>smaller</strong> than simple random sampling</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="clustering" class="title-slide slide level1 center">
+<h1>Clustering</h1>
+
+</section>
+<section id="what-is-clustering" class="slide level2">
+<h2>What is Clustering?</h2>
+<p><strong>Definition</strong>: Sample groups (clusters) together for convenience and cost-efficiency</p>
+<p><strong>Key difference from stratification:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Stratification</th>
+<th>Clustering</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>All strata represented</td>
+<td>Not all clusters sampled</td>
+</tr>
+<tr class="even">
+<td>Known in advance which strata</td>
+<td>Random which clusters</td>
+</tr>
+<tr class="odd">
+<td>Reduces variance</td>
+<td><strong>Increases variance</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clustering-example" class="slide level2 smaller">
+<h2>Clustering Example</h2>
+<p><strong>NHIS Two-Stage Design:</strong></p>
+<ol type="1">
+<li><strong>Primary Sampling Units (PSUs)</strong>: Geographic regions (~400 from ~1900)</li>
+<li><strong>Secondary Sampling Units (SSUs)</strong>: Households within PSUs</li>
+</ol>
+<p><strong>Why cluster?</strong></p>
+<ul>
+<li>In-person interviews → must cluster by location</li>
+<li>Cost efficiency vs.&nbsp;statistical efficiency tradeoff</li>
+</ul>
+</section>
+<section id="why-clustering-increases-variance" class="slide level2">
+<h2>Why Clustering Increases Variance</h2>
 <div class="columns">
-<div class="column" style="text-align: left;">
-<p>With these code, you can add an image</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="sc">:::</span><span class="er">:</span> {.columns}</span>
-<span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a><span class="sc">:::</span> {.column width<span class="ot">=</span><span class="st">"50%"</span> style<span class="ot">=</span><span class="st">"text-align: right;"</span>}</span>
-<span id="cb3-4"><a></a></span>
-<span id="cb3-5"><a></a><span class="sc">!</span>[](.<span class="sc">/</span>images<span class="sc">/</span>ud.jpg){width<span class="ot">=</span><span class="dv">400</span>px}</span>
-<span id="cb3-6"><a></a></span>
-<span id="cb3-7"><a></a><span class="sc">:::</span></span>
-<span id="cb3-8"><a></a></span>
-<span id="cb3-9"><a></a><span class="er">::::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="text-align: right;">
-<p><img data-src="./images/ud_logo2.png" width="400"></p>
+<div class="column" style="width:50%;">
+<p><strong>Intuition:</strong></p>
+<ul>
+<li>Individuals in same cluster are <strong>similar</strong></li>
+<li>Not as much information as independent samples</li>
+<li>Must account for <strong>within-cluster correlation</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Extreme Example:</strong></p>
+<ul>
+<li>Flu shot survey by families</li>
+<li>All family members same behavior</li>
+<li>100 people = only 25 independent observations</li>
+</ul>
 </div></div>
+</section>
+<section id="variance-components" class="slide level2">
+<h2>Variance Components</h2>
+<p>For clustered design:</p>
+<p><span class="math display">\[\text{Var}_{\text{total}} = \text{Var}_{\text{between-cluster}} + \text{Var}_{\text{within-cluster}}\]</span></p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Single-stage clustering: Only between-cluster variance matters (within-cluster variance = 0 if all sampled)</p>
+<p>Two-stage clustering: Both sources contribute</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="survey-weights" class="title-slide slide level1 center">
+<h1>Survey Weights</h1>
+
+</section>
+<section id="why-weights" class="slide level2">
+<h2>Why Weights?</h2>
+<p><strong>The fundamental issue:</strong></p>
+<ul>
+<li>Stratified designs with oversampling are <strong>not population-representative</strong></li>
+<li>Need to reconstruct population composition</li>
+<li>Use <strong>weights</strong> = inverse of sampling probabilities</li>
+</ul>
+</section>
+<section id="understanding-weights" class="slide level2 smaller">
+<h2>Understanding Weights</h2>
+<p><strong>Each weight represents:</strong> Number of population individuals represented by one sample observation</p>
+<p><strong>Example (Maternal &amp; Infant Health Survey):</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Stratum</th>
+<th>Sampling Fraction</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Black mothers, low birthweight</td>
+<td>1/14</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>Non-black mothers, normal birthweight</td>
+<td>1/720</td>
+<td>720</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Someone with weight = 100 represents 100 people in the population</p>
+</div>
+</div>
+</div>
+</section>
+<section id="post-stratification" class="slide level2">
+<h2>Post-Stratification</h2>
+<p><strong>The problem:</strong> Non-response disrupts planned sampling fractions</p>
+<p><strong>The solution:</strong> Adjust weights based on observed response rates</p>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Planned: 320 respondents age &lt;25</li>
+<li>Actual: 256 respondents (80% response)</li>
+<li>Post-stratification multiplier: 5/4 = 1.25</li>
+<li>Adjusted weight = original weight × 1.25</li>
+</ul>
+</section>
+<section id="raking" class="slide level2">
+<h2>Raking</h2>
+<p><strong>When:</strong> Multiple stratification variables</p>
+<p><strong>What:</strong> Iteratively adjust weights so weighted sample matches population on <strong>each margin</strong></p>
+<p><strong>Example:</strong> Maternal &amp; Infant Health Survey - 6 strata: race (2 levels) × birthweight (3 levels) - Raking ensures marginal distributions correct for <strong>both</strong> race <strong>and</strong> birthweight</p>
+</section></section>
+<section>
+<section id="variance-estimation" class="title-slide slide level1 center">
+<h1>Variance Estimation</h1>
+
+</section>
+<section id="the-challenge" class="slide level2 smaller">
+<h2>The Challenge</h2>
+<p>Standard errors must account for:</p>
+<ol type="1">
+<li><strong>Stratification</strong> (reduces variance)</li>
+<li><strong>Clustering</strong> (increases variance)<br>
+</li>
+<li><strong>Weights</strong> (random, data-dependent)</li>
+</ol>
+<p><strong>Key principle:</strong></p>
+<blockquote>
+<p>“Variance measures fluctuation if survey repeated many times in same population”</p>
+</blockquote>
+</section>
+<section id="two-main-approaches" class="slide level2">
+<h2>Two Main Approaches</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>1. Linearization (Delta Method)</strong></p>
+<ul>
+<li>Mathematical approximation</li>
+<li>Taylor series expansion</li>
+<li>Valid in large samples</li>
+<li>Computationally efficient</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>2. Replication Methods</strong></p>
+<ul>
+<li>Create multiple replicate datasets</li>
+<li>Re-estimate on each replicate</li>
+<li>Empirical variance calculation</li>
+<li>Includes: jackknife, bootstrap, balanced repeated replication</li>
+</ul>
+</div></div>
+</section></section>
+<section>
+<section id="practical-analysis-in-r" class="title-slide slide level1 center">
+<h1>Practical Analysis in R</h1>
+
+</section>
+<section id="setting-up-survey-analysis" class="slide level2 smaller">
+<h2>Setting Up Survey Analysis</h2>
+<p>#| echo: true #| eval: false</p>
+<p>library(survey)</p>
+</section></section>
+<section id="specify-survey-design" class="title-slide slide level1 center">
+<h1>Specify survey design</h1>
+<p>design &lt;- svydesign( id = ~VARPSU, # Cluster IDs strata = ~VARSTR, # Strata weights = ~PERWT17F, # Survey weights data = meps_data, nest = TRUE )</p>
+</section>
+
+<section id="for-subpopulation-analysis" class="title-slide slide level1 center">
+<h1>For subpopulation analysis</h1>
+<p>subset_design &lt;- subset(design, AGE &gt;= 18)</p>
 
 
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="./images/ud_logo2.png" class="slide-logo"></p>
+<p><img src="../images/ud_bottom_logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>MBA 642: Business Analytics in Healthcare Management</p>
+<p>MBA 642 (Spring 2026): Chapter 2</p>
 </div>
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -348,7 +579,7 @@ Sangsuk Yoon
       // https://revealjs.com/config/
       Reveal.initialize({
 'controlsAuto': true,
-'previewLinksAuto': false,
+'previewLinksAuto': true,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -509,7 +740,7 @@ Sangsuk Yoon
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -535,44 +766,6 @@ Sangsuk Yoon
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
@@ -621,13 +814,14 @@ Sangsuk Yoon
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
