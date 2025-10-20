@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances. Any changes will be announced in class and posted on the course website.\n\n\n\nWeek\nDate\nTopic\nSlides\nReadings\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\nChapter 1\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, and R-Markdown\n\nChapter 2\nAssignment 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\nAssignment 2\n\n\n4\nFeb 4\nData visualization\n\n- Data Visualization by Keran Healy  - Data visualization using R for Researchers who do not use R\nAssignment 3\n\n\n5\nFeb 11\nMean difference 1: t-test\n\nChapter 9\nAssignment 4\n\n\n6\nFeb 18\nMean difference 2: ANOVA\n\n-\nAssignment 5\n\n\n7\nFeb 25\nBivariate relationship\n\n-\nAssignment 6\n\n\n8\nMar 4\nLinear regression analysis 1\n\nChapter 3\nAssignment 7\n\n\n9\nMar 11\nLinear regression analysis 2\n\nChapter 4\nAssignment 8\n\n\n10\nMar 18\nSpring break (no class)\n.\n-\n\n\n\n11\nMar 25\nLogistic regression analysis\n\nChapter 5\nAssignment 9\n\n\n12\nApr 1\nCount data analysis\n\n-\nAssignment 10\n\n\n13\nApr 8\nCluster analysis\n\nChapter 8\nAssignment 11\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\n\nChapter 10\n\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\n\nChapter 10\nAssignment 12\n\n\n16\nApr 29\nFinal Exam\n\n\n\n\n\n\nb1: Statistics for Health Data Science: An Organic Approach\nb2: Statistical Analytics for Health Data Science with SAS and R"
+    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances. Any changes will be announced in class and posted on the course website.\n\n\n\nWeek\nDate\nTopic\nSlides\nReadings\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\nb1Chapter 1\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, and R-Markdown\n\nb1Chapter 2\nAssignment 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\nAssignment 2\n\n\n4\nFeb 4\nData visualization\n\n- Data Visualization by Keran Healy  - Data visualization using R for Researchers who do not use R\nAssignment 3\n\n\n5\nFeb 11\nMean difference 1: t-test\n\nChapter 9\nAssignment 4\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n\n-\nAssignment 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n\n-\nAssignment 6\n\n\n8\nMar 4\nBivariate relationship\n\nChapter 3\nAssignment 7\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n-\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n\nChapter 5\nAssignment 8\n\n\n12\nApr 1\nLogistic regression analysis\n\nChapter 5\nAssignment 9\n\n\n13\nApr 8\nCount data analysis\n\nChapter 8\nAssignment 10\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\n\nChapter 10\nAssignment 11\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\n\nChapter 10\nAssignment 12\n\n\n16\nApr 29\nFinal Exam\n\n\n\n\n\n\nb1: Statistics for Health Data Science: An Organic Approach\nb2: Statistical Analytics for Health Data Science with SAS and R"
   },
   {
     "objectID": "lectures/Lecture14/class_14_Predictive_Analysis1.html#learning-objectives",
@@ -1890,11 +1890,11 @@
     "text": "R and R-Studio:\nThis course utilizes R and R-Studio as the primary analytical tools. R is a powerful, open-source programming language specifically designed for statistical data analysis, widely used in both academia and industry for analytics. R-Studio is an integrated development environment (IDE) that makes R programming more accessible and efficient through its user-friendly interface, offering features such as data visualization, code editing, debugging, and project management capabilities. Students will learn to use these tools to analyze healthcare data, create visualizations, develop statistical models, and generate reports. You can download R and R-Studio from the following links:\n\nR: https://www.r-project.org\nR-Studio: https://posit.co/downloads/"
   },
   {
-    "objectID": "syllabus.html#assignments-60-of-final-grade-12-assignments-5-each",
-    "href": "syllabus.html#assignments-60-of-final-grade-12-assignments-5-each",
+    "objectID": "syllabus.html#assignments-50-of-final-grade-12-assignments",
+    "href": "syllabus.html#assignments-50-of-final-grade-12-assignments",
     "title": "syllabus",
-    "section": "Assignments: 60% of final grade (12 assignments; 5% each)",
-    "text": "Assignments: 60% of final grade (12 assignments; 5% each)\nThere will be 12 assignments. Each of the 12 assignments requires students to apply analytical methods learned in class to new healthcare data analytics scenarios. Assignments are due weekly by Sunday at 11:59 PM."
+    "section": "Assignments: 50% of final grade (12 assignments)",
+    "text": "Assignments: 50% of final grade (12 assignments)\nThere will be 12 assignments. Each of the 12 assignments requires students to apply the analytical methods learned in class to new healthcare data analytics scenarios. Assignments are due weekly by Sunday at 11:59 PM."
   },
   {
     "objectID": "syllabus.html#class-participation-10-of-final-grade",
@@ -1904,18 +1904,25 @@
     "text": "Class Participation: 10% of final grade\nClass participation will be evaluated through attendance tracking and participation in class activities. After each class, students will be asked to submit their work on Canvas, and the submissions will be used for class participation and attendance grading. The deadline for class activity submissions is within 30 minutes after class ends (e.g., for a class ending at 12:00 PM, submissions are due by 12:30 PM)."
   },
   {
-    "objectID": "syllabus.html#final-exam-30-of-final-grade",
-    "href": "syllabus.html#final-exam-30-of-final-grade",
+    "objectID": "syllabus.html#midterm-exam-20-of-final-grade",
+    "href": "syllabus.html#midterm-exam-20-of-final-grade",
     "title": "syllabus",
-    "section": "Final Exam: 30% of final grade",
-    "text": "Final Exam: 30% of final grade\nThere will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class. The exam will be during regular class time.\nFinal course letter grades will be assigned as follows:\n\n\n\nLetter Grade\nQuality Points\nPercentage Range\n\n\n\n\nA\n4.000\n93 - 100\n\n\nA-\n3.667\n90 - 92.99\n\n\nB+\n3.333\n87 - 89.99\n\n\nB\n3.000\n83 - 86.99\n\n\nB-\n2.667\n80 - 82.99\n\n\nC\n2.000\n70 - 79.99\n\n\nF\n0.000\n0 - 69.99"
+    "section": "Midterm Exam: 20% of final grade",
+    "text": "Midterm Exam: 20% of final grade\nThere will be a midterm exam in Week 9 of the semester. The exam will cover topics covered from Week 1 through Week 8. The exam will be online, and students need to complete within 24 hours."
+  },
+  {
+    "objectID": "syllabus.html#final-exam-20-of-final-grade",
+    "href": "syllabus.html#final-exam-20-of-final-grade",
+    "title": "syllabus",
+    "section": "Final Exam: 20% of final grade",
+    "text": "Final Exam: 20% of final grade\nThere will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class. The exam will be online, and students need to complete within 24 hours.\nFinal course letter grades will be assigned as follows:\n\n\n\nLetter Grade\nQuality Points\nPercentage Range\n\n\n\n\nA\n4.000\n93 - 100\n\n\nA-\n3.667\n90 - 92.99\n\n\nB+\n3.333\n87 - 89.99\n\n\nB\n3.000\n83 - 86.99\n\n\nB-\n2.667\n80 - 82.99\n\n\nC\n2.000\n70 - 79.99\n\n\nF\n0.000\n0 - 69.99"
   },
   {
     "objectID": "syllabus.html#attendance-policy",
     "href": "syllabus.html#attendance-policy",
     "title": "syllabus",
     "section": "Attendance Policy:",
-    "text": "Attendance Policy:\nThis course is delivered in-person and attendance is required. An attendance sheet will be circulated each class session for students to sign, documenting their presence."
+    "text": "Attendance Policy:\nThis course is delivered online and attendance is required. An attendance sheet will be circulated each class session for students to sign, documenting their presence."
   },
   {
     "objectID": "syllabus.html#classroom-etiquette",
@@ -2919,6 +2926,13 @@
     "text": "Lab Exercise\nDataset: NHANES 2015-2016\nTask: 1. Fit regression model for BMI with age, sex, race 2. Check assumptions with diagnostic plots 3. Test for age-sex interaction 4. Interpret all coefficients 5. Report R² and discuss what it means"
   },
   {
+    "objectID": "lectures/Lecture01/Lecture1.html#meet-the-prof",
+    "href": "lectures/Lecture01/Lecture1.html#meet-the-prof",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "Meet the prof",
+    "text": "Meet the prof\n\n\n - Sangsuk Yoon, Ph.D.  - Associate professor of Marketing  - Office: MH 703  - Email: syoon1@udayton.edu"
+  },
+  {
     "objectID": "lectures/Lecture01/Lecture1.html#learning-objectives",
     "href": "lectures/Lecture01/Lecture1.html#learning-objectives",
     "title": "Lecture 1: Introduction to Class",
@@ -2926,11 +2940,11 @@
     "text": "Learning Objectives\nBy the end of this session, you will be able to:\n\nUnderstand the role and importance of analytics in healthcare\nDifferentiate between hypothesis-driven and predictive analytics approaches\nIdentify major types of healthcare data sources\nRecognize strengths and limitations of different data types\nApply the concept of “organic statistics” to health data analysis"
   },
   {
-    "objectID": "lectures/Lecture01/Lecture1.html#motivating-examples",
-    "href": "lectures/Lecture01/Lecture1.html#motivating-examples",
+    "objectID": "lectures/Lecture01/Lecture1.html#examples",
+    "href": "lectures/Lecture01/Lecture1.html#examples",
     "title": "Lecture 1: Introduction to Class",
-    "section": "Motivating Examples",
-    "text": "Motivating Examples\n\n\nBlood Pressure Study\n\n400,000 Kaiser Permanente patients\nTaking hypertension medication\nFinding: Lower BP linked to higher mortality risk\nChallenges “more is better” assumption\n\n\nBlood Sugar Study\n\n33 million beneficiaries\nHospital admissions for hypoglycemia increased over time\nExceeded hyperglycemia admissions\nQuestions aggressive diabetes treatment\n\n\n\n\n\n\n\n\nImportant\n\n\nThese studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems"
+    "section": "Examples",
+    "text": "Examples\n\n\nBlood Pressure Study\n\n400,000 Kaiser Permanente patients\nTaking hypertension medication\nFinding: Lower BP linked to higher mortality risk\nChallenges “more is better” assumption\n\n\nBlood Sugar Study\n\n33 million beneficiaries\nHospital admissions for hypoglycemia increased over time\nExceeded hyperglycemia admissions\nQuestions aggressive diabetes treatment\n\n\n\n\n\n\n\n\n\nImportant\n\n\nThese studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#the-healthcare-data-revolution",
@@ -2966,13 +2980,6 @@
     "title": "Lecture 1: Introduction to Class",
     "section": "The Andersen-Newman Model",
     "text": "The Andersen-Newman Model\nA conceptual framework for health services utilization:\n\n\nConceptual models guide which factors to include/exclude in statistical models.\n\ne.g.,) In examining hypotheses concerning the link between physical activity and health care costs,\n\nwe would consider including predisposing factors (age, gender),\nbut should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model."
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#health-outcomes-non-normal-data",
-    "href": "lectures/Lecture01/Lecture1.html#health-outcomes-non-normal-data",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Health Outcomes: Non-Normal Data",
-    "text": "Health Outcomes: Non-Normal Data\n\n\nChallenge: Healthcare outcomes rarely follow normal distribution\n\nHighly right-skewed\nLong right tail\nMany zero values\nExample: Medical expenditures\n\n\nSolutions in This Course:\n\nGeneralized linear models\nOverdispersed data models\nTransformation approaches\nTwo-part regression models"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#paradigm-2-predictive-analytics",
@@ -3024,25 +3031,11 @@
     "text": "Claims Coding Systems\n\n\nDiagnosis Codes\n\nICD-9 → ICD-10 (2015)\nExpanded from ~13,000 to 68,000+ codes\nExample: E11.65 = Type 2 diabetes with hyperglycemia\n\n\nProcedure Codes\n\nICD-10 for inpatient procedures\nCPT for outpatient services\nHCPCS includes non-physician services\n\nAmbulance rides\nMedical equipment\nPrescription drugs"
   },
   {
-    "objectID": "lectures/Lecture01/Lecture1.html#claims-data-strengths",
-    "href": "lectures/Lecture01/Lecture1.html#claims-data-strengths",
+    "objectID": "lectures/Lecture01/Lecture1.html#claims-data-strengths-and-limitations",
+    "href": "lectures/Lecture01/Lecture1.html#claims-data-strengths-and-limitations",
     "title": "Lecture 1: Introduction to Class",
-    "section": "Claims Data: Strengths",
-    "text": "Claims Data: Strengths\n\nRich information on healthcare utilization\nObjective documentation of care delivered\nLarge sample sizes available\nLongitudinal tracking (while enrolled)\nMultiple dimensions: diagnoses, procedures, medications, costs\nResearch value despite not designed for research"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#claims-data-limitations",
-    "href": "lectures/Lecture01/Lecture1.html#claims-data-limitations",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Claims Data: Limitations",
-    "text": "Claims Data: Limitations\n\nOnly insured patients represented\nOnly covered services included\nIncomplete information (e.g., no OTC drugs)\nMissing data when coverage lapses or patient switches payers\nLimited socio-demographics at individual level\nNo health status measurements or test results\nVariable coding practices across coders/facilities\nBilling incentives may skew documentation\n\n\n\n\n\n\n\nWarning\n\n\nCritical: Claims underascertain conditions; sensitivity/specificity limited for nuanced populations"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#real-world-example-covid-19-testing-bills",
-    "href": "lectures/Lecture01/Lecture1.html#real-world-example-covid-19-testing-bills",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Real-World Example: COVID-19 Testing Bills",
-    "text": "Real-World Example: COVID-19 Testing Bills\nSame service, dramatically different billing:\n\nCash payment: $199\nInsurance billing: $6,408\n\n\n\n\n\n\n\nImportant\n\n\nAnalyze claims with awareness of billing incentives that may skew recorded care patterns"
+    "section": "Claims Data: Strengths and Limitations",
+    "text": "Claims Data: Strengths and Limitations\n\n\nStrengths:\n\nRich information on healthcare utilization\nObjective documentation of care delivered\nLarge sample sizes available\nLongitudinal tracking (while enrolled)\nMultiple dimensions: diagnoses, procedures, medications, costs\nResearch value despite not designed for research\n\n\nLimitations:\n\nOnly insured patients represented\nOnly covered services included\nIncomplete information (e.g., no OTC drugs)\nMissing data when coverage lapses or patient switches payers\nLimited socio-demographics at individual level\nNo health status measurements or test results\nVariable coding practices across coders/facilities\nBilling incentives may skew documentation"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#accessing-claims-data",
@@ -3064,13 +3057,6 @@
     "title": "Lecture 1: Introduction to Class",
     "section": "Medical Records: Unique Advantages",
     "text": "Medical Records: Unique Advantages\n\nComplete patient coverage (insured and uninsured)\nHealth status measurements (BP, lab values, etc.)\nDiagnostic test results enable studies impossible with claims alone\nUnstructured data provide rich clinical context\nReal-time prediction potential for alerts and risk stratification\nProcess of care understanding\nEffectiveness research in real-world settings\n\n\n\n\n\n\n\nNote\n\n\nExample: Kaiser blood pressure study required actual BP measurements, not just diagnosis codes"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#medical-records-five-quality-metrics",
-    "href": "lectures/Lecture01/Lecture1.html#medical-records-five-quality-metrics",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Medical Records: Five Quality Metrics",
-    "text": "Medical Records: Five Quality Metrics\nWeiskopf and Weng Framework:\n\nCompleteness: Are all required fields populated?\nCorrectness: Is the information accurate?\nConcordance: Does it agree with other sources?\nPlausibility: Does it make clinical sense?\nCurrency: Is the information timely?\n\n\n\n\n\n\n\nWarning\n\n\nData quality must be assessed before analysis!"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#medical-records-key-challenges",
@@ -3199,20 +3185,6 @@
     "text": "Matching Questions to Data Sources\nKey Principle: Match research question to data resource most likely to provide valid answer\n\n\n\nResearch Need\nBest Data Source\n\n\n\n\nHealth status measurements\nMedical records, NHANES\n\n\nHealthcare costs\nClaims, MEPS\n\n\nHealth behaviors\nSurveys\n\n\nDisease incidence\nRegistries\n\n\nTreatment patterns\nClaims, Records\n\n\nPopulation prevalence\nSurveys, Registries"
   },
   {
-    "objectID": "lectures/Lecture01/Lecture1.html#whats-ahead-in-this-course",
-    "href": "lectures/Lecture01/Lecture1.html#whats-ahead-in-this-course",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "What’s Ahead in This Course",
-    "text": "What’s Ahead in This Course\nChapter 2: Statistical background and hypothesis testing\nChapter 3: Linear regression with emphasis on conceptual models\nChapter 4: Binary and categorical outcomes\nChapter 5: Count data and overdispersion\nChapter 6: Skewed cost data and two-part models\nChapter 7: Resampling and bootstrapping\nChapter 8: Causality and causal inference\nChapter 9: Survey design and analysis\nChapter 10: Predictive modeling and statistical learning"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#course-philosophy",
-    "href": "lectures/Lecture01/Lecture1.html#course-philosophy",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Course Philosophy",
-    "text": "Course Philosophy\n\nOrganic understanding: Build concepts naturally and logically\nReal data, real questions: Use publicly available health datasets\nMultiple perspectives: Both traditional and modern approaches\nPractical skills: Hands-on experience with health data analytics\nCritical thinking: Understand assumptions and limitations\nReproducible research: R code available on GitHub"
-  },
-  {
     "objectID": "lectures/Lecture01/Lecture1.html#key-datasets-well-use",
     "href": "lectures/Lecture01/Lecture1.html#key-datasets-well-use",
     "title": "Lecture 1: Introduction to Class",
@@ -3227,39 +3199,11 @@
     "text": "Summary: Core Concepts\n\nHealthcare analytics is transforming the industry through data-driven decision making\nTwo analytical paradigms serve different purposes:\n\nHypothesis-driven for understanding mechanism\nPredictive for forecasting and risk stratification\n\nFour major data sources each with unique strengths and limitations:\n\nClaims, Records, Surveys, Registries\n\nData quality matters: Understand data-generating process\nMatch question to data source for valid inference"
   },
   {
-    "objectID": "lectures/Lecture01/Lecture1.html#summary-the-organic-statistics-mindset",
-    "href": "lectures/Lecture01/Lecture1.html#summary-the-organic-statistics-mindset",
+    "objectID": "lectures/Lecture01/Lecture1.html#next-class",
+    "href": "lectures/Lecture01/Lecture1.html#next-class",
     "title": "Lecture 1: Introduction to Class",
-    "section": "Summary: The Organic Statistics Mindset",
-    "text": "Summary: The Organic Statistics Mindset\n\nStatistics is a pipeline, not a recipe book\nUnderstanding why and how is as important as knowing what\nNew concepts should build naturally on existing knowledge\nAlways consider assumptions and limitations\nContext matters: Same data, different questions require different approaches"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#looking-forward",
-    "href": "lectures/Lecture01/Lecture1.html#looking-forward",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Looking Forward",
-    "text": "Looking Forward\nNext Session: Chapter 2 - Statistical Foundations\n\nReview of probability and distributions\nHypothesis testing framework\nP-values and confidence intervals\nPower and sample size\nMultiple comparisons\n\n\n\n\n\n\n\nTip\n\n\nPreparation: Review basic probability concepts and refresh your R skills"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#discussion-questions",
-    "href": "lectures/Lecture01/Lecture1.html#discussion-questions",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Discussion Questions",
-    "text": "Discussion Questions\n\nWhen would you choose a predictive approach over a hypothesis-driven approach in healthcare?\nWhat are the ethical implications of using administrative data (not designed for research) for research purposes?\nHow might billing incentives in claims data affect research findings?\nWhy is the concept of “organic statistics” important for health data scientists?\nWhat complementary data sources might you combine to answer a question about diabetes management?"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#resources-and-references",
-    "href": "lectures/Lecture01/Lecture1.html#resources-and-references",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Resources and References",
-    "text": "Resources and References\nTextbook: [Insert your textbook information]\nGitHub Repository: [Insert repository URL] - R code for all examples - Data download scripts - Additional resources\nKey References:\n\nWeiskopf & Weng (2013): Data quality assessment\nAndersen-Newman model: Conceptual framework for utilization\nMEPS, NHIS, NHANES documentation"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#questions",
-    "href": "lectures/Lecture01/Lecture1.html#questions",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Questions?",
-    "text": "Questions?\nOffice Hours: [Insert your office hours]\nEmail: [Insert your email]\nCourse Website: [Insert URL]\n\n\n\n\n\n\nNote\n\n\nAll slides and code will be posted after class"
+    "section": "Next Class",
+    "text": "Next Class\nNext Session: Week 2: Basic Statistical Concepts\n\nReview of probability and distributions\nHypothesis testing framework\nP-values and confidence intervals\n\n\n\n\n\n\n\nTip\n\n\nPreparation: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class."
   },
   {
     "objectID": "lectures/Lecture15/class_15_Predictive_Analysis2.html#learning-objectives",
@@ -3722,33 +3666,5 @@
     "title": "Lecture 2: Key Statistical Concepts",
     "section": "Looking Ahead",
     "text": "Looking Ahead\nChapter 3: Data visualization\n\nPreview that many of the distributions covered today will have corresponding regression methods. The regression model specifies how the parameters of these distributions depend on covariates."
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#meet-the-prof",
-    "href": "lectures/Lecture01/Lecture1.html#meet-the-prof",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Meet the prof",
-    "text": "Meet the prof\n\n\n - Sangsuk Yoon, Ph.D.  - Associate professor of Marketing  - Office: MH 703  - Email: syoon1@udayton.edu"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#examples",
-    "href": "lectures/Lecture01/Lecture1.html#examples",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Examples",
-    "text": "Examples\n\n\nBlood Pressure Study\n\n400,000 Kaiser Permanente patients\nTaking hypertension medication\nFinding: Lower BP linked to higher mortality risk\nChallenges “more is better” assumption\n\n\nBlood Sugar Study\n\n33 million beneficiaries\nHospital admissions for hypoglycemia increased over time\nExceeded hyperglycemia admissions\nQuestions aggressive diabetes treatment\n\n\n\n\n\n\n\n\n\nImportant\n\n\nThese studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#claims-data-strengths-and-limitations",
-    "href": "lectures/Lecture01/Lecture1.html#claims-data-strengths-and-limitations",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Claims Data: Strengths and Limitations",
-    "text": "Claims Data: Strengths and Limitations\n\n\nStrengths:\n\nRich information on healthcare utilization\nObjective documentation of care delivered\nLarge sample sizes available\nLongitudinal tracking (while enrolled)\nMultiple dimensions: diagnoses, procedures, medications, costs\nResearch value despite not designed for research\n\n\nLimitations:\n\nOnly insured patients represented\nOnly covered services included\nIncomplete information (e.g., no OTC drugs)\nMissing data when coverage lapses or patient switches payers\nLimited socio-demographics at individual level\nNo health status measurements or test results\nVariable coding practices across coders/facilities\nBilling incentives may skew documentation"
-  },
-  {
-    "objectID": "lectures/Lecture01/Lecture1.html#next-class",
-    "href": "lectures/Lecture01/Lecture1.html#next-class",
-    "title": "Lecture 1: Introduction to Class",
-    "section": "Next Class",
-    "text": "Next Class\nNext Session: Week 2: Basic Statistical Concepts\n\nReview of probability and distributions\nHypothesis testing framework\nP-values and confidence intervals\n\n\n\n\n\n\n\nTip\n\n\nPreparation: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class."
   }
 ]
