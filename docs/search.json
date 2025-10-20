@@ -2965,7 +2965,7 @@
     "href": "lectures/Lecture01/Lecture1.html#the-statistical-analysis-pipeline",
     "title": "Lecture 1: Introduction to Class",
     "section": "The Statistical Analysis Pipeline",
-    "text": "The Statistical Analysis Pipeline\n\n\n\n\n\nflowchart LR\n    A[Research Question] --&gt; B[Mathematical Model]\n    B --&gt; C[Data Collection]\n    C --&gt; D[Model Fitting & Learning]\n    D --&gt; E[Interpretation]\n    E --&gt; F[Answer & Impact]\n    F -.-&gt; A\n    style A fill:#e1f5ff\n    style F fill:#ffe1e1\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\nStatistics is not just about model fitting—it’s the entire pipeline linking questions to answers through data"
+    "text": "The Statistical Analysis Pipeline\n\n\n\n\n\n\n\nTip\n\n\nStatistics is not just about model fitting—it’s the entire pipeline linking questions to answers through data"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#paradigm-1-hypothesis-driven-traditional",

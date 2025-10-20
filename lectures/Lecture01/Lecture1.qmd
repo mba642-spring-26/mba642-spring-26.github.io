@@ -126,18 +126,7 @@ These studies demonstrate how large database analyses can both raise questions a
 
 ## The Statistical Analysis Pipeline
 
-```{mermaid}
-%%| fig-width: 10
-flowchart LR
-    A[Research Question] --> B[Mathematical Model]
-    B --> C[Data Collection]
-    C --> D[Model Fitting & Learning]
-    D --> E[Interpretation]
-    E --> F[Answer & Impact]
-    F -.-> A
-    style A fill:#e1f5ff
-    style F fill:#ffe1e1
-```
+![](images/fig3.png){fig-align="center"}
 
 ::: callout-tip
 Statistics is not just about model fitting—it's the entire pipeline linking questions to answers through data
