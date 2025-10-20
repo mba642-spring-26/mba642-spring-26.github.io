@@ -15,6 +15,25 @@ format:
     footer: "MBA 642 (Spring 2026): Chapter 1" # A footer on every slide
 ---
 
+# Welcome to MBA 642: Business Analytics in Healthcare Management! {background-color="#40666e"}
+
+------------------------------------------------------------------------
+
+## Meet the prof
+
+:::::: columns
+::: {.column width="50%"}
+</br> - [Sangsuk Yoon](https://ssyoon.github.io){target="_blank"}, Ph.D. </br></br> - Associate professor of Marketing </br></br> - Office: MH 703 </br></br> - Email: syoon1\@udayton.edu
+:::
+
+::: {.column width="20%"}
+:::
+
+::: {.column width="30%"}
+![](../images/prof_image.jpeg){fig-alt="Headshot of Dr. Sangsuk Yoon" width="300" height="300" style="border-radius: 50%; object-fit: cover;"}
+:::
+::::::
+
 ## Learning Objectives {.smaller}
 
 By the end of this session, you will be able to:
@@ -29,10 +48,10 @@ By the end of this session, you will be able to:
 
 # Introduction: The Power of Health Data Analytics {background-color="#40666e"}
 
-## Motivating Examples {.smaller}
+## Examples {.smaller}
 
 ::::: columns
-::: {.column width="50%"}
+::: {.column .fragment width="50%"}
 **Blood Pressure Study**
 
 -   400,000 Kaiser Permanente patients
@@ -41,7 +60,7 @@ By the end of this session, you will be able to:
 -   Challenges "more is better" assumption
 :::
 
-::: {.column width="50%"}
+::: {.column .fragment width="50%"}
 **Blood Sugar Study**
 
 -   33 million beneficiaries
@@ -50,6 +69,8 @@ By the end of this session, you will be able to:
 -   Questions aggressive diabetes treatment
 :::
 :::::
+
+<br><br><br>
 
 ::: callout-important
 These studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems
@@ -73,9 +94,11 @@ These studies demonstrate how large database analyses can both raise questions a
 
 ------------------------------------------------------------------------
 
-# What is Statistics? Moving Beyond Recipes
+# What is Statistics? Moving Beyond Recipes {background-color="#40666e"}
 
 ## Traditional View vs. Organic Statistics {.smaller}
+
+**Statistics** is how we make sense of the world through data.
 
 ::::: columns
 ::: {.column width="50%"}
@@ -122,7 +145,7 @@ Statistics is not just about model fitting—it's the entire pipeline linking qu
 
 ------------------------------------------------------------------------
 
-# Two Paradigms in Health Analytics
+# Two Paradigms in Health Analytics {background-color="#40666e"}
 
 ## Paradigm 1: Hypothesis-Driven (Traditional) {.smaller}
 
@@ -147,65 +170,16 @@ Statistics is not just about model fitting—it's the entire pipeline linking qu
 
 A conceptual framework for health services utilization:
 
-:::::: columns
-::: {.column width="33%"}
-**Predisposing Factors**
+![](images/fig1.png){fig-align="center"}
 
--   Demographics
-    -   Age, sex, marital status
--   Social structure
-    -   Education, race/ethnicity
--   Beliefs
-    -   Attitudes toward health services
+:::{.fragment .incremental}
+Conceptual models guide which factors to include/exclude in statistical models.
+
+- e.g.,) In examining hypotheses concerning the link between physical activity and health care costs,
+  - we would consider including predisposing factors (age, gender), 
+  - but should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model.
 :::
 
-::: {.column width="33%"}
-**Enabling Factors**
-
--   Family resources
-    -   Income, insurance
--   Community resources
-    -   Usual source of care
-    -   Access to care
-:::
-
-::: {.column width="33%"}
-**Need Factors**
-
--   Perceived need
-    -   Self-reported health status
--   Evaluated need
-    -   Diagnosis of chronic illness
-:::
-::::::
-
-::: callout-note
-Conceptual models guide which factors to include/exclude in statistical models
-:::
-
-------------------------------------------------------------------------
-
-## Health Outcomes: Non-Normal Data {.smaller}
-
-::::: columns
-::: {.column width="50%"}
-**Challenge**: Healthcare outcomes rarely follow normal distribution
-
--   Highly right-skewed
--   Long right tail
--   Many zero values
--   Example: Medical expenditures
-:::
-
-::: {.column width="50%"}
-**Solutions in This Course**:
-
--   Generalized linear models
--   Overdispersed data models
--   Transformation approaches
--   Two-part regression models
-:::
-:::::
 
 ------------------------------------------------------------------------
 
@@ -223,7 +197,8 @@ Conceptual models guide which factors to include/exclude in statistical models
 :::
 
 ::: callout-caution
-**Limitation**: Cannot identify specific factors for intervention, even with superior predictive performance
+## Limitations
+Cannot identify specific factors for intervention, even with superior predictive performance
 :::
 
 ------------------------------------------------------------------------
@@ -273,7 +248,7 @@ Conceptual models guide which factors to include/exclude in statistical models
 
 ------------------------------------------------------------------------
 
-# Types of Healthcare Data
+# Types of Healthcare Data {background-color="#40666e"}
 
 ## Overview: Administrative vs. Non-Administrative {.smaller}
 
@@ -305,20 +280,8 @@ Conceptual models guide which factors to include/exclude in statistical models
 
 ## Data Categories by Source
 
-| Category           | Claims | Records | Surveys | Registries |
-|--------------------|--------|---------|---------|------------|
-| Socio-demographics | ●      | ●       | ●       | ●          |
-| Medical histories  | ●      | ●       | ●       | ●          |
-| Hospitalizations   | ●      | ●       | ●       | \-         |
-| Outpatient care    | ●      | ●       | ●       | \-         |
-| Expenditures       | ●      | ●       | \-      | \-         |
-| Health behaviors   | \-     | \-      | ●       | \-         |
-| Procedures         | ●      | ●       | ●       | \-         |
-| Test results       | \-     | ●       | ●       | \-         |
+![](images/fig2.png){fig-align="center"}
 
-::: aside
-● indicates high reliability/comprehensiveness; - indicates low/unavailable
-:::
 
 ------------------------------------------------------------------------
 
@@ -364,9 +327,13 @@ Conceptual models guide which factors to include/exclude in statistical models
 
 ------------------------------------------------------------------------
 
-## Claims Data: Strengths {.smaller}
+## Claims Data: Strengths and Limitations {.smaller}
 
+::::: columns
+::: {.column width="50%"}
 ::: incremental
+**Strengths:**
+
 1.  **Rich information** on healthcare utilization
 2.  **Objective documentation** of care delivered
 3.  **Large sample sizes** available
@@ -374,38 +341,24 @@ Conceptual models guide which factors to include/exclude in statistical models
 5.  **Multiple dimensions**: diagnoses, procedures, medications, costs
 6.  **Research value** despite not designed for research
 :::
+:::
 
-------------------------------------------------------------------------
-
-## Claims Data: Limitations {.smaller}
-
+::: {.column width="50%"}
 ::: incremental
--   **Only insured patients** represented
--   **Only covered services** included
--   **Incomplete information** (e.g., no OTC drugs)
--   **Missing data** when coverage lapses or patient switches payers
--   **Limited socio-demographics** at individual level
--   **No health status measurements** or test results
--   **Variable coding practices** across coders/facilities
--   **Billing incentives** may skew documentation
+**Limitations:**
+
+1.   **Only insured patients** represented
+2.  **Only covered services** included
+3.  **Incomplete information** (e.g., no OTC drugs)
+4.  **Missing data** when coverage lapses or patient switches payers
+5.  **Limited socio-demographics** at individual level
+6.  **No health status measurements** or test results
+7.  **Variable coding practices** across coders/facilities
+8.  **Billing incentives** may skew documentation
 :::
-
-::: callout-warning
-**Critical**: Claims underascertain conditions; sensitivity/specificity limited for nuanced populations
 :::
+:::::
 
-------------------------------------------------------------------------
-
-## Real-World Example: COVID-19 Testing Bills
-
-Same service, dramatically different billing:
-
--   **Cash payment**: \$199
--   **Insurance billing**: \$6,408
-
-::: callout-important
-Analyze claims with awareness of billing incentives that may skew recorded care patterns
-:::
 
 ------------------------------------------------------------------------
 
@@ -468,21 +421,6 @@ Analyze claims with awareness of billing incentives that may skew recorded care 
 Example: Kaiser blood pressure study required actual BP measurements, not just diagnosis codes
 :::
 
-------------------------------------------------------------------------
-
-## Medical Records: Five Quality Metrics {.smaller}
-
-**Weiskopf and Weng Framework:**
-
-1.  **Completeness**: Are all required fields populated?
-2.  **Correctness**: Is the information accurate?
-3.  **Concordance**: Does it agree with other sources?
-4.  **Plausibility**: Does it make clinical sense?
-5.  **Currency**: Is the information timely?
-
-::: callout-warning
-Data quality must be assessed before analysis!
-:::
 
 ------------------------------------------------------------------------
 
@@ -608,7 +546,7 @@ All three use complex sampling designs with stratification, clustering, and weig
 -   **Actual expenditures** from providers
 
 ::: callout-tip
-**Course Note**: Many examples in this book use MEPS data
+**Course Note**: Many examples in our class examples use MEPS data
 :::
 
 ------------------------------------------------------------------------
@@ -828,42 +766,6 @@ Understand which individuals are represented in each data source and interpret r
 | Treatment patterns         | Claims, Records         |
 | Population prevalence      | Surveys, Registries     |
 
-------------------------------------------------------------------------
-
-# Course Overview and Roadmap
-
-## What's Ahead in This Course {.smaller}
-
-**Chapter 2**: Statistical background and hypothesis testing
-
-**Chapter 3**: Linear regression with emphasis on conceptual models
-
-**Chapter 4**: Binary and categorical outcomes
-
-**Chapter 5**: Count data and overdispersion
-
-**Chapter 6**: Skewed cost data and two-part models
-
-**Chapter 7**: Resampling and bootstrapping
-
-**Chapter 8**: Causality and causal inference
-
-**Chapter 9**: Survey design and analysis
-
-**Chapter 10**: Predictive modeling and statistical learning
-
-------------------------------------------------------------------------
-
-## Course Philosophy {.smaller}
-
-::: incremental
--   **Organic understanding**: Build concepts naturally and logically
--   **Real data, real questions**: Use publicly available health datasets
--   **Multiple perspectives**: Both traditional and modern approaches
--   **Practical skills**: Hands-on experience with health data analytics
--   **Critical thinking**: Understand assumptions and limitations
--   **Reproducible research**: R code available on GitHub
-:::
 
 ------------------------------------------------------------------------
 
@@ -898,80 +800,18 @@ Understand which individuals are represented in each data source and interpret r
 
 5.  **Match question to data source** for valid inference
 
-------------------------------------------------------------------------
-
-## Summary: The Organic Statistics Mindset {.smaller}
-
-::: incremental
--   Statistics is a **pipeline**, not a recipe book
--   Understanding **why** and **how** is as important as knowing **what**
--   New concepts should build **naturally** on existing knowledge
--   Always consider **assumptions and limitations**
--   **Context matters**: Same data, different questions require different approaches
-:::
 
 ------------------------------------------------------------------------
 
-## Looking Forward {.smaller}
+## Next Class {.smaller}
 
-**Next Session: Chapter 2 - Statistical Foundations**
+**Next Session: Week 2: Basic Statistical Concepts**
 
 -   Review of probability and distributions
 -   Hypothesis testing framework
 -   P-values and confidence intervals
--   Power and sample size
--   Multiple comparisons
 
 ::: callout-tip
-**Preparation**: Review basic probability concepts and refresh your R skills
+**Preparation**: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class.
 :::
 
-------------------------------------------------------------------------
-
-## Discussion Questions {.smaller}
-
-1.  When would you choose a predictive approach over a hypothesis-driven approach in healthcare?
-
-2.  What are the ethical implications of using administrative data (not designed for research) for research purposes?
-
-3.  How might billing incentives in claims data affect research findings?
-
-4.  Why is the concept of "organic statistics" important for health data scientists?
-
-5.  What complementary data sources might you combine to answer a question about diabetes management?
-
-------------------------------------------------------------------------
-
-## Resources and References {.smaller}
-
-**Textbook**: \[Insert your textbook information\]
-
-**GitHub Repository**: \[Insert repository URL\] - R code for all examples - Data download scripts - Additional resources
-
-**Key References**:
-
--   Weiskopf & Weng (2013): Data quality assessment
--   Andersen-Newman model: Conceptual framework for utilization
--   MEPS, NHIS, NHANES documentation
-
-------------------------------------------------------------------------
-
-## Questions?
-
-**Office Hours**: \[Insert your office hours\]
-
-**Email**: \[Insert your email\]
-
-**Course Website**: \[Insert URL\]
-
-::: callout-note
-All slides and code will be posted after class
-:::
-
-------------------------------------------------------------------------
-
-# Thank You!
-
-**Next Class**: Chapter 2 - Key statistical concepts
-
-**Homework**: tba

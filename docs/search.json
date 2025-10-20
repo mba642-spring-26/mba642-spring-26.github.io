@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances. Any changes will be announced in class and posted on the course website.\n\n\n\nWeek\nDate\nTopic\nSlides\nReadings\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\nChapter 1\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, and R-Markdown\n\nChapter 2\nAssignment 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\nAssignment 2\n\n\n4\nFeb 4\nData visualization\n\n- Data Visualization by Keran Healy  - Data visualization using R for Researchers who do not use R\nAssignment 3\n\n\n5\nFeb 11\nHealthcare survey data analysis\n\nChapter 9\nAssignment 4\n\n\n6\nFeb 18\nMean difference\n\n-\nAssignment 5\n\n\n7\nFeb 25\nBivariate relationship\n\n-\nAssignment 6\n\n\n8\nMar 4\nLinear regression analysis\n\nChapter 3\nAssignment 7\n\n\n9\nMar 11\nLogistic regression analysis\n\nChapter 4\nAssignment 8\n\n\n10\nMar 18\nSpring break (no class)\n.\n-\n\n\n\n11\nMar 25\nCount data analysis\n\nChapter 5\nAssignment 9\n\n\n12\nApr 1\nCluster analysis\n\n-\nAssignment 10\n\n\n13\nApr 8\nCausal inference in healthcare\n\nChapter 8\nAssignment 11\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\n\nChapter 10\n\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\n\nChapter 10\nAssignment 12\n\n\n16\nApr 29\nFinal Exam"
+    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances. Any changes will be announced in class and posted on the course website.\n\n\n\nWeek\nDate\nTopic\nSlides\nReadings\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\nChapter 1\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, and R-Markdown\n\nChapter 2\nAssignment 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\nAssignment 2\n\n\n4\nFeb 4\nData visualization\n\n- Data Visualization by Keran Healy  - Data visualization using R for Researchers who do not use R\nAssignment 3\n\n\n5\nFeb 11\nMean difference 1: t-test\n\nChapter 9\nAssignment 4\n\n\n6\nFeb 18\nMean difference 2: ANOVA\n\n-\nAssignment 5\n\n\n7\nFeb 25\nBivariate relationship\n\n-\nAssignment 6\n\n\n8\nMar 4\nLinear regression analysis 1\n\nChapter 3\nAssignment 7\n\n\n9\nMar 11\nLinear regression analysis 2\n\nChapter 4\nAssignment 8\n\n\n10\nMar 18\nSpring break (no class)\n.\n-\n\n\n\n11\nMar 25\nLogistic regression analysis\n\nChapter 5\nAssignment 9\n\n\n12\nApr 1\nCount data analysis\n\n-\nAssignment 10\n\n\n13\nApr 8\nCluster analysis\n\nChapter 8\nAssignment 11\n\n\n14\nApr 15\nPredictive analytics 1: Penalized Regression\n\nChapter 10\n\n\n\n15\nApr 22\nPredictive analytics 2: Decision Trees\n\nChapter 10\nAssignment 12\n\n\n16\nApr 29\nFinal Exam\n\n\n\n\n\n\nb1: Statistics for Health Data Science: An Organic Approach\nb2: Statistical Analytics for Health Data Science with SAS and R"
   },
   {
     "objectID": "lectures/Lecture14/class_14_Predictive_Analysis1.html#learning-objectives",
@@ -1873,14 +1873,14 @@
     "href": "syllabus.html#course-website",
     "title": "syllabus",
     "section": "Course Website:",
-    "text": "Course Website:"
+    "text": "Course Website:\n\nCourse Materials will be posted here: https://mba642-spring-26.github.io\nAssignments will be submitted through Canvas."
   },
   {
-    "objectID": "syllabus.html#textbook",
-    "href": "syllabus.html#textbook",
+    "objectID": "syllabus.html#textbooks",
+    "href": "syllabus.html#textbooks",
     "title": "syllabus",
-    "section": "Textbook:",
-    "text": "Textbook:\n“Statistics for Data Science: An Organic Approach”\n“Statistical Analytics for Health Data Science with SAS and R”"
+    "section": "Textbooks:",
+    "text": "Textbooks:\nTwo textbooks are required for this course. Both books are available for free through the University of Dayton library.\n\n“Statistics for Health Data Science: An Organic Approach”\n\n\nAuthors: Ruth Etzioni, Micha Mandel, and Roman Gulati\nISBN: 978-3-030-59888-4\nThis book is freely available through UD library\n\n\n“Statistical Analytics for Health Data Science with SAS and R”\n\n\nAuthors: Jeffrey Willson, Ding-Geng Chen, and Karl E. Peace\nISBN: 978-1-032-32569-9\nThis book is freely available through UD library\n\n\nOther Helpful Books and Readings:\n\n“R for Data Science” (available for free online)\n\n\nAuthors: Hadley Wickham and Garrett Grolemund\nThis book is freely available online\n\n\n“Introduction to Modern Statistics”\n\n\nAuthors: Mine Çetinkaya-Rundel and Jeffrey S. Simonoff\nThis book is freely available online"
   },
   {
     "objectID": "syllabus.html#r-and-r-studio",
@@ -2944,7 +2944,7 @@
     "href": "lectures/Lecture01/Lecture1.html#traditional-view-vs.-organic-statistics",
     "title": "Lecture 1: Introduction to Class",
     "section": "Traditional View vs. Organic Statistics",
-    "text": "Traditional View vs. Organic Statistics\n\n\nStatistics as Recipes ❌\n\nCollection of methods\nPick the right recipe for data\nFocus on model fitting\nSoftware-driven approach\nMechanical application\n\n\nOrganic Statistics ✅\n\nUnderstanding that grows naturally\nKnow why AND how methods work\nQuestion → Data → Answer → Impact\nLogical progression of concepts\nClear understanding of assumptions"
+    "text": "Traditional View vs. Organic Statistics\nStatistics is how we make sense of the world through data.\n\n\nStatistics as Recipes ❌\n\nCollection of methods\nPick the right recipe for data\nFocus on model fitting\nSoftware-driven approach\nMechanical application\n\n\nOrganic Statistics ✅\n\nUnderstanding that grows naturally\nKnow why AND how methods work\nQuestion → Data → Answer → Impact\nLogical progression of concepts\nClear understanding of assumptions"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#the-statistical-analysis-pipeline",
@@ -2965,7 +2965,7 @@
     "href": "lectures/Lecture01/Lecture1.html#the-andersen-newman-model",
     "title": "Lecture 1: Introduction to Class",
     "section": "The Andersen-Newman Model",
-    "text": "The Andersen-Newman Model\nA conceptual framework for health services utilization:\n\n\nPredisposing Factors\n\nDemographics\n\nAge, sex, marital status\n\nSocial structure\n\nEducation, race/ethnicity\n\nBeliefs\n\nAttitudes toward health services\n\n\n\nEnabling Factors\n\nFamily resources\n\nIncome, insurance\n\nCommunity resources\n\nUsual source of care\nAccess to care\n\n\n\nNeed Factors\n\nPerceived need\n\nSelf-reported health status\n\nEvaluated need\n\nDiagnosis of chronic illness\n\n\n\n\n\n\n\n\n\nNote\n\n\nConceptual models guide which factors to include/exclude in statistical models"
+    "text": "The Andersen-Newman Model\nA conceptual framework for health services utilization:\n\n\nConceptual models guide which factors to include/exclude in statistical models.\n\ne.g.,) In examining hypotheses concerning the link between physical activity and health care costs,\n\nwe would consider including predisposing factors (age, gender),\nbut should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model."
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#health-outcomes-non-normal-data",
@@ -2979,7 +2979,7 @@
     "href": "lectures/Lecture01/Lecture1.html#paradigm-2-predictive-analytics",
     "title": "Lecture 1: Introduction to Class",
     "section": "Paradigm 2: Predictive Analytics",
-    "text": "Paradigm 2: Predictive Analytics\nGoal: Learn patterns that optimize prediction accuracy\n\nFocus on prediction, not mechanism\nMinimize distance between observed and predicted outcomes\nOften uses algorithmic “black box” methods\nMay not be mathematically describable\nLess structured, fewer assumptions\nDoes not support causal inference\n\n\n\n\n\n\n\nCaution\n\n\nLimitation: Cannot identify specific factors for intervention, even with superior predictive performance"
+    "text": "Paradigm 2: Predictive Analytics\nGoal: Learn patterns that optimize prediction accuracy\n\nFocus on prediction, not mechanism\nMinimize distance between observed and predicted outcomes\nOften uses algorithmic “black box” methods\nMay not be mathematically describable\nLess structured, fewer assumptions\nDoes not support causal inference\n\n\n\n\n\n\n\nLimitations\n\n\nCannot identify specific factors for intervention, even with superior predictive performance"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#case-study-heritage-provider-network-prize",
@@ -3007,7 +3007,7 @@
     "href": "lectures/Lecture01/Lecture1.html#data-categories-by-source",
     "title": "Lecture 1: Introduction to Class",
     "section": "Data Categories by Source",
-    "text": "Data Categories by Source\n\n\n\nCategory\nClaims\nRecords\nSurveys\nRegistries\n\n\n\n\nSocio-demographics\n●\n●\n●\n●\n\n\nMedical histories\n●\n●\n●\n●\n\n\nHospitalizations\n●\n●\n●\n-\n\n\nOutpatient care\n●\n●\n●\n-\n\n\nExpenditures\n●\n●\n-\n-\n\n\nHealth behaviors\n-\n-\n●\n-\n\n\nProcedures\n●\n●\n●\n-\n\n\nTest results\n-\n●\n●\n-\n\n\n\n\n\n● indicates high reliability/comprehensiveness; - indicates low/unavailable"
+    "text": "Data Categories by Source"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#what-are-medical-claims",
@@ -3112,7 +3112,7 @@
     "href": "lectures/Lecture01/Lecture1.html#meps-medical-expenditure-panel-survey",
     "title": "Lecture 1: Introduction to Class",
     "section": "MEPS: Medical Expenditure Panel Survey",
-    "text": "MEPS: Medical Expenditure Panel Survey\nUnique Features:\n\nSubsample of NHIS households\nLongitudinal: 5 interviews over 2 years\nDetailed utilization and expenditure data\nLinks to medical providers and health records\n\nRich Content:\n\nNHIS variables (demographics, behaviors)\nDetailed insurance information\nInpatient/outpatient/Rx utilization\nActual expenditures from providers\n\n\n\n\n\n\n\nTip\n\n\nCourse Note: Many examples in this book use MEPS data"
+    "text": "MEPS: Medical Expenditure Panel Survey\nUnique Features:\n\nSubsample of NHIS households\nLongitudinal: 5 interviews over 2 years\nDetailed utilization and expenditure data\nLinks to medical providers and health records\n\nRich Content:\n\nNHIS variables (demographics, behaviors)\nDetailed insurance information\nInpatient/outpatient/Rx utilization\nActual expenditures from providers\n\n\n\n\n\n\n\nTip\n\n\nCourse Note: Many examples in our class examples use MEPS data"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#survey-data-complex-sampling-design",
@@ -3722,5 +3722,33 @@
     "title": "Lecture 2: Key Statistical Concepts",
     "section": "Looking Ahead",
     "text": "Looking Ahead\nChapter 3: Data visualization\n\nPreview that many of the distributions covered today will have corresponding regression methods. The regression model specifies how the parameters of these distributions depend on covariates."
+  },
+  {
+    "objectID": "lectures/Lecture01/Lecture1.html#meet-the-prof",
+    "href": "lectures/Lecture01/Lecture1.html#meet-the-prof",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "Meet the prof",
+    "text": "Meet the prof\n\n\n - Sangsuk Yoon, Ph.D.  - Associate professor of Marketing  - Office: MH 703  - Email: syoon1@udayton.edu"
+  },
+  {
+    "objectID": "lectures/Lecture01/Lecture1.html#examples",
+    "href": "lectures/Lecture01/Lecture1.html#examples",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "Examples",
+    "text": "Examples\n\n\nBlood Pressure Study\n\n400,000 Kaiser Permanente patients\nTaking hypertension medication\nFinding: Lower BP linked to higher mortality risk\nChallenges “more is better” assumption\n\n\nBlood Sugar Study\n\n33 million beneficiaries\nHospital admissions for hypoglycemia increased over time\nExceeded hyperglycemia admissions\nQuestions aggressive diabetes treatment\n\n\n\n\n\n\n\n\n\nImportant\n\n\nThese studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems"
+  },
+  {
+    "objectID": "lectures/Lecture01/Lecture1.html#claims-data-strengths-and-limitations",
+    "href": "lectures/Lecture01/Lecture1.html#claims-data-strengths-and-limitations",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "Claims Data: Strengths and Limitations",
+    "text": "Claims Data: Strengths and Limitations\n\n\nStrengths:\n\nRich information on healthcare utilization\nObjective documentation of care delivered\nLarge sample sizes available\nLongitudinal tracking (while enrolled)\nMultiple dimensions: diagnoses, procedures, medications, costs\nResearch value despite not designed for research\n\n\nLimitations:\n\nOnly insured patients represented\nOnly covered services included\nIncomplete information (e.g., no OTC drugs)\nMissing data when coverage lapses or patient switches payers\nLimited socio-demographics at individual level\nNo health status measurements or test results\nVariable coding practices across coders/facilities\nBilling incentives may skew documentation"
+  },
+  {
+    "objectID": "lectures/Lecture01/Lecture1.html#next-class",
+    "href": "lectures/Lecture01/Lecture1.html#next-class",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "Next Class",
+    "text": "Next Class\nNext Session: Week 2: Basic Statistical Concepts\n\nReview of probability and distributions\nHypothesis testing framework\nP-values and confidence intervals\n\n\n\n\n\n\n\nTip\n\n\nPreparation: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class."
   }
 ]

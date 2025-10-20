@@ -151,6 +151,22 @@ Sangsuk Yoon
 
   <p class="date">September 9, 2025</p>
 </section>
+<section>
+<section id="welcome-to-mba-642-business-analytics-in-healthcare-management" class="title-slide slide level1 center" data-background-color="#40666e">
+<h1>Welcome to MBA 642: Business Analytics in Healthcare Management!</h1>
+
+</section>
+<section id="meet-the-prof" class="slide level2">
+<h2>Meet the prof</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br> - <a href="https://ssyoon.github.io" target="_blank">Sangsuk Yoon</a>, Ph.D.&nbsp;<br><br> - Associate professor of Marketing <br><br> - Office: MH 703 <br><br> - Email: syoon1@udayton.edu</p>
+</div><div class="column" style="width:20%;">
+
+</div><div class="column" style="width:30%;">
+<p><img data-src="../images/prof_image.jpeg" style="border-radius: 50%; object-fit: cover;" alt="Headshot of Dr. Sangsuk Yoon" width="300" height="300"></p>
+</div></div>
+</section>
 <section id="learning-objectives" class="slide level2 smaller">
 <h2>Learning Objectives</h2>
 <p>By the end of this session, you will be able to:</p>
@@ -164,16 +180,16 @@ Sangsuk Yoon
 </section>
 <section class="slide level2">
 
-</section>
+</section></section>
 <section>
 <section id="introduction-the-power-of-health-data-analytics" class="title-slide slide level1 center" data-background-color="#40666e">
 <h1>Introduction: The Power of Health Data Analytics</h1>
 
 </section>
-<section id="motivating-examples" class="slide level2 smaller">
-<h2>Motivating Examples</h2>
+<section id="examples" class="slide level2 smaller">
+<h2>Examples</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column fragment" style="width:50%;">
 <p><strong>Blood Pressure Study</strong></p>
 <ul>
 <li>400,000 Kaiser Permanente patients</li>
@@ -181,7 +197,7 @@ Sangsuk Yoon
 <li>Finding: Lower BP linked to higher mortality risk</li>
 <li>Challenges “more is better” assumption</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</div><div class="column fragment" style="width:50%;">
 <p><strong>Blood Sugar Study</strong></p>
 <ul>
 <li>33 million beneficiaries</li>
@@ -190,6 +206,7 @@ Sangsuk Yoon
 <li>Questions aggressive diabetes treatment</li>
 </ul>
 </div></div>
+<p><br><br><br></p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -231,12 +248,13 @@ Sangsuk Yoon
 
 </section></section>
 <section>
-<section id="what-is-statistics-moving-beyond-recipes" class="title-slide slide level1 center">
+<section id="what-is-statistics-moving-beyond-recipes" class="title-slide slide level1 center" data-background-color="#40666e">
 <h1>What is Statistics? Moving Beyond Recipes</h1>
 
 </section>
 <section id="traditional-view-vs.-organic-statistics" class="slide level2 smaller">
 <h2>Traditional View vs.&nbsp;Organic Statistics</h2>
+<p><strong>Statistics</strong> is how we make sense of the world through data.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Statistics as Recipes</strong> ❌</p>
@@ -298,7 +316,7 @@ Sangsuk Yoon
 
 </section></section>
 <section>
-<section id="two-paradigms-in-health-analytics" class="title-slide slide level1 center">
+<section id="two-paradigms-in-health-analytics" class="title-slide slide level1 center" data-background-color="#40666e">
 <h1>Two Paradigms in Health Analytics</h1>
 
 </section>
@@ -330,83 +348,17 @@ Sangsuk Yoon
 <section id="the-andersen-newman-model" class="slide level2 smaller">
 <h2>The Andersen-Newman Model</h2>
 <p>A conceptual framework for health services utilization:</p>
-<div class="columns">
-<div class="column" style="width:33%;">
-<p><strong>Predisposing Factors</strong></p>
+
+<img data-src="images/fig1.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<p>Conceptual models guide which factors to include/exclude in statistical models.</p>
 <ul>
-<li>Demographics
+<li class="fragment">e.g.,) In examining hypotheses concerning the link between physical activity and health care costs,
 <ul>
-<li>Age, sex, marital status</li>
-</ul></li>
-<li>Social structure
-<ul>
-<li>Education, race/ethnicity</li>
-</ul></li>
-<li>Beliefs
-<ul>
-<li>Attitudes toward health services</li>
+<li class="fragment">we would consider including predisposing factors (age, gender),</li>
+<li class="fragment">but should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model.</li>
 </ul></li>
 </ul>
-</div><div class="column" style="width:33%;">
-<p><strong>Enabling Factors</strong></p>
-<ul>
-<li>Family resources
-<ul>
-<li>Income, insurance</li>
-</ul></li>
-<li>Community resources
-<ul>
-<li>Usual source of care</li>
-<li>Access to care</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:33%;">
-<p><strong>Need Factors</strong></p>
-<ul>
-<li>Perceived need
-<ul>
-<li>Self-reported health status</li>
-</ul></li>
-<li>Evaluated need
-<ul>
-<li>Diagnosis of chronic illness</li>
-</ul></li>
-</ul>
-</div></div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>Conceptual models guide which factors to include/exclude in statistical models</p>
-</div>
-</div>
-</div>
-</section>
-<section id="health-outcomes-non-normal-data" class="slide level2 smaller">
-<h2>Health Outcomes: Non-Normal Data</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Challenge</strong>: Healthcare outcomes rarely follow normal distribution</p>
-<ul>
-<li>Highly right-skewed</li>
-<li>Long right tail</li>
-<li>Many zero values</li>
-<li>Example: Medical expenditures</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p><strong>Solutions in This Course</strong>:</p>
-<ul>
-<li>Generalized linear models</li>
-<li>Overdispersed data models</li>
-<li>Transformation approaches</li>
-<li>Two-part regression models</li>
-</ul>
-</div></div>
 </section>
 <section id="paradigm-2-predictive-analytics" class="slide level2 smaller">
 <h2>Paradigm 2: Predictive Analytics</h2>
@@ -425,10 +377,10 @@ Sangsuk Yoon
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Caution</strong></p>
+<p><strong>Limitations</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Limitation</strong>: Cannot identify specific factors for intervention, even with superior predictive performance</p>
+<p>Cannot identify specific factors for intervention, even with superior predictive performance</p>
 </div>
 </div>
 </div>
@@ -485,7 +437,7 @@ Sangsuk Yoon
 
 </section></section>
 <section>
-<section id="types-of-healthcare-data" class="title-slide slide level1 center">
+<section id="types-of-healthcare-data" class="title-slide slide level1 center" data-background-color="#40666e">
 <h1>Types of Healthcare Data</h1>
 
 </section>
@@ -516,79 +468,8 @@ Sangsuk Yoon
 </section>
 <section id="data-categories-by-source" class="slide level2">
 <h2>Data Categories by Source</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Category</th>
-<th>Claims</th>
-<th>Records</th>
-<th>Surveys</th>
-<th>Registries</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Socio-demographics</td>
-<td>●</td>
-<td>●</td>
-<td>●</td>
-<td>●</td>
-</tr>
-<tr class="even">
-<td>Medical histories</td>
-<td>●</td>
-<td>●</td>
-<td>●</td>
-<td>●</td>
-</tr>
-<tr class="odd">
-<td>Hospitalizations</td>
-<td>●</td>
-<td>●</td>
-<td>●</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>Outpatient care</td>
-<td>●</td>
-<td>●</td>
-<td>●</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>Expenditures</td>
-<td>●</td>
-<td>●</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>Health behaviors</td>
-<td>-</td>
-<td>-</td>
-<td>●</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>Procedures</td>
-<td>●</td>
-<td>●</td>
-<td>●</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>Test results</td>
-<td>-</td>
-<td>●</td>
-<td>●</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
 
-<aside><div>
-<p>● indicates high reliability/comprehensiveness; - indicates low/unavailable</p>
-</div></aside></section>
+<img data-src="images/fig2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section class="slide level2">
 
 </section></section>
@@ -633,8 +514,11 @@ Sangsuk Yoon
 </ul>
 </div></div>
 </section>
-<section id="claims-data-strengths" class="slide level2 smaller">
-<h2>Claims Data: Strengths</h2>
+<section id="claims-data-strengths-and-limitations" class="slide level2 smaller">
+<h2>Claims Data: Strengths and Limitations</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Strengths:</strong></p>
 <ol type="1">
 <li class="fragment"><strong>Rich information</strong> on healthcare utilization</li>
 <li class="fragment"><strong>Objective documentation</strong> of care delivered</li>
@@ -643,10 +527,9 @@ Sangsuk Yoon
 <li class="fragment"><strong>Multiple dimensions</strong>: diagnoses, procedures, medications, costs</li>
 <li class="fragment"><strong>Research value</strong> despite not designed for research</li>
 </ol>
-</section>
-<section id="claims-data-limitations" class="slide level2 smaller">
-<h2>Claims Data: Limitations</h2>
-<ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Limitations:</strong></p>
+<ol type="1">
 <li class="fragment"><strong>Only insured patients</strong> represented</li>
 <li class="fragment"><strong>Only covered services</strong> included</li>
 <li class="fragment"><strong>Incomplete information</strong> (e.g., no OTC drugs)</li>
@@ -655,41 +538,8 @@ Sangsuk Yoon
 <li class="fragment"><strong>No health status measurements</strong> or test results</li>
 <li class="fragment"><strong>Variable coding practices</strong> across coders/facilities</li>
 <li class="fragment"><strong>Billing incentives</strong> may skew documentation</li>
-</ul>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Warning</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>Critical</strong>: Claims underascertain conditions; sensitivity/specificity limited for nuanced populations</p>
-</div>
-</div>
-</div>
-</section>
-<section id="real-world-example-covid-19-testing-bills" class="slide level2">
-<h2>Real-World Example: COVID-19 Testing Bills</h2>
-<p>Same service, dramatically different billing:</p>
-<ul>
-<li><strong>Cash payment</strong>: $199</li>
-<li><strong>Insurance billing</strong>: $6,408</li>
-</ul>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p>Analyze claims with awareness of billing incentives that may skew recorded care patterns</p>
-</div>
-</div>
-</div>
+</ol>
+</div></div>
 </section>
 <section id="accessing-claims-data" class="slide level2 smaller">
 <h2>Accessing Claims Data</h2>
@@ -757,30 +607,6 @@ Sangsuk Yoon
 </div>
 <div class="callout-content">
 <p>Example: Kaiser blood pressure study required actual BP measurements, not just diagnosis codes</p>
-</div>
-</div>
-</div>
-</section>
-<section id="medical-records-five-quality-metrics" class="slide level2 smaller">
-<h2>Medical Records: Five Quality Metrics</h2>
-<p><strong>Weiskopf and Weng Framework:</strong></p>
-<ol type="1">
-<li><strong>Completeness</strong>: Are all required fields populated?</li>
-<li><strong>Correctness</strong>: Is the information accurate?</li>
-<li><strong>Concordance</strong>: Does it agree with other sources?</li>
-<li><strong>Plausibility</strong>: Does it make clinical sense?</li>
-<li><strong>Currency</strong>: Is the information timely?</li>
-</ol>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Warning</strong></p>
-</div>
-<div class="callout-content">
-<p>Data quality must be assessed before analysis!</p>
 </div>
 </div>
 </div>
@@ -920,7 +746,7 @@ Sangsuk Yoon
 <p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Course Note</strong>: Many examples in this book use MEPS data</p>
+<p><strong>Course Note</strong>: Many examples in our class examples use MEPS data</p>
 </div>
 </div>
 </div>
@@ -1184,37 +1010,6 @@ Sangsuk Yoon
 </tbody>
 </table>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="course-overview-and-roadmap" class="title-slide slide level1 center">
-<h1>Course Overview and Roadmap</h1>
-
-</section>
-<section id="whats-ahead-in-this-course" class="slide level2 smaller">
-<h2>What’s Ahead in This Course</h2>
-<p><strong>Chapter 2</strong>: Statistical background and hypothesis testing</p>
-<p><strong>Chapter 3</strong>: Linear regression with emphasis on conceptual models</p>
-<p><strong>Chapter 4</strong>: Binary and categorical outcomes</p>
-<p><strong>Chapter 5</strong>: Count data and overdispersion</p>
-<p><strong>Chapter 6</strong>: Skewed cost data and two-part models</p>
-<p><strong>Chapter 7</strong>: Resampling and bootstrapping</p>
-<p><strong>Chapter 8</strong>: Causality and causal inference</p>
-<p><strong>Chapter 9</strong>: Survey design and analysis</p>
-<p><strong>Chapter 10</strong>: Predictive modeling and statistical learning</p>
-</section>
-<section id="course-philosophy" class="slide level2 smaller">
-<h2>Course Philosophy</h2>
-<ul>
-<li class="fragment"><strong>Organic understanding</strong>: Build concepts naturally and logically</li>
-<li class="fragment"><strong>Real data, real questions</strong>: Use publicly available health datasets</li>
-<li class="fragment"><strong>Multiple perspectives</strong>: Both traditional and modern approaches</li>
-<li class="fragment"><strong>Practical skills</strong>: Hands-on experience with health data analytics</li>
-<li class="fragment"><strong>Critical thinking</strong>: Understand assumptions and limitations</li>
-<li class="fragment"><strong>Reproducible research</strong>: R code available on GitHub</li>
-</ul>
-</section>
 <section id="key-datasets-well-use" class="slide level2 smaller">
 <h2>Key Datasets We’ll Use</h2>
 <p><strong>Primary Dataset</strong>: MEPS (Medical Expenditure Panel Survey)</p>
@@ -1250,25 +1045,13 @@ Sangsuk Yoon
 <li><p><strong>Match question to data source</strong> for valid inference</p></li>
 </ol>
 </section>
-<section id="summary-the-organic-statistics-mindset" class="slide level2 smaller">
-<h2>Summary: The Organic Statistics Mindset</h2>
-<ul>
-<li class="fragment">Statistics is a <strong>pipeline</strong>, not a recipe book</li>
-<li class="fragment">Understanding <strong>why</strong> and <strong>how</strong> is as important as knowing <strong>what</strong></li>
-<li class="fragment">New concepts should build <strong>naturally</strong> on existing knowledge</li>
-<li class="fragment">Always consider <strong>assumptions and limitations</strong></li>
-<li class="fragment"><strong>Context matters</strong>: Same data, different questions require different approaches</li>
-</ul>
-</section>
-<section id="looking-forward" class="slide level2 smaller">
-<h2>Looking Forward</h2>
-<p><strong>Next Session: Chapter 2 - Statistical Foundations</strong></p>
+<section id="next-class" class="slide level2 smaller">
+<h2>Next Class</h2>
+<p><strong>Next Session: Week 2: Basic Statistical Concepts</strong></p>
 <ul>
 <li>Review of probability and distributions</li>
 <li>Hypothesis testing framework</li>
 <li>P-values and confidence intervals</li>
-<li>Power and sample size</li>
-<li>Multiple comparisons</li>
 </ul>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -1279,61 +1062,13 @@ Sangsuk Yoon
 <p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Preparation</strong>: Review basic probability concepts and refresh your R skills</p>
+<p><strong>Preparation</strong>: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class.</p>
 </div>
 </div>
 </div>
-</section>
-<section id="discussion-questions" class="slide level2 smaller">
-<h2>Discussion Questions</h2>
-<ol type="1">
-<li><p>When would you choose a predictive approach over a hypothesis-driven approach in healthcare?</p></li>
-<li><p>What are the ethical implications of using administrative data (not designed for research) for research purposes?</p></li>
-<li><p>How might billing incentives in claims data affect research findings?</p></li>
-<li><p>Why is the concept of “organic statistics” important for health data scientists?</p></li>
-<li><p>What complementary data sources might you combine to answer a question about diabetes management?</p></li>
-</ol>
-</section>
-<section id="resources-and-references" class="slide level2 smaller">
-<h2>Resources and References</h2>
-<p><strong>Textbook</strong>: [Insert your textbook information]</p>
-<p><strong>GitHub Repository</strong>: [Insert repository URL] - R code for all examples - Data download scripts - Additional resources</p>
-<p><strong>Key References</strong>:</p>
-<ul>
-<li>Weiskopf &amp; Weng (2013): Data quality assessment</li>
-<li>Andersen-Newman model: Conceptual framework for utilization</li>
-<li>MEPS, NHIS, NHANES documentation</li>
-</ul>
-</section>
-<section id="questions" class="slide level2">
-<h2>Questions?</h2>
-<p><strong>Office Hours</strong>: [Insert your office hours]</p>
-<p><strong>Email</strong>: [Insert your email]</p>
-<p><strong>Course Website</strong>: [Insert URL]</p>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>All slides and code will be posted after class</p>
-</div>
-</div>
-</div>
-</section>
-<section class="slide level2">
+
 
 </section></section>
-<section id="thank-you" class="title-slide slide level1 center">
-<h1>Thank You!</h1>
-<p><strong>Next Class</strong>: Chapter 2 - Key statistical concepts</p>
-<p><strong>Homework</strong>: tba</p>
-
-
-</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="../images/ud_bottom_logo.png" class="slide-logo"></p>

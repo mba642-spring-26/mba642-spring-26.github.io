@@ -23,19 +23,23 @@ The schedule can vary depending on the progress of the course or unforeseen circ
 
 | Week | Date | Topic | Slides | Readings | Assignments |
 |:----------:|:----------:|:-----------|:----------:|:-----------|------------|
-| 1 | Jan 14 | Introduction & Course Overview | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 1 | \- |
-| 2 | Jan 21 | A primer on R, R-Studio, and R-Markdown | [{{< fa file-lines >}}](/lectures/Lecture2.qmd){target="_blank"} | Chapter 2 | Assignment 1 |
+| 1 | Jan 14 | Introduction & Course Overview | [{{< fa file-lines >}}](/lectures/Lecture01/Lecture1.qmd){target="_blank"} | b1Chapter 1 | \- |
+| 2 | Jan 21 | A primer on R, R-Studio, and R-Markdown | [{{< fa file-lines >}}](/lectures/Lecture2.qmd){target="_blank"} | b1Chapter 2 | Assignment 1 |
 | 3 | Jan 28 | Basic Statistical Concepts | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} |  | Assignment 2 |
 | 4 | Feb 4 | Data visualization | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- Data Visualization by Keran Healy <br> - [Data visualization using R for Researchers who do not use R](https://journals.sagepub.com/doi/10.1177/25152459221074654){target="_blank"} | Assignment 3 |
 | 5 | Feb 11 | Mean difference 1: t-test | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 9 | Assignment 4 |
-| 6 | Feb 18 | Mean difference 2: ANOVA | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 5 |
-| 7 | Feb 25 | Bivariate relationship | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 6 |
-| 8 | Mar 4 | Linear regression analysis 1 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 3 | Assignment 7 |
-| 9 | Mar 11 | Linear regression analysis 2 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 4 | Assignment 8 |
-| 10 | Mar 18 | Spring break (no class) | . | \- |  |
-| 11 | Mar 25 | Logistic regression analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 5 | Assignment 9 |
-| 12 | Apr 1 | Count data analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 10 |
-| 13 | Apr 8 | Cluster analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 8 | Assignment 11 |
-| 14 | Apr 15 | Predictive analytics 1: Penalized Regression | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 |  |
+| 6 | Feb 18 | Mean difference 2: ANOVA 1 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 5 |
+| 7 | Feb 25 | Mean difference 2: ANOVA 2 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 6 |
+| 8 | Mar 4 | Bivariate relationship | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 3 | Assignment 7 |
+| 9 | Mar 11 | Midterm Exam | \- | \- | \- |
+| 10 | Mar 18 | Spring break (no class) | \- | \- | \- |
+| 11 | Mar 25 | Linear regression analysis 1 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 5 | Assignment 8 |
+| 12 | Apr 1 | Logistic regression analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 5 | Assignment 9 |
+| 13 | Apr 8 | Count data analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 8 | Assignment 10 |
+| 14 | Apr 15 | Predictive analytics 1: Penalized Regression | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 | Assignment 11 |
 | 15 | Apr 22 | Predictive analytics 2: Decision Trees | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 | Assignment 12 |
-| 16 | Apr 29 | Text analysis using LLMs |  |  |  |
+| 16 | Apr 29 | Final Exam | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} |  |  |
+
+[*b1: Statistics for Health Data Science: An Organic Approach*]{style="font-size: 12px;"}
+
+[*b2: Statistical Analytics for Health Data Science with SAS and R*]{style="font-size: 12px;"}
