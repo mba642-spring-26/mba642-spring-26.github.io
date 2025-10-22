@@ -1,0 +1,78 @@
+---
+title: "Lecture 2: R, R-Studio, Quarto, and Data Wrangling"
+subtitle: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
+author: "Sangsuk Yoon"
+institute: "University of Dayton"
+date: "09/09/2025"
+format: 
+  clean-revealjs:
+    theme: simple # A clean, minimalist theme. Others: dark, solarized, serif, blood
+    css: "../custom.css"
+    slide-number: true # Show slide numbers
+    chalkboard: true # Press 'B' for a chalkboard, 'C' for notes
+    preview-links: auto
+    logo: "../images/ud_bottom_logo.png" # Optional: add a logo
+    footer: "MBA 642 (Spring 2026): Chapter 2" # A footer on every slide
+---
+
+## Learning Objectives{.fragments}
+::: incremental
+By the end of this session, you should be able to:
+
+-   Understand R and R-Studio basics
+-   Install and load R packages
+-   Create and render R Markdown/Quarto documents
+-   Perform basic data wrangling using `dplyr` and `tidyr`
+-   Understand data frames and variables in R
+:::
+
+
+------------------------------------------------------------------------
+
+## R and R-Studio {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**R**: Open-source programming language for statistical computing and graphics
+
+-   Extensive libraries for data analysis, visualization, machine learning
+-   Widely used in academia and industry, especially in healthcare analytics
+:::
+:::{.column width="50%"}
+**R-Studio**: Integrated Development Environment (IDE) for R
+
+-   User-friendly interface with script editor, console, environment pane, and plots pane
+-   Facilitates project management, package installation, and version control
+:::
+:::::
+
+[![](images/image1.png){fig-align="center" width=80%}](https://moderndive.com/v2/getting-started.html){target="_blank"}
+
+::: notes
+Discuss the advantages of using R and R-Studio for healthcare data analysis. Mention its open-source
+nature and strong community support.
+:::
+
+------------------------------------------------------------------------
+
+## R and R-Studio {.smaller}
+
+[The popularity of data science software](https://r4stats.com/articles/popularity/#google_vignette){target="_blank"}
+
+::::: columns
+::: {.column width="45%"}
+-   Analytics tools used by respondents to the 2015 Rexer Analytics Survey (free to check multiple tools)
+![](images/image2.png){fig-align="center" width=110% fig-cap-location="bottom"}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+-   The number of scholarly articles found on Google Scholar for data science software (only > 4,500 citations)
+
+![](images/image3.png){fig-align="center" width=70% fig-cap-location="bottom"}
+
+:::
+:::::
+

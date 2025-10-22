@@ -161,14 +161,13 @@ A conceptual framework for health services utilization:
 
 ![](images/fig1.png){fig-align="center"}
 
-:::{.fragment .incremental}
+::: {.fragment .incremental}
 Conceptual models guide which factors to include/exclude in statistical models.
 
-- e.g.,) In examining hypotheses concerning the link between physical activity and health care costs,
-  - we would consider including predisposing factors (age, gender), 
-  - but should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model.
+-   e.g.,) In examining hypotheses concerning the link between physical activity and health care costs,
+    -   we would consider including predisposing factors (age, gender),
+    -   but should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model.
 :::
-
 
 ------------------------------------------------------------------------
 
@@ -187,6 +186,7 @@ Conceptual models guide which factors to include/exclude in statistical models.
 
 ::: callout-caution
 ## Limitations
+
 Cannot identify specific factors for intervention, even with superior predictive performance
 :::
 
@@ -271,7 +271,6 @@ Cannot identify specific factors for intervention, even with superior predictive
 
 ![](images/fig2.png){fig-align="center"}
 
-
 ------------------------------------------------------------------------
 
 # Data Source 1: Medical Claims
@@ -318,8 +317,8 @@ Cannot identify specific factors for intervention, even with superior predictive
 
 ## Claims Data: Strengths and Limitations {.smaller}
 
-::::: columns
-::: {.column width="50%"}
+::::::: columns
+:::: {.column width="50%"}
 ::: incremental
 **Strengths:**
 
@@ -330,13 +329,13 @@ Cannot identify specific factors for intervention, even with superior predictive
 5.  **Multiple dimensions**: diagnoses, procedures, medications, costs
 6.  **Research value** despite not designed for research
 :::
-:::
+::::
 
-::: {.column width="50%"}
+:::: {.column width="50%"}
 ::: incremental
 **Limitations:**
 
-1.   **Only insured patients** represented
+1.  **Only insured patients** represented
 2.  **Only covered services** included
 3.  **Incomplete information** (e.g., no OTC drugs)
 4.  **Missing data** when coverage lapses or patient switches payers
@@ -345,9 +344,8 @@ Cannot identify specific factors for intervention, even with superior predictive
 7.  **Variable coding practices** across coders/facilities
 8.  **Billing incentives** may skew documentation
 :::
-:::
-:::::
-
+::::
+:::::::
 
 ------------------------------------------------------------------------
 
@@ -409,7 +407,6 @@ Cannot identify specific factors for intervention, even with superior predictive
 ::: callout-note
 Example: Kaiser blood pressure study required actual BP measurements, not just diagnosis codes
 :::
-
 
 ------------------------------------------------------------------------
 
@@ -755,7 +752,6 @@ Understand which individuals are represented in each data source and interpret r
 | Treatment patterns         | Claims, Records         |
 | Population prevalence      | Surveys, Registries     |
 
-
 ------------------------------------------------------------------------
 
 ## Key Datasets We'll Use {.smaller}
@@ -789,7 +785,6 @@ Understand which individuals are represented in each data source and interpret r
 
 5.  **Match question to data source** for valid inference
 
-
 ------------------------------------------------------------------------
 
 ## Next Class {.smaller}
@@ -803,4 +798,3 @@ Understand which individuals are represented in each data source and interpret r
 ::: callout-tip
 **Preparation**: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class.
 :::
-
