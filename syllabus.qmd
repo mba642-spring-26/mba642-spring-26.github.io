@@ -64,6 +64,11 @@ Two textbooks are required for this course. Both books are available for free th
 -   **Authors**: Mine Çetinkaya-Rundel and Jeffrey S. Simonoff
 -   This book is freely available online
 
+5. [Statistical Rethinking for the 21st Century](https://statsthinking21.github.io/statsthinking21-core-site/index.html){target="_blank"}
+
+-   **Authors**: Russell A. Poldrack
+-   This book is freely available online
+
 ## R and R-Studio:
 
 This course utilizes R and R-Studio as the primary analytical tools. R is a powerful, open-source programming language specifically designed for statistical data analysis, widely used in both academia and industry for analytics. R-Studio is an integrated development environment (IDE) that makes R programming more accessible and efficient through its user-friendly interface, offering features such as data visualization, code editing, debugging, and project management capabilities. Students will learn to use these tools to analyze healthcare data, create visualizations, develop statistical models, and generate reports. You can download R and R-Studio from the following links:
@@ -77,7 +82,7 @@ This course utilizes R and R-Studio as the primary analytical tools. R is a powe
 |:--------------------:|:------:|
 |     Assignments      |  50%   |
 | Class Participations |  10%   |
-|      Midterm Exam    |  20%   |
+|     Midterm Exam     |  20%   |
 |      Final Exam      |  20%   |
 
 ## Assignments: 50% of final grade (12 assignments)
@@ -90,11 +95,11 @@ Class participation will be evaluated through attendance tracking and participat
 
 ## Midterm Exam: 20% of final grade
 
-There will be a midterm exam in Week 9 of the semester. The exam will cover topics covered from Week 1 through Week 8. The exam will be online, and students need to complete within 24 hours. 
+There will be a midterm exam in Week 9 of the semester. The exam will cover topics covered from Week 1 through Week 8. The exam will be online, and students need to complete within 24 hours.
 
 ## Final Exam: 20% of final grade
 
-There will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class. The exam will be online, and students need to complete within 24 hours. 
+There will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class. The exam will be online, and students need to complete within 24 hours.
 
 Final course letter grades will be assigned as follows:
 

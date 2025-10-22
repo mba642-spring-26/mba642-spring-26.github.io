@@ -1880,7 +1880,7 @@
     "href": "syllabus.html#textbooks",
     "title": "syllabus",
     "section": "Textbooks:",
-    "text": "Textbooks:\nTwo textbooks are required for this course. Both books are available for free through the University of Dayton library.\n\n“Statistics for Health Data Science: An Organic Approach”\n\n\nAuthors: Ruth Etzioni, Micha Mandel, and Roman Gulati\nISBN: 978-3-030-59888-4\nThis book is freely available through UD library\n\n\n“Statistical Analytics for Health Data Science with SAS and R”\n\n\nAuthors: Jeffrey Willson, Ding-Geng Chen, and Karl E. Peace\nISBN: 978-1-032-32569-9\nThis book is freely available through UD library\n\n\nOther Helpful Books and Readings:\n\n“R for Data Science” (available for free online)\n\n\nAuthors: Hadley Wickham and Garrett Grolemund\nThis book is freely available online\n\n\n“Introduction to Modern Statistics”\n\n\nAuthors: Mine Çetinkaya-Rundel and Jeffrey S. Simonoff\nThis book is freely available online"
+    "text": "Textbooks:\nTwo textbooks are required for this course. Both books are available for free through the University of Dayton library.\n\n“Statistics for Health Data Science: An Organic Approach”\n\n\nAuthors: Ruth Etzioni, Micha Mandel, and Roman Gulati\nISBN: 978-3-030-59888-4\nThis book is freely available through UD library\n\n\n“Statistical Analytics for Health Data Science with SAS and R”\n\n\nAuthors: Jeffrey Willson, Ding-Geng Chen, and Karl E. Peace\nISBN: 978-1-032-32569-9\nThis book is freely available through UD library\n\n\nOther Helpful Books and Readings:\n\n“R for Data Science” (available for free online)\n\n\nAuthors: Hadley Wickham and Garrett Grolemund\nThis book is freely available online\n\n\n“Introduction to Modern Statistics”\n\n\nAuthors: Mine Çetinkaya-Rundel and Jeffrey S. Simonoff\nThis book is freely available online\n\n\nStatistical Rethinking for the 21st Century\n\n\nAuthors: Russell A. Poldrack\nThis book is freely available online"
   },
   {
     "objectID": "syllabus.html#r-and-r-studio",
@@ -2929,29 +2929,29 @@
     "objectID": "lectures/Lecture01/Lecture1.html#meet-the-prof",
     "href": "lectures/Lecture01/Lecture1.html#meet-the-prof",
     "title": "Lecture 1: Introduction to Class",
-    "section": "Meet the prof",
-    "text": "Meet the prof\n\n\n - Sangsuk Yoon, Ph.D.  - Associate professor of Marketing  - Office: MH 703  - Email: syoon1@udayton.edu"
+    "section": "",
+    "text": "- Sangsuk Yoon, Ph.D.  - Associate professor of Marketing  - Office: MH 703  - Email: syoon1@udayton.edu"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#learning-objectives",
     "href": "lectures/Lecture01/Lecture1.html#learning-objectives",
     "title": "Lecture 1: Introduction to Class",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this session, you will be able to:\n\nUnderstand the role and importance of analytics in healthcare\nDifferentiate between hypothesis-driven and predictive analytics approaches\nIdentify major types of healthcare data sources\nRecognize strengths and limitations of different data types\nApply the concept of “organic statistics” to health data analysis"
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand the role and importance of analytics in healthcare\nDifferentiate between hypothesis-driven and predictive analytics approaches\nIdentify major types of healthcare data sources\nRecognize strengths and limitations of different data types\nApply the concept of “organic statistics” to health data analysis"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#examples",
     "href": "lectures/Lecture01/Lecture1.html#examples",
     "title": "Lecture 1: Introduction to Class",
     "section": "Examples",
-    "text": "Examples\n\n\nBlood Pressure Study\n\n400,000 Kaiser Permanente patients\nTaking hypertension medication\nFinding: Lower BP linked to higher mortality risk\nChallenges “more is better” assumption\n\n\nBlood Sugar Study\n\n33 million beneficiaries\nHospital admissions for hypoglycemia increased over time\nExceeded hyperglycemia admissions\nQuestions aggressive diabetes treatment\n\n\n\n\n\n\n\n\n\nImportant\n\n\nThese studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems"
+    "text": "Examples\n\n\nBlood Pressure Study\n\n400,000 Kaiser Permanente patients\nTaking hypertension medication\nFinding: Lower BP linked to higher mortality risk\nChallenges “more is better” assumption\n\n\nBlood Sugar Study\n\n33 million beneficiaries\nHospital admissions for hypoglycemia increased over time\nExceeded hyperglycemia admissions\nQuestions aggressive diabetes treatment\n\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThese studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#the-healthcare-data-revolution",
     "href": "lectures/Lecture01/Lecture1.html#the-healthcare-data-revolution",
     "title": "Lecture 1: Introduction to Class",
     "section": "The Healthcare Data Revolution",
-    "text": "The Healthcare Data Revolution\n\nHealthcare is undergoing massive digital transformation\nElectronic Health Records (EHRs) adoption accelerating\nPatient Protection and Affordable Care Act driving change\nBig Data enabling unprecedented learning about treatment effectiveness\nPopulation health improving through data-driven insights\n\n\n\n\n\n\n\nNote\n\n\nMarket Growth: Healthcare analytics market projected to grow from $23.51B (2020) to $96.90B (2030) at 15.3% CAGR"
+    "text": "The Healthcare Data Revolution\n\n\nHealthcare is undergoing massive digital transformation\nElectronic Health Records (EHRs) adoption accelerating\nPatient Protection and Affordable Care Act driving change\nBig Data enabling unprecedented learning about treatment effectiveness\nPopulation health improving through data-driven insights\n\n\n\n\n\n\n\n\nNote\n\n\n\nMarket Growth: Healthcare analytics market projected to grow from $23.51B (2020) to $96.90B (2030) at 15.3% CAGR"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#traditional-view-vs.-organic-statistics",
@@ -2965,42 +2965,42 @@
     "href": "lectures/Lecture01/Lecture1.html#the-statistical-analysis-pipeline",
     "title": "Lecture 1: Introduction to Class",
     "section": "The Statistical Analysis Pipeline",
-    "text": "The Statistical Analysis Pipeline\n\n\n\n\n\n\n\nTip\n\n\nStatistics is not just about model fitting—it’s the entire pipeline linking questions to answers through data"
+    "text": "The Statistical Analysis Pipeline\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nStatistics is not just about model fitting—it’s the entire pipeline linking questions to answers through data"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#paradigm-1-hypothesis-driven-traditional",
     "href": "lectures/Lecture01/Lecture1.html#paradigm-1-hypothesis-driven-traditional",
     "title": "Lecture 1: Introduction to Class",
     "section": "Paradigm 1: Hypothesis-Driven (Traditional)",
-    "text": "Paradigm 1: Hypothesis-Driven (Traditional)\nGoal: Develop mechanistic explanations for observed variability\n\nIdentify underlying structural phenomena (biological, clinical, socio-economic)\nSeparate true mechanism from random noise\nRest on conceptual/theoretical models\nUse statistical hypothesis testing\nCareful control of Type I error\nMake assumptions about data-generating mechanism\n\n\n\n\n\n\n\nWarning\n\n\nCritical: Avoid mistaking random noise for real mechanisms"
+    "text": "Paradigm 1: Hypothesis-Driven (Traditional)\nGoal: Develop mechanistic explanations for observed variability\n\n\nIdentify underlying structural phenomena (biological, clinical, socio-economic)\nSeparate true mechanism from random noise\nRest on conceptual/theoretical models\nUse statistical hypothesis testing\nCareful control of Type I error\nMake assumptions about data-generating mechanism\n\n\n\n\n\n\n\n\nWarning\n\n\n\nCritical: Avoid mistaking random noise for real mechanisms"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#the-andersen-newman-model",
     "href": "lectures/Lecture01/Lecture1.html#the-andersen-newman-model",
     "title": "Lecture 1: Introduction to Class",
     "section": "The Andersen-Newman Model",
-    "text": "The Andersen-Newman Model\nA conceptual framework for health services utilization:\n\n\nConceptual models guide which factors to include/exclude in statistical models.\n\ne.g.,) In examining hypotheses concerning the link between physical activity and health care costs,\n\nwe would consider including predisposing factors (age, gender),\nbut should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model."
+    "text": "The Andersen-Newman Model\nA conceptual framework for health services utilization:\n\n\n\n\n\n\nConceptual models guide which factors to include/exclude in statistical models.\n\ne.g.,) In examining hypotheses concerning the link between physical activity and health care costs,\n\nwe would consider including predisposing factors (age, gender),\nbut should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model."
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#paradigm-2-predictive-analytics",
     "href": "lectures/Lecture01/Lecture1.html#paradigm-2-predictive-analytics",
     "title": "Lecture 1: Introduction to Class",
     "section": "Paradigm 2: Predictive Analytics",
-    "text": "Paradigm 2: Predictive Analytics\nGoal: Learn patterns that optimize prediction accuracy\n\nFocus on prediction, not mechanism\nMinimize distance between observed and predicted outcomes\nOften uses algorithmic “black box” methods\nMay not be mathematically describable\nLess structured, fewer assumptions\nDoes not support causal inference\n\n\n\n\n\n\n\nLimitations\n\n\nCannot identify specific factors for intervention, even with superior predictive performance"
+    "text": "Paradigm 2: Predictive Analytics\nGoal: Learn patterns that optimize prediction accuracy\n\n\nFocus on prediction, not mechanism\nMinimize distance between observed and predicted outcomes\nOften uses algorithmic “black box” methods\nMay not be mathematically describable\nLess structured, fewer assumptions\nDoes not support causal inference\n\n\n\n\n\n\n\n\nCautionLimitations\n\n\n\nCannot identify specific factors for intervention, even with superior predictive performance"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#case-study-heritage-provider-network-prize",
     "href": "lectures/Lecture01/Lecture1.html#case-study-heritage-provider-network-prize",
     "title": "Lecture 1: Introduction to Class",
     "section": "Case Study: Heritage Provider Network Prize",
-    "text": "Case Study: Heritage Provider Network Prize\nObjective: Predict hospital days in next year using 3 years of prior data\n\nStarted April 2011, $3M+ in prizes\n16,000+ data scientists, 25,000+ models submitted\nTop solutions used ensemble methods combining multiple algorithms\nResult: Excellent prediction, but not interpretable\nCould identify WHO would be hospitalized\nCould NOT explain WHY or guide interventions"
+    "text": "Case Study: Heritage Provider Network Prize\nObjective: Predict hospital days in next year using 3 years of prior data\n\n\nStarted April 2011, $3M+ in prizes\n16,000+ data scientists, 25,000+ models submitted\nTop solutions used ensemble methods combining multiple algorithms\nResult: Excellent prediction, but not interpretable\nCould identify WHO would be hospitalized\nCould NOT explain WHY or guide interventions"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#which-approach-to-choose",
     "href": "lectures/Lecture01/Lecture1.html#which-approach-to-choose",
     "title": "Lecture 1: Introduction to Class",
     "section": "Which Approach to Choose?",
-    "text": "Which Approach to Choose?\n\n\nHypothesis-Driven When:\n\nScientific question is specific\nInvestigating cause/mechanism\nNeed to understand “why”\nResults inform interventions\nTarget population well-defined\n\n\nPredictive When:\n\nPrimary goal is forecasting\nAction based on risk scores\nMechanism less important\nEarly detection critical\nResource allocation decisions\n\n\n\n\n\n\n\n\nTip\n\n\nAnswer depends on: Objective of analysis and how results will be used in practice"
+    "text": "Which Approach to Choose?\n\n\nHypothesis-Driven When:\n\nScientific question is specific\nInvestigating cause/mechanism\nNeed to understand “why”\nResults inform interventions\nTarget population well-defined\n\n\nPredictive When:\n\nPrimary goal is forecasting\nAction based on risk scores\nMechanism less important\nEarly detection critical\nResource allocation decisions\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nAnswer depends on: Objective of analysis and how results will be used in practice"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#overview-administrative-vs.-non-administrative",
@@ -3021,7 +3021,7 @@
     "href": "lectures/Lecture01/Lecture1.html#what-are-medical-claims",
     "title": "Lecture 1: Introduction to Class",
     "section": "What Are Medical Claims?",
-    "text": "What Are Medical Claims?\nDefinition: Structured forms documenting billable interactions between insured patients and healthcare system\n\nPurpose: Generate payment from payer for services\nInclude diagnosis codes (ICD-9/ICD-10)\nInclude procedure codes (CPT, HCPCS)\nInclude prescribed medications\nInclude medical care costs\nCreated by trained claims coders from medical records"
+    "text": "What Are Medical Claims?\nDefinition: Structured forms documenting billable interactions between insured patients and healthcare system\n\n\nPurpose: Generate payment from payer for services\nInclude diagnosis codes (ICD-9/ICD-10)\nInclude procedure codes (CPT, HCPCS)\nInclude prescribed medications\nInclude medical care costs\nCreated by trained claims coders from medical records"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#claims-coding-systems",
@@ -3035,7 +3035,7 @@
     "href": "lectures/Lecture01/Lecture1.html#claims-data-strengths-and-limitations",
     "title": "Lecture 1: Introduction to Class",
     "section": "Claims Data: Strengths and Limitations",
-    "text": "Claims Data: Strengths and Limitations\n\n\nStrengths:\n\nRich information on healthcare utilization\nObjective documentation of care delivered\nLarge sample sizes available\nLongitudinal tracking (while enrolled)\nMultiple dimensions: diagnoses, procedures, medications, costs\nResearch value despite not designed for research\n\n\nLimitations:\n\nOnly insured patients represented\nOnly covered services included\nIncomplete information (e.g., no OTC drugs)\nMissing data when coverage lapses or patient switches payers\nLimited socio-demographics at individual level\nNo health status measurements or test results\nVariable coding practices across coders/facilities\nBilling incentives may skew documentation"
+    "text": "Claims Data: Strengths and Limitations\n\n\n\nStrengths:\n\nRich information on healthcare utilization\nObjective documentation of care delivered\nLarge sample sizes available\nLongitudinal tracking (while enrolled)\nMultiple dimensions: diagnoses, procedures, medications, costs\nResearch value despite not designed for research\n\n\n\n\nLimitations:\n\nOnly insured patients represented\nOnly covered services included\nIncomplete information (e.g., no OTC drugs)\nMissing data when coverage lapses or patient switches payers\nLimited socio-demographics at individual level\nNo health status measurements or test results\nVariable coding practices across coders/facilities\nBilling incentives may skew documentation"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#accessing-claims-data",
@@ -3049,21 +3049,21 @@
     "href": "lectures/Lecture01/Lecture1.html#what-are-medical-records",
     "title": "Lecture 1: Introduction to Class",
     "section": "What Are Medical Records?",
-    "text": "What Are Medical Records?\nDefinition: Comprehensive electronic clinical data obtained at point of care\n\nUsed for diagnosis and treatment\nInclude all patients (not just insured)\nContain structured data (like claims)\nPlus unstructured data:\n\nPhysician notes\nImaging reports\nVital sign measurements\nDiagnostic test results"
+    "text": "What Are Medical Records?\nDefinition: Comprehensive electronic clinical data obtained at point of care\n\n\nUsed for diagnosis and treatment\nInclude all patients (not just insured)\nContain structured data (like claims)\nPlus unstructured data:\n\nPhysician notes\nImaging reports\nVital sign measurements\nDiagnostic test results"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#medical-records-unique-advantages",
     "href": "lectures/Lecture01/Lecture1.html#medical-records-unique-advantages",
     "title": "Lecture 1: Introduction to Class",
     "section": "Medical Records: Unique Advantages",
-    "text": "Medical Records: Unique Advantages\n\nComplete patient coverage (insured and uninsured)\nHealth status measurements (BP, lab values, etc.)\nDiagnostic test results enable studies impossible with claims alone\nUnstructured data provide rich clinical context\nReal-time prediction potential for alerts and risk stratification\nProcess of care understanding\nEffectiveness research in real-world settings\n\n\n\n\n\n\n\nNote\n\n\nExample: Kaiser blood pressure study required actual BP measurements, not just diagnosis codes"
+    "text": "Medical Records: Unique Advantages\n\n\nComplete patient coverage (insured and uninsured)\nHealth status measurements (BP, lab values, etc.)\nDiagnostic test results enable studies impossible with claims alone\nUnstructured data provide rich clinical context\nReal-time prediction potential for alerts and risk stratification\nProcess of care understanding\nEffectiveness research in real-world settings\n\n\n\n\n\n\n\n\nNote\n\n\n\nExample: Kaiser blood pressure study required actual BP measurements, not just diagnosis codes"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#medical-records-key-challenges",
     "href": "lectures/Lecture01/Lecture1.html#medical-records-key-challenges",
     "title": "Lecture 1: Introduction to Class",
     "section": "Medical Records: Key Challenges",
-    "text": "Medical Records: Key Challenges\n\nPhenotyping: Identifying diagnoses/outcomes requires algorithms across multiple data streams\nInformative missingness: Sicker patients have more data recorded\nNo statistical design: Real-time surveillance, not planned data collection\nProprietary nature: Generally not accessible to outside researchers\nHIPAA protection: Highly sensitive, tightly controlled access\nVariable quality: Depends on clinical documentation practices"
+    "text": "Medical Records: Key Challenges\n\n\nPhenotyping: Identifying diagnoses/outcomes requires algorithms across multiple data streams\nInformative missingness: Sicker patients have more data recorded\nNo statistical design: Real-time surveillance, not planned data collection\nProprietary nature: Generally not accessible to outside researchers\nHIPAA protection: Highly sensitive, tightly controlled access\nVariable quality: Depends on clinical documentation practices"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#accessing-medical-records",
@@ -3077,28 +3077,28 @@
     "href": "lectures/Lecture01/Lecture1.html#major-national-health-surveys",
     "title": "Lecture 1: Introduction to Class",
     "section": "Major National Health Surveys",
-    "text": "Major National Health Surveys\nThree key publicly available surveys:\n\nNHIS - National Health Interview Survey\nNHANES - National Health and Nutrition Examination Survey\n\nMEPS - Medical Expenditure Panel Survey\n\n\n\n\n\n\n\nNote\n\n\nAll three use complex sampling designs with stratification, clustering, and weights for population representation"
+    "text": "Major National Health Surveys\nThree key publicly available surveys:\n\nNHIS - National Health Interview Survey\nNHANES - National Health and Nutrition Examination Survey\n\nMEPS - Medical Expenditure Panel Survey\n\n\n\n\n\n\n\nNote\n\n\n\nAll three use complex sampling designs with stratification, clustering, and weights for population representation"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#nhis-national-health-interview-survey",
     "href": "lectures/Lecture01/Lecture1.html#nhis-national-health-interview-survey",
     "title": "Lecture 1: Introduction to Class",
     "section": "NHIS: National Health Interview Survey",
-    "text": "NHIS: National Health Interview Survey\n\n\nCharacteristics:\n\nNation’s largest in-person household survey\nConducted annually since 1957\nCross-sectional design\nDifferent sample each year\nConducted by Census Bureau for NCHS\n\n\nContent:\n\nMedical conditions\nHealth insurance\nDoctor visits\nHealth behaviors\nSocio-demographics\n\n\nUses: Monitor chronic disease burden, track access to care, measure progress toward national health objectives"
+    "text": "NHIS: National Health Interview Survey\n\n\nCharacteristics:\n\nNation’s largest in-person household survey\nConducted annually since 1957\nCross-sectional design\nDifferent sample each year\nConducted by Census Bureau for NCHS\n\n\nContent:\n\nMedical conditions\nHealth insurance\nDoctor visits\nHealth behaviors\nSocio-demographics\n\n\n\nUses: Monitor chronic disease burden, track access to care, measure progress toward national health objectives"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#nhanes-nutrition-examination-survey",
     "href": "lectures/Lecture01/Lecture1.html#nhanes-nutrition-examination-survey",
     "title": "Lecture 1: Introduction to Class",
     "section": "NHANES: Nutrition Examination Survey",
-    "text": "NHANES: Nutrition Examination Survey\n\n\nGoes Beyond NHIS:\n\nInterview + physical exam + blood tests\nObjective health measurements\nMore complex/costly logistics\n\n\nKey Measurements:\n\nBlood pressure\nBody mass index\nHemoglobin A1c\nCholesterol levels\nLead levels\n\n\nMajor Impacts:\n\nCreated growth charts for children\nMonitors obesity prevalence\nEstimates undiagnosed diabetes\nInformed lead reduction policy\nGuides hypertension/cholesterol programs"
+    "text": "NHANES: Nutrition Examination Survey\n\n\nGoes Beyond NHIS:\n\nInterview + physical exam + blood tests\nObjective health measurements\nMore complex/costly logistics\n\n\nKey Measurements:\n\nBlood pressure\nBody mass index\nHemoglobin A1c\nCholesterol levels\nLead levels\n\n\n\nMajor Impacts:\n\nCreated growth charts for children\nMonitors obesity prevalence\nEstimates undiagnosed diabetes\nInformed lead reduction policy\nGuides hypertension/cholesterol programs"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#meps-medical-expenditure-panel-survey",
     "href": "lectures/Lecture01/Lecture1.html#meps-medical-expenditure-panel-survey",
     "title": "Lecture 1: Introduction to Class",
     "section": "MEPS: Medical Expenditure Panel Survey",
-    "text": "MEPS: Medical Expenditure Panel Survey\nUnique Features:\n\nSubsample of NHIS households\nLongitudinal: 5 interviews over 2 years\nDetailed utilization and expenditure data\nLinks to medical providers and health records\n\nRich Content:\n\nNHIS variables (demographics, behaviors)\nDetailed insurance information\nInpatient/outpatient/Rx utilization\nActual expenditures from providers\n\n\n\n\n\n\n\nTip\n\n\nCourse Note: Many examples in our class examples use MEPS data"
+    "text": "MEPS: Medical Expenditure Panel Survey\nUnique Features:\n\nSubsample of NHIS households\nLongitudinal: 5 interviews over 2 years\nDetailed utilization and expenditure data\nLinks to medical providers and health records\n\nRich Content:\n\nNHIS variables (demographics, behaviors)\nDetailed insurance information\nInpatient/outpatient/Rx utilization\nActual expenditures from providers\n\n\n\n\n\n\n\nTip\n\n\n\nCourse Note: Many examples in our class examples use MEPS data"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#survey-data-complex-sampling-design",
@@ -3112,7 +3112,7 @@
     "href": "lectures/Lecture01/Lecture1.html#survey-data-potential-biases",
     "title": "Lecture 1: Introduction to Class",
     "section": "Survey Data: Potential Biases",
-    "text": "Survey Data: Potential Biases\n\nNon-response bias: Certain groups less likely to participate\nRecall bias: Inaccurate memory of past events\nSocial desirability bias: Respondents give “acceptable” answers\nSelection bias: Sample may not represent target population\n\n\n\n\n\n\n\nImportant\n\n\nMitigation requires: Extensive instrument development, calibration, and careful consideration of implementation mode"
+    "text": "Survey Data: Potential Biases\n\n\nNon-response bias: Certain groups less likely to participate\nRecall bias: Inaccurate memory of past events\nSocial desirability bias: Respondents give “acceptable” answers\nSelection bias: Sample may not represent target population\n\n\n\n\n\n\n\n\nImportant\n\n\n\nMitigation requires: Extensive instrument development, calibration, and careful consideration of implementation mode"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#survey-data-unique-value",
@@ -3126,7 +3126,7 @@
     "href": "lectures/Lecture01/Lecture1.html#what-is-a-disease-registry",
     "title": "Lecture 1: Introduction to Class",
     "section": "What Is a Disease Registry?",
-    "text": "What Is a Disease Registry?\nDefinition: Non-administrative data collected for population surveillance of specific condition(s)\n\nClearly specified objective\nVariables designed to address objective\nInfrastructure for systematic data collection\nNot random samples (census or opt-in)\nPurpose-built for surveillance\n\nExamples: Cancer, end-stage renal disease, Alzheimer’s disease, Down syndrome"
+    "text": "What Is a Disease Registry?\nDefinition: Non-administrative data collected for population surveillance of specific condition(s)\n\n\nClearly specified objective\nVariables designed to address objective\nInfrastructure for systematic data collection\nNot random samples (census or opt-in)\nPurpose-built for surveillance\n\n\nExamples: Cancer, end-stage renal disease, Alzheimer’s disease, Down syndrome"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#case-study-seer-cancer-registry",
@@ -3140,42 +3140,42 @@
     "href": "lectures/Lecture01/Lecture1.html#seer-registry-major-insights",
     "title": "Lecture 1: Introduction to Class",
     "section": "SEER Registry: Major Insights",
-    "text": "SEER Registry: Major Insights\nDocumented important trends:\n\nDramatic ↑ prostate cancer incidence (PSA testing)\n↓ Cervical cancer incidence (Pap smears)\nPersistent ↑ melanoma incidence (still not fully understood)\n\nCritical Uses:\n\nSetting cancer prevention priorities\nAssessing progress toward health goals\nAllocating control program resources"
+    "text": "SEER Registry: Major Insights\nDocumented important trends:\n\n\nDramatic ↑ prostate cancer incidence (PSA testing)\n↓ Cervical cancer incidence (Pap smears)\nPersistent ↑ melanoma incidence (still not fully understood)\n\n\nCritical Uses:\n\nSetting cancer prevention priorities\nAssessing progress toward health goals\nAllocating control program resources"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#seer-quality-assurance",
     "href": "lectures/Lecture01/Lecture1.html#seer-quality-assurance",
     "title": "Lecture 1: Introduction to Class",
     "section": "SEER Quality Assurance",
-    "text": "SEER Quality Assurance\n\n\nReliability Studies:\n\nMultiple coders review same records\nAssess consistency across registry sites\nMeasure agreement in coding\n\n\nCase-Finding Audits:\n\nEnsure all eligible cases identified\nVerify accuracy of incidence rates\nValidate completeness\n\n\n\n\n\n\n\n\nTip\n\n\nQuality assurance processes are critical for registry data validity"
+    "text": "SEER Quality Assurance\n\n\nReliability Studies:\n\nMultiple coders review same records\nAssess consistency across registry sites\nMeasure agreement in coding\n\n\nCase-Finding Audits:\n\nEnsure all eligible cases identified\nVerify accuracy of incidence rates\nValidate completeness\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nQuality assurance processes are critical for registry data validity"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#registry-limitations",
     "href": "lectures/Lecture01/Lecture1.html#registry-limitations",
     "title": "Lecture 1: Introduction to Class",
     "section": "Registry Limitations",
-    "text": "Registry Limitations\n\nRepresentativeness: Opt-in registries subject to selection bias; even census registries limited to catchment areas\nDetection bias: Changes in diagnostic methods affect apparent incidence\nDefinition changes: Example - 2017 hypertension threshold change (140→130 mm Hg)\nLimited scope: Focus on specific objectives may miss important variables\nData quality: Depends on training and consistency of abstractors"
+    "text": "Registry Limitations\n\n\nRepresentativeness: Opt-in registries subject to selection bias; even census registries limited to catchment areas\nDetection bias: Changes in diagnostic methods affect apparent incidence\nDefinition changes: Example - 2017 hypertension threshold change (140→130 mm Hg)\nLimited scope: Focus on specific objectives may miss important variables\nData quality: Depends on training and consistency of abstractors"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#seer-medicare-linkage",
     "href": "lectures/Lecture01/Lecture1.html#seer-medicare-linkage",
     "title": "Lecture 1: Introduction to Class",
     "section": "SEER-Medicare Linkage",
-    "text": "SEER-Medicare Linkage\nCombining Registry + Claims Data\n\nSEER provides diagnosis information\nMedicare claims add treatment patterns and outcomes\nAvailable for Medicare beneficiaries only\nEnables studies of post-diagnosis care\n\n\n\n\n\n\n\nNote\n\n\nResult: Informed numerous investigations of cancer treatment patterns and outcomes"
+    "text": "SEER-Medicare Linkage\nCombining Registry + Claims Data\n\nSEER provides diagnosis information\nMedicare claims add treatment patterns and outcomes\nAvailable for Medicare beneficiaries only\nEnables studies of post-diagnosis care\n\n\n\n\n\n\n\nNote\n\n\n\nResult: Informed numerous investigations of cancer treatment patterns and outcomes"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#the-hypertension-prevalence-example",
     "href": "lectures/Lecture01/Lecture1.html#the-hypertension-prevalence-example",
     "title": "Lecture 1: Introduction to Class",
     "section": "The Hypertension Prevalence Example",
-    "text": "The Hypertension Prevalence Example\nQuestion: What is the prevalence of hypertension in the population?\nMultiple Data Sources:\n\nSurvey self-report (diagnosed hypertension)\nMedical claims (diagnosis codes)\nMedical records (BP measurements)\nPharmacy records (medications)\n\nFinding: Each source showed ~30% prevalence, BUT substantial non-overlap in identified cases\n\n\n\n\n\n\nImportant\n\n\nUnderstand which individuals are represented in each data source and interpret results accordingly"
+    "text": "The Hypertension Prevalence Example\nQuestion: What is the prevalence of hypertension in the population?\nMultiple Data Sources:\n\nSurvey self-report (diagnosed hypertension)\nMedical claims (diagnosis codes)\nMedical records (BP measurements)\nPharmacy records (medications)\n\nFinding: Each source showed ~30% prevalence, BUT substantial non-overlap in identified cases\n\n\n\n\n\n\nImportant\n\n\n\nUnderstand which individuals are represented in each data source and interpret results accordingly"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#critical-data-quality-lessons",
     "href": "lectures/Lecture01/Lecture1.html#critical-data-quality-lessons",
     "title": "Lecture 1: Introduction to Class",
     "section": "Critical Data Quality Lessons",
-    "text": "Critical Data Quality Lessons\n\nNo single data source is complete\nUnderstand the data-generating process for each source\nRecognize over-, non-, or under-represented groups\nAdjust or interpret analyses in light of limitations\nMultiple sources may provide different perspectives on same question\nTriangulation across data sources strengthens findings"
+    "text": "Critical Data Quality Lessons\n\n\nNo single data source is complete\nUnderstand the data-generating process for each source\nRecognize over-, non-, or under-represented groups\nAdjust or interpret analyses in light of limitations\nMultiple sources may provide different perspectives on same question\nTriangulation across data sources strengthens findings"
   },
   {
     "objectID": "lectures/Lecture01/Lecture1.html#matching-questions-to-data-sources",
@@ -3203,7 +3203,7 @@
     "href": "lectures/Lecture01/Lecture1.html#next-class",
     "title": "Lecture 1: Introduction to Class",
     "section": "Next Class",
-    "text": "Next Class\nNext Session: Week 2: Basic Statistical Concepts\n\nReview of probability and distributions\nHypothesis testing framework\nP-values and confidence intervals\n\n\n\n\n\n\n\nTip\n\n\nPreparation: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class."
+    "text": "Next Class\nNext Session: Week 2: Basic Statistical Concepts\n\nReview of probability and distributions\nHypothesis testing framework\nP-values and confidence intervals\n\n\n\n\n\n\n\nTip\n\n\n\nPreparation: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class."
   },
   {
     "objectID": "lectures/Lecture15/class_15_Predictive_Analysis2.html#learning-objectives",
@@ -3666,5 +3666,12 @@
     "title": "Lecture 2: Key Statistical Concepts",
     "section": "Looking Ahead",
     "text": "Looking Ahead\nChapter 3: Data visualization\n\nPreview that many of the distributions covered today will have corresponding regression methods. The regression model specifies how the parameters of these distributions depend on covariates."
+  },
+  {
+    "objectID": "lectures/Lecture01/Lecture1.html",
+    "href": "lectures/Lecture01/Lecture1.html",
+    "title": "Lecture 1: Introduction to Class",
+    "section": "",
+    "text": "- Sangsuk Yoon, Ph.D.  - Associate professor of Marketing  - Office: MH 703  - Email: syoon1@udayton.edu\n\n\n\n\n\n\n\n\n\nBy the end of this session, you will be able to:\n\nUnderstand the role and importance of analytics in healthcare\nDifferentiate between hypothesis-driven and predictive analytics approaches\nIdentify major types of healthcare data sources\nRecognize strengths and limitations of different data types\nApply the concept of “organic statistics” to health data analysis"
   }
 ]

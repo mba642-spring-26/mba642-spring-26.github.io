@@ -1,171 +1,273 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sangsuk Yoon">
+<meta name="dcterms.date" content="2025-09-09">
+
+<title>Lecture 1: Introduction to Class – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  <meta name="author" content="Sangsuk Yoon">
-  <meta name="dcterms.date" content="2025-09-09">
-  <title>Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026) – Lecture 1: Introduction to Class</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-      vertical-align: middle;
-    }
-  </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-d2fa9704022b6cc6efe47acf160c0964.css">
-  <link rel="stylesheet" href="../custom.css">
-  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-    .reveal div.sourceCode {
-      margin: 0;
-      overflow: auto;
-    }
-    .reveal div.hanging-indent {
-      margin-left: 1em;
-      text-indent: -1em;
-    }
-    .reveal .slide:not(.center) {
-      height: 100%;
-    }
-    .reveal .slide.scrollable {
-      overflow-y: auto;
-    }
-    .reveal .footnotes {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide .absolute {
-      position: absolute;
-      display: block;
-    }
-    .reveal .footnotes ol {
-      counter-reset: ol;
-      list-style-type: none; 
-      margin-left: 0;
-    }
-    .reveal .footnotes ol li:before {
-      counter-increment: ol;
-      content: counter(ol) ". "; 
-    }
-    .reveal .footnotes ol li > p:first-child {
-      display: inline-block;
-    }
-    .reveal .slide ul,
-    .reveal .slide ol {
-      margin-bottom: 0.5em;
-    }
-    .reveal .slide ul li,
-    .reveal .slide ol li {
-      margin-top: 0.4em;
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide ul[role="tablist"] li {
-      margin-bottom: 0;
-    }
-    .reveal .slide ul li > *:first-child,
-    .reveal .slide ol li > *:first-child {
-      margin-block-start: 0;
-    }
-    .reveal .slide ul li > *:last-child,
-    .reveal .slide ol li > *:last-child {
-      margin-block-end: 0;
-    }
-    .reveal .slide .columns:nth-child(3) {
-      margin-block-start: 0.8em;
-    }
-    .reveal blockquote {
-      box-shadow: none;
-    }
-    .reveal .tippy-content>* {
-      margin-top: 0.2em;
-      margin-bottom: 0.7em;
-    }
-    .reveal .tippy-content>*:last-child {
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide > img.stretch.quarto-figure-center,
-    .reveal .slide > img.r-stretch.quarto-figure-center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-left,
-    .reveal .slide > img.r-stretch.quarto-figure-left  {
-      display: block;
-      margin-left: 0;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-right,
-    .reveal .slide > img.r-stretch.quarto-figure-right  {
-      display: block;
-      margin-left: auto;
-      margin-right: 0; 
-    }
-  </style>
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
-<body class="quarto-light">
-<script src="_extensions/clean/mathjax-config.js"></script>
-  <div class="reveal">
-    <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Lecture 1: Introduction to Class</h1>
-  <p class="subtitle">MBA 642: Business Analytics in Healthcare Management (Spring 2026)</p>
+<body class="nav-fixed quarto-light">
 
-<div class="quarto-title-authors">
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Sangsuk Yoon 
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../assignments.qmd"> 
+<span class="menu-text">Assignments</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mba642-spring-26/mba642-spring-26.github.io/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
 </div>
-        <p class="quarto-title-affiliation">
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#welcome-to-mba-642-business-analytics-in-healthcare-management" id="toc-welcome-to-mba-642-business-analytics-in-healthcare-management" class="nav-link active" data-scroll-target="#welcome-to-mba-642-business-analytics-in-healthcare-management">Welcome to MBA 642: Business Analytics in Healthcare Management!</a>
+  <ul class="collapse">
+  <li><a href="#meet-the-prof" id="toc-meet-the-prof" class="nav-link" data-scroll-target="#meet-the-prof">Meet the prof</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  </ul></li>
+  <li><a href="#introduction-the-power-of-health-data-analytics" id="toc-introduction-the-power-of-health-data-analytics" class="nav-link" data-scroll-target="#introduction-the-power-of-health-data-analytics">Introduction: The Power of Health Data Analytics</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#the-healthcare-data-revolution" id="toc-the-healthcare-data-revolution" class="nav-link" data-scroll-target="#the-healthcare-data-revolution">The Healthcare Data Revolution</a></li>
+  </ul></li>
+  <li><a href="#what-is-statistics-moving-beyond-recipes" id="toc-what-is-statistics-moving-beyond-recipes" class="nav-link" data-scroll-target="#what-is-statistics-moving-beyond-recipes">What is Statistics? Moving Beyond Recipes</a>
+  <ul class="collapse">
+  <li><a href="#traditional-view-vs.-organic-statistics" id="toc-traditional-view-vs.-organic-statistics" class="nav-link" data-scroll-target="#traditional-view-vs.-organic-statistics">Traditional View vs.&nbsp;Organic Statistics</a></li>
+  <li><a href="#the-statistical-analysis-pipeline" id="toc-the-statistical-analysis-pipeline" class="nav-link" data-scroll-target="#the-statistical-analysis-pipeline">The Statistical Analysis Pipeline</a></li>
+  </ul></li>
+  <li><a href="#two-paradigms-in-health-analytics" id="toc-two-paradigms-in-health-analytics" class="nav-link" data-scroll-target="#two-paradigms-in-health-analytics">Two Paradigms in Health Analytics</a>
+  <ul class="collapse">
+  <li><a href="#paradigm-1-hypothesis-driven-traditional" id="toc-paradigm-1-hypothesis-driven-traditional" class="nav-link" data-scroll-target="#paradigm-1-hypothesis-driven-traditional">Paradigm 1: Hypothesis-Driven (Traditional)</a></li>
+  <li><a href="#the-andersen-newman-model" id="toc-the-andersen-newman-model" class="nav-link" data-scroll-target="#the-andersen-newman-model">The Andersen-Newman Model</a></li>
+  <li><a href="#paradigm-2-predictive-analytics" id="toc-paradigm-2-predictive-analytics" class="nav-link" data-scroll-target="#paradigm-2-predictive-analytics">Paradigm 2: Predictive Analytics</a></li>
+  <li><a href="#case-study-heritage-provider-network-prize" id="toc-case-study-heritage-provider-network-prize" class="nav-link" data-scroll-target="#case-study-heritage-provider-network-prize">Case Study: Heritage Provider Network Prize</a></li>
+  <li><a href="#which-approach-to-choose" id="toc-which-approach-to-choose" class="nav-link" data-scroll-target="#which-approach-to-choose">Which Approach to Choose?</a></li>
+  </ul></li>
+  <li><a href="#types-of-healthcare-data" id="toc-types-of-healthcare-data" class="nav-link" data-scroll-target="#types-of-healthcare-data">Types of Healthcare Data</a>
+  <ul class="collapse">
+  <li><a href="#overview-administrative-vs.-non-administrative" id="toc-overview-administrative-vs.-non-administrative" class="nav-link" data-scroll-target="#overview-administrative-vs.-non-administrative">Overview: Administrative vs.&nbsp;Non-Administrative</a></li>
+  <li><a href="#data-categories-by-source" id="toc-data-categories-by-source" class="nav-link" data-scroll-target="#data-categories-by-source">Data Categories by Source</a></li>
+  </ul></li>
+  <li><a href="#data-source-1-medical-claims" id="toc-data-source-1-medical-claims" class="nav-link" data-scroll-target="#data-source-1-medical-claims">Data Source 1: Medical Claims</a>
+  <ul class="collapse">
+  <li><a href="#what-are-medical-claims" id="toc-what-are-medical-claims" class="nav-link" data-scroll-target="#what-are-medical-claims">What Are Medical Claims?</a></li>
+  <li><a href="#claims-coding-systems" id="toc-claims-coding-systems" class="nav-link" data-scroll-target="#claims-coding-systems">Claims Coding Systems</a></li>
+  <li><a href="#claims-data-strengths-and-limitations" id="toc-claims-data-strengths-and-limitations" class="nav-link" data-scroll-target="#claims-data-strengths-and-limitations">Claims Data: Strengths and Limitations</a></li>
+  <li><a href="#accessing-claims-data" id="toc-accessing-claims-data" class="nav-link" data-scroll-target="#accessing-claims-data">Accessing Claims Data</a></li>
+  </ul></li>
+  <li><a href="#data-source-2-electronic-medical-records" id="toc-data-source-2-electronic-medical-records" class="nav-link" data-scroll-target="#data-source-2-electronic-medical-records">Data Source 2: Electronic Medical Records</a>
+  <ul class="collapse">
+  <li><a href="#what-are-medical-records" id="toc-what-are-medical-records" class="nav-link" data-scroll-target="#what-are-medical-records">What Are Medical Records?</a></li>
+  <li><a href="#medical-records-unique-advantages" id="toc-medical-records-unique-advantages" class="nav-link" data-scroll-target="#medical-records-unique-advantages">Medical Records: Unique Advantages</a></li>
+  <li><a href="#medical-records-key-challenges" id="toc-medical-records-key-challenges" class="nav-link" data-scroll-target="#medical-records-key-challenges">Medical Records: Key Challenges</a></li>
+  <li><a href="#accessing-medical-records" id="toc-accessing-medical-records" class="nav-link" data-scroll-target="#accessing-medical-records">Accessing Medical Records</a></li>
+  </ul></li>
+  <li><a href="#data-source-3-health-surveys" id="toc-data-source-3-health-surveys" class="nav-link" data-scroll-target="#data-source-3-health-surveys">Data Source 3: Health Surveys</a>
+  <ul class="collapse">
+  <li><a href="#major-national-health-surveys" id="toc-major-national-health-surveys" class="nav-link" data-scroll-target="#major-national-health-surveys">Major National Health Surveys</a></li>
+  <li><a href="#nhis-national-health-interview-survey" id="toc-nhis-national-health-interview-survey" class="nav-link" data-scroll-target="#nhis-national-health-interview-survey">NHIS: National Health Interview Survey</a></li>
+  <li><a href="#nhanes-nutrition-examination-survey" id="toc-nhanes-nutrition-examination-survey" class="nav-link" data-scroll-target="#nhanes-nutrition-examination-survey">NHANES: Nutrition Examination Survey</a></li>
+  <li><a href="#meps-medical-expenditure-panel-survey" id="toc-meps-medical-expenditure-panel-survey" class="nav-link" data-scroll-target="#meps-medical-expenditure-panel-survey">MEPS: Medical Expenditure Panel Survey</a></li>
+  <li><a href="#survey-data-complex-sampling-design" id="toc-survey-data-complex-sampling-design" class="nav-link" data-scroll-target="#survey-data-complex-sampling-design">Survey Data: Complex Sampling Design</a></li>
+  <li><a href="#survey-data-potential-biases" id="toc-survey-data-potential-biases" class="nav-link" data-scroll-target="#survey-data-potential-biases">Survey Data: Potential Biases</a></li>
+  <li><a href="#survey-data-unique-value" id="toc-survey-data-unique-value" class="nav-link" data-scroll-target="#survey-data-unique-value">Survey Data: Unique Value</a></li>
+  </ul></li>
+  <li><a href="#data-source-4-disease-registries" id="toc-data-source-4-disease-registries" class="nav-link" data-scroll-target="#data-source-4-disease-registries">Data Source 4: Disease Registries</a>
+  <ul class="collapse">
+  <li><a href="#what-is-a-disease-registry" id="toc-what-is-a-disease-registry" class="nav-link" data-scroll-target="#what-is-a-disease-registry">What Is a Disease Registry?</a></li>
+  <li><a href="#case-study-seer-cancer-registry" id="toc-case-study-seer-cancer-registry" class="nav-link" data-scroll-target="#case-study-seer-cancer-registry">Case Study: SEER Cancer Registry</a></li>
+  <li><a href="#seer-registry-major-insights" id="toc-seer-registry-major-insights" class="nav-link" data-scroll-target="#seer-registry-major-insights">SEER Registry: Major Insights</a></li>
+  <li><a href="#seer-quality-assurance" id="toc-seer-quality-assurance" class="nav-link" data-scroll-target="#seer-quality-assurance">SEER Quality Assurance</a></li>
+  <li><a href="#registry-limitations" id="toc-registry-limitations" class="nav-link" data-scroll-target="#registry-limitations">Registry Limitations</a></li>
+  <li><a href="#seer-medicare-linkage" id="toc-seer-medicare-linkage" class="nav-link" data-scroll-target="#seer-medicare-linkage">SEER-Medicare Linkage</a></li>
+  </ul></li>
+  <li><a href="#data-quality-and-practical-considerations" id="toc-data-quality-and-practical-considerations" class="nav-link" data-scroll-target="#data-quality-and-practical-considerations">Data Quality and Practical Considerations</a>
+  <ul class="collapse">
+  <li><a href="#the-hypertension-prevalence-example" id="toc-the-hypertension-prevalence-example" class="nav-link" data-scroll-target="#the-hypertension-prevalence-example">The Hypertension Prevalence Example</a></li>
+  <li><a href="#critical-data-quality-lessons" id="toc-critical-data-quality-lessons" class="nav-link" data-scroll-target="#critical-data-quality-lessons">Critical Data Quality Lessons</a></li>
+  <li><a href="#matching-questions-to-data-sources" id="toc-matching-questions-to-data-sources" class="nav-link" data-scroll-target="#matching-questions-to-data-sources">Matching Questions to Data Sources</a></li>
+  <li><a href="#key-datasets-well-use" id="toc-key-datasets-well-use" class="nav-link" data-scroll-target="#key-datasets-well-use">Key Datasets We’ll Use</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a>
+  <ul class="collapse">
+  <li><a href="#summary-core-concepts" id="toc-summary-core-concepts" class="nav-link" data-scroll-target="#summary-core-concepts">Summary: Core Concepts</a></li>
+  <li><a href="#next-class" id="toc-next-class" class="nav-link" data-scroll-target="#next-class">Next Class</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Lecture1.html"><i class="bi bi-file-slides"></i>RevealJS (clean)</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lecture 1: Introduction to Class</h1>
+<p class="subtitle lead">MBA 642: Business Analytics in Healthcare Management (Spring 2026)</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Sangsuk Yoon </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
             University of Dayton
           </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 9, 2025</p>
     </div>
-</div>
+  </div>
+  
+    
+  </div>
+  
 
-  <p class="date">September 9, 2025</p>
-</section>
-<section>
-<section id="welcome-to-mba-642-business-analytics-in-healthcare-management" class="title-slide slide level1 center" data-background-color="#40666e">
-<h1>Welcome to MBA 642: Business Analytics in Healthcare Management!</h1>
 
-</section>
-<section id="meet-the-prof" class="slide level2">
-<h2>Meet the prof</h2>
+</header>
+
+
+<section id="welcome-to-mba-642-business-analytics-in-healthcare-management" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">Welcome to MBA 642: Business Analytics in Healthcare Management!</h1>
+<hr>
+<section id="meet-the-prof" class="level2">
+<h2 class="anchored" data-anchor-id="meet-the-prof">Meet the prof</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br> - <a href="https://ssyoon.github.io" target="_blank">Sangsuk Yoon</a>, Ph.D.&nbsp;<br><br> - Associate professor of Marketing <br><br> - Office: MH 703 <br><br> - Email: syoon1@udayton.edu</p>
 </div><div class="column" style="width:20%;">
 
 </div><div class="column" style="width:30%;">
-<p><img data-src="../images/prof_image.jpeg" style="border-radius: 50%; object-fit: cover;" alt="Headshot of Dr. Sangsuk Yoon" width="300" height="300"></p>
-</div></div>
+<p><img src="../images/prof_image.jpeg" style="border-radius: 50%; object-fit: cover;" alt="Headshot of Dr. Sangsuk Yoon" width="300" height="300"></p>
+</div>
+</div>
 </section>
-<section id="learning-objectives" class="slide level2 smaller">
-<h2>Learning Objectives</h2>
+<section id="learning-objectives" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
 <p>By the end of this session, you will be able to:</p>
 <ol type="1">
 <li>Understand the role and importance of analytics in healthcare</li>
@@ -174,17 +276,13 @@ Sangsuk Yoon
 <li>Recognize strengths and limitations of different data types</li>
 <li>Apply the concept of “organic statistics” to health data analysis</li>
 </ol>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="introduction-the-power-of-health-data-analytics" class="title-slide slide level1 center" data-background-color="#40666e">
-<h1>Introduction: The Power of Health Data Analytics</h1>
-
 </section>
-<section id="examples" class="slide level2 smaller">
-<h2>Examples</h2>
+<section id="introduction-the-power-of-health-data-analytics" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">Introduction: The Power of Health Data Analytics</h1>
+<section id="examples" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="examples">Examples</h2>
 <div class="columns">
 <div class="column fragment" style="width:50%;">
 <p><strong>Blood Pressure Study</strong></p>
@@ -202,55 +300,55 @@ Sangsuk Yoon
 <li>Exceeded hyperglycemia admissions</li>
 <li>Questions aggressive diabetes treatment</li>
 </ul>
-</div></div>
+</div>
+</div>
 <p><br><br><br></p>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<div class="callout-title-container flex-fill">
+Important
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p>These studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="the-healthcare-data-revolution" class="slide level2 smaller">
-<h2>The Healthcare Data Revolution</h2>
-<ul>
-<li class="fragment">Healthcare is undergoing massive digital transformation</li>
-<li class="fragment">Electronic Health Records (EHRs) adoption accelerating</li>
-<li class="fragment">Patient Protection and Affordable Care Act driving change</li>
-<li class="fragment">Big Data enabling unprecedented learning about treatment effectiveness</li>
-<li class="fragment">Population health improving through data-driven insights</li>
+<section id="the-healthcare-data-revolution" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="the-healthcare-data-revolution">The Healthcare Data Revolution</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>Healthcare is undergoing massive digital transformation</li>
+<li>Electronic Health Records (EHRs) adoption accelerating</li>
+<li>Patient Protection and Affordable Care Act driving change</li>
+<li>Big Data enabling unprecedented learning about treatment effectiveness</li>
+<li>Population health improving through data-driven insights</li>
 </ul>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<div class="callout-title-container flex-fill">
+Note
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Market Growth</strong>: Healthcare analytics market projected to grow from $23.51B (2020) to $96.90B (2030) at 15.3% CAGR</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="what-is-statistics-moving-beyond-recipes" class="title-slide slide level1 center" data-background-color="#40666e">
-<h1>What is Statistics? Moving Beyond Recipes</h1>
-
 </section>
-<section id="traditional-view-vs.-organic-statistics" class="slide level2 smaller">
-<h2>Traditional View vs.&nbsp;Organic Statistics</h2>
+<section id="what-is-statistics-moving-beyond-recipes" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">What is Statistics? Moving Beyond Recipes</h1>
+<section id="traditional-view-vs.-organic-statistics" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="traditional-view-vs.-organic-statistics">Traditional View vs.&nbsp;Organic Statistics</h2>
 <p><strong>Statistics</strong> is how we make sense of the world through data.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -271,112 +369,128 @@ Sangsuk Yoon
 <li>Logical progression of concepts</li>
 <li>Clear understanding of assumptions</li>
 </ul>
-</div></div>
+</div>
+</div>
+<hr>
 </section>
-<section id="the-statistical-analysis-pipeline" class="slide level2">
-<h2>The Statistical Analysis Pipeline</h2>
-
-<img data-src="images/fig3.png" class="quarto-figure quarto-figure-center r-stretch"><div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+<section id="the-statistical-analysis-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="the-statistical-analysis-pipeline">The Statistical Analysis Pipeline</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fig3.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Tip</strong></p>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p>Statistics is not just about model fitting—it’s the entire pipeline linking questions to answers through data</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="two-paradigms-in-health-analytics" class="title-slide slide level1 center" data-background-color="#40666e">
-<h1>Two Paradigms in Health Analytics</h1>
-
 </section>
-<section id="paradigm-1-hypothesis-driven-traditional" class="slide level2 smaller">
-<h2>Paradigm 1: Hypothesis-Driven (Traditional)</h2>
+<section id="two-paradigms-in-health-analytics" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">Two Paradigms in Health Analytics</h1>
+<section id="paradigm-1-hypothesis-driven-traditional" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="paradigm-1-hypothesis-driven-traditional">Paradigm 1: Hypothesis-Driven (Traditional)</h2>
 <p><strong>Goal</strong>: Develop mechanistic explanations for observed variability</p>
-<ul>
-<li class="fragment">Identify underlying structural phenomena (biological, clinical, socio-economic)</li>
-<li class="fragment">Separate true mechanism from random noise</li>
-<li class="fragment">Rest on conceptual/theoretical models</li>
-<li class="fragment">Use statistical hypothesis testing</li>
-<li class="fragment">Careful control of Type I error</li>
-<li class="fragment">Make assumptions about data-generating mechanism</li>
+<div class="incremental">
+<ul class="incremental">
+<li>Identify underlying structural phenomena (biological, clinical, socio-economic)</li>
+<li>Separate true mechanism from random noise</li>
+<li>Rest on conceptual/theoretical models</li>
+<li>Use statistical hypothesis testing</li>
+<li>Careful control of Type I error</li>
+<li>Make assumptions about data-generating mechanism</li>
 </ul>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Warning</strong></p>
+<div class="callout-title-container flex-fill">
+Warning
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Critical</strong>: Avoid mistaking random noise for real mechanisms</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="the-andersen-newman-model" class="slide level2 smaller">
-<h2>The Andersen-Newman Model</h2>
+<section id="the-andersen-newman-model" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="the-andersen-newman-model">The Andersen-Newman Model</h2>
 <p>A conceptual framework for health services utilization:</p>
-
-<img data-src="images/fig1.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fig1.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="fragment incremental">
 <p>Conceptual models guide which factors to include/exclude in statistical models.</p>
-<ul>
-<li class="fragment">e.g.,) In examining hypotheses concerning the link between physical activity and health care costs,
-<ul>
-<li class="fragment">we would consider including predisposing factors (age, gender),</li>
-<li class="fragment">but should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model.</li>
+<ul class="incremental">
+<li>e.g.,) In examining hypotheses concerning the link between physical activity and health care costs,
+<ul class="incremental">
+<li>we would consider including predisposing factors (age, gender),</li>
+<li>but should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model.</li>
 </ul></li>
 </ul>
 </div>
+<hr>
 </section>
-<section id="paradigm-2-predictive-analytics" class="slide level2 smaller">
-<h2>Paradigm 2: Predictive Analytics</h2>
+<section id="paradigm-2-predictive-analytics" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="paradigm-2-predictive-analytics">Paradigm 2: Predictive Analytics</h2>
 <p><strong>Goal</strong>: Learn patterns that optimize prediction accuracy</p>
-<ul>
-<li class="fragment">Focus on prediction, not mechanism</li>
-<li class="fragment">Minimize distance between observed and predicted outcomes</li>
-<li class="fragment">Often uses algorithmic “black box” methods</li>
-<li class="fragment">May not be mathematically describable</li>
-<li class="fragment">Less structured, fewer assumptions</li>
-<li class="fragment">Does <strong>not</strong> support causal inference</li>
+<div class="incremental">
+<ul class="incremental">
+<li>Focus on prediction, not mechanism</li>
+<li>Minimize distance between observed and predicted outcomes</li>
+<li>Often uses algorithmic “black box” methods</li>
+<li>May not be mathematically describable</li>
+<li>Less structured, fewer assumptions</li>
+<li>Does <strong>not</strong> support causal inference</li>
 </ul>
-<div class="callout callout-caution callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Limitations</strong></p>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Limitations
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p>Cannot identify specific factors for intervention, even with superior predictive performance</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="case-study-heritage-provider-network-prize" class="slide level2 smaller">
-<h2>Case Study: Heritage Provider Network Prize</h2>
+<section id="case-study-heritage-provider-network-prize" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="case-study-heritage-provider-network-prize">Case Study: Heritage Provider Network Prize</h2>
 <p><strong>Objective</strong>: Predict hospital days in next year using 3 years of prior data</p>
-<ul>
-<li class="fragment">Started April 2011, $3M+ in prizes</li>
-<li class="fragment">16,000+ data scientists, 25,000+ models submitted</li>
-<li class="fragment">Top solutions used ensemble methods combining multiple algorithms</li>
-<li class="fragment"><strong>Result</strong>: Excellent prediction, but not interpretable</li>
-<li class="fragment">Could identify WHO would be hospitalized</li>
-<li class="fragment">Could NOT explain WHY or guide interventions</li>
+<div class="incremental">
+<ul class="incremental">
+<li>Started April 2011, $3M+ in prizes</li>
+<li>16,000+ data scientists, 25,000+ models submitted</li>
+<li>Top solutions used ensemble methods combining multiple algorithms</li>
+<li><strong>Result</strong>: Excellent prediction, but not interpretable</li>
+<li>Could identify WHO would be hospitalized</li>
+<li>Could NOT explain WHY or guide interventions</li>
 </ul>
+</div>
+<hr>
 </section>
-<section id="which-approach-to-choose" class="slide level2 smaller">
-<h2>Which Approach to Choose?</h2>
+<section id="which-approach-to-choose" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="which-approach-to-choose">Which Approach to Choose?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Hypothesis-Driven When:</strong></p>
@@ -396,31 +510,28 @@ Sangsuk Yoon
 <li>Early detection critical</li>
 <li>Resource allocation decisions</li>
 </ul>
-</div></div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Tip</strong></p>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Answer depends on</strong>: Objective of analysis and how results will be used in practice</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="types-of-healthcare-data" class="title-slide slide level1 center" data-background-color="#40666e">
-<h1>Types of Healthcare Data</h1>
-
 </section>
-<section id="overview-administrative-vs.-non-administrative" class="slide level2 smaller">
-<h2>Overview: Administrative vs.&nbsp;Non-Administrative</h2>
+<section id="types-of-healthcare-data" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">Types of Healthcare Data</h1>
+<section id="overview-administrative-vs.-non-administrative" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="overview-administrative-vs.-non-administrative">Overview: Administrative vs.&nbsp;Non-Administrative</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Administrative Data</strong></p>
@@ -442,34 +553,39 @@ Sangsuk Yoon
 <li>Still have limitations</li>
 <li>Selection bias concerns</li>
 </ul>
-</div></div>
+</div>
+</div>
+<hr>
 </section>
-<section id="data-categories-by-source" class="slide level2">
-<h2>Data Categories by Source</h2>
-
-<img data-src="images/fig2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="data-source-1-medical-claims" class="title-slide slide level1 center">
+<section id="data-categories-by-source" class="level2">
+<h2 class="anchored" data-anchor-id="data-categories-by-source">Data Categories by Source</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fig2.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="data-source-1-medical-claims" class="level1">
 <h1>Data Source 1: Medical Claims</h1>
-
-</section>
-<section id="what-are-medical-claims" class="slide level2 smaller">
-<h2>What Are Medical Claims?</h2>
+<section id="what-are-medical-claims" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="what-are-medical-claims">What Are Medical Claims?</h2>
 <p><strong>Definition</strong>: Structured forms documenting billable interactions between insured patients and healthcare system</p>
-<ul>
-<li class="fragment"><strong>Purpose</strong>: Generate payment from payer for services</li>
-<li class="fragment">Include diagnosis codes (ICD-9/ICD-10)</li>
-<li class="fragment">Include procedure codes (CPT, HCPCS)</li>
-<li class="fragment">Include prescribed medications</li>
-<li class="fragment">Include medical care costs</li>
-<li class="fragment">Created by trained claims coders from medical records</li>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Purpose</strong>: Generate payment from payer for services</li>
+<li>Include diagnosis codes (ICD-9/ICD-10)</li>
+<li>Include procedure codes (CPT, HCPCS)</li>
+<li>Include prescribed medications</li>
+<li>Include medical care costs</li>
+<li>Created by trained claims coders from medical records</li>
 </ul>
+</div>
+<hr>
 </section>
-<section id="claims-coding-systems" class="slide level2 smaller">
-<h2>Claims Coding Systems</h2>
+<section id="claims-coding-systems" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="claims-coding-systems">Claims Coding Systems</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Diagnosis Codes</strong></p>
@@ -490,37 +606,45 @@ Sangsuk Yoon
 <li>Prescription drugs</li>
 </ul></li>
 </ul>
-</div></div>
+</div>
+</div>
+<hr>
 </section>
-<section id="claims-data-strengths-and-limitations" class="slide level2 smaller">
-<h2>Claims Data: Strengths and Limitations</h2>
+<section id="claims-data-strengths-and-limitations" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="claims-data-strengths-and-limitations">Claims Data: Strengths and Limitations</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="incremental">
 <p><strong>Strengths:</strong></p>
-<ol type="1">
-<li class="fragment"><strong>Rich information</strong> on healthcare utilization</li>
-<li class="fragment"><strong>Objective documentation</strong> of care delivered</li>
-<li class="fragment"><strong>Large sample sizes</strong> available</li>
-<li class="fragment"><strong>Longitudinal tracking</strong> (while enrolled)</li>
-<li class="fragment"><strong>Multiple dimensions</strong>: diagnoses, procedures, medications, costs</li>
-<li class="fragment"><strong>Research value</strong> despite not designed for research</li>
+<ol class="incremental" type="1">
+<li><strong>Rich information</strong> on healthcare utilization</li>
+<li><strong>Objective documentation</strong> of care delivered</li>
+<li><strong>Large sample sizes</strong> available</li>
+<li><strong>Longitudinal tracking</strong> (while enrolled)</li>
+<li><strong>Multiple dimensions</strong>: diagnoses, procedures, medications, costs</li>
+<li><strong>Research value</strong> despite not designed for research</li>
 </ol>
+</div>
 </div><div class="column" style="width:50%;">
+<div class="incremental">
 <p><strong>Limitations:</strong></p>
-<ol type="1">
-<li class="fragment"><strong>Only insured patients</strong> represented</li>
-<li class="fragment"><strong>Only covered services</strong> included</li>
-<li class="fragment"><strong>Incomplete information</strong> (e.g., no OTC drugs)</li>
-<li class="fragment"><strong>Missing data</strong> when coverage lapses or patient switches payers</li>
-<li class="fragment"><strong>Limited socio-demographics</strong> at individual level</li>
-<li class="fragment"><strong>No health status measurements</strong> or test results</li>
-<li class="fragment"><strong>Variable coding practices</strong> across coders/facilities</li>
-<li class="fragment"><strong>Billing incentives</strong> may skew documentation</li>
+<ol class="incremental" type="1">
+<li><strong>Only insured patients</strong> represented</li>
+<li><strong>Only covered services</strong> included</li>
+<li><strong>Incomplete information</strong> (e.g., no OTC drugs)</li>
+<li><strong>Missing data</strong> when coverage lapses or patient switches payers</li>
+<li><strong>Limited socio-demographics</strong> at individual level</li>
+<li><strong>No health status measurements</strong> or test results</li>
+<li><strong>Variable coding practices</strong> across coders/facilities</li>
+<li><strong>Billing incentives</strong> may skew documentation</li>
 </ol>
-</div></div>
+</div>
+</div>
+</div>
+<hr>
 </section>
-<section id="accessing-claims-data" class="slide level2 smaller">
-<h2>Accessing Claims Data</h2>
+<section id="accessing-claims-data" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="accessing-claims-data">Accessing Claims Data</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Challenges</strong>:</p>
@@ -538,70 +662,76 @@ Sangsuk Yoon
 <li>Commercial data products (licensed)</li>
 <li>Integrated health systems</li>
 </ul>
-</div></div>
+</div>
+</div>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="data-source-2-electronic-medical-records" class="title-slide slide level1 center">
+</section>
+<section id="data-source-2-electronic-medical-records" class="level1">
 <h1>Data Source 2: Electronic Medical Records</h1>
-
-</section>
-<section id="what-are-medical-records" class="slide level2 smaller">
-<h2>What Are Medical Records?</h2>
+<section id="what-are-medical-records" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="what-are-medical-records">What Are Medical Records?</h2>
 <p><strong>Definition</strong>: Comprehensive electronic clinical data obtained at point of care</p>
-<ul>
-<li class="fragment">Used for diagnosis and treatment</li>
-<li class="fragment">Include <strong>all patients</strong> (not just insured)</li>
-<li class="fragment">Contain structured data (like claims)</li>
-<li class="fragment"><strong>Plus</strong> unstructured data:
-<ul>
-<li class="fragment">Physician notes</li>
-<li class="fragment">Imaging reports</li>
-<li class="fragment">Vital sign measurements</li>
-<li class="fragment">Diagnostic test results</li>
+<div class="incremental">
+<ul class="incremental">
+<li>Used for diagnosis and treatment</li>
+<li>Include <strong>all patients</strong> (not just insured)</li>
+<li>Contain structured data (like claims)</li>
+<li><strong>Plus</strong> unstructured data:
+<ul class="incremental">
+<li>Physician notes</li>
+<li>Imaging reports</li>
+<li>Vital sign measurements</li>
+<li>Diagnostic test results</li>
 </ul></li>
 </ul>
+</div>
+<hr>
 </section>
-<section id="medical-records-unique-advantages" class="slide level2 smaller">
-<h2>Medical Records: Unique Advantages</h2>
-<ol type="1">
-<li class="fragment"><strong>Complete patient coverage</strong> (insured and uninsured)</li>
-<li class="fragment"><strong>Health status measurements</strong> (BP, lab values, etc.)</li>
-<li class="fragment"><strong>Diagnostic test results</strong> enable studies impossible with claims alone</li>
-<li class="fragment"><strong>Unstructured data</strong> provide rich clinical context</li>
-<li class="fragment"><strong>Real-time prediction potential</strong> for alerts and risk stratification</li>
-<li class="fragment"><strong>Process of care understanding</strong></li>
-<li class="fragment"><strong>Effectiveness research</strong> in real-world settings</li>
+<section id="medical-records-unique-advantages" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="medical-records-unique-advantages">Medical Records: Unique Advantages</h2>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Complete patient coverage</strong> (insured and uninsured)</li>
+<li><strong>Health status measurements</strong> (BP, lab values, etc.)</li>
+<li><strong>Diagnostic test results</strong> enable studies impossible with claims alone</li>
+<li><strong>Unstructured data</strong> provide rich clinical context</li>
+<li><strong>Real-time prediction potential</strong> for alerts and risk stratification</li>
+<li><strong>Process of care understanding</strong></li>
+<li><strong>Effectiveness research</strong> in real-world settings</li>
 </ol>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<div class="callout-title-container flex-fill">
+Note
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p>Example: Kaiser blood pressure study required actual BP measurements, not just diagnosis codes</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="medical-records-key-challenges" class="slide level2 smaller">
-<h2>Medical Records: Key Challenges</h2>
-<ol type="1">
-<li class="fragment"><strong>Phenotyping</strong>: Identifying diagnoses/outcomes requires algorithms across multiple data streams</li>
-<li class="fragment"><strong>Informative missingness</strong>: Sicker patients have more data recorded</li>
-<li class="fragment"><strong>No statistical design</strong>: Real-time surveillance, not planned data collection</li>
-<li class="fragment"><strong>Proprietary nature</strong>: Generally not accessible to outside researchers</li>
-<li class="fragment"><strong>HIPAA protection</strong>: Highly sensitive, tightly controlled access</li>
-<li class="fragment"><strong>Variable quality</strong>: Depends on clinical documentation practices</li>
+<section id="medical-records-key-challenges" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="medical-records-key-challenges">Medical Records: Key Challenges</h2>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Phenotyping</strong>: Identifying diagnoses/outcomes requires algorithms across multiple data streams</li>
+<li><strong>Informative missingness</strong>: Sicker patients have more data recorded</li>
+<li><strong>No statistical design</strong>: Real-time surveillance, not planned data collection</li>
+<li><strong>Proprietary nature</strong>: Generally not accessible to outside researchers</li>
+<li><strong>HIPAA protection</strong>: Highly sensitive, tightly controlled access</li>
+<li><strong>Variable quality</strong>: Depends on clinical documentation practices</li>
 </ol>
+</div>
+<hr>
 </section>
-<section id="accessing-medical-records" class="slide level2 smaller">
-<h2>Accessing Medical Records</h2>
+<section id="accessing-medical-records" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="accessing-medical-records">Accessing Medical Records</h2>
 <p><strong>Public/Curated Sources:</strong></p>
 <ul>
 <li>Comprehensive Hospital Abstract Reporting System</li>
@@ -614,17 +744,13 @@ Sangsuk Yoon
 <li>Variable access procedures and costs</li>
 <li>Quality differs across products</li>
 </ul>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="data-source-3-health-surveys" class="title-slide slide level1 center">
+</section>
+<section id="data-source-3-health-surveys" class="level1">
 <h1>Data Source 3: Health Surveys</h1>
-
-</section>
-<section id="major-national-health-surveys" class="slide level2 smaller">
-<h2>Major National Health Surveys</h2>
+<section id="major-national-health-surveys" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="major-national-health-surveys">Major National Health Surveys</h2>
 <p>Three key publicly available surveys:</p>
 <ol type="1">
 <li><strong>NHIS</strong> - National Health Interview Survey</li>
@@ -632,22 +758,23 @@ Sangsuk Yoon
 </li>
 <li><strong>MEPS</strong> - Medical Expenditure Panel Survey</li>
 </ol>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<div class="callout-title-container flex-fill">
+Note
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p>All three use complex sampling designs with stratification, clustering, and weights for population representation</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="nhis-national-health-interview-survey" class="slide level2 smaller">
-<h2>NHIS: National Health Interview Survey</h2>
+<section id="nhis-national-health-interview-survey" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="nhis-national-health-interview-survey">NHIS: National Health Interview Survey</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Characteristics</strong>:</p>
@@ -667,11 +794,13 @@ Sangsuk Yoon
 <li>Health behaviors</li>
 <li>Socio-demographics</li>
 </ul>
-</div></div>
+</div>
+</div>
 <p><strong>Uses</strong>: Monitor chronic disease burden, track access to care, measure progress toward national health objectives</p>
+<hr>
 </section>
-<section id="nhanes-nutrition-examination-survey" class="slide level2 smaller">
-<h2>NHANES: Nutrition Examination Survey</h2>
+<section id="nhanes-nutrition-examination-survey" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="nhanes-nutrition-examination-survey">NHANES: Nutrition Examination Survey</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Goes Beyond NHIS</strong>:</p>
@@ -689,7 +818,8 @@ Sangsuk Yoon
 <li>Cholesterol levels</li>
 <li>Lead levels</li>
 </ul>
-</div></div>
+</div>
+</div>
 <p><strong>Major Impacts</strong>:</p>
 <ul>
 <li>Created growth charts for children</li>
@@ -698,9 +828,10 @@ Sangsuk Yoon
 <li>Informed lead reduction policy</li>
 <li>Guides hypertension/cholesterol programs</li>
 </ul>
+<hr>
 </section>
-<section id="meps-medical-expenditure-panel-survey" class="slide level2 smaller">
-<h2>MEPS: Medical Expenditure Panel Survey</h2>
+<section id="meps-medical-expenditure-panel-survey" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="meps-medical-expenditure-panel-survey">MEPS: Medical Expenditure Panel Survey</h2>
 <p><strong>Unique Features</strong>:</p>
 <ul>
 <li>Subsample of NHIS households</li>
@@ -715,22 +846,23 @@ Sangsuk Yoon
 <li>Inpatient/outpatient/Rx utilization</li>
 <li><strong>Actual expenditures</strong> from providers</li>
 </ul>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Tip</strong></p>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Course Note</strong>: Many examples in our class examples use MEPS data</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="survey-data-complex-sampling-design" class="slide level2 smaller">
-<h2>Survey Data: Complex Sampling Design</h2>
+<section id="survey-data-complex-sampling-design" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="survey-data-complex-sampling-design">Survey Data: Complex Sampling Design</h2>
 <p>Why not simple random sampling?</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -748,32 +880,37 @@ Sangsuk Yoon
 <li>Software packages (R, Stata) have survey analysis commands</li>
 <li>Ignore at your peril!</li>
 </ul>
-</div></div>
+</div>
+</div>
+<hr>
 </section>
-<section id="survey-data-potential-biases" class="slide level2 smaller">
-<h2>Survey Data: Potential Biases</h2>
-<ol type="1">
-<li class="fragment"><strong>Non-response bias</strong>: Certain groups less likely to participate</li>
-<li class="fragment"><strong>Recall bias</strong>: Inaccurate memory of past events</li>
-<li class="fragment"><strong>Social desirability bias</strong>: Respondents give “acceptable” answers</li>
-<li class="fragment"><strong>Selection bias</strong>: Sample may not represent target population</li>
+<section id="survey-data-potential-biases" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="survey-data-potential-biases">Survey Data: Potential Biases</h2>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Non-response bias</strong>: Certain groups less likely to participate</li>
+<li><strong>Recall bias</strong>: Inaccurate memory of past events</li>
+<li><strong>Social desirability bias</strong>: Respondents give “acceptable” answers</li>
+<li><strong>Selection bias</strong>: Sample may not represent target population</li>
 </ol>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<div class="callout-title-container flex-fill">
+Important
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Mitigation requires</strong>: Extensive instrument development, calibration, and careful consideration of implementation mode</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="survey-data-unique-value" class="slide level2 smaller">
-<h2>Survey Data: Unique Value</h2>
+<section id="survey-data-unique-value" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="survey-data-unique-value">Survey Data: Unique Value</h2>
 <p><strong>Information difficult/impossible to get from administrative data:</strong></p>
 <ul>
 <li>Socio-demographic characteristics</li>
@@ -783,29 +920,28 @@ Sangsuk Yoon
 <li>Access barriers</li>
 <li>Social determinants of health</li>
 </ul>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="data-source-4-disease-registries" class="title-slide slide level1 center">
+</section>
+<section id="data-source-4-disease-registries" class="level1">
 <h1>Data Source 4: Disease Registries</h1>
-
-</section>
-<section id="what-is-a-disease-registry" class="slide level2 smaller">
-<h2>What Is a Disease Registry?</h2>
+<section id="what-is-a-disease-registry" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="what-is-a-disease-registry">What Is a Disease Registry?</h2>
 <p><strong>Definition</strong>: Non-administrative data collected for population surveillance of specific condition(s)</p>
-<ul>
-<li class="fragment">Clearly specified objective</li>
-<li class="fragment">Variables designed to address objective</li>
-<li class="fragment">Infrastructure for systematic data collection</li>
-<li class="fragment"><strong>Not random samples</strong> (census or opt-in)</li>
-<li class="fragment">Purpose-built for surveillance</li>
+<div class="incremental">
+<ul class="incremental">
+<li>Clearly specified objective</li>
+<li>Variables designed to address objective</li>
+<li>Infrastructure for systematic data collection</li>
+<li><strong>Not random samples</strong> (census or opt-in)</li>
+<li>Purpose-built for surveillance</li>
 </ul>
+</div>
 <p><strong>Examples</strong>: Cancer, end-stage renal disease, Alzheimer’s disease, Down syndrome</p>
+<hr>
 </section>
-<section id="case-study-seer-cancer-registry" class="slide level2 smaller">
-<h2>Case Study: SEER Cancer Registry</h2>
+<section id="case-study-seer-cancer-registry" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="case-study-seer-cancer-registry">Case Study: SEER Cancer Registry</h2>
 <p><strong>Surveillance, Epidemiology, and End Results Program</strong></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -824,25 +960,30 @@ Sangsuk Yoon
 <li>First course of treatment</li>
 <li>Survival and cause of death</li>
 </ul>
-</div></div>
+</div>
+</div>
+<hr>
 </section>
-<section id="seer-registry-major-insights" class="slide level2 smaller">
-<h2>SEER Registry: Major Insights</h2>
+<section id="seer-registry-major-insights" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="seer-registry-major-insights">SEER Registry: Major Insights</h2>
 <p><strong>Documented important trends:</strong></p>
-<ul>
-<li class="fragment">Dramatic ↑ prostate cancer incidence (PSA testing)</li>
-<li class="fragment">↓ Cervical cancer incidence (Pap smears)</li>
-<li class="fragment">Persistent ↑ melanoma incidence (still not fully understood)</li>
+<div class="incremental">
+<ul class="incremental">
+<li>Dramatic ↑ prostate cancer incidence (PSA testing)</li>
+<li>↓ Cervical cancer incidence (Pap smears)</li>
+<li>Persistent ↑ melanoma incidence (still not fully understood)</li>
 </ul>
+</div>
 <p><strong>Critical Uses:</strong></p>
 <ul>
 <li>Setting cancer prevention priorities</li>
 <li>Assessing progress toward health goals</li>
 <li>Allocating control program resources</li>
 </ul>
+<hr>
 </section>
-<section id="seer-quality-assurance" class="slide level2 smaller">
-<h2>SEER Quality Assurance</h2>
+<section id="seer-quality-assurance" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="seer-quality-assurance">SEER Quality Assurance</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Reliability Studies</strong>:</p>
@@ -858,33 +999,38 @@ Sangsuk Yoon
 <li>Verify accuracy of incidence rates</li>
 <li>Validate completeness</li>
 </ul>
-</div></div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Tip</strong></p>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p>Quality assurance processes are critical for registry data validity</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="registry-limitations" class="slide level2 smaller">
-<h2>Registry Limitations</h2>
-<ol type="1">
-<li class="fragment"><strong>Representativeness</strong>: Opt-in registries subject to selection bias; even census registries limited to catchment areas</li>
-<li class="fragment"><strong>Detection bias</strong>: Changes in diagnostic methods affect apparent incidence</li>
-<li class="fragment"><strong>Definition changes</strong>: Example - 2017 hypertension threshold change (140→130 mm Hg)</li>
-<li class="fragment"><strong>Limited scope</strong>: Focus on specific objectives may miss important variables</li>
-<li class="fragment"><strong>Data quality</strong>: Depends on training and consistency of abstractors</li>
+<section id="registry-limitations" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="registry-limitations">Registry Limitations</h2>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Representativeness</strong>: Opt-in registries subject to selection bias; even census registries limited to catchment areas</li>
+<li><strong>Detection bias</strong>: Changes in diagnostic methods affect apparent incidence</li>
+<li><strong>Definition changes</strong>: Example - 2017 hypertension threshold change (140→130 mm Hg)</li>
+<li><strong>Limited scope</strong>: Focus on specific objectives may miss important variables</li>
+<li><strong>Data quality</strong>: Depends on training and consistency of abstractors</li>
 </ol>
+</div>
+<hr>
 </section>
-<section id="seer-medicare-linkage" class="slide level2 smaller">
-<h2>SEER-Medicare Linkage</h2>
+<section id="seer-medicare-linkage" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="seer-medicare-linkage">SEER-Medicare Linkage</h2>
 <p><strong>Combining Registry + Claims Data</strong></p>
 <ul>
 <li>SEER provides diagnosis information</li>
@@ -892,30 +1038,26 @@ Sangsuk Yoon
 <li>Available for Medicare beneficiaries only</li>
 <li>Enables studies of post-diagnosis care</li>
 </ul>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<div class="callout-title-container flex-fill">
+Note
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Result</strong>: Informed numerous investigations of cancer treatment patterns and outcomes</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="data-quality-and-practical-considerations" class="title-slide slide level1 center">
+</section>
+<section id="data-quality-and-practical-considerations" class="level1">
 <h1>Data Quality and Practical Considerations</h1>
-
-</section>
-<section id="the-hypertension-prevalence-example" class="slide level2 smaller">
-<h2>The Hypertension Prevalence Example</h2>
+<section id="the-hypertension-prevalence-example" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="the-hypertension-prevalence-example">The Hypertension Prevalence Example</h2>
 <p><strong>Question</strong>: What is the prevalence of hypertension in the population?</p>
 <p><strong>Multiple Data Sources:</strong></p>
 <ol type="1">
@@ -925,35 +1067,39 @@ Sangsuk Yoon
 <li>Pharmacy records (medications)</li>
 </ol>
 <p><strong>Finding</strong>: Each source showed ~30% prevalence, BUT substantial non-overlap in identified cases</p>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<div class="callout-title-container flex-fill">
+Important
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p>Understand which individuals are represented in each data source and interpret results accordingly</p>
 </div>
 </div>
-</div>
+<hr>
 </section>
-<section id="critical-data-quality-lessons" class="slide level2 smaller">
-<h2>Critical Data Quality Lessons</h2>
-<ol type="1">
-<li class="fragment"><strong>No single data source is complete</strong></li>
-<li class="fragment"><strong>Understand the data-generating process</strong> for each source</li>
-<li class="fragment"><strong>Recognize over-, non-, or under-represented groups</strong></li>
-<li class="fragment"><strong>Adjust or interpret analyses</strong> in light of limitations</li>
-<li class="fragment"><strong>Multiple sources may provide different perspectives</strong> on same question</li>
-<li class="fragment"><strong>Triangulation</strong> across data sources strengthens findings</li>
+<section id="critical-data-quality-lessons" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="critical-data-quality-lessons">Critical Data Quality Lessons</h2>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>No single data source is complete</strong></li>
+<li><strong>Understand the data-generating process</strong> for each source</li>
+<li><strong>Recognize over-, non-, or under-represented groups</strong></li>
+<li><strong>Adjust or interpret analyses</strong> in light of limitations</li>
+<li><strong>Multiple sources may provide different perspectives</strong> on same question</li>
+<li><strong>Triangulation</strong> across data sources strengthens findings</li>
 </ol>
+</div>
+<hr>
 </section>
-<section id="matching-questions-to-data-sources" class="slide level2 smaller">
-<h2>Matching Questions to Data Sources</h2>
+<section id="matching-questions-to-data-sources" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="matching-questions-to-data-sources">Matching Questions to Data Sources</h2>
 <p><strong>Key Principle</strong>: Match research question to data resource most likely to provide valid answer</p>
-<table class="caption-top">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Research Need</th>
@@ -987,9 +1133,10 @@ Sangsuk Yoon
 </tr>
 </tbody>
 </table>
+<hr>
 </section>
-<section id="key-datasets-well-use" class="slide level2 smaller">
-<h2>Key Datasets We’ll Use</h2>
+<section id="key-datasets-well-use" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="key-datasets-well-use">Key Datasets We’ll Use</h2>
 <p><strong>Primary Dataset</strong>: MEPS (Medical Expenditure Panel Survey)</p>
 <ul>
 <li>Rich environment for exploring health services questions</li>
@@ -997,17 +1144,13 @@ Sangsuk Yoon
 <li>Complex survey design (addressed in Chapter 9)</li>
 </ul>
 <p><strong>Also</strong>: NHIS, NHANES, SEER, Medicare claims</p>
+<hr>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="key-takeaways" class="title-slide slide level1 center">
+</section>
+<section id="key-takeaways" class="level1">
 <h1>Key Takeaways</h1>
-
-</section>
-<section id="summary-core-concepts" class="slide level2 smaller">
-<h2>Summary: Core Concepts</h2>
+<section id="summary-core-concepts" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="summary-core-concepts">Summary: Core Concepts</h2>
 <ol type="1">
 <li><p><strong>Healthcare analytics is transforming the industry</strong> through data-driven decision making</p></li>
 <li><p><strong>Two analytical paradigms</strong> serve different purposes:</p>
@@ -1022,417 +1165,438 @@ Sangsuk Yoon
 <li><p><strong>Data quality matters</strong>: Understand data-generating process</p></li>
 <li><p><strong>Match question to data source</strong> for valid inference</p></li>
 </ol>
+<hr>
 </section>
-<section id="next-class" class="slide level2 smaller">
-<h2>Next Class</h2>
+<section id="next-class" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="next-class">Next Class</h2>
 <p><strong>Next Session: Week 2: Basic Statistical Concepts</strong></p>
 <ul>
 <li>Review of probability and distributions</li>
 <li>Hypothesis testing framework</li>
 <li>P-values and confidence intervals</li>
 </ul>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Tip</strong></p>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
-<div class="callout-content">
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Preparation</strong>: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class.</p>
 </div>
 </div>
-</div>
 
 
-</section></section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="../images/ud_bottom_logo.png" class="slide-logo"></p>
-<div class="footer footer-default">
-<p>MBA 642 (Spring 2026): Chapter 1</p>
-</div>
-</div></div>
+</section>
+</section>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
-  <!-- reveal.js plugins -->
-  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
-  
-
-  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
-
-  <script>
-
-      // Full list of configuration options available at:
-      // https://revealjs.com/config/
-      Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': true,
-'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
-'autoAnimateUnmatched': true,
-'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'chalkboard': {"buttons":true},
-'smaller': false,
- 
-        // Display controls in the bottom right corner
-        controls: false,
-
-        // Help the user learn the controls by providing hints, for example by
-        // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
-
-        // Determines where controls appear, "edges" or "bottom-right"
-        controlsLayout: 'edges',
-
-        // Visibility rule for backwards navigation arrows; "faded", "hidden"
-        // or "visible"
-        controlsBackArrows: 'faded',
-
-        // Display a presentation progress bar
-        progress: true,
-
-        // Display the page number of the current slide
-        slideNumber: 'c/t',
-
-        // 'all', 'print', or 'speaker'
-        showSlideNumber: 'all',
-
-        // Add the current slide number to the URL hash so that reloading the
-        // page/copying the URL will return you to the same slide
-        hash: true,
-
-        // Start with 1 for the hash rather than 0
-        hashOneBasedIndex: false,
-
-        // Flags if we should monitor the hash and change slides accordingly
-        respondToHashChanges: true,
-
-        // Push each slide change to the browser history
-        history: true,
-
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
-
-        // Enable the slide overview mode
-        overview: true,
-
-        // Disables the default reveal.js slide layout (scaling and centering)
-        // so that you can use custom CSS layout
-        disableLayout: false,
-
-        // Vertical centering of slides
-        center: false,
-
-        // Enables touch navigation on devices with touch input
-        touch: true,
-
-        // Loop the presentation
-        loop: false,
-
-        // Change the presentation direction to be RTL
-        rtl: false,
-
-        // see https://revealjs.com/vertical-slides/#navigation-mode
-        navigationMode: 'linear',
-
-        // Randomizes the order of slides each time the presentation loads
-        shuffle: false,
-
-        // Turns fragments on and off globally
-        fragments: true,
-
-        // Flags whether to include the current fragment in the URL,
-        // so that reloading brings you to the same fragment position
-        fragmentInURL: false,
-
-        // Flags if the presentation is running in an embedded mode,
-        // i.e. contained within a limited portion of the screen
-        embedded: false,
-
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
-
-        // Flags if it should be possible to pause the presentation (blackout)
-        pause: true,
-
-        // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
-
-        // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: null,
-
-        // Global override for preloading lazy-loaded iframes (null/true/false)
-        preloadIframes: null,
-
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
-
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
-
-        // Use this method for navigation when auto-sliding
-        autoSlideMethod: null,
-
-        // Specify the average time in seconds that you think you will spend
-        // presenting each slide. This is used to show a pacing timer in the
-        // speaker view
-        defaultTiming: null,
-
-        // Enable slide navigation via mouse wheel
-        mouseWheel: false,
-
-        // The display mode that will be used to show slides
-        display: 'block',
-
-        // Hide cursor if inactive
-        hideInactiveCursor: true,
-
-        // Time before the cursor is hidden (in ms)
-        hideCursorTime: 5000,
-
-        // Opens links in an iframe preview overlay
-        previewLinks: false,
-
-        // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
-
-        // Transition speed (default/fast/slow)
-        transitionSpeed: 'default',
-
-        // Transition style for full page slide backgrounds
-        // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
-
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
-
-        // Number of slides away from the current that are visible on mobile
-        // devices. It is advisable to set this to a lower number than
-        // viewDistance in order to save resources.
-        mobileViewDistance: 2,
-
-        // The "normal" size of the presentation, aspect ratio will be preserved
-        // when the presentation is scaled to fit different resolutions. Can be
-        // specified using percentage units.
-        width: 1050,
-
-        height: 700,
-
-        // Factor of the display size that should remain empty around the content
-        margin: 0.1,
-
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
-        // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
-
-          RevealMath,
-          RevealNotes,
-          RevealSearch,
-          RevealZoom
-        ]
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
-    </script>
-    <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
-              return true;
-            }
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
-          return false;
         }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();    
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
-          return codeEl.innerText;
         }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config); 
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
             } else {
-              return "";
+              container.appendChild(child.cloneNode(true));
+              break;
             }
-          });
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
             }
           } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
             });
           }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
+      }, function(instance) {
       });
-      </script>
-    
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
 
 </body></html>
