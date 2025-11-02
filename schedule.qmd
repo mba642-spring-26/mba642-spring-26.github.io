@@ -28,16 +28,16 @@ The schedule can vary depending on the progress of the course or unforeseen circ
 | 3 | Jan 28 | Basic Statistical Concepts | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} |  | Assignment 2 |
 | 4 | Feb 4 | Data visualization | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- Data Visualization by Keran Healy <br> - [Data visualization using R for Researchers who do not use R](https://journals.sagepub.com/doi/10.1177/25152459221074654){target="_blank"} | Assignment 3 |
 | 5 | Feb 11 | Mean difference 1: t-test | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 9 | Assignment 4 |
-| 6 | Feb 18 | Mean difference 2: ANOVA 1 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 5 |
-| 7 | Feb 25 | Mean difference 2: ANOVA 2 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 6 |
-| 8 | Mar 4 | Bivariate relationship | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 3 | Assignment 7 |
+| 6 | Feb 18 | Mean difference 2: ANOVA 1 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- |  |
+| 7 | Feb 25 | Mean difference 2: ANOVA 2 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | \- | Assignment 5 |
+| 8 | Mar 4 | Bivariate relationship | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 3 | Assignment 6 |
 | 9 | Mar 11 | Midterm Exam | \- | \- | \- |
 | 10 | Mar 18 | Spring break (no class) | \- | \- | \- |
-| 11 | Mar 25 | Linear regression analysis 1 | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 5 | Assignment 8 |
-| 12 | Apr 1 | Logistic regression analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 5 | Assignment 9 |
-| 13 | Apr 8 | Count data analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 8 | Assignment 10 |
-| 14 | Apr 15 | Predictive analytics 1: Penalized Regression | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 | Assignment 11 |
-| 15 | Apr 22 | Predictive analytics 2: Decision Trees | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 | Assignment 12 |
+| 11 | Mar 25 | Linear regression analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 5 | Assignment 7 |
+| 12 | Apr 1 | Logistic regression analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 5 | Assignment 8 |
+| 13 | Apr 8 | Conjoint analysis | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 8 | Assignment 9 |
+| 14 | Apr 15 | Predictive analytics 1: Penalized Regression | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 |  |
+| 15 | Apr 22 | Predictive analytics 2: Decision Trees | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} | Chapter 10 | Assignment 10 |
 | 16 | Apr 29 | Final Exam | [{{< fa file-lines >}}](/lectures/Lecture1.qmd){target="_blank"} |  |  |
 
 [*b1: Statistics for Health Data Science: An Organic Approach*]{style="font-size: 12px;"}
