@@ -2,7 +2,7 @@
 title: " "
 format:
   html:
-    theme: cosmo
+    theme: sketchy
     toc: true
     toc-location: left
     code-fold: false
@@ -21,7 +21,7 @@ format:
 
 **Instructor:** Sangsuk Yoon (syoon1\@udayton.edu)
 
-**Format:** Online (Synchronous)
+**Format:** Online (Use the Zoom link on Canvas to join the class)
 
 **Office Hours**: TBA
 

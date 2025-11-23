@@ -1,5 +1,12 @@
 ---
 title: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
+format:
+  html:
+    theme: sketchy
+    toc: true
+    toc-location: left
+    code-fold: false
+    code-tools: false
 ---
 
 <!----------------------------------------------------------------->

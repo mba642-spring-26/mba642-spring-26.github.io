@@ -2,7 +2,7 @@
 title: "Course Schedule"
 format:
   html:
-    theme: cosmo
+    theme: sketchy
     toc: true
     toc-location: left
     code-fold: false
