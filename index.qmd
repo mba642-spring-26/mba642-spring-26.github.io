@@ -2,8 +2,15 @@
 title: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
 ---
 
+<!----------------------------------------------------------------->
+
 <!-- Google tag (gtag.js) -->
+
+```{=html}
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5XLYRXJP3R"></script>
+```
+
+```{=html}
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -11,11 +18,14 @@ title: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
 
   gtag('config', 'G-5XLYRXJP3R');
 </script>
+```
 
-This is a class website for Business Analytics in Healthcare Management class.
+<!----------------------------------------------------------------->
 
-All class materials will be posted here.
+This is a class website for Business Analytics in Healthcare Management class. (Spring 2026).
+
+All class materials for lectures will be posted here.
 
 Please check the [syllabus](syllabus.qmd) for course policies and grading information and the [schedule](schedule.qmd) for tentative course schedule.
 
-All grading and assignment submissions will be through our class Canvas page.
+All grading and assignment instructions and submissions will be through our class Canvas page.
