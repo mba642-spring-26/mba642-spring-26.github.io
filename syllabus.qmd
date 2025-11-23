@@ -1,5 +1,12 @@
 ---
 title: " "
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-location: left
+    code-fold: false
+    code-tools: false
 ---
 
 # Course Information
@@ -17,7 +24,6 @@ title: " "
 **Format:** Online (Synchronous)
 
 **Office Hours**: TBA
-
 
 # Course Description and Objectives:
 
@@ -83,12 +89,12 @@ This course utilizes R and R-Studio as the primary analytical tools. R is a powe
 
 # Grading Components:
 
-|      Component       | Points |
-|:--------------------:|:------:|
-|     Assignments      |  100 points   |
-| Class Attendance and Reflection |  65 points   |
-|     Midterm Exam     |  55 points   |
-|      Final Exam      |  50 points   |
+|            Component            |   Points   |
+|:-------------------------------:|:----------:|
+|           Assignments           | 100 points |
+| Class Attendance and Reflection | 65 points  |
+|          Midterm Exam           | 55 points  |
+|           Final Exam            | 50 points  |
 
 ## Assignments: 100 points (10 assignments, each with 10 points)
 
@@ -106,25 +112,23 @@ There will be a midterm exam in Week 9 of the semester. The exam will cover topi
 
 There will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class. The exam will be online, and students need to complete within 24 hours.
 
-
 **Final course letter grades** will be assigned as follows:
 
 | Letter Grade | Quality Points | Percentage Range |
 |:------------:|:--------------:|:----------------:|
-|      A       |     4.000      |     250 - 270     |
-|      A-      |     3.667      |    240 - 249    |
-|      B+      |     3.333      |    230 - 239    |
-|      B       |     3.000      |    220 - 229    |
-|      B-      |     2.667      |    210 - 219    |
-|      C       |     2.000      |    200 - 209    |
-|      F       |     0.000      |    0 - 199     |
-
+|      A       |     4.000      |    250 - 270     |
+|      A-      |     3.667      |    240 - 249     |
+|      B+      |     3.333      |    230 - 239     |
+|      B       |     3.000      |    220 - 229     |
+|      B-      |     2.667      |    210 - 219     |
+|      C       |     2.000      |    200 - 209     |
+|      F       |     0.000      |     0 - 199      |
 
 # Class Policies
 
 ## Attendance Policy:
 
-This course is delivered online synchronously, and attendance is required. Attendance will be measured before or middle of each class. 
+This course is delivered online synchronously, and attendance is required. Attendance will be measured before or middle of each class.
 
 ## Classroom Etiquette:
 
@@ -142,9 +146,7 @@ This course is delivered online synchronously, and attendance is required. Atten
 
 ## Late Submissions:
 
-A late submission is subject to the following policy. 
--   In-class activity must be submitted on time; late submissions are not accepted. If you cannot submit work on time, you have to inform me immediately after class. Email notifications or after-deadline communications about late work are not accepted. 
--   For other assignments, a 20% grade deduction applies for each 24-hour period past the deadline. Assignments submitted more than 48 hours late will receive zero points.
+A late submission is subject to the following policy. - In-class activity must be submitted on time; late submissions are not accepted. If you cannot submit work on time, you have to inform me immediately after class. Email notifications or after-deadline communications about late work are not accepted. - For other assignments, a 20% grade deduction applies for each 24-hour period past the deadline. Assignments submitted more than 48 hours late will receive zero points.
 
 ## Retaining Assignments and Research Exercises:
 
