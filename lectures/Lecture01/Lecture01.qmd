@@ -1,0 +1,800 @@
+---
+title: "Lecture 1: Introduction to Class"
+subtitle: "MBA 642: Business Analytics in Healthcare Management (Spring 2026)"
+author: "Sangsuk Yoon"
+institute: "University of Dayton"
+date: "09/09/2025"
+format: 
+  clean-revealjs:
+    theme: simple # A clean, minimalist theme. Others: dark, solarized, serif, blood
+    css: "../custom.css"
+    slide-number: true # Show slide numbers
+    chalkboard: true # Press 'B' for a chalkboard, 'C' for notes
+    preview-links: auto
+    logo: "../images/ud_bottom_logo.png" # Optional: add a logo
+    footer: "MBA 642 (Spring 2026): Week 01" # A footer on every slide
+---
+
+# Welcome to MBA 642: Business Analytics in Healthcare Management! {background-color="#40666e"}
+
+------------------------------------------------------------------------
+
+## Meet the prof
+
+:::::: columns
+::: {.column width="50%"}
+</br> - [Sangsuk Yoon](https://ssyoon.github.io){target="_blank"}, Ph.D. </br></br> - Associate professor of Marketing </br></br> - Office: MH 703 </br></br> - Email: syoon1\@udayton.edu
+:::
+
+::: {.column width="20%"}
+:::
+
+::: {.column width="30%"}
+![](../images/prof_image.jpeg){fig-alt="Headshot of Dr. Sangsuk Yoon" width="300" height="300" style="border-radius: 50%; object-fit: cover;"}
+:::
+::::::
+
+## Learning Objectives {.smaller}
+
+By the end of this session, you will be able to:
+
+1.  Understand the role and importance of analytics in healthcare
+2.  Differentiate between hypothesis-driven and predictive analytics approaches
+3.  Identify major types of healthcare data sources
+4.  Recognize strengths and limitations of different data types
+5.  Apply the concept of "organic statistics" to health data analysis
+
+------------------------------------------------------------------------
+
+# Introduction: The Power of Health Data Analytics {background-color="#40666e"}
+
+## Examples {.smaller}
+
+::::: columns
+::: {.column .fragment width="50%"}
+**Blood Pressure Study**
+
+-   400,000 Kaiser Permanente patients
+-   Taking hypertension medication
+-   Finding: Lower BP linked to higher mortality risk
+-   Challenges "more is better" assumption
+:::
+
+::: {.column .fragment width="50%"}
+**Blood Sugar Study**
+
+-   33 million beneficiaries
+-   Hospital admissions for hypoglycemia increased over time
+-   Exceeded hyperglycemia admissions
+-   Questions aggressive diabetes treatment
+:::
+:::::
+
+<br><br><br>
+
+::: callout-important
+These studies demonstrate how large database analyses can both raise questions and provide answers to improve health systems
+:::
+
+------------------------------------------------------------------------
+
+## The Healthcare Data Revolution {.smaller}
+
+::: incremental
+-   Healthcare is undergoing massive digital transformation
+-   Electronic Health Records (EHRs) adoption accelerating
+-   Patient Protection and Affordable Care Act driving change
+-   Big Data enabling unprecedented learning about treatment effectiveness
+-   Population health improving through data-driven insights
+:::
+
+::: callout-note
+**Market Growth**: Healthcare analytics market projected to grow from \$23.51B (2020) to \$96.90B (2030) at 15.3% CAGR
+:::
+
+------------------------------------------------------------------------
+
+# What is Statistics? Moving Beyond Recipes {background-color="#40666e"}
+
+## Traditional View vs. Organic Statistics {.smaller}
+
+**Statistics** is how we make sense of the world through data.
+
+::::: columns
+::: {.column width="50%"}
+**Statistics as Recipes** ❌
+
+-   Collection of methods
+-   Pick the right recipe for data
+-   Focus on model fitting
+-   Software-driven approach
+-   Mechanical application
+:::
+
+::: {.column width="50%"}
+**Organic Statistics** ✅
+
+-   Understanding that grows naturally
+-   Know why AND how methods work
+-   Question → Data → Answer → Impact
+-   Logical progression of concepts
+-   Clear understanding of assumptions
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## The Statistical Analysis Pipeline
+
+![](images/fig3.png){fig-align="center"}
+
+::: callout-tip
+Statistics is not just about model fitting—it's the entire pipeline linking questions to answers through data
+:::
+
+------------------------------------------------------------------------
+
+# Two Paradigms in Health Analytics {background-color="#40666e"}
+
+## Paradigm 1: Hypothesis-Driven (Traditional) {.smaller}
+
+**Goal**: Develop mechanistic explanations for observed variability
+
+::: incremental
+-   Identify underlying structural phenomena (biological, clinical, socio-economic)
+-   Separate true mechanism from random noise
+-   Rest on conceptual/theoretical models
+-   Use statistical hypothesis testing
+-   Careful control of Type I error
+-   Make assumptions about data-generating mechanism
+:::
+
+::: callout-warning
+**Critical**: Avoid mistaking random noise for real mechanisms
+:::
+
+------------------------------------------------------------------------
+
+## The Andersen-Newman Model {.smaller}
+
+A conceptual framework for health services utilization:
+
+![](images/fig1.png){fig-align="center"}
+
+::: {.fragment .incremental}
+Conceptual models guide which factors to include/exclude in statistical models.
+
+-   e.g.,) In examining hypotheses concerning the link between physical activity and health care costs,
+    -   we would consider including predisposing factors (age, gender),
+    -   but should not include mediating factors (such as BMI or self-reported health status: Need factors) in the statistical model.
+:::
+
+------------------------------------------------------------------------
+
+## Paradigm 2: Predictive Analytics {.smaller}
+
+**Goal**: Learn patterns that optimize prediction accuracy
+
+::: incremental
+-   Focus on prediction, not mechanism
+-   Minimize distance between observed and predicted outcomes
+-   Often uses algorithmic "black box" methods
+-   May not be mathematically describable
+-   Less structured, fewer assumptions
+-   Does **not** support causal inference
+:::
+
+::: callout-caution
+## Limitations
+
+Cannot identify specific factors for intervention, even with superior predictive performance
+:::
+
+------------------------------------------------------------------------
+
+## Case Study: Heritage Provider Network Prize {.smaller}
+
+**Objective**: Predict hospital days in next year using 3 years of prior data
+
+::: incremental
+-   Started April 2011, \$3M+ in prizes
+-   16,000+ data scientists, 25,000+ models submitted
+-   Top solutions used ensemble methods combining multiple algorithms
+-   **Result**: Excellent prediction, but not interpretable
+-   Could identify WHO would be hospitalized
+-   Could NOT explain WHY or guide interventions
+:::
+
+------------------------------------------------------------------------
+
+## Which Approach to Choose? {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**Hypothesis-Driven When:**
+
+-   Scientific question is specific
+-   Investigating cause/mechanism
+-   Need to understand "why"
+-   Results inform interventions
+-   Target population well-defined
+:::
+
+::: {.column width="50%"}
+**Predictive When:**
+
+-   Primary goal is forecasting
+-   Action based on risk scores
+-   Mechanism less important
+-   Early detection critical
+-   Resource allocation decisions
+:::
+:::::
+
+::: callout-tip
+**Answer depends on**: Objective of analysis and how results will be used in practice
+:::
+
+------------------------------------------------------------------------
+
+# Types of Healthcare Data {background-color="#40666e"}
+
+## Overview: Administrative vs. Non-Administrative {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**Administrative Data**
+
+-   Collected for billing/operations
+-   Medical claims
+-   Electronic medical records
+-   Not designed for research
+-   Objective snapshot of care
+-   Many analytical challenges
+:::
+
+::: {.column width="50%"}
+**Non-Administrative Data**
+
+-   Collected for research/surveillance
+-   Health surveys
+-   Disease registries
+-   Purpose-built for analysis
+-   Still have limitations
+-   Selection bias concerns
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Data Categories by Source
+
+![](images/fig2.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+# Data Source 1: Medical Claims
+
+## What Are Medical Claims? {.smaller}
+
+**Definition**: Structured forms documenting billable interactions between insured patients and healthcare system
+
+::: incremental
+-   **Purpose**: Generate payment from payer for services
+-   Include diagnosis codes (ICD-9/ICD-10)
+-   Include procedure codes (CPT, HCPCS)
+-   Include prescribed medications
+-   Include medical care costs
+-   Created by trained claims coders from medical records
+:::
+
+------------------------------------------------------------------------
+
+## Claims Coding Systems {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**Diagnosis Codes**
+
+-   ICD-9 → ICD-10 (2015)
+-   Expanded from \~13,000 to 68,000+ codes
+-   Example: E11.65 = Type 2 diabetes with hyperglycemia
+:::
+
+::: {.column width="50%"}
+**Procedure Codes**
+
+-   ICD-10 for inpatient procedures
+-   CPT for outpatient services
+-   HCPCS includes non-physician services
+    -   Ambulance rides
+    -   Medical equipment
+    -   Prescription drugs
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Claims Data: Strengths and Limitations {.smaller}
+
+::::::: columns
+:::: {.column width="50%"}
+::: incremental
+**Strengths:**
+
+1.  **Rich information** on healthcare utilization
+2.  **Objective documentation** of care delivered
+3.  **Large sample sizes** available
+4.  **Longitudinal tracking** (while enrolled)
+5.  **Multiple dimensions**: diagnoses, procedures, medications, costs
+6.  **Research value** despite not designed for research
+:::
+::::
+
+:::: {.column width="50%"}
+::: incremental
+**Limitations:**
+
+1.  **Only insured patients** represented
+2.  **Only covered services** included
+3.  **Incomplete information** (e.g., no OTC drugs)
+4.  **Missing data** when coverage lapses or patient switches payers
+5.  **Limited socio-demographics** at individual level
+6.  **No health status measurements** or test results
+7.  **Variable coding practices** across coders/facilities
+8.  **Billing incentives** may skew documentation
+:::
+::::
+:::::::
+
+------------------------------------------------------------------------
+
+## Accessing Claims Data {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**Challenges**:
+
+-   Requires formal proposal
+-   Often requires funding
+-   Data security protocols
+-   Limited access without collaboration
+:::
+
+::: {.column width="50%"}
+**Options**:
+
+-   Medicare SynPUFs (synthetic public files)
+-   Collaboration with payers
+-   Commercial data products (licensed)
+-   Integrated health systems
+:::
+:::::
+
+------------------------------------------------------------------------
+
+# Data Source 2: Electronic Medical Records
+
+## What Are Medical Records? {.smaller}
+
+**Definition**: Comprehensive electronic clinical data obtained at point of care
+
+::: incremental
+-   Used for diagnosis and treatment
+-   Include **all patients** (not just insured)
+-   Contain structured data (like claims)
+-   **Plus** unstructured data:
+    -   Physician notes
+    -   Imaging reports
+    -   Vital sign measurements
+    -   Diagnostic test results
+:::
+
+------------------------------------------------------------------------
+
+## Medical Records: Unique Advantages {.smaller}
+
+::: incremental
+1.  **Complete patient coverage** (insured and uninsured)
+2.  **Health status measurements** (BP, lab values, etc.)
+3.  **Diagnostic test results** enable studies impossible with claims alone
+4.  **Unstructured data** provide rich clinical context
+5.  **Real-time prediction potential** for alerts and risk stratification
+6.  **Process of care understanding**
+7.  **Effectiveness research** in real-world settings
+:::
+
+::: callout-note
+Example: Kaiser blood pressure study required actual BP measurements, not just diagnosis codes
+:::
+
+------------------------------------------------------------------------
+
+## Medical Records: Key Challenges {.smaller}
+
+::: incremental
+1.  **Phenotyping**: Identifying diagnoses/outcomes requires algorithms across multiple data streams
+2.  **Informative missingness**: Sicker patients have more data recorded
+3.  **No statistical design**: Real-time surveillance, not planned data collection
+4.  **Proprietary nature**: Generally not accessible to outside researchers
+5.  **HIPAA protection**: Highly sensitive, tightly controlled access
+6.  **Variable quality**: Depends on clinical documentation practices
+:::
+
+------------------------------------------------------------------------
+
+## Accessing Medical Records {.smaller}
+
+**Public/Curated Sources:**
+
+-   Comprehensive Hospital Abstract Reporting System
+-   National Inpatient Sample
+-   SAMHSA facility data
+
+**Commercial Collections:**
+
+-   Available with research proposal and fees
+-   Variable access procedures and costs
+-   Quality differs across products
+
+------------------------------------------------------------------------
+
+# Data Source 3: Health Surveys
+
+## Major National Health Surveys {.smaller}
+
+Three key publicly available surveys:
+
+1.  **NHIS** - National Health Interview Survey
+2.  **NHANES** - National Health and Nutrition Examination Survey\
+3.  **MEPS** - Medical Expenditure Panel Survey
+
+::: callout-note
+All three use complex sampling designs with stratification, clustering, and weights for population representation
+:::
+
+------------------------------------------------------------------------
+
+## NHIS: National Health Interview Survey {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**Characteristics**:
+
+-   Nation's largest in-person household survey
+-   Conducted annually since 1957
+-   Cross-sectional design
+-   Different sample each year
+-   Conducted by Census Bureau for NCHS
+:::
+
+::: {.column width="50%"}
+**Content**:
+
+-   Medical conditions
+-   Health insurance
+-   Doctor visits
+-   Health behaviors
+-   Socio-demographics
+:::
+:::::
+
+**Uses**: Monitor chronic disease burden, track access to care, measure progress toward national health objectives
+
+------------------------------------------------------------------------
+
+## NHANES: Nutrition Examination Survey {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**Goes Beyond NHIS**:
+
+-   Interview + physical exam + blood tests
+-   Objective health measurements
+-   More complex/costly logistics
+:::
+
+::: {.column width="50%"}
+**Key Measurements**:
+
+-   Blood pressure
+-   Body mass index
+-   Hemoglobin A1c
+-   Cholesterol levels
+-   Lead levels
+:::
+:::::
+
+**Major Impacts**:
+
+-   Created growth charts for children
+-   Monitors obesity prevalence
+-   Estimates undiagnosed diabetes
+-   Informed lead reduction policy
+-   Guides hypertension/cholesterol programs
+
+------------------------------------------------------------------------
+
+## MEPS: Medical Expenditure Panel Survey {.smaller}
+
+**Unique Features**:
+
+-   Subsample of NHIS households
+-   **Longitudinal**: 5 interviews over 2 years
+-   Detailed utilization and expenditure data
+-   Links to medical providers and health records
+
+**Rich Content**:
+
+-   NHIS variables (demographics, behaviors)
+-   Detailed insurance information
+-   Inpatient/outpatient/Rx utilization
+-   **Actual expenditures** from providers
+
+::: callout-tip
+**Course Note**: Many examples in our class examples use MEPS data
+:::
+
+------------------------------------------------------------------------
+
+## Survey Data: Complex Sampling Design {.smaller}
+
+Why not simple random sampling?
+
+::::: columns
+::: {.column width="50%"}
+**Techniques Used**:
+
+1.  **Stratification**: Control proportions sampled within subgroups
+2.  **Clustering**: Reduce survey administration costs
+3.  **Weighting**: Each observation represents multiple people
+:::
+
+::: {.column width="50%"}
+**Implications**:
+
+-   Must account for design in analysis
+-   Use survey weights
+-   Software packages (R, Stata) have survey analysis commands
+-   Ignore at your peril!
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Survey Data: Potential Biases {.smaller}
+
+::: incremental
+1.  **Non-response bias**: Certain groups less likely to participate
+2.  **Recall bias**: Inaccurate memory of past events
+3.  **Social desirability bias**: Respondents give "acceptable" answers
+4.  **Selection bias**: Sample may not represent target population
+:::
+
+::: callout-important
+**Mitigation requires**: Extensive instrument development, calibration, and careful consideration of implementation mode
+:::
+
+------------------------------------------------------------------------
+
+## Survey Data: Unique Value {.smaller}
+
+**Information difficult/impossible to get from administrative data:**
+
+-   Socio-demographic characteristics
+-   Health behaviors (smoking, exercise, diet)
+-   Individual perceptions and preferences
+-   Patient satisfaction
+-   Access barriers
+-   Social determinants of health
+
+------------------------------------------------------------------------
+
+# Data Source 4: Disease Registries
+
+## What Is a Disease Registry? {.smaller}
+
+**Definition**: Non-administrative data collected for population surveillance of specific condition(s)
+
+::: incremental
+-   Clearly specified objective
+-   Variables designed to address objective
+-   Infrastructure for systematic data collection
+-   **Not random samples** (census or opt-in)
+-   Purpose-built for surveillance
+:::
+
+**Examples**: Cancer, end-stage renal disease, Alzheimer's disease, Down syndrome
+
+------------------------------------------------------------------------
+
+## Case Study: SEER Cancer Registry {.smaller}
+
+**Surveillance, Epidemiology, and End Results Program**
+
+::::: columns
+::: {.column width="50%"}
+**Coverage**:
+
+-   Complete census in specific catchment areas
+-   All diagnosed cancer cases
+-   Hospital-based cancer registrars abstract data
+:::
+
+::: {.column width="50%"}
+**Data Elements**:
+
+-   Demographics
+-   Census-tract socioeconomics
+-   Disease characteristics
+-   First course of treatment
+-   Survival and cause of death
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## SEER Registry: Major Insights {.smaller}
+
+**Documented important trends:**
+
+::: incremental
+-   Dramatic ↑ prostate cancer incidence (PSA testing)
+-   ↓ Cervical cancer incidence (Pap smears)
+-   Persistent ↑ melanoma incidence (still not fully understood)
+:::
+
+**Critical Uses:**
+
+-   Setting cancer prevention priorities
+-   Assessing progress toward health goals
+-   Allocating control program resources
+
+------------------------------------------------------------------------
+
+## SEER Quality Assurance {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**Reliability Studies**:
+
+-   Multiple coders review same records
+-   Assess consistency across registry sites
+-   Measure agreement in coding
+:::
+
+::: {.column width="50%"}
+**Case-Finding Audits**:
+
+-   Ensure all eligible cases identified
+-   Verify accuracy of incidence rates
+-   Validate completeness
+:::
+:::::
+
+::: callout-tip
+Quality assurance processes are critical for registry data validity
+:::
+
+------------------------------------------------------------------------
+
+## Registry Limitations {.smaller}
+
+::: incremental
+1.  **Representativeness**: Opt-in registries subject to selection bias; even census registries limited to catchment areas
+2.  **Detection bias**: Changes in diagnostic methods affect apparent incidence
+3.  **Definition changes**: Example - 2017 hypertension threshold change (140→130 mm Hg)
+4.  **Limited scope**: Focus on specific objectives may miss important variables
+5.  **Data quality**: Depends on training and consistency of abstractors
+:::
+
+------------------------------------------------------------------------
+
+## SEER-Medicare Linkage {.smaller}
+
+**Combining Registry + Claims Data**
+
+-   SEER provides diagnosis information
+-   Medicare claims add treatment patterns and outcomes
+-   Available for Medicare beneficiaries only
+-   Enables studies of post-diagnosis care
+
+::: callout-note
+**Result**: Informed numerous investigations of cancer treatment patterns and outcomes
+:::
+
+------------------------------------------------------------------------
+
+# Data Quality and Practical Considerations
+
+## The Hypertension Prevalence Example {.smaller}
+
+**Question**: What is the prevalence of hypertension in the population?
+
+**Multiple Data Sources:**
+
+1.  Survey self-report (diagnosed hypertension)
+2.  Medical claims (diagnosis codes)
+3.  Medical records (BP measurements)
+4.  Pharmacy records (medications)
+
+**Finding**: Each source showed \~30% prevalence, BUT substantial non-overlap in identified cases
+
+::: callout-important
+Understand which individuals are represented in each data source and interpret results accordingly
+:::
+
+------------------------------------------------------------------------
+
+## Critical Data Quality Lessons {.smaller}
+
+::: incremental
+1.  **No single data source is complete**
+2.  **Understand the data-generating process** for each source
+3.  **Recognize over-, non-, or under-represented groups**
+4.  **Adjust or interpret analyses** in light of limitations
+5.  **Multiple sources may provide different perspectives** on same question
+6.  **Triangulation** across data sources strengthens findings
+:::
+
+------------------------------------------------------------------------
+
+## Matching Questions to Data Sources {.smaller}
+
+**Key Principle**: Match research question to data resource most likely to provide valid answer
+
+| Research Need              | Best Data Source        |
+|----------------------------|-------------------------|
+| Health status measurements | Medical records, NHANES |
+| Healthcare costs           | Claims, MEPS            |
+| Health behaviors           | Surveys                 |
+| Disease incidence          | Registries              |
+| Treatment patterns         | Claims, Records         |
+| Population prevalence      | Surveys, Registries     |
+
+------------------------------------------------------------------------
+
+## Key Datasets We'll Use {.smaller}
+
+**Primary Dataset**: MEPS (Medical Expenditure Panel Survey)
+
+-   Rich environment for exploring health services questions
+-   Demonstrates specialized methods for observational data
+-   Complex survey design (addressed in Chapter 9)
+
+**Also**: NHIS, NHANES, SEER, Medicare claims
+
+------------------------------------------------------------------------
+
+# Key Takeaways
+
+## Summary: Core Concepts {.smaller}
+
+1.  **Healthcare analytics is transforming the industry** through data-driven decision making
+
+2.  **Two analytical paradigms** serve different purposes:
+
+    -   Hypothesis-driven for understanding mechanism
+    -   Predictive for forecasting and risk stratification
+
+3.  **Four major data sources** each with unique strengths and limitations:
+
+    -   Claims, Records, Surveys, Registries
+
+4.  **Data quality matters**: Understand data-generating process
+
+5.  **Match question to data source** for valid inference
+
+------------------------------------------------------------------------
+
+## Next Class {.smaller}
+
+**Next Session: Week 2: Basic Statistical Concepts**
+
+-   Review of probability and distributions
+-   Hypothesis testing framework
+-   P-values and confidence intervals
+
+::: callout-tip
+**Preparation**: PLease review Chapter 2 of the Statistics for Health Data Science textbook before next class.
+:::

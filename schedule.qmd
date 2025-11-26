@@ -11,23 +11,25 @@ format:
 
 ```{=html}
 <style>
+
 table {
   font-size: 15px;  /* Adjust font size */
   width: 100%;      /* Adjust table width */
-  max-width: 1400px;
+  max-width: 1200px;
 }
 
-/* Optional: Adjust specific column widths */
-table th:nth-child(1), table td:nth-child(1) { width: 8%; }
-table th:nth-child(2), table td:nth-child(2) { width: 8%; }
-table th:nth-child(3), table td:nth-child(3) { width: 40%; }
-table th:nth-child(4), table td:nth-child(2) { width: 8%; }
-table th:nth-child(5), table td:nth-child(3) { width: 40%; }
+th, td {
+  padding: 10px;    /* Adjust cell padding */
+  text-align: left; /* Adjust text alignment */
+}
+
 </style>
 ```
 
 The schedule can vary depending on the progress of the course or unforeseen circumstances. </br>\
-Any changes will be announced in class and posted on the course website and Canvas.
+Any changes will be announced in class and posted on the course website and Canvas.<\br>
+
+Note: This is a testing version. 
 
 | Week | Date | Topic | Lecture Notes | Readings | Assignments |
 |:----------:|:----------:|:-----------|:----------:|:-----------|------------|
