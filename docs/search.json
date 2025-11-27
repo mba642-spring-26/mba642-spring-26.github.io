@@ -487,7 +487,7 @@
     "href": "lectures/Lecture06/Lecture06.html#healthcare-applications",
     "title": "Mean Comparison 2: One-Way and Repeated-Measure ANOVA",
     "section": "Healthcare Applications",
-    "text": "Healthcare Applications\nSelected peer-reviewed research demonstrating real-world applications of ANOVA in healthcare:\n\nAssessing Patient Satisfaction with Hospital Services. (2024). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC11988329/\nEffect of Community Health Workers on 30-Day Hospital Readmissions. (2021). JAMA Network Open. https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2780265\nMedication Safety Simulation Training for Anesthesia Professionals. (2024). Clinical Simulation in Nursing. https://www.nursingsimulation.org/article/S1876-1399(24)00152-X/fulltext\nImproved Glycemic Control With a Digital Health Intervention in Adults With Type 2 Diabetes. (2021). JMIR Diabetes. https://diabetes.jmir.org/2021/2/e28033/\nAssociation of 12 h Shifts and Nurses’ Job Satisfaction, Burnout and Intention to Leave. (2015). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC4577950/\nVisual Analogue Scale. Physiopedia. https://www.physio-pedia.com/Visual_Analogue_Scale"
+    "text": "Healthcare Applications\nExamples are motivated by the followings:\n\nAssessing Patient Satisfaction with Hospital Services. (2024). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC11988329/\nEffect of Community Health Workers on 30-Day Hospital Readmissions. (2021). JAMA Network Open. https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2780265\nMedication Safety Simulation Training for Anesthesia Professionals. (2024). Clinical Simulation in Nursing. https://www.nursingsimulation.org/article/S1876-1399(24)00152-X/fulltext\nImproved Glycemic Control With a Digital Health Intervention in Adults With Type 2 Diabetes. (2021). JMIR Diabetes. https://diabetes.jmir.org/2021/2/e28033/\nAssociation of 12 h Shifts and Nurses’ Job Satisfaction, Burnout and Intention to Leave. (2015). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC4577950/\nVisual Analogue Scale. Physiopedia. https://www.physio-pedia.com/Visual_Analogue_Scale"
   },
   {
     "objectID": "lectures/Lecture07/Lecture07.html",
@@ -950,6 +950,20 @@
     "title": "Mean Comparison 1: t-Tests",
     "section": "Decision Flowchart",
     "text": "Decision Flowchart\nUse this guide to select the appropriate t-test:\n\n\n\n\n\n\n\n\n\n\n\nQuestion\nIf…\nt-Test Type\nR Function\n\n\n\n\nComparing to a known standard/benchmark?\nYes\nOne-sample t-test\nt.test(x, mu = value)\n\n\nTwo separate/independent groups?\nYes\nIndependent-samples t-test\nt.test(x, y, var.equal = TRUE)\n\n\nSame subjects measured twice?\nYes\nPaired-samples t-test\nt.test(x, y, paired = TRUE)"
+  },
+  {
+    "objectID": "lectures/Lecture05/Lecture05.html#statistical-methods",
+    "href": "lectures/Lecture05/Lecture05.html#statistical-methods",
+    "title": "Mean Comparison 1: t-Tests",
+    "section": "Statistical Methods",
+    "text": "Statistical Methods\n\nField, A. (2018). Discovering Statistics Using IBM SPSS Statistics (5th ed.). SAGE Publications.\nNavarro, D. (2019). Learning Statistics with R. Available online.\nWickham, H., & Grolemund, G. (2017). R for Data Science. O’Reilly Media."
+  },
+  {
+    "objectID": "lectures/Lecture05/Lecture05.html#healthcare-applications",
+    "href": "lectures/Lecture05/Lecture05.html#healthcare-applications",
+    "title": "Mean Comparison 1: t-Tests",
+    "section": "Healthcare Applications",
+    "text": "Healthcare Applications\nExamples are motivated by the followings:\n\nUnited States Emergency Department Performance on Wait Time and Length of Visit. (2009). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC2830619/\nAssessing Patient Satisfaction with Hospital Services: Perspectives from Bihor County Emergency Hospital, Romania. (2025). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC11988329/\nThe Impact of Electronic Health Records on Time Efficiency of Physicians and Nurses: A Systematic Review. (2005). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC1205599/\nReducing the Length of Stay by Enhancing the Patient Discharge Process: Using Quality Improvement Tools to Optimize Hospital Efficiency. (2021). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC10229011/\nStudying Protocol-Based Pain Management in the Emergency Department. (2017). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC5663136/\nComprehensive Lifestyle Modification and Blood Pressure Control: A Review of the PREMIER Trial. (2004). PMC. https://pmc.ncbi.nlm.nih.gov/articles/PMC8109651/"
   },
   {
     "objectID": "lectures/Lecture02/class_02_R_RStudio_RMarkdown.html#learning-objectives",
