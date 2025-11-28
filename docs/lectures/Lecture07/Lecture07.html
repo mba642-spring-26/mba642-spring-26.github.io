@@ -194,6 +194,10 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction-to-two-way-anova" id="toc-introduction-to-two-way-anova" class="nav-link active" data-scroll-target="#introduction-to-two-way-anova">Introduction to Two-Way ANOVA</a>
   <ul class="collapse">
+  <li><a href="#what-is-two-way-anova" id="toc-what-is-two-way-anova" class="nav-link" data-scroll-target="#what-is-two-way-anova">What is Two-Way ANOVA?</a>
+  <ul class="collapse">
+  <li><a href="#understanding-one-way-vs.-two-way" id="toc-understanding-one-way-vs.-two-way" class="nav-link" data-scroll-target="#understanding-one-way-vs.-two-way">Understanding “One-Way” vs.&nbsp;“Two-Way”</a></li>
+  </ul></li>
   <li><a href="#why-study-two-factors-simultaneously" id="toc-why-study-two-factors-simultaneously" class="nav-link" data-scroll-target="#why-study-two-factors-simultaneously">Why Study Two Factors Simultaneously?</a></li>
   <li><a href="#main-effects-vs.-interaction-effects" id="toc-main-effects-vs.-interaction-effects" class="nav-link" data-scroll-target="#main-effects-vs.-interaction-effects">Main Effects vs.&nbsp;Interaction Effects</a>
   <ul class="collapse">
@@ -206,7 +210,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#visualizing-interactions" id="toc-visualizing-interactions" class="nav-link" data-scroll-target="#visualizing-interactions">Visualizing Interactions</a>
   <ul class="collapse">
-  <li><a href="#pattern-1-no-interaction-parallel-lines" id="toc-pattern-1-no-interaction-parallel-lines" class="nav-link" data-scroll-target="#pattern-1-no-interaction-parallel-lines">Pattern 1: No Interaction (Parallel Lines)</a></li>
+  <li><a href="#pattern-1-parallel-lines-no-interaction" id="toc-pattern-1-parallel-lines-no-interaction" class="nav-link" data-scroll-target="#pattern-1-parallel-lines-no-interaction">Pattern 1: Parallel Lines (No Interaction)</a></li>
   <li><a href="#pattern-2-ordinal-interaction-convergingdiverging-lines" id="toc-pattern-2-ordinal-interaction-convergingdiverging-lines" class="nav-link" data-scroll-target="#pattern-2-ordinal-interaction-convergingdiverging-lines">Pattern 2: Ordinal Interaction (Converging/Diverging Lines)</a></li>
   <li><a href="#pattern-3-disordinal-crossover-interaction" id="toc-pattern-3-disordinal-crossover-interaction" class="nav-link" data-scroll-target="#pattern-3-disordinal-crossover-interaction">Pattern 3: Disordinal (Crossover) Interaction</a></li>
   </ul></li>
@@ -216,7 +220,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">What is it?</a>
   <ul class="collapse">
-  <li><a href="#key-characteristics" id="toc-key-characteristics" class="nav-link" data-scroll-target="#key-characteristics">Key Characteristics</a></li>
+  <li><a href="#key-components" id="toc-key-components" class="nav-link" data-scroll-target="#key-components">Key Components</a></li>
   </ul></li>
   <li><a href="#when-to-use-it" id="toc-when-to-use-it" class="nav-link" data-scroll-target="#when-to-use-it">When to Use It</a></li>
   <li><a href="#scenario-1-treatment-disease-severity" id="toc-scenario-1-treatment-disease-severity" class="nav-link" data-scroll-target="#scenario-1-treatment-disease-severity">Scenario 1: Treatment × Disease Severity</a></li>
@@ -228,13 +232,13 @@ window.Quarto = {
   <li><a href="#interpreting-the-anova-table" id="toc-interpreting-the-anova-table" class="nav-link" data-scroll-target="#interpreting-the-anova-table">Interpreting the ANOVA Table</a></li>
   <li><a href="#when-interaction-is-significant" id="toc-when-interaction-is-significant" class="nav-link" data-scroll-target="#when-interaction-is-significant">When Interaction is Significant</a></li>
   </ul></li>
-  <li><a href="#simple-effects-analysis" id="toc-simple-effects-analysis" class="nav-link" data-scroll-target="#simple-effects-analysis">Simple Effects Analysis</a>
+  <li><a href="#simple-effects-analysis-post-hoc-analysis" id="toc-simple-effects-analysis-post-hoc-analysis" class="nav-link" data-scroll-target="#simple-effects-analysis-post-hoc-analysis">Simple Effects Analysis (post-hoc analysis)</a>
   <ul class="collapse">
   <li><a href="#interpreting-simple-effects" id="toc-interpreting-simple-effects" class="nav-link" data-scroll-target="#interpreting-simple-effects">Interpreting Simple Effects</a></li>
   </ul></li>
   <li><a href="#example-2-training-method-experience-level" id="toc-example-2-training-method-experience-level" class="nav-link" data-scroll-target="#example-2-training-method-experience-level">Example 2: Training Method × Experience Level</a>
   <ul class="collapse">
-  <li><a href="#clinical-implications" id="toc-clinical-implications" class="nav-link" data-scroll-target="#clinical-implications">Clinical Implications</a></li>
+  <li><a href="#interpretations" id="toc-interpretations" class="nav-link" data-scroll-target="#interpretations">Interpretations</a></li>
   </ul></li>
   <li><a href="#practice-activity-1-intervention-facility-type" id="toc-practice-activity-1-intervention-facility-type" class="nav-link" data-scroll-target="#practice-activity-1-intervention-facility-type">Practice Activity 1: Intervention × Facility Type</a></li>
   <li><a href="#practice-activity-2-medication-age-group" id="toc-practice-activity-2-medication-age-group" class="nav-link" data-scroll-target="#practice-activity-2-medication-age-group">Practice Activity 2: Medication × Age Group</a></li>
@@ -243,7 +247,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#what-is-it-1" id="toc-what-is-it-1" class="nav-link" data-scroll-target="#what-is-it-1">What is it?</a>
   <ul class="collapse">
-  <li><a href="#key-characteristics-1" id="toc-key-characteristics-1" class="nav-link" data-scroll-target="#key-characteristics-1">Key Characteristics</a></li>
+  <li><a href="#key-characteristics" id="toc-key-characteristics" class="nav-link" data-scroll-target="#key-characteristics">Key Characteristics</a></li>
   </ul></li>
   <li><a href="#when-to-use-it-1" id="toc-when-to-use-it-1" class="nav-link" data-scroll-target="#when-to-use-it-1">When to Use It</a></li>
   <li><a href="#scenario-medication-type-time-of-day" id="toc-scenario-medication-type-time-of-day" class="nav-link" data-scroll-target="#scenario-medication-type-time-of-day">Scenario: Medication Type × Time of Day</a></li>
@@ -258,7 +262,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#what-is-it-2" id="toc-what-is-it-2" class="nav-link" data-scroll-target="#what-is-it-2">What is it?</a>
   <ul class="collapse">
-  <li><a href="#key-characteristics-2" id="toc-key-characteristics-2" class="nav-link" data-scroll-target="#key-characteristics-2">Key Characteristics</a></li>
+  <li><a href="#key-characteristics-1" id="toc-key-characteristics-1" class="nav-link" data-scroll-target="#key-characteristics-1">Key Characteristics</a></li>
   </ul></li>
   <li><a href="#when-to-use-it-2" id="toc-when-to-use-it-2" class="nav-link" data-scroll-target="#when-to-use-it-2">When to Use It</a></li>
   <li><a href="#scenario-training-program-assessment-time" id="toc-scenario-training-program-assessment-time" class="nav-link" data-scroll-target="#scenario-training-program-assessment-time">Scenario: Training Program × Assessment Time</a></li>
@@ -266,40 +270,29 @@ window.Quarto = {
   <li><a href="#conducting-mixed-design-anova-in-r" id="toc-conducting-mixed-design-anova-in-r" class="nav-link" data-scroll-target="#conducting-mixed-design-anova-in-r">Conducting Mixed Design ANOVA in R</a>
   <ul class="collapse">
   <li><a href="#interpreting-the-output-1" id="toc-interpreting-the-output-1" class="nav-link" data-scroll-target="#interpreting-the-output-1">Interpreting the Output</a></li>
-  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
   </ul></li>
-  <li><a href="#simple-effects-analysis-1" id="toc-simple-effects-analysis-1" class="nav-link" data-scroll-target="#simple-effects-analysis-1">Simple Effects Analysis</a>
+  <li><a href="#simple-effects-analysis" id="toc-simple-effects-analysis" class="nav-link" data-scroll-target="#simple-effects-analysis">Simple Effects Analysis</a>
   <ul class="collapse">
-  <li><a href="#clinical-interpretation" id="toc-clinical-interpretation" class="nav-link" data-scroll-target="#clinical-interpretation">Clinical Interpretation</a></li>
+  <li><a href="#interpretations-1" id="toc-interpretations-1" class="nav-link" data-scroll-target="#interpretations-1">Interpretations</a></li>
   </ul></li>
   <li><a href="#example-2-intervention-group-measurement-occasions" id="toc-example-2-intervention-group-measurement-occasions" class="nav-link" data-scroll-target="#example-2-intervention-group-measurement-occasions">Example 2: Intervention Group × Measurement Occasions</a>
   <ul class="collapse">
   <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
   </ul></li>
   <li><a href="#practice-activity-4-therapy-type-session-number" id="toc-practice-activity-4-therapy-type-session-number" class="nav-link" data-scroll-target="#practice-activity-4-therapy-type-session-number">Practice Activity 4: Therapy Type × Session Number</a></li>
-  <li><a href="#practice-activity-5-facility-type-quarter" id="toc-practice-activity-5-facility-type-quarter" class="nav-link" data-scroll-target="#practice-activity-5-facility-type-quarter">Practice Activity 5: Facility Type × Quarter</a></li>
-  </ul></li>
-  <li><a href="#interpreting-two-way-anova-results" id="toc-interpreting-two-way-anova-results" class="nav-link" data-scroll-target="#interpreting-two-way-anova-results">Interpreting Two-Way ANOVA Results</a>
-  <ul class="collapse">
-  <li><a href="#decision-framework" id="toc-decision-framework" class="nav-link" data-scroll-target="#decision-framework">Decision Framework</a>
-  <ul class="collapse">
-  <li><a href="#step-1-check-the-interaction-first" id="toc-step-1-check-the-interaction-first" class="nav-link" data-scroll-target="#step-1-check-the-interaction-first">Step 1: Check the Interaction First</a></li>
-  <li><a href="#step-2-if-interaction-is-significant" id="toc-step-2-if-interaction-is-significant" class="nav-link" data-scroll-target="#step-2-if-interaction-is-significant">Step 2: If Interaction is Significant</a></li>
-  <li><a href="#step-3-if-no-interaction" id="toc-step-3-if-no-interaction" class="nav-link" data-scroll-target="#step-3-if-no-interaction">Step 3: If No Interaction</a></li>
-  </ul></li>
-  <li><a href="#reporting-results" id="toc-reporting-results" class="nav-link" data-scroll-target="#reporting-results">Reporting Results</a>
-  <ul class="collapse">
-  <li><a href="#example-write-up-with-significant-interaction" id="toc-example-write-up-with-significant-interaction" class="nav-link" data-scroll-target="#example-write-up-with-significant-interaction">Example Write-up (with significant interaction)</a></li>
-  <li><a href="#example-write-up-no-interaction" id="toc-example-write-up-no-interaction" class="nav-link" data-scroll-target="#example-write-up-no-interaction">Example Write-up (no interaction)</a></li>
-  </ul></li>
+  <li><a href="#practice-activity-5-facility-type-time" id="toc-practice-activity-5-facility-type-time" class="nav-link" data-scroll-target="#practice-activity-5-facility-type-time">Practice Activity 5: Facility Type × Time</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
   <ul class="collapse">
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
   <li><a href="#interaction-patterns-summary" id="toc-interaction-patterns-summary" class="nav-link" data-scroll-target="#interaction-patterns-summary">Interaction Patterns Summary</a></li>
-  <li><a href="#clinical-importance" id="toc-clinical-importance" class="nav-link" data-scroll-target="#clinical-importance">Clinical Importance</a></li>
+  <li><a href="#interpretation-of-the-results" id="toc-interpretation-of-the-results" class="nav-link" data-scroll-target="#interpretation-of-the-results">Interpretation of the Results</a></li>
   </ul></li>
-  <li><a href="#references-and-further-reading" id="toc-references-and-further-reading" class="nav-link" data-scroll-target="#references-and-further-reading">References and Further Reading</a></li>
+  <li><a href="#references-and-further-reading" id="toc-references-and-further-reading" class="nav-link" data-scroll-target="#references-and-further-reading">References and Further Reading</a>
+  <ul class="collapse">
+  <li><a href="#statistical-methods" id="toc-statistical-methods" class="nav-link" data-scroll-target="#statistical-methods">Statistical Methods</a></li>
+  <li><a href="#healthcare-applications" id="toc-healthcare-applications" class="nav-link" data-scroll-target="#healthcare-applications">Healthcare Applications</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -334,20 +327,38 @@ window.Quarto = {
 
 <section id="introduction-to-two-way-anova" class="level1">
 <h1>Introduction to Two-Way ANOVA</h1>
+<section id="what-is-two-way-anova" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-two-way-anova">What is Two-Way ANOVA?</h2>
+<section id="understanding-one-way-vs.-two-way" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-one-way-vs.-two-way">Understanding “One-Way” vs.&nbsp;“Two-Way”</h3>
+<p>In ANOVA, the term “way” refers to the number of <strong>independent variables</strong> (or <strong>factors</strong>) we are examining:</p>
+<ul>
+<li><strong>One-Way ANOVA</strong>: Analyzes the effect of <strong>one factor</strong> on an outcome
+<ul>
+<li>Example: Does patient satisfaction differ across 4 hospital departments?</li>
+<li>Factor: Department (4 levels: Emergency, Cardiology, Orthopedics, Oncology)</li>
+<li>Outcome: Satisfaction score</li>
+</ul></li>
+<li><strong>Two-Way ANOVA</strong>: Analyzes the effects of <strong>two factors</strong> simultaneously on an outcome
+<ul>
+<li>Example: Does pain reduction depend on both treatment type AND disease severity?</li>
+<li>Factor A: Treatment (2 levels: Standard, New)</li>
+<li>Factor B: Severity (3 levels: Mild, Moderate, Severe)</li>
+<li>Outcome: Pain reduction score</li>
+</ul></li>
+</ul>
+</section>
+</section>
 <section id="why-study-two-factors-simultaneously" class="level2">
 <h2 class="anchored" data-anchor-id="why-study-two-factors-simultaneously">Why Study Two Factors Simultaneously?</h2>
-<p>In healthcare settings, outcomes are rarely influenced by a single factor. Consider these scenarios:</p>
-<ul>
-<li>Does a <strong>new medication’s effectiveness</strong> depend on <strong>patient age group</strong>?</li>
-<li>Does a <strong>training program’s impact</strong> vary by <strong>nurse experience level</strong>?</li>
-<li>Does <strong>treatment success</strong> depend on both <strong>intervention type</strong> and <strong>disease severity</strong>?</li>
-</ul>
-<p>One-way ANOVA can only examine one factor at a time. But what if the effect of one factor <em>depends on</em> the level of another factor? This is called an <strong>interaction effect</strong>, and it’s one of the most important concepts in healthcare research.</p>
+<p>In healthcare settings, outcomes are rarely influenced by a single factor.</p>
+<p>For example, the effectiveness of an <strong>intervention type</strong> (e.g., standard vs.&nbsp;intensive care) can vary depending on <strong>disease severity</strong> (e.g., mild, moderate, severe).</p>
+<p>While one-way ANOVA can only examine one factor at a time, two-way ANOVA allows us to understand if the effect of one factor depends on the level of another factor. This is called an <strong>interaction effect</strong>, and it’s one of the most important concepts in healthcare research.</p>
 <p><strong>Two-way ANOVA</strong> allows us to:</p>
 <ol type="1">
-<li>Test the effect of <strong>Factor A</strong> (main effect of A)</li>
-<li>Test the effect of <strong>Factor B</strong> (main effect of B)</li>
-<li>Test whether the effect of A <strong>depends on</strong> B (interaction effect A × B)</li>
+<li>Test the effect of <strong>Factor A</strong> (main effect of A, e.g., intervention type)</li>
+<li>Test the effect of <strong>Factor B</strong> (main effect of B, e.g., disease severity)</li>
+<li>Test whether the effect of A <strong>depends on</strong> B (interaction effect A × B, e.g., intervention type × disease severity)</li>
 </ol>
 </section>
 <section id="main-effects-vs.-interaction-effects" class="level2">
@@ -365,18 +376,18 @@ window.Quarto = {
 <p>An <strong>interaction effect</strong> occurs when the effect of one factor depends on the level of another factor.</p>
 <ul>
 <li>The new drug works well for younger patients but not for older patients</li>
-<li>The training program improves performance for novice nurses but not experienced nurses</li>
+<li>The training program improves performance for novice nurses (work experience &lt; 2 years) but not experienced nurses (work experience &gt; 2 years)</li>
 </ul>
-<p><strong>When an interaction is present, main effects can be misleading!</strong> If a drug helps one group but harms another, the “average” effect might be zero—but this masks important clinical differences.</p>
+<p><strong>When an interaction is present, main effects can be misleading!</strong> If a drug helps one group but harms another, the “average” effect might be zero.</p>
 </section>
 </section>
 <section id="overview-of-two-way-anova-designs" class="level2">
 <h2 class="anchored" data-anchor-id="overview-of-two-way-anova-designs">Overview of Two-Way ANOVA Designs</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 24%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 21%">
+<col style="width: 27%">
+<col style="width: 27%">
 <col style="width: 24%">
 </colgroup>
 <thead>
@@ -416,14 +427,14 @@ window.Quarto = {
 <section id="visualizing-interactions" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-interactions">Visualizing Interactions</h2>
 <p>The easiest way to understand interactions is through <strong>interaction plots</strong>, where we plot means for each combination of factors. The pattern of lines tells us about the interaction.</p>
-<section id="pattern-1-no-interaction-parallel-lines" class="level3">
-<h3 class="anchored" data-anchor-id="pattern-1-no-interaction-parallel-lines">Pattern 1: No Interaction (Parallel Lines)</h3>
+<section id="pattern-1-parallel-lines-no-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="pattern-1-parallel-lines-no-interaction">Pattern 1: Parallel Lines (No Interaction)</h3>
 <p>When there is <strong>no interaction</strong>, the effect of one factor is the same across all levels of the other factor. The lines in the interaction plot are <strong>parallel</strong>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lecture07_files/figure-html/no-interaction-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Lecture07_files/figure-html/no-interaction-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -437,7 +448,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lecture07_files/figure-html/ordinal-interaction-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Lecture07_files/figure-html/ordinal-interaction-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -446,29 +457,28 @@ window.Quarto = {
 </section>
 <section id="pattern-3-disordinal-crossover-interaction" class="level3">
 <h3 class="anchored" data-anchor-id="pattern-3-disordinal-crossover-interaction">Pattern 3: Disordinal (Crossover) Interaction</h3>
-<p>In a <strong>disordinal</strong> or <strong>crossover interaction</strong>, the lines cross. The effect of one factor reverses direction at different levels of the other factor.</p>
+<p>In a <strong>disordinal (or crossover) interaction</strong>, the lines cross. The effect of one factor reverses direction at different levels of the other factor.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lecture07_files/figure-html/crossover-interaction-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Lecture07_files/figure-html/crossover-interaction-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Interpretation</strong>: The new treatment <em>helps</em> severe patients (+30 points) but <em>harms</em> mild patients (-10 points). The main effect of treatment might appear small or non-significant because the positive and negative effects cancel out—but this masks a critical clinical finding!</p>
+<p><strong>Interpretation</strong>: The new treatment <em>helps</em> severe patients (+30 points) but <em>harms</em> mild patients (-10 points). The main effect of treatment might appear small or non-significant because the positive and negative effects cancel out.</p>
 </section>
 </section>
 <section id="why-interactions-matter-in-healthcare" class="level2">
 <h2 class="anchored" data-anchor-id="why-interactions-matter-in-healthcare">Why Interactions Matter in Healthcare</h2>
-<p>Interactions are particularly important in healthcare because:</p>
+<p>Understanding interactions is important in healthcare management because:</p>
 <ol type="1">
 <li><strong>Personalized medicine</strong>: Treatment effectiveness often varies by patient characteristics</li>
-<li><strong>Resource allocation</strong>: Interventions may work better in some settings than others</li>
+<li><strong>Resource allocation</strong>: Interventions may work better in some settings or groups than others</li>
 <li><strong>Safety</strong>: A treatment safe for one population may be harmful for another</li>
 <li><strong>Policy decisions</strong>: Program effectiveness may depend on implementation context</li>
 </ol>
-<p><strong>Always examine interactions before interpreting main effects!</strong> If a significant interaction exists, the main effects alone don’t tell the full story.</p>
 <hr>
 </section>
 </section>
@@ -477,10 +487,10 @@ window.Quarto = {
 <section id="what-is-it" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-it">What is it?</h2>
 <p>A <strong>two-way between-subjects ANOVA</strong> tests the effects of two independent variables (factors) on a continuous dependent variable, where <strong>different participants</strong> are in each combination of factor levels.</p>
-<section id="key-characteristics" class="level3">
-<h3 class="anchored" data-anchor-id="key-characteristics">Key Characteristics</h3>
+<section id="key-components" class="level3">
+<h3 class="anchored" data-anchor-id="key-components">Key Components</h3>
 <ul>
-<li>Two factors, each with 2+ levels</li>
+<li>Two factors (each with 2 or more levels)</li>
 <li>Each participant is in <strong>only one cell</strong> of the design</li>
 <li>Tests three effects: Main effect A, Main effect B, A × B interaction</li>
 </ul>
@@ -489,15 +499,22 @@ window.Quarto = {
 <section id="when-to-use-it" class="level2">
 <h2 class="anchored" data-anchor-id="when-to-use-it">When to Use It</h2>
 <ul>
-<li>Comparing <strong>treatment types</strong> across <strong>patient demographics</strong></li>
-<li>Evaluating <strong>interventions</strong> across <strong>facility types</strong></li>
-<li>Assessing <strong>programs</strong> across <strong>staff experience levels</strong></li>
+<li><p>Comparing the effectiveness of <strong>treatment types</strong> (e.g., medication A vs.&nbsp;B vs.&nbsp;C) across <strong>patient demographics</strong> (e.g., age groups, gender, comorbidity status)</p></li>
+<li><p>Evaluating <strong>interventions</strong> (e.g., discharge planning programs: telehealth vs.&nbsp;in-person care) across <strong>facility types</strong> (e.g., academic medical centers, community hospitals, rural critical access hospitals)</p></li>
+<li><p>Assessing <strong>programs</strong> (e.g., traditional lecture, simulation-based, blended learning) across <strong>staff experience levels</strong> (e.g., novice, intermediate, expert nurses)</p></li>
 </ul>
 </section>
 <section id="scenario-1-treatment-disease-severity" class="level2">
 <h2 class="anchored" data-anchor-id="scenario-1-treatment-disease-severity">Scenario 1: Treatment × Disease Severity</h2>
+<p>Let’s think about the following case:</p>
 <p>A clinical trial compares <strong>two treatments</strong> (Standard vs.&nbsp;Novel) for chronic pain across <strong>three severity levels</strong> (Mild, Moderate, Severe). The outcome is pain reduction score (0-100, higher = better).</p>
-<p>Research questions: 1. Does the novel treatment reduce pain more than standard care? 2. Does pain reduction vary by baseline severity? 3. Does the treatment effect depend on severity (interaction)?</p>
+<p>Research on chronic pain management has shown that treatment effectiveness often varies by baseline disease severity and patient phenotype. Understanding these interactions is critical for personalized pain management approaches.</p>
+<p>Research questions:</p>
+<ol type="1">
+<li>Does the novel treatment reduce pain more than standard care (main effect of treatment)?</li>
+<li>Does pain reduction vary by baseline severity (the main effect of severity levels)?</li>
+<li>Does the treatment effect depend on severity (interaction)?</li>
+</ol>
 </section>
 <section id="the-formula" class="level2">
 <h2 class="anchored" data-anchor-id="the-formula">The Formula</h2>
@@ -505,11 +522,23 @@ window.Quarto = {
 <p><span class="math display">\[SS_{total} = SS_A + SS_B + SS_{A \times B} + SS_{error}\]</span></p>
 <p>Three F-statistics are calculated:</p>
 <p><span class="math display">\[F_A = \frac{MS_A}{MS_{error}}, \quad F_B = \frac{MS_B}{MS_{error}}, \quad F_{A \times B} = \frac{MS_{A \times B}}{MS_{error}}\]</span></p>
-<p>The degrees of freedom: - Factor A: <span class="math inline">\(df_A = a - 1\)</span> - Factor B: <span class="math inline">\(df_B = b - 1\)</span> - Interaction: <span class="math inline">\(df_{A \times B} = (a-1)(b-1)\)</span> - Error: <span class="math inline">\(df_{error} = N - ab\)</span></p>
-<p>Where <span class="math inline">\(a\)</span> = levels of A, <span class="math inline">\(b\)</span> = levels of B, <span class="math inline">\(N\)</span> = total sample size.</p>
+<p>The degrees of freedom:</p>
+<ul>
+<li>Factor A: <span class="math inline">\(df_A = a - 1\)</span></li>
+<li>Factor B: <span class="math inline">\(df_B = b - 1\)</span></li>
+<li>Interaction: <span class="math inline">\(df_{A \times B} = (a-1)(b-1)\)</span></li>
+<li>Error: <span class="math inline">\(df_{error} = N - ab\)</span></li>
+</ul>
+<p>Where</p>
+<ul>
+<li><span class="math inline">\(a\)</span> = levels of A</li>
+<li><span class="math inline">\(b\)</span> = levels of B</li>
+<li><span class="math inline">\(N\)</span> = total sample size.</li>
+</ul>
 </section>
 <section id="example-treatment-disease-severity" class="level2">
 <h2 class="anchored" data-anchor-id="example-treatment-disease-severity">Example: Treatment × Disease Severity</h2>
+<p>Let’s create a dataset and examine summary statistics.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pain reduction scores for 2 treatments × 3 severity levels</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 15 patients per cell = 90 total</span></span>
@@ -606,7 +635,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lecture07_files/figure-html/between-viz1-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="Lecture07_files/figure-html/between-viz1-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -638,26 +667,28 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </ol>
 <p><strong>Results interpretation</strong>:</p>
 <ul>
-<li><strong>Main effect of treatment</strong>: Significant—on average, the novel treatment leads to greater pain reduction</li>
-<li><strong>Main effect of severity</strong>: Significant—pain reduction differs across severity levels</li>
-<li><strong>Interaction</strong>: Significant—the treatment effect depends on severity level</li>
+<li><strong>Main effect of treatment</strong>: Significant main effect of treatment on average (pain reduction differs across treatments)</li>
+<li><strong>Main effect of severity</strong>: Significant main effect of severity (pain reduction differs across severity levels)</li>
+<li><strong>Interaction</strong>: Significant treatment X severity interaction (the treatment effect differs depending on severity level)</li>
 </ul>
 </section>
 <section id="when-interaction-is-significant" class="level3">
 <h3 class="anchored" data-anchor-id="when-interaction-is-significant">When Interaction is Significant</h3>
-<p><strong>Do not interpret main effects in isolation when the interaction is significant!</strong></p>
-<p>The significant interaction tells us that the novel treatment’s benefit varies by severity. To understand this pattern, we need to examine <strong>simple effects</strong>.</p>
+<ul>
+<li><p><strong>Do not interpret main effects in isolation when the interaction is significant!</strong></p></li>
+<li><p>The significant interaction tells us that the novel treatment’s benefit varies by severity. To understand this pattern, we need to examine <strong>simple effects</strong>.</p></li>
+</ul>
 </section>
 </section>
-<section id="simple-effects-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="simple-effects-analysis">Simple Effects Analysis</h2>
+<section id="simple-effects-analysis-post-hoc-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="simple-effects-analysis-post-hoc-analysis">Simple Effects Analysis (post-hoc analysis)</h2>
 <p>Simple effects examine the effect of one factor <strong>at each level</strong> of the other factor. We use the <code>emmeans</code> package for this analysis.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get estimated marginal means</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>emm <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(anova_pain, <span class="sc">~</span> treatment <span class="sc">|</span> severity)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple effects: treatment effect at each severity level</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>severity = Mild:
  contrast         estimate   SE df t.ratio p.value
@@ -676,16 +707,16 @@ severity = Severe:
 <h3 class="anchored" data-anchor-id="interpreting-simple-effects">Interpreting Simple Effects</h3>
 <p>This shows the treatment effect (Standard - Novel) at each severity level:</p>
 <ul>
-<li><strong>Mild</strong>: Small difference (may or may not be significant)</li>
-<li><strong>Moderate</strong>: Moderate difference</li>
-<li><strong>Severe</strong>: Large difference</li>
+<li><strong>Mild</strong>: Significant difference (Novel &gt; Standard)</li>
+<li><strong>Moderate</strong>: Significant difference (Novel &gt; Standard)</li>
+<li><strong>Severe</strong>: Significant difference (Novel &gt; Standard)</li>
 </ul>
-<p>The novel treatment provides the greatest benefit for patients with severe disease.</p>
+<p>The novel treatment provides the greatest benefit for patients at all disease severity levels.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lecture07_files/figure-html/simple-viz1-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Lecture07_files/figure-html/simple-viz1-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -695,6 +726,8 @@ severity = Severe:
 <section id="example-2-training-method-experience-level" class="level2">
 <h2 class="anchored" data-anchor-id="example-2-training-method-experience-level">Example 2: Training Method × Experience Level</h2>
 <p>A hospital evaluates <strong>two training methods</strong> (Lecture vs.&nbsp;Simulation) for medication safety competency across <strong>three experience levels</strong> (Novice: &lt;1 year, Intermediate: 1-5 years, Expert: &gt;5 years).</p>
+<p>Research comparing training approaches has demonstrated that simulation-based education is particularly effective for novice nurses, while the benefits may vary by experience level.</p>
+<p>Let’s create a dataset.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data with crossover interaction</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n_cell <span class="ot">&lt;-</span> <span class="dv">12</span></span>
@@ -741,7 +774,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple effects</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>emm_train <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(anova_training, <span class="sc">~</span> method <span class="sc">|</span> experience)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_train, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>experience = Novice:
  contrast             estimate   SE df t.ratio p.value
@@ -756,70 +789,126 @@ experience = Expert:
  Lecture - Simulation     8.57 1.71 66   5.007  &lt;.0001</code></pre>
 </div>
 </div>
-<section id="clinical-implications" class="level3">
-<h3 class="anchored" data-anchor-id="clinical-implications">Clinical Implications</h3>
-<p>This crossover interaction has important practical implications:</p>
+<section id="interpretations" class="level3">
+<h3 class="anchored" data-anchor-id="interpretations">Interpretations</h3>
+<section id="anova-result" class="level4">
+<h4 class="anchored" data-anchor-id="anova-result">ANOVA Result</h4>
 <ul>
-<li><strong>Novice nurses</strong> should receive simulation-based training</li>
-<li><strong>Expert nurses</strong> may benefit more from lecture-based training (perhaps they can better contextualize theoretical content)</li>
-<li><strong>Intermediate nurses</strong> show similar outcomes with either method</li>
+<li><strong>Training Method</strong>: Significant main effect</li>
+<li><strong>Experience Levels</strong>: Significant main effect</li>
+<li><strong>Training Methods X Experience Levels</strong>: Significant interaction effect</li>
+</ul>
+</section>
+<section id="simple-effect-analysis-results-post-hoc-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="simple-effect-analysis-results-post-hoc-analysis">Simple Effect Analysis Results (post-hoc analysis)</h4>
+<p>This shows the training method effect (Lecture - Simulation) at each experience level:</p>
+<ul>
+<li><strong>Novice</strong>: Significant difference (Simulation &gt; Lecture)</li>
+<li><strong>Intermediate</strong>: Significant difference (Simulation &gt; Lecture)</li>
+<li><strong>Expert</strong>: Significant difference (Lecture &gt; Simulation)</li>
 </ul>
 <p>A one-size-fits-all training approach would be suboptimal.</p>
 </section>
 </section>
+</section>
 <section id="practice-activity-1-intervention-facility-type" class="level2">
 <h2 class="anchored" data-anchor-id="practice-activity-1-intervention-facility-type">Practice Activity 1: Intervention × Facility Type</h2>
-<p>A health system evaluates a <strong>care transition program</strong> across <strong>facility types</strong>. Analyze whether the intervention effect depends on facility type.</p>
+<p>A health system evaluates the effect of <strong>care transition program</strong> on readmission rates (30-days readmission rate in %) across <strong>facility types</strong>. Analyze whether the intervention effect depends on facility type.</p>
+<p><strong>Care Transition Programs</strong> help patients move safely from hospital to home, reducing probability of readmission:</p>
+<ul>
+<li><strong>Standard Discharge</strong>: Basic discharge instructions, prescription reconciliation, follow-up appointment scheduled</li>
+<li><strong>Enhanced Transition Program</strong>: Includes all standard elements + dedicated transition coordinator, post-discharge phone call within 48 hours, home medication review, connection to community resources</li>
+</ul>
+<p><strong>Facility Types</strong> differ in resources, patient populations, and care complexity:</p>
+<ul>
+<li><strong>Urban Academic Medical Centers</strong>: Large teaching hospitals treating complex cases, with many specialists, electronic health systems, and dedicated staff for care coordination</li>
+<li><strong>Suburban Community Hospitals</strong>: Mid-sized hospitals serving local communities with standard medical services and moderate staffing levels</li>
+<li><strong>Rural Critical Access Hospitals</strong>: Small hospitals (&lt;25 beds) in remote areas with limited specialists and support staff; patients often travel long distances for care</li>
+</ul>
+<p>Studies have found that enhanced transition programs reduce readmissions more effectively in some settings than others. Academic medical centers, which already have baseline infrastructure and care coordinators, may see smaller improvements from adding enhanced programs compared to their standard discharge processes. In contrast, rural hospitals, which often lack dedicated transition staff, may experience larger reductions in readmissions when enhanced programs are implemented, despite having fewer overall resources. Community hospitals typically fall between these two extremes. These differences suggest that “one-size-fits-all” transition programs may not be the most cost-effective approach across diverse facility types.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 30-day readmission rates (%)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>n_cell <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>intervention_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">program =</span> <span class="fu">c</span>(<span class="st">"Standard Discharge"</span>, <span class="st">"Enhanced Transition"</span>),</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">facility =</span> <span class="fu">c</span>(<span class="st">"Urban Academic"</span>, <span class="st">"Suburban Community"</span>, <span class="st">"Rural Critical Access"</span>),</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span>n_cell</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">readmit_rate =</span> <span class="fu">case_when</span>(</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Standard Discharge"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Urban Academic"</span> <span class="sc">~</span> <span class="dv">14</span>,</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Standard Discharge"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Suburban Community"</span> <span class="sc">~</span> <span class="dv">12</span>,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Standard Discharge"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Rural Critical Access"</span> <span class="sc">~</span> <span class="dv">16</span>,</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Enhanced Transition"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Urban Academic"</span> <span class="sc">~</span> <span class="dv">9</span>,</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Enhanced Transition"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Suburban Community"</span> <span class="sc">~</span> <span class="dv">10</span>,</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Enhanced Transition"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Rural Critical Access"</span> <span class="sc">~</span> <span class="dv">8</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create an interaction plot</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run two-way ANOVA</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Conduct simple effects analysis if interaction is significant</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Interpret the results for healthcare administrators</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2006</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>intervention_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">program =</span> <span class="fu">c</span>(<span class="st">"Standard Discharge"</span>, <span class="st">"Enhanced Transition"</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">facility =</span> <span class="fu">c</span>(<span class="st">"Urban Academic"</span>, <span class="st">"Suburban Community"</span>, <span class="st">"Rural Critical Access"</span>),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span>n_cell</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">readmit_rate =</span> <span class="fu">case_when</span>(</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Standard Discharge"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Urban Academic"</span> <span class="sc">~</span> <span class="dv">14</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Standard Discharge"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Suburban Community"</span> <span class="sc">~</span> <span class="dv">12</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Standard Discharge"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Rural Critical Access"</span> <span class="sc">~</span> <span class="dv">16</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Enhanced Transition"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Urban Academic"</span> <span class="sc">~</span> <span class="dv">13</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Enhanced Transition"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Suburban Community"</span> <span class="sc">~</span> <span class="dv">9</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Enhanced Transition"</span> <span class="sc">&amp;</span> facility <span class="sc">==</span> <span class="st">"Rural Critical Access"</span> <span class="sc">~</span> <span class="dv">8</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create an interaction plot</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run two-way ANOVA</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Conduct simple effects analysis if interaction is significant</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Interpret the results for healthcare administrators</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>anova_int <span class="ot">&lt;-</span> <span class="fu">aov</span>(readmit_rate <span class="sc">~</span> program <span class="sc">*</span> facility, <span class="at">data =</span> intervention_data)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_int)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(anova_int, <span class="sc">~</span> program <span class="sc">|</span> facility) <span class="sc">%&gt;%</span> <span class="fu">pairs</span>(<span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 </section>
 <section id="practice-activity-2-medication-age-group" class="level2">
 <h2 class="anchored" data-anchor-id="practice-activity-2-medication-age-group">Practice Activity 2: Medication × Age Group</h2>
-<p>Compare <strong>pain medication effectiveness</strong> across <strong>age groups</strong>:</p>
+<p>A healthcare system compares the effectiveness of <strong>two pain medications</strong> across <strong>three age groups</strong> to inform formulary decisions and prescribing guidelines.</p>
+<p><strong>Context:</strong></p>
+<p><strong>Pain Medications</strong> represent different treatment options:</p>
+<ul>
+<li><strong>Drug A</strong>: Standard anti-inflammatory medication</li>
+<li><strong>Drug B</strong>: Combination medication targeting multiple pain pathways</li>
+</ul>
+<p><strong>Age Groups</strong> differ in how their bodies process medications and respond to treatment:</p>
+<ul>
+<li><strong>Young Adults (18-40)</strong>: Bodies process drugs quickly, generally have fewer other health conditions</li>
+<li><strong>Middle-Aged (41-65)</strong>: Bodies process drugs more slowly than younger adults, more likely to have conditions like high blood pressure or diabetes</li>
+<li><strong>Older Adults (65+)</strong>: Bodies process drugs most slowly, often take multiple medications, higher risk of drug side effects and interactions</li>
+</ul>
+<p><strong>Outcome Variable</strong>: Pain relief score (0-100 scale, higher scores = better pain control)</p>
+<p><strong>What Research Has Shown:</strong></p>
+<p>Clinical studies have found that combination pain medications (Drug B) may work differently across age groups. In younger patients, combination drugs often provide only modest improvements over standard medications, possibly because their bodies process drugs efficiently regardless of the drug type. However, in older patients, combination medications that work through multiple pathways have shown significantly better pain relief compared to standard single-mechanism drugs. This may be because older adults’ bodies respond better when pain is targeted from multiple angles simultaneously. Middle-aged patients typically show intermediate responses. Understanding these age-related patterns helps hospitals make evidence-based decisions about which medications to stock and prescribe for different patient populations.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>n_cell <span class="ot">&lt;-</span> <span class="dv">15</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>medication_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">medication =</span> <span class="fu">c</span>(<span class="st">"Drug A"</span>, <span class="st">"Drug B"</span>, <span class="st">"Drug C"</span>),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">age_group =</span> <span class="fu">c</span>(<span class="st">"Young (18-40)"</span>, <span class="st">"Middle (41-65)"</span>, <span class="st">"Older (65+)"</span>),</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient =</span> <span class="dv">1</span><span class="sc">:</span>n_cell</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ordinal interaction: Drug C works better for older patients</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pain_relief =</span> <span class="fu">case_when</span>(</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug A"</span> <span class="sc">~</span> <span class="dv">55</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>),</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug B"</span> <span class="sc">~</span> <span class="dv">60</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>),</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug C"</span> <span class="sc">&amp;</span> age_group <span class="sc">==</span> <span class="st">"Young (18-40)"</span> <span class="sc">~</span> <span class="dv">58</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>),</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug C"</span> <span class="sc">&amp;</span> age_group <span class="sc">==</span> <span class="st">"Middle (41-65)"</span> <span class="sc">~</span> <span class="dv">68</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>),</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug C"</span> <span class="sc">&amp;</span> age_group <span class="sc">==</span> <span class="st">"Older (65+)"</span> <span class="sc">~</span> <span class="dv">78</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>n_cell <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>medication_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">medication =</span> <span class="fu">c</span>(<span class="st">"Drug A"</span>, <span class="st">"Drug B"</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">age_group =</span> <span class="fu">c</span>(<span class="st">"Young (18-40)"</span>, <span class="st">"Middle (41-65)"</span>, <span class="st">"Older (65+)"</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient =</span> <span class="dv">1</span><span class="sc">:</span>n_cell</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ordinal interaction</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pain_relief =</span> <span class="fu">case_when</span>(</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug A"</span> <span class="sc">~</span> <span class="dv">55</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug B"</span> <span class="sc">&amp;</span> age_group <span class="sc">==</span> <span class="st">"Young (18-40)"</span> <span class="sc">~</span> <span class="dv">58</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>),</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug B"</span> <span class="sc">&amp;</span> age_group <span class="sc">==</span> <span class="st">"Middle (41-65)"</span> <span class="sc">~</span> <span class="dv">68</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>),</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Drug B"</span> <span class="sc">&amp;</span> age_group <span class="sc">==</span> <span class="st">"Older (65+)"</span> <span class="sc">~</span> <span class="dv">78</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">6</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>anova_med <span class="ot">&lt;-</span> <span class="fu">aov</span>(pain_relief <span class="sc">~</span> medication <span class="sc">*</span> age_group, <span class="at">data =</span> medication_data)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_med)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(anova_med, <span class="sc">~</span> medication <span class="sc">|</span> age_group) <span class="sc">%&gt;%</span> <span class="fu">pairs</span>(<span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <hr>
 </section>
@@ -829,8 +918,8 @@ experience = Expert:
 <section id="what-is-it-1" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-it-1">What is it?</h2>
 <p>A <strong>two-way within-subjects ANOVA</strong> (also called two-way repeated-measures ANOVA) tests the effects of two factors where the <strong>same participants</strong> experience all combinations of both factors.</p>
-<section id="key-characteristics-1" class="level3">
-<h3 class="anchored" data-anchor-id="key-characteristics-1">Key Characteristics</h3>
+<section id="key-characteristics" class="level3">
+<h3 class="anchored" data-anchor-id="key-characteristics">Key Characteristics</h3>
 <ul>
 <li>Same participants measured under all conditions</li>
 <li>Both factors are within-subjects (repeated measures)</li>
@@ -841,45 +930,68 @@ experience = Expert:
 </section>
 <section id="when-to-use-it-1" class="level2">
 <h2 class="anchored" data-anchor-id="when-to-use-it-1">When to Use It</h2>
+<p>Use two-way within-subjects ANOVA when the same participants are measured under all combinations of two factors:</p>
 <ul>
-<li>Same patients tested with <strong>different medications</strong> at <strong>different times of day</strong></li>
-<li>Same staff evaluated on <strong>multiple tasks</strong> across <strong>multiple assessment periods</strong></li>
-<li>Same clinics measured on <strong>different metrics</strong> in <strong>different seasons</strong></li>
+<li><p>Same patients tested with <strong>different medications</strong> (e.g., Drug A, Drug B, Drug C) at <strong>different times of day</strong> (e.g., morning, evening)</p></li>
+<li><p>Same staff evaluated on <strong>multiple tasks</strong> (e.g., vital signs, medication administration, charting) across <strong>multiple assessment periods</strong> (e.g., pre-training, post-training, 3-month follow-up)</p></li>
+<li><p>Same clinics measured on <strong>different metrics</strong> (e.g., patient satisfaction, wait time, quality scores) in <strong>different seasons</strong> (e.g., winter, spring, summer, fall)</p></li>
 </ul>
 </section>
 <section id="scenario-medication-type-time-of-day" class="level2">
 <h2 class="anchored" data-anchor-id="scenario-medication-type-time-of-day">Scenario: Medication Type × Time of Day</h2>
-<p>A study examines whether <strong>medication effectiveness</strong> varies by <strong>time of administration</strong>. The same 20 patients receive each of three medications at two times (morning and evening), with appropriate washout periods.</p>
+<p>A clinical study examines whether <strong>medication effectiveness</strong> varies by <strong>time of administration</strong>. The same 20 patients receive each of three medications at two different times (morning and evening), with appropriate rest periods between medications.</p>
+<p><strong>Study Design:</strong></p>
+<p>This is a <strong>within-subjects design</strong> where each patient tries all medication and time combinations:</p>
+<ul>
+<li>Each patient receives Med A in the morning, Med A in the evening</li>
+<li>Each patient receives Med B in the morning, Med B in the evening</li>
+<li>Each patient receives Med C in the morning, Med C in the evening</li>
+<li>Total: 6 conditions per patient (3 medications × 2 times)</li>
+<li>Rest periods (washout periods) are included between medications to ensure one drug doesn’t affect the next</li>
+</ul>
+<p><strong>Medications Being Tested:</strong></p>
+<ul>
+<li><strong>Med A</strong>: Standard pain reliever</li>
+<li><strong>Med B</strong>: Extended-release pain medication</li>
+<li><strong>Med C</strong>: Fast-acting pain medication</li>
+</ul>
+<p><strong>Outcome Variable</strong>: Medication effectiveness score (0-100, higher = better pain control)</p>
+<p>Research has found that medication timing can significantly affect pain relief. Studies show that some pain medications work better when taken in the evening, providing longer pain relief with fewer side effects, while others may be more effective in the morning. Understanding these timing patterns helps doctors make better prescribing recommendations, potentially improving patient outcomes without increasing medication doses.</p>
+<p>Let’s create a dataset</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same 20 patients, all conditions</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>n_patients <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>within_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span>n_patients,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">medication =</span> <span class="fu">c</span>(<span class="st">"Med A"</span>, <span class="st">"Med B"</span>, <span class="st">"Med C"</span>),</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(<span class="st">"Morning"</span>, <span class="st">"Evening"</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Patient random effect</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">patient_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_patients, <span class="dv">0</span>, <span class="dv">5</span>), <span class="dv">6</span>),</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fixed effects with interaction</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med A"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Morning"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med A"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Evening"</span> <span class="sc">~</span> <span class="dv">60</span>,</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med B"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Morning"</span> <span class="sc">~</span> <span class="dv">70</span>,</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med B"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Evening"</span> <span class="sc">~</span> <span class="dv">72</span>,</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med C"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Morning"</span> <span class="sc">~</span> <span class="dv">75</span>,</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med C"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Evening"</span> <span class="sc">~</span> <span class="dv">68</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">effectiveness =</span> fixed <span class="sc">+</span> patient_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same 20 patients, all conditions</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>n_patients <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>within_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span>n_patients,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">medication =</span> <span class="fu">c</span>(<span class="st">"Med A"</span>, <span class="st">"Med B"</span>, <span class="st">"Med C"</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(<span class="st">"Morning"</span>, <span class="st">"Evening"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Patient random effect</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">patient_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_patients, <span class="dv">0</span>, <span class="dv">5</span>), <span class="dv">6</span>),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fixed effects with interaction</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Med A (standard): works better in evening (like NSAIDs in research)</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Med B (extended-release): similar effectiveness both times</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Med C (fast-acting): works better in morning when body is active</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med A"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Morning"</span> <span class="sc">~</span> <span class="dv">63</span>,</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med A"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Evening"</span> <span class="sc">~</span> <span class="dv">72</span>,</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med B"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Morning"</span> <span class="sc">~</span> <span class="dv">70</span>,</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med B"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Evening"</span> <span class="sc">~</span> <span class="dv">71</span>,</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med C"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Morning"</span> <span class="sc">~</span> <span class="dv">77</span>,</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>      medication <span class="sc">==</span> <span class="st">"Med C"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Evening"</span> <span class="sc">~</span> <span class="dv">65</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">effectiveness =</span> fixed <span class="sc">+</span> patient_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lecture07_files/figure-html/within-viz1-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="Lecture07_files/figure-html/within-viz1-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -888,108 +1000,137 @@ experience = Expert:
 <section id="conducting-two-way-within-subjects-anova-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="conducting-two-way-within-subjects-anova-in-r">Conducting Two-Way Within-Subjects ANOVA in R</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-way within-subjects ANOVA</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Error term includes both factors nested within subject</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>within_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(effectiveness <span class="sc">~</span> medication <span class="sc">*</span> time <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">Error</span>(patient_id<span class="sc">/</span>(medication <span class="sc">*</span> time)),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> within_data)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(within_anova)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-way within-subjects ANOVA</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Error term includes both factors nested within subject</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>within_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(effectiveness <span class="sc">~</span> medication <span class="sc">*</span> time <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">Error</span>(patient_id<span class="sc">/</span>(medication <span class="sc">*</span> time)),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> within_data)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(within_anova)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Error: patient_id
           Df Sum Sq Mean Sq F value Pr(&gt;F)
-Residuals  1   97.2    97.2               
+Residuals  1  100.5   100.5               
 
 Error: patient_id:medication
            Df Sum Sq Mean Sq
-medication  2   1744   872.1
+medication  2  267.7   133.8
 
 Error: patient_id:time
      Df Sum Sq Mean Sq
-time  1  265.2   265.2
+time  1  11.25   11.25
 
 Error: patient_id:medication:time
                 Df Sum Sq Mean Sq
-medication:time  2  397.1   198.6
+medication:time  2   1477   738.5
 
 Error: Within
-                 Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-medication        2    629  314.38   7.770 0.000704 ***
-time              1     62   61.69   1.525 0.219604    
-medication:time   2    293  146.27   3.615 0.030222 *  
-Residuals       108   4370   40.46                     
+                 Df Sum Sq Mean Sq F value Pr(&gt;F)  
+medication        2   44.1   22.04   0.759 0.4704  
+time              1    0.1    0.05   0.002 0.9656  
+medication:time   2  274.3  137.15   4.725 0.0108 *
+Residuals       108 3135.0   29.03                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <section id="interpreting-the-output" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-the-output">Interpreting the Output</h3>
-<p>The output shows separate error strata:</p>
 <ul>
-<li><strong>patient_id:medication</strong> - Error term for medication main effect</li>
-<li><strong>patient_id:time</strong> - Error term for time main effect</li>
-<li><strong>patient_id:medication:time</strong> - Error term for interaction</li>
+<li><strong>medication</strong>: the main effect of medication types (non-significant difference)</li>
+<li><strong>time</strong>: the main effect of time (non-significant difference)</li>
+<li><strong>medication:time</strong>: medication time and type interaction (significant difference)</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-hoc comparisons</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple effects of time at each medication level</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>emm_within <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(within_anova, <span class="sc">~</span> time <span class="sc">|</span> medication)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_within)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-hoc comparisons</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple effects of time at each medication level</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>emm_within <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(within_anova, <span class="sc">~</span> time <span class="sc">|</span> medication)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_within, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>medication = Med A:
  contrast          estimate   SE  df t.ratio p.value
- Morning - Evening     7.05 4.18 108   1.687  0.0945
+ Morning - Evening    -7.62 3.54 108  -2.152  0.0336
 
 medication = Med B:
  contrast          estimate   SE  df t.ratio p.value
- Morning - Evening    -6.18 4.18 108  -1.478  0.1423
+ Morning - Evening     0.11 3.54 108   0.031  0.9752
 
 medication = Med C:
  contrast          estimate   SE  df t.ratio p.value
- Morning - Evening     8.06 4.18 108   1.930  0.0563</code></pre>
+ Morning - Evening     7.77 3.54 108   2.196  0.0303</code></pre>
 </div>
 </div>
 </section>
 <section id="interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
 <ul>
-<li><strong>Med A</strong>: Higher effectiveness in morning (significant)</li>
-<li><strong>Med B</strong>: Similar effectiveness morning/evening (not significant)</li>
-<li><strong>Med C</strong>: Higher effectiveness in morning (significant)</li>
+<li><strong>Med A</strong>: Significant difference (Evening &gt; Morning)</li>
+<li><strong>Med B</strong>: No significant difference (Morning = Evening)</li>
+<li><strong>Med C</strong>: Significant difference (Morning &gt; Evening)</li>
 </ul>
-<p>Clinical implication: Timing matters for Medications A and C but not for B.</p>
+<p>Timing matters for Medications A and C but not for B.</p>
 </section>
 </section>
 <section id="practice-activity-3-task-type-shift-period" class="level2">
 <h2 class="anchored" data-anchor-id="practice-activity-3-task-type-shift-period">Practice Activity 3: Task Type × Shift Period</h2>
-<p>The same 15 nurses are evaluated on <strong>two task types</strong> (Documentation, Patient Care) across <strong>three shift periods</strong> (Beginning, Middle, End):</p>
+<p>A hospital nursing director evaluates whether <strong>nurse performance</strong> on different <strong>task types</strong> changes throughout a shift. The same 15 nurses are evaluated on two task types across three shift periods.</p>
+<p><strong>Study Design:</strong></p>
+<p>This is a <strong>within-subjects design</strong> where each nurse is evaluated under all task-period combinations:</p>
+<ul>
+<li>Each nurse performs documentation tasks at the beginning, middle, and end of shift</li>
+<li>Each nurse performs patient care tasks at the beginning, middle, and end of shift</li>
+<li>Total: 6 evaluations per nurse (2 task types × 3 shift periods)</li>
+</ul>
+<p><strong>Task Types:</strong></p>
+<ul>
+<li><strong>Documentation</strong>: Completing patient charts, entering data into electronic health records, processing admission/discharge paperwork</li>
+<li><strong>Patient Care</strong>: Direct patient interactions including vital signs monitoring, medication administration, patient education, responding to patient needs</li>
+</ul>
+<p><strong>Shift Periods:</strong></p>
+<ul>
+<li><strong>Beginning</strong>: First 2-3 hours of 12-hour shift (nurses are fresh but orientation to patients is ongoing)</li>
+<li><strong>Middle</strong>: Hours 4-8 of shift (nurses are familiar with patients, workload is often highest)</li>
+<li><strong>End</strong>: Final 2-3 hours of shift (fatigue may set in, handoff preparation begins)</li>
+</ul>
+<p><strong>Outcome Variable</strong>: Performance score (0-100, based on supervisor observation, higher = better performance)</p>
+<p>Understanding how different tasks are affected by shift fatigue helps hospital administrators make evidence-based staffing and workflow decisions. For example, if documentation quality declines significantly toward the end of shifts while patient care remains stable, managers might schedule additional clerical support during late shift hours or redesign workflows to complete complex documentation earlier in shifts. This can improve both staff well-being and patient safety.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n_nurses <span class="ot">&lt;-</span> <span class="dv">15</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>task_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nurse_id =</span> <span class="dv">1</span><span class="sc">:</span>n_nurses,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">task =</span> <span class="fu">c</span>(<span class="st">"Documentation"</span>, <span class="st">"Patient Care"</span>),</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">period =</span> <span class="fu">c</span>(<span class="st">"Beginning"</span>, <span class="st">"Middle"</span>, <span class="st">"End"</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">nurse_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_nurses, <span class="dv">0</span>, <span class="dv">4</span>), <span class="dv">6</span>),</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Performance declines more for documentation than patient care</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Documentation"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"Beginning"</span> <span class="sc">~</span> <span class="dv">90</span>,</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Documentation"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"Middle"</span> <span class="sc">~</span> <span class="dv">82</span>,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Documentation"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"End"</span> <span class="sc">~</span> <span class="dv">70</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Patient Care"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"Beginning"</span> <span class="sc">~</span> <span class="dv">88</span>,</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Patient Care"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"Middle"</span> <span class="sc">~</span> <span class="dv">85</span>,</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Patient Care"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"End"</span> <span class="sc">~</span> <span class="dv">80</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">performance =</span> fixed <span class="sc">+</span> nurse_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3</span>),</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">period =</span> <span class="fu">factor</span>(period, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Beginning"</span>, <span class="st">"Middle"</span>, <span class="st">"End"</span>))</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create interaction plot</span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run two-way within-subjects ANOVA</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Interpret the interaction</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>n_nurses <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>task_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nurse_id =</span> <span class="dv">1</span><span class="sc">:</span>n_nurses,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">task =</span> <span class="fu">c</span>(<span class="st">"Documentation"</span>, <span class="st">"Patient Care"</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">period =</span> <span class="fu">c</span>(<span class="st">"Beginning"</span>, <span class="st">"Middle"</span>, <span class="st">"End"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">nurse_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_nurses, <span class="dv">0</span>, <span class="dv">4</span>), <span class="dv">6</span>),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Performance declines more for documentation than patient care</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Documentation"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"Beginning"</span> <span class="sc">~</span> <span class="dv">90</span>,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Documentation"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"Middle"</span> <span class="sc">~</span> <span class="dv">82</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Documentation"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"End"</span> <span class="sc">~</span> <span class="dv">70</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Patient Care"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"Beginning"</span> <span class="sc">~</span> <span class="dv">88</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Patient Care"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"Middle"</span> <span class="sc">~</span> <span class="dv">85</span>,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>      task <span class="sc">==</span> <span class="st">"Patient Care"</span> <span class="sc">&amp;</span> period <span class="sc">==</span> <span class="st">"End"</span> <span class="sc">~</span> <span class="dv">80</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">performance =</span> fixed <span class="sc">+</span> nurse_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3</span>),</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">period =</span> <span class="fu">factor</span>(period, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Beginning"</span>, <span class="st">"Middle"</span>, <span class="st">"End"</span>))</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create interaction plot</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run two-way within-subjects ANOVA</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Interpret the interaction</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>task_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(performance <span class="sc">~</span> task <span class="sc">*</span> period <span class="sc">+</span> <span class="fu">Error</span>(nurse_id<span class="sc">/</span>(task <span class="sc">*</span> period)),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> task_data)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(task_anova)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(task_anova, <span class="sc">~</span> task <span class="sc">|</span> period) <span class="sc">%&gt;%</span> <span class="fu">pairs</span>(<span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <hr>
 </section>
@@ -998,9 +1139,9 @@ medication = Med C:
 <h1>Mixed Design ANOVA</h1>
 <section id="what-is-it-2" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-it-2">What is it?</h2>
-<p>A <strong>mixed design ANOVA</strong> (also called split-plot ANOVA) combines both between-subjects and within-subjects factors. This is one of the most common designs in healthcare research.</p>
-<section id="key-characteristics-2" class="level3">
-<h3 class="anchored" data-anchor-id="key-characteristics-2">Key Characteristics</h3>
+<p>A <strong>mixed design ANOVA</strong> combines both between-subjects and within-subjects factors. This is one of the most common designs in healthcare research.</p>
+<section id="key-characteristics-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-characteristics-1">Key Characteristics</h3>
 <ul>
 <li>One or more <strong>between-subjects factors</strong>: Different participants in each group</li>
 <li>One or more <strong>within-subjects factors</strong>: Same participants measured repeatedly</li>
@@ -1010,50 +1151,63 @@ medication = Med C:
 </section>
 <section id="when-to-use-it-2" class="level2">
 <h2 class="anchored" data-anchor-id="when-to-use-it-2">When to Use It</h2>
-<p>Mixed designs are ideal for:</p>
+<p>Use mixed design ANOVA when different groups of participants are measured repeatedly over time:</p>
 <ul>
-<li><strong>Clinical trials</strong>: Treatment group (between) × Time points (within)</li>
-<li><strong>Training studies</strong>: Program type (between) × Assessment occasions (within)</li>
-<li><strong>Quality improvement</strong>: Intervention group (between) × Pre/post measurements (within)</li>
+<li><p><strong>Clinical trials</strong>: Treatment group (e.g., new drug, standard drug, placebo) × Time points (e.g., baseline, 1 month, 3 months, 6 months)</p></li>
+<li><p><strong>Training studies</strong>: Program type (e.g., online learning, in-person workshop, blended approach) × Assessment occasions (e.g., before training, immediately after, 1-month follow-up, 3-month follow-up)</p></li>
+<li><p><strong>Quality improvement</strong>: Intervention group (e.g., standard care, enhanced protocol) × Measurement periods (e.g., before intervention, 3 months after, 6 months after, 12 months after)</p></li>
 </ul>
 </section>
 <section id="scenario-training-program-assessment-time" class="level2">
 <h2 class="anchored" data-anchor-id="scenario-training-program-assessment-time">Scenario: Training Program × Assessment Time</h2>
-<p>A hospital compares <strong>three training programs</strong> for improving nursing competency. Nurses are randomly assigned to one program (between-subjects factor) and assessed at <strong>four time points</strong> (within-subjects factor): Pre-training, Immediate post, 1 month, and 3 months.</p>
+<p>Let’s think about the following case:</p>
+<p>A hospital compares <strong>three training programs</strong> for improving nursing competency. Nurses are randomly assigned to one program (between-subjects factor) and assessed at <strong>three time points</strong> (within-subjects factor): Before training, Immediately after training, and 3 months later.</p>
+<p><strong>Study Design:</strong></p>
+<p>This is a <strong>mixed design</strong> where different nurses are assigned to different programs (between-subjects), but each nurse is tested multiple times (within-subjects):</p>
+<ul>
+<li>60 nurses total (20 assigned to each program)</li>
+<li>Each nurse is tested 3 times: before training, right after training, 3 months later</li>
+<li>The question: Do different training programs show different patterns of learning and retention over time?</li>
+</ul>
+<p><strong>Training Programs:</strong></p>
+<ul>
+<li><p><strong>Traditional Lecture</strong>: Classroom instruction with PowerPoint presentations, lectures, and written materials. Lower cost, can train many nurses at once.</p></li>
+<li><p><strong>Simulation-Based</strong>: Hands-on practice with medical mannequins and equipment in a simulated hospital environment. Higher cost, smaller class sizes, allows practicing skills safely.</p></li>
+<li><p><strong>Blended Learning</strong>: Combination of online modules for theory (completed at own pace) plus in-person skill practice sessions. Moderate cost, flexible scheduling.</p></li>
+</ul>
+<p><strong>Outcome Variable</strong>: Competency test score (0-100, covering both knowledge and skills, higher scores = higher competencies)</p>
+<p>Studies comparing nursing training methods have found that simulation-based and blended learning approaches generally produce better learning outcomes than traditional lecture-only methods, with students scoring higher on competency tests. However, the key management question is about long-term retention: Do more expensive training methods maintain their advantage over time, or do all methods “fade” equally? Research shows that hands-on training methods (simulation and blended) show better long-term retention compared to lecture-only approaches. Understanding these patterns helps hospitals justify the higher upfront costs of simulation or blended programs if they provide lasting benefits.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>n_per_group <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>mixed_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nurse_id =</span> <span class="dv">1</span><span class="sc">:</span>(n_per_group <span class="sc">*</span> <span class="dv">3</span>),</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(<span class="st">"Pre"</span>, <span class="st">"Post"</span>, <span class="st">"1 Month"</span>, <span class="st">"3 Months"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assign to groups</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Traditional"</span>, <span class="st">"Simulation"</span>, <span class="st">"Blended"</span>),</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">each =</span> n_per_group), <span class="dv">4</span>),</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Nurse random effect</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">nurse_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_per_group <span class="sc">*</span> <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">4</span>), <span class="dv">4</span>),</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fixed effects</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Traditional: modest improvement, some decay</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Traditional"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Pre"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Traditional"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Post"</span> <span class="sc">~</span> <span class="dv">75</span>,</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Traditional"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"1 Month"</span> <span class="sc">~</span> <span class="dv">72</span>,</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Traditional"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="dv">68</span>,</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Simulation: good improvement, maintained</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Simulation"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Pre"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Simulation"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Post"</span> <span class="sc">~</span> <span class="dv">82</span>,</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Simulation"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"1 Month"</span> <span class="sc">~</span> <span class="dv">80</span>,</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Simulation"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="dv">78</span>,</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Blended: best improvement, well maintained</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Blended"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Pre"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Blended"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Post"</span> <span class="sc">~</span> <span class="dv">88</span>,</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Blended"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"1 Month"</span> <span class="sc">~</span> <span class="dv">87</span>,</span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Blended"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="dv">85</span></span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">score =</span> fixed <span class="sc">+</span> nurse_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3</span>),</span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">factor</span>(time, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Pre"</span>, <span class="st">"Post"</span>, <span class="st">"1 Month"</span>, <span class="st">"3 Months"</span>))</span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>n_per_group <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>mixed_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nurse_id =</span> <span class="dv">1</span><span class="sc">:</span>(n_per_group <span class="sc">*</span> <span class="dv">3</span>),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(<span class="st">"Pre"</span>, <span class="st">"Post"</span>, <span class="st">"3 Months"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assign to groups</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Traditional"</span>, <span class="st">"Simulation"</span>, <span class="st">"Blended"</span>),</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">each =</span> n_per_group), <span class="dv">3</span>),</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Nurse random effect</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">nurse_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_per_group <span class="sc">*</span> <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">4</span>), <span class="dv">3</span>),</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fixed effects</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Traditional: modest improvement, significant decay</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Traditional"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Pre"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Traditional"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Post"</span> <span class="sc">~</span> <span class="dv">75</span>,</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Traditional"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="dv">66</span>,</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Simulation: good improvement, well maintained</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Simulation"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Pre"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Simulation"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Post"</span> <span class="sc">~</span> <span class="dv">84</span>,</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Simulation"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="dv">79</span>,</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Blended: best improvement, well maintained</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Blended"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Pre"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Blended"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Post"</span> <span class="sc">~</span> <span class="dv">88</span>,</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>      program <span class="sc">==</span> <span class="st">"Blended"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="dv">85</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">score =</span> fixed <span class="sc">+</span> nurse_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3</span>),</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">factor</span>(time, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Pre"</span>, <span class="st">"Post"</span>, <span class="st">"3 Months"</span>))</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1071,74 +1225,56 @@ medication = Med C:
 <tr class="odd">
 <td style="text-align: left;">Blended</td>
 <td style="text-align: left;">Pre</td>
-<td style="text-align: right;">66.6</td>
-<td style="text-align: right;">6.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Blended</td>
-<td style="text-align: left;">Post</td>
-<td style="text-align: right;">88.7</td>
-<td style="text-align: right;">5.9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Blended</td>
-<td style="text-align: left;">1 Month</td>
-<td style="text-align: right;">88.2</td>
-<td style="text-align: right;">4.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Blended</td>
-<td style="text-align: left;">3 Months</td>
-<td style="text-align: right;">86.1</td>
-<td style="text-align: right;">6.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Simulation</td>
-<td style="text-align: left;">Pre</td>
-<td style="text-align: right;">65.9</td>
-<td style="text-align: right;">4.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Simulation</td>
-<td style="text-align: left;">Post</td>
-<td style="text-align: right;">81.8</td>
-<td style="text-align: right;">4.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Simulation</td>
-<td style="text-align: left;">1 Month</td>
-<td style="text-align: right;">79.6</td>
-<td style="text-align: right;">4.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Simulation</td>
-<td style="text-align: left;">3 Months</td>
-<td style="text-align: right;">78.3</td>
-<td style="text-align: right;">4.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Traditional</td>
-<td style="text-align: left;">Pre</td>
-<td style="text-align: right;">64.3</td>
-<td style="text-align: right;">6.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Traditional</td>
-<td style="text-align: left;">Post</td>
-<td style="text-align: right;">73.3</td>
+<td style="text-align: right;">64.7</td>
 <td style="text-align: right;">4.9</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">Blended</td>
+<td style="text-align: left;">Post</td>
+<td style="text-align: right;">88.9</td>
+<td style="text-align: right;">3.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Blended</td>
+<td style="text-align: left;">3 Months</td>
+<td style="text-align: right;">84.8</td>
+<td style="text-align: right;">5.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Simulation</td>
+<td style="text-align: left;">Pre</td>
+<td style="text-align: right;">65.4</td>
+<td style="text-align: right;">3.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Simulation</td>
+<td style="text-align: left;">Post</td>
+<td style="text-align: right;">83.7</td>
+<td style="text-align: right;">5.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Simulation</td>
+<td style="text-align: left;">3 Months</td>
+<td style="text-align: right;">81.5</td>
+<td style="text-align: right;">4.6</td>
+</tr>
 <tr class="odd">
 <td style="text-align: left;">Traditional</td>
-<td style="text-align: left;">1 Month</td>
-<td style="text-align: right;">70.9</td>
-<td style="text-align: right;">5.8</td>
+<td style="text-align: left;">Pre</td>
+<td style="text-align: right;">65.1</td>
+<td style="text-align: right;">4.2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Traditional</td>
+<td style="text-align: left;">Post</td>
+<td style="text-align: right;">75.4</td>
+<td style="text-align: right;">4.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Traditional</td>
 <td style="text-align: left;">3 Months</td>
-<td style="text-align: right;">67.8</td>
-<td style="text-align: right;">4.8</td>
+<td style="text-align: right;">65.9</td>
+<td style="text-align: right;">5.1</td>
 </tr>
 </tbody>
 </table>
@@ -1151,7 +1287,7 @@ medication = Med C:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lecture07_files/figure-html/mixed-viz1-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="Lecture07_files/figure-html/mixed-viz1-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1160,152 +1296,162 @@ medication = Med C:
 <section id="conducting-mixed-design-anova-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="conducting-mixed-design-anova-in-r">Conducting Mixed Design ANOVA in R</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mixed design ANOVA</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Error term only includes within-subjects factor</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>mixed_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(score <span class="sc">~</span> program <span class="sc">*</span> time <span class="sc">+</span> <span class="fu">Error</span>(nurse_id<span class="sc">/</span>time),</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> mixed_data)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mixed_anova)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mixed design ANOVA</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Error term only includes within-subjects factor</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>mixed_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(score <span class="sc">~</span> program <span class="sc">*</span> time <span class="sc">+</span> <span class="fu">Error</span>(nurse_id<span class="sc">/</span>time),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> mixed_data)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mixed_anova)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Error: nurse_id
         Df Sum Sq Mean Sq
-program  1   6392    6392
+program  1   2976    2976
 
 Error: nurse_id:time
      Df Sum Sq Mean Sq
-time  3  10056    3352
+time  2  10938    5469
 
 Error: Within
               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-program        2    736   368.2  12.805 5.42e-06 ***
-time           3    459   153.0   5.320  0.00147 ** 
-program:time   6    237    39.5   1.375  0.22573    
-Residuals    224   6440    28.8                     
+program        2    764   382.0  17.618 1.13e-07 ***
+time           2    739   369.6  17.048 1.82e-07 ***
+program:time   4    363    90.8   4.189  0.00293 ** 
+Residuals    168   3642    21.7                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <section id="interpreting-the-output-1" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-the-output-1">Interpreting the Output</h3>
-<p>Two error strata:</p>
-<ol type="1">
-<li><strong>nurse_id</strong> (between-subjects error): Tests the main effect of program</li>
-<li><strong>nurse_id:time</strong> (within-subjects error): Tests time and program × time interaction</li>
-</ol>
-</section>
-<section id="key-findings" class="level3">
-<h3 class="anchored" data-anchor-id="key-findings">Key Findings</h3>
+<p>The ANOVA result table shows that:</p>
 <ul>
-<li><strong>Program main effect</strong>: Significant—programs differ in overall effectiveness</li>
-<li><strong>Time main effect</strong>: Significant—scores change over time</li>
-<li><strong>Program × Time interaction</strong>: Significant—patterns of change differ by program</li>
+<li><strong>program</strong>: The main effect of the three different training program formats (Significant difference)</li>
+<li><strong>time</strong>: The main effect of time (Significant difference across the three time points)</li>
+<li><strong>program:time</strong>: The interaction between training program and time (significant difference; the effect of training program differed across the different time measurement points)</li>
 </ul>
 </section>
 </section>
-<section id="simple-effects-analysis-1" class="level2">
-<h2 class="anchored" data-anchor-id="simple-effects-analysis-1">Simple Effects Analysis</h2>
+<section id="simple-effects-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="simple-effects-analysis">Simple Effects Analysis</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare programs at each time point</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>emm_mixed <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mixed_anova, <span class="sc">~</span> program <span class="sc">|</span> time)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_mixed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare programs at each time point</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>emm_mixed <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mixed_anova, <span class="sc">~</span> program <span class="sc">|</span> time)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_mixed, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>time = Pre:
  contrast                 estimate   SE  df t.ratio p.value
- Blended - Simulation        0.147 2.94 224   0.050  0.9986
- Blended - Traditional       1.134 5.09 224   0.223  0.9730
- Simulation - Traditional    0.986 2.94 224   0.336  0.9398
+ Blended - Simulation         1.20 2.55 168   0.471  0.8849
+ Blended - Traditional        3.32 4.42 168   0.752  0.7330
+ Simulation - Traditional     2.12 2.55 168   0.831  0.6842
 
 time = Post:
  contrast                 estimate   SE  df t.ratio p.value
- Blended - Simulation        8.863 2.94 224   3.015  0.0080
- Blended - Traditional      19.338 5.09 224   3.797  0.0006
- Simulation - Traditional   10.475 2.94 224   3.564  0.0013
-
-time = 1 Month:
- contrast                 estimate   SE  df t.ratio p.value
- Blended - Simulation        6.278 2.94 224   2.136  0.0850
- Blended - Traditional      12.603 5.09 224   2.475  0.0373
- Simulation - Traditional    6.325 2.94 224   2.152  0.0820
+ Blended - Simulation         5.88 2.55 168   2.305  0.0579
+ Blended - Traditional       14.98 4.42 168   3.388  0.0025
+ Simulation - Traditional     9.10 2.55 168   3.566  0.0014
 
 time = 3 Months:
  contrast                 estimate   SE  df t.ratio p.value
- Blended - Simulation        7.514 2.94 224   2.556  0.0301
- Blended - Traditional      17.687 5.09 224   3.473  0.0018
- Simulation - Traditional   10.174 2.94 224   3.461  0.0019
+ Blended - Simulation         2.42 2.55 168   0.949  0.6102
+ Blended - Traditional       17.13 4.42 168   3.874  0.0004
+ Simulation - Traditional    14.71 2.55 168   5.763  &lt;.0001
 
 P value adjustment: tukey method for comparing a family of 3 estimates </code></pre>
 </div>
 </div>
+<p>At each time point:</p>
+<ul>
+<li><strong>Pre</strong>: No significant differences across the three training programs</li>
+<li><strong>Post</strong>: Significant differences across the three training programs (Blended &gt; Simulation &gt; Traditional)</li>
+<li><strong>3 Months</strong>: Significant differences across the three training programs (Blended = Simulation &gt; Traditional)</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare time points within each program</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>emm_time <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mixed_anova, <span class="sc">~</span> time <span class="sc">|</span> program)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare time points within each program</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>emm_time <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mixed_anova, <span class="sc">~</span> time <span class="sc">|</span> program)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_time, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>program = Blended:
- contrast           estimate   SE  df t.ratio p.value
- Pre - Post           -28.56 8.74 224  -3.267  0.0068
- Pre - 1 Month        -17.15 8.74 224  -1.962  0.2056
- Pre - 3 Months       -20.16 8.74 224  -2.307  0.0996
- Post - 1 Month        11.41 8.74 224   1.305  0.5604
- Post - 3 Months        8.40 8.74 224   0.961  0.7718
- 1 Month - 3 Months    -3.01 8.74 224  -0.345  0.9859
+ contrast        estimate   SE  df t.ratio p.value
+ Pre - Post       -21.356 7.59 168  -2.814  0.0151
+ Pre - 3 Months   -13.104 7.59 168  -1.727  0.1983
+ Post - 3 Months    8.252 7.59 168   1.087  0.5232
 
 program = Simulation:
- contrast           estimate   SE  df t.ratio p.value
- Pre - Post           -19.84 5.45 224  -3.641  0.0019
- Pre - 1 Month        -11.02 5.45 224  -2.022  0.1830
- Pre - 3 Months       -12.79 5.45 224  -2.348  0.0905
- Post - 1 Month         8.82 5.45 224   1.620  0.3697
- Post - 3 Months        7.05 5.45 224   1.293  0.5681
- 1 Month - 3 Months    -1.78 5.45 224  -0.326  0.9880
+ contrast        estimate   SE  df t.ratio p.value
+ Pre - Post       -16.676 4.73 168  -3.524  0.0016
+ Pre - 3 Months   -11.884 4.73 168  -2.512  0.0344
+ Post - 3 Months    4.792 4.73 168   1.013  0.5699
 
 program = Traditional:
- contrast           estimate   SE  df t.ratio p.value
- Pre - Post           -10.35 2.46 224  -4.208  0.0002
- Pre - 1 Month         -5.68 2.46 224  -2.308  0.0993
- Pre - 3 Months        -3.61 2.46 224  -1.466  0.4599
- Post - 1 Month         4.67 2.46 224   1.900  0.2310
- Post - 3 Months        6.75 2.46 224   2.742  0.0332
- 1 Month - 3 Months     2.07 2.46 224   0.842  0.8343
+ contrast        estimate   SE  df t.ratio p.value
+ Pre - Post        -9.696 2.14 168  -4.538  &lt;.0001
+ Pre - 3 Months     0.704 2.14 168   0.329  0.9420
+ Post - 3 Months   10.399 2.14 168   4.868  &lt;.0001
 
-P value adjustment: tukey method for comparing a family of 4 estimates </code></pre>
+P value adjustment: tukey method for comparing a family of 3 estimates </code></pre>
 </div>
 </div>
-<section id="clinical-interpretation" class="level3">
-<h3 class="anchored" data-anchor-id="clinical-interpretation">Clinical Interpretation</h3>
+<p>For each training program:</p>
+<ul>
+<li><strong>Blended</strong>: Significant differences across the three time points (3 Months = Post &gt; Pre)</li>
+<li><strong>Simulation</strong>: Significant differences across the three time points (3 Months = Post &gt; Pre)</li>
+<li><strong>Traditional</strong>: Significant differences across the three time points (Post &gt; 3 Months = Pre)</li>
+</ul>
+<section id="interpretations-1" class="level3">
+<h3 class="anchored" data-anchor-id="interpretations-1">Interpretations</h3>
 <ol type="1">
 <li><strong>All programs</strong> show significant improvement immediately post-training</li>
 <li><strong>Traditional</strong> shows significant decay from Post to 3 Months</li>
-<li><strong>Simulation</strong> maintains gains well</li>
-<li><strong>Blended</strong> maintains gains best</li>
+<li><strong>Simulation</strong> and <strong>Blended</strong> maintain gains well</li>
 </ol>
-<p><strong>Recommendation</strong>: Despite higher initial costs, the blended program provides the best long-term knowledge retention.</p>
+<p>Despite higher initial costs, the programs involving simulations provide better long-term knowledge retention.</p>
 </section>
 </section>
 <section id="example-2-intervention-group-measurement-occasions" class="level2">
 <h2 class="anchored" data-anchor-id="example-2-intervention-group-measurement-occasions">Example 2: Intervention Group × Measurement Occasions</h2>
-<p>A diabetes education program randomizes patients to <strong>two groups</strong> and measures HbA1c at <strong>three time points</strong>:</p>
+<p>A diabetes clinic evaluates the effectiveness of an intensive education program. Patients with Type 2 diabetes are randomly assigned to <strong>two groups</strong> (between-subjects factor) and their blood sugar control is measured at <strong>three time points</strong> (within-subjects factor): Baseline, 3 months, and 6 months.</p>
+<p><strong>Study Design:</strong></p>
+<p>This is a <strong>mixed design</strong> where different patients are assigned to different programs (between-subjects), but each patient is measured multiple times (within-subjects):</p>
+<ul>
+<li>50 patients total (25 assigned to each group)</li>
+<li>Each patient’s HbA1c is tested 3 times: at the start, after 3 months, after 6 months</li>
+<li>The question: Does the intensive education program produce better blood sugar control over time compared to usual care?</li>
+</ul>
+<p><strong>Intervention Groups:</strong></p>
+<ul>
+<li><p><strong>Usual Care</strong>: Standard diabetes management with quarterly doctor visits, basic diet and medication instructions. Typical approach used in most clinics.</p></li>
+<li><p><strong>Intensive Education</strong>: Includes everything in usual care + weekly group classes covering diet planning, carbohydrate counting, exercise strategies, medication management, and blood glucose monitoring. Also includes individual counseling sessions and continuous glucose monitoring with feedback.</p></li>
+</ul>
+<p><strong>Outcome Variable</strong>: HbA1c level (%)</p>
+<p>HbA1c (Hemoglobin A1c) is a blood test that shows average blood sugar control over the past 2-3 months. It measures the percentage of hemoglobin (a protein in red blood cells) that has sugar attached to it. The higher the percentage, the poorer the blood sugar control. Lower numbers are better:</p>
+<ul>
+<li>Below 7.0%: Good control (target for most diabetes patients)</li>
+<li>7.0-8.0%: Moderate control</li>
+<li>Above 8.0%: Poor control, higher risk of complications</li>
+</ul>
+<p>Research has shown that intensive diabetes education programs can significantly improve blood sugar control. Studies typically find that patients in intensive programs show greater HbA1c reductions compared to usual care, with benefits becoming more pronounced over time as patients apply what they’ve learned. Understanding whether these programs produce sustained improvements (or if effects fade) helps hospitals decide whether to invest in comprehensive education programs versus standard approaches.</p>
+<p>Let’s create a dataset using the following code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>n_group <span class="ot">&lt;-</span> <span class="dv">25</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>diabetes_mixed <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span>(n_group <span class="sc">*</span> <span class="dv">2</span>),</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"3 Months"</span>, <span class="st">"6 Months"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Usual Care"</span>, <span class="st">"Intensive Education"</span>), <span class="at">each =</span> n_group), <span class="dv">3</span>),</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">patient_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_group <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), <span class="dv">3</span>),</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Usual Care"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Baseline"</span> <span class="sc">~</span> <span class="fl">8.5</span>,</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Usual Care"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="fl">8.3</span>,</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Usual Care"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"6 Months"</span> <span class="sc">~</span> <span class="fl">8.2</span>,</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Intensive Education"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Baseline"</span> <span class="sc">~</span> <span class="fl">8.5</span>,</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Intensive Education"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="fl">7.8</span>,</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Intensive Education"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"6 Months"</span> <span class="sc">~</span> <span class="fl">7.2</span></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">hba1c =</span> fixed <span class="sc">+</span> patient_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">0.3</span>),</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">factor</span>(time, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"3 Months"</span>, <span class="st">"6 Months"</span>))</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>n_group <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>diabetes_mixed <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span>(n_group <span class="sc">*</span> <span class="dv">2</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"3 Months"</span>, <span class="st">"6 Months"</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Usual Care"</span>, <span class="st">"Intensive Education"</span>), <span class="at">each =</span> n_group), <span class="dv">3</span>),</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">patient_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_group <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), <span class="dv">3</span>),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Usual Care"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Baseline"</span> <span class="sc">~</span> <span class="fl">8.5</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Usual Care"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="fl">8.3</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Usual Care"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"6 Months"</span> <span class="sc">~</span> <span class="fl">8.2</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Intensive Education"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Baseline"</span> <span class="sc">~</span> <span class="fl">8.5</span>,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Intensive Education"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"3 Months"</span> <span class="sc">~</span> <span class="fl">8.0</span>,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">"Intensive Education"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"6 Months"</span> <span class="sc">~</span> <span class="fl">7.1</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">hba1c =</span> fixed <span class="sc">+</span> patient_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">0.3</span>),</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">factor</span>(time, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"3 Months"</span>, <span class="st">"6 Months"</span>))</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1317,166 +1463,166 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mixed ANOVA</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>diabetes_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(hba1c <span class="sc">~</span> group <span class="sc">*</span> time <span class="sc">+</span> <span class="fu">Error</span>(patient_id<span class="sc">/</span>time),</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> diabetes_mixed)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(diabetes_anova)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mixed ANOVA</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>diabetes_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(hba1c <span class="sc">~</span> group <span class="sc">*</span> time <span class="sc">+</span> <span class="fu">Error</span>(patient_id<span class="sc">/</span>time),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> diabetes_mixed)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(diabetes_anova)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Error: patient_id
       Df Sum Sq Mean Sq
-group  1   7.21    7.21
+group  1  7.774   7.774
 
 Error: patient_id:time
      Df Sum Sq Mean Sq
-time  2  21.37   10.68
+time  2  33.56   16.78
 
 Error: Within
-            Df Sum Sq Mean Sq F value Pr(&gt;F)    
-group        1   5.04   5.042  17.512  5e-05 ***
-time         2   0.05   0.027   0.094 0.9100    
-group:time   2   2.12   1.062   3.688 0.0275 *  
-Residuals  141  40.60   0.288                   
+            Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+group        1   2.69  2.6862   7.326 0.00763 **
+time         2   0.27  0.1350   0.368 0.69256   
+group:time   2   3.51  1.7553   4.788 0.00974 **
+Residuals  141  51.70  0.3666                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple effects</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(diabetes_anova, <span class="sc">~</span> group <span class="sc">|</span> time) <span class="sc">%&gt;%</span> <span class="fu">pairs</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple effects</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(diabetes_anova, <span class="sc">~</span> group <span class="sc">|</span> time) <span class="sc">%&gt;%</span> <span class="fu">pairs</span>(<span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>time = Baseline:
  contrast                         estimate    SE  df t.ratio p.value
- Intensive Education - Usual Care  -0.0855 0.304 141  -0.282  0.7786
+ Intensive Education - Usual Care  -0.0049 0.343 141  -0.014  0.9886
 
 time = 3 Months:
  contrast                         estimate    SE  df t.ratio p.value
- Intensive Education - Usual Care  -0.8997 0.304 141  -2.962  0.0036
+ Intensive Education - Usual Care  -0.2084 0.343 141  -0.608  0.5441
 
 time = 6 Months:
  contrast                         estimate    SE  df t.ratio p.value
- Intensive Education - Usual Care  -1.2162 0.304 141  -4.004  0.0001</code></pre>
+ Intensive Education - Usual Care  -1.3935 0.343 141  -4.066  0.0001</code></pre>
 </div>
 </div>
 <section id="interpretation-1" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-1">Interpretation</h3>
-<p>The significant interaction shows that while both groups started at similar HbA1c levels, the intensive education group showed greater improvement over time. The simple effects reveal:</p>
+<p>The significant interaction shows that while both groups started at similar HbA1c levels, the intensive education group showed greater improvement after 6 months.</p>
+<p>The simple effects reveal:</p>
 <ul>
 <li><strong>Baseline</strong>: No difference between groups (as expected from randomization)</li>
-<li><strong>3 Months</strong>: Significant difference emerges</li>
-<li><strong>6 Months</strong>: Difference widens further</li>
+<li><strong>3 Months</strong>: The intensive education group showed improvement, but the difference was not significant.</li>
+<li><strong>6 Months</strong>: The intensive education group showed significant improvement.</li>
 </ul>
 </section>
 </section>
 <section id="practice-activity-4-therapy-type-session-number" class="level2">
 <h2 class="anchored" data-anchor-id="practice-activity-4-therapy-type-session-number">Practice Activity 4: Therapy Type × Session Number</h2>
-<p>Compare <strong>two therapy approaches</strong> for anxiety (CBT vs.&nbsp;Mindfulness) across <strong>five therapy sessions</strong>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>n_group <span class="ot">&lt;-</span> <span class="dv">18</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>therapy_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span>(n_group <span class="sc">*</span> <span class="dv">2</span>),</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">session =</span> <span class="fu">c</span>(<span class="st">"Session 1"</span>, <span class="st">"Session 2"</span>, <span class="st">"Session 3"</span>, <span class="st">"Session 4"</span>, <span class="st">"Session 5"</span>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">therapy =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"CBT"</span>, <span class="st">"Mindfulness"</span>), <span class="at">each =</span> n_group), <span class="dv">5</span>),</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">patient_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_group <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>), <span class="dv">5</span>),</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># CBT shows faster initial improvement; Mindfulness catches up</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"CBT"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 1"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"CBT"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 2"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"CBT"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 3"</span> <span class="sc">~</span> <span class="dv">48</span>,</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"CBT"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 4"</span> <span class="sc">~</span> <span class="dv">44</span>,</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"CBT"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 5"</span> <span class="sc">~</span> <span class="dv">42</span>,</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"Mindfulness"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 1"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"Mindfulness"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 2"</span> <span class="sc">~</span> <span class="dv">62</span>,</span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"Mindfulness"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 3"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"Mindfulness"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 4"</span> <span class="sc">~</span> <span class="dv">46</span>,</span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"Mindfulness"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 5"</span> <span class="sc">~</span> <span class="dv">40</span></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">anxiety =</span> fixed <span class="sc">+</span> patient_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3</span>),</span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">session =</span> <span class="fu">factor</span>(session, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Session 1"</span>, <span class="st">"Session 2"</span>, <span class="st">"Session 3"</span>,</span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"Session 4"</span>, <span class="st">"Session 5"</span>))</span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
-<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create interaction plot</span></span>
-<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run mixed design ANOVA</span></span>
-<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Conduct simple effects analysis</span></span>
-<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. What would you tell patients about choosing between therapies?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="practice-activity-5-facility-type-quarter" class="level2">
-<h2 class="anchored" data-anchor-id="practice-activity-5-facility-type-quarter">Practice Activity 5: Facility Type × Quarter</h2>
-<p>A health system tracks patient safety scores (0-100) across <strong>three facility types</strong> over <strong>four quarters</strong>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>n_facilities <span class="ot">&lt;-</span> <span class="dv">8</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>safety_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">facility_id =</span> <span class="dv">1</span><span class="sc">:</span>(n_facilities <span class="sc">*</span> <span class="dv">3</span>),</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">quarter =</span> <span class="fu">c</span>(<span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Urban"</span>, <span class="st">"Suburban"</span>, <span class="st">"Rural"</span>), <span class="at">each =</span> n_facilities), <span class="dv">4</span>),</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">facility_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_facilities <span class="sc">*</span> <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>), <span class="dv">4</span>),</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Urban"</span> <span class="sc">~</span> <span class="dv">80</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(quarter)) <span class="sc">*</span> <span class="fl">1.5</span>,</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Suburban"</span> <span class="sc">~</span> <span class="dv">78</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(quarter)) <span class="sc">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Rural"</span> <span class="sc">~</span> <span class="dv">72</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(quarter)) <span class="sc">*</span> <span class="dv">3</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">score =</span> fixed <span class="sc">+</span> facility_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<hr>
-</section>
-</section>
-<section id="interpreting-two-way-anova-results" class="level1">
-<h1>Interpreting Two-Way ANOVA Results</h1>
-<section id="decision-framework" class="level2">
-<h2 class="anchored" data-anchor-id="decision-framework">Decision Framework</h2>
-<section id="step-1-check-the-interaction-first" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-check-the-interaction-first">Step 1: Check the Interaction First</h3>
-<p><strong>Always examine the interaction effect first!</strong></p>
+<p>A mental health clinic compares the effectiveness of <strong>two therapy approaches</strong> for treating anxiety. Patients are randomly assigned to one therapy type (between-subjects factor) and their anxiety levels are measured at <strong>three time points</strong> (within-subjects factor).</p>
+<p><strong>Study Design:</strong></p>
+<p>This is a <strong>mixed design</strong> where different patients receive different therapies (between-subjects), but each patient is measured multiple times (within-subjects):</p>
 <ul>
-<li><strong>If interaction is significant</strong>: Focus on simple effects; main effects may be misleading</li>
-<li><strong>If interaction is NOT significant</strong>: Interpret main effects directly</li>
+<li>36 patients total (18 assigned to each therapy type)</li>
+<li>Each patient’s anxiety is measured at 3 time points: Session 1 (baseline), Session 3 (mid-treatment), Session 5 (end of treatment)</li>
+<li>The question: Do CBT and Mindfulness show different patterns of anxiety reduction over the treatment period?</li>
 </ul>
+<p><strong>Therapy Approaches:</strong></p>
+<ul>
+<li><p><strong>CBT (Cognitive Behavioral Therapy)</strong>: Focuses on identifying and changing negative thought patterns and behaviors. Therapist works with patient to challenge anxious thoughts and practice new coping behaviors. Often includes homework assignments between sessions.</p></li>
+<li><p><strong>Mindfulness-Based Therapy</strong>: Focuses on present-moment awareness and acceptance of thoughts and feelings without judgment. Includes meditation practices, breathing exercises, and body awareness techniques. Emphasizes observing anxiety without trying to change it.</p></li>
+</ul>
+<p><strong>Outcome Variable</strong>: Anxiety score (0-100, higher scores = more severe anxiety symptoms)</p>
+<p>Research comparing CBT and mindfulness-based therapies has found that while both approaches effectively reduce anxiety, they may show different improvement patterns over time. Some studies suggest CBT produces faster initial symptom reduction because it directly targets anxious thoughts and behaviors from the first session. Mindfulness-based approaches may show more gradual improvement as patients build meditation skills and learn to respond differently to anxiety. Understanding these different trajectories helps clinicians make informed recommendations about which therapy might be best for patients with different needs (e.g., those needing rapid relief vs.&nbsp;those interested in long-term coping skills).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>n_group <span class="ot">&lt;-</span> <span class="dv">18</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>therapy_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span>(n_group <span class="sc">*</span> <span class="dv">2</span>),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">session =</span> <span class="fu">c</span>(<span class="st">"Session 1"</span>, <span class="st">"Session 3"</span>, <span class="st">"Session 5"</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">therapy =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"CBT"</span>, <span class="st">"Mindfulness"</span>), <span class="at">each =</span> n_group), <span class="dv">3</span>),</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">patient_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_group <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>), <span class="dv">3</span>),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># CBT shows faster initial improvement; Mindfulness catches up</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"CBT"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 1"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"CBT"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 3"</span> <span class="sc">~</span> <span class="dv">48</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"CBT"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 5"</span> <span class="sc">~</span> <span class="dv">42</span>,</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"Mindfulness"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 1"</span> <span class="sc">~</span> <span class="dv">65</span>,</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"Mindfulness"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 3"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>      therapy <span class="sc">==</span> <span class="st">"Mindfulness"</span> <span class="sc">&amp;</span> session <span class="sc">==</span> <span class="st">"Session 5"</span> <span class="sc">~</span> <span class="dv">40</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">anxiety =</span> fixed <span class="sc">+</span> patient_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3</span>),</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">session =</span> <span class="fu">factor</span>(session, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Session 1"</span>, <span class="st">"Session 3"</span>, <span class="st">"Session 5"</span>))</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create interaction plot</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run mixed design ANOVA</span></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Conduct simple effects analysis</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. What would you tell patients about choosing between therapies?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>therapy_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(anxiety <span class="sc">~</span> therapy <span class="sc">*</span> session <span class="sc">+</span> <span class="fu">Error</span>(patient_id<span class="sc">/</span>session),</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> therapy_data)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(therapy_anova)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(therapy_anova, <span class="sc">~</span> therapy <span class="sc">|</span> session) <span class="sc">%&gt;%</span> <span class="fu">pairs</span>(<span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
 </section>
-<section id="step-2-if-interaction-is-significant" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-if-interaction-is-significant">Step 2: If Interaction is Significant</h3>
-<ol type="1">
-<li>Create and examine interaction plot</li>
-<li>Identify the pattern (ordinal vs.&nbsp;disordinal)</li>
-<li>Conduct simple effects analysis</li>
-<li>Interpret in context</li>
-</ol>
-</section>
-<section id="step-3-if-no-interaction" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-if-no-interaction">Step 3: If No Interaction</h3>
-<ol type="1">
-<li>Interpret main effect of Factor A (if significant)</li>
-<li>Interpret main effect of Factor B (if significant)</li>
-<li>Use post-hoc tests if factors have 3+ levels</li>
-</ol>
-</section>
-</section>
-<section id="reporting-results" class="level2">
-<h2 class="anchored" data-anchor-id="reporting-results">Reporting Results</h2>
-<section id="example-write-up-with-significant-interaction" class="level3">
-<h3 class="anchored" data-anchor-id="example-write-up-with-significant-interaction">Example Write-up (with significant interaction)</h3>
-<blockquote class="blockquote">
-<p>A two-way ANOVA revealed a significant main effect of treatment, F(1, 84) = 45.32, p &lt; .001, and a significant main effect of disease severity, F(2, 84) = 38.67, p &lt; .001. These main effects were qualified by a significant Treatment × Severity interaction, F(2, 84) = 12.45, p &lt; .001.</p>
-<p>Simple effects analysis showed that the novel treatment significantly improved outcomes for patients with severe disease (M difference = 22.3, p &lt; .001) and moderate disease (M difference = 12.1, p &lt; .001), but not for patients with mild disease (M difference = 4.8, p = .089).</p>
-</blockquote>
-</section>
-<section id="example-write-up-no-interaction" class="level3">
-<h3 class="anchored" data-anchor-id="example-write-up-no-interaction">Example Write-up (no interaction)</h3>
-<blockquote class="blockquote">
-<p>A two-way ANOVA revealed a significant main effect of training method, F(2, 54) = 18.92, p &lt; .001, but no significant main effect of experience level, F(2, 54) = 2.34, p = .107, and no significant interaction, F(4, 54) = 0.89, p = .478.</p>
-<p>Post-hoc comparisons (Tukey HSD) indicated that blended training (M = 89.2) produced significantly higher scores than both simulation (M = 82.1, p = .002) and traditional training (M = 78.4, p &lt; .001).</p>
-</blockquote>
+<section id="practice-activity-5-facility-type-time" class="level2">
+<h2 class="anchored" data-anchor-id="practice-activity-5-facility-type-time">Practice Activity 5: Facility Type × Time</h2>
+<p>A health system implements a patient safety improvement initiative and tracks progress across <strong>three facility types</strong> (between-subjects factor) at <strong>two time points</strong> (within-subjects factor).</p>
+<p><strong>Study Design:</strong></p>
+<p>This is a <strong>mixed design</strong> where different facilities have different characteristics (between-subjects), but each facility is measured multiple times (within-subjects):</p>
+<ul>
+<li>45 facilities total (15 of each type)</li>
+<li>Each facility’s safety score is measured at 2 time points: Baseline (before initiative) and 6 Months (after implementing initiative)</li>
+<li>The question: Do different facility types show different rates of safety improvement?</li>
+</ul>
+<p><strong>Facility Types:</strong></p>
+<ul>
+<li><p><strong>Urban Hospitals</strong>: Large hospitals in cities with high patient volumes, diverse patient populations, extensive resources, and specialized safety teams. Typically already have strong baseline safety infrastructure.</p></li>
+<li><p><strong>Suburban Hospitals</strong>: Mid-sized hospitals in suburban areas with moderate patient volumes and resources. Often have established quality improvement programs but fewer specialized staff than urban centers.</p></li>
+<li><p><strong>Rural Hospitals</strong>: Small hospitals in remote areas with limited resources, smaller safety teams, and fewer quality improvement staff. May have lower baseline safety scores but greater potential for improvement.</p></li>
+</ul>
+<p><strong>Outcome Variable</strong>: Patient safety score (0-100, based on incident reporting, medication errors, infection rates, and safety protocols compliance)</p>
+<p>Research on quality improvement initiatives shows that different facility types often demonstrate different improvement trajectories. Rural hospitals, despite having lower baseline scores, may show steeper improvement rates when given new resources and training because they’re implementing systematic safety practices for the first time. Urban hospitals may show slower improvement rates because they already have strong safety programs in place (ceiling effect). Understanding these different patterns helps health system administrators allocate quality improvement resources effectively and set realistic improvement targets for different facility types.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>n_facilities <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>safety_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">facility_id =</span> <span class="dv">1</span><span class="sc">:</span>(n_facilities <span class="sc">*</span> <span class="dv">3</span>),</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"6 Months"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Urban"</span>, <span class="st">"Suburban"</span>, <span class="st">"Rural"</span>), <span class="at">each =</span> n_facilities), <span class="dv">2</span>),</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">facility_effect =</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(n_facilities <span class="sc">*</span> <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>), <span class="dv">2</span>),</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="fu">case_when</span>(</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Urban"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Baseline"</span> <span class="sc">~</span> <span class="dv">80</span>,</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Urban"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"6 Months"</span> <span class="sc">~</span> <span class="dv">85</span>,</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Suburban"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Baseline"</span> <span class="sc">~</span> <span class="dv">78</span>,</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Suburban"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"6 Months"</span> <span class="sc">~</span> <span class="dv">86</span>,</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Rural"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"Baseline"</span> <span class="sc">~</span> <span class="dv">68</span>,</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>      type <span class="sc">==</span> <span class="st">"Rural"</span> <span class="sc">&amp;</span> time <span class="sc">==</span> <span class="st">"6 Months"</span> <span class="sc">~</span> <span class="dv">84</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">score =</span> fixed <span class="sc">+</span> facility_effect <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">factor</span>(time, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"6 Months"</span>))</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>safety_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(score <span class="sc">~</span> type <span class="sc">*</span> time <span class="sc">+</span> <span class="fu">Error</span>(facility_id<span class="sc">/</span>time),</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> safety_data)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(safety_anova)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(safety_anova, <span class="sc">~</span> type <span class="sc">|</span> time) <span class="sc">%&gt;%</span> <span class="fu">pairs</span>(<span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
 <hr>
-</section>
 </section>
 </section>
 <section id="summary" class="level1">
@@ -1518,9 +1664,9 @@ time = 6 Months:
 <h2 class="anchored" data-anchor-id="interaction-patterns-summary">Interaction Patterns Summary</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 27%">
-<col style="width: 25%">
-<col style="width: 47%">
+<col style="width: 28%">
+<col style="width: 21%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1548,8 +1694,8 @@ time = 6 Months:
 </tbody>
 </table>
 </section>
-<section id="clinical-importance" class="level2">
-<h2 class="anchored" data-anchor-id="clinical-importance">Clinical Importance</h2>
+<section id="interpretation-of-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation-of-the-results">Interpretation of the Results</h2>
 <ul>
 <li><strong>Two-way ANOVA</strong> enables examination of how multiple factors combine to influence outcomes</li>
 <li><strong>Interactions</strong> reveal that “one size fits all” approaches may be suboptimal</li>
@@ -1561,14 +1707,27 @@ time = 6 Months:
 </section>
 <section id="references-and-further-reading" class="level1">
 <h1>References and Further Reading</h1>
+<section id="statistical-methods" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-methods">Statistical Methods</h2>
 <ul>
 <li>Field, A. (2018). <em>Discovering Statistics Using IBM SPSS Statistics</em> (5th ed.). SAGE Publications.</li>
 <li>Maxwell, S. E., &amp; Delaney, H. D. (2004). <em>Designing Experiments and Analyzing Data</em> (2nd ed.). Psychology Press.</li>
 <li>Navarro, D. (2019). <em>Learning Statistics with R</em>. Available online.</li>
 <li>Wickham, H., &amp; Grolemund, G. (2017). <em>R for Data Science</em>. O’Reilly Media.</li>
 </ul>
+</section>
+<section id="healthcare-applications" class="level2">
+<h2 class="anchored" data-anchor-id="healthcare-applications">Healthcare Applications</h2>
+<p>Examples are motivated by the followings:</p>
+<ul>
+<li><p>Interpretation of Chronic Pain Clinical Trial Outcomes: IMMPACT Recommended Considerations. (2020). <em>PMC</em>. https://pmc.ncbi.nlm.nih.gov/articles/PMC7572524/</p></li>
+<li><p>Effectiveness of a Simulation-Based Education Program to Improve Novice Nurses’ Clinical Judgment Skills. (2024). <em>PMC</em>. https://pmc.ncbi.nlm.nih.gov/articles/PMC11223944/</p></li>
+<li><p>Circadian Variation in Efficacy of Medications. (2021). <em>PMC</em>. https://pmc.ncbi.nlm.nih.gov/articles/PMC8268638/</p></li>
+<li><p>Mindfulness-Based Interventions for Anxiety and Depression. (2017). <em>PMC</em>. https://pmc.ncbi.nlm.nih.gov/articles/PMC5679245/</p></li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
