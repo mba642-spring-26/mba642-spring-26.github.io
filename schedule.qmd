@@ -27,9 +27,9 @@ th, td {
 ```
 
 The schedule can vary depending on the progress of the course or unforeseen circumstances. </br>\
-Any changes will be announced in class and posted on the course website and Canvas.<\br>
+Any changes will be announced in class and posted on the course website and Canvas.\<\br\>
 
-Note: This is a testing version. 
+Note: This is a testing version.
 
 | Week | Date | Topic | Lecture Notes | Readings | Assignments |
 |:----------:|:----------:|:-----------|:----------:|:-----------|------------|
@@ -47,8 +47,8 @@ Note: This is a testing version.
 | 12 | Apr 1 | Linear regression analysis 2 | [{{< fa file-lines >}}](/lectures/Lecture12/Lecture12.qmd){target="_blank"} | Chapter 5 | Assignment 6 |
 | 13 | Apr 8 | Logistic regression analysis | [{{< fa file-lines >}}](/lectures/Lecture13/Lecture13.qmd){target="_blank"} | Chapter 8 | Assignment 7 |
 | 14 | Apr 15 | Conjoint analysis | [{{< fa file-lines >}}](/lectures/Lecture14/Lecture14.qmd){target="_blank"} | \- | Assignment 8 |
-| 15 | Apr 22 | Predictive analytics 1: Penalized Regression | [{{< fa file-lines >}}](/lectures/Lecture01/Lecture01.qmd){target="_blank"} | Chapter 10 | Assignment 9 |
-| 16 | Apr 29 | Predictive analytics 2: Decision Trees | [{{< fa file-lines >}}](/lectures/Lecture01/Lecture01.qmd){target="_blank"} | Chapter 10 | Assignment 10 |
+| 15 | Apr 22 | Predictive analytics 1: Penalized Regression | [{{< fa file-lines >}}](/lectures/Lecture15/Lecture15.qmd){target="_blank"} | Chapter 10 | Assignment 9 |
+| 16 | Apr 29 | Predictive analytics 2: Decision Trees | [{{< fa file-lines >}}](/lectures/Lecture16/Lecture16.qmd){target="_blank"} | Chapter 10 | Assignment 10 |
 | 17 | May 6 | Final Exam | \- | \- | \- |
 
 [*b1: Statistics for Health Data Science: An Organic Approach*]{style="font-size: 12px;"}
