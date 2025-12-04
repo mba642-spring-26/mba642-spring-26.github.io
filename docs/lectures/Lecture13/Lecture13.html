@@ -343,7 +343,7 @@ window.Quarto = {
 <h2 data-number="1.1" class="anchored" data-anchor-id="why-logistic-regression-matters-in-healthcare"><span class="header-section-number">1.1</span> Why Logistic Regression Matters in Healthcare</h2>
 <p>In healthcare management, many of the most critical decisions involve predicting binary outcomes. For example,</p>
 <ul>
-<li>Events that either happen vs.&nbsp;don’t happen?</li>
+<li>Will an event happen or not?</li>
 <li>Will a patient be readmitted within 30 days or not?</li>
 <li>Will a patient adhere to their medication regimen or not?</li>
 <li>Will a treatment be successful or not?</li>
@@ -387,7 +387,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>As you can see in the graph above, the linear regression line (red) extends beyond the valid probability range, while the logistic regression curve (gray) smoothly transitions between 0 and 1, approaching but never crossing these boundaries.</p>
+<p>As you can see in the graph above, the linear regression line (red) extends beyond the valid probability range, while the logistic regression curve (teal) smoothly transitions between 0 and 1, approaching but never crossing these boundaries.</p>
 <hr>
 <p>Now that we understand <strong>why</strong> we need logistic regression and <strong>how</strong> it solves the boundary problem, let’s explore the mathematical foundations that make it work.</p>
 </section>
@@ -406,7 +406,7 @@ window.Quarto = {
 <li>Probability of NOT being readmitted = 0.70</li>
 <li>Odds of readmission = 0.30 / 0.70 = 0.429</li>
 </ul>
-<p>This means that for every patient who is readmitted, there are about 2.3 patients who are not readmitted (since 1/0.429 ≈ 2.3). Alternatively, we can say the odds are “0.429 to 1” or roughly “3 to 7” in favor of not being readmitted.</p>
+<p>This means that for every patient who is readmitted, there are about 2.3 patients who are not readmitted (since 1/0.429 ≈ 2.3). Alternatively, we can say the odds are “0.429 to 1” or roughly “7 to 3” in favor of not being readmitted.</p>
 <section id="understanding-odds-values" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="understanding-odds-values"><span class="header-section-number">2.1.1</span> Understanding Odds Values</h3>
 <p>Here’s a helpful table showing how probability and odds relate to each other:</p>
@@ -587,7 +587,7 @@ window.Quarto = {
 </ol>
 <p>Or in one step:</p>
 <p><span class="math display">\[p = \frac{e^{\beta_0 + \beta_1 X_1 + \cdots}}{1 + e^{\beta_0 + \beta_1 X_1 + \cdots}}\]</span></p>
-<p>Don’t worry if these formulas seem complex. R will do all these calculations for us (that’s why we use a statistical software!). The important thing is to understand the conceptual flow: (1) we model log odds linearly, then (2) transform the results back to probabilities.</p>
+<p>Don’t worry if these formulas seem complex. R will do all these calculations for us (that’s why we use statistical software!). The important thing is to understand the conceptual flow: (1) we model log odds linearly, then (2) transform the results back to probabilities.</p>
 </section>
 </section>
 <section id="estimation-method-maximum-likelihood-estimation" class="level2" data-number="2.4">
@@ -1033,8 +1033,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <p>The <strong>gray curve</strong> represents our model’s predicted probabilities across all satisfaction levels. The <strong>black points</strong> show the actual patient outcomes in our dataset.</p>
 <p>Key features of the logistic curve:</p>
 <ul>
-<li><strong>At low satisfaction scores</strong> (left side): The probability of readmission is (relatively high.</li>
-<li><strong>At high satisfaction scores</strong> (right side): The probability of readmission is (relatively) low.</li>
+<li><strong>At low satisfaction scores</strong> (left side): The probability of readmission is relatively high.</li>
+<li><strong>At high satisfaction scores</strong> (right side): The probability of readmission is relatively low.</li>
 </ul>
 <p>The <strong>dashed line at 0.5</strong> (50%) represents the traditional classification threshold used in many statistical applications. However, <strong>in practice, we would likely use a much lower threshold for readmission prediction</strong> (e.g., 10-20%). Why? Because:</p>
 <ul>
@@ -1557,7 +1557,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </ul>
 <p><strong>Step 1: Calculate Log Odds</strong></p>
 <p>Using the multiple logistic regression equation, we plug in all predictor values:</p>
-<p>Log odds = -2.183 + (-0.218) × 6 + (0.0343) × 70 + (0.407) × 3 + (-1.188) × 1 + + (-1.714) × 0</p>
+<p>Log odds = -2.183 + (-0.218) × 6 + (0.0343) × 70 + (0.407) × 3 + (-1.188) × 1 + (-1.714) × 0</p>
 <p>Log odds = -1.0564</p>
 <p>Note: For Medicare insurance, we use 1 for the Medicare dummy variable and 0 for the Private dummy variable (since the patient doesn’t have private insurance).</p>
 <p><strong>Step 2: Convert to Odds</strong></p>
@@ -2071,7 +2071,7 @@ Actual Outcome
 <li><p>Boulding, W., Glickman, S. W., Manary, M. P., Schulman, K. A., &amp; Staelin, R. (2011). Relationship between patient satisfaction with inpatient care and hospital readmission within 30 days. <em>American Journal of Managed Care</em>, 17(1), 41-48. https://www.ajmc.com/view/ajmc_11jan_boulding_41to48</p></li>
 <li><p>Wang, W., Gong, Y., Zhang, W., Zhong, Z., Xu, P., Hu, Y., &amp; Chen, H. (2025). Factors influencing medication adherence among Chinese older adults with physical multimorbidity and polypharmacy: A cross‐sectional study. <em>Nursing &amp; Health Sciences</em>. https://doi.org/10.1111/nhs.70192</p></li>
 <li><p>Caterino, J. M., Karapanou, O., Pandya, A., Moore, C., Hiestand, B. C., &amp; Perman, S. M. (2020). Predicting pain-related 30-day emergency department return visits in middle-aged and older adults. <em>Pain Medicine</em>, 21(11), 2748-2755. https://pmc.ncbi.nlm.nih.gov/articles/PMC8557807/</p></li>
-<li><p>Nigussie, J., Girma, A., Seid, S., &amp; Misganaw Mulat, A. (2022). Incidence and risk factors of postoperative complications in general surgery patients: Prospective cohort study. <em>BMC Surgery</em>, 22(1), 407. https://pmc.ncbi.nlm.nih.gov/articles/PMC9714582/</p></li>
+<li><p>Dharap, S. B., Barbaniya, P., &amp; Navgale, S. (2022). Incidence and risk factors of postoperative complications in general surgery patients. <em>Cureus</em>, 14(11), e30975. https://doi.org/10.7759/cureus.30975</p></li>
 <li><p>Adjei, D. N., Arhin, P. A., Amaglo, J. K., &amp; Osei Bonsu, E. (2025). Poor glycemic control and its predictors among type 2 diabetes patients: Insights from a single‐centre retrospective study in Ghana. <em>Health Science Reports</em>, 8(3), e70558. https://pmc.ncbi.nlm.nih.gov/articles/PMC11896812/</p></li>
 </ul>
 
