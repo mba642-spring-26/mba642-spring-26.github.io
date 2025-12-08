@@ -1,6 +1,8 @@
 ---
 title: " "
 format:
+  pdf:
+    theme: simple
   html:
     theme: sketchy
     toc: true
@@ -25,7 +27,7 @@ format:
 
 **Office Hours**: Will be announced in the first week of class
 
-**Course Schedule**: Please check the course [schedule](schedule.qmd) page
+**Course Schedule**: Please check the course [schedule](https://mba642-spring-26.github.io/schedule.html) page
 
 # Course Description and Objectives:
 
