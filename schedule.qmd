@@ -36,7 +36,7 @@ Note: This is a testing version.
 | 1 | Jan 14 | Introduction & Course Overview | [{{< fa file-lines >}}](/lectures/Lecture01/Lecture01.qmd){target="_blank"} | b1Chapter 1 | \- |
 | 2 | Jan 21 | A primer on R, R-Studio, and R-Markdown + Data Wrangling | [{{< fa file-lines >}}](/lectures/Lecture02/Lecture02.qmd){target="_blank"} | b1Chapter 2 | \- |
 | 3 | Jan 28 | Basic Statistical Concepts | [{{< fa file-lines >}}](/lectures/Lecture03/Lecture03.qmd){target="_blank"} |  | Assignment 1 |
-| 4 | Feb 4 | Data visualization | [{{< fa file-lines >}}](/lectures/Lecture01/Lecture01.qmd){target="_blank"} | \- Data Visualization by Keran Healy <br> - [Data visualization using R for Researchers who do not use R](https://journals.sagepub.com/doi/10.1177/25152459221074654){target="_blank"} | Assignment 2 |
+| 4 | Feb 4 | Data visualization | [{{< fa file-lines >}}](/lectures/Lecture04/Lecture04.qmd){target="_blank"} | \- Data Visualization by Keran Healy <br> - [Data visualization using R for Researchers who do not use R](https://journals.sagepub.com/doi/10.1177/25152459221074654){target="_blank"} | Assignment 2 |
 | 5 | Feb 11 | Mean difference 1: t-test | [{{< fa file-lines >}}](/lectures/Lecture05/Lecture05.qmd){target="_blank"} | Chapter 9 | Assignment 3 |
 | 6 | Feb 18 | Mean difference 2: ANOVA 1 | [{{< fa file-lines >}}](/lectures/Lecture06/Lecture06.qmd){target="_blank"} | \- |  |
 | 7 | Feb 25 | Mean difference 2: ANOVA 2 | [{{< fa file-lines >}}](/lectures/Lecture07/Lecture07.qmd){target="_blank"} | \- | Assignment 4 |
