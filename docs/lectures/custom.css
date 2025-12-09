@@ -1,0 +1,48 @@
+/*-- Force slide number to bottom left --*/
+.reveal .slides .slide-number,
+.reveal .slide-number {
+  position: fixed !important;
+  bottom: 15px !important;
+  left: 200px !important;
+  top: auto !important;
+  right: auto !important;
+  transform: none !important;
+}
+
+
+/*-- Logo Size --*/
+.reveal .slide-logo {
+  max-height: 40px !important;
+  max-width: 100px !important;
+  position: fixed !important;
+  bottom: 5px !important;
+  right:20px !important;
+  top: auto !important;
+  left: auto !important;
+}
+
+
+
+/* Adjust heading style */
+.section-slide h1, 
+.section-slide h2 {
+  color: white;
+  font-size: 3em;
+  font-weight: 700;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.section-blue {
+  background: linear-gradient(135deg, #2196f3, #21cbf3);
+  color: white;
+}
+
+.section-orange {
+  background: linear-gradient(135deg, #ff9800, #ffb74d);
+  color: white;
+}
+
+.section-green {
+  background: linear-gradient(135deg, #4caf50, #81c784);
+  color: white;
+}

@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="">
+<meta name="dcterms.date" content="2026-01-01">
+
+<title>Data Visualization in Healthcare Management (Lecture Notes) – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-520ebae964d98792aa4ae052985f7ebd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mba642-spring-26/mba642-spring-26.github.io/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction-to-data-visualization" id="toc-introduction-to-data-visualization" class="nav-link active" data-scroll-target="#introduction-to-data-visualization"><span class="header-section-number">1</span> Introduction to Data Visualization</a>
+  <ul class="collapse">
+  <li><a href="#why-visualize-healthcare-data" id="toc-why-visualize-healthcare-data" class="nav-link" data-scroll-target="#why-visualize-healthcare-data"><span class="header-section-number">1.1</span> Why Visualize Healthcare Data?</a></li>
+  <li><a href="#why-use-r-for-visualization" id="toc-why-use-r-for-visualization" class="nav-link" data-scroll-target="#why-use-r-for-visualization"><span class="header-section-number">1.2</span> Why Use R for Visualization?</a></li>
+  </ul></li>
+  <li><a href="#the-grammar-of-graphics" id="toc-the-grammar-of-graphics" class="nav-link" data-scroll-target="#the-grammar-of-graphics"><span class="header-section-number">2</span> The Grammar of Graphics</a>
+  <ul class="collapse">
+  <li><a href="#understanding-ggplot2" id="toc-understanding-ggplot2" class="nav-link" data-scroll-target="#understanding-ggplot2"><span class="header-section-number">2.1</span> Understanding ggplot2</a></li>
+  <li><a href="#key-concept-layers" id="toc-key-concept-layers" class="nav-link" data-scroll-target="#key-concept-layers"><span class="header-section-number">2.2</span> Key Concept: Layers</a></li>
+  </ul></li>
+  <li><a href="#example-dataset-patient-satisfaction-survey" id="toc-example-dataset-patient-satisfaction-survey" class="nav-link" data-scroll-target="#example-dataset-patient-satisfaction-survey"><span class="header-section-number">3</span> Example Dataset: Patient Satisfaction Survey</a></li>
+  <li><a href="#visualizing-single-variables" id="toc-visualizing-single-variables" class="nav-link" data-scroll-target="#visualizing-single-variables"><span class="header-section-number">4</span> Visualizing Single Variables</a>
+  <ul class="collapse">
+  <li><a href="#histograms-for-continuous-variables" id="toc-histograms-for-continuous-variables" class="nav-link" data-scroll-target="#histograms-for-continuous-variables"><span class="header-section-number">4.1</span> Histograms for Continuous Variables</a></li>
+  <li><a href="#bar-charts-for-categorical-variables" id="toc-bar-charts-for-categorical-variables" class="nav-link" data-scroll-target="#bar-charts-for-categorical-variables"><span class="header-section-number">4.2</span> Bar Charts for Categorical Variables</a></li>
+  <li><a href="#box-plots-for-distribution-summary" id="toc-box-plots-for-distribution-summary" class="nav-link" data-scroll-target="#box-plots-for-distribution-summary"><span class="header-section-number">4.3</span> Box Plots for Distribution Summary</a></li>
+  </ul></li>
+  <li><a href="#visualizing-relationships" id="toc-visualizing-relationships" class="nav-link" data-scroll-target="#visualizing-relationships"><span class="header-section-number">5</span> Visualizing Relationships</a>
+  <ul class="collapse">
+  <li><a href="#scatterplots-for-two-continuous-variables" id="toc-scatterplots-for-two-continuous-variables" class="nav-link" data-scroll-target="#scatterplots-for-two-continuous-variables"><span class="header-section-number">5.1</span> Scatterplots for Two Continuous Variables</a></li>
+  </ul></li>
+  <li><a href="#grouped-comparisons" id="toc-grouped-comparisons" class="nav-link" data-scroll-target="#grouped-comparisons"><span class="header-section-number">6</span> Grouped Comparisons</a>
+  <ul class="collapse">
+  <li><a href="#comparing-groups-with-box-plots" id="toc-comparing-groups-with-box-plots" class="nav-link" data-scroll-target="#comparing-groups-with-box-plots"><span class="header-section-number">6.1</span> Comparing Groups with Box Plots</a></li>
+  <li><a href="#grouped-scatterplots" id="toc-grouped-scatterplots" class="nav-link" data-scroll-target="#grouped-scatterplots"><span class="header-section-number">6.2</span> Grouped Scatterplots</a></li>
+  <li><a href="#faceting-small-multiples" id="toc-faceting-small-multiples" class="nav-link" data-scroll-target="#faceting-small-multiples"><span class="header-section-number">6.3</span> Faceting: Small Multiples</a></li>
+  </ul></li>
+  <li><a href="#data-structure-for-visualization" id="toc-data-structure-for-visualization" class="nav-link" data-scroll-target="#data-structure-for-visualization"><span class="header-section-number">7</span> Data Structure for Visualization</a>
+  <ul class="collapse">
+  <li><a href="#wide-vs.-long-format" id="toc-wide-vs.-long-format" class="nav-link" data-scroll-target="#wide-vs.-long-format"><span class="header-section-number">7.1</span> Wide vs.&nbsp;Long Format</a></li>
+  <li><a href="#converting-wide-to-long" id="toc-converting-wide-to-long" class="nav-link" data-scroll-target="#converting-wide-to-long"><span class="header-section-number">7.2</span> Converting Wide to Long</a></li>
+  </ul></li>
+  <li><a href="#customization-and-polish" id="toc-customization-and-polish" class="nav-link" data-scroll-target="#customization-and-polish"><span class="header-section-number">8</span> Customization and Polish</a>
+  <ul class="collapse">
+  <li><a href="#color-schemes" id="toc-color-schemes" class="nav-link" data-scroll-target="#color-schemes"><span class="header-section-number">8.1</span> Color Schemes</a></li>
+  <li><a href="#themes-and-styling" id="toc-themes-and-styling" class="nav-link" data-scroll-target="#themes-and-styling"><span class="header-section-number">8.2</span> Themes and Styling</a></li>
+  <li><a href="#best-practices-for-healthcare-visualizations" id="toc-best-practices-for-healthcare-visualizations" class="nav-link" data-scroll-target="#best-practices-for-healthcare-visualizations"><span class="header-section-number">8.3</span> Best Practices for Healthcare Visualizations</a>
+  <ul class="collapse">
+  <li><a href="#clear-labels-and-titles" id="toc-clear-labels-and-titles" class="nav-link" data-scroll-target="#clear-labels-and-titles"><span class="header-section-number">8.3.1</span> 1. Clear Labels and Titles</a></li>
+  <li><a href="#appropriate-scale" id="toc-appropriate-scale" class="nav-link" data-scroll-target="#appropriate-scale"><span class="header-section-number">8.3.2</span> 2. Appropriate Scale</a></li>
+  <li><a href="#color-accessibility" id="toc-color-accessibility" class="nav-link" data-scroll-target="#color-accessibility"><span class="header-section-number">8.3.3</span> 3. Color Accessibility</a></li>
+  <li><a href="#avoid-chartjunk" id="toc-avoid-chartjunk" class="nav-link" data-scroll-target="#avoid-chartjunk"><span class="header-section-number">8.3.4</span> 4. Avoid Chartjunk</a></li>
+  <li><a href="#example-publication-ready-plot" id="toc-example-publication-ready-plot" class="nav-link" data-scroll-target="#example-publication-ready-plot"><span class="header-section-number">8.3.5</span> Example: Publication-Ready Plot</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#common-visualization-types-in-healthcare" id="toc-common-visualization-types-in-healthcare" class="nav-link" data-scroll-target="#common-visualization-types-in-healthcare"><span class="header-section-number">9</span> Common Visualization Types in Healthcare</a>
+  <ul class="collapse">
+  <li><a href="#summary-table" id="toc-summary-table" class="nav-link" data-scroll-target="#summary-table"><span class="header-section-number">9.1</span> Summary Table</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10</span> Summary</a></li>
+  <li><a href="#references-and-resources" id="toc-references-and-resources" class="nav-link" data-scroll-target="#references-and-resources"><span class="header-section-number">11</span> References and Resources</a>
+  <ul class="collapse">
+  <li><a href="#key-references" id="toc-key-references" class="nav-link" data-scroll-target="#key-references"><span class="header-section-number">11.1</span> Key References</a></li>
+  <li><a href="#healthcare-specific-examples" id="toc-healthcare-specific-examples" class="nav-link" data-scroll-target="#healthcare-specific-examples"><span class="header-section-number">11.2</span> Healthcare-Specific Examples</a></li>
+  <li><a href="#online-resources" id="toc-online-resources" class="nav-link" data-scroll-target="#online-resources"><span class="header-section-number">11.3</span> Online Resources</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Visualization in Healthcare Management (Lecture Notes)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-to-data-visualization" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction to Data Visualization</h1>
+<section id="why-visualize-healthcare-data" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="why-visualize-healthcare-data"><span class="header-section-number">1.1</span> Why Visualize Healthcare Data?</h2>
+<p>Healthcare managers make critical decisions daily that affect patient outcomes, operational efficiency, and financial performance. Data visualization transforms complex healthcare data into clear, actionable insights that support better decision-making.</p>
+<p>Consider these scenarios:</p>
+<ul>
+<li><strong>Hospital readmissions</strong>: Identifying patterns in 30-day readmission rates across different patient populations</li>
+<li><strong>Patient satisfaction</strong>: Understanding which factors most strongly influence patient experience scores</li>
+<li><strong>Resource utilization</strong>: Visualizing bed occupancy rates to optimize staffing levels</li>
+<li><strong>Quality metrics</strong>: Tracking clinical outcomes across departments or time periods</li>
+</ul>
+<p>Effective visualization helps healthcare managers:</p>
+<ol type="1">
+<li><strong>Identify patterns and trends</strong> that might be missed in tables of numbers</li>
+<li><strong>Communicate findings</strong> clearly to diverse stakeholders (clinicians, administrators, board members)</li>
+<li><strong>Support evidence-based decisions</strong> with visual evidence</li>
+<li><strong>Monitor performance</strong> against benchmarks and targets</li>
+</ol>
+</section>
+<section id="why-use-r-for-visualization" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="why-use-r-for-visualization"><span class="header-section-number">1.2</span> Why Use R for Visualization?</h2>
+<p>While tools like Excel can create basic charts, R offers several advantages for healthcare analytics:</p>
+<ul>
+<li><strong>Reproducibility</strong>: Your code documents exactly how visualizations were created</li>
+<li><strong>Flexibility</strong>: Unlimited customization options for publication-quality graphics</li>
+<li><strong>Integration</strong>: Seamlessly combine data processing, analysis, and visualization</li>
+<li><strong>Professionalism</strong>: Create graphics suitable for journal publications or executive presentations</li>
+</ul>
+<p>Most importantly, the same code can be reused with updated data, saving time and ensuring consistency.</p>
+</section>
+</section>
+<section id="the-grammar-of-graphics" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The Grammar of Graphics</h1>
+<section id="understanding-ggplot2" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="understanding-ggplot2"><span class="header-section-number">2.1</span> Understanding ggplot2</h2>
+<p>The <code>ggplot2</code> package in R implements a “grammar of graphics”—a systematic way to build visualizations by combining independent components.</p>
+<p>Think of creating a visualization like building with layers:</p>
+<ol type="1">
+<li><strong>Data</strong>: What dataset are you visualizing?</li>
+<li><strong>Aesthetics (aes)</strong>: What variables map to visual properties (x-axis, y-axis, color, size)?</li>
+<li><strong>Geometries (geom)</strong>: What type of visualization (points, bars, lines)?</li>
+<li><strong>Scales</strong>: How should data values translate to visual properties?</li>
+<li><strong>Themes</strong>: What should the overall appearance be?</li>
+</ol>
+<p>Every ggplot follows this basic template:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>)) <span class="sc">+</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>() <span class="sc">+</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>ADDITIONAL_LAYERS<span class="sc">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="key-concept-layers" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="key-concept-layers"><span class="header-section-number">2.2</span> Key Concept: Layers</h2>
+<p>Visualizations in ggplot2 are built by adding layers with the <code>+</code> operator. This makes it easy to:</p>
+<ul>
+<li>Start with a basic plot and progressively refine it</li>
+<li>Reuse code by changing just one layer</li>
+<li>Combine multiple types of visualizations in one plot</li>
+</ul>
+</section>
+</section>
+<section id="example-dataset-patient-satisfaction-survey" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Example Dataset: Patient Satisfaction Survey</h1>
+<p>For this lecture, we’ll use a simulated dataset from a patient satisfaction survey conducted across multiple hospital departments.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate patient satisfaction data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>patient_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="at">mean =</span> <span class="dv">55</span>, <span class="at">sd =</span> <span class="dv">15</span>)),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">department =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Cardiology"</span>, <span class="st">"Orthopedics"</span>, <span class="st">"Emergency"</span>, <span class="st">"Surgery"</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">200</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">satisfaction_score =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="at">mean =</span> <span class="fl">7.5</span>, <span class="at">sd =</span> <span class="fl">1.8</span>), <span class="dv">1</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">wait_time_minutes =</span> <span class="fu">round</span>(<span class="fu">rlnorm</span>(<span class="dv">200</span>, <span class="at">meanlog =</span> <span class="fl">3.5</span>, <span class="at">sdlog =</span> <span class="fl">0.6</span>)),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">length_of_stay_days =</span> <span class="fu">round</span>(<span class="fu">rlnorm</span>(<span class="dv">200</span>, <span class="at">meanlog =</span> <span class="fl">1.2</span>, <span class="at">sdlog =</span> <span class="fl">0.8</span>), <span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure scores are between 1-10</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">satisfaction_score =</span> <span class="fu">pmin</span>(<span class="fu">pmax</span>(satisfaction_score, <span class="dv">1</span>), <span class="dv">10</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure age is realistic</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">pmin</span>(<span class="fu">pmax</span>(age, <span class="dv">18</span>), <span class="dv">95</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display first rows</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(patient_data, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   patient_id age  department satisfaction_score wait_time_minutes
+1           1  63   Emergency                7.2                67
+2           2  39   Emergency                7.2                40
+3           3  57   Emergency                6.0                28
+4           4  54 Orthopedics                9.2                73
+5           5  45     Surgery                6.0                32
+6           6  18 Orthopedics                6.1                29
+7           7  44   Emergency                5.9                36
+8           8  40   Emergency               10.0                22
+9           9  57     Surgery                8.5                34
+10         10  48     Surgery                8.6                58
+   length_of_stay_days
+1                  8.3
+2                  1.9
+3                  4.2
+4                  3.8
+5                  5.1
+6                  3.3
+7                  4.2
+8                  5.5
+9                  0.6
+10                 2.7</code></pre>
+</div>
+</div>
+<p><strong>Dataset Variables:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 44%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>patient_id</code></td>
+<td>Unique patient identifier</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td><code>age</code></td>
+<td>Patient age in years</td>
+<td>Numeric (continuous)</td>
+</tr>
+<tr class="odd">
+<td><code>department</code></td>
+<td>Hospital department</td>
+<td>Categorical</td>
+</tr>
+<tr class="even">
+<td><code>satisfaction_score</code></td>
+<td>Overall satisfaction (1-10 scale)</td>
+<td>Numeric (continuous)</td>
+</tr>
+<tr class="odd">
+<td><code>wait_time_minutes</code></td>
+<td>Wait time before seeing provider</td>
+<td>Numeric (continuous)</td>
+</tr>
+<tr class="even">
+<td><code>length_of_stay_days</code></td>
+<td>Hospital length of stay</td>
+<td>Numeric (continuous)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="visualizing-single-variables" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Visualizing Single Variables</h1>
+<section id="histograms-for-continuous-variables" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="histograms-for-continuous-variables"><span class="header-section-number">4.1</span> Histograms for Continuous Variables</h2>
+<p>Histograms show the distribution of a continuous variable by dividing it into bins and counting observations in each bin.</p>
+<p><strong>When to use</strong>: Examining the distribution of age, wait times, length of stay, or any continuous measure.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> patient_data, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/histogram-basic-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Improving the histogram:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Patient Ages"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Age (years)"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Patients"</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/histogram-improved-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Key elements:</strong></p>
+<ul>
+<li><code>binwidth = 5</code>: Each bar represents a 5-year age range</li>
+<li><code>fill = "steelblue"</code>: Interior color of bars</li>
+<li><code>color = "white"</code>: Border color (makes bars distinct)</li>
+<li><code>labs()</code>: Add clear labels</li>
+<li><code>theme_minimal()</code>: Clean, professional appearance</li>
+</ul>
+</section>
+<section id="bar-charts-for-categorical-variables" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="bar-charts-for-categorical-variables"><span class="header-section-number">4.2</span> Bar Charts for Categorical Variables</h2>
+<p>Bar charts display counts or frequencies of categorical variables.</p>
+<p><strong>When to use</strong>: Showing patient counts by department, admission type, insurance status, etc.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> department)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"darkgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Patient Volume by Department"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Department"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Patients"</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/barchart-basic-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Note</strong>: <code>geom_bar()</code> automatically counts the number of observations in each category. The <code>alpha</code> parameter controls transparency (0 = fully transparent, 1 = fully opaque).</p>
+</section>
+<section id="box-plots-for-distribution-summary" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="box-plots-for-distribution-summary"><span class="header-section-number">4.3</span> Box Plots for Distribution Summary</h2>
+<p>Box plots provide a compact summary of a distribution, showing median, quartiles, and potential outliers.</p>
+<p><strong>When to use</strong>: Comparing distributions across groups or identifying outliers in healthcare metrics.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> satisfaction_score)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"coral"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Patient Satisfaction Scores"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/boxplot-basic-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpreting box plots:</strong></p>
+<ul>
+<li><strong>Box</strong>: Contains the middle 50% of data (25th to 75th percentile)</li>
+<li><strong>Line in box</strong>: Median value</li>
+<li><strong>Whiskers</strong>: Extend to 1.5 × IQR (interquartile range)</li>
+<li><strong>Points beyond whiskers</strong>: Potential outliers</li>
+</ul>
+</section>
+</section>
+<section id="visualizing-relationships" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Visualizing Relationships</h1>
+<section id="scatterplots-for-two-continuous-variables" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="scatterplots-for-two-continuous-variables"><span class="header-section-number">5.1</span> Scatterplots for Two Continuous Variables</h2>
+<p>Scatterplots reveal relationships between two continuous variables.</p>
+<p><strong>When to use</strong>: Examining whether wait time affects satisfaction, whether age relates to length of stay, etc.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time_minutes, <span class="at">y =</span> satisfaction_score)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship Between Wait Time and Satisfaction"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Wait Time (minutes)"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/scatterplot-basic-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Adding a trend line:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time_minutes, <span class="at">y =</span> satisfaction_score)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Wait Time and Satisfaction with Linear Trend"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Wait Time (minutes)"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/scatterplot-trend-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Key elements:</strong></p>
+<ul>
+<li><code>geom_smooth(method = "lm")</code>: Adds linear regression line</li>
+<li><code>se = TRUE</code>: Shows confidence interval (shaded area)</li>
+<li><code>alpha = 0.5</code>: Makes points semi-transparent to see overlapping data</li>
+</ul>
+</section>
+</section>
+<section id="grouped-comparisons" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Grouped Comparisons</h1>
+<section id="comparing-groups-with-box-plots" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="comparing-groups-with-box-plots"><span class="header-section-number">6.1</span> Comparing Groups with Box Plots</h2>
+<p>One of the most powerful features of ggplot2 is easy group comparisons.</p>
+<p><strong>When to use</strong>: Comparing patient satisfaction across departments, readmission rates by insurance type, etc.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> department, <span class="at">y =</span> satisfaction_score, <span class="at">fill =</span> department)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Patient Satisfaction by Department"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Department"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)  <span class="co"># Remove redundant legend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/boxplot-grouped-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="grouped-scatterplots" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="grouped-scatterplots"><span class="header-section-number">6.2</span> Grouped Scatterplots</h2>
+<p>Adding color or shape to represent groups in scatterplots.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time_minutes, <span class="at">y =</span> satisfaction_score,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> department)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Wait Time and Satisfaction by Department"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Wait Time (minutes)"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Department"</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/scatterplot-grouped-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation</strong>: This visualization shows whether the relationship between wait time and satisfaction differs across departments.</p>
+</section>
+<section id="faceting-small-multiples" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="faceting-small-multiples"><span class="header-section-number">6.3</span> Faceting: Small Multiples</h2>
+<p>Faceting creates separate panels for each group—a powerful technique for complex comparisons.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time_minutes, <span class="at">y =</span> satisfaction_score)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> department, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Wait Time vs. Satisfaction Across Departments"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Wait Time (minutes)"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/facet-example-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>When to use faceting</strong>: When groups are too crowded on a single plot, or when you want to emphasize within-group patterns.</p>
+</section>
+</section>
+<section id="data-structure-for-visualization" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Data Structure for Visualization</h1>
+<section id="wide-vs.-long-format" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="wide-vs.-long-format"><span class="header-section-number">7.1</span> Wide vs.&nbsp;Long Format</h2>
+<p>Many healthcare datasets come in “wide” format, but ggplot2 works best with “long” format data.</p>
+<p><strong>Wide format</strong> (one row per patient, separate columns for each measure):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>patient_id</th>
+<th>age</th>
+<th>satisfaction</th>
+<th>wait_time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>45</td>
+<td>8.2</td>
+<td>35</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>67</td>
+<td>6.5</td>
+<td>67</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Long format</strong> (one row per patient-measure combination):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>patient_id</th>
+<th>age</th>
+<th>metric</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>45</td>
+<td>satisfaction</td>
+<td>8.2</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>45</td>
+<td>wait_time</td>
+<td>35</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>67</td>
+<td>satisfaction</td>
+<td>6.5</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>67</td>
+<td>wait_time</td>
+<td>67</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why long format?</strong> It allows ggplot2 to easily create grouped or faceted visualizations.</p>
+</section>
+<section id="converting-wide-to-long" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="converting-wide-to-long"><span class="header-section-number">7.2</span> Converting Wide to Long</h2>
+<p>Using the <code>pivot_longer()</code> function from tidyr:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a long-format version for certain visualizations</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>patient_long <span class="ot">&lt;-</span> patient_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(satisfaction_score, wait_time_minutes),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"metric"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># View the structure</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(patient_long, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+   patient_id   age department  length_of_stay_days metric             value
+        &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;                     &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;
+ 1          1    63 Emergency                   8.3 satisfaction_score   7.2
+ 2          1    63 Emergency                   8.3 wait_time_minutes   67  
+ 3          2    39 Emergency                   1.9 satisfaction_score   7.2
+ 4          2    39 Emergency                   1.9 wait_time_minutes   40  
+ 5          3    57 Emergency                   4.2 satisfaction_score   6  
+ 6          3    57 Emergency                   4.2 wait_time_minutes   28  
+ 7          4    54 Orthopedics                 3.8 satisfaction_score   9.2
+ 8          4    54 Orthopedics                 3.8 wait_time_minutes   73  
+ 9          5    45 Surgery                     5.1 satisfaction_score   6  
+10          5    45 Surgery                     5.1 wait_time_minutes   32  </code></pre>
+</div>
+</div>
+<p><strong>Example use case</strong>: Comparing distributions of multiple metrics side-by-side.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>patient_long <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(metric <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"satisfaction_score"</span>, <span class="st">"wait_time_minutes"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> metric)) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> metric, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distributions of Key Patient Metrics"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Value"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/facet-metrics-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="customization-and-polish" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Customization and Polish</h1>
+<section id="color-schemes" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="color-schemes"><span class="header-section-number">8.1</span> Color Schemes</h2>
+<p>Professional visualizations use thoughtful color schemes.</p>
+<p><strong>For categorical variables</strong> (departments, insurance types):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> department, <span class="at">y =</span> satisfaction_score, <span class="at">fill =</span> department)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>) <span class="sc">+</span>  <span class="co"># Professional color palette</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Satisfaction Scores by Department"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Department"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/color-categorical-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>For continuous variables</strong> (creating heatmaps or gradient scales):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time_minutes, <span class="at">y =</span> satisfaction_score,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> age)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Wait Time, Satisfaction, and Patient Age"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Wait Time (minutes)"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Age (years)"</span>) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/color-continuous-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="themes-and-styling" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="themes-and-styling"><span class="header-section-number">8.2</span> Themes and Styling</h2>
+<p>Themes control the overall appearance of your plot:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create base plot</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>base_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> department, <span class="at">y =</span> satisfaction_score,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">fill =</span> department)) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Satisfaction by Department"</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Different theme options</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> base_plot <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"theme_minimal()"</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> base_plot <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"theme_classic()"</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> base_plot <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"theme_bw()"</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> base_plot <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"theme_light()"</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine plots</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> (p3 <span class="sc">+</span> p4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/theme-comparison-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="best-practices-for-healthcare-visualizations" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="best-practices-for-healthcare-visualizations"><span class="header-section-number">8.3</span> Best Practices for Healthcare Visualizations</h2>
+<section id="clear-labels-and-titles" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="clear-labels-and-titles"><span class="header-section-number">8.3.1</span> 1. Clear Labels and Titles</h3>
+<p>Always include:</p>
+<ul>
+<li><strong>Descriptive title</strong>: What is being shown?</li>
+<li><strong>Axis labels with units</strong>: “Age (years)”, “Wait Time (minutes)”, “Cost ($)”</li>
+<li><strong>Legend labels</strong>: Clear category names, not variable codes</li>
+</ul>
+</section>
+<section id="appropriate-scale" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="appropriate-scale"><span class="header-section-number">8.3.2</span> 2. Appropriate Scale</h3>
+<ul>
+<li><strong>Start at zero for bar charts</strong> showing counts or totals</li>
+<li><strong>Adjust scales for scatterplots</strong> to focus on the data range</li>
+<li><strong>Use log scales</strong> when appropriate for skewed data (e.g., costs, length of stay)</li>
+</ul>
+</section>
+<section id="color-accessibility" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="color-accessibility"><span class="header-section-number">8.3.3</span> 3. Color Accessibility</h3>
+<ul>
+<li>Use colorblind-friendly palettes (e.g., <code>scale_fill_brewer()</code> with “Set2” or “Dark2”)</li>
+<li>Avoid red-green combinations</li>
+<li>Use redundant encoding (color + shape) when possible</li>
+</ul>
+</section>
+<section id="avoid-chartjunk" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="avoid-chartjunk"><span class="header-section-number">8.3.4</span> 4. Avoid Chartjunk</h3>
+<ul>
+<li>Remove unnecessary grid lines</li>
+<li>Minimize 3D effects and decorations</li>
+<li>Let the data speak for itself</li>
+</ul>
+</section>
+<section id="example-publication-ready-plot" class="level3" data-number="8.3.5">
+<h3 data-number="8.3.5" class="anchored" data-anchor-id="example-publication-ready-plot"><span class="header-section-number">8.3.5</span> Example: Publication-Ready Plot</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_data, <span class="fu">aes</span>(<span class="at">x =</span> wait_time_minutes, <span class="at">y =</span> satisfaction_score)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> department), <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>, <span class="at">name =</span> <span class="st">"Department"</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">200</span>, <span class="dv">25</span>)) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Patient Satisfaction Decreases with Longer Wait Times"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Analysis of 200 patient surveys across four departments"</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Wait Time (minutes)"</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10 scale)"</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Data: Hospital Patient Satisfaction Survey 2026"</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"gray30"</span>),</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture04_files/figure-html/publication-ready-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="common-visualization-types-in-healthcare" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Common Visualization Types in Healthcare</h1>
+<section id="summary-table" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="summary-table"><span class="header-section-number">9.1</span> Summary Table</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 27%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Visualization</th>
+<th>Use Case</th>
+<th>Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Histogram</strong></td>
+<td>Distribution of continuous variable</td>
+<td>1 continuous</td>
+</tr>
+<tr class="even">
+<td><strong>Bar chart</strong></td>
+<td>Counts or frequencies</td>
+<td>1 categorical</td>
+</tr>
+<tr class="odd">
+<td><strong>Box plot</strong></td>
+<td>Distribution summary, compare groups</td>
+<td>1 continuous + 1 categorical</td>
+</tr>
+<tr class="even">
+<td><strong>Scatterplot</strong></td>
+<td>Relationship between variables</td>
+<td>2 continuous</td>
+</tr>
+<tr class="odd">
+<td><strong>Line plot</strong></td>
+<td>Trends over time</td>
+<td>1 time + 1 continuous</td>
+</tr>
+<tr class="even">
+<td><strong>Violin plot</strong></td>
+<td>Distribution shape by group</td>
+<td>1 continuous + 1 categorical</td>
+</tr>
+<tr class="odd">
+<td><strong>Facets/Small multiples</strong></td>
+<td>Compare patterns across groups</td>
+<td>Any + 1 grouping variable</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="summary" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Summary</h1>
+<p>In this lecture, you learned:</p>
+<ol type="1">
+<li><strong>Why visualization matters</strong> in healthcare management for decision-making and communication</li>
+<li><strong>The grammar of graphics</strong> approach used by ggplot2 to build visualizations in layers</li>
+<li><strong>Basic plot types</strong>: histograms, bar charts, box plots, scatterplots</li>
+<li><strong>Grouped comparisons</strong>: Using color, facets, and multiple aesthetics</li>
+<li><strong>Data structure</strong>: Wide vs.&nbsp;long format and when to use each</li>
+<li><strong>Customization</strong>: Colors, themes, and professional polish</li>
+<li><strong>Best practices</strong>: Clear labels, appropriate scales, accessibility</li>
+</ol>
+<p>The key to mastering data visualization is practice. Start with simple plots and gradually add layers of complexity. Remember: the goal is always to communicate insights clearly, not to create the most complex visualization possible.</p>
+</section>
+<section id="references-and-resources" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> References and Resources</h1>
+<section id="key-references" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="key-references"><span class="header-section-number">11.1</span> Key References</h2>
+<ul>
+<li>Healy, K. (2018). <em>Data Visualization: A Practical Introduction</em>. Princeton University Press.</li>
+<li>Wickham, H., Navarro, D., &amp; Pedersen, T. L. (2023). <em>ggplot2: Elegant Graphics for Data Analysis</em>. Springer. https://ggplot2-book.org/</li>
+<li>Wilke, C. O. (2019). <em>Fundamentals of Data Visualization</em>. O’Reilly Media. https://clauswilke.com/dataviz/</li>
+</ul>
+</section>
+<section id="healthcare-specific-examples" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="healthcare-specific-examples"><span class="header-section-number">11.2</span> Healthcare-Specific Examples</h2>
+<ul>
+<li>Schwabish, J. A. (2014). An Economist’s Guide to Visualizing Data. <em>Journal of Economic Perspectives</em>, 28(1), 209-234.</li>
+<li>Few, S. (2012). <em>Show Me the Numbers: Designing Tables and Graphs to Enlighten</em> (2nd ed.). Analytics Press.</li>
+</ul>
+</section>
+<section id="online-resources" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="online-resources"><span class="header-section-number">11.3</span> Online Resources</h2>
+<ul>
+<li>R Graphics Cookbook: https://r-graphics.org/</li>
+<li>ggplot2 documentation: https://ggplot2.tidyverse.org/</li>
+<li>Data-to-Viz (decision tree for chart selection): https://www.data-to-viz.com/</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
