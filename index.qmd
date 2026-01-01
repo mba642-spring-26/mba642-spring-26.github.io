@@ -31,7 +31,7 @@ format:
 
 This is a class website for Business Analytics in Healthcare Management class. (Spring 2026).
 
-All class materials for lectures will be posted here.
+All class materials for lectures will be managed and posted here.
 
 Please check the [syllabus](syllabus.qmd) for course policies and grading information and the [schedule](schedule.qmd) for tentative course schedule.
 
