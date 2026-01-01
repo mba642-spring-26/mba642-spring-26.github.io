@@ -1,0 +1,1666 @@
+---
+title: "Logistic Regression in Healthcare Management"
+subtitle: "MBA642: Business Analytics in Healthcare Management"
+author: ""
+Week: "Week 13"
+date: 01/01/2026
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme: custom-theme.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+    grid:
+      sidebar-width: 200px
+      body-width: 900px
+      margin-width: 300px
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(ggplot2)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(broom)
+library(scales)
+library(pROC)
+library(patchwork)
+set.seed(2026)
+```
+
+# Introduction to Logistic Regression {.section-time data-time="10 min"}
+
+## Why Logistic Regression Matters in Healthcare
+
+In healthcare management, many of the most critical decisions involve predicting binary outcomes. For example,
+
+- Will an event happen or not?
+- Will a patient be readmitted within 30 days or not?
+- Will a patient adhere to their medication regimen or not?
+- Will a treatment be successful or not?
+
+These yes/no questions are fundamentally different from predicting continuous outcomes like blood pressure or length of stay.
+
+Let's think about the following scenario:
+
+A hospital administrator wants to identify patients at high risk of readmission (returning to the hospital after being released) so that care coordinators can provide additional support before discharge. The outcome variable, *readmission*, can only take two values: YES (the patient was readmitted) or NO (the patient was not readmitted). We cannot use regular linear regression for this problem because linear regression is designed to predict continuous outcomes that can take any value.
+
+**Logistic regression** is an appropriate statistical technique when your outcome variable is binary. It allows us to:
+
+- Predict the **probability** that an event will occur
+- Identify which factors **increase or decrease** the likelihood of the outcome
+- **Quantify the strength** of each predictor's effect using odds ratios
+- Make **data-driven decisions** about resource allocation and interventions
+
+## The Problem with Linear Regression for Binary Outcomes
+
+You might wonder why we cannot just use linear regression to predict a binary outcome coded as 0 and 1. Let's understand why this approach fails.
+
+Imagine we want to predict whether a patient will be readmitted (coded as 1) or not (coded as 0) based on their satisfaction score. If we use linear regression, we might get an equation like:
+
+$$P(\text{Readmission}) = 0.8 - 0.1 \times \text{Satisfaction}$$
+
+This seems reasonable at first, but there's a fundamental problem. What if a patient has a very high satisfaction score of 10?
+
+$$P(\text{Readmission}) = 0.8 - 0.1 \times 10 = -0.2$$
+
+We get a negative probability! But probabilities must be between 0 and 1. Similarly, for patients with very low satisfaction, we could get probabilities greater than 1. This is nonsensical. You cannot have a -20% chance or a 140% chance of being readmitted.
+
+Linear regression assumes a straight-line relationship that extends infinitely in both directions. But probabilities are bounded between 0 and 1. We need a different approach that respects these boundaries.
+
+## The Logistic Solution: An S-Shaped Curve
+
+Logistic regression solves this problem by using a special S-shaped curve (called the **logistic** function) that naturally stays between 0 and 1. Instead of predicting the probability directly with a straight line, logistic regression:
+
+1. Transforms the probability into something called **log odds**
+2. Models the log odds as a linear function of the predictors
+3. Transforms the result back to a probability
+
+This transformation ensures that no matter what values your predictors take, the predicted probability will always be between 0 and 1. The relationship "flattens out" at the extremes, creating the characteristic S-shape.
+
+```{r}
+#| label: sigmoid-curve
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+
+# Create data for comparison
+x <- seq(-6, 6, length.out = 200)
+linear <- 0.5 + 0.15 * x
+logistic <- 1 / (1 + exp(-x))
+
+plot_data <- data.frame(
+  x = rep(x, 2),
+  y = c(linear, logistic),
+  Model = rep(c("Linear Regression", "Logistic Regression"), each = 200)
+)
+
+ggplot(plot_data, aes(x = x, y = y, color = Model)) +
+  geom_line(linewidth = 1.2) +
+  geom_hline(yintercept = c(0, 1), linetype = "dashed", color = "gray50") +
+  scale_color_manual(values = c("Linear Regression" = "#E63946",
+                                 "Logistic Regression" = "#2A9D8F")) +
+  labs(title = "Linear Regression vs. Logistic Regression",
+       subtitle = "Logistic regression keeps predictions between 0 and 1",
+       x = "Predictor Value",
+       y = "Predicted Probability") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "bottom") +
+  annotate("text", x = 6, y = 1.15, label = "Impossible!\n(p > 1)",
+           color = "#E63946", size = 3) +
+  annotate("text", x = -5.5, y = -0.15, label = "Impossible!\n(p < 0)",
+           color = "#E63946", size = 3)
+```
+
+As you can see in the graph above, the linear regression line (red) extends beyond the valid probability range, while the logistic regression curve (teal) smoothly transitions between 0 and 1, approaching but never crossing these boundaries.
+
+------------------------------------------------------------------------
+
+Now that we understand **why** we need logistic regression and **how** it solves the boundary problem, let's explore the mathematical foundations that make it work.
+
+---
+
+# Learning Objectives
+
+**By the end of this session, you will be able to:**
+
+1. **Explain why logistic regression is necessary** for binary outcomes and how it differs from linear regression
+2. **Interpret logistic regression coefficients** including log odds ratios and odds ratios
+3. **Run and interpret both simple and multiple logistic regression models** in R
+4. **Make predictions** from logistic regression models and convert between probabilities, odds, and log odds
+5. **Evaluate model performance** using classification tables and understand the trade-offs in choosing classification thresholds
+
+---
+
+# Understanding the Core Concepts {.section-time data-time="20 min"}
+
+Before we jump into running logistic regression analyses, it's essential to understand three related concepts: **probability**, **odds**, and **log odds**. These transformations are at the heart of how logistic regression works, and understanding them will help you interpret your results correctly.
+
+## From Probability to Odds
+
+You may be already familiar with **probability**. It's the chance that something will happen, expressed as a number between 0 and 1 (or as a percentage between 0% and 100%). For example, if 30 out of 100 patients are readmitted, the probability of readmission is 0.30 or 30%.
+
+**Odds** express the same information in a different way. Instead of comparing the number of events to the total, odds compare the number of events happening to the number of events not happening:
+
+$$\text{Odds} = \frac{p}{1-p} = \frac{\text{Probability of event happening}}{\text{Probability of event not happening}}$$
+
+Using our readmission example:
+
+- Probability of readmission = 0.30
+- Probability of NOT being readmitted = 0.70
+- Odds of readmission = 0.30 / 0.70 = 0.429
+
+This means that for every patient who is readmitted, there are about 2.3 patients who are not readmitted (since 1/0.429 ≈ 2.3). Alternatively, we can say the odds are "0.429 to 1" or roughly "7 to 3" in favor of not being readmitted.
+
+### Understanding Odds Values
+
+Here's a helpful table showing how probability and odds relate to each other:
+
+```{r}
+#| label: odds-table
+#| echo: false
+
+prob_list <- c(0.10, 0.25, 0.33, 0.50, 0.67, 0.75, 0.90)
+complement_list <- 1 - prob_list
+odds_list <- round(prob_list / complement_list, 2)
+
+odds_table <- data.frame(
+  Probability = prob_list,
+  `Complement (1-p)` = complement_list,
+  Odds = odds_list,
+  Interpretation = c(
+    "Very unlikely",
+    "",
+    "",
+    "Equal chance (50/50)",
+    "",
+    "",
+    "Very likely"
+  )
+)
+
+kable(odds_table, col.names = c("Probability (p)", "1 - p", "Odds", "Interpretation"),
+      align = "c", digits = 3)
+```
+
+
+**Key insight about odds:**
+
+- When odds = 1, the event is equally likely to happen or not happen (50/50 chance)
+- When odds < 1, the event is less likely than 50/50
+- When odds > 1, the event is more likely than 50/50
+- Odds can only be **positive** values (they range from 0 to infinity)
+
+## From Odds to Log Odds (Logit)
+
+While odds are more useful than probabilities for our purposes (they range from 0 to infinity instead of 0 to 1), they still have a limitation: they cannot be negative. This asymmetry makes them difficult to model with linear equations.
+
+The solution is to take the **natural logarithm** of the odds, which gives us the **log odds** (also called the **logit**):
+
+$$\text{Log Odds} = \ln(\text{Odds}) = \ln\left(\frac{p}{1-p}\right)$$
+
+This transformation has a beautiful property: log odds can range from negative infinity to positive infinity, making them perfect for linear modeling.
+
+```{r}
+#| label: logit-table
+#| echo: false
+
+logodds_list <- log(odds_list)
+
+logit_table <- data.frame(
+  Probability = prob_list,
+  `Complement (1-p)` = complement_list,
+  Odds = odds_list,
+  `Log Odds` = logodds_list
+)
+
+kable(logit_table, col.names = c("Probability (p)", "1 - p", "Odds", "Log Odds (Logit)"),
+      align = "c", digits = 3)
+```
+
+
+### Visualizing the Relationship
+
+Let's visualize how these three measures relate to each other:
+
+```{r}
+#| label: prob-odds-logodds-viz
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4
+#| fig-cap: "Relationship between Probability, Odds, and Log Odds"
+
+# Create a sequence of probabilities
+prob_seq <- seq(0.01, 0.99, by = 0.01)
+odds_seq <- prob_seq / (1 - prob_seq)
+logodds_seq <- log(odds_seq)
+
+# Create data frame
+transform_data <- data.frame(
+  probability = prob_seq,
+  odds = odds_seq,
+  log_odds = logodds_seq
+)
+
+# Create three panels
+p1 <- ggplot(transform_data, aes(x = prob_seq, y = probability)) +
+  geom_line(color = "#2A9D8F", linewidth = 1.2) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", color = "gray50") +
+  labs(x = "Probability", y = "Probability",
+       title = "Probability Scale") +
+  scale_x_continuous(limits = c(0, 1)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  theme_minimal(base_size = 10) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+
+p2 <- ggplot(transform_data, aes(x = prob_seq, y = odds)) +
+  geom_line(color = "#E9C46A", linewidth = 1.2) +
+  geom_hline(yintercept = 1, linetype = "dashed", color = "gray50") +
+  annotate("text", x = 0.15, y = 1.5, label = "Odds = 1\n(50/50 chance)",
+           size = 3, color = "gray30") +
+  labs(x = "Probability", y = "Odds",
+       title = "Odds Scale") +
+  scale_x_continuous(limits = c(0, 1)) +
+  theme_minimal(base_size = 10) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+
+p3 <- ggplot(transform_data, aes(x = prob_seq, y = log_odds)) +
+  geom_line(color = "#E63946", linewidth = 1.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+  annotate("text", x = 0.15, y = 0.5, label = "Log Odds = 0\n(50/50 chance)",
+           size = 3, color = "gray30") +
+  labs(x = "Probability", y = "Log Odds (Logit)",
+       title = "Log Odds Scale") +
+  scale_x_continuous(limits = c(0, 1)) +
+  theme_minimal(base_size = 10) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+
+# Combine plots
+p1 + p2 + p3 +
+  plot_annotation(
+    title = "Three Ways to Express the Same Information",
+    theme = theme(plot.title = element_text(face = "bold", size = 12))
+  )
+```
+
+
+**What does this visualization show?**:
+
+- **Left panel (Probability)**: Linear (identity function), bounded **between 0 and 1**
+- **Middle panel (Odds)**: Exponential curve, ranges **from 0 to infinity**, odds = 1 indicates a 50/50 chance
+- **Right panel (Log Odds)**: S-shaped curve (logit function), ranges **from negative infinity to positive infinity**, log odds = 0 indicates a 50/50 chance
+
+The **log odds transformation** is what makes logistic regression work. It converts the bounded probability (0 to 1) into an unbounded scale that can be modeled with a linear equation.
+
+**Key insight about log odds:**
+
+- When log odds = 0, the event has a 50/50 chance (probability = 0.5)
+- When log odds < 0, the event is less likely than 50/50
+- When log odds > 0, the event is more likely than 50/50
+- Log odds can be any real number (positive or negative)
+
+## The Logistic Regression Equation
+
+Now we can write the logistic regression equation. Instead of predicting probability directly (which would cause the boundary problems we discussed), we predict the log odds:
+
+$$\ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k$$
+
+where **p** is the probability of the outcome (e.g., probability of readmission).
+
+This equation indicates that "the log odds of the outcome is a linear combination of the predictors."
+
+The coefficients ($\beta$ values) in this equation are **log odds ratios**, which tell us how much the log odds change when the predictor increases by one unit.
+
+By using this equation, we can get **predicted log odds**.
+
+
+### Converting Back to Probability
+
+Once we have predicted log odds, we can convert back to probability using these relationships:
+
+1. **From log odds to odds:** $\text{Odds} = e^{\text{log odds}}$ (exponentiated log odds)
+2. **From odds to probability:** $p = \frac{\text{Odds}}{1 + \text{Odds}}$
+
+Or in one step:
+
+$$p = \frac{e^{\beta_0 + \beta_1 X_1 + \cdots}}{1 + e^{\beta_0 + \beta_1 X_1 + \cdots}}$$
+
+Don't worry if these formulas seem complex. R will do all these calculations for us (that's why we use statistical software!).
+The important thing is to understand the conceptual flow: (1) we model log odds linearly, then (2) transform the results back to probabilities.
+
+## Estimation Method: Maximum Likelihood Estimation
+
+Unlike linear regression, we cannot use the OLS method, because:
+
+1. **Probability must stay between 0 and 1**: OLS could predict probabilities outside this range (e.g., -0.3 or 1.4), which doesn't make sense.
+2. **Binary outcomes violate OLS assumptions**: The residuals in binary outcomes can't be normally distributed (as they can only take on two values).
+3. **Non-constant variance**: When outcomes are binary, the variance changes systematically with the predicted probability, violating the OLS assumption of constant variance (homoscedasticity).
+
+
+Logistic regression uses **Maximum Likelihood Estimation (MLE)**, a different approach that:
+
+- Finds the coefficient values (parameters) that make the observed data **most likely** to have occurred
+- Naturally respects the probability boundaries (predictions always stay between 0 and 1)
+- Works well with the binomial distribution of binary outcomes
+
+You don't need to understand the mathematics of MLE for this course. The key point is that **the estimation method is different from linear regression**, but R handles all the computation automatically. When you use the `glm()` function with `family = binomial`, R is using MLE behind the scenes.
+
+
+------------------------------------------------------------------------
+
+# Simple Logistic Regression {.section-time data-time="30 min"}
+
+Simple logistic regression involves predicting a binary outcome using a single predictor variable. This is the foundation for understanding more complex models, so we'll work through this carefully with a detailed healthcare example.
+
+## Simple Logistic Regression Example: Predicting Hospital Readmission
+
+You are a quality improvement analyst at a regional hospital. Hospital readmissions within 30 days are a major concern because they indicate potential gaps in care quality and result in financial penalties under Medicare's Hospital Readmissions Reduction Program.
+
+Your hospital has been tracking patient satisfaction scores (measured on a 1-10 scale at discharge) and wants to understand: **Does patient satisfaction predict the likelihood of 30-day readmission?**
+
+The hypothesis is that patients who are more satisfied with their care may be better prepared for discharge, have better understanding of their follow-up instructions, and therefore be less likely to be readmitted.
+
+The Hospital Readmissions Reduction Program (HRRP), established by the Affordable Care Act in 2012, penalizes hospitals with excess readmissions for specific conditions. Research has shown that patient experience metrics, including satisfaction scores, are associated with readmission rates, though the relationship is complex and influenced by multiple factors including patient demographics, clinical complexity, and post-discharge support systems.
+
+
+## Creating and Exploring the Data
+
+Let's first create our dataset and explore it to understand what we're working with. Our dataset includes not only patient satisfaction but also other important factors like age, comorbidities, and insurance type. For this simple regression example, we'll focus only on satisfaction, but having all these variables in the dataset will allow us to compare simple vs. multiple regression later.
+
+```{r}
+#| label: simple-data
+
+# Create comprehensive readmission dataset
+n <- 200
+
+# Generate predictor variables
+satisfaction <- round(runif(n, min = 3, max = 10), 1)
+age <- round(rnorm(n, mean = 65, sd = 12))
+age <- pmax(pmin(age, 95), 30)  # Keep age between 30 and 95
+comorbidities <- rpois(n, lambda = 2)  # Number of chronic conditions
+insurance <- sample(c("Private", "Medicare", "Medicaid"), n,
+                    replace = TRUE, prob = c(0.4, 0.4, 0.2))
+
+# Generate readmission outcomes based on all predictors
+# Higher satisfaction = lower risk
+# Higher age = higher risk
+# More comorbidities = higher risk
+# Insurance type affects risk
+insurance_effect <- ifelse(insurance == "Private", -0.5,
+                    ifelse(insurance == "Medicare", 0, 0.4))
+
+log_odds <- -2 - 0.325 * satisfaction + 0.02 * age + 0.6 * comorbidities +
+            insurance_effect + rnorm(n, 0, 0.5)
+prob_readmit <- exp(log_odds) / (1 + exp(log_odds))
+readmitted <- rbinom(n, 1, prob_readmit)
+
+# Create data frame
+readmit_data <- data.frame(
+  patient_id = 1:n,
+  satisfaction = satisfaction,
+  age = age,
+  comorbidities = comorbidities,
+  insurance = factor(insurance),
+  readmitted = readmitted
+)
+
+
+# View first few rows
+head(readmit_data, 10)
+```
+
+**Variables in the dataset**:
+
+- `patient_id`: Unique identifier for each patient (1 to `r n`)
+- `satisfaction`: Patient satisfaction score at discharge (1-10 scale, where higher scores indicate greater satisfaction)
+- `age`: Patient age in years
+- `comorbidities`: Number of chronic health conditions (e.g., diabetes, hypertension, heart disease)
+- `insurance`: Insurance type (Private, Medicare, or Medicaid)
+- `readmitted`: Whether the patient was readmitted within 30 days (1 = yes, 0 = no)
+
+Let's examine our data more closely to understand the descriptive statistics of our variables:
+
+**Patient Satisfaction Scores**
+
+```{r}
+#| label: simple-explore1
+#| echo: false
+
+# 1. Summary statistics for satisfaction scores
+satisfaction_summary <- data.frame(
+  Metric = c("Mean", "SD", "Minimum", "Maximum"),
+  Value = c(
+    round(mean(readmit_data$satisfaction), 2),
+    round(sd(readmit_data$satisfaction), 2),
+    round(min(readmit_data$satisfaction), 1),
+    round(max(readmit_data$satisfaction), 1)
+  )
+)
+
+kable(satisfaction_summary,
+      col.names = c("Metric", "Value"),
+      align = c("l", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+
+**Readmission Outcomes**
+
+```{r}
+#| label: simple-explore2
+#| echo: false
+# 2. Summary statistics for readmission outcomes
+readmission_summary <- data.frame(
+  Outcome = c("Not Readmitted", "Readmitted", "Total"),
+  Count = c(
+    sum(readmit_data$readmitted == 0),
+    sum(readmit_data$readmitted == 1),
+    nrow(readmit_data)
+  ),
+  Percentage = c(
+    round(100 * mean(readmit_data$readmitted == 0), 1),
+    round(100 * mean(readmit_data$readmitted == 1), 1),
+    100
+  )
+)
+
+kable(readmission_summary,
+      col.names = c("Outcome", "N", "%"),
+      align = c("l", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+
+
+Now let's visualize the relationship between satisfaction and readmission:
+
+```{r}
+#| label: simple-viz
+#| fig-width: 6
+#| fig-height: 4
+#| code-fold: true
+
+# Create visualization
+p1 <- ggplot(readmit_data, aes(x = factor(readmitted), y = satisfaction,
+                                fill = factor(readmitted))) +
+  geom_boxplot(alpha = 0.7, width = 0.3) +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  scale_fill_manual(values = c("0" = "#2A9D8F", "1" = "#E63946"),
+                    labels = c("Not Readmitted", "Readmitted")) +
+  scale_x_discrete(labels = c("Not Readmitted", "Readmitted")) +
+  labs(title = "Satisfaction Scores by Readmission Status",
+       x = "Readmission Status",
+       y = "Satisfaction Score (1-10)") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"))
+
+p1
+```
+
+Looking at this boxplot, we can see that patients who were readmitted tend to have lower satisfaction scores than those who were not readmitted. This suggests there may be a relationship worth investigating with logistic regression.
+
+
+## Running the Logistic Regression
+
+In R, we use the `glm()` function (Generalized Linear Model) to run logistic regression. The key arguments are:
+
+- `formula`: Specifies the outcome and predictors (e.g., `readmitted ~ satisfaction`)
+- `data`: The dataset to use
+- `family = binomial`: Tells R to use logistic regression for binary outcomes
+
+The syntax is similar to linear regression with `lm()`, but we add `family = binomial(link = "logit")` or just `family = binomial` (the default link function for binomial is logit):
+
+```{r}
+#| label: simple-model
+
+# Fit logistic regression model
+model_simple <- glm(readmitted ~ satisfaction,
+                    data = readmit_data,
+                    family = binomial(link = "logit"))
+
+# View the results
+summary(model_simple)
+```
+
+## Interpreting the Results Step by Step
+
+The output contains a lot of information. Let's work through it piece by piece to understand what it all means.
+
+### Step 1: Understanding the Coefficients Table
+
+The most important part of the output is the "Coefficients" table. Let's take a look it:
+
+```{r}
+#| label: simple-coef
+#| echo: false
+
+# Extract coefficients
+coef_table <- summary(model_simple)$coefficients
+kable(coef_table, digits = 4)
+```
+
+Each row in this table represents one term in our model:
+
+- **`(Intercept)`**: This is $\beta_0$, the predicted log odds when satisfaction = 0
+- **`satisfaction`**: This is $\beta_1$, the change in log odds for each one-unit increase in satisfaction
+
+The columns tell us:
+
+- **Estimate**: The coefficient value (log odds ratio)
+- **Std. Error**: The uncertainty in our estimate
+- **z value**: The test statistic (Estimate / Std. Error)
+- **Pr(>|z|)**: The p-value for testing whether the coefficient significantly differs from zero
+
+### Step 2: Writing the Model Equation
+
+From our output, we can write the logistic regression equation:
+
+```{r}
+#| label: simple-interpret-log-odds-2
+#| echo: false
+
+b0 <- round(coef(model_simple)[1], 4)
+b1 <- round(coef(model_simple)[2], 4)
+b1_p <- format(summary(model_simple)$coefficients[2, 4], digits = 3)
+
+```
+
+
+**Log Odds of Readmission = `r b0` + (`r b1`) × Satisfaction**
+
+This equation tells us that, for each one-unit increase in satisfaction score, the log odds of readmission changes by the coefficient value.
+
+
+### Step 3: Interpreting the Log Odds Ratio
+
+The coefficient for satisfaction is our **log odds ratio**. Let's interpret it:
+
+**Log Odds Ratio for Satisfaction:** `r b1`
+
+**Interpretation:**
+
+1. **DIRECTION**: The coefficient is `r if(b1 < 0) "NEGATIVE" else "POSITIVE"`, which means higher satisfaction is associated with `r if(b1 < 0) "LOWER" else "HIGHER"` log odds of readmission.
+
+2. **STATISTICAL SIGNIFICANCE**: The p-value is `r b1_p`. Since p `r if(b1_p < 0.05) "< 0.05" else ">= 0.05"`, this relationship is `r if(b1_p < 0.05) "statistically significant" else "NOT statistically significant"`.
+
+3. **MAGNITUDE**: For each one-unit increase in satisfaction score, the log odds of readmission change by `r b1`.
+
+### Step 4: Converting to Odds Ratio
+
+While log odds ratios are mathematically convenient, **odds ratios** are much easier to interpret. We convert by exponentiating:
+
+$$\text{Odds Ratio} = e^{\text{Log Odds Ratio}}$$
+
+We can get Odds Ratio by using the following **R functions**:
+
+- `coef()`: Extracts coefficients from the model
+- `exp()`: Exponentiates values (raises e to the power of the value) to convert log odds ratios to odds ratios
+
+```{r}
+#| label: simple-odds-ratio1
+#| echo: true
+
+# Calculate odds ratios
+odds_ratios <- exp(coef(model_simple))
+```
+
+Then, we get **Odds Ratios:**
+
+- Intercept: `r round(odds_ratios[1], 4)`
+- Satisfaction: `r round(odds_ratios[2], 4)`
+
+Let's interpret the odds ratio for satisfaction:
+
+
+**Interpretation:**
+
+```{r}
+#| label: simple-odds-ratio2
+#| echo: false
+
+or_sat <- odds_ratios[2]
+pct_change <- if(or_sat < 1) round((1 - or_sat) * 100, 1) else round((or_sat - 1) * 100, 1)
+```
+
+
+- Since the odds ratio is `r if(or_sat < 1) "LESS than 1" else "GREATER than 1"`, higher satisfaction is associated with `r if(or_sat < 1) "LOWER" else "HIGHER"` odds of readmission.
+
+- For each one-unit increase in satisfaction score, the odds of readmission `r if(or_sat < 1) "DECREASE" else "INCREASE"` by `r pct_change`%. (or alternatively, the odds of readmission are multiplied by `r round(or_sat, 3)` for each one-unit increase in satisfaction).
+
+
+## Predicting Probabilities
+
+One of the most useful applications of logistic regression is predicting the probability of the outcome for specific values of the predictor. Let's calculate predicted probabilities step by step.
+
+### Manual Calculation
+
+Let's predict the probability of readmission for *a new patient with a satisfaction score of 5*:
+
+```{r}
+#| label: simple-predict-manual
+#| echo: false
+
+# Get coefficients
+b0_pred <- coef(model_simple)[1]
+b1_pred <- coef(model_simple)[2]
+
+# For satisfaction = 5
+sat_value <- 5
+
+# Step 1: Calculate log odds
+log_odds_pred <- b0_pred + b1_pred * sat_value
+
+# Step 2: Convert to odds
+odds_pred <- exp(log_odds_pred)
+
+# Step 3: Convert to probability
+prob_pred <- odds_pred / (1 + odds_pred)
+```
+
+**Step 1: Calculate Predicted Log Odds**
+
+First, we use the logistic regression equation to calculate the log odds. We plug the satisfaction score into our model equation with the estimated coefficients:
+
+Log odds = `r round(b0_pred, 3)` + (`r round(b1_pred, 3)`) × `r sat_value` = `r round(log_odds_pred, 4)`
+
+This log odds value represents the predicted log odds of readmission on the logit scale. To interpret this meaningfully, we need to convert it to odds and then to probability.
+
+**Step 2: Convert Log Odds to Odds**
+
+Next, we convert the log odds to odds by exponentiating (taking e to the power of the log odds):
+
+$$\text{Odds} = e^{`r round(log_odds_pred, 4)`} = `r round(odds_pred, 4)`$$
+
+This odds value tells us the ratio of the probability of readmission to the probability of not being readmitted. An odds value of `r round(odds_pred, 4)` means that readmission is `r if(odds_pred < 1) "less likely than not being readmitted" else "more likely than not being readmitted"`.
+
+**Step 3: Convert Odds to Probability**
+
+Finally, we convert odds to probability using the formula: Probability = Odds / (1 + Odds)
+
+$$\text{Probability} = \frac{`r round(odds_pred, 4)`}{1 + `r round(odds_pred, 4)`} = `r round(prob_pred, 4)`$$
+
+
+A patient with a satisfaction score of `r sat_value` has a `r round(prob_pred * 100, 1)`% predicted probability of being readmitted within 30 days. This means that if we had 100 patients with this satisfaction level, we would expect approximately `r round(prob_pred * 100, 1)` of them to be readmitted.
+
+
+### Using R's predict() Function
+
+While the manual calculation helps us understand the underlying process, in practice we use R's `predict()` function to efficiently calculate predicted probabilities for many observations at once. This function automatically performs all three steps (log odds → odds → probability) for us.
+
+The `predict()` function in R generates predictions from a fitted model. Key arguments are:
+
+- First argument: The fitted model object
+- `newdata`: A data frame containing the predictor values for which you want predictions
+- `type = "response"`: Returns predicted probabilities (for logistic regression). Without this, it returns log odds.
+
+Let's predict readmission probabilities for patients with different satisfaction levels:
+
+**Predicted Probabilities of Readmission:**
+
+```{r}
+#| label: simple-predict-r
+#| code-fold: true
+
+# Create data frame with values to predict
+new_patients <- data.frame(
+  satisfaction = c(4, 5, 6, 7, 8)
+)
+
+new_patients$predicted_prob <- predict(model_simple,
+                                        newdata = new_patients,
+                                        type = "response")
+
+kable(round(new_patients, 3),
+      col.names = c("Satisfaction Score", "Predicted Probability"),
+      align = c("c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
+```
+
+
+
+As satisfaction scores increase from 4 to 8, the predicted probability of readmission systematically decreases. This quantifies the relationship we observed in our earlier boxplot, which was higher satisfaction is associated with lower readmission risk. We can use these probabilities to identify which patients may need additional discharge support.
+
+### Visualizing the Predicted Probabilities
+
+Visualizing the relationship between our predictor and the predicted probability helps us understand the model and communicate findings to stakeholders. Let's create a graph showing how the predicted probability of readmission changes across the full range of satisfaction scores:
+
+```{r}
+#| label: simple-predict-viz
+#| fig-width: 6
+#| fig-height: 4
+#| code-fold: true
+
+# Create prediction data across range of satisfaction
+pred_data <- data.frame(
+  satisfaction = seq(3, 10, by = 0.1)
+)
+pred_data$probability <- predict(model_simple, newdata = pred_data, type = "response")
+
+# Plot
+ggplot() +
+  # Add prediction curve
+  geom_line(data = pred_data, aes(x = satisfaction, y = probability),
+            color = "#2A9D8F", linewidth = 1.2) +
+  # Add actual data points
+  geom_point(data = readmit_data, aes(x = satisfaction, y = readmitted),
+             alpha = 0.3, position = position_jitter(width = 0.1, height = 0)) +
+  # Add reference line at 0.5
+  geom_hline(yintercept = 0.5, linetype = "dashed", color = "gray50") +
+  labs(title = "Predicted Probability of Readmission by Satisfaction Score",
+       subtitle = "Points show actual patient outcomes (0 = not readmitted, 1 = readmitted)",
+       x = "Patient Satisfaction Score",
+       y = "Predicted Probability of Readmission") +
+  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+**Understanding this visualization:**
+
+The **gray curve** represents our model's predicted probabilities across all satisfaction levels. The **black points** show the actual patient outcomes in our dataset.
+
+Key features of the logistic curve:
+
+- **At low satisfaction scores** (left side): The probability of readmission is relatively high.
+- **At high satisfaction scores** (right side): The probability of readmission is relatively low.
+
+The **dashed line at 0.5** (50%) represents the traditional classification threshold used in many statistical applications. However, **in practice, we would likely use a much lower threshold for readmission prediction** (e.g., 10-20%). Why? Because:
+
+- Actual readmission rates are typically around 15%, not 50%
+- The cost of missing a high-risk patient (false negative) is high
+- The cost of providing extra discharge support to a lower-risk patient (false positive) is relatively low
+
+For example, if we used a 20% threshold, any patient with predicted probability ≥ 20% would receive enhanced discharge planning. This more conservative approach helps ensure we don't miss high-risk patients who could benefit from intervention. We'll explore how to choose the optimal threshold later in this module.
+
+
+## Evaluating Model Performance
+
+After fitting a logistic regression model, we want to assess its practical usefulness. In other words: **How well does this model actually predict outcomes?** While our model provides probabilities, in many healthcare applications we need to make binary decisions (e.g., "provide extra discharge support" vs. "standard discharge"). This requires evaluating how accurately our model classifies patients.
+
+### Creating a Classification Table
+
+To evaluate classification performance, we first convert predicted probabilities into predicted classes using a **decision threshold**.
+
+**For this example, we'll use the traditional 0.5 threshold** to demonstrate how classification tables work:
+
+- If predicted probability ≥ 0.5 → predict "readmitted" (class = 1)
+- If predicted probability < 0.5 → predict "not readmitted" (class = 0)
+
+As discussed earlier, in a real readmission prediction application, we would likely use a lower threshold (e.g., 0.10-0.20) to be more conservative. However, 0.5 is useful for learning how to interpret classification tables.
+
+We then create a **classification table** (also called a **confusion matrix**) that compares our predictions to actual outcomes:
+
+```{r}
+#| label: simple-classification
+#| echo: false
+
+# Add predictions to our data
+readmit_data$predicted_prob <- predict(model_simple, type = "response")
+readmit_data$predicted_class <- ifelse(readmit_data$predicted_prob >= 0.5, 1, 0)
+
+# Create classification table with explicit factor levels to ensure 2x2 table
+class_table <- table(
+  Predicted = factor(readmit_data$predicted_class, levels = c(0, 1)),
+  Actual = factor(readmit_data$readmitted, levels = c(0, 1))
+)
+```
+
+**Classification Table (Confusion Matrix):**
+
+```{r}
+#| echo: false
+kable(class_table, align = "c") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "left") %>%
+  add_header_above(c(" " = 1, "Actual Outcome" = 2))
+```
+
+### Interpreting the Classification Table
+
+This 2×2 table shows four possible outcomes:
+
+- **True Negatives (TN, top-left)**: Patients we correctly predicted would NOT be readmitted
+- **False Positives (FP, top-right)**: Patients we incorrectly predicted would be readmitted (false alarm)
+- **False Negatives (FN, bottom-left)**: Patients we incorrectly predicted would NOT be readmitted (missed case)
+- **True Positives (TP, bottom-right)**: Patients we correctly predicted would be readmitted
+
+### Calculating Model Accuracy
+
+**Accuracy** measures the overall proportion of correct predictions (both true positives and true negatives) out of all predictions:
+
+$$\text{Accuracy} = \frac{\text{True Positives} + \text{True Negatives}}{\text{Total Number of Observations}} = \frac{TP + TN}{TP + TN + FP + FN}$$
+
+Let's calculate our model's accuracy:
+
+```{r}
+#| label: simple-accuracy
+#| echo: false
+
+# Calculate metrics
+correct <- sum(diag(class_table))
+total <- sum(class_table)
+accuracy <- correct / total
+
+# Break down by actual class
+tn <- class_table[1, 1]  # True negatives
+fp <- class_table[2, 1]  # False positives
+fn <- class_table[1, 2]  # False negatives
+tp <- class_table[2, 2]  # True positives
+```
+
+**Model Performance:**
+
+- Correctly classified: `r correct` out of `r total` patients
+- Overall accuracy: `r round(accuracy * 100, 1)`%
+
+**Breakdown:**
+
+- Correctly predicted NOT readmitted (True Negatives): `r tn`
+- Correctly predicted readmitted (True Positives): `r tp`
+- Incorrectly predicted readmitted (False Positives - false alarm): `r fp`
+- Incorrectly predicted NOT readmitted (False Negatives - missed): `r fn`
+
+**What does this mean?**
+
+Our model correctly classified `r round(accuracy * 100, 1)`% of patients. While accuracy is a useful starting point, in healthcare applications we often care more about specific types of errors. For example:
+
+- **False negatives** (missed readmissions) mean high-risk patients don't receive intervention
+- **False positives** (false alarms) mean resources are spent on patients who don't need extra support
+
+The relative importance of these errors depends on the costs and benefits of intervention, which we'll explore further in the section on classification thresholds.
+
+### Practice Checkpoint 1 {.unnumbered}
+
+::: {.callout-important}
+## Try It Yourself! (20 minutes)
+
+**Pause here!** Open `week13_logistic-regression_practice.qmd` and complete:
+
+- **Activity 1**: Medication Adherence (Simple logistic regression)
+- **Activity 2**: Emergency Department Return Visits (Simple logistic regression)
+
+These activities will help you practice:
+- Running simple logistic regression models
+- Interpreting log odds ratios and odds ratios
+- Making predictions from the model
+- Evaluating classification accuracy
+
+**After 20 minutes**, we'll continue with the lecture on multiple logistic regression.
+:::
+
+*→ We'll practice more logistic regression in Activities 3-4 (multiple regression)*
+
+------------------------------------------------------------------------
+
+# Multiple Logistic Regression {.section-time data-time="25 min"}
+
+In practice, outcomes like hospital readmission are influenced by multiple factors simultaneously. **Multiple logistic regression** allows us to include several predictors in a single model, which enables us to:
+
+1. **Control for confounding variables** (factors that might distort the relationship we're studying)
+2. **Compare the relative importance** of different predictors
+3. **Make more accurate predictions** by incorporating more information
+
+## Multiple Logistic Regression Example: Comprehensive Readmission Risk Model
+
+Continuing with our hospital readmission example, the quality improvement team wants to build a more comprehensive model. They believe that readmission risk depends not only on patient satisfaction (`satisfaction`) but also on:
+
+- **Patient age** (`age`): older patients may have more complex health needs
+- **Number of comorbidities** (`comorbidities`): patients with multiple chronic conditions may be at higher risk
+- **Insurance type** (`insurance`): which may reflect access to post-discharge care
+
+Our goal is to understand how each of these factors contributes to readmission risk while accounting for the others.
+
+
+## Revisiting Our Readmission Dataset
+
+Let's return to the `readmit_data` dataset we created at the beginning. In the simple regression section, we focused only on the relationship between **satisfaction** and readmission. However, our dataset actually includes several other important variables that we haven't used yet:
+
+- **Age**: Patient age in years
+- **Comorbidities**: Number of chronic health conditions
+- **Insurance type**: Private, Medicare, or Medicaid
+
+This is the beauty of planning ahead in data analysis! By including these variables from the start, we can now build a more comprehensive model to answer a critical question:
+
+**Does patient satisfaction still predict readmission when we account for age, health complexity, and insurance type?**
+
+This question gets at the heart of why we need multiple regression. What if the satisfaction effect we found in simple regression was partly due to **confounding**? For example, perhaps younger, healthier patients tend to have higher satisfaction scores AND are naturally less likely to be readmitted. Without controlling for age and comorbidities, we might be overstating the true effect of satisfaction.
+
+Our dataset (`readmit_data`) contains `r nrow(readmit_data)` patients with the following variables:
+
+- `patient_id`: Unique identifier for each patient
+- `satisfaction`: Patient satisfaction score at discharge (1-10 scale)
+- `age`: Patient age in years
+- `comorbidities`: Number of chronic health conditions (e.g., diabetes, hypertension, heart disease)
+- `insurance`: Insurance type (Private, Medicare, or Medicaid)
+- `readmitted`: Whether the patient was readmitted within 30 days (1 = yes, 0 = no)
+
+Notice that we have both **continuous predictors** (satisfaction, age, comorbidities) and a **categorical predictor** (insurance type). Multiple logistic regression can handle both types of predictors simultaneously.
+
+Let's explore this richer dataset to understand the characteristics of our patient population:
+
+```{r}
+#| label: multiple-explore
+#| echo: false
+
+# Dataset overview
+total_n <- nrow(readmit_data)
+readmit_rate <- round(100 * mean(readmit_data$readmitted), 1)
+
+# Summary statistics for continuous variables
+continuous_summary <- data.frame(
+  Variable = c("Satisfaction", "Age", "Comorbidities"),
+  Mean = c(
+    round(mean(readmit_data$satisfaction), 2),
+    round(mean(readmit_data$age), 1),
+    round(mean(readmit_data$comorbidities), 2)
+  ),
+  SD = c(
+    round(sd(readmit_data$satisfaction), 2),
+    round(sd(readmit_data$age), 1),
+    round(sd(readmit_data$comorbidities), 2)
+  ),
+  MIN = c(
+    round(min(readmit_data$satisfaction), 2),
+    round(min(readmit_data$age), 1),
+    round(min(readmit_data$comorbidities), 2)
+  ),
+  MAX = c(
+    round(max(readmit_data$satisfaction), 2),
+    round(max(readmit_data$age), 1),
+    round(max(readmit_data$comorbidities), 2)
+  )
+)
+
+# Insurance distribution
+insurance_summary <- data.frame(
+  Insurance = names(table(readmit_data$insurance)),
+  Count = as.vector(table(readmit_data$insurance)),
+  Percentage = as.vector(round(100 * prop.table(table(readmit_data$insurance)), 1))
+)
+```
+
+**Dataset Overview:**
+
+- Total patients: `r total_n`
+- Readmission rate: `r readmit_rate`%
+
+**Continuous Variables:**
+
+```{r}
+#| echo: false
+kable(continuous_summary, align = c("l", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
+```
+
+**Insurance Type Distribution:**
+
+```{r}
+#| label: insurance-descriptive
+#| echo: false
+kable(insurance_summary,
+      col.names = c("Insurance Type", "N", "%"),
+      align = c("l", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
+```
+
+## Running Multiple Logistic Regression
+
+We understand our data, so we're ready to fit the multiple logistic regression model. The good news is that the syntax is very similar to simple logistic regression. We just add more predictors to the formula using the `+` sign.
+
+Remember from simple regression, we had: `readmitted ~ satisfaction`
+
+Now with multiple predictors, we expand this to: `readmitted ~ satisfaction + age + comorbidities + insurance`
+
+Each predictor is added to the right side of the formula, separated by plus signs. Let's fit the model:
+
+```{r}
+#| label: multiple-model
+
+# Fit multiple logistic regression model
+model_multiple <- glm(readmitted ~ satisfaction + age + comorbidities + insurance,
+                      data = readmit_data,
+                      family = binomial(link = "logit"))
+
+# View the results
+summary(model_multiple)
+```
+
+## Interpreting Multiple Predictors
+
+The output looks similar to simple logistic regression, but now we have coefficients for each predictor. The key difference in interpretation is that **each coefficient represents the effect of that variable while holding all other variables constant**. This is crucial for proper interpretation.
+
+For example, the coefficient for satisfaction tells us, "How does readmission risk change when satisfaction increases by 1 point, **assuming age, comorbidities, and insurance type stay the same**?" This allows us to isolate the independent effect of each predictor.
+
+Let's create a summary table to see all coefficients, odds ratios, and p-values together:
+
+### Interpreting Coefficients
+
+```{r}
+#| label: multiple-coef
+#| echo: false
+
+# Create a nice summary table
+coef_summary <- data.frame(
+  Variable = names(coef(model_multiple)),
+  `Log Odds Ratio` = round(coef(model_multiple), 4),
+  `Odds Ratio` = round(exp(coef(model_multiple)), 4),
+  `p-value` = round(summary(model_multiple)$coefficients[, 4], 4)
+)
+
+kable(coef_summary, row.names = FALSE)
+```
+
+Let's interpret each predictor:
+
+```{r}
+#| label: multiple-interpret
+#| echo: false
+
+coefs <- coef(model_multiple)
+ors <- exp(coefs)
+pvals <- summary(model_multiple)$coefficients[, 4]
+
+# Calculate percentage changes
+pct_satisfaction <- if(ors["satisfaction"] < 1) round((1 - ors["satisfaction"]) * 100, 1) else round((ors["satisfaction"] - 1) * 100, 1)
+pct_age <- round((ors["age"] - 1) * 100, 1)
+pct_comorbid <- round((ors["comorbidities"] - 1) * 100, 1)
+```
+
+**Interpretation of Each Predictor:**
+
+**1. Satisfaction**
+
+- **Log Odds Ratio:** `r round(coefs["satisfaction"], 4)` (p = `r round(pvals["satisfaction"], 4)`)
+  - This means that for each one-unit increase in satisfaction, the log odds of readmission change by `r round(coefs["satisfaction"], 4)`, holding other variables constant.
+- **Odds Ratio:** `r round(ors["satisfaction"], 3)`
+  - This means that for each one-unit increase in satisfaction, the odds of readmission are multiplied by `r round(ors["satisfaction"], 3)`, holding other variables constant. (i.e., the odds `r if(ors["satisfaction"] < 1) "DECREASE" else "INCREASE"` by `r pct_satisfaction`%)
+
+**2. Age**
+
+- **Log Odds Ratio:** `r round(coefs["age"], 4)` (p = `r round(pvals["age"], 4)`)
+  - For each one-year increase in age, the log odds of readmission change by `r round(coefs["age"], 4)`, holding other variables constant.
+- **Odds Ratio:** `r round(ors["age"], 4)`
+  - For each one-year increase in age, the odds of readmission are multiplied by `r round(ors["age"], 4)`, holding other variables constant. (i.e., the odds `r if(ors["age"] < 1) "decrease" else "increase"` by `r pct_age`%)
+
+**3. Comorbidities**
+
+- **Log Odds Ratio:** `r round(coefs["comorbidities"], 4)` (p = `r round(pvals["comorbidities"], 4)`)
+  - For each additional comorbidity, the log odds of readmission change by `r round(coefs["comorbidities"], 4)`, holding other variables constant.
+- **Odds Ratio:** `r round(ors["comorbidities"], 3)`
+  - For each additional comorbidity, the odds of readmission are multiplied by `r round(ors["comorbidities"], 3)`, holding other variables constant. (i.e., the odds `r if(ors["comorbidities"] < 1) "decrease" else "increase"` by `r pct_comorbid`%)
+
+
+**4. Insurance Type** (Reference category: Medicaid)
+
+- **Medicaid vs. Medicare:**
+  - **Log Odds Ratio:** `r round(coefs["insuranceMedicare"], 4)` (p = `r round(pvals["insuranceMedicare"], 4)`)
+  - **Odds Ratio:** `r round(ors["insuranceMedicare"], 3)`
+  - **Interpretation:** Holding satisfaction, age, and comorbidities constant, patients with Medicare have odds of readmission that are `r round(ors["insuranceMedicare"], 3)` times the odds for patients with Medicaid. `r if(ors["insuranceMedicare"] < 1) paste0("In other words, Medicare patients have ", round((1 - ors["insuranceMedicare"]) * 100, 1), "% lower odds compared to Medicaid patients.") else paste0("In other words, Medicare patients have ", round((ors["insuranceMedicare"] - 1) * 100, 1), "% higher odds compared to Medicaid patients.")`
+
+- **Medicare vs. Private:**
+  - **Log Odds Ratio:** `r round(coefs["insurancePrivate"], 4)` (p = `r round(pvals["insurancePrivate"], 4)`)
+  - **Odds Ratio:** `r round(ors["insurancePrivate"], 3)`
+  - **Interpretation:** Holding satisfaction, age, and comorbidities constant, patients with Private insurance have odds of readmission that are `r round(ors["insurancePrivate"], 3)` times the odds for patients with Medicaid. `r if(ors["insurancePrivate"] < 1) paste0("In other words, Private insurance patients have ", round((1 - ors["insurancePrivate"]) * 100, 1), "% lower odds compared to Medicaid patients.") else paste0("In other words, Private insurance patients have ", round((ors["insurancePrivate"] - 1) * 100, 1), "% higher odds compared to Medicaid patients.")`
+
+## Comparing Simple vs. Multiple Regression: Why Controlling for Confounders Matters
+
+As we've built both a simple logistic regression (with satisfaction only) and a multiple logistic regression (with satisfaction, age, comorbidities, and insurance), let's compare them to understand **why multiple regression is necessary**.
+
+### The Satisfaction Coefficient: Simple vs. Multiple Regression
+
+```{r}
+#| label: compare-models
+#| echo: false
+
+# Get coefficients from both models
+coef_simple_sat <- coef(model_simple)["satisfaction"]
+coef_multiple_sat <- coef(model_multiple)["satisfaction"]
+
+# Get odds ratios
+or_simple_sat <- exp(coef_simple_sat)
+or_multiple_sat <- exp(coef_multiple_sat)
+
+# Calculate percentage changes
+pct_simple_sat <- round((or_simple_sat - 1) * 100, 1)
+pct_multiple_sat <- round((or_multiple_sat - 1) * 100, 1)
+
+# Compare
+comparison_table <- data.frame(
+  Model = c("Simple Regression", "Multiple Regression"),
+  `Log Odds Ratio` = c(round(coef_simple_sat, 4), round(coef_multiple_sat, 4)),
+  `Odds Ratio` = c(round(or_simple_sat, 3), round(or_multiple_sat, 3)),
+  `Percent Change` = c(paste0(pct_simple_sat, "%"), paste0(pct_multiple_sat, "%"))
+)
+```
+
+**Comparison of Satisfaction Effect:**
+
+```{r}
+#| echo: false
+kable(comparison_table,
+      col.names = c("Model", "Log Odds Ratio", "Odds Ratio", "% Change in Odds"),
+      align = c("l", "c", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
+```
+
+Notice that the absolute satisfaction coefficient is **`r if(abs(coef_multiple_sat) < abs(coef_simple_sat)) "smaller" else "larger"`** in the multiple regression compared to the simple regression.
+
+- In the **simple regression**, we found that each 1-point increase in satisfaction was associated with a `r abs(pct_simple_sat)`% `r if(or_simple_sat < 1) "decrease" else "increase"` in the odds of readmission.
+- In the **multiple regression**, after controlling for age, comorbidities, and insurance type, each 1-point increase in satisfaction is associated with a `r abs(pct_multiple_sat)`% `r if(or_multiple_sat < 1) "decrease" else "increase"` in the odds of readmission.
+
+### Why Did the Coefficient Change?
+
+This change reveals the presence of **confounding**. A confounder is a variable that is related to both the predictor we're interested in (satisfaction) and the outcome (readmission), potentially creating a misleading relationship.
+
+In our case, it's possible that:
+
+- Younger, healthier patients (fewer comorbidities) tend to have **higher satisfaction scores**
+- Younger, healthier patients are also **naturally less likely to be readmitted** (regardless of their satisfaction)
+
+Without controlling for age and comorbidities, the simple regression may have `r if(abs(coef_multiple_sat) < abs(coef_simple_sat)) "overstated" else "understated"` the true effect of satisfaction on readmission. The multiple regression gives us the **"unique" effect** of satisfaction by holding these other factors constant, essentially asking: "For two patients of the same age, with the same number of comorbidities, and the same insurance type, how does a difference in satisfaction affect readmission risk?"
+
+This is why **multiple regression is essential** in healthcare analytics: it helps us isolate the independent effect of each factor and makes our conclusions more informative for decision-making.
+
+
+## Making Predictions with Multiple Predictors
+
+With multiple logistic regression, we can make more nuanced predictions by considering a patient's complete risk profile, not just one. Instead of just knowing their satisfaction score, we now incorporate their age, health complexity, and insurance status to get a more accurate prediction.
+
+### Manual Calculation for Multiple Predictors
+
+To understand how multiple predictors combine, let's walk through a manual calculation for a specific patient. This shows the mathematical process, though in practice R will do this for us automatically.
+
+The multiple logistic regression equation extends the simple version by adding more terms:
+
+$$\text{Log Odds} = \beta_0 + \beta_1 \times \text{Satisfaction} + \beta_2 \times \text{Age} + \beta_3 \times \text{Comorbidities} + \beta_4 \times \text{Medicare} + \beta_5 \times \text{Private}$$
+
+**Example Patient:**
+
+Let's assume that we have a new patient whose data is as follows, and we would like to predict this patient's predicted probability of readmission using our multiple logistic regression model.
+
+- Satisfaction = 6
+- Age = 70
+- Comorbidities = 3
+- Insurance = Medicare
+
+```{r}
+#| label: multiple-manual-predict
+#| echo: false
+
+# Get coefficients
+b0_m <- coef(model_multiple)[1]
+b1_sat <- coef(model_multiple)["satisfaction"]
+b2_age <- coef(model_multiple)["age"]
+b3_comor <- coef(model_multiple)["comorbidities"]
+b4_medicare <- coef(model_multiple)["insuranceMedicare"]
+b5_private <- coef(model_multiple)["insurancePrivate"]
+
+# Patient values
+sat_val <- 6
+age_val <- 70
+comor_val <- 3
+# Medicare dummy = 1, Otherwise = 0
+medicare_val <- 1
+# Private dummy = 1, Otherwise = 0
+private_val <- 0
+
+# Calculate log odds
+log_odds_m <- b0_m + b1_sat * sat_val + b2_age * age_val + b3_comor * comor_val + b4_medicare * medicare_val + b5_private * private_val
+
+# Convert to odds
+odds_m <- exp(log_odds_m)
+
+# Convert to probability
+prob_m <- odds_m / (1 + odds_m)
+```
+
+**Step 1: Calculate Log Odds**
+
+Using the multiple logistic regression equation, we plug in all predictor values:
+
+Log odds = `r round(b0_m, 3)` + (`r round(b1_sat, 3)`) × 6 + (`r round(b2_age, 4)`) × 70 + (`r round(b3_comor, 3)`) × 3 + (`r round(b4_medicare, 3)`) × 1 + (`r round(b5_private, 3)`) × 0
+
+Log odds = `r round(log_odds_m, 4)`
+
+Note: For Medicare insurance, we use 1 for the Medicare dummy variable and 0 for the Private dummy variable (since the patient doesn't have private insurance).
+
+**Step 2: Convert to Odds**
+
+We can get the predicted odds by taking the exponent of the log odds.
+
+$$\text{Odds} = e^{`r round(log_odds_m, 4)`} = `r round(odds_m, 4)`$$
+
+**Step 3: Convert to Probability**
+
+We can get the predicted probability by using the equation we learned above.
+
+$$\text{Probability} = \frac{`r round(odds_m, 4)`}{1 + `r round(odds_m, 4)`} = `r round(prob_m, 4)`$$
+
+This patient has a `r round(prob_m * 100, 1)`% predicted probability of readmission within 30 days.
+
+### Predictions for Multiple Patient Profiles
+
+While manual calculations help us understand the mechanics, in practice we use R to generate predictions efficiently. One powerful use of multiple regression is creating **risk profiles**: comparing predicted probabilities for patients with different combinations of risk factors.
+
+For example, we can contrast a "Low Risk" patient (young, few comorbidities, high satisfaction, private insurance) with a "High Risk" patient (older, many comorbidities, low satisfaction, Medicaid). Let's create three representative profiles and see how their predicted probabilities differ:
+
+```{r}
+#| label: multiple-predict
+#| echo: false
+
+# Create patient profiles
+patient_profiles <- data.frame(
+  Profile = c("Low Risk", "Medium Risk", "High Risk"),
+  satisfaction = c(8, 6, 4),
+  age = c(50, 65, 80),
+  comorbidities = c(1, 2, 4),
+  insurance = c("Private", "Medicare", "Medicaid")
+)
+
+# Need to convert insurance back to factor for prediction
+patient_profiles_pred <- patient_profiles
+patient_profiles_pred$insurance <- factor(patient_profiles_pred$insurance,
+                                          levels = levels(readmit_data$insurance))
+
+# Predict probabilities
+patient_profiles$`Predicted Probability` <- predict(model_multiple,
+                                           newdata = patient_profiles_pred,
+                                           type = "response")
+```
+
+**Predicted Readmission Probabilities for Different Patient Profiles:**
+
+```{r}
+#| echo: false
+kable(patient_profiles,
+      align = c("l", "c", "c", "c", "l", "c"),
+      digits = 3) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
+```
+
+
+This shows how combining multiple risk factors leads to dramatically different predicted probabilities. The "High Risk" patient (low satisfaction, advanced age, multiple comorbidities, and Medicaid insurance) has a much higher predicted probability of readmission than the "Low Risk" patient. This demonstrates the power of multiple regression. (It can capture the cumulative effect of multiple risk factors!)
+
+
+## Evaluating the Multiple Regression Model
+
+Finally, let's assess how well our multiple regression model performs at classifying patients. Just as we did with simple regression, we'll create a confusion matrix to see how many patients are correctly classified as readmitted or not readmitted.
+
+We'll use the traditional 0.5 threshold for this demonstration, though as discussed earlier, a lower threshold (e.g., 0.20) would be more appropriate for actual readmission prediction:
+
+
+```{r}
+#| label: multiple-evaluation
+#| echo: true
+
+# Add predictions
+readmit_data$pred_prob_multiple <- predict(model_multiple, type = "response")
+readmit_data$pred_class_multiple <- ifelse(readmit_data$pred_prob_multiple >= 0.5, 1, 0)
+```
+
+**Classification Table (Confusion Matrix):**
+
+```{r}
+#| echo: false
+# Classification table with explicit factor levels
+class_table_multiple <- table(
+  Predicted = factor(readmit_data$pred_class_multiple, levels = c(0, 1)),
+  Actual = factor(readmit_data$readmitted, levels = c(0, 1))
+)
+
+kable(class_table_multiple, align = "c") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "left") %>%
+  add_header_above(c(" " = 1, "Actual Outcome" = 2))
+```
+
+```{r}
+#| label: multiple-accuracy
+#| echo: false
+
+# Calculate metrics
+correct_m <- sum(diag(class_table_multiple))
+total_m <- sum(class_table_multiple)
+accuracy_m <- correct_m / total_m
+
+# Break down by actual class
+tn_m <- class_table_multiple[1, 1]  # True negatives
+fp_m <- class_table_multiple[2, 1]  # False positives
+fn_m <- class_table_multiple[1, 2]  # False negatives
+tp_m <- class_table_multiple[2, 2]  # True positives
+```
+
+
+**Model Performance:**
+
+- Correctly classified: `r correct_m` out of `r total_m` patients
+- Overall accuracy: `r round(accuracy_m * 100, 1)`%
+
+**Breakdown:**
+
+- Correctly predicted NOT readmitted (True Negatives): `r tn_m`
+- Correctly predicted readmitted (True Positives): `r tp_m`
+- Incorrectly predicted readmitted (False Positives): `r fp_m`
+- Incorrectly predicted NOT readmitted (False Negatives): `r fn_m`
+
+The multiple logistic regression model achieves `r round(accuracy_m * 100, 1)`% accuracy. This demonstrates the value of incorporating multiple risk factors in predicting readmission.
+
+### Practice Checkpoint 2 {.unnumbered}
+
+::: {.callout-important}
+## Try It Yourself! (20 minutes)
+
+Open `week13_logistic-regression_practice.qmd` and complete:
+
+- **Activity 3**: Surgical Complication Risk (Multiple logistic regression)
+- **Activity 4**: Diabetes Management Success (Multiple logistic regression)
+
+These activities will help you practice:
+- Running multiple logistic regression with several predictors
+- Interpreting odds ratios while controlling for confounders
+- Comparing effects of different predictors
+- Making predictions with multiple risk factors
+
+**Remember**: Each coefficient now represents the effect holding all other variables constant!
+:::
+
+*→ After completing these activities, return to the lecture for the final section on classification thresholds*
+
+------------------------------------------------------------------------
+
+# Choosing the Classification Threshold {.section-time data-time="15 min"}
+
+## The 0.5 Default Is Not Always Optimal
+
+So far, we've used **0.5 as the probability cutoff** for classification:
+
+- If predicted probability ≥ 0.5 → predict "event will occur" (e.g., readmitted)
+- If predicted probability < 0.5 → predict "event will not occur" (e.g., not readmitted)
+
+But **0.5 is arbitrary**. As we noted earlier when discussing readmission prediction, the optimal cutoff depends on your specific application. For hospital readmission, we mentioned that a lower threshold (e.g., 0.10-0.20) might be more appropriate because:
+
+- Actual readmission rates are typically 10-20%, not 50%
+- Missing a high-risk patient is costly
+- Providing extra support to lower-risk patients is relatively inexpensive
+
+Let's explore this more systematically by examining how different thresholds affect our predictions.
+
+## Understanding the Trade-Off
+
+When we change the cutoff threshold, we face a fundamental trade-off:
+
+**Lower threshold (e.g., 0.3)**:
+
+- We predict "event" more often
+- **Catches more true positives** (higher sensitivity)
+- But also **more false alarms** (lower specificity)
+
+**Higher threshold (e.g., 0.7)**:
+
+- We predict "event" less often
+- **Fewer false alarms** (higher specificity)
+- But **misses more true positives** (lower sensitivity)
+
+## Sensitivity and Specificity
+
+To understand how threshold choice affects our predictions, we need to introduce two critical metrics that measure different aspects of model performance. These metrics help us quantify the trade-offs we make when choosing a threshold.
+
+### Defining Sensitivity and Specificity
+
+**SENSITIVITY (True Positive Rate):**
+
+Of patients who were **ACTUALLY readmitted**, what percentage did we correctly identify?
+
+$$\text{Sensitivity} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}$$
+
+In other words, sensitivity measures the model's ability to **catch positive cases**. (i.e., when a patient is readmitted, how often do we predict that they will be readmitted?)
+High sensitivity means we're good at identifying patients who will be readmitted.
+
+**SPECIFICITY (True Negative Rate):**
+
+Of patients who were **NOT readmitted**, what percentage did we correctly identify?
+
+$$\text{Specificity} = \frac{\text{True Negatives}}{\text{True Negatives} + \text{False Positives}}$$
+
+In other words, specificity measures the model's ability to **correctly identify negative cases**. (i.e., when a patient is not readmitted, how often do we predict that they will not be readmitted?)
+High specificity means we're good at identifying patients who will not be readmitted.
+
+### The Inverse Relationship Between Sensitivity and Specificity
+
+Here's the crucial insight: **sensitivity and specificity have an inverse relationship**. When we adjust our threshold:
+
+- **Lowering the threshold** → We predict "positive" more often → More true positives captured (↑ sensitivity) BUT also more false positives (↓ specificity)
+- **Raising the threshold** → We predict "positive" less often → Fewer false positives (↑ specificity) BUT we miss more true positives (↓ sensitivity)
+
+**You cannot maximize both simultaneously.** This creates a fundamental **trade-off** that requires us to think carefully about the costs and benefits of different types of errors in our specific application.
+
+Think of it this way:
+
+- If you want to catch 100% of readmissions (perfect sensitivity), you'd need to flag almost everyone as high-risk, creating many false alarms (poor specificity).
+- If you want zero false alarms (perfect specificity), you'd flag almost no one, missing many actual readmissions (poor sensitivity).
+
+The optimal threshold depends on which type of error is more costly in your context.
+
+### Calculating Sensitivity and Specificity for Our Model
+
+Let's calculate these metrics for our multiple regression model with the 0.5 cutoff:
+
+```{r}
+#| label: calc-sens-spec
+#| echo: false
+
+# Using the classification table we already created
+tn <- class_table_multiple[1, 1]  # True negatives
+fp <- class_table_multiple[2, 1]  # False positives
+fn <- class_table_multiple[1, 2]  # False negatives
+tp <- class_table_multiple[2, 2]  # True positives
+
+sensitivity <- tp / (tp + fn)
+specificity <- tn / (tn + fp)
+```
+
+**With 0.5 cutoff:**
+
+- **Sensitivity:** `r round(sensitivity * 100, 1)`%
+  - We correctly identified `r round(sensitivity * 100, 1)`% of actual readmissions
+  - Calculation: $\frac{`r tp`}{`r tp` + `r fn`} = `r round(sensitivity, 3)`$
+
+- **Specificity:** `r round(specificity * 100, 1)`%
+  - We correctly identified `r round(specificity * 100, 1)`% of patients who were not readmitted
+  - Calculation: $\frac{`r tn`}{`r tn` + `r fp`} = `r round(specificity, 3)`$
+
+These values serve as our baseline. Now let's see how they change when we adjust the threshold.
+
+## Choosing the Right Threshold
+
+The 0.5 cutoff is a default, but not necessarily optimal. Different thresholds create different trade-offs between sensitivity and specificity. Let's compare three different cutoffs using our multiple regression model:
+
+```{r}
+#| label: low-cutoff
+#| echo: false
+
+# Use 0.3 cutoff
+readmit_data$pred_class_030 <- ifelse(readmit_data$pred_prob_multiple >= 0.3, 1, 0)
+class_table_030 <- table(
+  Predicted = factor(readmit_data$pred_class_030, levels = c(0, 1)),
+  Actual = factor(readmit_data$readmitted, levels = c(0, 1))
+)
+
+# Calculate metrics
+tn_030 <- class_table_030[1, 1]
+fp_030 <- class_table_030[2, 1]
+fn_030 <- class_table_030[1, 2]
+tp_030 <- class_table_030[2, 2]
+
+sens_030 <- tp_030 / (tp_030 + fn_030)
+spec_030 <- tn_030 / (tn_030 + fp_030)
+```
+
+```{r}
+#| label: high-cutoff
+#| echo: false
+
+# Use 0.7 cutoff
+readmit_data$pred_class_070 <- ifelse(readmit_data$pred_prob_multiple >= 0.7, 1, 0)
+class_table_070 <- table(
+  Predicted = factor(readmit_data$pred_class_070, levels = c(0, 1)),
+  Actual = factor(readmit_data$readmitted, levels = c(0, 1))
+)
+
+# Calculate metrics
+tn_070 <- class_table_070[1, 1]
+fp_070 <- class_table_070[2, 1]
+fn_070 <- class_table_070[1, 2]
+tp_070 <- class_table_070[2, 2]
+
+sens_070 <- tp_070 / (tp_070 + fn_070)
+spec_070 <- tn_070 / (tn_070 + fp_070)
+```
+
+```{r}
+#| label: cutoff-comparison
+#| echo: false
+
+cutoff_comparison <- data.frame(
+  Cutoff = c("0.3 (Low)", "0.5 (Default)", "0.7 (High)"),
+  Sensitivity = c(round(sens_030 * 100, 1),
+                  round(sensitivity * 100, 1),
+                  round(sens_070 * 100, 1)),
+  Specificity = c(round(spec_030 * 100, 1),
+                  round(specificity * 100, 1),
+                  round(spec_070 * 100, 1)),
+  `False Alarms` = c(fp_030, fp, fp_070),
+  `Missed Cases` = c(fn_030, fn, fn_070)
+)
+
+kable(cutoff_comparison,
+      col.names = c("Cutoff", "Sensitivity (%)", "Specificity (%)",
+                    "False Alarms", "Missed Cases")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
+```
+
+
+As you can see, as the threshold increases:
+
+- **Sensitivity decreases** (we miss more actual readmissions)
+- **Specificity increases** (we have fewer false alarms)
+
+**How to choose the optimal threshold?**
+
+The optimal threshold depends on your specific context and your interest:
+
+- **Prioritize sensitivity (lower threshold)**: When missing a positive case is very costly (e.g., screening programs, low-cost interventions)
+- **Prioritize specificity (higher threshold)**: When false alarms are costly due to limited resources or expensive interventions
+- **Use default 0.5**: When both types of errors have roughly equal costs
+
+In healthcare practice, work with clinical stakeholders to understand the costs of different errors and choose a threshold that aligns with your organizational goals and resource constraints.
+
+------------------------------------------------------------------------
+
+# Summary and Key Takeaways
+
+## When to Use Logistic Regression
+
+Use logistic regression when:
+
+- Your **outcome variable is binary** (two possible values)
+- You want to predict the **probability** of an event occurring
+- You want to understand which factors **increase or decrease** the likelihood of the outcome
+- You need to **quantify effects** using odds ratios
+
+## Interpreting Results
+
+### Log Odds Ratios (Coefficients)
+
+| Value | Meaning |
+|-------|---------|
+| = 0 | No effect on log odds |
+| < 0 | Negative effect (decreases log odds) |
+| > 0 | Positive effect (increases log odds) |
+
+The further from 0, the stronger the effect.
+
+### Odds Ratios (Exponentiated Coefficients)
+
+| Value | Meaning |
+|-------|---------|
+| = 1 | No effect on odds |
+| < 1 | Decreases odds (protective factor) |
+| > 1 | Increases odds (risk factor) |
+
+The further from 1, the stronger the effect.
+
+### Converting Between Measures
+
+**Probability → Odds → Log Odds**
+
+$$\text{Odds} = \frac{p}{1-p}$$
+
+$$\text{Log Odds} = \ln(\text{Odds})$$
+
+**Log Odds → Odds → Probability**
+
+$$\text{Odds} = e^{\text{Log Odds}}$$
+
+$$\text{Probability} = \frac{\text{Odds}}{1 + \text{Odds}}$$
+
+## Simple vs. Multiple Logistic Regression
+
+| Aspect | Simple | Multiple |
+|--------|--------|----------|
+| Predictors | One | Two or more |
+| Interpretation | Direct effect | Effect controlling for other variables |
+| Use case | Initial exploration | Comprehensive modeling |
+| Confounding | Not addressed | Can be controlled |
+
+## Practical Applications in Healthcare
+
+Logistic regression is widely used in healthcare for:
+
+- **Risk prediction models** (readmission, mortality, complications)
+- **Clinical decision support** (identifying high-risk patients)
+- **Quality improvement** (understanding factors affecting outcomes)
+- **Resource allocation** (targeting interventions to those most likely to benefit)
+- **Policy evaluation** (assessing impact of programs on binary outcomes)
+
+------------------------------------------------------------------------
+
+# References and Further Reading
+
+## Statistical Methods
+
+- Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X. (2013). *Applied Logistic Regression* (3rd ed.). Wiley.
+- Field, A. (2018). *Discovering Statistics Using IBM SPSS Statistics* (5th ed.). SAGE Publications.
+- James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning* (2nd ed.). Springer.
+
+## Healthcare Applications
+
+Examples are motivated by the following:
+
+- Boulding, W., Glickman, S. W., Manary, M. P., Schulman, K. A., & Staelin, R. (2011). Relationship between patient satisfaction with inpatient care and hospital readmission within 30 days. *American Journal of Managed Care*, 17(1), 41-48. https://www.ajmc.com/view/ajmc_11jan_boulding_41to48
+
+- Wang, W., Gong, Y., Zhang, W., Zhong, Z., Xu, P., Hu, Y., & Chen, H. (2025). Factors influencing medication adherence among Chinese older adults with physical multimorbidity and polypharmacy: A cross‐sectional study. *Nursing & Health Sciences*. https://doi.org/10.1111/nhs.70192
+
+- Caterino, J. M., Karapanou, O., Pandya, A., Moore, C., Hiestand, B. C., & Perman, S. M. (2020). Predicting pain-related 30-day emergency department return visits in middle-aged and older adults. *Pain Medicine*, 21(11), 2748-2755. https://pmc.ncbi.nlm.nih.gov/articles/PMC8557807/
+
+- Dharap, S. B., Barbaniya, P., & Navgale, S. (2022). Incidence and risk factors of postoperative complications in general surgery patients. *Cureus*, 14(11), e30975. https://doi.org/10.7759/cureus.30975
+
+- Adjei, D. N., Arhin, P. A., Amaglo, J. K., & Osei Bonsu, E. (2025). Poor glycemic control and its predictors among type 2 diabetes patients: Insights from a single‐centre retrospective study in Ghana. *Health Science Reports*, 8(3), e70558. https://pmc.ncbi.nlm.nih.gov/articles/PMC11896812/

@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-3bbbbd466991e281563892c5dce73c3d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-20c3e5c7c73ad9b4506b9f07be6a8356.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -138,7 +138,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -158,7 +158,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -182,10 +182,57 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Mean Comparison 1: t-Tests</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -215,8 +262,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#interpreting-the-output" id="toc-interpreting-the-output" class="nav-link" data-scroll-target="#interpreting-the-output">Interpreting the Output</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#practice-checkpoint-1" id="toc-practice-checkpoint-1" class="nav-link" data-scroll-target="#practice-checkpoint-1">Practice Checkpoint 1</a></li>
   </ul></li>
-  <li><a href="#practice-activity-patient-satisfaction" id="toc-practice-activity-patient-satisfaction" class="nav-link" data-scroll-target="#practice-activity-patient-satisfaction">Practice Activity: Patient Satisfaction</a></li>
   </ul></li>
   <li><a href="#independent-samples-t-test" id="toc-independent-samples-t-test" class="nav-link" data-scroll-target="#independent-samples-t-test">2. Independent-Samples T-Test</a>
   <ul class="collapse">
@@ -237,8 +284,8 @@ window.Quarto = {
   <li><a href="#conducting-in-r-1" id="toc-conducting-in-r-1" class="nav-link" data-scroll-target="#conducting-in-r-1">Conducting in R</a>
   <ul class="collapse">
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  <li><a href="#practice-checkpoint-2" id="toc-practice-checkpoint-2" class="nav-link" data-scroll-target="#practice-checkpoint-2">Practice Checkpoint 2</a></li>
   </ul></li>
-  <li><a href="#practice-activity-length-of-stay" id="toc-practice-activity-length-of-stay" class="nav-link" data-scroll-target="#practice-activity-length-of-stay">Practice Activity: Length of Stay</a></li>
   </ul></li>
   <li><a href="#paired-samples-t-test" id="toc-paired-samples-t-test" class="nav-link" data-scroll-target="#paired-samples-t-test">3. Paired-Samples T-Test</a>
   <ul class="collapse">
@@ -259,8 +306,8 @@ window.Quarto = {
   <li><a href="#conducting-in-r-2" id="toc-conducting-in-r-2" class="nav-link" data-scroll-target="#conducting-in-r-2">Conducting in R</a>
   <ul class="collapse">
   <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
+  <li><a href="#practice-checkpoint-3" id="toc-practice-checkpoint-3" class="nav-link" data-scroll-target="#practice-checkpoint-3">Practice Checkpoint 3</a></li>
   </ul></li>
-  <li><a href="#practice-activity-blood-pressure-intervention" id="toc-practice-activity-blood-pressure-intervention" class="nav-link" data-scroll-target="#practice-activity-blood-pressure-intervention">Practice Activity: Blood Pressure Intervention</a></li>
   </ul></li>
   <li><a href="#choosing-the-right-t-test" id="toc-choosing-the-right-t-test" class="nav-link" data-scroll-target="#choosing-the-right-t-test">Choosing the Right T-Test</a>
   <ul class="collapse">
@@ -486,16 +533,28 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>Since the p-value is much less than 0.05, we <strong>reject the null hypothesis</strong>. The evidence strongly suggests that the hospital’s average ED waiting time is significantly higher than the 45-minute regional standard. This finding warrants investigation into the causes of the longer wait times and potential interventions to address the issue.</p>
 </section>
-</section>
-<section id="practice-activity-patient-satisfaction" class="level2">
-<h2 class="anchored" data-anchor-id="practice-activity-patient-satisfaction">Practice Activity: Patient Satisfaction</h2>
-<p>A clinic wants to test if their average patient satisfaction score differs from the national average of <strong>8.0</strong> (out of 10). Perform a one-sample t-test using the following satisfaction scores:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate sample data</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>satisfaction_scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="practice-checkpoint-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-1">Practice Checkpoint 1</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself! (5 minutes)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pause here!</strong> Open <code>week05_t-tests_practice.qmd</code> and complete:</p>
+<ul>
+<li><strong>Task 1.1</strong>: Perform a one-sample t-test for patient satisfaction scores</li>
+</ul>
+<p>This will help you practice conducting and interpreting one-sample t-tests on your own.</p>
+<p><strong>After 5 minutes</strong>, we’ll continue with the lecture.</p>
+</div>
 </div>
 <hr>
+</section>
 </section>
 </section>
 <section id="independent-samples-t-test" class="level1">
@@ -551,13 +610,13 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 <h2 class="anchored" data-anchor-id="example-comparing-hospital-intake-times">Example: Comparing Hospital Intake Times</h2>
 <p>Let’s analyze the processing times (in minutes) from our two hospitals:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hospital A (Digital): Processing times in minutes</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>hospital_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">14</span>,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">13</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">19</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Hospital B (Paper): Processing times in minutes</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>hospital_B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">20</span>, <span class="dv">16</span>, <span class="dv">18</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hospital A (Digital): Processing times in minutes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>hospital_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">14</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">13</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">19</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Hospital B (Paper): Processing times in minutes</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>hospital_B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">20</span>, <span class="dv">16</span>, <span class="dv">18</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -623,10 +682,10 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 <h2 class="anchored" data-anchor-id="conducting-in-r-1">Conducting in R</h2>
 <p>We can conduct an independent-samples t-test using <code>t.test()</code> with two groups:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform independent samples t-test</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># var.equal = TRUE uses pooled variance (Student's t-test)</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>result_ind <span class="ot">&lt;-</span> <span class="fu">t.test</span>(hospital_A, hospital_B, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform independent samples t-test</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># var.equal = TRUE uses pooled variance (Student's t-test)</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>result_ind <span class="ot">&lt;-</span> <span class="fu">t.test</span>(hospital_A, hospital_B, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Two Sample t-test
 
@@ -650,27 +709,28 @@ Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 <li><strong>Conclusion</strong>: Since p-value &lt; 0.05, we reject the null hypothesis. The digital intake system (Hospital A) has significantly shorter processing times than the paper system (Hospital B).</li>
 </ul>
 </section>
-</section>
-<section id="practice-activity-length-of-stay" class="level2">
-<h2 class="anchored" data-anchor-id="practice-activity-length-of-stay">Practice Activity: Length of Stay</h2>
-<p>Compare length of stay (days) between patients receiving a new discharge protocol vs.&nbsp;standard care:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># New protocol group</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>new_protocol <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.2</span>, <span class="fl">3.8</span>, <span class="fl">5.1</span>, <span class="fl">4.5</span>, <span class="fl">3.9</span>, <span class="fl">4.8</span>, <span class="fl">4.1</span>, <span class="fl">5.0</span>, <span class="fl">3.7</span>, <span class="fl">4.3</span>,</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fl">4.6</span>, <span class="fl">3.8</span>, <span class="fl">4.4</span>, <span class="fl">4.9</span>, <span class="fl">4.0</span>, <span class="fl">3.6</span>, <span class="fl">4.7</span>, <span class="fl">4.2</span>, <span class="fl">5.2</span>, <span class="fl">3.9</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard care group</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>standard_care <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">5.8</span>, <span class="fl">6.2</span>, <span class="fl">5.5</span>, <span class="fl">6.8</span>, <span class="fl">5.1</span>, <span class="fl">6.5</span>, <span class="fl">5.9</span>, <span class="fl">6.3</span>, <span class="fl">5.4</span>, <span class="fl">6.1</span>,</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fl">5.7</span>, <span class="fl">6.4</span>, <span class="fl">5.3</span>, <span class="fl">6.6</span>, <span class="fl">5.8</span>, <span class="fl">6.0</span>, <span class="fl">5.6</span>, <span class="fl">6.2</span>, <span class="fl">5.9</span>, <span class="fl">6.7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="practice-checkpoint-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-2">Practice Checkpoint 2</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform t-test</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(new_protocol, standard_care, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself! (5 minutes)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open <code>week05_t-tests_practice.qmd</code> and complete:</p>
+<ul>
+<li><strong>Task 2.1</strong>: Perform an independent-samples t-test comparing length of stay between two groups</li>
+</ul>
+<p>This will help you practice conducting and interpreting independent-samples t-tests.</p>
+<p><strong>After completing this task</strong>, we’ll continue with paired-samples t-tests.</p>
+</div>
 </div>
 <hr>
+</section>
 </section>
 </section>
 <section id="paired-samples-t-test" class="level1">
@@ -745,14 +805,14 @@ Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 <section id="example-pain-management-protocol" class="level2">
 <h2 class="anchored" data-anchor-id="example-pain-management-protocol">Example: Pain Management Protocol</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pain scores before and after intervention</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>            <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>            <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>,</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>           <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>,</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>           <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pain scores before and after intervention</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>            <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>           <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>           <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -815,9 +875,9 @@ Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 <h2 class="anchored" data-anchor-id="conducting-in-r-2">Conducting in R</h2>
 <p>We can conduct a paired-sample t-test using <code>t.test()</code> function with the <code>paired = TRUE</code> argument:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform paired samples t-test</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>result_paired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(before, after, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_paired)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform paired samples t-test</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>result_paired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(before, after, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_paired)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Paired t-test
 
@@ -837,26 +897,28 @@ Alternative hypothesis: true mean difference is not equal to 0</code></pre>
 <li><strong>Conclusion</strong>: Since p-value &lt; 0.05, we reject the null hypothesis. The pain management protocol significantly reduced pain scores.</li>
 </ul>
 </section>
-</section>
-<section id="practice-activity-blood-pressure-intervention" class="level2">
-<h2 class="anchored" data-anchor-id="practice-activity-blood-pressure-intervention">Practice Activity: Blood Pressure Intervention</h2>
-<p>Analyze systolic blood pressure before and after a lifestyle intervention program:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blood pressure data</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>bp_before <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">145</span>, <span class="dv">152</span>, <span class="dv">138</span>, <span class="dv">160</span>, <span class="dv">142</span>, <span class="dv">155</span>, <span class="dv">148</span>, <span class="dv">158</span>, <span class="dv">140</span>, <span class="dv">150</span>,</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>               <span class="dv">146</span>, <span class="dv">153</span>, <span class="dv">139</span>, <span class="dv">157</span>, <span class="dv">144</span>, <span class="dv">151</span>, <span class="dv">147</span>, <span class="dv">159</span>, <span class="dv">141</span>, <span class="dv">149</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>bp_after <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">132</span>, <span class="dv">158</span>, <span class="dv">142</span>, <span class="dv">155</span>, <span class="dv">136</span>, <span class="dv">148</span>, <span class="dv">144</span>, <span class="dv">152</span>, <span class="dv">134</span>, <span class="dv">148</span>,</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>              <span class="dv">140</span>, <span class="dv">149</span>, <span class="dv">138</span>, <span class="dv">158</span>, <span class="dv">138</span>, <span class="dv">150</span>, <span class="dv">148</span>, <span class="dv">157</span>, <span class="dv">135</span>, <span class="dv">143</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="practice-checkpoint-3" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-3">Practice Checkpoint 3</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform paired t-test</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(bp_before, bp_after, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">parameters</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself! (5 minutes)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open <code>week05_t-tests_practice.qmd</code> and complete:</p>
+<ul>
+<li><strong>Task 3.1</strong>: Perform a paired-samples t-test for blood pressure intervention</li>
+</ul>
+<p>This will help you practice conducting and interpreting paired-samples t-tests.</p>
+<p><strong>After completing this task</strong>, we’ll review how to choose the right test.</p>
+</div>
 </div>
 <hr>
+</section>
 </section>
 </section>
 <section id="choosing-the-right-t-test" class="level1">

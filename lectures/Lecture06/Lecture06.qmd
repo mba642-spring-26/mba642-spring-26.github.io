@@ -1,0 +1,1137 @@
+---
+title: "Mean Comparison 2: One-Way and Repeated-Measure ANOVA"
+subtitle: "MBA642: Business Analytics in Healthcare Management"
+Week: "Week 6"
+date: 01/01/2026
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    code-tools: false
+    theme: cosmo
+    highlight-style: github
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(parameters)
+library(emmeans)
+library(gridExtra)
+set.seed(2026)
+```
+
+# Introduction to ANOVA
+
+## Why ANOVA Matters?
+
+We frequently need to compare outcomes across **more than two groups**. Let's think about these scenarios:
+
+-   Comparing patient satisfaction scores across **five different hospital departments**
+-   Evaluating readmission rates among **three different care coordination models**
+-   Assessing staff performance across **four different training programs**
+-   Tracking patient outcomes at **multiple time points** during recovery
+
+While t-tests are excellent for comparing two groups, they cannot handle these multi-group comparisons. This is where **Analysis of Variance (ANOVA)** becomes essential. ANOVA allows us to determine whether there are statistically significant differences among three or more group means in **a single test**.
+
+## The Problem with Multiple t-Tests
+
+You might wonder: "Why not just run multiple t-tests to compare each pair of groups?" This approach is tempting but fundamentally flawed due to the **familywise error rate** problem.
+
+### Familywise Error Rate
+
+Each time we conduct a statistical test at α = 0.05, we accept a 5% chance of making a Type I error (false positive; concluding there's a difference when there isn't one). When we perform multiple tests, these error rates increase.
+
+The probability of Type I error across multiple tests is:
+
+$$P(\text{at least one Type I error}) = 1 - (1 - \alpha)^k$$
+
+Where $k$ is the number of comparisons.
+
+```{r}
+#| label: error-rate-demo
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+
+# Calculate familywise error rates
+comparisons <- 1:15
+error_rates <- 1 - (1 - 0.05)^comparisons
+
+error_df <- data.frame(
+  comparisons = comparisons,
+  error_rate = error_rates * 100
+)
+
+# Create lookup for common group sizes
+groups <- c(3, 4, 5, 6)
+comps <- choose(groups, 2)
+rates <- (1 - (1 - 0.05)^comps) * 100
+
+ggplot(error_df, aes(x = comparisons, y = error_rate)) +
+  geom_line(linewidth = 1.2, color = "#2E86AB") +
+  geom_point(size = 3, color = "#2E86AB") +
+  geom_hline(yintercept = 5, linetype = "dashed", color = "red") +
+  annotate("text", x = 12, y = 8, label = "Desired α = 5%", color = "red") +
+  annotate("point", x = comps, y = rates, size = 4, color = "#A23B72") +
+  annotate("text", x = 3, y = 20, label = "3 groups\n(3 tests)", size = 3) +
+  annotate("text", x = 6, y = 35, label = "4 groups\n(6 tests)", size = 3) +
+  annotate("text", x = 10, y = 48, label = "5 groups\n(10 tests)", size = 3) +
+  scale_x_continuous(breaks = 1:15) +
+  scale_y_continuous(breaks = seq(0, 60, 10), limits = c(0, 60)) +
+  labs(title = "The Multiple Comparisons Problem",
+       subtitle = "Familywise error rate increases rapidly with number of t-tests",
+       x = "Number of Pairwise Comparisons",
+       y = "Probability of at Least One Type I Error (%)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+For example, with just 4 groups, you would need 6 pairwise t-tests. The familywise error rate becomes: $$1 - (0.95)^6 = 0.265 = 26.5\%$$
+
+This means you have a 26.5% chance of finding at least one "significant" difference by pure chance—far from the 5% we intended!
+
+### ANOVA Solves This Problem
+
+ANOVA tests all groups simultaneously with a **single test**, maintaining the Type I error rate at our desired α level (in our class, 5%). If ANOVA finds a significant difference, we then use **post-hoc tests** with appropriate corrections to identify which specific groups differ.
+
+## Overview of ANOVA Types
+
+This document covers two fundamental ANOVA designs:
+
+| ANOVA Type | Purpose | Example |
+|----------------------------|----------------------|----------------------|
+| **One-Way ANOVA** | Compare means across 3+ independent groups | Comparing satisfaction scores across 4 hospital departments |
+| **Repeated-Measures ANOVA** | Compare means across 3+ related measurements on the same subjects | Tracking pain scores at baseline, 1 month, 3 months, and 6 months |
+
+------------------------------------------------------------------------
+
+# 1. One-Way ANOVA
+
+## What is it?
+
+A **one-way ANOVA** (Analysis of Variance) tests whether there are statistically significant differences among the means of three or more independent groups. The "one-way" refers to having one independent variable (factor) with multiple levels (groups).
+
+ANOVA actually analyzes **variance** to make inferences about **means**. It works by partitioning the total variability in the data into:
+
+1.  **Between-group variance**: Differences among group means
+2.  **Within-group variance**: Differences among individuals within groups
+
+If the between-group variance is substantially larger than the within-group variance, we conclude that the group means are significantly different.
+
+### Key Components
+
+-   **One independent variable** (factor) with 3+ levels
+-   **Independent groups**: Each observation belongs to only one group
+-   **Continuous dependent variable**: The outcome measure
+
+## When to Use It
+
+One-way ANOVA is appropriate whenever you need to compare means across three or more distinct, unrelated groups:
+
+-   Comparing **patient outcomes** across different treatment protocols
+-   Evaluating **staff performance** across multiple departments
+-   Comparing **operational metrics** across several facilities
+-   Assessing **patient satisfaction** across various service lines
+-   Comparing **cost efficiency** across different care models
+
+## Scenario 1: Patient Satisfaction Across Hospital Departments
+
+A hospital administrator wants to evaluate patient satisfaction across **four departments**: Emergency, Cardiology, Orthopedics, and Oncology. Each department has implemented different patient experience initiatives, and leadership wants to know if satisfaction levels differ significantly.
+
+## The Formula
+
+The one-way ANOVA calculates an **F-statistic**:
+
+$$F = \frac{\text{Between-group variance}}{\text{Within-group variance}} = \frac{MS_{between}}{MS_{within}}$$
+
+Where:
+
+-   **Mean Square Between** ($MS_{between}$): Average variance among group means $$MS_{between} = \frac{SS_{between}}{df_{between}} = \frac{\sum_{j=1}^{k} n_j(\bar{X}_j - \bar{X}_{grand})^2}{k-1}$$
+
+-   **Mean Square Within** ($MS_{within}$): Average variance within groups $$MS_{within} = \frac{SS_{within}}{df_{within}} = \frac{\sum_{j=1}^{k}\sum_{i=1}^{n_j}(X_{ij} - \bar{X}_j)^2}{N-k}$$
+
+Where:
+
+-   $k$ = number of groups
+
+-   $n_j$ = sample size of group $j$
+
+-   $N$ = total sample size
+
+-   $\bar{X}_j$ = mean of group $j$
+
+-   $\bar{X}_{grand}$ = overall mean (grand mean)
+
+### Understanding the F-Statistic
+
+The F-statistic is a **ratio**:
+
+-   **F ≈ 1**: Between-group variance is similar to within-group variance → group means are likely not different
+-   **F \>\> 1**: Between-group variance is much larger than within-group variance → group means are likely different
+
+Think of it this way: If the groups truly have different means, the variance between their means should be larger than what we would expect from random sampling variation (within-group variance).
+
+## Example: Patient Satisfaction by Department
+
+```{r}
+#| label: oneway-example1
+
+# Patient satisfaction scores (1-10 scale) for four departments
+emergency <- c(7.7, 6.7, 7.9, 7.2, 8.1, 7.5, 7.3, 7.4, 7.0, 7.6,
+               7.9, 7.7, 7.7, 7.9, 7.1, 7.5, 7.7, 7.9, 7.2, 7.2)
+
+cardiology <- c(8.1, 8.5, 7.9, 6.3, 8.3, 8.0, 8.4, 8.2, 7.8, 8.5,
+                7.6, 8.1, 8.4, 7.9, 8.0, 8.2, 8.0, 8.3, 8.5, 6.8)
+
+orthopedics <- c(7.8, 8.0, 7.5, 7.9, 8.2, 7.6, 7.7, 8.1, 7.4, 7.8,
+                 8.0, 7.6, 7.9, 7.5, 7.8, 8.1, 6.7, 7.9, 7.6, 8.0)
+
+oncology <- c(8.4, 8.8, 8.2, 7.6, 8.9, 6.3, 8.7, 6.5, 8.1, 8.6,
+              8.8, 8.4, 6.7, 8.2, 8.5, 7.9, 8.3, 8.6, 8.4, 8.7)
+
+# Create data frame
+satisfaction_data <- data.frame(
+  score = c(emergency, cardiology, orthopedics, oncology),
+  department = factor(rep(c("Emergency", "Cardiology", "Orthopedics", "Oncology"),
+                          each = 20))
+)
+```
+
+```{r}
+#| echo: false
+# Summary statistics
+summary_stats <- satisfaction_data %>%
+  group_by(department) %>%
+  summarise(
+    n = n(),
+    mean = round(mean(score), 2),
+    sd = round(sd(score), 2)
+  )
+
+knitr::kable(summary_stats,
+             col.names = c("Department", "n", "Mean", "SD"),
+             caption = "Summary Statistics by Department")
+```
+
+## Manual Calculation: Understanding the F-Statistic
+
+Let's manually calculate the ANOVA components to understand what the test is actually doing. This mirrors the manual calculation approach we used for t-tests.
+
+```{r}
+#| label: oneway-manual-calc
+
+# Step 1: Calculate group means and overall mean
+mean_emergency <- mean(emergency)
+mean_cardiology <- mean(cardiology)
+mean_orthopedics <- mean(orthopedics)
+mean_oncology <- mean(oncology)
+grand_mean <- mean(satisfaction_data$score)
+
+# Step 2: Calculate Sum of Squares Between Groups (SSB)
+n_per_group <- 20
+ssb <- n_per_group * (
+  (mean_emergency - grand_mean)^2 +
+  (mean_cardiology - grand_mean)^2 +
+  (mean_orthopedics - grand_mean)^2 +
+  (mean_oncology - grand_mean)^2
+)
+
+# Step 3: Calculate Sum of Squares Within Groups (SSW)
+ssw <- sum((emergency - mean_emergency)^2) +
+       sum((cardiology - mean_cardiology)^2) +
+       sum((orthopedics - mean_orthopedics)^2) +
+       sum((oncology - mean_oncology)^2)
+
+# Step 4: Calculate degrees of freedom
+k <- 4  # number of groups
+n_total <- nrow(satisfaction_data)
+df_between <- k - 1
+df_within <- n_total - k
+
+# Step 5: Calculate Mean Squares
+ms_between <- ssb / df_between
+ms_within <- ssw / df_within
+
+# Step 6: Calculate F-statistic
+f_statistic <- ms_between / ms_within
+
+# Step 7: Calculate p-value
+p_value <- 1 - pf(f_statistic, df_between, df_within)
+```
+
+```{r}
+#| echo: false
+cat("Manual ANOVA Calculation:\n")
+cat("========================\n\n")
+cat("Group Means:\n")
+cat("  Emergency:    ", round(mean_emergency, 2), "\n")
+cat("  Cardiology:   ", round(mean_cardiology, 2), "\n")
+cat("  Orthopedics:  ", round(mean_orthopedics, 2), "\n")
+cat("  Oncology:     ", round(mean_oncology, 2), "\n")
+cat("  Grand Mean:   ", round(grand_mean, 2), "\n\n")
+
+cat("Sum of Squares:\n")
+cat("  Between groups (SSB): ", round(ssb, 2), "\n")
+cat("  Within groups (SSW):  ", round(ssw, 2), "\n\n")
+
+cat("Degrees of Freedom:\n")
+cat("  Between: ", df_between, "\n")
+cat("  Within:  ", df_within, "\n\n")
+
+cat("Mean Squares:\n")
+cat("  MS Between: ", round(ms_between, 2), "\n")
+cat("  MS Within:  ", round(ms_within, 2), "\n\n")
+
+cat("F-statistic: ", round(f_statistic, 2), "\n")
+cat("p-value:     ", format(p_value, scientific = FALSE, digits = 3), "\n")
+```
+
+### Understanding What These Numbers Mean
+
+-   **Between-group variance** (MS Between = `r round(ms_between, 2)`): This measures how much the department means differ from each other. Larger values indicate greater differences among departments.
+
+-   **Within-group variance** (MS Within = `r round(ms_within, 2)`): This measures the typical variation among patients within the same department. It represents "noise" or natural variation.
+
+-   **F-statistic** (F = `r round(f_statistic, 2)`): The ratio of between-group to within-group variance. Our F-value of `r round(f_statistic, 2)` means the between-group variance is `r round(f_statistic, 2)` times larger than the within-group variance, suggesting real differences exist among departments.
+
+## Visualizing Group Differences
+
+```{r}
+#| label: oneway-viz1
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+
+# Box plot
+p1 <- ggplot(satisfaction_data, aes(x = department, y = score, fill = department)) +
+  geom_boxplot(alpha = 0.7, width = 0.4) +
+  geom_jitter(width = 0.1, alpha = 0.5, size = 1.5) +
+  scale_fill_manual(values = c("#E63946", "#457B9D", "#2A9D8F", "#E9C46A")) +
+  labs(title = "Patient Satisfaction by Department",
+       x = "Department", y = "Satisfaction Score (1-10)") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"))
+p1
+```
+
+## Visualizing the F-Distribution under the Null Hypothesis
+
+```{r}
+#| label: oneway-fdist
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+
+# Run ANOVA to get F-statistic
+anova_result <- aov(score ~ department, data = satisfaction_data)
+f_stat <- summary(anova_result)[[1]]$`F value`[1]
+df1 <- summary(anova_result)[[1]]$Df[1]
+df2 <- summary(anova_result)[[1]]$Df[2]
+
+# Create F-distribution plot
+x_range <- seq(0, max(f_stat + 5, 10), length.out = 1000)
+y_values <- df(x_range, df1, df2)
+
+# Critical value
+crit_val <- qf(0.95, df1, df2)
+
+ggplot(data.frame(x = x_range, y = y_values), aes(x, y)) +
+  geom_line(linewidth = 1) +
+  geom_area(data = subset(data.frame(x = x_range, y = y_values), x >= crit_val),
+            aes(x, y), fill = "gray50", alpha = 0.5) +
+  geom_vline(xintercept = crit_val, linetype = "dashed") +
+  geom_vline(xintercept = f_stat, color = "red", linewidth = 1.5) +
+  annotate("text", x = f_stat + 1, y = 0.3,
+           label = paste("F =", round(f_stat, 2)),
+           color = "red", hjust = 0, fontface = "bold") +
+  annotate("text", x = crit_val + 0.5, y = 0.05,
+           label = paste("Critical =", round(crit_val, 2)),
+           hjust = 0, size = 3) +
+  labs(title = "One-Way ANOVA: F-Distribution Under the Null Hypothesis",
+       subtitle = paste("df1 =", df1, ", df2 =", df2),
+       x = "F-value", y = "Density") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+## Conducting One-Way ANOVA in R
+
+```{r}
+#| label: oneway-test1
+
+# Perform one-way ANOVA
+anova_result <- aov(score ~ department, data = satisfaction_data)
+summary(anova_result)
+```
+
+### Interpreting the ANOVA Table
+
+-   **Df (Degrees of Freedom)**:
+
+    -   Between groups: $k - 1 = 4 - 1 = 3$
+    -   Within groups: $N - k = 80 - 4 = 76$
+
+-   **Sum Sq (Sum of Squares)**: Total variance explained by the factor (between) vs. unexplained variance (within)
+
+-   **Mean Sq (Mean Square)**: Sum of Squares divided by degrees of freedom
+
+-   **F value**: The test statistic—ratio of between-group to within-group variance
+
+-   **Pr(\>F)**: The p-value—probability of observing this F-value if all group means were truly equal
+
+### Conclusion from ANOVA
+
+With F = `r round(f_stat, 2)` and p \< 0.05, we **reject the null hypothesis**. There are statistically significant differences in patient satisfaction among the four departments.
+
+**But which departments differ from each other?** The ANOVA tells us that differences exist but not where they are. For this, we need **post-hoc tests**.
+
+## Post-Hoc Tests: Tukey's HSD
+
+When ANOVA is significant, we use **post-hoc tests** to identify which specific groups differ. **Tukey's Honest Significant Difference (HSD)** test compares all possible pairs while controlling the familywise error rate.
+
+### What is Tukey's HSD?
+
+Tukey's HSD is designed to solve a specific problem: **How do we compare all pairs of groups while maintaining our overall Type I error rate at α = 0.05?**
+
+**Key features:**
+
+1. **Tests all pairwise comparisons** - For k groups, it tests all $\frac{k(k-1)}{2}$ possible pairs
+   - 4 groups → 6 comparisons
+   - 5 groups → 10 comparisons
+
+2. **Controls familywise error rate** - Your overall chance of making at least one Type I error stays at 5% across ALL comparisons (not 5% per comparison)
+
+3. **Uses the studentized range distribution** - More appropriate than t-distribution for multiple comparisons
+
+**The HSD critical value:**
+
+$$HSD = q_{\alpha, k, df_{error}} \times \sqrt{\frac{MS_{within}}{n}}$$
+
+Where:
+
+- $q_{\alpha, k, df_{error}}$ = critical value from studentized range distribution
+- $MS_{within}$ = mean square error from ANOVA
+- $n$ = sample size per group
+- $k$ = number of groups
+
+**If the absolute difference between two group means exceeds HSD, that difference is statistically significant.**
+
+
+### Conducting Tukey's HSD in R Using emmeans
+
+Now let's use the `emmeans` package, which is the modern standard for post-hoc testing:
+
+```{r}
+#| label: posthoc-tukey1
+
+# Step 1: Calculate estimated marginal means
+emm_dept <- emmeans(anova_result, ~ department)
+emm_dept
+
+# Step 2: Perform pairwise comparisons with Tukey adjustment
+tukey_pairs <- pairs(emm_dept, adjust = "tukey")
+tukey_pairs
+```
+
+
+### Interpreting Tukey's HSD Output
+
+Each row in the output shows a pairwise comparison:
+
+-   **contrast**: Which two groups are being compared
+-   **estimate**: Difference between group means
+-   **SE**: Standard error of the difference
+-   **df**: Degrees of freedom
+-   **t.ratio**: Test statistic
+-   **p.value**: Adjusted p-value (controlling for multiple comparisons)
+
+**Decision rule:**
+
+- If **p.value < 0.05**, those groups are significantly different
+
+
+**Key findings from our analysis:**
+
+```{r}
+#| echo: false
+# Extract significant comparisons for summary table
+tukey_summary <- as.data.frame(tukey_pairs)
+
+sig_comparisons <- tukey_summary %>%
+  filter(p.value < 0.05) %>%
+  mutate(
+    estimate = round(estimate, 2),
+    p.value = format(p.value, scientific = FALSE, digits = 2)
+  ) %>%
+  select(contrast, estimate, p.value)
+
+knitr::kable(sig_comparisons,
+             col.names = c("Comparison", "Difference", "Adjusted p-value"),
+             caption = "Significant Pairwise Differences (p < 0.05)")
+```
+
+### Practice Checkpoint 1 {.unnumbered}
+
+::: {.callout-important}
+## Try It Yourself! (10 minutes)
+
+**Pause here!** Open `week06_anova1_practice.qmd` and complete:
+
+- **Practice Activity 1**: Staff Training Programs (One-Way ANOVA)
+
+This will help you practice conducting one-way ANOVA and interpreting post-hoc tests on your own.
+
+**After 10 minutes**, we'll continue with the next example.
+:::
+
+## Example 2: Comparing Care Coordination Models
+
+A health system wants to evaluate **three different care coordination models** for managing patients with chronic conditions. They measure 30-day readmission rates (%) across facilities using each model.
+
+**Real-world context:** Studies have shown that different care coordination approaches produce varying outcomes, with community health worker interventions and transition care coordinator models demonstrating significant reductions in hospital readmissions. The comparative effectiveness of different models remains an important question for resource allocation.
+
+**Model A: Nurse-Led Telephone Follow-Up**
+
+- Registered nurses call patients within 48 hours of discharge
+- Phone-based medication reconciliation and education
+- Identification of red flags or concerning symptoms
+- Lowest resource intensity but limited ability to assess home environment
+- Relies on patient self-report
+
+**Model B: Community Health Worker (CHW) Home Visits**
+
+- Trained community health workers conduct in-person home visits within 72 hours
+- Visual assessment of home environment, medication compliance, and social determinants
+- Can connect patients to community resources (food, transportation, social services)
+- Cultural concordance often improves trust and communication
+- Higher resource intensity than phone calls
+
+**Model C: Integrated Care Team with Digital Monitoring**
+
+- Multidisciplinary team (nurse, pharmacist, social worker) coordinates care
+- Patients receive remote monitoring devices (blood pressure, weight, pulse oximetry)
+- Daily automated data transmission to care team
+- Algorithm-driven alerts trigger proactive interventions
+- Weekly team huddles to review high-risk patients
+- Highest resource intensity but most comprehensive approach
+
+Do these three care coordination models differ significantly in their effectiveness at reducing 30-day hospital readmissions?
+
+```{r}
+#| label: oneway-example2
+
+# 30-day readmission rates (%) by care coordination model
+model_A <- c(12.5, 14.2, 11.8, 13.6, 12.9, 14.8, 11.5, 13.2, 12.7, 14.1,
+             13.4, 12.2, 14.5, 11.9, 13.8, 12.4, 14.3, 13.1, 12.6, 13.9)
+
+model_B <- c(10.2, 11.5, 9.8, 10.9, 11.2, 10.5, 9.6, 11.8, 10.3, 11.1,
+             10.7, 9.9, 11.4, 10.1, 10.8, 11.6, 9.7, 10.6, 11.3, 10.4)
+
+model_C <- c(8.5, 9.2, 7.8, 8.9, 9.5, 8.2, 7.6, 9.1, 8.6, 8.8,
+             9.3, 8.1, 8.7, 7.9, 9.4, 8.3, 7.7, 9.0, 8.4, 8.9)
+
+# Create data frame
+readmission_data <- data.frame(
+  rate = c(model_A, model_B, model_C),
+  model = factor(rep(c("Model A: Nurse Phone", "Model B: CHW Visits",
+                       "Model C: Integrated"), each = 20))
+)
+```
+
+```{r}
+#| label: oneway-viz2
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+
+ggplot(readmission_data, aes(x = model, y = rate, fill = model)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.1, alpha = 0.5) +
+  scale_fill_manual(values = c("#457B9D", "#2A9D8F", "#E9C46A")) +
+  labs(title = "30-Day Readmission Rates by Care Coordination Model",
+       x = "Care Model", y = "Readmission Rate (%)") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"))
+```
+
+```{r}
+#| label: oneway-test2
+
+# Perform ANOVA
+anova_readmit <- aov(rate ~ model, data = readmission_data)
+summary(anova_readmit)
+```
+
+### Interpreting the ANOVA Results
+
+```{r}
+#| echo: false
+# Extract F-statistic and p-value for interpretation
+f_stat_readmit <- summary(anova_readmit)[[1]]$`F value`[1]
+p_val_readmit <- summary(anova_readmit)[[1]]$`Pr(>F)`[1]
+
+# Calculate means for interpretation
+model_means <- readmission_data %>%
+  group_by(model) %>%
+  summarise(mean_rate = round(mean(rate), 2))
+```
+
+With F = `r round(f_stat_readmit, 2)` and p \< 0.05, we **reject the null hypothesis**. There are statistically significant differences in 30-day readmission rates among the three care coordination models.
+
+**Observed mean readmission rates:**
+
+- Model A (Nurse Phone): `r model_means$mean_rate[1]`%
+- Model B (CHW Visits): `r model_means$mean_rate[2]`%
+- Model C (Integrated): `r model_means$mean_rate[3]`%
+
+But which specific models differ from each other? Let's examine the post-hoc tests.
+
+### Post-Hoc Analysis: Pairwise Comparisons
+
+```{r}
+#| label: oneway-posthoc2
+
+# Post-hoc test using emmeans
+emm_readmit <- emmeans(anova_readmit, ~ model)
+tukey_readmit <- pairs(emm_readmit, adjust = "tukey")
+tukey_readmit
+```
+
+### Detailed Interpretation of Pairwise Comparisons
+
+```{r}
+#| echo: false
+# Create interpretable summary table
+tukey_df_readmit <- as.data.frame(tukey_readmit)
+tukey_df_readmit <- tukey_df_readmit %>%
+  mutate(
+    estimate = round(estimate, 2),
+    p.value = round(p.value, 4),
+    significant = ifelse(p.value < 0.05, "Yes", "No")
+  ) %>%
+  select(contrast, estimate, p.value, significant)
+
+knitr::kable(tukey_df_readmit,
+             col.names = c("Comparison", "Difference (percentage points)", "Adjusted p-value", "Significant?"),
+             caption = "Tukey HSD Pairwise Comparisons")
+```
+
+**Key findings from Tukey's HSD:**
+
+1.  **Model B vs. Model A**: Community health worker home visits (Model B) reduce readmission rates by approximately `r abs(tukey_df_readmit$estimate[1])` **percentage points** compared to nurse-led telephone follow-up (Model A), and this difference is statistically significant (p \< 0.05).
+
+2.  **Model C vs. Model A**: The integrated care team with digital monitoring (Model C) reduces readmission rates by approximately `r abs(tukey_df_readmit$estimate[2])` **percentage points** compared to Model A, showing the largest improvement (p \< 0.001).
+
+3.  **Model C vs. Model B**: Model C also significantly outperforms Model B, reducing readmissions by approximately `r abs(tukey_df_readmit$estimate[3])` **percentage points** (p \< 0.05).
+
+### Practice Checkpoint 2 {.unnumbered}
+
+::: {.callout-important}
+## Try It Yourself! (10 minutes)
+
+Open `week06_anova1_practice.qmd` and complete:
+
+- **Practice Activity 2**: Hospital Operating Costs (One-Way ANOVA)
+
+This will help you practice with a different dataset involving cost analysis across hospital types.
+:::
+
+------------------------------------------------------------------------
+
+# 2. Repeated-Measures ANOVA
+
+## What is it?
+
+A **repeated-measures ANOVA** (also called within-subjects ANOVA) tests whether there are significant differences across three or more related measurements on the **same respondents**. This design is the extension of the paired t-test to situations involving more than two time points, measurements, or conditions.
+
+The key advantage of repeated-measures designs is that each respondent serves as their own control, which **reduces error variance** and increases statistical power. By tracking the same individuals over time, we eliminate individual differences as a source of variability.
+
+### Key Components
+
+-   **Same subjects, respondents, patients** measured multiple times
+-   **Three or more** measurement occasions or conditions
+-   **Related observations**: Each subject contributes data to all conditions
+
+## When to Use It
+
+Repeated-measures ANOVA is appropriate for:
+
+-   **Longitudinal studies**: Tracking patients at multiple time points
+    -   Pain scores at baseline (month 0), 1 month, 3 months, 6 months
+    -   HbA1c levels across quarterly clinic visits
+-   **Within-subject experiments**: Testing same subjects under different conditions
+    -   Response to different medication dosages
+    -   Performance under different shift schedules
+-   **Quality improvement tracking**: Monitoring metrics over multiple periods
+    -   Hospital safety scores across quarters
+    -   Patient satisfaction before, during, and after initiative implementation
+
+## Scenario 1: Diabetes Management Program
+
+### Background and Context
+
+A healthcare organization implements a comprehensive diabetes management program for patients with poorly controlled Type 2 diabetes. The program includes:
+
+- **Monthly nurse educator visits** for medication management and lifestyle coaching
+- **Quarterly endocrinologist consultations** for treatment plan adjustments
+- **Continuous glucose monitoring (CGM)** with remote monitoring by care team
+- **Nutritionist consultations** for personalized meal planning
+- **Group support sessions** for peer learning and motivation
+
+### The Outcome Measure: HbA1c
+
+**What is HbA1c?**
+
+- Glycated hemoglobin (HbA1c) measures average blood glucose over the past 2-3 months
+- Reported as a percentage (e.g., 7.5%)
+- **Clinical targets**:
+  - Normal: < 5.7%
+  - Prediabetes: 5.7-6.4%
+  - Diabetes: ≥ 6.5%
+  - Treatment goal for most diabetics: < 7.0%
+- **Why it matters**: Each 1% reduction in HbA1c is associated with significant reductions in diabetes complications (retinopathy, nephropathy, neuropathy)
+
+### Study Design
+
+The organization tracks **HbA1c levels** for 25 enrolled patients at four time points:
+
+-   **Baseline**: Before program enrollment (typical range: 8-10% for poorly controlled diabetes)
+-   **3 months**: Initial follow-up (early response to intervention)
+-   **6 months**: Mid-program (sustained adherence check)
+-   **12 months**: Program completion (long-term effectiveness)
+
+### Why Use Repeated-Measures ANOVA?
+
+This is a **perfect scenario** for repeated-measures ANOVA because:
+
+1. **Same patients tracked over time** - Each patient serves as their own control
+2. **Multiple time points** - Four measurements (more than two)
+3. **Reduces individual variability** - Some patients naturally have higher HbA1c than others; repeated measures accounts for this
+4. **Efficient use of resources** - We need only 25 patients instead of 100 (25 per group × 4 groups) if we used one-way ANOVA
+5. **Longitudinal question** - We want to know if HbA1c changes over time within the same individuals
+
+### Research Questions
+
+**Primary:** Does HbA1c change significantly over the course of the 12-month program?
+
+**Secondary (if significant):**
+- At which time points do we see significant improvements?
+- Do patients reach the clinical target of < 7.0% by 12 months?
+- Is the improvement sustained or does it plateau?
+
+**Management Implications:**
+- If effective: Continue funding and expand program
+- If not effective: Investigate barriers (adherence, program design, patient selection)
+- Identify when improvements occur to optimize resource allocation
+
+## The Formula
+
+Repeated-measures ANOVA partitions variance differently than one-way ANOVA to account for the correlation between measurements on the same subject:
+
+$$F = \frac{MS_{time}}{MS_{error}}$$
+
+Where:
+
+- $MS_{time}$ = Mean square for the time (or condition) effect
+- $MS_{error}$ = Mean square for error (residual variation after removing both subject and time effects)
+
+
+### Formulas for Sum of Squares Components
+
+To calculate the variance components in repeated-measures ANOVA, we need these formulas:
+
+**0. Total Sum of Squares (SS_total):**
+
+$$SS_{total} = \sum_{i=1}^{n} \sum_{j=1}^{t} (X_{ij} - \bar{X}_{grand})^2$$
+
+Where:
+
+- $X_{ij}$ = observation for subject $i$ at time point $j$
+- $\bar{X}_{grand}$ = overall grand mean (across all subjects and all time points)
+- $n$ = number of subjects
+- $t$ = number of time points
+
+**What it measures:** Total variation in all observations from the grand mean. This is the "starting point" that we partition into components.
+
+**1. Sum of Squares for Time Effect (SS_time):**
+
+$$SS_{time} = n \sum_{j=1}^{t} (\bar{X}_j - \bar{X}_{grand})^2$$
+
+Where:
+
+- $n$ = number of subjects
+- $t$ = number of time points
+- $\bar{X}_j$ = mean at time point $j$ (averaging across all subjects)
+- $\bar{X}_{grand}$ = overall grand mean (across all subjects and all time points)
+
+**What it measures:** How much do the time point means differ from the overall mean?
+
+**2. Sum of Squares Between-Subjects (SS_subjects):**
+
+$$SS_{subjects} = t \sum_{i=1}^{n} (\bar{X}_i - \bar{X}_{grand})^2$$
+
+Where:
+
+- $\bar{X}_i$ = mean for subject $i$ (averaging across all time points)
+
+**What it measures:** How much do individual subjects differ from the overall mean? (This gets removed from the error term!)
+
+**3. Sum of Squares Error (SS_error):**
+
+$$SS_{error} = SS_{total} - SS_{subjects} - SS_{time}$$
+
+Or, calculated directly:
+
+$$SS_{error} = \sum_{i=1}^{n} \sum_{j=1}^{t} (X_{ij} - \bar{X}_i - \bar{X}_j + \bar{X}_{grand})^2$$
+
+Where:
+
+- $X_{ij}$ = observation for subject $i$ at time $j$
+- $\bar{X}_i$ = mean for subject $i$
+- $\bar{X}_j$ = mean for time $j$
+- $\bar{X}_{grand}$ = grand mean
+
+**What it measures:** Random variation left over after removing both subject differences and time effects.
+
+Notice that $SS_{error}$ is calculated by subtracting out both subject means AND time means. This is why it's smaller than one-way ANOVA error—we've removed the between-subjects variance!
+
+### Calculating the F-Statistic
+
+The F-statistic tests whether the time effect is larger than random error:
+
+$$F = \frac{MS_{time}}{MS_{error}} = \frac{SS_{time}/df_{time}}{SS_{error}/df_{error}}$$
+
+Where:
+
+- $df_{time} = t - 1$ (number of time points minus 1)
+- $df_{error} = (n-1)(t-1)$ (subjects - 1) × (time points - 1)
+
+**Interpretation:**
+
+- **F ≈ 1**: Time effect similar to random variation → no significant change
+- **F >> 1**: Time effect much larger than random variation → significant change over time
+
+
+## Example: Diabetes Management Program
+
+```{r}
+#| label: repeated-example1
+
+# HbA1c levels (%) for 25 patients at 4 time points
+n_patients <- 25
+
+# Generate realistic data showing improvement over time
+baseline <- round(rnorm(n_patients, mean = 8.5, sd = 0.8), 1)
+month_3 <- round(baseline - rnorm(n_patients, mean = 0.4, sd = 0.3), 1)
+month_6 <- round(month_3 - rnorm(n_patients, mean = 0.4, sd = 0.3), 1)
+month_12 <- round(month_6 - rnorm(n_patients, mean = 0.3, sd = 0.3), 1)
+
+# Create data frame in long format
+diabetes_data <- data.frame(
+  patient_id = rep(1:n_patients, 4),
+  time = factor(rep(c("Baseline", "3 Months", "6 Months", "12 Months"),
+                    each = n_patients),
+                levels = c("Baseline", "3 Months", "6 Months", "12 Months")),
+  hba1c = c(baseline, month_3, month_6, month_12)
+)
+diabetes_data$patient_id <- as.factor(diabetes_data$patient_id)
+```
+
+```{r}
+#| echo: false
+# Summary statistics
+summary_diabetes <- diabetes_data %>%
+  group_by(time) %>%
+  summarise(
+    n = n(),
+    mean = round(mean(hba1c), 2),
+    sd = round(sd(hba1c), 2)
+  )
+
+knitr::kable(summary_diabetes,
+             col.names = c("Time Point", "n", "Mean HbA1c (%)", "SD"),
+             caption = "HbA1c Summary Statistics by Time Point")
+```
+
+## Visualizing Repeated Measures Data
+
+```{r}
+#| label: repeated-viz1
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+
+# Spaghetti plot showing individual trajectories
+p1 <- ggplot(diabetes_data, aes(x = time, y = hba1c, group = patient_id)) +
+  geom_line(alpha = 0.3, color = "gray50") +
+  geom_point(alpha = 0.3) +
+  stat_summary(aes(group = 1), fun = mean, geom = "line",
+               linewidth = 2, color = "#E63946") +
+  stat_summary(aes(group = 1), fun = mean, geom = "point",
+               size = 4, color = "#E63946") +
+  labs(title = "Individual Patient HbA1c Trajectories",
+       subtitle = "Red line shows mean across all patients",
+       x = "Time Point", y = "HbA1c (%)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+p1
+```
+
+## Conducting Repeated-Measures ANOVA in R
+
+For repeated-measures ANOVA, we need to specify the error term to account for the within-subjects design:
+
+```{r}
+#| label: repeated-test1
+
+# Repeated-measures ANOVA
+# Error(patient_id/time) specifies that time is within subjects
+rm_anova <- aov(hba1c ~ time + Error(patient_id/time), data = diabetes_data)
+summary(rm_anova)
+```
+
+### Interpreting the Output
+
+**Understanding the R Output:**
+
+- **time row**: Tests whether mean HbA1c differs across time points
+- **Df = 3**: Degrees of freedom for time (4 time points - 1)
+- **F value**: Ratio of time effect variance to residual variance
+- **Pr(>F)**: p-value for the time effect
+
+### Conclusion and Clinical Interpretation
+
+```{r}
+#| echo: false
+# Calculate mean HbA1c at each time point for interpretation
+time_means <- diabetes_data %>%
+  group_by(time) %>%
+  summarise(mean_hba1c = round(mean(hba1c), 2), .groups = "drop")
+
+# Calculate overall reduction
+reduction <- time_means$mean_hba1c[1] - time_means$mean_hba1c[4]
+reduction_pct <- round((reduction / time_means$mean_hba1c[1]) * 100, 1)
+```
+
+**Statistical Conclusion:**
+
+With a significant F-test (p < 0.05), we **reject the null hypothesis**. HbA1c levels changed significantly over the course of the 12-month diabetes management program.
+
+**Clinical Interpretation:**
+
+**Mean HbA1c levels by time point:**
+
+- **Baseline**: `r time_means$mean_hba1c[1]`% (poorly controlled diabetes)
+- **3 Months**: `r time_means$mean_hba1c[2]`%
+- **6 Months**: `r time_means$mean_hba1c[3]`%
+- **12 Months**: `r time_means$mean_hba1c[4]`%
+
+**Overall improvement**: `r reduction` percentage points (a `r reduction_pct`% relative reduction from baseline)
+
+**Clinical significance:**
+
+- Patients started with poorly controlled diabetes (average `r time_means$mean_hba1c[1]`%)
+- By 12 months, average HbA1c approached or achieved the treatment goal of <7.0%
+- This magnitude of reduction is associated with meaningful decreases in long-term complications
+
+**But which specific time points differ?** We need post-hoc tests to determine when significant improvements occurred.
+
+## Post-Hoc Tests for Repeated Measures
+
+To identify which time points differ, we use pairwise comparisons with p-value adjustment:
+
+```{r}
+#| label: posthoc-repeated1
+
+# Extract estimated marginal means
+emm_time <- emmeans(rm_anova, ~ time)
+emm_time
+
+# Pairwise comparisons with Tukey adjustment
+pairs(emm_time, adjust = "tukey")
+```
+
+### Interpreting Post-Hoc Results
+
+The emmeans output shows pairwise comparisons for all time point combinations. Significant values (p.value < 0.05) indicate that those time points have significantly different mean HbA1c levels.
+
+**How to read the output:**
+
+**First section (emmeans):**
+
+- Shows estimated marginal mean HbA1c at each time point
+- Includes standard error (SE) and confidence intervals
+
+**Second section (pairwise comparisons):**
+
+- **contrast**: Which two time points are being compared
+- **estimate**: Difference between the two time point means
+- **SE**: Standard error of the difference
+- **df**: Degrees of freedom
+- **t.ratio**: Test statistic
+- **p.value**: Adjusted p-value (controlling for multiple comparisons)
+
+### Practice Checkpoint 3 {.unnumbered}
+
+::: {.callout-important}
+## Try It Yourself! (15 minutes)
+
+Open `week06_anova1_practice.qmd` and complete:
+
+- **Practice Activity 3**: Pain Management Follow-up (Repeated-Measures ANOVA)
+
+This will help you practice conducting repeated-measures ANOVA with longitudinal data.
+:::
+
+---
+
+## Example 2: Staff Burnout Across Shift Schedules
+
+A hospital HR department wants to study nurse burnout using the Maslach Burnout Inventory (MBI) emotional exhaustion subscale (score range: 0-54). They measure the **same 20 nurses** under three different shift schedules:
+
+-   **Schedule A**: Traditional 8-hour shifts
+-   **Schedule B**: 12-hour shifts
+-   **Schedule C**: Flexible self-scheduling
+
+Multiple studies have examined the relationship between shift hours and nurse burnout, with research across multiple countries and care settings showing significant associations between shift length and burnout levels.
+
+Each nurse works under each schedule for one month, with washout periods between.
+
+```{r}
+#| label: repeated-example2
+
+# Burnout scores for 20 nurses under 3 shift schedules
+n_nurses <- 20
+
+schedule_A <- c(32, 35, 28, 38, 30, 36, 33, 29, 37, 31,
+                34, 27, 39, 32, 35, 30, 36, 28, 34, 31)
+
+schedule_B <- c(38, 42, 35, 44, 37, 41, 39, 36, 43, 38,
+                40, 34, 45, 39, 42, 37, 43, 35, 41, 38)
+
+schedule_C <- c(25, 28, 22, 30, 24, 29, 26, 23, 31, 25,
+                27, 21, 32, 26, 29, 24, 30, 22, 28, 25)
+
+# Create data frame
+burnout_data <- data.frame(
+  nurse_id = rep(1:n_nurses, 3),
+  schedule = factor(rep(c("A: 8-hour", "B: 12-hour", "C: Flexible"),
+                        each = n_nurses)),
+  burnout = c(schedule_A, schedule_B, schedule_C)
+)
+```
+
+```{r}
+#| label: repeated-viz2
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+
+# Spaghetti plot
+p1 <- ggplot(burnout_data, aes(x = schedule, y = burnout, group = nurse_id)) +
+  geom_line(alpha = 0.3, color = "gray50") +
+  geom_point(alpha = 0.5) +
+  stat_summary(aes(group = 1), fun = mean, geom = "line",
+               linewidth = 2, color = "#E63946") +
+  stat_summary(aes(group = 1), fun = mean, geom = "point",
+               size = 4, color = "#E63946") +
+  labs(title = "Individual Nurse Burnout Scores",
+       x = "Shift Schedule", y = "Burnout Score (MBI)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+p1
+```
+
+```{r}
+#| label: repeated-test2
+
+# Repeated-measures ANOVA
+rm_anova_burnout <- aov(burnout ~ schedule + Error(nurse_id/schedule),
+                        data = burnout_data)
+summary(rm_anova_burnout)
+
+# Post-hoc tests
+emm_schedule <- emmeans(rm_anova_burnout, ~ schedule)
+pairs(emm_schedule, adjust = "tukey")
+```
+
+### Interpretation
+
+The highly significant F-test indicates that burnout levels differ across shift schedules.
+
+Post-hoc tests reveal that:
+
+-   Flexible scheduling (C) results in significantly lower burnout than both traditional (A) and 12-hour (B) shifts
+-   12-hour shifts (B) result in significantly higher burnout than 8-hour shifts (A)
+
+This has important implications for nurse retention and patient safety.
+
+### Practice Checkpoint 4 {.unnumbered}
+
+::: {.callout-important}
+## Try It Yourself! (10 minutes)
+
+Open `week06_anova1_practice.qmd` and complete:
+
+- **Practice Activity 4**: Employee Engagement Survey (Repeated-Measures ANOVA)
+
+This final practice will help you solidify your understanding of repeated-measures designs.
+:::
+
+------------------------------------------------------------------------
+
+# Summary
+
+## Key Takeaways
+
+| Test | Purpose | Key Points |
+|------------------|------------------------|------------------------------|
+| **One-Way ANOVA** | Compare means across 3+ independent groups | Single factor, between-subjects design |
+| **Repeated-Measures ANOVA** | Compare means across 3+ related measurements | Same subjects, within-subjects design |
+| **Post-Hoc Tests** | Identify which specific groups differ | Use after significant ANOVA, adjusts for multiple comparisons |
+
+## Why ANOVA Matters for Healthcare Managers
+
+-   **One-way ANOVA** enables evidence-based comparisons across multiple departments, facilities, treatment protocols, or patient populations simultaneously while controlling Type I error.
+
+-   **Repeated-measures ANOVA** is essential for evaluating longitudinal programs and interventions, tracking patient outcomes over time, measuring the effectiveness of quality improvement initiatives, or assessing staff development programs.
+
+-   **Post-hoc tests** ensure that when you identify "significant differences," you can understand exactly where those differences lie, enabling targeted action rather than broad, unfocused interventions.
+
+------------------------------------------------------------------------
+
+# References and Further Reading
+
+## Statistical Methods
+
+-   Field, A. (2018). *Discovering Statistics Using IBM SPSS Statistics* (5th ed.). SAGE Publications.
+-   Navarro, D. (2019). *Learning Statistics with R*. Available online.
+-   Maxwell, S. E., & Delaney, H. D. (2004). *Designing Experiments and Analyzing Data* (2nd ed.). Psychology Press.
+-   Wickham, H., & Grolemund, G. (2017). *R for Data Science*. O'Reilly Media.
+
+## Healthcare Applications
+
+Examples are motivated by the followings:
+
+-   Assessing Patient Satisfaction with Hospital Services. (2024). *PMC*. https://pmc.ncbi.nlm.nih.gov/articles/PMC11988329/
+
+-   Effect of Community Health Workers on 30-Day Hospital Readmissions. (2021). *JAMA Network Open*. https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2780265
+
+-   Medication Safety Simulation Training for Anesthesia Professionals. (2024). *Clinical Simulation in Nursing*. https://www.nursingsimulation.org/article/S1876-1399(24)00152-X/fulltext
+
+-   Improved Glycemic Control With a Digital Health Intervention in Adults With Type 2 Diabetes. (2021). *JMIR Diabetes*. https://diabetes.jmir.org/2021/2/e28033/
+
+-   Association of 12 h Shifts and Nurses' Job Satisfaction, Burnout and Intention to Leave. (2015). *PMC*. https://pmc.ncbi.nlm.nih.gov/articles/PMC4577950/
+
+-   Visual Analogue Scale. *Physiopedia*. https://www.physio-pedia.com/Visual_Analogue_Scale

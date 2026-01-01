@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-3bbbbd466991e281563892c5dce73c3d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-e3454d6c61f52a147682728788a76643.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -141,7 +141,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="floating nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -161,7 +161,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -185,11 +185,55 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Linear Regression in Healthcare Analytics</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -210,6 +254,7 @@ window.Quarto = {
   <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model"><span class="header-section-number">2.4.2</span> Fitting the Model</a></li>
   <li><a href="#understanding-the-dummy-variable-output" id="toc-understanding-the-dummy-variable-output" class="nav-link" data-scroll-target="#understanding-the-dummy-variable-output"><span class="header-section-number">2.4.3</span> Understanding the Dummy Variable Output</a></li>
   <li><a href="#manual-calculation-with-dummy-variables" id="toc-manual-calculation-with-dummy-variables" class="nav-link" data-scroll-target="#manual-calculation-with-dummy-variables"><span class="header-section-number">2.4.4</span> Manual Calculation with Dummy Variables</a></li>
+  <li><a href="#practice-checkpoint-1" id="toc-practice-checkpoint-1" class="nav-link" data-scroll-target="#practice-checkpoint-1">Practice Checkpoint 1</a></li>
   </ul></li>
   <li><a href="#multi-level-categorical-variables" id="toc-multi-level-categorical-variables" class="nav-link" data-scroll-target="#multi-level-categorical-variables"><span class="header-section-number">2.5</span> Multi-Level Categorical Variables</a>
   <ul class="collapse">
@@ -219,6 +264,7 @@ window.Quarto = {
   <li><a href="#understanding-the-output" id="toc-understanding-the-output" class="nav-link" data-scroll-target="#understanding-the-output"><span class="header-section-number">2.5.4</span> Understanding the Output</a></li>
   <li><a href="#testing-comparisons-between-non-reference-categories" id="toc-testing-comparisons-between-non-reference-categories" class="nav-link" data-scroll-target="#testing-comparisons-between-non-reference-categories"><span class="header-section-number">2.5.5</span> Testing Comparisons Between Non-Reference Categories</a></li>
   <li><a href="#changing-the-reference-category" id="toc-changing-the-reference-category" class="nav-link" data-scroll-target="#changing-the-reference-category"><span class="header-section-number">2.5.6</span> Changing the Reference Category</a></li>
+  <li><a href="#practice-checkpoint-2" id="toc-practice-checkpoint-2" class="nav-link" data-scroll-target="#practice-checkpoint-2">Practice Checkpoint 2</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#interaction-effects" id="toc-interaction-effects" class="nav-link" data-scroll-target="#interaction-effects"><span class="header-section-number">3</span> Interaction Effects</a>
@@ -233,6 +279,7 @@ window.Quarto = {
   <li><a href="#fitting-the-interaction-model" id="toc-fitting-the-interaction-model" class="nav-link" data-scroll-target="#fitting-the-interaction-model"><span class="header-section-number">3.4.3</span> Fitting the Interaction Model</a></li>
   <li><a href="#interpreting-the-interaction" id="toc-interpreting-the-interaction" class="nav-link" data-scroll-target="#interpreting-the-interaction"><span class="header-section-number">3.4.4</span> Interpreting the Interaction</a></li>
   <li><a href="#visualizing-the-interaction-effect" id="toc-visualizing-the-interaction-effect" class="nav-link" data-scroll-target="#visualizing-the-interaction-effect"><span class="header-section-number">3.4.5</span> Visualizing the Interaction Effect</a></li>
+  <li><a href="#practice-checkpoint-3" id="toc-practice-checkpoint-3" class="nav-link" data-scroll-target="#practice-checkpoint-3">Practice Checkpoint 3</a></li>
   </ul></li>
   <li><a href="#categorical-categorical-interaction" id="toc-categorical-categorical-interaction" class="nav-link" data-scroll-target="#categorical-categorical-interaction"><span class="header-section-number">3.5</span> Categorical × Categorical Interaction</a>
   <ul class="collapse">
@@ -247,6 +294,7 @@ window.Quarto = {
   <li><a href="#fitting-the-interaction-model-2" id="toc-fitting-the-interaction-model-2" class="nav-link" data-scroll-target="#fitting-the-interaction-model-2"><span class="header-section-number">3.6.2</span> Fitting the Interaction Model</a></li>
   <li><a href="#interpreting-continuous-continuous-interactions" id="toc-interpreting-continuous-continuous-interactions" class="nav-link" data-scroll-target="#interpreting-continuous-continuous-interactions"><span class="header-section-number">3.6.3</span> Interpreting Continuous × Continuous Interactions</a></li>
   <li><a href="#visualizing-continuous-continuous-interaction" id="toc-visualizing-continuous-continuous-interaction" class="nav-link" data-scroll-target="#visualizing-continuous-continuous-interaction"><span class="header-section-number">3.6.4</span> Visualizing Continuous × Continuous Interaction</a></li>
+  <li><a href="#practice-checkpoint-4" id="toc-practice-checkpoint-4" class="nav-link" data-scroll-target="#practice-checkpoint-4">Practice Checkpoint 4</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#practical-considerations" id="toc-practical-considerations" class="nav-link" data-scroll-target="#practical-considerations"><span class="header-section-number">4</span> Practical Considerations</a>
@@ -254,42 +302,25 @@ window.Quarto = {
   <li><a href="#when-to-include-interactions" id="toc-when-to-include-interactions" class="nav-link" data-scroll-target="#when-to-include-interactions"><span class="header-section-number">4.1</span> When to Include Interactions</a></li>
   <li><a href="#centering-variables" id="toc-centering-variables" class="nav-link" data-scroll-target="#centering-variables"><span class="header-section-number">4.2</span> Centering Variables</a></li>
   </ul></li>
-  <li><a href="#practice-exercises" id="toc-practice-exercises" class="nav-link" data-scroll-target="#practice-exercises"><span class="header-section-number">5</span> Practice Exercises</a>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5</span> Summary</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-dummy-variables-with-multiple-categories" id="toc-exercise-1-dummy-variables-with-multiple-categories" class="nav-link" data-scroll-target="#exercise-1-dummy-variables-with-multiple-categories"><span class="header-section-number">5.1</span> Exercise 1: Dummy Variables with Multiple Categories</a>
+  <li><a href="#what-we-covered-in-this-lecture" id="toc-what-we-covered-in-this-lecture" class="nav-link" data-scroll-target="#what-we-covered-in-this-lecture"><span class="header-section-number">5.1</span> What We Covered in This Lecture</a>
   <ul class="collapse">
-  <li><a href="#background-and-context-5" id="toc-background-and-context-5" class="nav-link" data-scroll-target="#background-and-context-5"><span class="header-section-number">5.1.1</span> Background and Context</a></li>
-  <li><a href="#your-tasks" id="toc-your-tasks" class="nav-link" data-scroll-target="#your-tasks"><span class="header-section-number">5.1.2</span> Your Tasks</a></li>
+  <li><a href="#the-challenge-including-categories-in-regression" id="toc-the-challenge-including-categories-in-regression" class="nav-link" data-scroll-target="#the-challenge-including-categories-in-regression"><span class="header-section-number">5.1.1</span> 1. The Challenge: Including Categories in Regression</a></li>
+  <li><a href="#how-dummy-variables-work" id="toc-how-dummy-variables-work" class="nav-link" data-scroll-target="#how-dummy-variables-work"><span class="header-section-number">5.1.2</span> 2. How Dummy Variables Work</a></li>
+  <li><a href="#interaction-effects-when-effects-depend-on-context" id="toc-interaction-effects-when-effects-depend-on-context" class="nav-link" data-scroll-target="#interaction-effects-when-effects-depend-on-context"><span class="header-section-number">5.1.3</span> 3. Interaction Effects: When Effects Depend on Context</a></li>
+  <li><a href="#recognizing-interactions" id="toc-recognizing-interactions" class="nav-link" data-scroll-target="#recognizing-interactions"><span class="header-section-number">5.1.4</span> 4. Recognizing Interactions</a></li>
+  <li><a href="#interpreting-interactions" id="toc-interpreting-interactions" class="nav-link" data-scroll-target="#interpreting-interactions"><span class="header-section-number">5.1.5</span> 5. Interpreting Interactions</a></li>
+  <li><a href="#practical-considerations-1" id="toc-practical-considerations-1" class="nav-link" data-scroll-target="#practical-considerations-1"><span class="header-section-number">5.1.6</span> 6. Practical Considerations</a></li>
   </ul></li>
-  <li><a href="#exercise-2-testing-for-interactions" id="toc-exercise-2-testing-for-interactions" class="nav-link" data-scroll-target="#exercise-2-testing-for-interactions"><span class="header-section-number">5.2</span> Exercise 2: Testing for Interactions</a>
+  <li><a href="#next-steps-practice-activities" id="toc-next-steps-practice-activities" class="nav-link" data-scroll-target="#next-steps-practice-activities"><span class="header-section-number">5.2</span> Next Steps: Practice Activities</a></li>
+  </ul></li>
+  <li><a href="#references-and-further-reading" id="toc-references-and-further-reading" class="nav-link" data-scroll-target="#references-and-further-reading"><span class="header-section-number">6</span> References and Further Reading</a>
   <ul class="collapse">
-  <li><a href="#background-and-context-6" id="toc-background-and-context-6" class="nav-link" data-scroll-target="#background-and-context-6"><span class="header-section-number">5.2.1</span> Background and Context</a></li>
-  <li><a href="#your-tasks-1" id="toc-your-tasks-1" class="nav-link" data-scroll-target="#your-tasks-1"><span class="header-section-number">5.2.2</span> Your Tasks</a></li>
+  <li><a href="#statistical-methods" id="toc-statistical-methods" class="nav-link" data-scroll-target="#statistical-methods"><span class="header-section-number">6.1</span> Statistical Methods</a></li>
+  <li><a href="#healthcare-applications" id="toc-healthcare-applications" class="nav-link" data-scroll-target="#healthcare-applications"><span class="header-section-number">6.2</span> Healthcare Applications</a></li>
   </ul></li>
-  <li><a href="#exercise-3-making-predictions" id="toc-exercise-3-making-predictions" class="nav-link" data-scroll-target="#exercise-3-making-predictions"><span class="header-section-number">5.3</span> Exercise 3: Making Predictions</a>
-  <ul class="collapse">
-  <li><a href="#background-and-context-7" id="toc-background-and-context-7" class="nav-link" data-scroll-target="#background-and-context-7"><span class="header-section-number">5.3.1</span> Background and Context</a></li>
-  <li><a href="#your-tasks-2" id="toc-your-tasks-2" class="nav-link" data-scroll-target="#your-tasks-2"><span class="header-section-number">5.3.2</span> Your Tasks</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
-  <ul class="collapse">
-  <li><a href="#what-we-covered-in-this-lecture" id="toc-what-we-covered-in-this-lecture" class="nav-link" data-scroll-target="#what-we-covered-in-this-lecture"><span class="header-section-number">6.1</span> What We Covered in This Lecture</a>
-  <ul class="collapse">
-  <li><a href="#the-challenge-including-categories-in-regression" id="toc-the-challenge-including-categories-in-regression" class="nav-link" data-scroll-target="#the-challenge-including-categories-in-regression"><span class="header-section-number">6.1.1</span> 1. The Challenge: Including Categories in Regression</a></li>
-  <li><a href="#how-dummy-variables-work" id="toc-how-dummy-variables-work" class="nav-link" data-scroll-target="#how-dummy-variables-work"><span class="header-section-number">6.1.2</span> 2. How Dummy Variables Work</a></li>
-  <li><a href="#interaction-effects-when-effects-depend-on-context" id="toc-interaction-effects-when-effects-depend-on-context" class="nav-link" data-scroll-target="#interaction-effects-when-effects-depend-on-context"><span class="header-section-number">6.1.3</span> 3. Interaction Effects: When Effects Depend on Context</a></li>
-  <li><a href="#recognizing-interactions" id="toc-recognizing-interactions" class="nav-link" data-scroll-target="#recognizing-interactions"><span class="header-section-number">6.1.4</span> 4. Recognizing Interactions</a></li>
-  <li><a href="#interpreting-interactions" id="toc-interpreting-interactions" class="nav-link" data-scroll-target="#interpreting-interactions"><span class="header-section-number">6.1.5</span> 5. Interpreting Interactions</a></li>
-  <li><a href="#practical-considerations-1" id="toc-practical-considerations-1" class="nav-link" data-scroll-target="#practical-considerations-1"><span class="header-section-number">6.1.6</span> 6. Practical Considerations</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#references-and-further-reading" id="toc-references-and-further-reading" class="nav-link" data-scroll-target="#references-and-further-reading"><span class="header-section-number">7</span> References and Further Reading</a>
-  <ul class="collapse">
-  <li><a href="#statistical-methods" id="toc-statistical-methods" class="nav-link" data-scroll-target="#statistical-methods"><span class="header-section-number">7.1</span> Statistical Methods</a></li>
-  <li><a href="#healthcare-applications" id="toc-healthcare-applications" class="nav-link" data-scroll-target="#healthcare-applications"><span class="header-section-number">7.2</span> Healthcare Applications</a></li>
-  </ul></li>
-  <li><a href="#appendix-r-code-reference" id="toc-appendix-r-code-reference" class="nav-link" data-scroll-target="#appendix-r-code-reference"><span class="header-section-number">8</span> Appendix: R Code Reference</a></li>
+  <li><a href="#appendix-r-code-reference" id="toc-appendix-r-code-reference" class="nav-link" data-scroll-target="#appendix-r-code-reference"><span class="header-section-number">7</span> Appendix: R Code Reference</a></li>
   </ul>
 </nav>
 </nav>
@@ -332,8 +363,8 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="introduction" class="level1 section-time" data-time="10 min" data-number="1">
+<h1 class="section-time" data-time="10 min" data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <section id="moving-beyond-continuous-predictors" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="moving-beyond-continuous-predictors"><span class="header-section-number">1.1</span> Moving Beyond Continuous Predictors</h2>
 <p>In our last lecture, we focused primarily on continuous predictors (e.g., age, severity scores) in linear regression. However, many important variables in healthcare research are <strong>categorical</strong>:</p>
@@ -361,8 +392,8 @@ window.Quarto = {
 <hr>
 </section>
 </section>
-<section id="dummy-variables-indicator-variables" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Dummy Variables (Indicator Variables)</h1>
+<section id="dummy-variables-indicator-variables" class="level1 section-time" data-time="30 min" data-number="2">
+<h1 class="section-time" data-time="30 min" data-number="2"><span class="header-section-number">2</span> Dummy Variables (Indicator Variables)</h1>
 <section id="what-is-it" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="what-is-it"><span class="header-section-number">2.1</span> What is it?</h2>
 <p>Dummy variables (also called indicator variables) are binary variables that represent categorical group membership using 0s and 1s. They allow us to include categorical predictors in regression models, which mathematically require numerical inputs.</p>
@@ -660,20 +691,21 @@ F-statistic:   135 on 4 and 195 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get coefficients</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coefs <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_protocol, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Example patient: 65 years old, BMI 30, complexity=2</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>age_val <span class="ot">&lt;-</span> <span class="dv">65</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>bmi_val <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>complexity_val <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Scenario 1: Standard protocol (dummy = 0)</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>pred_standard <span class="ot">&lt;-</span> coeffs[<span class="dv">1</span>] <span class="sc">+</span>                    <span class="co"># Intercept</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">0</span> <span class="sc">*</span> coeffs[<span class="dv">2</span>] <span class="sc">+</span>                <span class="co"># protocolERAS = 0</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                 age_val <span class="sc">*</span> coeffs[<span class="dv">3</span>] <span class="sc">+</span>          <span class="co"># Age effect</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                 bmi_val <span class="sc">*</span> coeffs[<span class="dv">4</span>] <span class="sc">+</span>          <span class="co"># BMI effect</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                 complexity_val <span class="sc">*</span> coeffs[<span class="dv">5</span>]     <span class="co"># Complexity effect</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Predicted LOS (Standard protocol):"</span>, <span class="fu">round</span>(pred_standard, <span class="dv">2</span>), <span class="st">"days</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>coeffs <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_protocol)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Example patient: 65 years old, BMI 30, complexity=2</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>age_val <span class="ot">&lt;-</span> <span class="dv">65</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>bmi_val <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>complexity_val <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Scenario 1: Standard protocol (dummy = 0)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>pred_standard <span class="ot">&lt;-</span> coeffs[<span class="dv">1</span>] <span class="sc">+</span>                    <span class="co"># Intercept</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">0</span> <span class="sc">*</span> coeffs[<span class="dv">2</span>] <span class="sc">+</span>                <span class="co"># protocolERAS = 0</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                 age_val <span class="sc">*</span> coeffs[<span class="dv">3</span>] <span class="sc">+</span>          <span class="co"># Age effect</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                 bmi_val <span class="sc">*</span> coeffs[<span class="dv">4</span>] <span class="sc">+</span>          <span class="co"># BMI effect</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                 complexity_val <span class="sc">*</span> coeffs[<span class="dv">5</span>]     <span class="co"># Complexity effect</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Predicted LOS (Standard protocol):"</span>, <span class="fu">round</span>(pred_standard, <span class="dv">2</span>), <span class="st">"days</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Predicted LOS (Standard protocol): 9.41 days</code></pre>
 </div>
@@ -733,6 +765,29 @@ Figure&nbsp;1: Comparison of length of stay by treatment protocol
 </div>
 </div>
 </div>
+</section>
+<section id="practice-checkpoint-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-1">Practice Checkpoint 1</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself! (5 minutes)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pause here!</strong> Open <code>week12_linear-regression2_practice.qmd</code> and complete:</p>
+<ul>
+<li><strong>Task 1.1</strong>: Fit a regression model with binary dummy variables (ERAS example)</li>
+<li><strong>Task 1.2</strong>: Make predictions and interpret dummy coefficients</li>
+</ul>
+<p>This will verify you understand how to create and interpret binary dummy variables.</p>
+<p><strong>After 5 minutes</strong>, we’ll continue with the lecture.</p>
+</div>
+</div>
+<p><em>→ We’ll practice multi-level dummy variables in Tasks 1.3 and 1.4</em></p>
 </section>
 </section>
 <section id="multi-level-categorical-variables" class="level2" data-number="2.5">
@@ -846,7 +901,7 @@ Figure&nbsp;1: Comparison of length of stay by treatment protocol
 <h3 data-number="2.5.3" class="anchored" data-anchor-id="fitting-the-model-with-multiple-categories"><span class="header-section-number">2.5.3</span> Fitting the Model with Multiple Categories</h3>
 <p>Before fitting the model, let’s make the variable <code>hospital_type</code> as a factor with “Community” as the reference category using the <code>factor()</code> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hospital_type_data <span class="ot">&lt;-</span> hospital_type_data <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hospital_type_data <span class="ot">&lt;-</span> hospital_type_data <span class="sc">|&gt;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">hospital_type =</span> <span class="fu">factor</span>(hospital_type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Community"</span>, <span class="st">"Teaching"</span>, <span class="st">"Critical Access"</span>))</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -971,9 +1026,9 @@ F-statistic: 88.36 on 4 and 245 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast                    estimate    SE  df t.ratio p.value
- Community - Teaching            1.95 0.289 245   6.738  &lt;.0001
- Community - Critical Access    -2.68 0.296 245  -9.038  &lt;.0001
- Teaching - Critical Access     -4.63 0.338 245 -13.694  &lt;.0001
+ Community - Teaching            1.95 0.289 245   6.738 &lt;0.0001
+ Community - Critical Access    -2.68 0.296 245  -9.038 &lt;0.0001
+ Teaching - Critical Access     -4.63 0.338 245 -13.694 &lt;0.0001
 
 P value adjustment: tukey method for comparing a family of 3 estimates </code></pre>
 </div>
@@ -1060,12 +1115,35 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 </div>
 </div>
 <p>Now the coefficients show comparisons relative to Teaching hospitals.</p>
+</section>
+<section id="practice-checkpoint-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-2">Practice Checkpoint 2</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself! (7 minutes)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pause here!</strong> Open <code>week12_linear-regression2_practice.qmd</code> and complete:</p>
+<ul>
+<li><strong>Task 1.3</strong>: Fit a regression model with multi-level categorical variables</li>
+<li><strong>Task 1.4</strong>: Use <code>emmeans()</code> for pairwise comparisons</li>
+</ul>
+<p>This will help you practice working with categorical variables that have more than two levels.</p>
+<p><strong>After 7 minutes</strong>, we’ll continue with interaction effects.</p>
+</div>
+</div>
+<p><em>→ We’ll apply these concepts to more complex scenarios in the advanced exercises</em></p>
 <hr>
 </section>
 </section>
 </section>
-<section id="interaction-effects" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Interaction Effects</h1>
+<section id="interaction-effects" class="level1 section-time" data-time="40 min" data-number="3">
+<h1 class="section-time" data-time="40 min" data-number="3"><span class="header-section-number">3</span> Interaction Effects</h1>
 <section id="what-is-it-1" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="what-is-it-1"><span class="header-section-number">3.1</span> What is it?</h2>
 <p>An <strong>interaction effect</strong> occurs when the effect of one variable on the outcome <strong>depends on the value of another variable</strong>. In other words, the relationship between X₁ and Y changes across different levels of X₂.</p>
@@ -1187,7 +1265,7 @@ Figure&nbsp;2: Potential interaction: different slopes suggest an interaction ef
 <h3 data-number="3.4.3" class="anchored" data-anchor-id="fitting-the-interaction-model"><span class="header-section-number">3.4.3</span> Fitting the Interaction Model</h3>
 <p>When we fit a model with an interaction, we can either use the <code>*</code> symbol between variables or the <code>:</code> symbol between variables with each variable included with the <code>+</code> sign.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model WITH interaction </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model WITH interaction</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative syntax for interaction: nurse_ratio + ownership + nurse_ratio:ownership</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>model_interact <span class="ot">&lt;-</span> <span class="fu">lm</span>(patient_satisfaction <span class="sc">~</span> nurse_ratio <span class="sc">*</span> ownership, <span class="at">data =</span> satisfaction_data)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_interact)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1337,6 +1415,30 @@ Figure&nbsp;3: Interaction effect: Staffing effect varies by ownership type
 </div>
 </div>
 </section>
+<section id="practice-checkpoint-3" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-3">Practice Checkpoint 3</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself! (10 minutes)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pause here!</strong> Open <code>week12_linear-regression2_practice.qmd</code> and complete:</p>
+<ul>
+<li><strong>Task 1.5</strong>: Fit a continuous × categorical interaction model</li>
+<li><strong>Task 1.6</strong>: Calculate marginal effects for each group</li>
+<li><strong>Task 1.7</strong>: Visualize the interaction with <code>probe_interaction()</code></li>
+</ul>
+<p>This will help you understand how to test and interpret interactions where a continuous effect varies by category.</p>
+<p><strong>After 10 minutes</strong>, we’ll continue with categorical × categorical interactions.</p>
+</div>
+</div>
+<p><em>→ We’ll explore more complex interactions in the remaining sections</em></p>
+</section>
 </section>
 <section id="categorical-categorical-interaction" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="categorical-categorical-interaction"><span class="header-section-number">3.5</span> Categorical × Categorical Interaction</h2>
@@ -1409,7 +1511,7 @@ Figure&nbsp;3: Interaction effect: Staffing effect varies by ownership type
 <h3 data-number="3.5.2" class="anchored" data-anchor-id="fitting-the-interaction-model-1"><span class="header-section-number">3.5.2</span> Fitting the Interaction Model</h3>
 <p>First, let’s make the variables as factors using the <code>factor()</code> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> diabetes_data <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> diabetes_data <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Standard Care"</span>, <span class="st">"Intensive Program"</span>)),</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">insurance =</span> <span class="fu">factor</span>(insurance, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Medicaid"</span>, <span class="st">"Medicare"</span>, <span class="st">"Private"</span>))</span>
@@ -1860,12 +1962,34 @@ Figure&nbsp;5: PT sessions effect varies by patient age
 <li><strong>Steeper negative slope for older patients</strong>: Age 70 patients (steeper downward slope) are harmed even more by additional sessions</li>
 </ul>
 <p>In this data, the negative slopes at older ages suggest that more PT sessions harm older patients. In reality, this pattern would be unusual and would warrant investigation into potential confounding factors (e.g., sicker patients receiving more sessions). This example illustrates how interactions can produce crossover effects where treatment benefits reverse in different subgroups.</p>
+</section>
+<section id="practice-checkpoint-4" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-4">Practice Checkpoint 4</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself! (10 minutes)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pause here!</strong> Open <code>week12_linear-regression2_practice.qmd</code> and complete:</p>
+<ul>
+<li><strong>Task 1.8</strong>: Center continuous variables and fit a continuous × continuous interaction model</li>
+</ul>
+<p>This will help you understand how centering improves interpretability in continuous × continuous interactions.</p>
+<p><strong>After 10 minutes</strong>, proceed to the advanced exercises in the practice file.</p>
+</div>
+</div>
+<p><em>→ Apply all concepts in Exercises 1-3 of the practice file</em></p>
 <hr>
 </section>
 </section>
 </section>
-<section id="practical-considerations" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Practical Considerations</h1>
+<section id="practical-considerations" class="level1 section-time" data-time="10 min" data-number="4">
+<h1 class="section-time" data-time="10 min" data-number="4"><span class="header-section-number">4</span> Practical Considerations</h1>
 <section id="when-to-include-interactions" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="when-to-include-interactions"><span class="header-section-number">4.1</span> When to Include Interactions</h2>
 <p><strong>Include interactions when</strong>:</p>
@@ -2008,191 +2132,13 @@ Figure&nbsp;5: PT sessions effect varies by patient age
 <hr>
 </section>
 </section>
-<section id="practice-exercises" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Practice Exercises</h1>
-<section id="exercise-1-dummy-variables-with-multiple-categories" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="exercise-1-dummy-variables-with-multiple-categories"><span class="header-section-number">5.1</span> Exercise 1: Dummy Variables with Multiple Categories</h2>
-<section id="background-and-context-5" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="background-and-context-5"><span class="header-section-number">5.1.1</span> Background and Context</h3>
-<p><strong>The context</strong>: Healthcare quality scores (0-100 scale) measure hospitals on metrics like patient safety, outcomes, and patient experience. These scores are publicly reported and affect hospital reputation and reimbursement.</p>
-<p><strong>The question</strong>: Do quality scores vary by geographic region (Northeast, South, Midwest, West)?</p>
-<p><strong>Why it might vary</strong>:</p>
-<ul>
-<li>Different regulatory environments</li>
-<li>Varying patient populations</li>
-<li>Regional differences in healthcare infrastructure</li>
-<li>Economic and resource disparities</li>
-</ul>
-<p>Using the <code>quality_data</code> dataset below, analyze how hospital region (<code>region</code>) affects quality scores (<code>quality_score</code>) while controlling for IT investment (<code>it_investment</code>) and average length of stay (<code>avg_los</code>).</p>
-<p>Please create the dataset using the code below:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create practice dataset</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">350</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>quality_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">hospital_id =</span> <span class="dv">1</span><span class="sc">:</span>n,</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">region =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Northeast"</span>, <span class="st">"South"</span>, <span class="st">"Midwest"</span>, <span class="st">"West"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>)),  <span class="co"># Geographic region</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">teaching_status =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Teaching"</span>, <span class="st">"Non-Teaching"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># Hospital type</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">it_investment =</span> <span class="fu">round</span>(<span class="fu">runif</span>(n, <span class="dv">50</span>, <span class="dv">500</span>), <span class="dv">0</span>),  <span class="co"># IT spending ($thousands per bed)</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">avg_los =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="fl">4.5</span>, <span class="dv">1</span>), <span class="dv">1</span>)  <span class="co"># Average length of stay (days)</span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_los =</span> <span class="fu">pmax</span>(<span class="dv">2</span>, avg_los),</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate quality score based on multiple factors</span></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">quality_score =</span> <span class="fu">round</span>(</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>      <span class="dv">60</span> <span class="sc">+</span></span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0.03</span> <span class="sc">*</span> it_investment <span class="sc">+</span></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>      <span class="dv">5</span> <span class="sc">*</span> (teaching_status <span class="sc">==</span> <span class="st">"Teaching"</span>) <span class="sc">+</span></span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">case_when</span>(</span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>        region <span class="sc">==</span> <span class="st">"Northeast"</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>        region <span class="sc">==</span> <span class="st">"West"</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>        region <span class="sc">==</span> <span class="st">"Midwest"</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>        region <span class="sc">==</span> <span class="st">"South"</span> <span class="sc">~</span> <span class="sc">-</span><span class="dv">2</span></span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">+</span></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0.02</span> <span class="sc">*</span> it_investment <span class="sc">*</span> (teaching_status <span class="sc">==</span> <span class="st">"Teaching"</span>) <span class="sc">+</span>  <span class="co"># Interaction</span></span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> avg_los <span class="sc">+</span></span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>),</span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>      <span class="dv">1</span></span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">quality_score =</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(quality_score, <span class="dv">100</span>)),</span>
-<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">region =</span> <span class="fu">factor</span>(region),</span>
-<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">teaching_status =</span> <span class="fu">factor</span>(teaching_status, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Non-Teaching"</span>, <span class="st">"Teaching"</span>))</span>
-<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="your-tasks" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="your-tasks"><span class="header-section-number">5.1.2</span> Your Tasks</h3>
-<ol type="1">
-<li><p>Fit a regression model with quality scores (<code>quality_score</code>) as the outcome and region (<code>region</code>) as a predictor, controlling for IT investment (<code>it_investment</code>) and average LOS (<code>avg_los</code>)</p></li>
-<li><p>Interpret the dummy variable coefficients. Which region has the highest quality scores compared to the reference category?</p></li>
-<li><p>Change the reference category to “South” using <code>relevel()</code>. How do the coefficients change?</p></li>
-</ol>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Fit model with region</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>model_region <span class="ot">&lt;-</span> <span class="fu">lm</span>(quality_score <span class="sc">~</span> region <span class="sc">+</span> it_investment <span class="sc">+</span> avg_los,</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> quality_data)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_region)</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Use emmeans to compare all regions</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model_region, <span class="st">"region"</span>)</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Change reference category to South</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>quality_data_reref <span class="ot">&lt;-</span> quality_data <span class="sc">%&gt;%</span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">relevel</span>(region, <span class="at">ref =</span> <span class="st">"South"</span>))</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>model_region_south <span class="ot">&lt;-</span> <span class="fu">lm</span>(quality_score <span class="sc">~</span> region <span class="sc">+</span> it_investment <span class="sc">+</span> avg_los,</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> quality_data_reref)</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_region_south)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-</section>
-</section>
-<section id="exercise-2-testing-for-interactions" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="exercise-2-testing-for-interactions"><span class="header-section-number">5.2</span> Exercise 2: Testing for Interactions</h2>
-<section id="background-and-context-6" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="background-and-context-6"><span class="header-section-number">5.2.1</span> Background and Context</h3>
-<p><strong>The hypothesis</strong>: IT investment (health information technology, electronic health records, data systems) might have different impacts on quality depending on hospital type.</p>
-<p><strong>Why the effect might differ</strong>:</p>
-<ul>
-<li><strong>Teaching hospitals</strong>: Already have sophisticated IT infrastructure and trained staff, so additional investment builds on existing systems</li>
-<li><strong>Non-teaching hospitals</strong>: May be starting from a lower baseline, facing steeper learning curves</li>
-</ul>
-<p><strong>The question</strong>: Does the effect of IT investment (<code>it_investment</code>) on quality scores (<code>quality_score</code>) depend on teaching status (<code>teaching_status</code>)?</p>
-<p>Test for a continuous × categorical interaction using the same dataset.</p>
-</section>
-<section id="your-tasks-1" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="your-tasks-1"><span class="header-section-number">5.2.2</span> Your Tasks</h3>
-<ol type="1">
-<li><p>Fit a model WITH the interaction between IT investment (<code>it_investment</code>) and teaching status (<code>teaching_status</code>), controlling for region (<code>region</code>) and average LOS (<code>avg_los</code>)</p></li>
-<li><p>Interpret the coefficients. Does the effect of IT investment differ significantly depending on teaching status? If so, how do they differ?</p></li>
-<li><p>Create a visualization showing how the effect of IT investment differs by teaching status</p></li>
-</ol>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Model with interaction</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>model_interact <span class="ot">&lt;-</span> <span class="fu">lm</span>(quality_score <span class="sc">~</span> it_investment <span class="sc">*</span> teaching_status <span class="sc">+</span> region <span class="sc">+</span> avg_los,</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> quality_data)</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_interact)</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Interpret coefficients - check interaction term significance</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_interact, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Visualization</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">probe_interaction</span>(model_interact,</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pred =</span> it_investment,</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">modx =</span> teaching_status,</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">x.label =</span> <span class="st">"IT Investment"</span>,</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y.label =</span> <span class="st">"Quality Score"</span>,</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">main.title =</span> <span class="st">"Interaction: IT Investment X Teaching Status"</span>,</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend.main =</span> <span class="st">"Teaching Status"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-</section>
-</section>
-<section id="exercise-3-making-predictions" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="exercise-3-making-predictions"><span class="header-section-number">5.3</span> Exercise 3: Making Predictions</h2>
-<section id="background-and-context-7" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="background-and-context-7"><span class="header-section-number">5.3.1</span> Background and Context</h3>
-<p>Now let’s use your interaction model from Exercise 2 to make predictions. Imagine you’re a healthcare consultant comparing two very different hospitals:</p>
-<p><strong>Hospital A</strong>: A small non-teaching hospital in the South</p>
-<ul>
-<li><code>region</code> = “South”</li>
-<li><code>teaching_status</code> = “Non-Teaching”</li>
-<li><code>it_investment</code> = $100K per bed (modest investment)</li>
-<li><code>avg_los</code> = 4 days</li>
-</ul>
-<p><strong>Hospital B</strong>: A large teaching hospital in the Northeast</p>
-<ul>
-<li><code>region</code> = “Northeast”</li>
-<li><code>teaching_status</code> = “Teaching”</li>
-<li><code>it_investment</code> = $400K per bed (substantial investment)</li>
-<li><code>avg_los</code> = 4 days</li>
-</ul>
-<p>Predict quality scores for both hospitals and understand which factors contribute most to any differences.</p>
-</section>
-<section id="your-tasks-2" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="your-tasks-2"><span class="header-section-number">5.3.2</span> Your Tasks</h3>
-<ol type="1">
-<li><p>Use your interaction model (<code>model_interact</code> from Exercise 2) to predict <code>quality_score</code> for both hospitals</p></li>
-<li><p>Compare the predictions. Which hospital is expected to have higher quality scores?</p></li>
-</ol>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here:</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data for the two hospitals</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>new_hospitals <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">it_investment =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">400</span>),  <span class="co"># Hospital A has lower IT investment</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">teaching_status =</span> <span class="fu">c</span>(<span class="st">"Non-Teaching"</span>, <span class="st">"Teaching"</span>),  <span class="co"># Hospital A is non-teaching, B is teaching</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">region =</span> <span class="fu">c</span>(<span class="st">"South"</span>, <span class="st">"Northeast"</span>),  <span class="co"># Different regions</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">avg_los =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>)  <span class="co"># Same average LOS</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict quality scores</span></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model_interact, <span class="at">newdata =</span> new_hospitals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<hr>
-</section>
-</section>
-</section>
-<section id="summary" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
-<section id="what-we-covered-in-this-lecture" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="what-we-covered-in-this-lecture"><span class="header-section-number">6.1</span> What We Covered in This Lecture</h2>
+<section id="summary" class="level1 section-time" data-time="5 min" data-number="5">
+<h1 class="section-time" data-time="5 min" data-number="5"><span class="header-section-number">5</span> Summary</h1>
+<section id="what-we-covered-in-this-lecture" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="what-we-covered-in-this-lecture"><span class="header-section-number">5.1</span> What We Covered in This Lecture</h2>
 <p>This lecture extended linear regression to handle categorical predictors and situations where effects vary across groups.</p>
-<section id="the-challenge-including-categories-in-regression" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="the-challenge-including-categories-in-regression"><span class="header-section-number">6.1.1</span> 1. The Challenge: Including Categories in Regression</h3>
+<section id="the-challenge-including-categories-in-regression" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="the-challenge-including-categories-in-regression"><span class="header-section-number">5.1.1</span> 1. The Challenge: Including Categories in Regression</h3>
 <p><strong>The problem</strong>: Regression needs numbers, but many important variables are categorical (hospital type, insurance status, treatment group).</p>
 <p><strong>The solution</strong>: Dummy variables (also called indicator variables)</p>
 <ul>
@@ -2202,8 +2148,8 @@ Figure&nbsp;5: PT sessions effect varies by patient age
 </ul>
 <p><strong>Key concept</strong>: Dummy variable coefficients show the difference between each category and the reference category, holding other variables constant.</p>
 </section>
-<section id="how-dummy-variables-work" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="how-dummy-variables-work"><span class="header-section-number">6.1.2</span> 2. How Dummy Variables Work</h3>
+<section id="how-dummy-variables-work" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="how-dummy-variables-work"><span class="header-section-number">5.1.2</span> 2. How Dummy Variables Work</h3>
 <p><strong>Binary categories</strong> (two groups):</p>
 <ul>
 <li>Create ONE dummy variable (0 or 1)</li>
@@ -2219,8 +2165,8 @@ Figure&nbsp;5: PT sessions effect varies by patient age
 </ul>
 <p><strong>Why k-1 instead of k?</strong> Including all categories creates perfect multicollinearity with the intercept.</p>
 </section>
-<section id="interaction-effects-when-effects-depend-on-context" class="level3" data-number="6.1.3">
-<h3 data-number="6.1.3" class="anchored" data-anchor-id="interaction-effects-when-effects-depend-on-context"><span class="header-section-number">6.1.3</span> 3. Interaction Effects: When Effects Depend on Context</h3>
+<section id="interaction-effects-when-effects-depend-on-context" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="interaction-effects-when-effects-depend-on-context"><span class="header-section-number">5.1.3</span> 3. Interaction Effects: When Effects Depend on Context</h3>
 <p><strong>What are they?</strong> An interaction occurs when the effect of one variable changes depending on another variable. In plain language, “it depends!” The answer to “What’s the effect of X on Y?” is “It depends on Z.”</p>
 <p><strong>Types of interactions</strong>:</p>
 <ul>
@@ -2229,8 +2175,8 @@ Figure&nbsp;5: PT sessions effect varies by patient age
 <li><strong>Continuous × Continuous</strong>: Does PT session benefit depend on patient age?</li>
 </ul>
 </section>
-<section id="recognizing-interactions" class="level3" data-number="6.1.4">
-<h3 data-number="6.1.4" class="anchored" data-anchor-id="recognizing-interactions"><span class="header-section-number">6.1.4</span> 4. Recognizing Interactions</h3>
+<section id="recognizing-interactions" class="level3" data-number="5.1.4">
+<h3 data-number="5.1.4" class="anchored" data-anchor-id="recognizing-interactions"><span class="header-section-number">5.1.4</span> 4. Recognizing Interactions</h3>
 <p><strong>Visual clue</strong>: Different slopes for different groups in your scatter plots</p>
 <p><strong>When to test for interactions</strong>:</p>
 <ul>
@@ -2239,8 +2185,8 @@ Figure&nbsp;5: PT sessions effect varies by patient age
 <li>You want to know if an intervention works differently for different populations</li>
 </ul>
 </section>
-<section id="interpreting-interactions" class="level3" data-number="6.1.5">
-<h3 data-number="6.1.5" class="anchored" data-anchor-id="interpreting-interactions"><span class="header-section-number">6.1.5</span> 5. Interpreting Interactions</h3>
+<section id="interpreting-interactions" class="level3" data-number="5.1.5">
+<h3 data-number="5.1.5" class="anchored" data-anchor-id="interpreting-interactions"><span class="header-section-number">5.1.5</span> 5. Interpreting Interactions</h3>
 <p><strong>The key challenge</strong>: Main effects change meaning when interactions are present!</p>
 <p><strong>For Continuous × Categorical</strong>:</p>
 <ul>
@@ -2279,26 +2225,64 @@ Figure&nbsp;5: PT sessions effect varies by patient age
 <li>The interaction creates a crossover where the effect reverses from beneficial to harmful</li>
 </ul>
 </section>
-<section id="practical-considerations-1" class="level3" data-number="6.1.6">
-<h3 data-number="6.1.6" class="anchored" data-anchor-id="practical-considerations-1"><span class="header-section-number">6.1.6</span> 6. Practical Considerations</h3>
+<section id="practical-considerations-1" class="level3" data-number="5.1.6">
+<h3 data-number="5.1.6" class="anchored" data-anchor-id="practical-considerations-1"><span class="header-section-number">5.1.6</span> 6. Practical Considerations</h3>
 <p><strong>Sample size</strong>: Interactions require larger samples because you’re splitting data into subgroups</p>
 <p><strong>Centering variables</strong>: For models with interactions, center continuous variables (subtract the mean) to make coefficients more interpretable</p>
+</section>
+</section>
+<section id="next-steps-practice-activities" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="next-steps-practice-activities"><span class="header-section-number">5.2</span> Next Steps: Practice Activities</h2>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Practice Activities
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete the hands-on practice in <strong><code>week12_linear-regression2_practice.qmd</code></strong>:</p>
+<section id="part-1-guided-practice-8-tasks" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="part-1-guided-practice-8-tasks"><span class="header-section-number">5.2.1</span> Part 1: Guided Practice (8 tasks)</h3>
+<ul>
+<li>Create and interpret binary dummy variables</li>
+<li>Work with multi-level categorical variables</li>
+<li>Use <code>emmeans()</code> for pairwise comparisons</li>
+<li>Test continuous × categorical interactions</li>
+<li>Calculate marginal effects</li>
+<li>Visualize interactions</li>
+<li>Center variables for better interpretability</li>
+</ul>
+</section>
+<section id="part-2-advanced-exercises-3-exercises" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="part-2-advanced-exercises-3-exercises"><span class="header-section-number">5.2.2</span> Part 2: Advanced Exercises (3 exercises)</h3>
+<ul>
+<li>Apply dummy variables to real-world scenarios</li>
+<li>Test for interactions independently</li>
+<li>Make predictions using interaction models</li>
+</ul>
+<p><strong>Expected time</strong>: 1-2 hours during/after lecture</p>
+<p><strong>Purpose</strong>: Build confidence and fluency with dummy variables and interactions</p>
+</section>
+</div>
+</div>
 <hr>
 </section>
 </section>
-</section>
-<section id="references-and-further-reading" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> References and Further Reading</h1>
-<section id="statistical-methods" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="statistical-methods"><span class="header-section-number">7.1</span> Statistical Methods</h2>
+<section id="references-and-further-reading" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References and Further Reading</h1>
+<section id="statistical-methods" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="statistical-methods"><span class="header-section-number">6.1</span> Statistical Methods</h2>
 <ul>
 <li>Gelman, A., &amp; Hill, J. (2006). <em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em>. Cambridge University Press.</li>
 <li>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). <em>An Introduction to Statistical Learning with Applications in R</em> (2nd ed.). Springer.</li>
 <li>Fox, J. (2015). <em>Applied Regression Analysis and Generalized Linear Models</em> (3rd ed.). SAGE Publications.</li>
 </ul>
 </section>
-<section id="healthcare-applications" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="healthcare-applications"><span class="header-section-number">7.2</span> Healthcare Applications</h2>
+<section id="healthcare-applications" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="healthcare-applications"><span class="header-section-number">6.2</span> Healthcare Applications</h2>
 <p>Examples are motivated by the following:</p>
 <ul>
 <li><p>Katikam, S. M., Komari, L. K., &amp; Parimi, S. B. R. (2025). Evaluation of Enhanced Recovery After Surgery (ERAS) Protocols in Abdominal Surgery. <em>Cureus</em>, 17(1), e76908. https://pmc.ncbi.nlm.nih.gov/articles/PMC12244614/</p></li>
@@ -2308,33 +2292,33 @@ Figure&nbsp;5: PT sessions effect varies by patient age
 <hr>
 </section>
 </section>
-<section id="appendix-r-code-reference" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Appendix: R Code Reference</h1>
+<section id="appendix-r-code-reference" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Appendix: R Code Reference</h1>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy variables automatically</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">factor</span>(category), <span class="at">data =</span> mydata)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Change reference category</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>mydata<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(mydata<span class="sc">$</span>category), <span class="at">ref =</span> <span class="st">"baseline"</span>)</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Interaction syntax options</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2, <span class="at">data =</span> mydata)        <span class="co"># Main effects + interaction</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1<span class="sc">:</span>x2, <span class="at">data =</span> mydata) <span class="co"># Equivalent</span></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple interactions</span></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3, <span class="at">data =</span> mydata)   <span class="co"># All main effects and interactions</span></span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal means for categorical interactions</span></span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model, <span class="sc">~</span> treatment <span class="sc">|</span> group)</span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple slopes for continuous interactions</span></span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions)</span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="fu">probe_interaction</span>(model, <span class="at">pred =</span> x, <span class="at">modx =</span> z)</span>
-<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Center variables</span></span>
-<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> mydata  <span class="sc">|&gt;</span> </span>
-<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x_centered =</span> x <span class="sc">-</span> <span class="fu">mean</span>(x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy variables automatically</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">factor</span>(category), <span class="at">data =</span> mydata)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Change reference category</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>mydata<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(mydata<span class="sc">$</span>category), <span class="at">ref =</span> <span class="st">"baseline"</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Interaction syntax options</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2, <span class="at">data =</span> mydata)        <span class="co"># Main effects + interaction</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1<span class="sc">:</span>x2, <span class="at">data =</span> mydata) <span class="co"># Equivalent</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple interactions</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3, <span class="at">data =</span> mydata)   <span class="co"># All main effects and interactions</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Marginal means for categorical interactions</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model, <span class="sc">~</span> treatment <span class="sc">|</span> group)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple slopes for continuous interactions</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interactions)</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="fu">probe_interaction</span>(model, <span class="at">pred =</span> x, <span class="at">modx =</span> z)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Center variables</span></span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> mydata  <span class="sc">|&gt;</span></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x_centered =</span> x <span class="sc">-</span> <span class="fu">mean</span>(x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

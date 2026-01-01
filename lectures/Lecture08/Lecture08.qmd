@@ -1,0 +1,1591 @@
+---
+title: "Crosstabulation and Correlation"
+subtitle: "MBA642: Business Analytics in Healthcare Management"
+Week: "Week 8"
+date: 01/01/2026
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    code-tool: false
+    theme: cosmo
+    highlight-style: github
+execute:
+  warning: false
+  message: false
+
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(corrplot)
+library(gmodels)
+set.seed(2026)
+```
+
+# Introduction
+
+## Building on What We've Learned
+
+In previous sessions, we learned how to compare means across groups using t-tests and ANOVA. These tests examined **bivariate relationships** between:
+
+- A **categorical** independent variable (grouping factor)
+- A **continuous** dependent variable (outcome measure)
+
+For example:
+
+- t-test: Does patient satisfaction (continuous) differ by hospital location (2 categories)?
+- ANOVA: Do wait times (continuous) differ across four departments (4 categories)?
+
+This week, we expand our analytical toolkit to examine two additional types of bivariate relationships:
+
+1. **Two categorical variables**: Crosstabulation (Chi-square test)
+2. **Two continuous variables**: Correlation (Pearson or Spearman)
+
+## New Questions, New Methods
+
+The methods we've learned so far cannot answer certain important healthcare management questions:
+
+**Crosstabulation addresses questions like:**
+
+- Is there an association between **insurance type** (categorical) and **readmission status** (categorical)?
+  - Insurance type: Medicare, Medicaid, Private (discrete categories)
+  - Readmission status: Readmitted, Not Readmitted (discrete categories)
+
+- Do **surgical approach** (categorical) and **complication occurrence** (categorical) appear related?
+  - Surgical approach: Minimally Invasive, Open Surgery (discrete categories)
+  - Complication occurrence: Yes, No (discrete categories)
+
+- Is **shift schedule** (categorical) associated with **incident type** (categorical)?
+  - Shift schedule: Day, Evening, Night (discrete categories)
+  - Incident type: Medication Error, Patient Fall, Pressure Injury (discrete categories)
+
+**Correlation addresses questions like:**
+
+- As **nurse staffing levels** (continuous) increase, do **patient satisfaction scores** (continuous) change?
+  - Nurse staffing: 6.2, 7.8, 9.1, 10.5 hours per patient day (measured on a continuous scale)
+    - *This is a staffing ratio: total nurse hours worked ÷ patient census for the unit*
+  - Satisfaction scores: 72, 85, 91, 88 on a 0-100 scale (measured on a continuous scale)
+
+- Is there a relationship between **ED wait time** (continuous) and **satisfaction ratings** (continuous)?
+  - ED wait time: 23, 45, 67, 102 minutes (measured on a continuous scale)
+  - Satisfaction ratings: 4.2, 3.8, 2.9, 2.1 on a 1-5 scale (measured on a continuous scale)
+
+- Do **pain levels** (ordinal) relate to **mobility scores** (ordinal)?
+  - Pain levels: 2, 5, 7, 9 on a 0-10 scale (ordered categories, but intervals may not be equal)
+  - Mobility scores: 5, 4, 2, 1 on a 1-5 functional independence scale (ordered categories)
+    - *5 = Independent, 4 = Minimal assistance, 3 = Moderate assistance, 2 = Maximal assistance, 1 = Complete dependence*
+
+
+## Choosing the Right Method
+
+The method we use depends on the **measurement scale** of both variables:
+
+| Variable Types | Appropriate Method | Sample Size Considerations | Example |
+|----------------|-------------------|---------------------------|---------|
+| Two nominal (categorical) variables | **Crosstabulation** (Chi-square test) | All expected cell frequencies ≥ 5; use Fisher's exact if any < 5 | Insurance type × Readmission status |
+| Two continuous/ordinal variables | **Correlation** (Pearson or Spearman) | Typically n ≥ 30 for reliable inference; larger samples for detecting weak correlations | Wait time × Satisfaction score |
+
+## The Complete Picture: Bivariate Analysis Methods
+
+Here's how the methods we've learned fit together:
+
+| Independent Variable | Dependent Variable | Statistical Test | Course Week |
+|---------------------|-------------------|------------------|-------------|
+| Categorical (2 groups) | Continuous | Independent t-test | Week 5 ✓ |
+| Categorical (2 groups, paired) | Continuous | Paired t-test | Week 5 ✓ |
+| Categorical (3+ groups) | Continuous | One-way ANOVA | Week 6 ✓ |
+| Categorical (3+ repeated) | Continuous | Repeated-measures ANOVA | Week 6 ✓ |
+| **Categorical** | **Categorical** | **Chi-square / Fisher's exact** | **Week 8 → Part 1** |
+| **Continuous** | **Continuous** | **Pearson/Spearman correlation** | **Week 8 → Part 2** |
+
+The choice of statistical test depends on the measurement scales of your variables and your hypothesis. This week focuses on the two remaining combinations: categorical-categorical and continuous-continuous relationships.
+
+
+------------------------------------------------------------------------
+
+# Part 1: Crosstabulation (Chi-Square Test)
+
+## What is Crosstabulation?
+
+**Crosstabulation** (also called a contingency table or crosstab) is a statistical method that tests whether there is a significant association between two categorical (nominal) variables. It answers the question: *Are these two categorical variables independent of each other, or is there a systematic relationship between them?*
+
+The chi-square test of independence is the inferential statistical test used with crosstabulation. It compares the **observed frequencies** in each cell of the table to the **expected frequencies** that would occur if the two variables were completely independent.
+
+### The Logic Behind the Test
+
+The chi-square test works by comparing what we actually observe in our data to what we would expect to see if there were no relationship between the variables:
+
+- **If the variables are independent** (no association): The distribution of one variable should look the same across all categories of the other variable
+- **If the variables are associated** (dependent): The distribution of one variable will differ across categories of the other variable
+
+For example, if insurance type and readmission are independent, we would expect the readmission rate to be roughly the same regardless of insurance type. If they are associated, readmission rates would differ by insurance type.
+
+## When to Use Crosstabulation
+
+Crosstabulation is appropriate when you want to test the association between two **categorical variables**.
+
+For example:
+
+- **Quality outcomes**: Is there an association between treatment protocol (Protocol A vs. Protocol B) and patient outcome (Improved vs. Not Improved)?
+- **Service utilization**: Is there an association between patient demographic group and choice of service delivery method (In-person vs. Telehealth)?
+- **Operational decisions**: Is there an association between shift type (Day vs. Night) and incident occurrence (Yes vs. No)?
+- **Patient behavior**: Is there an association between receiving a follow-up reminder (Yes vs. No) and appointment attendance (Attended vs. No-show)?
+
+### Key Assumption
+
+For the chi-square test to be valid, each cell in the contingency table should have an **expected frequency of at least 5**. When this assumption is violated (often with small sample sizes), Fisher's exact test should be used instead (discussed later in this document).
+
+## Scenario: Insurance Type and Hospital Readmission
+
+### Background and Context
+
+Let's think about the following case:
+
+A hospital quality improvement team wants to understand whether there is an association between patients' **insurance type** (Medicare, Medicaid, Private) and **30-day readmission status** (Readmitted vs. Not Readmitted).
+
+**Why This Matters:**
+
+Hospital readmissions are a critical quality and financial metric for several reasons:
+
+1. **Financial Impact**: Under the Hospital Readmissions Reduction Program (HRRP), Medicare penalizes hospitals with excess readmissions, potentially reducing Medicare payments by up to 3%. For a typical hospital, this can mean millions of dollars in lost revenue.
+
+2. **Quality Indicator**: The 30-day readmission rate is used in various quality rankings. High readmission rates can damage a hospital's reputation and affect patient choice.
+
+3. **Patient Outcomes**: Readmissions often indicate gaps in care coordination, inadequate discharge planning, or unmet post-discharge needs. They represent adverse events from the patient perspective.
+
+4. **Health Equity**: If readmission rates vary systematically by insurance type, this may reveal disparities in care quality, access to follow-up services, or social determinants of health that the hospital can address.
+
+
+Studies have shown that socioeconomic factors—often correlated with insurance type—significantly affect readmission risk. Patients with Medicaid or Medicare may face different challenges than privately insured patients, including:
+
+- Limited access to primary care providers
+- Higher medication cost-sharing leading to non-adherence
+- Greater prevalence of social risk factors (food insecurity, housing instability, transportation barriers)
+
+
+**Study Design:**
+
+The quality improvement team collected data from **300 patients** discharged from the cardiology unit over the past year. Cardiology patients were selected because:
+
+- Heart failure and acute myocardial infarction (heart attack) have high national readmission rates (≈20-25%)
+- These conditions are included in the HRRP penalty calculations
+- Post-discharge care requirements are clear (medication adherence, follow-up appointments, weight monitoring)
+
+**Research Question:**
+
+Is there a statistically significant association between insurance type and 30-day readmission status?
+
+
+## The Chi-Square Formula
+
+The chi-square statistic is calculated as:
+
+$$\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$
+
+Where:
+
+- $O_{ij}$: Observed frequency in cell (i, j)
+- $E_{ij}$: Expected frequency in cell (i, j)
+
+The expected frequency for each cell is calculated as:
+
+$$E_{ij} = \frac{(\text{Row Total}_i) \times (\text{Column Total}_j)}{\text{Grand Total}}$$
+
+### Understanding the Formula
+
+The chi-square statistic measures the overall discrepancy between observed and expected frequencies:
+
+- **Numerator** $(O_{ij} - E_{ij})^2$: The squared difference between what we observed and what we expected. Squaring ensures all differences are positive and gives more weight to larger discrepancies.
+- **Denominator** $E_{ij}$: Dividing by the expected frequency standardizes the difference, so cells with larger expected frequencies don't dominate the statistic.
+
+A **larger chi-square value** indicates a greater discrepancy between observed and expected frequencies, suggesting that the variables are likely associated. The p-value tells us the probability of observing such a large chi-square value (or larger) if the variables were truly independent.
+
+## Manual Calculation: Understanding the Chi-Square Statistic
+
+Before using R to conduct the test, let's work through a manual calculation to understand what the chi-square test actually does. This will help you interpret the R output more meaningfully.
+
+Let's use a simplified example with smaller numbers:
+
+**Example**: A clinic examines whether insurance type (Medicare vs. Private) is associated with no-show status (No-show vs. Attended).
+
+```{r}
+#| label: manual-chisq-data
+#| echo: false
+
+# Create a simple 2x2 table for manual calculation
+manual_table <- matrix(c(15, 35, 25, 25), nrow = 2, byrow = TRUE,
+                       dimnames = list(Insurance = c("Medicare", "Private"),
+                                     Appointment = c("No-show", "Attended")))
+
+knitr::kable(manual_table,
+             caption = "Observed Frequencies: Insurance Type × Appointment Status")
+```
+
+### Step 1: Calculate Row and Column Totals
+
+```{r}
+#| label: manual-chisq-totals
+#| echo: false
+
+row_totals <- rowSums(manual_table)
+col_totals <- colSums(manual_table)
+grand_total <- sum(manual_table)
+
+totals_table <- rbind(
+  cbind(manual_table, "Row Total" = row_totals),
+  c(col_totals, grand_total)
+)
+rownames(totals_table)[3] <- "Column Total"
+
+knitr::kable(totals_table,
+             caption = "Observed Frequencies with Marginal Totals")
+```
+
+### Step 2: Calculate Expected Frequencies
+
+For each cell, the expected frequency is:
+
+$$E_{ij} = \frac{(\text{Row Total}_i) \times (\text{Column Total}_j)}{\text{Grand Total}}$$
+
+Let's calculate for each cell:
+
+```{r}
+#| label: manual-chisq-expected
+
+# Calculate expected frequencies
+E_medicare_noshow <- (row_totals[1] * col_totals[1]) / grand_total
+E_medicare_attended <- (row_totals[1] * col_totals[2]) / grand_total
+E_private_noshow <- (row_totals[2] * col_totals[1]) / grand_total
+E_private_attended <- (row_totals[2] * col_totals[2]) / grand_total
+
+expected_table <- matrix(c(E_medicare_noshow, E_medicare_attended,
+                          E_private_noshow, E_private_attended),
+                        nrow = 2, byrow = TRUE,
+                        dimnames = dimnames(manual_table))
+```
+
+```{r}
+#| echo: false
+
+cat("Expected Frequencies:\n\n")
+cat(sprintf("Medicare × No-show:    (%d × %d) / %d = %.2f\n",
+            row_totals[1], col_totals[1], grand_total, E_medicare_noshow))
+cat(sprintf("Medicare × Attended:   (%d × %d) / %d = %.2f\n",
+            row_totals[1], col_totals[2], grand_total, E_medicare_attended))
+cat(sprintf("Private × No-show:     (%d × %d) / %d = %.2f\n",
+            row_totals[2], col_totals[1], grand_total, E_private_noshow))
+cat(sprintf("Private × Attended:    (%d × %d) / %d = %.2f\n",
+            row_totals[2], col_totals[2], grand_total, E_private_attended))
+```
+
+```{r}
+#| echo: false
+
+knitr::kable(round(expected_table, 2),
+             caption = "Expected Frequencies (if variables were independent)")
+```
+
+### Step 3: Calculate Chi-Square Contribution for Each Cell
+
+For each cell, we calculate: $\frac{(O_{ij} - E_{ij})^2}{E_{ij}}$
+
+```{r}
+#| label: manual-chisq-components
+
+# Calculate chi-square components
+chisq_contrib <- (manual_table - expected_table)^2 / expected_table
+```
+
+```{r}
+#| echo: false
+
+cat("Chi-Square Components:\n\n")
+cat(sprintf("Medicare × No-show:    (15 - %.2f)² / %.2f = %.3f\n",
+            E_medicare_noshow, E_medicare_noshow, chisq_contrib[1,1]))
+cat(sprintf("Medicare × Attended:   (35 - %.2f)² / %.2f = %.3f\n",
+            E_medicare_attended, E_medicare_attended, chisq_contrib[1,2]))
+cat(sprintf("Private × No-show:     (25 - %.2f)² / %.2f = %.3f\n",
+            E_private_noshow, E_private_noshow, chisq_contrib[2,1]))
+cat(sprintf("Private × Attended:    (25 - %.2f)² / %.2f = %.3f\n",
+            E_private_attended, E_private_attended, chisq_contrib[2,2]))
+```
+
+```{r}
+#| echo: false
+
+knitr::kable(round(chisq_contrib, 3),
+             caption = "Chi-Square Contribution from Each Cell")
+```
+
+### Step 4: Sum to Get Chi-Square Statistic
+
+```{r}
+#| label: manual-chisq-stat
+
+# Calculate total chi-square
+chisq_manual <- sum(chisq_contrib)
+```
+
+```{r}
+#| echo: false
+
+cat("\nFinal Calculation:\n")
+cat("─────────────────────────────────────\n")
+cat(sprintf("χ² = %.3f + %.3f + %.3f + %.3f\n",
+            chisq_contrib[1,1], chisq_contrib[1,2],
+            chisq_contrib[2,1], chisq_contrib[2,2]))
+cat(sprintf("χ² = %.3f\n\n", chisq_manual))
+cat("─────────────────────────────────────\n\n")
+```
+
+
+Our manual calculation matches R's output! This demonstrates that the chi-square test is:
+1. Comparing what we **observed** to what we would **expect** if variables were independent
+2. Squaring differences to make them all positive and emphasize larger discrepancies
+3. Standardizing by dividing by expected frequencies
+4. Summing across all cells to get a single test statistic, chi-square value
+
+Now let's apply this understanding to our main healthcare example.
+
+---
+
+## Example: Insurance Type and Readmission
+
+Let's analyze our hospital readmission data:
+
+```{r}
+#| label: crosstab-data
+
+# Create the dataset
+set.seed(2026)
+
+# Generate data where there IS an association
+n <- 300
+
+# Create insurance type
+insurance <- sample(c("Medicare", "Medicaid", "Private"), n,
+                    replace = TRUE, prob = c(0.4, 0.3, 0.3))
+
+# Create readmission with different probabilities by insurance
+readmission <- character(n)
+for(i in 1:n) {
+  if(insurance[i] == "Medicare") {
+    readmission[i] <- sample(c("Readmitted", "Not Readmitted"), 1,
+                              prob = c(0.25, 0.75))
+  } else if(insurance[i] == "Medicaid") {
+    readmission[i] <- sample(c("Readmitted", "Not Readmitted"), 1,
+                              prob = c(0.30, 0.70))
+  } else {
+    readmission[i] <- sample(c("Readmitted", "Not Readmitted"), 1,
+                              prob = c(0.12, 0.88))
+  }
+}
+
+# Create data frame
+readmission_data <- data.frame(
+  insurance = factor(insurance, levels = c("Medicare", "Medicaid", "Private")),
+  readmission = factor(readmission, levels = c("Readmitted", "Not Readmitted"))
+)
+
+head(readmission_data)
+
+# View the contingency table
+table(readmission_data$insurance, readmission_data$readmission)
+```
+
+Let's examine the row percentages to better understand the pattern:
+
+```{r}
+#| label: crosstab-percentages
+
+# Calculate percentages by insurance type
+prop.table(table(readmission_data$insurance, readmission_data$readmission),
+           margin = 1) * 100
+```
+
+## Visualizing the Association
+
+Visualizing the data helps us see the pattern before conducting the formal statistical test:
+
+```{r}
+#| label: crosstab-viz
+#| fig-width: 10
+#| fig-height: 5
+
+# Create summary data for plotting
+plot_data <- readmission_data %>%
+  group_by(insurance, readmission) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  group_by(insurance) %>%
+  mutate(percentage = count / sum(count) * 100)
+
+# Grouped bar chart
+ggplot(plot_data, aes(x = insurance, y = percentage, fill = readmission)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8, width = 0.4) +
+  geom_text(aes(label = sprintf("%.1f%%", percentage)),
+            position = position_dodge(width = 0.4),
+            vjust = -0.5, size = 3.5) +
+  scale_fill_manual(values = c("#E63946", "#2A9D8F"),
+                    name = "Readmission Status") +
+  labs(title = "30-Day Readmission Rates by Insurance Type",
+       subtitle = "Cardiology Unit Discharges (n = 300)",
+       x = "Insurance Type",
+       y = "Percentage of Patients") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "top") +
+  ylim(0, 100)
+```
+
+The visualization suggests that readmission rates may differ by insurance type, with Medicaid patients showing higher readmission rates and Private insurance patients showing lower rates. The chi-square test will tell us if this difference is statistically significant.
+
+## Visualizing the Chi-Square Distribution
+
+Before conducting the formal test, let's visualize the chi-square distribution to understand how hypothesis testing works. This graph shows what we would expect to see **if the null hypothesis were true** (i.e., if insurance type and readmission were truly independent).
+
+```{r}
+#| label: chisq-dist-viz
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+
+# First, calculate the observed chi-square statistic
+obs_table <- table(readmission_data$insurance, readmission_data$readmission)
+chisq_test_preview <- chisq.test(obs_table)
+obs_chisq <- chisq_test_preview$statistic
+df_chisq <- chisq_test_preview$parameter
+
+# Create chi-square distribution plot
+x_range <- seq(0, max(obs_chisq + 5, 15), length.out = 1000)
+y_values <- dchisq(x_range, df_chisq)
+
+# Critical value for alpha = 0.05
+crit_val_chisq <- qchisq(0.95, df_chisq)
+
+ggplot(data.frame(x = x_range, y = y_values), aes(x, y)) +
+  geom_line(linewidth = 1) +
+  geom_area(data = subset(data.frame(x = x_range, y = y_values), x >= crit_val_chisq),
+            aes(x, y), fill = "gray70", alpha = 0.5) +
+  geom_area(data = subset(data.frame(x = x_range, y = y_values), x >= obs_chisq),
+            aes(x, y), fill = "red", alpha = 0.6) +
+  geom_vline(xintercept = crit_val_chisq, linetype = "dashed", color = "black") +
+  geom_vline(xintercept = obs_chisq, color = "red", linewidth = 1.5) +
+  annotate("text", x = obs_chisq + 1, y = max(y_values) * 0.5,
+           label = paste("Observed χ² =", round(obs_chisq, 2)),
+           color = "red", hjust = 0, fontface = "bold") +
+  annotate("text", x = crit_val_chisq + 0.5, y = max(y_values) * 0.1,
+           label = paste("Critical value =", round(crit_val_chisq, 2)),
+           hjust = 0, size = 3) +
+  annotate("text", x = max(x_range) * 0.6, y = max(y_values) * 0.8,
+           label = "Rejection region\n(α = 0.05)",
+           color = "gray30", size = 3.5) +
+  labs(title = "Chi-Square Distribution Under the Null Hypothesis",
+       subtitle = paste("df =", df_chisq, "| Our observed χ² falls in the rejection region (red)"),
+       x = "χ² value",
+       y = "Density") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+**Interpretation of the visualization:**
+
+- **Black curve**: The chi-square distribution showing what χ² values we would expect if insurance and readmission were independent
+- **Gray shaded area**: The rejection region (α = 0.05). If our χ² falls here, we reject the null hypothesis
+- **Red vertical line**: Our observed χ² statistic from the data
+- **Red shaded area**: The p-value region—the probability of observing a χ² this large or larger if H₀ were true
+
+Since our observed χ² (red line) falls well into the rejection region, we have strong evidence that insurance type and readmission status are significantly associated.
+
+## Conducting the Chi-Square Test in R
+
+We use the `chisq.test()` function to perform the chi-square test of independence:
+
+```{r}
+#| label: chisq-test
+
+# Perform chi-square test
+chi_result <- chisq.test(table(readmission_data$insurance,
+                                readmission_data$readmission))
+
+# Display results
+chi_result
+```
+
+### Examining Expected Frequencies
+
+It's important to check that our expected frequencies meet the assumption (all cells ≥ 5):
+
+```{r}
+#| label: expected-freq
+
+# View expected frequencies
+chi_result$expected
+```
+
+All expected frequencies are greater than 5, so the chi-square test is appropriate for this data.
+
+### Interpreting the Results
+
+Let's break down each component of the output:
+
+**Test Statistic:**
+
+- **X-squared** = `r round(chi_result$statistic, 3)`: This is the chi-square test statistic, measuring the overall discrepancy between observed and expected frequencies.
+  - Larger values indicate greater differences between what we observed and what we would expect if the variables were independent
+  - Our value of `r round(chi_result$statistic, 3)` represents the sum of standardized squared differences across all cells in the contingency table
+
+**Degrees of Freedom:**
+
+- **df** = `r chi_result$parameter`: Calculated as (number of rows - 1) × (number of columns - 1)
+  - In our case: (3 insurance types - 1) × (2 readmission statuses - 1) = `r chi_result$parameter`
+  - This determines the shape of the chi-square distribution used to calculate the p-value
+
+**Statistical Significance:**
+
+- **p-value** = `r format(chi_result$p.value, digits = 3, scientific = ifelse(chi_result$p.value < 0.001, TRUE, FALSE))`: The probability of observing a chi-square statistic this large (or larger) if insurance type and readmission status were truly independent
+  - Since p `r ifelse(chi_result$p.value < 0.001, "< 0.001", paste("<", 0.05))`, this result is statistically significant
+  - The association we observe may not be due to random chance
+
+
+## Fisher's Exact Test vs. Chi-Square Test
+
+### When to Use Fisher's Exact Test
+
+The chi-square test relies on an approximation that works well with large samples. However, when **expected frequencies are small** (typically when any expected cell count is less than 5), this approximation becomes unreliable. In such cases, **Fisher's exact test** should be used instead.
+
+Fisher's exact test calculates the exact probability of observing the data (or more extreme data) under the null hypothesis of independence, without relying on the chi-square approximation.
+
+### How Fisher's Exact Test Works
+
+[Fisher's exact test](https://en.wikipedia.org/wiki/Fisher%27s_exact_test) calculates the exact probability of obtaining the observed arrangement of frequencies (or a more extreme arrangement) in a contingency table, given that the row and column totals are fixed.
+
+For a 2×2 contingency table:
+
+|  | Outcome A | Outcome B | Row Total |
+|--|-----------|-----------|-----------|
+| Group 1 | a | b | a + b |
+| Group 2 | c | d | c + d |
+| Column Total | a + c | b + d | n |
+
+The probability of observing exactly this arrangement is calculated using the hypergeometric formula:
+
+$$P = \frac{(a+b)! \cdot (c+d)! \cdot (a+c)! \cdot (b+d)!}{n! \cdot a! \cdot b! \cdot c! \cdot d!}$$
+
+Where:
+
+- The numerator represents the product of all row and column marginal factorials
+- The denominator represents the total sample factorial times each cell frequency factorial
+
+The **p-value** is then calculated by summing the probabilities of all possible table arrangements that are equally extreme or more extreme than the observed table (i.e., arrangements that show the same or stronger association), while keeping the marginal totals fixed.
+
+### Understanding the Logic
+
+The key insight is that Fisher's exact test asks: "If the null hypothesis of independence were true (i.e., the row variable has no effect on the column variable), what is the probability of seeing data this extreme or more extreme, given our fixed marginal totals?"
+
+Unlike the chi-square test which uses an approximation based on the chi-square distribution, Fisher's test computes this probability exactly by enumerating all possible tables—making it reliable even with very small samples.
+
+### Example: Small Sample with Fisher's Exact Test
+
+Consider a small pilot study examining whether a new discharge protocol affects readmission. Only 20 patients were enrolled (10 per protocol):
+
+```{r}
+#| label: fisher-example
+
+# Small sample data (n = 20)
+pilot_data <- matrix(c(1, 9,   # New Protocol: 1 readmitted, 9 not
+                       5, 5),  # Standard Protocol: 5 readmitted, 5 not
+                     nrow = 2, byrow = TRUE,
+                     dimnames = list(Protocol = c("New", "Standard"),
+                                   Readmission = c("Readmitted", "Not Readmitted")))
+
+pilot_data
+
+# Check expected frequencies with chi-square
+chisq.test(pilot_data)$expected
+```
+
+Notice that **two cells have expected frequencies below 5** (both are 3.0), making the chi-square approximation unreliable. The chi-square test assumes large sample sizes, and when expected frequencies are < 5, the sampling distribution doesn't follow the theoretical chi-square distribution well. We should use Fisher's exact test:
+
+```{r}
+#| label: fisher-test
+
+# Fisher's exact test
+fisher_result <- fisher.test(pilot_data)
+fisher_result
+```
+
+### Interpreting Fisher's Exact Test Output
+
+- **p-value**: The exact probability of observing this table (or more extreme) if the variables were independent. If p < 0.05, we reject independence and conclude there is a significant association.
+
+- **Odds ratio**: Fisher's test also provides an odds ratio, which quantifies the strength of association. An odds ratio of 1 indicates no association; values far from 1 indicate stronger associations. (We will talk about this in Logistic Regression)
+
+
+### Practical Guideline
+
+Use this decision rule:
+
+1. First, run `chisq.test()` and examine the expected frequencies
+2. If **all expected frequencies ≥ 5**: Report the chi-square test results
+3. If **any expected frequency < 5**: Use `fisher.test()` instead
+
+::: {.callout-important}
+## Practice Activity 1: Treatment Protocol and Complications
+
+Now it's your turn to practice! Open **`week08_bivariate-relationships_practice.qmd`** and complete:
+
+**Practice Activity 1**: A surgical department wants to test whether there's an association between surgical approach (Minimally Invasive vs. Open) and post-operative complications (Yes vs. No).
+
+You'll practice:
+
+- Creating a contingency table
+- Calculating row-wise percentages
+- Checking expected frequencies
+- Performing the appropriate test (chi-square or Fisher's exact)
+- Interpreting the results
+
+:::
+
+------------------------------------------------------------------------
+
+# Part 2: Correlation Analysis
+
+## What is Correlation?
+
+**Correlation analysis** tests whether there is a significant **linear association** between two continuous or ordinal variables. It quantifies both the **direction** (positive or negative) and **strength** of the relationship.
+
+Unlike crosstabulation which examines categorical variables, correlation examines whether two numeric variables tend to change together in a consistent, linear pattern:
+
+- **Positive correlation**: As one variable increases, the other tends to increase
+- **Negative correlation**: As one variable increases, the other tends to decrease
+- **No correlation**: No consistent linear pattern between the variables
+
+### Important Distinction: Correlation vs. Causation
+
+A critical concept to understand is that **correlation does not imply causation**. Just because two variables are correlated does not mean that one causes the other. There may be:
+
+- A third variable causing both (confounding)
+- Reverse causation
+- Coincidental association
+
+For example, if we find that hospitals with more administrators have lower mortality rates, we cannot conclude that hiring more administrators reduces mortality. Both might be related to hospital size, funding, or other factors.
+
+## The Correlation Coefficient
+
+The correlation coefficient is a standardized measure that ranges from **-1 to +1**:
+
+$$r = \frac{\sum_{i=1}^{n}(X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{n}(X_i - \bar{X})^2} \sqrt{\sum_{i=1}^{n}(Y_i - \bar{Y})^2}}$$
+
+Or equivalently:
+
+$$r = \frac{Cov(X, Y)}{SD(X) \times SD(Y)}$$
+
+### Interpreting the Correlation Coefficient
+
+The [correlation coefficient](https://en.wikipedia.org/wiki/Correlation_coefficient) tells us three things:
+
+1. **Direction** (sign):
+   - Positive (+): Variables move in the same direction
+   - Negative (-): Variables move in opposite directions
+
+2. **Strength** (absolute value):
+   - 0.00 - 0.19: Very weak or no correlation
+   - 0.20 - 0.39: Weak correlation
+   - 0.40 - 0.59: Moderate correlation
+   - 0.60 - 0.79: Strong correlation
+   - 0.80 - 1.00: Very strong correlation
+
+3. **Statistical significance** (p-value):
+   - p < 0.05: The correlation is statistically significant
+   - p ≥ 0.05: The correlation is not statistically significant
+
+These strength guidelines are general rules of thumb. Context matters.
+
+
+## Pearson vs. Spearman Correlation
+
+### Pearson Correlation
+
+**Pearson correlation** measures the linear relationship between two **continuous (interval or ratio)** variables. It uses the raw data values and assumes:
+
+- Both variables are normally distributed (or large sample size)
+- The relationship is linear
+
+Use Pearson correlation for variables like:
+
+- Patient age in years old and length of stay in days
+- Wait time in minutes and satisfaction score
+- Staffing hours and number of patient falls
+
+### Spearman Correlation
+
+**Spearman correlation** measures the monotonic relationship between two variables using **ranks** instead of raw values. It's appropriate for:
+
+- **Ordinal variables** (e.g., pain scale ratings, satisfaction categories)
+- Continuous data with **outliers** (ranks minimize outlier influence)
+- **Non-linear but monotonic** relationships
+
+Use Spearman correlation for variables like:
+
+- Education level (ordinal) and health literacy score
+- Pain rating (1-10 scale) and medication requests
+- When you suspect outliers might influence Pearson correlation
+
+## When to Use Correlation
+
+Correlation is appropriate when examining the relationship between two **non-categorical variables**.
+
+For example:
+
+- **Operational efficiency**: Is there a relationship between nurse-to-patient ratio and patient satisfaction scores?
+- **Resource utilization**: Is there a relationship between length of stay and total charges?
+- **Quality metrics**: Is there a relationship between hand hygiene compliance rates and hospital-acquired infection rates?
+- **Patient outcomes**: Is there a relationship between wait time and patient satisfaction?
+
+## Scenario: Nurse Staffing and Patient Satisfaction
+
+### Background and Context
+
+Let's think about the following case:
+
+A hospital administrator wants to understand whether there is a relationship between **nurse staffing levels** (measured as nursing hours per patient day) and **patient satisfaction scores** (measured on a 0-100 scale).
+
+**Why This Matters:**
+
+The relationship between nurse staffing and patient outcomes is one of the most studied and debated topics in healthcare management:
+
+- Nursing staff represents a substantial portion of hospital operating budgets (often 25-40%). Understanding the staffing-satisfaction relationship informs resource allocation and business case development for staffing increases.
+
+- Research consistently shows that adequate nurse staffing is associated with better patient outcomes, including lower mortality rates, fewer falls, reduced hospital-acquired infections, and shorter lengths of stay.
+
+- Adequate staffing affects nurse job satisfaction, burnout, and turnover. High nurse turnover is expensive (recent estimates exceed $60,000 per nurse replacement) and disrupts care continuity.
+
+**Research Context:**
+
+Multiple systematic reviews and meta-analyses have examined nurse staffing ratios and patient outcomes:
+
+- Each additional patient per nurse is associated with a 7% increase in 30-day mortality and a 7% increase in failure-to-rescue rates
+- Studies show consistent positive associations between nurse staffing levels and patient satisfaction scores
+- The "Nursing Hours Per Patient Day" (NHPPD) metric is widely used as a proxy for staffing adequacy, typically ranging from 6-12 hours in acute care settings
+
+**Measurement Details:**
+
+- **Nursing Hours Per Patient Day (NHPPD)**: Total RN hours worked divided by patient census. For example, if a 20-bed unit has 10 nurses working 8-hour shifts on a day when census is 18 patients: (10 × 8) / 18 = 4.4 NHPPD
+
+- **Patient Satisfaction**: Measured using standardized surveys, aggregated to a 0-100 composite score. Scores typically range from 60-90, with national median around 75.
+
+**Study Design:**
+
+The administrator collected data from **50 nursing units** across a health system over the past quarter, representing:
+
+- Medical-surgical units, telemetry units, and step-down units
+- Urban and suburban facilities
+- Units ranging from 15-35 beds
+- Both teaching and community hospital settings
+
+Each unit provides one data point: average NHPPD for the quarter paired with average patient satisfaction score.
+
+**Research Question:**
+
+Is there a statistically significant correlation between nursing hours per patient day and patient satisfaction scores? If so, what is the strength and direction of this relationship?
+
+
+## Manual Calculation: Understanding the Pearson Correlation Coefficient
+
+Before analyzing our full dataset, let's work through a manual calculation with a small example to understand how the correlation coefficient is computed. This will help you interpret R's output more meaningfully.
+
+**Example**: A small clinic examines the relationship between nurse staffing hours and patient satisfaction for 6 units:
+
+```{r}
+#| label: manual-corr-data
+
+# Small dataset for manual calculation
+manual_units <- data.frame(
+  unit = c("A", "B", "C", "D", "E", "F"),
+  staffing = c(6, 7, 8, 9, 10, 11),
+  satisfaction = c(65, 70, 75, 78, 82, 85)
+)
+
+knitr::kable(manual_units,
+             col.names = c("Unit", "Nursing Hours (X)", "Satisfaction (Y)"),
+             caption = "Sample Data: 6 Nursing Units")
+```
+
+### Step 1: Calculate Means
+
+```{r}
+#| label: manual-corr-means
+
+X <- manual_units$staffing
+Y <- manual_units$satisfaction
+
+X_bar <- mean(X)
+Y_bar <- mean(Y)
+```
+
+```{r}
+#| echo: false
+cat(sprintf("Mean staffing (X̄): %.2f hours\n", X_bar))
+cat(sprintf("Mean satisfaction (Ȳ): %.2f\n", Y_bar))
+```
+
+### Step 2: Calculate Deviations from the Mean
+
+For each observation, calculate how far it is from the mean:
+
+```{r}
+#| label: manual-corr-deviations
+
+deviations <- data.frame(
+  unit = manual_units$unit,
+  X = X,
+  Y = Y,
+  X_dev = X - X_bar,
+  Y_dev = Y - Y_bar,
+  XY_product = (X - X_bar) * (Y - Y_bar),
+  X_dev_sq = (X - X_bar)^2,
+  Y_dev_sq = (Y - Y_bar)^2
+)
+```
+
+```{r}
+#| echo: false
+
+knitr::kable(deviations,
+             col.names = c("Unit", "X", "Y", "(X - X̄)", "(Y - Ȳ)",
+                          "(X - X̄)(Y - Ȳ)", "(X - X̄)²", "(Y - Ȳ)²"),
+             digits = 2,
+             caption = "Deviations and Products")
+```
+
+### Step 3: Calculate Sum of Products and Sum of Squares
+
+```{r}
+#| label: manual-corr-sums
+
+sum_XY <- sum(deviations$XY_product)
+sum_X_sq <- sum(deviations$X_dev_sq)
+sum_Y_sq <- sum(deviations$Y_dev_sq)
+```
+
+```{r}
+#| echo: false
+
+cat("Sum of Products:\n")
+cat(sprintf("  Σ(X - X̄)(Y - Ȳ) = %.2f\n\n", sum_XY))
+
+cat("Sum of Squared Deviations:\n")
+cat(sprintf("  Σ(X - X̄)² = %.2f\n", sum_X_sq))
+cat(sprintf("  Σ(Y - Ȳ)² = %.2f\n", sum_Y_sq))
+```
+
+### Step 4: Calculate the Correlation Coefficient
+
+The Pearson correlation coefficient formula is:
+
+$$r = \frac{\sum(X - \bar{X})(Y - \bar{Y})}{\sqrt{\sum(X - \bar{X})^2} \times \sqrt{\sum(Y - \bar{Y})^2}}$$
+
+```{r}
+#| label: manual-corr-calculate
+
+r_manual <- sum_XY / (sqrt(sum_X_sq) * sqrt(sum_Y_sq))
+```
+
+```{r}
+#| echo: false
+
+cat("\nCalculation:\n")
+cat("─────────────────────────────────────────────\n")
+cat(sprintf("r = %.2f / (√%.2f × √%.2f)\n", sum_XY, sum_X_sq, sum_Y_sq))
+cat(sprintf("r = %.2f / (%.2f × %.2f)\n", sum_XY, sqrt(sum_X_sq), sqrt(sum_Y_sq)))
+cat(sprintf("r = %.2f / %.2f\n", sum_XY, sqrt(sum_X_sq) * sqrt(sum_Y_sq)))
+cat(sprintf("r = %.3f\n", r_manual))
+cat("─────────────────────────────────────────────\n\n")
+
+cat("Interpretation:\n")
+cat(sprintf("  • r = %.3f indicates a %s %s correlation\n",
+            r_manual,
+            ifelse(abs(r_manual) >= 0.7, "strong",
+                   ifelse(abs(r_manual) >= 0.4, "moderate", "weak")),
+            ifelse(r_manual > 0, "positive", "negative")))
+cat(sprintf("  • Direction: As staffing increases, satisfaction %s\n",
+            ifelse(r_manual > 0, "increases", "decreases")))
+```
+
+
+### Understanding What the Correlation Tells Us
+
+The correlation coefficient measures three things:
+
+1. **Direction** (sign):
+   - Positive r = variables move together (both increase or both decrease)
+   - Negative r = variables move opposite (one increases, other decreases)
+
+2. **Strength** (magnitude):
+   - |r| close to 1 = strong linear relationship
+   - |r| close to 0 = weak or no linear relationship
+
+
+Now let's apply this to our full dataset of 50 nursing units.
+
+---
+
+## Example: Nurse Staffing and Satisfaction
+
+```{r}
+#| label: correlation-data
+
+# Generate realistic healthcare data
+set.seed(2026)
+n_units <- 50
+
+# Nursing hours per patient day (typically 6-12 hours)
+nursing_hours <- round(runif(n_units, 6, 12), 1)
+
+# Patient satisfaction (correlated with nursing hours, with noise)
+# Higher staffing generally associated with higher satisfaction
+satisfaction <- round(50 + 4 * nursing_hours + rnorm(n_units, 0, 10), 1)
+# Ensure scores are within 0-100 range
+satisfaction <- pmin(pmax(satisfaction, 0), 100)
+
+staffing_data <- data.frame(
+  unit_id = 1:n_units,
+  nursing_hours = nursing_hours,
+  satisfaction = satisfaction
+)
+
+# View summary
+summary(staffing_data[, c("nursing_hours", "satisfaction")])
+```
+
+## Visualizing the Relationship
+
+Before calculating the correlation, we should visualize the data with a scatter plot:
+
+```{r}
+#| label: correlation-viz
+#| fig-width: 6
+#| fig-height: 4
+
+ggplot(staffing_data, aes(x = nursing_hours, y = satisfaction)) +
+  geom_point(alpha = 0.7, size = 3, color = "#2E86AB") +
+  geom_smooth(method = "lm", se = TRUE, color = "#E63946", linetype = "solid") +
+  labs(title = "Relationship Between Nurse Staffing and Patient Satisfaction",
+       subtitle = paste("n =", n_units, "nursing units"),
+       x = "Nursing Hours per Patient Day",
+       y = "Patient Satisfaction Score (0-100)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+The scatter plot shows a positive linear trend, indicating that units with higher nursing hours per patient day tend to have higher patient satisfaction scores.
+
+
+## Visualizing the Sampling Distribution of r
+
+Before conducting the formal test, let's understand the sampling distribution of the correlation coefficient under the null hypothesis (H₀: ρ = 0, where ρ is the population correlation). This helps us understand how unusual our observed correlation is.
+
+```{r}
+#| label: corr-sampling-dist-viz
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+
+# Calculate observed correlation
+obs_r <- cor(staffing_data$nursing_hours, staffing_data$satisfaction)
+n <- nrow(staffing_data)
+
+# Calculate t-statistic for correlation
+t_r <- obs_r * sqrt(n - 2) / sqrt(1 - obs_r^2)
+df_r <- n - 2
+
+# Create t-distribution (which is used for testing correlation)
+x_range <- seq(-5, 10, length.out = 1000)
+y_values <- dt(x_range, df_r)
+
+# Critical values for two-tailed test at alpha = 0.05
+crit_val_pos <- qt(0.975, df_r)
+crit_val_neg <- qt(0.025, df_r)
+
+# Convert back to correlation scale for annotation
+crit_r_pos <- crit_val_pos / sqrt(crit_val_pos^2 + df_r)
+crit_r_neg <- crit_val_neg / sqrt(crit_val_neg^2 + df_r)
+
+ggplot(data.frame(x = x_range, y = y_values), aes(x, y)) +
+  geom_line(linewidth = 1) +
+  # Rejection regions
+  geom_area(data = subset(data.frame(x = x_range, y = y_values), x <= crit_val_neg),
+            aes(x, y), fill = "gray70", alpha = 0.5) +
+  geom_area(data = subset(data.frame(x = x_range, y = y_values), x >= crit_val_pos),
+            aes(x, y), fill = "gray70", alpha = 0.5) +
+  # Observed statistic regions
+  geom_area(data = subset(data.frame(x = x_range, y = y_values), x <= -abs(t_r)),
+            aes(x, y), fill = "red", alpha = 0.5) +
+  geom_area(data = subset(data.frame(x = x_range, y = y_values), x >= abs(t_r)),
+            aes(x, y), fill = "red", alpha = 0.6) +
+  # Critical values
+  geom_vline(xintercept = c(crit_val_neg, crit_val_pos),
+             linetype = "dashed", color = "black") +
+  # Observed value
+  geom_vline(xintercept = t_r, color = "red", linewidth = 1.5) +
+  # Annotations
+  annotate("text", x = t_r + 0.5, y = max(y_values) * 0.6,
+           label = paste("Observed t =", round(t_r, 2),
+                        "\n(r =", round(obs_r, 3), ")"),
+           color = "red", hjust = 0, fontface = "bold") +
+  annotate("text", x = crit_val_pos + 0.3, y = max(y_values) * 0.15,
+           label = paste("Critical =", round(crit_val_pos, 2)),
+           hjust = 0, size = 3) +
+  annotate("text", x = 0, y = max(y_values) * 0.9,
+           label = "Null hypothesis: ρ = 0\n(no correlation)",
+           size = 3.5, fontface = "italic") +
+  labs(title = "Sampling Distribution of Correlation Coefficient Under the Null Hypothesis",
+       subtitle = paste("n =", n, "| df =", df_r, "| Our observed r falls in the rejection region (red)"),
+       x = "t-statistic (used to test correlation)",
+       y = "Density") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+**Understanding the Visualization:**
+
+- **Black curve**: The t-distribution representing what we'd expect to see if there were truly no correlation (ρ = 0) in the population
+- **Gray shaded areas**: The rejection regions (α = 0.05, two-tailed). If our test statistic falls here, we reject H₀
+- **Red vertical line**: Our observed t-statistic (derived from r = `r round(obs_r, 3)`)
+- **Red shaded areas**: The p-value—the probability of observing a correlation this strong or stronger if ρ were truly 0
+
+Since our observed t-statistic falls well into the rejection region, we have sufficient evidence of a significant positive correlation between nursing staffing and patient satisfaction.
+
+**Note**: We test correlation using a t-distribution rather than directly using the r distribution because the t-test accounts for sample size through degrees of freedom. The test statistic is: $t = r\sqrt{\frac{n-2}{1-r^2}}$
+
+## Conducting Pearson Correlation in R
+
+We use the `cor.test()` function to calculate the correlation coefficient and test its significance:
+
+```{r}
+#| label: pearson-test
+
+# Pearson correlation test
+pearson_result <- cor.test(staffing_data$nursing_hours,
+                           staffing_data$satisfaction,
+                           method = "pearson")
+
+# with(staffing_data, cor.test(nursing_hours, satisfaction, method = "pearson"))
+
+pearson_result
+```
+
+### Interpreting the Results
+
+Let's break down each component of the correlation test output:
+
+**Correlation Coefficient:**
+
+- **r** = `r round(pearson_result$estimate, 3)`: This Pearson correlation coefficient indicates a `r ifelse(abs(pearson_result$estimate) >= 0.6, "strong", ifelse(abs(pearson_result$estimate) >= 0.4, "moderate", "weak"))` positive linear association between nursing hours per patient day and patient satisfaction scores
+  - **Direction**: Positive (r > 0) means the variables move together in the same direction (as nursing hours increase, satisfaction scores tend to increase)
+  - **Strength**: An r of `r round(pearson_result$estimate, 3)` is considered `r ifelse(abs(pearson_result$estimate) >= 0.6, "strong", ifelse(abs(pearson_result$estimate) >= 0.4, "moderate", "weak"))` based on conventional guidelines
+
+
+**Test Statistic:**
+
+- **t-statistic** = `r round(pearson_result$statistic, 3)`: This measures how many standard errors the observed correlation is deviated from zero (no correlation)
+  - Calculated as: $t = r\sqrt{\frac{n-2}{1-r^2}}$ = `r round(pearson_result$estimate, 3)` × $\sqrt{\frac{`r nrow(staffing_data)`-2}{1-`r round(pearson_result$estimate, 3)`^2}}$
+  - The large (absolute) t-value indicates the observed correlation is very unlikely under H₀: ρ = 0
+
+**Degrees of Freedom:**
+
+- **df** = `r pearson_result$parameter`: Equal to n - 2 = `r nrow(staffing_data)` - 2 = `r pearson_result$parameter`
+  - Determines the shape of the t-distribution used to calculate the p-value
+
+**Statistical Significance:**
+
+- **p-value** = `r format(pearson_result$p.value, digits = 3, scientific = TRUE)`: The probability of observing a correlation of |r| ≥ `r abs(round(pearson_result$estimate, 3))` if the true population correlation were zero
+  - This extremely small p-value (p < 0.001) provides enough evidence against the null hypothesis
+  - We can be highly confident this correlation is not due to random sampling variation
+
+
+---
+
+## Example 2: Pain Assessment and Functional Mobility (Spearman Correlation)
+
+### Scenario: Post-Surgical Recovery Assessment
+
+### Background and Context
+
+Let's think about the following case:
+
+A hospital's orthopedic rehabilitation unit wants to examine the relationship between **patient-reported pain levels** and **functional mobility scores** during post-surgical recovery.
+
+**Why This Matters:**
+
+Understanding the pain and mobility relationship is crucial for post-operative care:
+
+- Pain is known to inhibit movement and physical therapy engagement, but the strength of this relationship informs treatment priorities
+
+- If pain significantly impairs mobility, aggressive pain management may accelerate functional recovery and reduce length of stay
+
+- Both pain control and functional status are key patient reported outcome measures (PROMs) for orthopedic surgery quality assessment
+
+**Measurement Details:**
+
+- **Pain Level**: Patient self-report using numeric rating scale (NRS) from 0-10
+  - 0 = No pain
+  - 1-3 = Mild pain
+  - 4-6 = Moderate pain
+  - 7-10 = Severe pain
+  - This is an **ordinal** scale (ordered categories, but intervals not necessarily equal)
+
+- **Mobility Score**: Functional Independence Measure (FIM) locomotion subscale, 1-5
+  - 1 = Complete dependence (unable to walk)
+  - 2 = Maximal assistance (patient performs <25% of effort)
+  - 3 = Moderate assistance (patient performs 50-75% of effort)
+  - 4 = Minimal assistance (patient performs ≥75% of effort)
+  - 5 = Independent (no assistance needed)
+  - This is also an **ordinal** scale
+
+**Why Use Spearman Instead of Pearson?**
+
+1. **Ordinal data**: Both variables are measured on ordinal scales, not true continuous interval/ratio scales
+2. **Non-normal distributions**: Pain scores often show ceiling/floor effects (clustering at extremes)
+3. **Outlier resistance**: Spearman uses ranks rather than raw values, making it less sensitive to extreme scores
+4. **Monotonic relationship**: We expect pain and mobility to have a monotonic (consistent direction) but not necessarily linear relationship
+
+**Study Design:**
+
+Data collected from **40 patients** recovering from total knee replacement surgery, assessed on post-operative day 3.
+
+**Research Question:**
+
+Is there a significant monotonic relationship between pain levels and functional mobility during early post-operative recovery?
+
+### Example: Pain Level and Functional Mobility
+
+```{r}
+#| label: spearman-example
+
+# Post-operative pain and mobility data (n = 40)
+set.seed(2026)
+n_patients <- 40
+
+pain_level <- sample(1:10, n_patients, replace = TRUE)
+# Higher pain associated with lower mobility
+mobility_score <- round(6 - 0.4 * pain_level + rnorm(n_patients, 0, 0.8))
+mobility_score <- pmin(pmax(mobility_score, 1), 5)
+
+pain_data <- data.frame(
+  patient_id = 1:n_patients,
+  pain_level = pain_level,
+  mobility_score = mobility_score
+)
+
+# Display first 10 patients
+head(pain_data, 10)
+```
+
+```{r}
+#| echo: false
+
+# Summary statistics
+cat("Summary Statistics:\n")
+cat("─────────────────────────────────────\n")
+cat(sprintf("Pain Level (0-10): Mean = %.2f, SD = %.2f\n",
+            mean(pain_data$pain_level), sd(pain_data$pain_level)))
+cat(sprintf("Mobility Score (1-5): Mean = %.2f, SD = %.2f\n",
+            mean(pain_data$mobility_score), sd(pain_data$mobility_score)))
+cat("─────────────────────────────────────\n")
+```
+
+### Visualizing the Relationship
+
+```{r}
+#| label: spearman-viz
+#| fig-width: 6
+#| fig-height: 4
+
+ggplot(pain_data, aes(x = pain_level, y = mobility_score)) +
+  geom_point(alpha = 0.6, size = 3, color = "#2E86AB",
+             position = position_jitter(width = 0.2, height = 0.1)) +
+  geom_smooth(method = "lm", se = TRUE, color = "#E63946") +
+  scale_x_continuous(breaks = 0:10) +
+  scale_y_continuous(breaks = 1:5) +
+  labs(title = "Relationship Between Pain Level and Functional Mobility",
+       subtitle = "Post-operative Day 3 following total knee replacement (n = 40)",
+       x = "Pain Level (0 = None, 10 = Worst Possible)",
+       y = "Functional Mobility Score\n(1 = Complete Dependence, 5 = Independent)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+The scatter plot shows a clear negative trend between pain level and mobility score. Patients reporting higher pain levels tend to have lower mobility scores.
+
+### Conducting Spearman Correlation in R
+
+```{r}
+#| label: spearman-test
+
+# Spearman rank correlation
+spearman_result <- cor.test(pain_data$pain_level,
+                            pain_data$mobility_score,
+                            method = "spearman",
+                            exact = FALSE)  # Use normal approximation for ties
+
+# with(pain_data, cor.test(pain_level, mobility_score, method = "spearman"))
+
+spearman_result
+```
+
+### Interpreting the Results
+
+**Spearman's Rank Correlation Coefficient:**
+
+- **rho (ρ)** = `r round(spearman_result$estimate, 3)`: This indicates a `r ifelse(abs(spearman_result$estimate) >= 0.5, "strong", ifelse(abs(spearman_result$estimate) >= 0.3, "moderate", "weak"))` `r ifelse(spearman_result$estimate < 0, "negative", "positive")` monotonic association
+  - **Direction**: Negative (ρ < 0) means as pain increases, mobility decreases
+  - **Strength**: |ρ| = `r abs(round(spearman_result$estimate, 3))` is considered `r ifelse(abs(spearman_result$estimate) >= 0.5, "strong", ifelse(abs(spearman_result$estimate) >= 0.3, "moderate", "weak"))`
+  - **Interpretation**: Patients with higher pain rankings tend to have lower mobility rankings
+
+
+**Statistical Significance:**
+
+- **p-value** = `r format(spearman_result$p.value, digits = 3, scientific = ifelse(spearman_result$p.value < 0.001, TRUE, FALSE))`: The probability of observing this strong an association if pain and mobility were truly unrelated
+  - Since p `r ifelse(spearman_result$p.value < 0.05, "< 0.05", "≥ 0.05")`, the correlation is `r ifelse(spearman_result$p.value < 0.05, "", "not ")` statistically significant
+
+### Spearman vs. Pearson Comparison
+
+Let's compare Spearman and Pearson for this data:
+
+```{r}
+#| label: spearman-vs-pearson
+#| echo: false
+
+pearson_pain <- cor.test(pain_data$pain_level, pain_data$mobility_score,
+                         method = "pearson")
+
+comparison_df <- data.frame(
+  Method = c("Pearson (r)", "Spearman (ρ)"),
+  Coefficient = c(round(pearson_pain$estimate, 3),
+                  round(spearman_result$estimate, 3)),
+  `P-value` = c(format(pearson_pain$p.value, digits = 3, scientific = TRUE),
+                format(spearman_result$p.value, digits = 3, scientific = TRUE)),
+  Appropriate = c("Less appropriate (ordinal data)",
+                  "More appropriate (ordinal data)")
+)
+
+knitr::kable(comparison_df,
+             col.names = c("Method", "Coefficient", "P-value", "Appropriateness"),
+             caption = "Comparison of Pearson and Spearman Correlation")
+```
+
+**Key Difference**: Spearman correlation uses **ranks** rather than raw values:
+
+- For example, if three patients have pain levels of 1, 2, 7 become ranks 1, 2, 3
+- This makes Spearman appropriate for ordinal data and robust to outliers
+
+### Conclusion and Clinical Implications
+
+**Statistical Conclusion:**
+
+There is a statistically significant `r ifelse(spearman_result$estimate < 0, "negative", "positive")` monotonic relationship between pain level and functional mobility (Spearman ρ = `r round(spearman_result$estimate, 3)`, p `r ifelse(spearman_result$p.value < 0.001, "< 0.001", paste("=", round(spearman_result$p.value, 3)))`). Patients reporting higher pain levels demonstrate lower functional mobility.
+
+
+---
+
+## Correlation Matrix Visualization
+
+When examining relationships among multiple variables simultaneously, a correlation matrix provides an efficient summary. This is particularly useful in healthcare analytics where you often want to explore relationships among many quality metrics, patient characteristics, or operational measures at once.
+
+### Example: Hospital Performance Metrics
+
+Let's examine correlations among several hospital performance metrics:
+
+```{r}
+#| label: correlation-matrix-data
+
+# Generate correlated hospital metrics data
+set.seed(2026)
+n_hospitals <- 75
+
+# Create correlated variables
+hospital_metrics <- data.frame(
+  # Staffing metric
+  rn_hours = round(runif(n_hospitals, 5, 10), 1),
+
+  # These will be correlated with staffing
+  satisfaction = NA,
+  falls_per_1000 = NA,
+  infection_rate = NA,
+  readmit_rate = NA
+)
+
+# Generate correlated outcomes
+hospital_metrics$satisfaction <- round(45 + 5 * hospital_metrics$rn_hours +
+                                        rnorm(n_hospitals, 0, 6), 1)
+hospital_metrics$falls_per_1000 <- round(8 - 0.5 * hospital_metrics$rn_hours +
+                                          rnorm(n_hospitals, 0, 1.5), 2)
+hospital_metrics$infection_rate <- round(3 - 0.2 * hospital_metrics$rn_hours +
+                                          rnorm(n_hospitals, 0, 0.5), 2)
+hospital_metrics$readmit_rate <- round(18 - 0.8 * hospital_metrics$rn_hours +
+                                        rnorm(n_hospitals, 0, 3), 1)
+
+# Ensure reasonable ranges
+hospital_metrics$satisfaction <- pmin(pmax(hospital_metrics$satisfaction, 0), 100)
+hospital_metrics$falls_per_1000 <- pmax(hospital_metrics$falls_per_1000, 0)
+hospital_metrics$infection_rate <- pmax(hospital_metrics$infection_rate, 0)
+hospital_metrics$readmit_rate <- pmax(hospital_metrics$readmit_rate, 0)
+
+# Rename for display
+names(hospital_metrics) <- c("RN Hours/Patient Day", "Satisfaction Score",
+                              "Falls per 1000", "Infection Rate %",
+                              "Readmission Rate %")
+
+head(hospital_metrics)
+```
+
+### Creating a Correlation Matrix
+
+```{r}
+#| label: correlation-matrix
+#| fig-width: 8
+#| fig-height: 7
+
+# Calculate correlation matrix
+cor_matrix <- cor(hospital_metrics, method = "pearson")
+
+# Display the correlation matrix
+round(cor_matrix, 2)
+```
+
+### Visualizing the Correlation Matrix
+
+```{r}
+#| label: corrplot-viz
+#| fig-width: 8
+#| fig-height: 7
+
+# Visualize with corrplot
+# The corrplot package provides multiple visualization options
+corrplot(cor_matrix,
+         method = "color",        # Use colored squares
+         type = "upper",          # Show upper triangle only
+         order = "hclust",        # Cluster similar variables
+         addCoef.col = "black",   # Add correlation coefficients
+         tl.col = "black",        # Text label color
+         tl.srt = 45,             # Text label rotation
+         col = colorRampPalette(c("#E63946", "white", "#2A9D8F"))(200),
+         title = "Correlation Matrix: Hospital Performance Metrics",
+         mar = c(0, 0, 2, 0))     # Margins
+```
+
+### Interpreting the Correlation Matrix
+
+The correlation matrix reveals several important patterns:
+
+1. **RN Hours and Satisfaction**: Strong positive correlation—more nursing hours associated with higher satisfaction
+2. **RN Hours and Adverse Events**: Negative correlations with falls, infections, and readmissions—more staffing associated with better outcomes
+3. **Outcome Intercorrelations**: Falls, infections, and readmissions are positively correlated. Hospitals struggling in one area may struggle in others
+
+
+## Limitations of Correlation Analysis
+
+### 1. Correlation is NOT Causation
+
+This cannot be emphasized enough. A significant correlation between two variables does not mean one causes the other.
+
+**Healthcare Example**: We might find that hospitals with more parking spaces have lower mortality rates. This doesn't mean building parking garages saves lives. It might be because larger hospitals tend to have both more parking and more specialized services (or because of other factors).
+
+Always consider:
+
+- **Confounding variables**: Third variables that influence both
+- **Reverse causation**: Maybe the outcome influences the predictor
+- **Selection bias**: How the sample was selected might create artificial associations
+
+### 2. Correlation Only Captures Linear Relationships
+
+A correlation coefficient of zero means no **linear** relationship. Even if correlation analysis results are not significant, there could still be a strong non-linear relationship.
+
+```{r}
+#| label: nonlinear-example
+#| fig-width: 8
+#| fig-height: 5
+
+# Example of non-linear relationship
+workload <- seq(1, 10, length.out = 100)
+# Performance increases then decreases (inverted U)
+performance <- -0.5 * (workload - 5.5)^2 + 15 + rnorm(100, 0, 1)
+
+# cor.test(workload, performance, method="pearson")
+
+nonlinear_data <- data.frame(workload = workload, performance = performance)
+
+# Calculate correlation
+nonlinear_cor <- cor(nonlinear_data$workload, nonlinear_data$performance)
+
+ggplot(nonlinear_data, aes(x = workload, y = performance)) +
+  geom_point(alpha = 0.6, color = "#2E86AB") +
+  geom_smooth(method = "lm", se = FALSE, color = "#E63946", linetype = "dashed") +
+  geom_smooth(method = "loess", se = FALSE, color = "#2A9D8F") +
+  labs(title = "Example: Non-Linear Relationship with Near-Zero Correlation",
+       subtitle = paste("Pearson r =", round(nonlinear_cor, 3),
+                       "- but there's clearly a relationship!"),
+       x = "Workload Level",
+       y = "Performance Score") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+The inverted U-shape (common in stress-performance relationships) shows a clear pattern, but the linear correlation is near zero.
+
+### 3. Pearson Correlation is Sensitive to Outliers
+
+Extreme values can dramatically influence Pearson correlation coefficients. Sometimes extreme values create the appearance of a significant correlation where none truly exists. This is particularly dangerous because it can lead to incorrect conclusions.
+
+**Example: Outlier Creates Spurious Correlation**
+
+Consider examining the relationship between hospital size (number of beds) and patient satisfaction scores. Without an outlier, there may be no relationship, but a single extreme observation can create a statistically significant—but misleading—correlation:
+
+```{r}
+#| label: outlier-example
+#| fig-width: 10
+#| fig-height: 5
+
+# Data with NO real relationship (random scatter)
+set.seed(2026)
+n_hospitals <- 15
+
+beds_clean <- c(50, 75, 100, 120, 150, 180, 200, 220, 250, 280, 300, 350, 400, 450, 500)
+satisfaction_clean <- c(78, 82, 75, 80, 77, 83, 79, 76, 81, 78, 80, 77, 82, 79, 81)
+
+# Add one outlier that creates a spurious positive correlation
+beds_with_outlier <- c(beds_clean, 600)
+satisfaction_with_outlier <- c(satisfaction_clean, 95)  # Outlier: large hospital with very high satisfaction
+
+# Calculate correlations and significance
+cor_clean <- cor.test(beds_clean, satisfaction_clean)
+cor_with_outlier <- cor.test(beds_with_outlier, satisfaction_with_outlier)
+cor_spearman <- cor.test(beds_with_outlier, satisfaction_with_outlier, method = "spearman")
+
+par(mfrow = c(1, 2))
+
+# Plot without outlier - no significant correlation
+plot(beds_clean, satisfaction_clean, pch = 19, col = "#2E86AB",
+     main = paste0("Without Outlier\nr = ", round(cor_clean$estimate, 3),
+                  ", p = ", round(cor_clean$p.value, 3)),
+     xlab = "Number of Beds", ylab = "Satisfaction Score",
+     xlim = c(0, 650), ylim = c(70, 100))
+abline(lm(satisfaction_clean ~ beds_clean), col = "#E63946", lwd = 2)
+
+# Plot with outlier - spurious significant correlation
+plot(beds_with_outlier, satisfaction_with_outlier, pch = 19, col = "#2E86AB",
+     main = paste0("With Outlier\nPearson r = ", round(cor_with_outlier$estimate, 3),
+                  ", p = ", round(cor_with_outlier$p.value, 3)),
+     xlab = "Number of Beds", ylab = "Satisfaction Score",
+     xlim = c(0, 650), ylim = c(70, 100))
+points(600, 95, pch = 19, col = "#E63946", cex = 2)  # Highlight the outlier
+abline(lm(satisfaction_with_outlier ~ beds_with_outlier), col = "#E63946", lwd = 2)
+text(600, 92, "Outlier", col = "#E63946", pos = 1)
+
+par(mfrow = c(1, 1))
+```
+
+```{r}
+#| label: outlier-comparison
+#| echo: false
+
+cat("Comparison of Results:\n")
+cat("─────────────────────────────────────────────────────\n")
+cat(sprintf("Without outlier:  Pearson r = %.3f, p = %.3f (Not significant)\n",
+            cor_clean$estimate, cor_clean$p.value))
+cat(sprintf("With outlier:     Pearson r = %.3f, p = %.3f (Significant!)\n",
+            cor_with_outlier$estimate, cor_with_outlier$p.value))
+cat(sprintf("With outlier:     Spearman r = %.3f, p = %.3f (Not significant)\n",
+            cor_spearman$estimate, cor_spearman$p.value))
+cat("─────────────────────────────────────────────────────\n")
+```
+
+**What happened here?**
+
+- **Without the outlier**: The Pearson correlation is very weak and not statistically significant (p > 0.05). There is no evidence of a linear relationship between hospital size and satisfaction.
+
+- **With the outlier**: A single extreme point (a large hospital with unusually high satisfaction) creates a statistically significant correlation (p < 0.05). This would lead us to incorrectly conclude that larger hospitals have higher satisfaction scores.
+
+- **Spearman correlation**: Because Spearman uses ranks instead of raw values, the outlier has much less influence. The Spearman correlation correctly shows no significant relationship.
+
+This example demonstrates why it's crucial to:
+
+1. **Always visualize your data** before interpreting correlation results
+2. **Check for outliers** that might be driving the results
+3. **Compare Pearson and Spearman** correlations. Large discrepancies suggest outlier influence.
+
+**Solutions for outliers:**
+
+1. Use Spearman correlation instead (robust to outliers)
+2. Investigate outliers (are they data entry errors or legitimate extreme values?)
+3. If legitimate, consider reporting results both with and without the outlier
+4. Report both Pearson and Spearman for comparison
+
+::: {.callout-important}
+## Practice Activities 2 & 3: Correlation Analysis
+
+Now it's your turn to practice correlation analysis! Open **`week08_bivariate-relationships_practice.qmd`** and complete:
+
+**Practice Activity 2**: An emergency department manager wants to examine the relationship between **wait time** (in minutes) and **patient satisfaction score** (0-100). You'll practice creating scatterplots and conducting Pearson correlation analysis.
+
+**Practice Activity 3**: A nursing director wants to examine the relationship between **perceived workload** (1-5 ordinal scale) and **job satisfaction** (1-5 ordinal scale) among nurses. You'll practice conducting Spearman correlation analysis with ordinal data.
+
+:::
+
+------------------------------------------------------------------------
+
+# Summary
+
+## Key Takeaways
+
+### Crosstabulation (Chi-Square Test)
+
+- **Purpose**: Test association between two categorical variables
+- **Null hypothesis**: The variables are independent (no association)
+- **Key statistic**: Chi-square (χ²) measures discrepancy between observed and expected frequencies
+- **Decision rule**: If p < 0.05, reject independence; conclude significant association
+- **Use Fisher's exact test** when any expected cell frequency < 5
+
+### Correlation Analysis
+
+- **Purpose**: Test linear association between two continuous or ordinal variables
+- **Correlation coefficient (r)**:
+  - Ranges from -1 to +1
+  - Sign indicates direction (positive/negative)
+  - Absolute value indicates strength
+- **Pearson**: For continuous variables with linear relationships
+- **Spearman**: For ordinal variables or when outliers are present
+- **Critical reminder**: Correlation ≠ Causation
+
+
+
+------------------------------------------------------------------------
+
+# References and Further Reading
+
+## Statistical References
+
+- Field, A., Miles, J., & Field, Z. (2012). *Discovering Statistics Using R*. SAGE Publications.
+- Navarro, D. (2019). *Learning Statistics with R*. Available online at https://learningstatisticswithr.com/
+- Wickham, H., & Grolemund, G. (2017). *R for Data Science*. O'Reilly Media.
+
+## Healthcare Applications
+
+Examples and scenarios are motivated by the following research:
+
+- Aiken, L. H., Clarke, S. P., Sloane, D. M., Sochalski, J., & Silber, J. H. (2002). Hospital nurse staffing and patient mortality, nurse burnout, and job dissatisfaction. *JAMA*, 288(16), 1987-1993. https://jamanetwork.com/journals/jama/fullarticle/195438
+
+- Joynt, K. E., & Jha, A. K. (2013). Characteristics of hospitals receiving penalties under the Hospital Readmissions Reduction Program. *JAMA*, 309(4), 342-343.
+
+- Kutney-Lee, A., McHugh, M. D., Sloane, D. M., et al. (2009). Nursing: A key to patient satisfaction. *Health Affairs*, 28(4), w669-w677. https://pmc.ncbi.nlm.nih.gov/articles/PMC2718727/
+
+- NSI Nursing Solutions, Inc. (2024). *2024 NSI National Health Care Retention & RN Staffing Report*. https://www.nsinursingsolutions.com/Documents/Library/NSI_National_Health_Care_Retention_Report.pdf
+
+- Harikesavan, K., Chakravarty, R. D., & Maiya, A. G. (2018). Influence of early mobilization program on pain, self-reported and performance based functional measures following total knee replacement. *Journal of Clinical Orthopaedics and Trauma*, 10(2), 340-344. https://pmc.ncbi.nlm.nih.gov/articles/PMC6383169/

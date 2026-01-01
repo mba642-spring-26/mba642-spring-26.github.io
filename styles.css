@@ -2,12 +2,17 @@
 
 /*-- Main Theme Colors --*/
 :root {
-  --r-main-font: "Lato", sans-serif; /* A nice, clean font */
+  --r-main-font: "Lato", sans-serif;
+  /* A nice, clean font */
   --r-heading-font: "Montserrat", sans-serif;
-  --r-background-color: #ffffff; /* White background */
-  --r-main-color: #333333; /* Dark text for readability */
-  --r-heading-color: #003366; /* Centerville's Dark Blue for headings */
-  --r-link-color: #FFC72C; /* Centerville's Gold for links */
+  --r-background-color: #ffffff;
+  /* White background */
+  --r-main-color: #333333;
+  /* Dark text for readability */
+  --r-heading-color: #003366;
+  /* Centerville's Dark Blue for headings */
+  --r-link-color: #FFC72C;
+  /* Centerville's Gold for links */
 }
 
 
@@ -34,3 +39,12 @@
   color: #888888;
 }
 
+
+/*-- Sidebar customization --*/
+.sidebar-item-text {
+  font-size: 1.5rem;
+}
+
+.sidebar-item-container {
+  margin-bottom: 1.5rem;
+}

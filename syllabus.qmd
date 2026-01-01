@@ -1,14 +1,14 @@
 ---
 title: " "
 format:
-  pdf:
-    theme: simple
   html:
-    theme: sketchy
+    theme: simple
     toc: true
     toc-location: left
     code-fold: false
     code-tools: false
+  pdf:
+    theme: cosmo
 ---
 
 # Course Information

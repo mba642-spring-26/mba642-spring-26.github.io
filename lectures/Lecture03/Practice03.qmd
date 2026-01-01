@@ -1,0 +1,674 @@
+---
+title: "Basic Statistical Concepts (Practice Workbook)"
+subtitle: ""
+author: ""
+Week: "Week 3"
+date: 01/01/2026
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme: cosmo
+    highlight-style: github
+execute:
+  warning: false
+  message: false
+---
+
+# Introduction
+
+## What You Learned in Lecture
+
+In today's lecture, you learned the basic statistical concepts needed for data analysis:
+
+1. **Central Tendency & Dispersion** - The fundamental tools for summarizing data
+   - Mean, median, mode (where the central, typical value is)
+   - Standard deviation, variance, range (how spread out the data is)
+
+2. **Measurement Scales** - When each tool is appropriate to use
+   - Nominal → frequencies and mode only
+   - Ordinal → add median (but NOT mean!)
+   - Interval/Ratio → can use mean and SD
+
+3. **Distribution Shapes** - Four common shapes and what they mean
+   - Normal/Symmetric → use mean; Empirical rule (68-95-99.7)
+   - Right-skewed → use median (typical for healthcare LOS, costs)
+   - Left-skewed → use median (e.g., high satisfaction scores)
+   - Bimodal → use the modes, analyze subgroups separately
+
+4. **Confidence Intervals** - Quantifying uncertainty around estimates
+
+## What You'll Do in This Workbook
+
+This practice session gives you hands-on experience applying these concepts to a dataset. You'll work with patient satisfaction survey data to:
+
+- Identify measurement scales and choose appropriate statistics
+- Calculate descriptive statistics (mean, median, SD, Mode)
+- Visualize distribution shapes
+- Apply the empirical rule
+- Calculate and interpret confidence intervals
+
+**General Format**: Each code chunk has blanks (marked with `___`) for you to fill in. Try to complete them on your own first, then check the solutions at the end.
+
+---
+
+# Dataset: Patient Satisfaction Survey
+
+## Background and Context
+
+### The Scenario
+
+You are a **Data Analyst** at a regional healthcare system that operates three hospitals: General Hospital, University Medical, and Community Health. The system recently conducted a comprehensive patient satisfaction survey across all facilities to:
+
+- Assess overall patient experience
+- Identify areas for quality improvement
+- Compare performance across departments
+- Meet regulatory reporting requirements (HCAHPS; Hospital Customer Assessment of Healthcare Providers and Systems)
+
+The **Chief Quality Officer** has asked you to analyze the survey data and provide insights that will inform strategic decisions about:
+
+- Resource allocation
+- Quality improvement initiatives
+- Staff training priorities
+- Performance benchmarking
+
+### About the Data
+
+This hypothetical dataset contains **200 patient survey responses** collected over a 3-month period. Each row represents one patient's complete survey response and visit information.
+
+**Key features of this dataset:**
+
+- Includes different data types (nominal, ordinal, interval, ratio)
+- All variables are commonly tracked in hospital quality programs
+- Designed to support practical decision-making
+
+**Data collection period**: Q1 2024 (January - March)
+**Survey response rate**: 68% (typical for patient satisfaction surveys)
+**Survey method**: Post-discharge email survey 
+
+### Why This Dataset Matters
+
+Patient satisfaction data is critical for healthcare organizations because:
+
+1. **Regulatory compliance**: Centers for Medicare & Medicaid Services (CMS) ties hospital reimbursement to HCAHPS scores
+2. **Quality indicator**: Satisfaction correlates with clinical outcomes, safety, and adherence
+3. **Competitive advantage**: Public reporting influences patient choice
+4. **Operational improvement**: Identifies specific pain points in care delivery
+
+Understanding how to properly analyze this type of data is an essential skill for healthcare managers.
+
+---
+
+## Setup
+
+First, let's run the following code to load required R packages. 
+
+```{r}
+#| label: setup
+
+# Load required packages
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(DescTools)
+
+# Set seed for reproducibility
+set.seed(2026)
+```
+
+## Create the Dataset
+
+Run this code to generate the patient satisfaction dataset:
+
+```{r}
+#| label: create-data
+
+# Create patient satisfaction data
+patient_satisfaction <- tibble(
+  patient_id = 1:200,
+  hospital = sample(c("General Hospital", "University Medical", "Community Health"),
+                    200, replace = TRUE),
+  department = sample(c("Emergency", "Surgery", "Internal Medicine", "Pediatrics"),
+                      200, replace = TRUE),
+  age = round(rnorm(200, mean = 55, sd = 18)),
+  gender = sample(c("Male", "Female"), 200, replace = TRUE),
+  insurance_type = sample(c("Private", "Medicare", "Medicaid", "Uninsured"), 200,
+                          prob = c(0.4, 0.35, 0.15, 0.1), replace = TRUE),
+  wait_time_minutes = round(rgamma(200, shape = 2, rate = 0.05)),
+  satisfaction_score = round(pmin(7, pmax(1, rnorm(200, mean = 5.2, sd = 1.3)))),
+  would_recommend = sample(1:7, 200, replace = TRUE,
+                           prob = c(0.05, 0.05, 0.1, 0.15, 0.25, 0.25, 0.15)),
+  length_of_stay = round(rgamma(200, shape = 1.5, rate = 0.3), 1),
+  total_charges = round(rlnorm(200, meanlog = 9, sdlog = 1))
+) %>%
+  mutate(
+    age = pmax(18, pmin(age, 95)),  # Keep age realistic
+    age_group = case_when(
+      age < 45 ~ "18-44",
+      age < 65 ~ "45-64",
+      age < 75 ~ "65-74",
+      TRUE ~ "75+"
+    ),
+    age_group = factor(age_group, levels = c("18-44", "45-64", "65-74", "75+")),
+    # Create pain category variable (ordinal)
+    pain_category = sample(c("None", "Mild", "Moderate", "Severe"), 200,
+                          prob = c(0.25, 0.35, 0.30, 0.10), replace = TRUE),
+    pain_category = factor(pain_category, levels = c("None", "Mild", "Moderate", "Severe"))
+  )
+
+# View first rows
+head(patient_satisfaction, 10)
+```
+
+**What you should see**: A table showing the first 10 patients' data with all 13 variables. Each row represents one patient's complete information - demographics, visit details, and survey responses.
+
+---
+
+## Variable Descriptions
+
+The dataset includes the following variables:
+
+### **Demographic & Administrative Variables**
+
+| Variable | Type | Description | Values/Range |
+|----------|------|-------------|--------------|
+| `patient_id` | Identifier | Unique patient identifier | 1-200 |
+| `hospital` | Nominal | Facility where patient received care | General Hospital, University Medical, Community Health |
+| `department` | Nominal | Department of primary service | Emergency, Surgery, Internal Medicine, Pediatrics |
+| `age` | Ratio | Patient age in years | 18-95 |
+| `age_group` | Ordinal | Age category | 18-44, 45-64, 65-74, 75+ |
+| `gender` | Nominal | Patient gender | Male, Female |
+| `insurance_type` | Nominal | Primary insurance payer | Private, Medicare, Medicaid, Uninsured |
+
+### **Experience & Outcome Variables**
+
+| Variable | Type | Description | Values/Range |
+|----------|------|-------------|--------------|
+| `satisfaction_score` | Quasi-Interval | Overall satisfaction rating | 1-7 (1=Very Dissatisfied, 7=Very Satisfied) |
+| `would_recommend` | Quasi-Interval | Likelihood to recommend hospital | 1-7 (1=Definitely No, 7=Definitely Yes) |
+| `pain_category` | Ordinal | Self-reported pain level | None, Mild, Moderate, Severe |
+| `wait_time_minutes` | Ratio | Time from arrival to first provider contact | Continuous (minutes) |
+| `length_of_stay` | Ratio | Total days in hospital | Continuous (days) |
+| `total_charges` | Ratio | Total billing charges | Continuous (dollars) |
+
+### **Important Notes on Measurement Scales**
+
+- **Nominal variables** (hospital, department, insurance_type, gender): Categories with no inherent order. Use **mode**, **frequencies**, **shares** only.
+
+- **Ordinal variables** (age_group, pain_category): Categories with meaningful order, but intervals between categories are NOT equal. Use **mode**, **median**, **frequencies**, and **shares**. Do NOT calculate means!
+
+- **Quasi-Interval variables** (satisfaction_score, would_recommend): Numeric rating scales that are technically ordinal but treated as interval by convention in healthcare. Can use **mean and SD**.
+
+- **Ratio variables** (age, wait_time_minutes, length_of_stay, total_charges): Have equal intervals AND a true zero point. Can use **all statistics** (mean, median, SD, etc.). Consider distribution shape when choosing which to report.
+
+---
+
+## What You'll Analyze
+
+Using this patient satisfaction dataset, you will:
+
+1. **Identify the correct measurement scale** for each variable and choose appropriate statistics
+2. **Calculate descriptive statistics** to understand central tendency and variation
+3. **Visualize distributions** to see patterns in the data (symmetric, skewed, bimodal)
+4. **Apply the empirical rule** to identify typical ranges and outliers
+5. **Calculate confidence intervals** to quantify uncertainty in your estimates
+
+These fundamental skills form the foundation for data analysis in healthcare management.
+
+**Let's get started!** 📊
+
+---
+
+# Activity 1: Understanding Measurement Scales
+
+In the Variable Descriptions section above, each variable has been classified into a measurement scale (nominal, ordinal, (quasi) interval, or ratio). But why were they classified this way? Let's take some time and think about these classifications.
+
+---
+
+# Activity 2: Descriptive Statistics
+
+Now let's apply what we learned about measurement scales by calculating appropriate descriptive statistics for different types of variables. We'll work through examples of each scale type.
+
+## R Functions for Descriptive Statistics
+
+Before we start calculating statistics, let's review the key R functions you'll need. These functions make it easy to calculate central tendency and dispersion measures.
+
+### Central Tendency Functions
+
+```{r}
+#| label: demo-central-tendency
+#| eval: false
+
+# Create example data
+example_data <- c(2, 3, 3, 4, 5, 5, 6, 8, 15)
+
+# Mean (average)
+mean(example_data)          
+
+# Median (middle value)
+median(example_data)        
+
+# Mode (most frequent) 
+Mode(example_data)  # The Mode function from the DescTools package
+```
+
+### Dispersion Functions
+
+```{r}
+#| label: demo-dispersion
+#| eval: false
+
+# Standard Deviation
+sd(example_data)            # 3.64
+
+# Variance (SD squared)
+var(example_data)           # 13.25
+
+# Range (max - min)
+range(example_data)         # range function returns c(2, 15) - both min and max
+
+# Minimum and Maximum
+min(example_data)           # 2
+max(example_data)           # 15
+
+# By using these numbers we can get Range manually
+max(example_data) - min(example_data)  # 13 
+```
+
+### Summary Function - Quick Overview
+
+The `summary()` function gives you multiple statistics at once:
+
+```{r}
+#| label: demo-summary
+#| eval: false
+
+summary(example_data)
+# Output:
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#   2.00    3.50    5.00    5.67    6.50   15.00
+```
+
+### Working with Data Frames
+
+When your data is in a tibble/data frame, use `$` to access specific columns/variables:
+
+```{r}
+#| label: demo-dataframe
+#| eval: false
+
+# Calculate mean age from patient_satisfaction dataset
+mean(patient_satisfaction$age)
+
+# Calculate SD for length of stay
+sd(patient_satisfaction$length_of_stay)
+
+# Summary of all numeric variables
+summary(patient_satisfaction)
+```
+
+---
+
+## Task 2.1: Nominal Data - Insurance Type
+
+For nominal data, we can only use **mode** and **frequencies/percentages**. Let's analyze the distribution of insurance types.
+
+```{r}
+#| label: task2-insurance
+#| eval: false
+
+# Method 1: Quick answer - just the mode (most common insurance type)
+Mode(____)
+
+# Method 2: Complete picture - all categories with counts and percentages
+insurance_summary <- patient_satisfaction |>
+  count(____) |>
+  mutate(percentage = round(n / sum(n) * 100, 1))
+
+insurance_summary
+```
+
+**Questions**:
+
+1. What is the mode (most common insurance type)?
+2. What percentage of patients are uninsured?
+3. Why can't we calculate a mean for insurance type?
+
+---
+
+## Task 2.2: Ordinal Data - Pain Categories
+
+For ordinal data, we can use **mode**, **median**, and **frequencies**, but NOT the mean. Let's analyze pain categories.
+
+```{r}
+#| label: task2-pain
+#| eval: false
+
+# FILL IN: Count patients in each pain category
+pain_summary <- patient_satisfaction |>
+  count(____) |>
+  mutate(percentage = round(n / sum(n) * 100, 1))
+
+pain_summary
+
+# FILL IN: Calculate median (appropriate for ordinal)
+median_pain <- median(as.numeric(____))
+cat("\nMedian pain category:", levels(patient_satisfaction$pain_category)[median_pain])
+
+# WRONG approach (for demonstration - DO NOT do this in practice!):
+mean_pain <- mean(as.numeric(____))
+cat("\nMean pain category (MEANINGLESS!):", round(mean_pain, 2))
+```
+
+**Questions**:
+
+1. What is the mode pain category?
+2. What is the median pain category?
+2. How can we interpret the mean pain category? Is it interpretable? 
+
+---
+
+## Task 2.3: Ratio Data - Patient Age
+
+For ratio data, we can use ALL statistics. Calculate central tendency and dispersion for patient age.
+
+```{r}
+#| label: task2-age-stats
+#| eval: false
+
+# FILL IN: Calculate mean, median, and SD for age
+age_stats <- patient_satisfaction |>
+  summarise(
+    N = n(),
+    Mean = round(mean(___), 1),
+    Median = median(___),
+    SD = round(sd(___), 1),
+    Min = min(___),
+    Max = max(___)
+  )
+
+age_stats |>
+  kable() |>
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Questions**:
+
+1. Are mean and median close? What does this suggest about the distribution shape?
+2. What does the SD tell you about the variability in patient ages?
+
+---
+
+## Task 2.4: Visualize Distribution Shape - Length of Stay
+
+Create a histogram to see the distribution shape of length of stay (ratio data).
+
+```{r}
+#| label: task2-los-histogram
+#| eval: false
+
+# FILL IN: Create histogram for length_of_stay
+ggplot(patient_satisfaction, aes(x = ____)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "white") +
+  labs(
+    title = "Distribution of Length of Stay",
+    x = "Length of Stay (Days)",
+    y = "Number of Patients"
+  ) +
+  theme_minimal()
+```
+
+**Questions**:
+
+1. Is this distribution symmetric or skewed?
+2. Based on the shape, should you report mean or median as the "typical" value?
+3. Why is length of stay typically right-skewed in healthcare data?
+
+---
+
+## Task 2.5: Compare Mean vs. Median on Skewed Data
+
+Visualize where mean and median length of stay fall on the distribution to see how skewness affects these measures.
+
+```{r}
+#| label: task2-los-measures
+#| eval: false
+
+# FILL IN: Calculate mean and median
+mean_los <- mean(patient_satisfaction$___)
+median_los <- median(patient_satisfaction$___)
+
+# Create histogram with reference lines
+ggplot(patient_satisfaction, aes(x = length_of_stay)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "white") +
+  geom_vline(xintercept = ___, color = "red", linewidth = 1.2) +
+  geom_vline(xintercept = ___, color = "darkgreen", linewidth = 1.2, linetype = "dashed") +
+  annotate("text", x = mean_los + 0.5, y = 35, label = "Mean", color = "red", hjust = 0) +
+  annotate("text", x = median_los - 0.5, y = 30, label = "Median", color = "darkgreen", hjust = 1) +
+  labs(
+    title = "Length of Stay: Mean vs. Median",
+    x = "Length of Stay (Days)",
+    y = "Number of Patients"
+  ) +
+  theme_minimal()
+```
+
+**Interpretation**: Notice how the mean is pulled toward the long tail (higher values). This confirms that **median better represents the "typical" patient** for right-skewed data.
+
+**Management insight**: If you reported only the mean LOS, it would be inflated by a few very long stays. The median gives a more accurate picture of what most patients experience.
+
+---
+
+# Activity 3: The Empirical Rule (68-95-99.7)
+
+## Task 3.1: Apply the Empirical Rule to Age
+
+If age is approximately normally distributed, use the empirical rule to find where most patients fall.
+
+```{r}
+#| label: task3-empirical-rule
+#| eval: false
+
+# FILL IN: Calculate mean and SD
+age_mean <- mean(patient_satisfaction$___)
+age_sd <- sd(patient_satisfaction$___)
+
+# Calculate ranges
+range_1sd <- c(age_mean - ___, age_mean + ___)  # ±1 SD
+range_2sd <- c(age_mean - 2*___, age_mean + 2*___)  # ±2 SD
+
+cat("Mean age:", round(age_mean, 1), "years\n")
+cat("SD:", round(age_sd, 1), "years\n\n")
+cat("Using the Empirical Rule:\n")
+cat("  68% of patients are between", round(range_1sd[1], 1), "and", round(range_1sd[2], 1), "years\n")
+cat("  95% of patients are between", round(range_2sd[1], 1), "and", round(range_2sd[2], 1), "years\n")
+```
+
+**Question**: If a patient is 80 years old, are they more than 2 standard deviations from the mean? Would you consider them an outlier?
+
+---
+
+# Activity 4: Confidence Intervals
+
+## Task 4.1: Calculate a 95% Confidence Interval for Mean Wait Time
+
+Calculate a confidence interval to quantify uncertainty around the mean wait time.
+
+**Formula reminder**: CI = mean ± 2 × (SD / √n)
+
+```{r}
+#| label: task4-ci-waittime
+#| eval: false
+
+# FILL IN: Calculate mean and SD for wait time
+wait_mean <- mean(patient_satisfaction$___)
+wait_sd <- sd(patient_satisfaction$___)
+n <- nrow(patient_satisfaction)
+
+# Calculate standard error
+se <- wait_sd / sqrt(___)
+
+# Calculate 95% CI (using 2 as approximation for 1.96)
+ci_lower <- wait_mean - 2 * ___
+ci_upper <- wait_mean + 2 * ___
+
+cat("Mean wait time:", round(wait_mean, 1), "minutes\n")
+cat("95% Confidence Interval: [", round(ci_lower, 1), ",", round(ci_upper, 1), "]\n\n")
+cat("Interpretation: If we repeatedly sampled patients and calculated CIs using\n")
+cat("this method, approximately 95% of those intervals would contain the true\n")
+cat("population mean wait time.\n")
+```
+
+**Question**: What happens to the confidence interval width if you increase the sample size?
+
+---
+
+# Solutions
+
+::: {.callout-tip collapse="true"}
+## Click for Complete Solutions
+
+```{r}
+#| label: solutions-all
+#| eval: false
+
+# =============================================================================
+# ACTIVITY 1: UNDERSTANDING MEASUREMENT SCALES
+# =============================================================================
+
+# Activity 1 is discussion-based. There is no code to run.
+
+# =============================================================================
+# ACTIVITY 2: DESCRIPTIVE STATISTICS
+# =============================================================================
+
+# Task 2.1: Insurance type (nominal data - mode and frequencies only)
+# Method 1: Quick answer - just the mode
+Mode(patient_satisfaction$insurance_type)
+
+# Method 2: Complete picture - all categories with counts and percentages
+insurance_summary <- patient_satisfaction |>
+  count(insurance_type) |>
+  mutate(percentage = round(n / sum(n) * 100, 1))
+
+insurance_summary
+
+# Task 2.2: Pain categories (ordinal data - median and frequencies, NOT mean)
+pain_summary <- patient_satisfaction |>
+  count(pain_category) |>
+  mutate(percentage = round(n / sum(n) * 100, 1))
+
+pain_summary
+
+median_pain <- median(as.numeric(patient_satisfaction$pain_category))
+cat("\nMedian pain category:", levels(patient_satisfaction$pain_category)[median_pain])
+
+mean_pain <- mean(as.numeric(patient_satisfaction$pain_category))
+cat("\nMean pain category (MEANINGLESS!):", round(mean_pain, 2))
+
+# Task 2.3: Age statistics (ratio data - all statistics appropriate)
+age_stats <- patient_satisfaction |>
+  summarise(
+    N = n(),
+    Mean = round(mean(age), 1),
+    Median = median(age),
+    SD = round(sd(age), 1),
+    Min = min(age),
+    Max = max(age)
+  )
+
+age_stats |>
+  kable() |>
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+# Task 2.4: Length of stay histogram (visualize distribution shape)
+ggplot(patient_satisfaction, aes(x = length_of_stay)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "white") +
+  labs(
+    title = "Distribution of Length of Stay",
+    x = "Length of Stay (Days)",
+    y = "Number of Patients"
+  ) +
+  theme_minimal()
+
+# Task 2.5: Compare mean vs. median on skewed data
+mean_los <- mean(patient_satisfaction$length_of_stay)
+median_los <- median(patient_satisfaction$length_of_stay)
+
+ggplot(patient_satisfaction, aes(x = length_of_stay)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "white") +
+  geom_vline(xintercept = mean_los, color = "red", linewidth = 1.2) +
+  geom_vline(xintercept = median_los, color = "darkgreen", linewidth = 1.2, linetype = "dashed") +
+  annotate("text", x = mean_los + 0.5, y = 35, label = "Mean", color = "red", hjust = 0) +
+  annotate("text", x = median_los - 0.5, y = 30, label = "Median", color = "darkgreen", hjust = 1) +
+  labs(
+    title = "Length of Stay: Mean vs. Median",
+    x = "Length of Stay (Days)",
+    y = "Number of Patients"
+  ) +
+  theme_minimal()
+
+# =============================================================================
+# ACTIVITY 3: EMPIRICAL RULE
+# =============================================================================
+
+age_mean <- mean(patient_satisfaction$age)
+age_sd <- sd(patient_satisfaction$age)
+
+range_1sd <- c(age_mean - age_sd, age_mean + age_sd)
+range_2sd <- c(age_mean - 2*age_sd, age_mean + 2*age_sd)
+
+cat("Mean age:", round(age_mean, 1), "years\n")
+cat("SD:", round(age_sd, 1), "years\n\n")
+cat("Using the Empirical Rule:\n")
+cat("  68% of patients are between", round(range_1sd[1], 1), "and", round(range_1sd[2], 1), "years\n")
+cat("  95% of patients are between", round(range_2sd[1], 1), "and", round(range_2sd[2], 1), "years\n")
+
+# =============================================================================
+# ACTIVITY 4: CONFIDENCE INTERVALS
+# =============================================================================
+
+# Task 4.1: CI for wait time
+wait_mean <- mean(patient_satisfaction$wait_time_minutes)
+wait_sd <- sd(patient_satisfaction$wait_time_minutes)
+n <- nrow(patient_satisfaction)
+
+se <- wait_sd / sqrt(n)
+ci_lower <- wait_mean - 2 * se
+ci_upper <- wait_mean + 2 * se
+
+cat("Mean wait time:", round(wait_mean, 1), "minutes\n")
+cat("95% Confidence Interval: [", round(ci_lower, 1), ",", round(ci_upper, 1), "]\n\n")
+cat("Interpretation: If we repeatedly sampled patients and calculated CIs using\n")
+cat("this method, approximately 95% of those intervals would contain the true\n")
+cat("population mean wait time.\n")
+
+```
+:::
+
+---
+
+# Key Takeaways
+
+After completing this practice workbook, you should be able to:
+
+✓ **Identify measurement scales** and choose appropriate statistics
+✓ **Calculate descriptive statistics** (mean, median, Mode, sd)
+✓ **Interpret distribution shapes** and choose mean vs. median
+✓ **Apply the empirical rule** to understand data spread
+✓ **Calculate and interpret confidence intervals**
+
+**Remember**:
+
+- **Ordinal data** → median, NOT mean!
+- **Skewed data** → median better represents "typical" value
+- **Always report** both mean and median for transparency when appropriate
+- **Confidence intervals** quantify uncertainty (not probability the parameter is in THIS interval)
+- **Statistical significance ≠ Clinical/practical importance**
+
+

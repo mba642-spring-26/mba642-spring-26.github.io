@@ -1,0 +1,915 @@
+---
+title: "Penalized Regression in Healthcare Analytics (Practice Workbook)"
+subtitle: "Ridge, LASSO, and Elastic Net with R"
+author: ""
+Week: "Week 14"
+date: 01/01/2026
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme: cosmo
+    highlight-style: github
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+# Install required packages if needed
+required_packages <- c("glmnet", "dplyr", "ggplot2", "pROC", "tidyr")
+new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
+if(length(new_packages)) install.packages(new_packages)
+
+library(glmnet)
+library(dplyr)
+library(ggplot2)
+library(pROC)
+set.seed(2026)
+```
+
+# Introduction
+
+## Recap: Penalized Regression
+
+Penalized regression (also called regularized regression or shrinkage methods) improves upon ordinary least squares (OLS) regression by adding a constraint that prevents models from becoming too complex. This is especially valuable in healthcare analytics where we often face:
+
+- **Many potential predictors**: Demographics, diagnoses, medications, lab values, utilization history
+- **Correlated variables**: Comorbidities cluster together (diabetes, hypertension, obesity)
+- **Limited sample sizes**: Specific patient populations or rare outcomes
+- **Need for interpretability**: Clinicians need simple, implementable models
+
+The key insight is adding a penalty term to the regression objective:
+
+$$\text{Minimize: } SSE + \lambda \times \text{Penalty}$$
+
+Where:
+
+- **SSE** = Sum of Squared Errors (how well the model fits)
+- **Penalty** = A function of coefficient sizes (how complex the model is)
+- **λ (lambda)** = Tuning parameter controlling the penalty strength
+
+## Three Methods We've Learned
+
+In the lecture, you saw three approaches to penalized regression:
+
+1. **Ridge Regression (L2 Penalty)**: Shrinks all coefficients toward zero but keeps all variables. Best when all predictors are relevant and you have multicollinearity.
+
+2. **LASSO Regression (L1 Penalty)**: Can set coefficients exactly to zero, performing automatic feature selection. Best when you need a sparse, interpretable model.
+
+3. **Elastic Net**: Combines Ridge and LASSO penalties. Best when you need feature selection with correlated predictors (a good default choice).
+
+All three methods produce the same key outputs: shrunken coefficient estimates, optimal lambda selection via cross-validation, and (improved) prediction on new data.
+
+## What You'll Do in This Workbook
+
+In this workbook, you'll work through **one comprehensive activity** where you apply all three penalized regression methods (Ridge, LASSO, and Elastic Net) to the same business problem. This approach allows you to directly compare how each method performs and understand their practical differences.
+
+**The Activity: Predicting Hospital Length of Stay**
+
+You'll help a hospital operations team predict how long patients will stay in the hospital. Using patient characteristics available at admission, you'll build and compare Ridge, LASSO, and Elastic Net models to identify the best approach for operational planning.
+
+Each section includes starter code with blanks (indicated by `___` or `# FILL IN`) for you to complete. Take your time, refer back to the lecture notes, and focus on understanding what each step accomplishes.
+
+
+---
+
+# Hospital Length of Stay Prediction
+
+## Background and Context
+
+**The Business Problem:**
+
+You work for the operations team at Metropolitan General Hospital, a 400-bed facility. One of your biggest challenges is managing patient flow—knowing how long patients will stay helps you:
+
+- **Plan bed capacity**: Ensure enough beds are available for incoming patients
+- **Schedule staffing**: Assign the right number of nurses and support staff each day
+- **Coordinate discharges**: Start discharge planning early for patients expected to stay longer
+- **Reduce bottlenecks**: Prevent emergency department overcrowding when hospital beds are full
+
+**The Challenge:**
+
+When a patient is admitted, you need to predict their length of stay (LOS; how many days they'll be in the hospital). If you can predict this accurately at admission, you can make better operational decisions.
+
+The problem is complex because many factors influence how long a patient stays:
+
+- Some factors are obvious (older patients tend to stay longer)
+- Many factors are correlated (patients admitted through the emergency department often have more complications)
+- You have dozens of potential predictors but limited historical data
+
+This is where penalized regression helps: it can handle many correlated predictors and identify which factors truly matter for predicting length of stay.
+
+**Your Task:**
+
+Using historical admission data, you'll build Ridge, LASSO, and Elastic Net models to predict patient length of stay. You'll compare their performance and recommend which approach the hospital should implement in their admission system.
+
+## Activity Overview
+
+You'll complete the following tasks:
+
+**Part 1: Data Preparation** 
+- Load and explore the hospital admission dataset
+- Split into training and test sets
+- Prepare data in the format required by glmnet
+
+**Part 2: Ridge Regression** 
+- Fit Ridge model with cross-validation
+- Examine coefficient paths
+- Evaluate on test set
+
+**Part 3: LASSO Regression** 
+- Fit LASSO model with cross-validation
+- Identify which variables are selected
+- Evaluate on test set
+
+**Part 4: Elastic Net** 
+- Tune the alpha parameter
+- Fit the best Elastic Net model
+- Evaluate on test set
+
+**Part 5: Model Comparison** 
+- Compare all four models (OLS, Ridge, LASSO, Elastic Net)
+- Decide which to implement in the hospital system
+
+## Part 1: Data Preparation
+
+### The Hospital Admission Dataset
+
+Run the code below to generate the historical hospital admission data:
+
+```{r}
+#| label: los-data
+
+# Generate hospital length of stay dataset
+n <- 230  # Reduced sample size to demonstrate value of penalized regression
+
+los_data <- data.frame(
+  # Patient demographics
+  age = round(rnorm(n, 62, 16)),
+  is_male = rbinom(n, 1, 0.48),
+
+  # Admission characteristics
+  admitted_from_er = rbinom(n, 1, 0.45),        # Came through emergency department
+  admitted_weekend = rbinom(n, 1, 0.28),         # Admitted Saturday/Sunday
+  admitted_evening = rbinom(n, 1, 0.35),         # Admitted after 6pm
+  is_surgical = rbinom(n, 1, 0.40),              # Surgery vs. medical admission
+  is_planned = rbinom(n, 1, 0.30),               # Scheduled vs. unplanned
+
+  # Clinical complexity
+  num_conditions = rpois(n, 2.5),                # Number of health conditions
+  num_medications = rpois(n, 5),                  # Number of medications at admission
+  abnormal_labs = rbinom(n, 1, 0.35),            # Had abnormal lab results
+  required_oxygen = rbinom(n, 1, 0.18),          # Needed supplemental oxygen
+  required_monitoring = rbinom(n, 1, 0.25),      # Needed continuous monitoring
+
+  # Prior healthcare use (last 12 months)
+  prior_admissions = rpois(n, 0.4),              # Previous hospital stays
+  prior_er_visits = rpois(n, 1.2),               # Previous ER visits
+
+  # Social factors
+  lives_alone = rbinom(n, 1, 0.32),              # Lives without family support
+  distance_from_hospital = rpois(n, 15),         # Miles from hospital
+  has_primary_doctor = rbinom(n, 1, 0.75),       # Has regular doctor
+
+  # Insurance and access
+  has_medicaid = rbinom(n, 1, 0.22),             # Government insurance (often indicates lower income)
+  rural_residence = rbinom(n, 1, 0.18)           # Lives in rural area
+)
+
+# Make some variables correlated (more realistic)
+los_data <- los_data %>%
+  mutate(
+    # Older patients tend to have more conditions and medications
+    num_conditions = ifelse(age > 70, num_conditions + rpois(n, 1), num_conditions),
+    num_medications = num_conditions + rpois(n, 2),
+
+    # ER admissions more likely to need monitoring
+    required_monitoring = ifelse(admitted_from_er == 1 & runif(n) < 0.4,
+                                1, required_monitoring),
+
+    # Surgical patients less likely to be ER admissions
+    admitted_from_er = ifelse(is_surgical == 1 & is_planned == 1, 0, admitted_from_er)
+  )
+
+# Generate length of stay (in days)
+los_data <- los_data %>%
+  mutate(
+    length_of_stay =
+      3.0 +                                      # Base stay
+      0.04 * age +                               # Older = longer
+      0.8 * admitted_from_er +                   # ER admissions stay longer
+      1.2 * is_surgical +                        # Surgeries stay longer
+      -0.6 * is_planned +                        # Planned admissions shorter
+      0.35 * num_conditions +                    # More conditions = longer
+      0.15 * num_medications +                   # More meds = longer
+      1.5 * abnormal_labs +                      # Abnormal labs = longer
+      2.2 * required_oxygen +                    # Oxygen need = much longer
+      1.8 * required_monitoring +                # Monitoring = longer
+      1.0 * prior_admissions +                   # Prior admits = longer
+      0.3 * prior_er_visits +                    # ER history = slightly longer
+      0.5 * lives_alone +                        # Alone = longer (discharge planning)
+      -0.4 * has_primary_doctor +                # Has PCP = shorter
+      rnorm(n, 0, 2.1)                           # Random variation
+  ) %>%
+  mutate(length_of_stay = pmax(length_of_stay, 1))  # Minimum 1 day
+
+los_data <- los_data %>%
+  mutate(
+    # Noise variables (NOT predictive - demonstrate LASSO's feature selection)
+    patient_id_even = sample(0:1, n, replace = TRUE),
+    admitted_weekday = sample(1:5, n, replace = TRUE),
+    floor_number = sample(2:8, n, replace = TRUE),
+    room_has_window = sample(0:1, n, replace = TRUE),
+    physician_id = sample(1:12, n, replace = TRUE),
+    admission_month = sample(1:12, n, replace = TRUE),
+    parking_lot_used = sample(1:4, n, replace = TRUE),
+    registration_desk = sample(1:3, n, replace = TRUE),
+    nurse_station = sample(1:6, n, replace = TRUE),
+    bed_number_odd = sample(0:1, n, replace = TRUE),
+    admission_hour = sample(0:23, n, replace = TRUE),
+    chart_color = sample(1:4, n, replace = TRUE),
+    visiting_hours = sample(1:3, n, replace = TRUE),
+    meal_preference = sample(1:5, n, replace = TRUE),
+    room_temperature = round(rnorm(n, 72, 2)),
+    noise_var_1 = rnorm(n, 0, 1),
+    noise_var_2 = rnorm(n, 0, 1),
+    noise_var_3 = rnorm(n, 0, 1),
+    noise_var_4 = rnorm(n, 0, 1),
+    noise_var_5 = rnorm(n, 0, 1)
+  )   
+
+head(los_data, 10)
+```
+
+**Variable Descriptions:**
+
+*Demographics:*
+
+- `age`: Patient age in years
+- `is_male`: Gender (1 = male, 0 = female)
+
+*Admission Characteristics:*
+
+- `admitted_from_er`: Patient came through emergency department
+- `admitted_weekend`: Admitted on Saturday or Sunday
+- `admitted_evening`: Admitted after 6 PM
+- `is_surgical`: Surgery patient vs. medical patient
+- `is_planned`: Scheduled admission vs. unplanned
+
+*Clinical Complexity:*
+
+- `num_conditions`: Number of health conditions at admission
+- `num_medications`: Number of medications patient is taking
+- `abnormal_labs`: Had abnormal laboratory test results
+- `required_oxygen`: Needed supplemental oxygen
+- `required_monitoring`: Needed continuous vital sign monitoring
+
+*Prior Healthcare Use (Last 12 Months):*
+
+- `prior_admissions`: Number of previous hospital stays
+- `prior_er_visits`: Number of previous emergency department visits
+
+*Social Factors:*
+
+- `lives_alone`: Lives without family support
+- `distance_from_hospital`: Distance from home to hospital (miles)
+- `has_primary_doctor`: Has a regular primary care doctor
+
+*Insurance/Access:*
+
+- `has_medicaid`: Has government insurance
+- `rural_residence`: Lives in a rural area
+
+*Outcome:*
+
+- `length_of_stay`: How many days the patient stayed in the hospital
+
+There are **`r nrow(los_data)` admissions** in the dataset with **`r ncol(los_data) - 1` predictor variables**. 
+
+### Task 1: Split Data and Prepare Matrices
+
+Split the data into training (70%) and test (30%) sets, then convert to matrix format required by glmnet.
+
+```{r}
+#| label: task1-data-prep
+#| eval: false
+
+# Split into training and test sets
+train_idx <- sample(1:nrow(los_data), 0.7 * nrow(los_data))
+train_data <- los_data[train_idx, ]
+test_data <- los_data[-train_idx, ]
+
+# Identify predictor variables (all except the outcome)
+predictor_vars <- setdiff(names(los_data), "length_of_stay")
+
+# Create predictor matrices (X) and outcome vectors (y)
+# FILL IN: Convert training predictors to matrix
+x_train <- as.matrix(train_data[, ___])
+
+# FILL IN: Extract training outcome vector (length_of_stay)
+y_train <- ___
+
+# FILL IN: Convert test predictors to matrix
+x_test <- as.matrix(test_data[, ___])
+
+# FILL IN: Extract test outcome vector
+y_test <- ___
+
+# Display dimensions
+cat("Training set:", nrow(x_train), "admissions,", ncol(x_train), "predictors\n")
+cat("Test set:", nrow(x_test), "admissions,", ncol(x_test), "predictors\n")
+```
+
+**Hint:** Use `predictor_vars` to select the correct columns. The outcome variable is `length_of_stay`.
+
+---
+
+## Part 2: Ridge Regression
+
+Ridge regression shrinks all coefficients but keeps all variables. Let's fit a Ridge model and examine how it performs.
+
+### Task 2: Fit Ridge Model with Cross-Validation
+
+```{r}
+#| label: task2-ridge
+#| eval: false
+
+# Fit Ridge regression (alpha = 0)
+# FILL IN: Complete the cv.glmnet function
+ridge_model <- cv.glmnet(
+  x = ___,           # Training predictor matrix
+  y = ___,           # Training outcome vector
+  alpha = ___,       # 0 for Ridge
+  nfolds = 10        # 10-fold cross-validation
+)
+
+# Plot cross-validation results
+plot(ridge_model)
+title("Ridge Regression: Cross-Validation", line = 3)
+
+# Display optimal lambda values
+cat("\nRidge Optimal Lambda Values:\n")
+cat("  lambda.min:", round(ridge_model$lambda.min, 4), "\n")
+cat("  lambda.1se:", round(ridge_model$lambda.1se, 4), "\n")
+```
+
+**Hint:** alpha = 0 for Ridge regression. Use `x_train` and `y_train` from Part 1.
+
+---
+
+### Task 3: Examine Ridge Coefficients and Performance
+
+```{r}
+#| label: task3-ridge-eval
+#| eval: false
+
+# Extract coefficients at lambda.1se (prefer simpler model)
+ridge_coef <- coef(ridge_model, s = "lambda.1se")
+
+cat("\nRidge Regression Coefficients:\n")
+cat("===============================\n")
+cat("Number of non-zero coefficients:", sum(ridge_coef[-1] != 0), "\n\n")
+
+# Make predictions on test set
+ridge_pred <- predict(ridge_model, s = "lambda.1se", newx = x_test)
+
+# FILL IN: Calculate RMSE for Ridge
+ridge_mse <- mean((y_test - ___)^2)
+ridge_rmse <- sqrt(ridge_mse)
+
+cat("Ridge Test Set RMSE:", round(ridge_rmse, 2), "days\n")
+```
+
+**Hint:** Notice that Ridge keeps ALL variables (all coefficients are non-zero).
+
+## Part 3: LASSO Regression
+
+LASSO performs automatic feature selection by setting some coefficients exactly to zero. Let's see which variables it selects for predicting length of stay.
+
+### Task 4: Fit LASSO Model with Cross-Validation
+
+```{r}
+#| label: task4-lasso
+#| eval: false
+
+# Fit LASSO regression (alpha = 1)
+# FILL IN: Complete the cv.glmnet function
+lasso_model <- cv.glmnet(
+  x = ___,           # Training predictor matrix
+  y = ___,           # Training outcome vector
+  alpha = ___,       # 1 for LASSO
+  nfolds = 10
+)
+
+# Plot cross-validation results
+plot(lasso_model)
+title("LASSO Regression: Cross-Validation", line = 3)
+
+# Display optimal lambda values
+cat("\nLASSO Optimal Lambda Values:\n")
+cat("  lambda.min:", round(lasso_model$lambda.min, 4), "\n")
+cat("  lambda.1se:", round(lasso_model$lambda.1se, 4), "\n")
+```
+
+**Hint:** alpha = 1 for LASSO. Use `x_train` and `y_train` from Part 1.
+
+---
+
+### Task 5: Identify Selected Variables
+
+```{r}
+#| label: task5-lasso-select
+#| eval: false
+
+# Extract coefficients at lambda.1se
+lasso_coef <- coef(lasso_model, s = "lambda.1se")
+
+# Create data frame of non-zero coefficients
+selected_vars <- data.frame(
+  variable = rownames(lasso_coef),
+  coefficient = as.vector(lasso_coef)
+) %>%
+  filter(variable != "(Intercept)", coefficient != 0) %>%
+  arrange(desc(abs(coefficient)))
+
+cat("\nVariables Selected by LASSO:\n")
+cat("==============================\n")
+cat("Selected:", nrow(selected_vars), "out of", length(predictor_vars), "\n\n")
+print(selected_vars)
+
+# Visualize selected variables
+ggplot(selected_vars, aes(x = reorder(variable, abs(coefficient)),
+                           y = coefficient,
+                           fill = coefficient > 0)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(
+    values = c("firebrick", "steelblue"),
+    labels = c("Decreases LOS", "Increases LOS"),
+    name = "Effect"
+  ) +
+  labs(
+    title = "LASSO: Key Predictors of Length of Stay",
+    x = "",
+    y = "Coefficient (days per unit)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+---
+
+### Task 6: Evaluate LASSO Performance
+
+```{r}
+#| label: task6-lasso-eval
+#| eval: false
+
+# Make predictions on test set
+lasso_pred <- predict(lasso_model, s = "lambda.1se", newx = x_test)
+
+# FILL IN: Calculate RMSE for LASSO
+lasso_mse <- mean((y_test - ___)^2)
+lasso_rmse <- sqrt(lasso_mse)
+
+cat("LASSO Test Set RMSE:", round(lasso_rmse, 2), "days\n")
+cat("Variables used:", nrow(selected_vars), "\n")
+```
+
+**Hint:** LASSO eliminates less important variables by setting coefficients to zero.
+
+---
+
+## Part 4: Elastic Net
+
+Elastic Net combines Ridge and LASSO. We need to tune both lambda (penalty strength) and alpha (mix of L1 and L2).
+
+### Task 7: Tune Alpha Parameter
+
+```{r}
+#| label: task7-elastic-tune
+#| eval: false
+
+# Test different alpha values
+alpha_grid <- seq(0, 1, by = 0.2)  # Test 0, 0.2, 0.4, 0.6, 0.8, 1.0
+
+# Store results
+elastic_results <- data.frame(
+  alpha = alpha_grid,
+  lambda_1se = NA,
+  rmse_cv = NA
+)
+
+# Use consistent CV folds
+fold_id <- sample(1:10, size = length(y_train), replace = TRUE)
+
+# FILL IN: Test each alpha value
+for (i in seq_along(alpha_grid)) {
+  cv_fit <- cv.glmnet(
+    x = x_train,
+    y = y_train,
+    alpha = alpha_grid[i],
+    foldid = fold_id
+  )
+
+  elastic_results$lambda_1se[i] <- cv_fit$lambda.1se
+  # Get cross-validated error at lambda.1se
+  idx <- which(cv_fit$lambda == cv_fit$lambda.1se)
+  elastic_results$rmse_cv[i] <- sqrt(cv_fit$cvm[idx])
+}
+
+# Display results
+print(elastic_results)
+
+# FILL IN: Find best alpha
+best_alpha <- elastic_results$alpha[which.min(elastic_results$___)]
+cat("\nBest alpha:", best_alpha, "\n")
+```
+
+**Hint:** Use `foldid` to ensure all alpha values are tested on the same CV folds for fair comparison.
+
+---
+
+### Task 8: Fit Final Elastic Net Model
+
+```{r}
+#| label: task8-elastic-final
+#| eval: false
+
+# Fit Elastic Net with best alpha
+elastic_model <- cv.glmnet(
+  x = x_train,
+  y = y_train,
+  alpha = best_alpha,
+  nfolds = 10
+)
+
+# Extract coefficients
+elastic_coef <- coef(elastic_model, s = "lambda.1se")
+n_features_elastic <- sum(elastic_coef[-1] != 0)
+
+cat("Elastic Net (alpha =", best_alpha, "):\n")
+cat("  Variables selected:", n_features_elastic, "\n")
+```
+
+---
+
+### Task 9: Evaluate Elastic Net Performance
+
+```{r}
+#| label: task9-elastic-eval
+#| eval: false
+
+# Make predictions
+elastic_pred <- predict(elastic_model, s = "lambda.1se", newx = x_test)
+
+# FILL IN: Calculate RMSE
+elastic_mse <- mean((y_test - ___)^2)
+elastic_rmse <- sqrt(elastic_mse)
+
+cat("Elastic Net Test Set RMSE:", round(elastic_rmse, 2), "days\n")
+```
+
+---
+
+## Part 5: Model Comparison and Recommendation
+
+Now let's compare all four approaches and decide which to implement.
+
+### Task 10: Fit OLS Baseline and Compare All Models
+
+```{r}
+#| label: task10-comparison
+#| eval: false
+
+# Fit OLS for baseline comparison
+ols_model <- lm(length_of_stay ~ ., data = train_data)
+ols_pred <- predict(ols_model, newdata = test_data)
+ols_rmse <- sqrt(mean((y_test - ols_pred)^2))
+
+# Create comparison table
+comparison <- data.frame(
+  Model = c("OLS", "Ridge", "LASSO", "Elastic Net"),
+  RMSE = round(c(ols_rmse, ridge_rmse, lasso_rmse, elastic_rmse), 2),
+  Features = c(length(predictor_vars),
+               length(predictor_vars),
+               nrow(selected_vars),
+               n_features_elastic)
+)
+
+# Calculate improvement over OLS
+comparison$Improvement <- paste0(
+  round((1 - comparison$RMSE / ols_rmse) * 100, 1), "%"
+)
+
+print(comparison)
+
+# Visualize comparison
+ggplot(comparison, aes(x = reorder(Model, -RMSE), y = RMSE, fill = Model)) +
+  geom_col() +
+  geom_text(aes(label = paste0(RMSE, " days")), vjust = -0.5, fontface = "bold") +
+  geom_text(aes(label = paste0("(", Features, " vars)")),
+            vjust = 1.5, color = "white", size = 3.5) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title = "Model Comparison: Hospital Length of Stay Prediction",
+    subtitle = "Lower RMSE indicates better prediction accuracy",
+    x = "",
+    y = "Root Mean Squared Error (days)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none", plot.title = element_text(face = "bold"))
+```
+
+---
+
+### Interpretation Questions
+
+Based on your results, answer these questions:
+
+1. **Which model performed best?** Why do you think this is?
+
+2. **How many variables did LASSO eliminate?** What does this tell you about the importance of different predictors?
+
+3. **What was the optimal alpha value for Elastic Net?** Was it closer to Ridge (0) or LASSO (1)?
+
+4. **Which model would you recommend implementing?** Consider both accuracy and operational feasibility (how many variables need to be collected).
+
+5. **What are the top 3 predictors of length of stay?** Do these make intuitive sense for hospital operations?
+
+---
+
+::: {.callout-tip collapse="true"}
+## Click for Complete Solutions
+
+```{r}
+#| label: solutions
+#| eval: false
+
+# ============================================================================
+# PART 1: DATA PREPARATION
+# ============================================================================
+
+# Task 1: Split data into training and testing sets
+train_idx <- sample(1:nrow(los_data), 0.7 * nrow(los_data))
+train_data <- los_data[train_idx, ]
+test_data <- los_data[-train_idx, ]
+
+# Create predictor variables list
+predictor_vars <- setdiff(names(los_data), "length_of_stay")
+
+# Convert to matrix format for glmnet
+x_train <- as.matrix(train_data[, predictor_vars])
+y_train <- train_data$length_of_stay
+x_test <- as.matrix(test_data[, predictor_vars])
+y_test <- test_data$length_of_stay
+
+# Verify dimensions
+cat("Training set:", nrow(x_train), "observations\n")
+cat("Test set:", nrow(x_test), "observations\n")
+cat("Number of predictors:", ncol(x_train), "\n")
+
+# ============================================================================
+# PART 2: RIDGE REGRESSION (alpha = 0)
+# ============================================================================
+
+# Task 2: Fit Ridge model with cross-validation
+set.seed(2026)
+ridge_model <- cv.glmnet(
+  x = x_train,
+  y = y_train,
+  alpha = 0,
+  nfolds = 10
+)
+
+# Visualize cross-validation results
+plot(ridge_model, main = "Ridge Regression: Cross-Validation")
+
+# Display optimal lambda values
+cat("\nRidge lambda.min:", round(ridge_model$lambda.min, 3), "\n")
+cat("Ridge lambda.1se:", round(ridge_model$lambda.1se, 3), "\n")
+
+# Task 3: Evaluate Ridge performance
+ridge_pred <- predict(ridge_model, s = "lambda.1se", newx = x_test)
+ridge_rmse <- sqrt(mean((y_test - ridge_pred)^2))
+
+cat("\nRidge Test RMSE:", round(ridge_rmse, 2), "days\n")
+
+# Also fit OLS for comparison
+ols_model <- lm(length_of_stay ~ ., data = train_data)
+ols_pred <- predict(ols_model, newdata = test_data)
+ols_rmse <- sqrt(mean((y_test - ols_pred)^2))
+
+cat("OLS Test RMSE:", round(ols_rmse, 2), "days\n")
+cat("Improvement over OLS:", round(ols_rmse - ridge_rmse, 2), "days\n")
+
+# ============================================================================
+# PART 3: LASSO REGRESSION (alpha = 1)
+# ============================================================================
+
+# Task 4: Fit LASSO model with cross-validation
+set.seed(2026)
+lasso_model <- cv.glmnet(
+  x = x_train,
+  y = y_train,
+  alpha = 1,
+  nfolds = 10
+)
+
+# Visualize cross-validation results
+plot(lasso_model, main = "LASSO Regression: Cross-Validation")
+
+# Display optimal lambda values
+cat("\nLASSO lambda.min:", round(lasso_model$lambda.min, 3), "\n")
+cat("LASSO lambda.1se:", round(lasso_model$lambda.1se, 3), "\n")
+
+# Task 5: Identify selected variables
+lasso_coef <- coef(lasso_model, s = "lambda.1se")
+
+# Create data frame of non-zero coefficients
+selected_vars <- data.frame(
+  variable = rownames(lasso_coef),
+  coefficient = as.vector(lasso_coef)
+) %>%
+  filter(variable != "(Intercept)", coefficient != 0) %>%
+  arrange(desc(abs(coefficient)))
+
+cat("\nLASSO selected", nrow(selected_vars), "out of", ncol(x_train), "variables:\n")
+print(selected_vars)
+
+# Visualize coefficient paths
+plot(lasso_model$glmnet.fit, xvar = "lambda", main = "LASSO Coefficient Paths")
+abline(v = log(lasso_model$lambda.1se), lty = 2, col = "red")
+legend("topright", legend = "lambda.1se", col = "red", lty = 2)
+
+# Task 6: Evaluate LASSO performance
+lasso_pred <- predict(lasso_model, s = "lambda.1se", newx = x_test)
+lasso_rmse <- sqrt(mean((y_test - lasso_pred)^2))
+
+cat("\nLASSO Test RMSE:", round(lasso_rmse, 2), "days\n")
+cat("Number of features used:", nrow(selected_vars), "\n")
+
+# ============================================================================
+# PART 4: ELASTIC NET
+# ============================================================================
+
+# Task 7: Tune alpha parameter
+alpha_grid <- seq(0, 1, by = 0.2)
+
+elastic_results <- data.frame(
+  alpha = alpha_grid,
+  lambda_1se = NA,
+  rmse_cv = NA
+)
+
+# Use consistent CV folds for fair comparison
+set.seed(2026)
+fold_id <- sample(1:10, size = length(y_train), replace = TRUE)
+
+# Test each alpha value
+for (i in seq_along(alpha_grid)) {
+  cv_fit <- cv.glmnet(
+    x = x_train,
+    y = y_train,
+    alpha = alpha_grid[i],
+    foldid = fold_id
+  )
+
+  elastic_results$lambda_1se[i] <- cv_fit$lambda.1se
+  idx <- which(cv_fit$lambda == cv_fit$lambda.1se)
+  elastic_results$rmse_cv[i] <- sqrt(cv_fit$cvm[idx])
+}
+
+# Display results
+print(elastic_results)
+
+# Find best alpha
+best_alpha <- elastic_results$alpha[which.min(elastic_results$rmse_cv)]
+cat("\nBest alpha:", best_alpha, "\n")
+
+# Visualize alpha comparison
+ggplot(elastic_results, aes(x = alpha, y = rmse_cv)) +
+  geom_line() +
+  geom_point(size = 3) +
+  geom_point(data = elastic_results[which.min(elastic_results$rmse_cv), ],
+             aes(x = alpha, y = rmse_cv),
+             color = "red", size = 5) +
+  labs(
+    title = "Elastic Net: Alpha Parameter Tuning",
+    x = "Alpha (0 = Ridge, 1 = LASSO)",
+    y = "Cross-Validated RMSE (days)"
+  ) +
+  theme_minimal()
+
+# Task 8: Fit final Elastic Net model with best alpha
+set.seed(2026)
+elastic_model <- cv.glmnet(
+  x = x_train,
+  y = y_train,
+  alpha = best_alpha,
+  nfolds = 10
+)
+
+# Extract coefficients
+elastic_coef <- coef(elastic_model, s = "lambda.1se")
+n_features_elastic <- sum(elastic_coef[-1] != 0)
+
+cat("\nElastic Net (alpha =", best_alpha, ") selected",
+    n_features_elastic, "variables:\n")
+
+# Task 9: Evaluate Elastic Net performance
+elastic_pred <- predict(elastic_model, s = "lambda.1se", newx = x_test)
+elastic_rmse <- sqrt(mean((y_test - elastic_pred)^2))
+
+cat("\nElastic Net Test RMSE:", round(elastic_rmse, 2), "days\n")
+cat("Number of features used:", n_features_elastic, "\n")
+
+# ============================================================================
+# PART 5: MODEL COMPARISON
+# ============================================================================
+
+# Task 10: Compare all four models
+comparison <- data.frame(
+  Model = c("OLS", "Ridge", "LASSO", "Elastic Net"),
+  RMSE = round(c(ols_rmse, ridge_rmse, lasso_rmse, elastic_rmse), 2),
+  Features = c(
+    length(predictor_vars),
+    length(predictor_vars),
+    nrow(selected_vars),
+    n_features_elastic
+  )
+)
+
+# Calculate improvement over OLS
+comparison$Improvement <- paste0(
+  round((1 - comparison$RMSE / ols_rmse) * 100, 1), "%"
+)
+
+print(comparison)
+
+# Visualize model comparison
+ggplot(comparison, aes(x = reorder(Model, -RMSE), y = RMSE, fill = Model)) +
+  geom_col() +
+  geom_text(aes(label = paste0(RMSE, " days")), vjust = -0.5, fontface = "bold") +
+  geom_text(aes(label = paste0("(", Features, " vars)")),
+            vjust = 1.5, color = "white", size = 3.5) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title = "Model Comparison: Hospital Length of Stay Prediction",
+    subtitle = "Lower RMSE indicates better prediction accuracy",
+    x = "",
+    y = "Root Mean Squared Error (days)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none", plot.title = element_text(face = "bold"))
+
+# Feature comparison
+ggplot(comparison, aes(x = Features, y = RMSE, color = Model, size = 3)) +
+  geom_point() +
+  geom_text(aes(label = Model), vjust = -1, size = 3) +
+  labs(
+    title = "Prediction Accuracy vs Model Complexity",
+    x = "Number of Features Used",
+    y = "Root Mean Squared Error (days)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+:::
+
+
+---
+
+# References
+
+## Primary Sources
+
+- **UC Business Analytics R Programming Guide**: [Regularized Regression](https://uc-r.github.io/regularized_regression)
+
+- **James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021)**. *An Introduction to Statistical Learning with Applications in R* (2nd ed.). Springer. Available at [www.statlearning.com]
+
+- **Etzioni, R., Mandrekar, J., & Engeland, A. (2020)**. *Statistics for Health Data Science*. Springer.
+
+## Healthcare Applications
+
+- **Kansagara, D., et al. (2011)**. Risk prediction models for hospital readmission: A systematic review. *JAMA*, 306(15), 1688-1698.
+
+- **CMS Hospital Readmissions Reduction Program**: Information on readmission penalties and quality metrics
+
+- **MEPS Data (Medical Expenditure Panel Survey)**: https://meps.ahrq.gov/ - Public dataset for practice
+
+## R Package Documentation
+
+- **glmnet package**: https://glmnet.stanford.edu/articles/glmnet.html
+
+- **pROC package**: For ROC curves and AUC calculation in classification problems

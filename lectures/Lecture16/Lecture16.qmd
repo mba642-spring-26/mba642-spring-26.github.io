@@ -1,0 +1,1048 @@
+---
+title: "Decision Trees for Healthcare Prediction"
+subtitle: ""
+author: ""
+Week: "Week 15"
+date: 01/01/2026
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme: custom-theme.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+    grid:
+      sidebar-width: 200px
+      body-width: 900px
+      margin-width: 300px
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+# Load required packages
+library(rpart)         # This is the main package for building decision trees
+library(rpart.plot)    # Makes pretty tree diagrams
+library(glmnet)        # For comparing trees with regression (from last week)
+library(tidyverse)     # Includes dplyr, ggplot2, and other data tools
+
+# Set seed for reproducibility
+set.seed(2026)
+
+```
+
+
+# Introduction: A Different Way to Think About Prediction
+
+## A Story: The Hospital Administrator's Dilemma
+
+Imagine you're the CFO of a large hospital system. Every year, you need to budget for patient care costs. Some patients cost $2,000 annually, others cost $200,000. Your board wants accurate predictions so you can:
+
+- Set appropriate insurance premiums
+- Allocate resources to high-risk patients
+- Plan staffing and capacity
+
+You have data on thousands of patients (e.g., their age, medical conditions, past emergency room visits, insurance type, etc). In prior lectures, we learned how to use (penalized) regression models. But here's the problem: **healthcare costs don't work in simple, linear, additive ways**.
+
+Consider two patients:
+
+- **Patient A**: 25 years old with diabetes → might cost $3,000/year
+- **Patient B**: 75 years old with diabetes → might cost $30,000/year
+
+The effect of diabetes is completely different depending on age! With regular regression, you'd have to manually tell the computer "create an age × diabetes interaction term." But what if there are dozens of such interactions? You'd never find them all.
+
+**This is where decision trees shine**: they automatically discover these complex patterns.
+
+## What Is a Decision Tree?
+
+::: {.callout-note}
+## 📘 Terminology: Decision Trees vs. Regression Trees
+
+**"Decision Tree"** is the umbrella term for tree-based models. There are two main types:
+
+- **Classification Trees**: Predict categories (e.g., "Will this patient be readmitted?" → Yes/No)
+- **Regression Trees**: Predict continuous numbers (e.g., "What will this patient cost?" → $15,247)
+
+**In this lecture, we'll cover regression trees** because we're predicting annual healthcare costs (a continuous dollar amount). However, the core concepts and methods apply to both types, so we'll use "decision tree" as the general term throughout. Just remember: when we say "decision tree," we specifically mean the **regression tree** variety!
+:::
+
+Think of a decision tree like a **game of "20 Questions"** for predicting patient costs:
+
+```{mermaid}
+%%| fig-width: 8
+%%| fig-height: 6
+
+graph TD
+    A["Patient over 65?<br/>All Patients"] --> |YES| B["Hospitalized in<br/>past year?"]
+    A --> |NO| C["Any chronic<br/>conditions?"]
+
+    B --> |YES| D["Heart disease?"]
+    B --> |NO| E["Predict: $15,000"]
+
+    D --> |YES| F["Predict: $45,000"]
+    D --> |NO| G["Predict: $25,000"]
+
+    C --> |YES| H["Predict: $8,000"]
+    C --> |NO| I["Predict: $2,500"]
+
+    style F fill:#e8f4f8,stroke:#2c5aa0,stroke-width:3px
+    style G fill:#e8f4f8,stroke:#2c5aa0,stroke-width:3px
+    style E fill:#e8f4f8,stroke:#2c5aa0,stroke-width:3px
+    style H fill:#e8f4f8,stroke:#2c5aa0,stroke-width:3px
+    style I fill:#e8f4f8,stroke:#2c5aa0,stroke-width:3px
+```
+
+**How to read this diagram:**
+
+- Start at the top box ("Patient over 65?")
+- Follow the arrows based on YES vs. NO answers
+- End at a blue prediction box (called a "leaf")
+- Each question splits patients into smaller, more similar groups
+
+Each final prediction is based on the average cost of similar patients in your historical data.
+
+
+## Why Decision Trees for Healthcare?
+
+Decision trees are particularly powerful for healthcare analytics because:
+
+### 1. They Think Like Clinicians
+
+Doctors already use tree-like decision rules: "If patient has chest pain AND is over 50 AND has diabetes → run cardiac workup." Trees formalize this intuitive reasoning.
+
+### 2. They Handle Complexity Automatically
+
+- **Interactions**: Automatically discover whether a factor matters more depending on other factors (e.g., heart disease matters more for elderly patients)
+- **Non-linear relationships**: Don't assume age has a constant effect across all ranges
+- **Mixed data types**: Handle both numbers (age, lab values) and categories (gender, insurance type)
+
+### 3. They're Easy to Explain
+
+You can literally draw the tree and show it to decision makers. For example: "This patient is over 65, has been to the ER 3 times, and has heart disease, so we predict they will be high-cost."
+
+### 4. They Don't Need Much Preparation
+
+- No need to standardize variables
+- Can handle missing data
+- No assumptions about data distributions
+
+
+## What We'll Learn Today
+
+By the end of this session, you will be able to:
+
+1. **Explain** what decision trees are to others using simple, non-technical language
+
+2. **Read and interpret** tree diagrams to understand why specific predictions are made
+
+3. **Understand** why trees can "overfit" and how to prevent it (finding the right tree size)
+
+4. **Build** decision trees in R to predict healthcare outcomes (costs, length of stay, etc.)
+
+5. **Evaluate** whether your tree is making good predictions using test data
+
+
+---
+
+# How Decision Trees Work
+
+## The Basic Idea: Divide and Conquer
+
+Let's build intuition with a simple example. Imagine you have 100 patients and you want to predict their annual healthcare costs. Here's what a decision tree does:
+
+**Step 1: Start with everyone in one group**
+
+- All 100 patients together
+- Average cost: $15,000
+- But there's huge variation: some cost $1,000, others $100,000
+- We can measure how much error we have in predictions when only the average cost is used
+
+**Step 2: Find the best split**
+
+The algorithm looks at every variable and asks: "What single split would best separate high-cost from low-cost patients?"
+
+Maybe it finds:
+
+- Patients with prior hospitalizations (n=20) → average $45,000
+- Patients without prior hospitalizations (n=80) → average $8,000
+
+If these predictions are more accurate than predicting $15,000 for everyone, we use this split.
+
+**Step 3: Repeat for each group**
+
+Now take those 80 patients without prior hospitalizations. Can we do better than predicting $8,000 for all of them?
+
+Maybe split by age:
+
+- Under 50 (n=50) → average $4,000
+- Over 50 (n=30) → average $14,000
+
+**Step 4: Keep going until groups are homogeneous**
+
+Continue this process until each final group (called a "leaf") contains patients with similar healthcare costs.
+
+## How Does the Tree Decide Where to Split?
+
+**Simple Answer**: It tries every possible split and picks the one that reduces prediction errors the most.
+
+### Example: Splitting on Age
+
+Let's say we're considering: "Should we split at age 50?"
+
+**Before split**: 100 patients, average cost = $15,000
+
+- Some patients cost $50,000, some cost $2,000
+- Our predictions are pretty bad!
+
+**After splitting at age 50**:
+
+- **Group 1 (Age < 50)**: 60 patients, average = $7,000
+  - Most patients are close to $7,000
+  - Prediction errors are smaller
+- **Group 2 (Age ≥ 50)**: 40 patients, average = $26,000
+  - Most patients are close to $26,000
+  - Prediction errors are smaller
+
+The algorithm measures whether our prediction errors get smaller. If yes, it's a good split!
+
+The algorithm tries EVERY possible split (age 30, age 31, age 32, etc., and also diabetes yes/no, prior ER visits 0 vs. 1+, etc.) and picks the winner.
+
+## Why "Recursive"?
+
+**Recursive** means the algorithm repeats the same process over and over:
+
+1. Look at a group of patients
+2. Find the best way to split them into two groups
+3. For each new group, go back to step 1
+4. Stop when groups are small or homogeneous enough
+
+Think of it like organizing a filing cabinet:
+
+- First drawer: "Active" vs. "Inactive" patients
+- Within "Active": "High-risk" vs. "Low-risk"
+- Within "High-risk": "Diabetes" vs. "No diabetes"
+- And so on...
+
+Each level of the tree makes the groups more specific and similar.
+
+## Optimal Tree Size: Not Too Big, Not Too Small
+
+### The Danger of Trees That Are **Too Big** (Overfitting)
+
+Imagine a tree that keeps splitting until each final group has only 1-2 patients:
+
+**Patient A, age 67, diabetic, 2 ER visits → Predicted cost: $43,127**
+
+- This is patient A's actual cost from last year!
+- But is this a good prediction for similar (new) patients?
+- No! Patient A might have had an unusual surgery that year or other conditions
+
+**This is overfitting**: The tree has memorized the specific patients in your data, including all the random variation (lucky vs. unlucky years, unusual events, etc.). When we apply the same rules to new patients, this may not perform well. 
+
+
+### The Danger of Trees That Are **Too Small** (Underfitting)
+
+On the other hand, a tree with only 1-2 splits might be too simple:
+
+**All patients → Predicted cost: $15,000**
+
+- This is useless! We know costs vary wildly
+- We're ignoring useful information
+
+**This is underfitting**: The tree is too simple to capture real patterns.
+
+### The Solution: Finding the "Just Right" or Optimal Tree Size
+
+We need to find the sweet spot. Here's how:
+
+**Step 1: Grow a large tree**
+
+- Let it split many times
+- Don't worry about overfitting yet
+
+**Step 2: Test different tree sizes**
+
+- Prune back to different sizes (15 leaves, 10 leaves, 5 leaves, 3 leaves...)
+- For each size, measure prediction accuracy on separate test data
+
+**Step 3: Pick the size that performs best on test data**
+
+- Not on training data (that would just give us the biggest tree)
+- On fresh data the tree hasn't seen
+
+Think of it like teaching someone to cook. 
+
+- Too few instructions ("cook the chicken") = underfit. 
+- Too many instructions ("heat to exactly 347.2°F for 37 minutes and 12 seconds") = overfit. 
+- The right amount: "cook until internal temperature reaches 165°F and juices run clear" = just right!
+
+### Cross-Validation: The Smart Way to Find the Right Size
+
+**The Problem: Why We Can't Use Test Data for Model Selection**
+
+You might think: "I'll just try different tree sizes and pick the one that performs best on my test set!" But this creates a subtle problem:
+
+**Bad Approach:**
+
+1. Try 5-leaf tree → test on test set → error = $8,000
+2. Try 10-leaf tree → test on test set → error = $7,500
+3. Try 15-leaf tree → test on test set → error = $7,200 ✓ Best!
+4. Pick 15-leaf tree and report: "Our model has $7,200 error"
+
+You've now **peeked** at the test set multiple times and chose the model specifically because it performed well on this data. Your reported error ($7,200) is **overly optimistic**. It won't reflect true performance on future patients you haven't seen yet!
+
+**The Solution: Cross-Validation on Training Data Only**
+
+Keep your test set locked away until the very end! Instead:
+
+1. **Split once**: 70% training, 30% test (lock the test set away!)
+2. **Within training data**, split into 10 pieces for cross-validation (the number of folds can vary)
+3. For each tree size:
+   - Train on 9 pieces, validate on the 10th
+   - Repeat 10 times (each piece gets to be validation set)
+   - Average the validation errors across all 10 folds
+4. Pick tree size with best average cross-validation error
+5. Build final model on ALL training data
+6. **Finally, evaluate once on test set** for honest performance
+
+This way, the test set truly represents "future patients" (non-trained data) you haven't peeked at!
+
+## When Should You Use Decision Trees?
+
+**Decision Trees Are GREAT For:**
+
+**1. Explaining to Non-Technical Audiences**
+
+- "Here's exactly why we predict this patient is high-risk"
+- Can draw the tree easily (like in PowerPoint) 
+- Creates clear, actionable patient segments
+
+**2. Complex, Interactive Relationships**
+
+- When effects depend on context (diabetes matters more for elderly patients)
+- When you don't know which interactions matter in advance
+- When relationships are non-linear (age 70→75 might matter more than 30→35)
+
+**3. Mixed Data Types**
+
+- Combining numbers (age, lab values) and categories (gender, insurance)
+- No need to create dummy variables manually
+
+**4. Quick Prototyping**
+
+- Fast to build and interpret
+- Good for initial exploration
+
+
+**Decision Trees Are LESS GREAT For:**
+
+**1. When Relationships Are Smooth, Linear, and Additive**
+
+- If cost really does just go up $250 per year of age for everyone (constant effect), linear regression would be simpler and more accurate
+
+**2. Small Datasets**
+
+- Trees need enough data to split multiple times. In general, trees with <100 observations might not split well
+
+**3. When You Need Smooth Predictions**
+
+- Trees create "step functions" where everyone in a group gets the same prediction. When smooth, continuous predictions are needed, tree models may not be ideal.
+
+**4. Extrapolation**
+
+- Trees can't predict beyond the range of your data. For example, if oldest patient in the data is 85, can't reliably predict for 95-year-old. 
+
+
+---
+
+# Hands-On Tutorial: Building Decision Trees in R
+
+## Step 1: Loading Our Tools
+
+Think of this like getting your tools ready before starting a project. We need special R packages, `rpart` (Recursive Partitioning And Regression Trees) for building and visualizing trees.
+
+
+## Step 2: Creating Our Patient Dataset
+
+**The Context**: You're analyzing a health system with 1,000 patients. You want to predict their annual healthcare costs based on things like age, medical conditions, and past utilization.
+
+We'll create simulated data that mimics real-world healthcare:
+
+- **Complex relationships**: Diabetes costs more for elderly patients than young ones (interaction!)
+- **Realistic cost distribution**: Most patients are low-cost, some are very expensive
+- **Multiple types of information**: Numbers (age), categories (insurance type), yes/no (diabetes)
+
+Don't worry about understanding every line of code here—focus on what we're creating:
+
+```{r}
+#| label: create-dataset
+
+# Step 2a: Create 1,000 patients with various characteristics
+n <- 1000  # Our sample size
+
+healthcare_data <- data.frame(
+  # Basic demographics
+  age = round(runif(n, 18, 85)),  # Age between 18-85
+  sex = sample(c("Male", "Female"), n, replace = TRUE),
+
+  # Health indicators
+  bmi = round(rnorm(n, 28, 6), 1),  # Body Mass Index
+  smoker = sample(c(0, 1), n, replace = TRUE, prob = c(0.8, 0.2)),  # 20% smokers
+
+  # Medical conditions (we'll fill these in next based on age)
+  diabetes = NA,
+  hypertension = NA,
+  heart_disease = NA,
+
+  # Insurance coverage
+  insurance = sample(c("Private", "Medicare", "Medicaid", "Uninsured"),
+                     n, replace = TRUE, prob = c(0.5, 0.25, 0.15, 0.1)),
+
+  # Past healthcare use (higher numbers = more past utilization)
+  prior_er_visits = rpois(n, lambda = 0.5),
+  prior_hospitalizations = rpois(n, lambda = 0.15),
+
+  # Geographic region
+  region = sample(c("Northeast", "Midwest", "South", "West"), n, replace = TRUE)
+)
+
+# Step 2b: Generate medical conditions (more likely for older patients)
+# This makes our data realistic - older people tend to have more conditions
+healthcare_data <- healthcare_data %>%
+  mutate(
+    # Diabetes: more common with age and higher BMI
+    diabetes = rbinom(n, 1, plogis(-3 + 0.03 * age + 0.05 * bmi)),
+
+    # High blood pressure: more common with age
+    hypertension = rbinom(n, 1, plogis(-2 + 0.04 * age)),
+
+    # Heart disease: more common with age, smoking, and other conditions
+    heart_disease = rbinom(n, 1, plogis(-4 + 0.05 * age + 0.5 * smoker +
+                                         0.3 * diabetes + 0.3 * hypertension)),
+
+    # Total number of chronic conditions per patient
+    n_conditions = diabetes + hypertension + heart_disease
+  )
+
+# Step 2c: Generate annual healthcare costs
+# We're building in complex patterns that our decision tree will discover:
+# - Non-linear age effects (costs accelerate with age)
+# - Interactions (conditions cost more for elderly patients)
+# - Variation (some randomness, like in real life)
+
+healthcare_data <- healthcare_data %>%
+  mutate(
+    # Base cost increases with age (and accelerates - that's the age^2 part)
+    base_cost = 1000 + 50 * age + 0.5 * age^2,
+
+    # Costs from chronic conditions
+    # IMPORTANT: Notice we multiply age × n_conditions - this is an INTERACTION
+    # Conditions cost more for older patients!
+    condition_cost = 3000 * diabetes + 2500 * hypertension +
+                     5000 * heart_disease +
+                     50 * age * n_conditions,  # <-- The interaction
+
+    # Costs from past healthcare use
+    utilization_cost = 2000 * prior_er_visits + 15000 * prior_hospitalizations,
+
+    # Costs from behaviors
+    behavior_cost = 1500 * smoker + 50 * pmax(bmi - 30, 0),
+
+    # Insurance affects recorded costs
+    insurance_effect = case_when(
+      insurance == "Private" ~ 1.0,
+      insurance == "Medicare" ~ 1.1,  # Medicare patients use more services
+      insurance == "Medicaid" ~ 0.9,
+      insurance == "Uninsured" ~ 0.6  # Uninsured use less (unfortunately)
+    ),
+
+    # Combine everything to get final cost
+    expected_cost = (base_cost + condition_cost + utilization_cost +
+                     behavior_cost) * insurance_effect,
+
+    # Add some randomness (real life isn't perfectly predictable!)
+    annual_cost = round(expected_cost * exp(rnorm(n, 0, 0.3)))
+  ) %>%
+  # Remove intermediate calculation columns (we just need annual_cost)
+  select(-base_cost, -condition_cost, -utilization_cost,
+         -behavior_cost, -insurance_effect, -expected_cost)
+
+# Step 2d: Convert text variables to proper format for R
+# R needs categorical variables (like "Male"/"Female") as "factors"
+healthcare_data <- healthcare_data %>%
+  mutate(
+    sex = factor(sex),
+    insurance = factor(insurance),
+    region = factor(region),
+    smoker = factor(smoker, labels = c("No", "Yes")),
+    diabetes = factor(diabetes, labels = c("No", "Yes")),
+    hypertension = factor(hypertension, labels = c("No", "Yes")),
+    heart_disease = factor(heart_disease, labels = c("No", "Yes"))
+  )
+
+# Show what we created
+head(healthcare_data)
+```
+
+**What we just created**:
+
+- **1,000 patients** with realistic characteristics
+- **13 variables total**:
+  - **11 predictor variables**: age, sex, BMI, smoking, 3 chronic conditions (diabetes, hypertension, heart disease), insurance, prior ER visits, prior hospitalizations, region
+  - **1 derived variable**: n_conditions (total count of chronic conditions; we will not use this one)
+  - **1 outcome variable**: annual_cost (what we want to predict)
+- **Hidden complexity**: The relationship between these variables and cost includes non-linear effects and interactions - perfect for testing decision trees!
+
+### Step 3: Understanding Our Data
+
+Before building a decision tree, let's look at what we're working with. This helps us know what patterns to expect.
+
+```{r}
+#| label: explore-data
+#| fig-height: 8
+
+# Summary statistics for the outcome
+# (We'll display these as markdown text below the chart)
+
+# Distribution plots
+par(mfrow = c(2, 2))
+
+# Cost distribution
+hist(healthcare_data$annual_cost / 1000, breaks = 30,
+     main = "Distribution of Annual Healthcare Costs",
+     xlab = "Annual Cost ($1000s)", col = "steelblue", border = "white")
+
+# Costs by age
+plot(healthcare_data$age, healthcare_data$annual_cost / 1000,
+     main = "Costs vs. Age",
+     xlab = "Age (years)", ylab = "Annual Cost ($1000s)",
+     col = adjustcolor("steelblue", 0.5), pch = 16)
+lines(lowess(healthcare_data$age, healthcare_data$annual_cost / 1000),
+      col = "red", lwd = 2)
+
+# Costs by number of conditions
+boxplot(annual_cost / 1000 ~ n_conditions, data = healthcare_data,
+        main = "Costs by Number of Chronic Conditions",
+        xlab = "Number of Conditions", ylab = "Annual Cost ($1000s)",
+        col = "steelblue")
+
+par(mfrow = c(1, 1))
+```
+
+**Note**: While we won't include n_conditions in our tree model (since it's redundant with the individual condition variables), it's still useful for understanding cost patterns in our exploratory analysis.
+
+**Key Statistics About Our Data**:
+
+- **Average (mean) cost**: Around $17,000 per patient per year
+- **Middle (median) cost**: Lower than the mean (about $15,000)
+- **Range**: From a few hundred dollars to over $100,000
+- **Distribution**: Right-skewed (most patients low-cost, some very high-cost)
+
+**What the charts tell us**:
+
+1. **Most patients are low-cost, some are very high-cost** - this is typical in healthcare
+2. **Costs increase with age** - especially after age 60
+3. **More chronic conditions = higher costs** - but the relationship isn't simple
+4. **Lots of variation** - two patients with similar characteristics might have different costs
+
+Now let's build a decision tree to predict these costs!
+
+---
+
+## Step 4: Building Your First Decision Tree
+
+This is the exciting part! We're going to build a decision tree that automatically discovers patterns in our data.
+
+### The Basic Command
+
+Building a tree in R is surprisingly simple. We can use the `rpart` function in R. It's similar to the `lm()` function you learned for regression:
+
+```{r}
+#| label: first-tree
+#| fig-height: 7
+
+# Build the decision tree!
+# This is the main command - notice it looks like lm()
+cost_tree <- rpart(
+  # Formula: predict annual_cost using all these variables
+  formula = annual_cost ~ age + sex + bmi + smoker + diabetes +
+            hypertension + heart_disease + insurance +
+            prior_er_visits + prior_hospitalizations + region,
+
+  # Which data to use
+  data = healthcare_data,
+
+  # method = "anova" means we're predicting a number (not a category)
+  method = "anova"
+
+  # Note: Cross-validation happens automatically!
+  # rpart performs 10-fold CV by default (controlled by xval = 10 parameter)
+  # The CV results are stored in cost_tree$cptable (we'll see this later)
+)
+
+# Look at the text summary (not very readable, we'll visualize it next!)
+print(cost_tree)
+```
+
+**What just happened?**
+
+- R tried thousands of possible splits
+- It picked the ones that best separated high-cost from low-cost patients
+- The result is stored in `cost_tree`
+
+The text output is hard to read, so let's visualize it!
+
+### Visualizing the Tree 
+
+Trees are meant to be seen, not read as text. Let's create a visual diagram using the `rpart.plot` function:
+
+```{r}
+#| label: visualize-tree
+#| fig-height: 8
+
+# Create a beautiful tree diagram!
+rpart.plot(
+  cost_tree,
+  type = 4,                 # Show all the information
+  extra = 101,              # Show number and percentage of patients in each group
+  under = TRUE,             # Put numbers under the boxes (easier to read)
+  fallen.leaves = TRUE,     # Line up the bottom boxes
+  branch = 0.3,             # How curved the branches are
+  box.palette = "Blues",    # Color scheme (blue boxes)
+  shadow.col = "gray",      # Add subtle shadows
+  main = "Decision Tree for Healthcare Cost Prediction",
+  cex = 0.8,                # Text size
+  roundint = TRUE,          # Round to integers (no decimals for dollar amounts)
+  digits = 5                # Use up to 5 digits (prevents scientific notation)
+)
+```
+
+### How to Read This Tree Diagram
+
+**Think of it like a flowchart for patient triage:**
+
+1. **Start at the top box** (the "root")
+   - Contains ALL patients
+   - Shows average cost for everyone
+
+2. **Follow the labeled arrows**
+   - Each split asks a yes/no question
+   - Follow the arrow labeled **YES** or **NO** based on the patient's characteristics
+   - The arrows show you which path to take
+
+3. **End at a bottom box** (a "leaf")
+   - This is your prediction!
+   - Shows the average cost for patients in that group
+
+4. **The deeper you go, the more specific the groups**
+   - First split: broad groups (e.g., old vs. young)
+   - Later splits: narrow groups (e.g., elderly diabetics who've been hospitalized)
+
+### Let's Trace a Patient Through the Tree
+
+Imagine a new patient walks in. Here's how to predict their cost:
+
+```{r}
+#| label: trace-prediction
+
+# Create an example patient
+example_patient <- data.frame(
+  age = 72,
+  sex = factor("Male", levels = levels(healthcare_data$sex)),
+  bmi = 31,
+  smoker = factor("No", levels = levels(healthcare_data$smoker)),
+  diabetes = factor("Yes", levels = levels(healthcare_data$diabetes)),
+  hypertension = factor("Yes", levels = levels(healthcare_data$hypertension)),
+  heart_disease = factor("No", levels = levels(healthcare_data$heart_disease)),
+  insurance = factor("Medicare", levels = levels(healthcare_data$insurance)),
+  prior_er_visits = 1,
+  prior_hospitalizations = 0,
+  region = factor("South", levels = levels(healthcare_data$region))
+)
+
+# Get prediction
+predicted_cost <- predict(cost_tree, example_patient)
+
+# Display the prediction (we'll show this below the code)
+predicted_cost
+```
+
+**Example Patient**:
+
+- Age: 72 years
+- Conditions: Diabetes, Hypertension (no heart disease)
+- Prior ER visits: 1
+- Prior hospitalizations: 0
+- Insurance: Medicare
+
+The model will predict a specific cost based on which leaf node this patient falls into. To trace through the tree diagram above, start at the top and follow the branches based on this patient's characteristics!
+
+## Controlling Tree Complexity
+
+### Understanding the Control Parameters
+
+The `rpart()` function has several parameters that control how the tree grows. Understanding these is crucial for building effective models:
+
+```{r}
+#| label: control-parameters
+
+# Display default control parameters
+defaults <- rpart.control()
+```
+
+**Default rpart Control Parameters**:
+
+The `rpart` function has several "knobs" you can turn to control tree growth:
+
+**1. minsplit** (default = 20)
+
+- Minimum observations required to attempt a split (i.e., "Don't split groups smaller than 20 patients")
+- Lower values → more splits → larger trees
+
+**2. minbucket** (default = 7)
+
+- Minimum observations in any terminal node (leaf; i.e., "Each final group must have at least 7 patients")
+- Lower values → smaller final groups → more overfitting risk
+
+**3. cp** (complexity parameter, default = 0.01)
+
+- Controls pruning - this is the most important parameter!
+- Lower values → less pruning → larger trees
+- We'll use cross-validation to find the optimal cp
+
+**4. maxdepth** (default = 30)
+
+- Maximum depth of tree (number of levels)
+- Higher values → deeper trees → more interactions captured
+- Usually not a limiting factor
+
+### The Complexity Parameter (cp)
+
+The complexity parameter `cp` is the most important tuning parameter. It controls pruning - how the tree decides whether a split is worth keeping:
+
+- A split is only kept if it reduces prediction errors by a meaningful amount (controlled by cp)
+- Higher `cp` → fewer splits → simpler trees
+- Lower `cp` → more splits → complex trees
+
+Let's see how `cp` affects tree size:
+
+```{r}
+#| label: cp-comparison
+#| fig-height: 10
+
+# Fit trees with different cp values
+par(mfrow = c(2, 2))
+
+cp_values <- c(0.1, 0.03, 0.01, 0.001)
+
+for (cp_val in cp_values) {
+  tree_temp <- rpart(
+    annual_cost ~ age + sex + bmi + smoker + diabetes +
+                  hypertension + heart_disease + insurance +
+                  prior_er_visits + prior_hospitalizations + region,
+    data = healthcare_data,
+    method = "anova",
+    control = rpart.control(cp = cp_val)
+  )
+
+  # Count terminal nodes
+  n_leaves <- sum(tree_temp$frame$var == "<leaf>")
+
+  rpart.plot(tree_temp,
+             main = paste0("cp = ", cp_val, " (", n_leaves, " leaves)"),
+             cex = 0.6,
+             roundint = TRUE,
+             digits = 5)
+}
+
+par(mfrow = c(1, 1))
+```
+
+As `cp` decreases, the tree grows larger with more terminal nodes. The challenge is finding the right balance—enough complexity to capture true patterns but not so much that we overfit.
+
+
+### Cross-Validation for Optimal Pruning
+
+::: {.callout-tip}
+## 🔍 Where Does Cross-Validation Happen?
+
+**Answer**: Automatically inside `rpart()`!
+
+When you call `rpart()`, it performs 10-fold cross-validation **behind the scenes** and stores the results in the tree's `$cptable` component. You don't need to explicitly code the CV - it happens automatically!
+
+If you want to control it:
+- `xval = 10` (default): 10-fold cross-validation
+- `xval = 5`: 5-fold cross-validation
+- `xval = 0`: Turn off CV (not recommended!)
+:::
+
+Now let's access those cross-validation results that `rpart()` computed for us:
+
+```{r}
+#| label: cross-validation
+
+# Fit a full tree (small cp to grow large)
+# Note: This automatically performs 10-fold CV!
+full_tree <- rpart(
+  annual_cost ~ age + sex + bmi + smoker + diabetes +
+                hypertension + heart_disease + insurance +
+                prior_er_visits + prior_hospitalizations + region,
+  data = healthcare_data,
+  method = "anova",
+  control = rpart.control(cp = 0.001)  # Grow a large tree
+)
+
+# Display the cross-validation results (stored in $cptable)
+print(full_tree$cptable)
+```
+
+**Understanding the Cross-Validation Table (cptable)**:
+
+Each row shows results for a different tree size:
+
+- **CP**: Complexity parameter value
+- **nsplit**: Number of splits in the tree
+- **rel error**: Training error (relative to simplest tree)
+- **xerror**: Cross-validated error (what we care about!)
+- **xstd**: Standard error of the CV error
+
+**What to look for**: The tree size (nsplit) that has the lowest `xerror`!
+
+### Visualizing Cross-Validation Results
+
+Let's plot the cross-validation errors to find the optimal tree size:
+
+```{r}
+#| label: plot-cv
+#| fig-height: 5
+
+# Plot cross-validation results
+plotcp(full_tree)
+
+# Find the cp with lowest cross-validation error
+cp_table <- full_tree$cptable
+optimal_cp <- cp_table[which.min(cp_table[, "xerror"]), "CP"]
+```
+
+**How to Read This Plot**:
+
+- **X-axis (top)**: Size of tree (number of terminal nodes)
+- **X-axis (bottom)**: Corresponding cp values
+- **Y-axis**: Cross-validation error (relative scale)
+- **Dotted horizontal line**: Minimum CV error + 1 standard error (1-SE rule threshold)
+- **Goal**: Find the lowest point on the curve (minimum xerror)
+
+**What we're doing**: We pick the cp that corresponds to the lowest point on this curve. That's our optimal tree complexity!
+
+**Note**: The dotted line shows the 1-SE rule threshold (a more conservative approach), but we're using the simpler method of just picking the minimum point, which is `r optimal_cp`.
+
+### Pruning the Tree
+
+Now let's prune our tree to the optimal size (remove less meaningful branches):
+
+```{r}
+#| label: prune-tree
+#| fig-height: 7
+
+# Prune to optimal cp
+pruned_tree <- prune(full_tree, cp = optimal_cp)
+
+# Visualize the pruned tree
+rpart.plot(
+  pruned_tree,
+  type = 4,
+  extra = 101,
+  under = TRUE,
+  fallen.leaves = TRUE,
+  box.palette = "Blues",
+  main = paste0("Pruned Tree (cp = ", round(optimal_cp, 4), ")"),
+  cex = 0.8,
+  roundint = TRUE,
+  digits = 5
+)
+
+# Compare tree sizes
+n_leaves_full <- sum(full_tree$frame$var == "<leaf>")
+n_leaves_pruned <- sum(pruned_tree$frame$var == "<leaf>")
+```
+
+**Tree Size Comparison**:
+
+- **Full (unpruned) tree**: `r n_leaves_full` leaf nodes
+- **Pruned tree**: `r n_leaves_pruned` leaf nodes
+
+By pruning, we've created a simpler tree that's easier to interpret while maintaining good predictive performance!
+
+## Evaluating Model Performance
+
+### Train-Test Split Approach
+
+For a fair evaluation, we should test our model on data it hasn't seen during training. Let's split our data and evaluate performance properly. Same as others, let's use a 70:30 split. 
+
+```{r}
+#| label: train-test-split
+
+# Create train-test split (70-30)
+train_idx <- sample(1:nrow(healthcare_data), 0.7 * nrow(healthcare_data))
+train_data <- healthcare_data[train_idx, ]
+test_data <- healthcare_data[-train_idx, ]
+```
+
+**Data Split**:
+
+- **Training set**: `r nrow(train_data)` patients (70%) - used to build the tree
+- **Test set**: `r nrow(test_data)` patients (30%) - held out to evaluate performance
+
+This split ensures we evaluate the model on patients it has never seen before!
+
+### Building and Evaluating the Tree
+
+Let's build a tree model using the training dataset. 
+
+```{r}
+#| label: build-evaluate
+
+# Fit tree on training data
+tree_train <- rpart(
+  annual_cost ~ age + sex + bmi + smoker + diabetes +
+                hypertension + heart_disease + insurance +
+                prior_er_visits + prior_hospitalizations + region,
+  data = train_data,
+  method = "anova",
+  control = rpart.control(cp = 0.001)
+)
+
+# Find optimal cp (lowest cross-validation error)
+best_cp <- tree_train$cptable[which.min(tree_train$cptable[,"xerror"]), "CP"]
+
+# Prune the tree to optimal size
+tree_final <- prune(tree_train, cp = best_cp)
+
+# Make predictions on test set
+predictions <- predict(tree_final, test_data)
+
+# Calculate performance metrics
+actual <- test_data$annual_cost
+
+# Root Mean Squared Error (RMSE) - our primary metric
+rmse <- sqrt(mean((actual - predictions)^2))
+
+# R-squared - how much variation we explain
+ss_res <- sum((actual - predictions)^2)
+ss_tot <- sum((actual - mean(actual))^2)
+r_squared <- 1 - (ss_res / ss_tot)
+```
+
+**Test Set Performance**:
+
+How well does our tree predict costs for new patients? We'll focus on two key metrics:
+
+**1. RMSE (Root Mean Squared Error): $`r format(round(rmse), big.mark = ",")`**
+
+- This is the most common metric for comparing prediction models
+- Interpretation: "On average, our predictions are off by about $`r format(round(rmse), big.mark = ",")`"
+- Lower is better!
+
+**2. R-squared: `r round(r_squared, 3)`**
+
+- You've seen this before in regression!
+- Interpretation: "Our model explains `r round(r_squared * 100, 2)`% of the variation in healthcare costs"
+- Higher is better (ranges from 0 to 1)
+
+### Visualizing Predictions vs. Actual
+
+Let's see how well our predictions match actual costs:
+
+```{r}
+#| label: plot-predictions
+#| fig-height: 5
+
+# Create prediction comparison plot
+pred_df <- data.frame(
+  Actual = actual,
+  Predicted = predictions
+)
+
+ggplot(pred_df, aes(x = Actual/1000, y = Predicted/1000)) +
+  geom_point(alpha = 0.5, color = "steelblue") +
+  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +
+  labs(
+    title = "Regression Tree: Predicted vs. Actual Healthcare Costs",
+    x = "Actual Cost ($1000s)",
+    y = "Predicted Cost ($1000s)"
+  ) +
+  theme_minimal() +
+  coord_fixed()
+```
+
+Points along the red dashed line represent perfect predictions. The closer the data points are to the red dashed line, the better the model performed. 
+
+
+---
+
+# Summary and Key Takeaways
+
+## What We Learned Today
+
+**1. Decision Trees Are a Different Way to Think About Prediction**
+
+- Instead of equations, we create groups of similar patients
+- Each group gets a prediction based on historical averages
+- Works like a game of "20 questions" to classify patients
+
+**2. Trees Automatically Find Complex Patterns**
+
+- They discover interactions (diabetes costs more for elderly patients)
+- They handle non-linear relationships (age effects that accelerate)
+- No need to manually specify these patterns!
+
+**3. Trees Are Easy to Explain**
+
+- Visual diagrams anyone can understand
+- Clear decision rules for each prediction
+- Great for presenting to non-technical stakeholders
+
+**4. But Trees Need Careful Tuning**
+
+- Too big → overfitting (memorizing noise)
+- Too small → underfitting (missing patterns)
+- Use cross-validation to find an optimal size
+
+**5. Trees vs. Regression: Different Tools for Different Jobs**
+
+- Trees: Complex interactions, automatic feature discovery, easy to explain
+- Regression: Smooth relationships, smaller datasets, interpretable coefficients
+- Try both and compare!
+
+
+---
+
+
+# References and Additional Resources
+
+## Primary Sources for This Document
+
+This tutorial was developed using the following primary sources:
+
+- **UC Business Analytics R Programming Guide**: [Regression Trees](https://uc-r.github.io/regression_trees) - Comprehensive tutorial on CART with R implementation
+
+- **Etzioni, et. al. (2020)**. *Statistics for Health Data Science*. Springer. Chapter 10: Prediction - Tree-based methods and healthcare applications
+
+- **James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021)**. *An Introduction to Statistical Learning with Applications in R* (2nd ed.). Springer. Chapters 8-9 on tree-based methods. [Free online at www.statlearning.com]
+
+
+## R Package Documentation
+
+- **rpart package**: https://cran.r-project.org/web/packages/rpart/rpart.pdf
+
+- **rpart.plot package**: http://www.milbo.org/rpart-plot/

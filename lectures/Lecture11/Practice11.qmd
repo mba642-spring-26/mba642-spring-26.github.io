@@ -1,0 +1,1343 @@
+---
+title: "Linear Regression (Practice Activities)"
+subtitle: "Business Analytics in Healthcare Management"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    code-tools: true
+    theme: cosmo
+---
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(broom)
+library(knitr)
+library(kableExtra)
+library(car)
+library(GGally)
+library(patchwork)
+
+# Set seed for reproducibility
+set.seed(42)
+```
+
+# Overview
+
+In this practice session, you will apply the linear regression techniques learned in the lecture. This is a learning activity designed to help you gain hands-on experience with fitting, interpreting, and evaluating regression models using R.
+
+**What you'll practice:**
+
+- Fitting simple and multiple linear regression models
+- Interpreting regression coefficients (direction, magnitude, significance)
+- Assessing model fit using R²
+- Making predictions for new observations
+- Checking model assumptions with diagnostic plots
+- Detecting multicollinearity using VIF
+
+**Format**: This practice file includes both **guided fill-in-the-blank activities** (Activities 1-3) and **comprehensive open-ended exercises** (Exercises 1-3).
+
+**Instructions**:
+
+1. Complete the code by replacing `___` with appropriate values
+2. Run each chunk to verify your results
+3. Answer the interpretation questions
+4. Compare your results with the provided solutions (code-folded)
+
+**Note**: This practice is completion-based. The goal is to learn and experiment—mistakes are part of the process!
+
+---
+
+# Common Errors and How to Fix Them
+
+You **WILL** encounter errors while practicing—that's completely normal and part of the learning process! Here are the most common errors and their solutions:
+
+## Error 1: "object not found"
+
+```r
+Error: object 'practice_data' not found
+```
+
+**Cause**: You didn't run the chunk that creates the dataset
+
+**Fix**:
+
+1. Scroll to the relevant section (Activity 1, 2, or 3)
+2. Find the "Dataset Generation" chunk
+3. Click the green "play" button to run that chunk
+4. Then try your code again
+
+## Error 2: "could not find function lm"
+
+```r
+Error: could not find function "lm"
+```
+
+**Cause**: This shouldn't happen (lm is built-in), but if it does, restart R
+
+**Fix**: Session → Restart R, then run the setup chunk at the top
+
+## Error 3: Formula syntax errors
+
+```r
+Error: invalid formula
+```
+
+**Cause**: Incorrect formula syntax in `lm()`
+
+**Common mistakes**:
+```r
+# ❌ Wrong: Missing tilde (~)
+lm(y = x, data = data)
+
+# ✅ Right: Use tilde to separate outcome and predictor
+lm(y ~ x, data = data)
+
+# ❌ Wrong: Comma instead of plus for multiple predictors
+lm(y ~ x1, x2, data = data)
+
+# ✅ Right: Use + to add multiple predictors
+lm(y ~ x1 + x2, data = data)
+```
+
+## Error 4: "undefined columns selected"
+
+```r
+Error: undefined columns selected
+```
+
+**Cause**: Variable name doesn't exist in the dataset (typo or wrong name)
+
+**Fix**: Use `names(your_data)` to see exact variable names (R is case-sensitive!)
+
+## Still Stuck?
+
+If you're still getting errors:
+
+1. **Check spelling**: Variable names are case-sensitive
+2. **Run all previous chunks**: Make sure all setup code has been executed
+3. **Restart R**: Session → Restart R, then run chunks from top to bottom
+4. **Read the error message carefully**: It often tells you exactly what's wrong
+5. **Compare with lecture examples**: Look at the lecture file for similar code
+
+::: {.callout-tip}
+## Pro Tip: Debugging Strategy
+
+When you get an error:
+
+1. **Don't panic!** Errors are learning opportunities
+2. **Read the error message** - what line is it pointing to?
+3. **Check the basics** - Did you run all previous chunks? Are variable names spelled correctly?
+4. **Simplify** - Try running parts of your code separately to find which line causes the error
+5. **Use summary()** - Check your model object with `summary(model_name)` to see if it worked
+:::
+
+---
+
+# Activity 1: Simple Linear Regression Practice {.section-time data-time="10 min"}
+
+## Scenario
+
+You are analyzing the relationship between **nurse staffing levels** and **patient mortality rates** across 100 hospitals. Hospital administrators want to know: *Does having more nurses per patient reduce mortality rates?*
+
+This question has important implications for staffing policies and patient safety.
+
+## Dataset Generation
+
+Run this code to generate the practice dataset:
+
+```{r}
+#| label: generate-simple-data
+
+# Generate synthetic hospital data for simple regression
+n_hospitals <- 100
+
+simple_practice_data <- tibble(
+  hospital_id = 1:n_hospitals,
+  nurses_per_patient = round(runif(n_hospitals, 0.8, 3.5), 2),  # Nurse-to-patient ratio
+  mortality_rate = round(
+    12 - 1.8 * nurses_per_patient + rnorm(n_hospitals, 0, 1.5),  # True relationship
+    2
+  )
+) %>%
+  mutate(
+    mortality_rate = pmax(2, pmin(mortality_rate, 15))  # Keep between 2% and 15%
+  )
+
+# Preview data
+head(simple_practice_data, 10) %>%
+  kable(caption = "Hospital Nurse Staffing and Mortality Data") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Dataset Variables:**
+
+| Variable | Description | Type |
+|----------|-------------|------|
+| `hospital_id` | Unique hospital identifier | Numeric |
+| `nurses_per_patient` | Ratio of nurses to patients (higher = better staffing) | Numeric (continuous) |
+| `mortality_rate` | Hospital mortality rate (deaths per 100 patients) | Numeric (continuous) |
+
+## Task 1.1: Visualize the Relationship
+
+Before fitting a model, create a scatterplot to visualize the relationship between nurse staffing and mortality rates.
+
+**Hint**: Put `nurses_per_patient` on the x-axis and `mortality_rate` on the y-axis. Add a trend line using `geom_smooth(method = "lm")`.
+
+```{r}
+#| label: task-1-1
+#| eval: false
+
+# Fill in the blanks
+ggplot(data = ___, aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.6, color = "steelblue", size = 2) +
+  geom_smooth(method = "___", se = TRUE, color = "darkred") +
+  labs(
+    title = "___",
+    x = "Nurses per Patient",
+    y = "Mortality Rate (%)"
+  ) +
+  theme_minimal()
+```
+
+**Question**: Based on the scatterplot, do you expect a positive or negative relationship? Why?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+## Task 1.2: Fit the Simple Linear Regression Model
+
+Now fit a simple linear regression model predicting `mortality_rate` from `nurses_per_patient`.
+
+**Hint**: Use the `lm()` function with the formula `outcome ~ predictor`.
+
+```{r}
+#| label: task-1-2
+#| eval: false
+
+# Fill in the blanks
+model_simple_practice <- lm(___ ~ ___, data = ___)
+
+# Display the summary
+summary(___)
+```
+
+## Task 1.3: Interpret the Coefficients
+
+Extract and interpret the regression coefficients.
+
+```{r}
+#| label: task-1-3
+#| eval: false
+
+# Extract coefficients (fill in the blank)
+coef(___)
+```
+
+**Questions**:
+
+1. What is the **intercept**? What does it represent in this context?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+2. What is the **slope** coefficient for `nurses_per_patient`?
+   - **Direction**: Is it positive or negative? What does this mean?
+   - **Magnitude**: If a hospital increases staffing by 1 nurse per patient, how much does mortality rate change?
+   - **Significance**: Is the p-value less than 0.05?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+3. What is the **R²** value? What percentage of variance in mortality rates is explained by nurse staffing?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+## Task 1.4: Make Predictions
+
+Use your fitted model to predict mortality rates for hospitals with different staffing levels.
+
+```{r}
+#| label: task-1-4
+#| eval: false
+
+# Create new data for prediction (fill in the blank)
+new_hospitals <- tibble(
+  nurses_per_patient = c(1.0, 1.5, 2.0, 2.5, 3.0)
+)
+
+# Make predictions (fill in the blank)
+predictions <- new_hospitals %>%
+  mutate(
+    predicted_mortality = predict(___, newdata = ___)
+  )
+
+# Display predictions
+predictions %>%
+  mutate(across(where(is.numeric), ~round(., 2))) %>%
+  kable(caption = "Predicted Mortality Rates by Staffing Level") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Question**: A hospital currently has 1.5 nurses per patient and wants to reduce mortality. If they increase staffing to 2.5 nurses per patient, how much would you expect mortality to decrease?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+---
+
+## Activity 1 Solutions
+
+### Task 1.1 Solution
+
+```{r}
+#| label: solution-1-1
+#| code-fold: true
+
+ggplot(data = simple_practice_data, aes(x = nurses_per_patient, y = mortality_rate)) +
+  geom_point(alpha = 0.6, color = "steelblue", size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = "darkred") +
+  labs(
+    title = "Nurse Staffing and Hospital Mortality Rates",
+    x = "Nurses per Patient",
+    y = "Mortality Rate (%)"
+  ) +
+  theme_minimal()
+```
+
+**Answer**: We expect a **negative** relationship because the scatterplot shows that as nurse staffing increases, mortality rates tend to decrease. This makes intuitive sense: better-staffed hospitals can provide more attentive care, potentially preventing deaths.
+
+### Task 1.2 Solution
+
+```{r}
+#| label: solution-1-2
+#| code-fold: true
+
+model_simple_practice <- lm(mortality_rate ~ nurses_per_patient, data = simple_practice_data)
+
+summary(model_simple_practice)
+```
+
+### Task 1.3 Solution
+
+```{r}
+#| label: solution-1-3
+#| code-fold: true
+
+# Extract coefficients
+coef(model_simple_practice)
+
+# Get detailed coefficient table
+tidy(model_simple_practice) %>%
+  mutate(across(where(is.numeric), ~round(., 4))) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Answers**:
+
+```{r}
+#| echo: false
+intercept_val <- round(coef(model_simple_practice)[1], 2)
+slope_val <- round(coef(model_simple_practice)[2], 2)
+r2_val <- round(summary(model_simple_practice)$r.squared, 3)
+p_val <- summary(model_simple_practice)$coefficients[2, 4]
+```
+
+1. **Intercept** = `r intercept_val`%: This represents the predicted mortality rate when nurse staffing is 0 (not practically meaningful, but mathematically necessary).
+
+2. **Slope** = `r slope_val`:
+   - **Direction**: Negative—indicating that higher nurse staffing is associated with **lower** mortality rates
+   - **Magnitude**: For every 1-unit increase in nurses per patient, mortality rate **decreases** by `r abs(slope_val)` percentage points
+   - **Significance**: p-value = `r format(p_val, scientific = TRUE)` (< 0.05), so the relationship is **statistically significant**
+
+3. **R²** = `r r2_val`: Nurse staffing explains **`r round(r2_val * 100, 1)`%** of the variance in mortality rates across hospitals.
+
+### Task 1.4 Solution
+
+```{r}
+#| label: solution-1-4
+#| code-fold: true
+
+new_hospitals <- tibble(
+  nurses_per_patient = c(1.0, 1.5, 2.0, 2.5, 3.0)
+)
+
+predictions <- new_hospitals %>%
+  mutate(
+    predicted_mortality = predict(model_simple_practice, newdata = new_hospitals)
+  )
+
+predictions %>%
+  mutate(across(where(is.numeric), ~round(., 2))) %>%
+  kable(caption = "Predicted Mortality Rates by Staffing Level") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Answer**:
+```{r}
+#| echo: false
+mort_15 <- predict(model_simple_practice, newdata = tibble(nurses_per_patient = 1.5))
+mort_25 <- predict(model_simple_practice, newdata = tibble(nurses_per_patient = 2.5))
+reduction <- mort_15 - mort_25
+```
+
+If a hospital increases staffing from 1.5 to 2.5 nurses per patient (a 1.0 unit increase), mortality would be expected to decrease by approximately **`r round(reduction, 2)` percentage points** (from `r round(mort_15, 2)`% to `r round(mort_25, 2)`%).
+
+---
+
+# Activity 2: Multiple Linear Regression Practice {.section-time data-time="15 min"}
+
+## Scenario
+
+You are now analyzing **patient satisfaction scores** across hospitals. You hypothesize that satisfaction is influenced by multiple factors:
+
+- **Wait time** (minutes): Longer waits → lower satisfaction
+- **Nurse staffing** (nurses per patient): Better staffing → higher satisfaction
+- **Facility age** (years): Older facilities → lower satisfaction
+
+Your task is to build a multiple regression model to understand how these factors simultaneously influence patient satisfaction.
+
+## Dataset Generation
+
+Run this code to generate the practice dataset:
+
+```{r}
+#| label: generate-multiple-data
+
+# Generate synthetic hospital satisfaction data
+n <- 200
+
+multiple_practice_data <- tibble(
+  hospital_id = 1:n,
+  wait_time_min = round(rnorm(n, mean = 45, sd = 15)),
+  nurse_ratio = round(runif(n, 1.5, 4.0), 2),
+  facility_age_years = round(runif(n, 5, 40)),
+  satisfaction_score = round(
+    75 - 0.3 * wait_time_min + 3.5 * nurse_ratio - 0.2 * facility_age_years + rnorm(n, 0, 5),
+    1
+  )
+) %>%
+  mutate(
+    wait_time_min = pmax(10, pmin(wait_time_min, 90)),
+    satisfaction_score = pmax(40, pmin(satisfaction_score, 100))
+  )
+
+# Preview data
+head(multiple_practice_data, 10) %>%
+  kable(caption = "Hospital Patient Satisfaction Data") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Dataset Variables:**
+
+| Variable | Description | Type |
+|----------|-------------|------|
+| `hospital_id` | Unique hospital identifier | Numeric |
+| `wait_time_min` | Average patient wait time (minutes) | Numeric (continuous) |
+| `nurse_ratio` | Nurses per patient ratio | Numeric (continuous) |
+| `facility_age_years` | Age of hospital building (years) | Numeric (continuous) |
+| `satisfaction_score` | Average patient satisfaction (0-100 scale) | Numeric (continuous) |
+
+## Task 2.1: Fit the Multiple Regression Model
+
+Fit a multiple regression model predicting `satisfaction_score` from all three predictors: `wait_time_min`, `nurse_ratio`, and `facility_age_years`.
+
+**Hint**: Use the formula `outcome ~ predictor1 + predictor2 + predictor3`.
+
+```{r}
+#| label: task-2-1
+#| eval: false
+
+# Fill in the blanks
+model_multiple_practice <- lm(___ ~ ___ + ___ + ___, data = ___)
+
+# Display the summary
+summary(___)
+```
+
+## Task 2.2: Interpret the Coefficients
+
+Answer the following questions about your fitted model:
+
+**Questions**:
+
+1. What is the coefficient for **wait_time_min**?
+   - Holding nurse ratio and facility age constant, what happens to satisfaction when wait time increases by 1 minute?
+   - Is this effect statistically significant (p < 0.05)?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+2. What is the coefficient for **nurse_ratio**?
+   - Holding wait time and facility age constant, what happens to satisfaction when nurse staffing increases by 1 nurse per patient?
+   - Is this effect statistically significant?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+3. What is the coefficient for **facility_age_years**?
+   - Holding wait time and nurse ratio constant, what happens to satisfaction for each additional year of facility age?
+   - Is this effect statistically significant?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+## Task 2.3: Compare Model Fit
+
+Compare the multiple regression model to a simple regression model that only includes `wait_time_min`.
+
+```{r}
+#| label: task-2-3
+#| eval: false
+
+# Fit simple model with only wait time (fill in the blank)
+model_simple_wait <- lm(___ ~ ___, data = multiple_practice_data)
+
+# Compare R-squared values
+cat("Simple model R²:", round(summary(___)$r.squared, 3), "\n")
+cat("Multiple model R²:", round(summary(___)$r.squared, 3), "\n")
+```
+
+**Question**: How much additional variance is explained by adding nurse ratio and facility age to the model? Is the multiple regression model better?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+## Task 2.4: Make Predictions
+
+Use your multiple regression model to predict satisfaction for two different hospital scenarios.
+
+```{r}
+#| label: task-2-4
+#| eval: false
+
+# Create scenarios (fill in the blanks)
+scenarios <- tibble(
+  scenario = c("Best Case", "Worst Case"),
+  wait_time_min = c(20, 70),         # Short vs. long wait
+  nurse_ratio = c(3.5, 1.8),         # High vs. low staffing
+  facility_age_years = c(5, 35)      # New vs. old facility
+)
+
+# Make predictions (fill in the blank)
+scenarios <- scenarios %>%
+  mutate(
+    predicted_satisfaction = predict(___, newdata = ___)
+  )
+
+# Display predictions
+scenarios %>%
+  mutate(across(where(is.numeric), ~round(., 1))) %>%
+  kable(caption = "Predicted Satisfaction Scores by Scenario") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Question**: What is the difference in predicted satisfaction between the best-case and worst-case scenarios? What does this tell you about the combined impact of these factors?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+---
+
+## Activity 2 Solutions
+
+### Task 2.1 Solution
+
+```{r}
+#| label: solution-2-1
+#| code-fold: true
+
+model_multiple_practice <- lm(satisfaction_score ~ wait_time_min + nurse_ratio + facility_age_years,
+                              data = multiple_practice_data)
+
+summary(model_multiple_practice)
+```
+
+### Task 2.2 Solution
+
+```{r}
+#| label: solution-2-2
+#| code-fold: true
+
+# Display coefficients with confidence intervals
+tidy(model_multiple_practice, conf.int = TRUE) %>%
+  mutate(across(where(is.numeric), ~round(., 4))) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Answers**:
+
+```{r}
+#| echo: false
+coefs_multi <- coef(model_multiple_practice)
+wait_coef <- round(coefs_multi[2], 3)
+nurse_coef <- round(coefs_multi[3], 3)
+age_coef <- round(coefs_multi[4], 3)
+
+p_vals <- summary(model_multiple_practice)$coefficients[, 4]
+```
+
+1. **wait_time_min** = `r wait_coef`:
+   - Holding nurse ratio and facility age constant, each additional minute of wait time is associated with a **`r abs(wait_coef)` point decrease** in satisfaction
+   - This effect is **statistically significant** (p < 0.05)
+
+2. **nurse_ratio** = `r nurse_coef`:
+   - Holding wait time and facility age constant, each additional nurse per patient is associated with a **`r nurse_coef` point increase** in satisfaction
+   - This effect is **statistically significant** (p < 0.05)
+
+3. **facility_age_years** = `r age_coef`:
+   - Holding wait time and nurse ratio constant, each additional year of facility age is associated with a **`r abs(age_coef)` point decrease** in satisfaction
+   - Check the p-value to determine statistical significance (likely significant)
+
+### Task 2.3 Solution
+
+```{r}
+#| label: solution-2-3
+#| code-fold: true
+
+# Fit simple model
+model_simple_wait <- lm(satisfaction_score ~ wait_time_min, data = multiple_practice_data)
+
+# Compare R-squared
+r2_simple <- round(summary(model_simple_wait)$r.squared, 3)
+r2_multiple <- round(summary(model_multiple_practice)$r.squared, 3)
+
+cat("Simple model R²:", r2_simple, "\n")
+cat("Multiple model R²:", r2_multiple, "\n")
+cat("Additional variance explained:", round((r2_multiple - r2_simple) * 100, 1), "%\n")
+```
+
+**Answer**: The multiple regression model explains **`r round((r2_multiple - r2_simple) * 100, 1)`%** more variance than the simple model. This shows that nurse staffing and facility age are important predictors beyond just wait time alone. The multiple regression model is clearly better.
+
+### Task 2.4 Solution
+
+```{r}
+#| label: solution-2-4
+#| code-fold: true
+
+scenarios <- tibble(
+  scenario = c("Best Case", "Worst Case"),
+  wait_time_min = c(20, 70),
+  nurse_ratio = c(3.5, 1.8),
+  facility_age_years = c(5, 35)
+)
+
+scenarios <- scenarios %>%
+  mutate(
+    predicted_satisfaction = predict(model_multiple_practice, newdata = scenarios)
+  )
+
+scenarios %>%
+  mutate(across(where(is.numeric), ~round(., 1))) %>%
+  kable(caption = "Predicted Satisfaction Scores by Scenario") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Answer**:
+```{r}
+#| echo: false
+best_pred <- predict(model_multiple_practice, newdata = scenarios[1, ])
+worst_pred <- predict(model_multiple_practice, newdata = scenarios[2, ])
+diff <- best_pred - worst_pred
+```
+
+The difference between best-case and worst-case scenarios is approximately **`r round(diff, 1)` satisfaction points**. This substantial difference (`r round(best_pred, 1)` vs. `r round(worst_pred, 1)`) demonstrates that these operational factors (wait time, staffing, facility quality) collectively have a major impact on patient satisfaction.
+
+---
+
+# Activity 3: Model Diagnostics Practice {.section-time data-time="10 min"}
+
+## Scenario
+
+You've fitted a multiple regression model. Now you need to check whether the model assumptions are met and whether multicollinearity is a problem.
+
+We'll use the multiple regression model from Activity 2.
+
+## Task 3.1: Create Diagnostic Plots
+
+Create the two standard diagnostic plots: **Residuals vs Fitted** and **Normal Q-Q**.
+
+**Hint**: Use the `plot()` function with `which = 1` and `which = 2`.
+
+```{r}
+#| label: task-3-1
+#| eval: false
+
+# Create diagnostic plots (fill in the blanks)
+par(mfrow = c(1, 2))  # Arrange plots side-by-side
+plot(___, which = ___)  # Residuals vs Fitted
+plot(___, which = ___)  # Normal Q-Q
+par(mfrow = c(1, 1))    # Reset layout
+```
+
+**Questions**:
+
+1. **Residuals vs Fitted plot**:
+   - Is there a clear pattern (curved, funnel-shaped), or does it look like random scatter?
+   - What does this tell you about linearity and homoscedasticity assumptions?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+2. **Normal Q-Q plot**:
+   - Do the points roughly follow the diagonal line?
+   - What does this tell you about the normality of residuals?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+## Task 3.2: Check for Multicollinearity
+
+Calculate the Variance Inflation Factor (VIF) for each predictor in your multiple regression model.
+
+**Hint**: Use `car::vif()` function.
+
+```{r}
+#| label: task-3-2
+#| eval: false
+
+# Calculate VIF (fill in the blank)
+vif_values <- car::vif(___)
+
+# Display results
+tibble(
+  Variable = names(vif_values),
+  VIF = round(vif_values, 2),
+  Tolerance = round(1/vif_values, 3)
+) %>%
+  kable(caption = "Multicollinearity Diagnostics") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Questions**:
+
+1. Which variable has the highest VIF?
+2. Are any VIF values greater than 10? If so, what does this indicate?
+3. Should you be concerned about multicollinearity in this model?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+## Task 3.3: Overall Model Assessment
+
+Based on your diagnostic checks, answer the following:
+
+**Questions**:
+
+1. Do the model assumptions appear to be reasonably satisfied?
+2. Would you trust the coefficient estimates and p-values from this model?
+3. Are there any concerns or limitations you would report to a manager using this analysis?
+
+<div style="background-color: #f0f0f0; padding: 10px; margin: 10px 0;">
+**Your answer**:
+
+</div>
+
+---
+
+## Activity 3 Solutions
+
+### Task 3.1 Solution
+
+```{r}
+#| label: solution-3-1
+#| code-fold: true
+#| fig-height: 4
+#| fig-width: 8
+
+par(mfrow = c(1, 2))
+plot(model_multiple_practice, which = 1)  # Residuals vs Fitted
+plot(model_multiple_practice, which = 2)  # Normal Q-Q
+par(mfrow = c(1, 1))
+```
+
+**Answers**:
+
+1. **Residuals vs Fitted**: The plot shows relatively random scatter around the horizontal line at 0, with no clear pattern. The spread appears roughly constant across fitted values. This suggests:
+   - **Linearity assumption**: Appears satisfied (no curved pattern)
+   - **Homoscedasticity assumption**: Appears satisfied (no funnel shape)
+
+2. **Normal Q-Q plot**: The points generally follow the diagonal reference line, with minor deviations at the tails. This suggests:
+   - **Normality assumption**: Reasonably satisfied. Small deviations at the extremes are common and usually not problematic with moderate sample sizes.
+
+### Task 3.2 Solution
+
+```{r}
+#| label: solution-3-2
+#| code-fold: true
+
+vif_values <- car::vif(model_multiple_practice)
+
+tibble(
+  Variable = names(vif_values),
+  VIF = round(vif_values, 2),
+  Tolerance = round(1/vif_values, 3),
+  Interpretation = case_when(
+    vif_values < 5 ~ "No concern",
+    vif_values < 10 ~ "Moderate concern",
+    TRUE ~ "High concern - consider removing"
+  )
+) %>%
+  kable(caption = "Multicollinearity Diagnostics") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Answers**:
+
+1. All VIF values are very low (close to 1), indicating minimal correlation between predictors.
+2. No VIF values exceed 10 (or even 5). This is excellent!
+3. **No concern** about multicollinearity in this model. The predictors are relatively independent of each other, so the coefficient estimates are stable and interpretable.
+
+### Task 3.3 Solution
+
+**Answers**:
+
+1. **Yes**, the model assumptions appear to be reasonably satisfied:
+   - Linearity: No curved pattern in residuals
+   - Homoscedasticity: Constant variance across fitted values
+   - Normality: Residuals approximately normally distributed
+   - No multicollinearity: VIF values all low
+
+2. **Yes**, I would trust the coefficient estimates and p-values because the assumptions are met and there's no multicollinearity inflating standard errors.
+
+3. **Limitations to report**:
+   - This is observational data, so we cannot claim causal relationships (only associations)
+   - The model explains `r round(summary(model_multiple_practice)$r.squared * 100, 1)`% of variance; `r round((1 - summary(model_multiple_practice)$r.squared) * 100, 1)`% remains unexplained by other factors (e.g., staff friendliness, treatment quality, patient demographics)
+   - Predictions are most reliable within the range of observed data; extrapolation beyond observed values may be unreliable
+
+---
+
+# Comprehensive Exercises
+
+The following exercises provide more open-ended practice. Use the skills you've learned to complete the analyses independently.
+
+---
+
+# Exercise 1: Simple Linear Regression {.section-time data-time="15 min"}
+
+## Background and Context
+
+**The problem**: When patients are discharged from the hospital, some return within 30 days with complications (these are called "readmissions"). Readmissions are costly (each costs hospitals thousands of dollars) and can indicate quality of care issues.
+
+**A potential solution**: Better nurse staffing. Hospitals with more nurses per patient may provide better monitoring and patient education, potentially reducing readmissions.
+
+**Research evidence**: A 2021 study found that hospitals with better nurse staffing had significantly lower readmission rates, with cost savings more than doubling the investment in additional nurses.
+
+**Your task**: Using data from 200 U.S. hospitals in the `cms_practice` dataset, examine whether nurse staffing levels (`nurse_ratio`) predict readmission rates (`readmission_rate`).
+
+Please create a dataset using the code below:
+
+```{r}
+#| label: practice-setup
+
+# Simulate hospital data
+set.seed(2026)
+n_hospitals <- 200
+
+cms_practice <- tibble(
+  hospital_id = 1:n_hospitals,
+  bed_count = round(runif(n_hospitals, 50, 500)),  # Hospital size (number of beds)
+  nurse_ratio = round(runif(n_hospitals, 1.5, 4.5), 2),  # Nurses per patient (higher = better staffing)
+  avg_case_severity = round(runif(n_hospitals, 1, 3), 2),  # Average patient illness severity (1=low, 3=high)
+  avg_patient_age = round(runif(n_hospitals, 45, 75), 1),  # Average age of patients treated (in years)
+  annual_volume = round(runif(n_hospitals, 2000, 15000))  # Number of patients treated annually (hospital experience)
+) %>%
+  mutate(
+    # Generate 30-day readmission rate (percentage of patients returning within 30 days)
+    readmission_rate = round(
+      18 -
+      1.2 * nurse_ratio +  # Better staffing → lower readmissions
+      2.5 * avg_case_severity +  # Sicker patients → higher readmissions
+      0.15 * avg_patient_age +  # Older patients → higher readmissions
+      -0.0005 * annual_volume +  # More experience → lower readmissions
+      rnorm(n_hospitals, 0, 2),
+      1
+    ),
+    readmission_rate = pmax(8, pmin(readmission_rate, 25))  # Keep between 8% and 25%
+  )
+```
+
+## Your Tasks
+
+1. Fit a simple regression: Does nurse staffing levels (`nurse_ratio`) predict readmission rates (`readmission_rate`)?
+2. Interpret the slope coefficient (direction, magnitude, significance)
+3. Create a visualization showing the relationship between nurse staffing levels (`nurse_ratio`; x-axis) and readmission rates (`readmission_rate`; y-axis)
+
+```{r}
+#| label: practice-exercise1
+#| eval: false
+
+# Your code here:
+
+# 1. Fit simple regression
+model_simple_practice <- lm(readmission_rate ~ nurse_ratio, data = cms_practice)
+summary(model_simple_practice)
+
+# 2. Visualize the relationship
+ggplot(cms_practice, aes(x = nurse_ratio, y = readmission_rate)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(x = "Nurse Ratio (nurses per patient)",
+       y = "30-Day Readmission Rate (%)",
+       title = "Nurse Staffing and Hospital Readmissions") +
+  theme_minimal()
+```
+
+## Exercise 1 Solution
+
+```{r}
+#| label: solution-exercise1
+#| code-fold: true
+
+# 1. Fit simple regression
+model_simple_practice <- lm(readmission_rate ~ nurse_ratio, data = cms_practice)
+summary(model_simple_practice)
+
+# Extract key results
+coef_table <- tidy(model_simple_practice, conf.int = TRUE) %>%
+  mutate(across(where(is.numeric), ~round(., 4)))
+
+coef_table %>%
+  kable(caption = "Simple Regression: Nurse Staffing → Readmission Rate") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+# 2. Visualize the relationship
+ggplot(cms_practice, aes(x = nurse_ratio, y = readmission_rate)) +
+  geom_point(alpha = 0.6, color = "steelblue", size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = "darkred", fill = "pink") +
+  labs(
+    x = "Nurse Ratio (nurses per patient)",
+    y = "30-Day Readmission Rate (%)",
+    title = "Nurse Staffing and Hospital Readmissions",
+    subtitle = paste0("Each additional nurse per patient reduces readmissions by ",
+                     abs(round(coef(model_simple_practice)[2], 2)), " percentage points")
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+**Interpretation**:
+
+```{r}
+#| echo: false
+slope_ex1 <- round(coef(model_simple_practice)[2], 3)
+r2_ex1 <- round(summary(model_simple_practice)$r.squared, 3)
+p_ex1 <- summary(model_simple_practice)$coefficients[2, 4]
+```
+
+- **Slope** = `r slope_ex1`: For every 1-unit increase in nurse-to-patient ratio, readmission rate **decreases** by `r abs(slope_ex1)` percentage points
+- **Significance**: p-value = `r format(p_ex1, scientific = TRUE)` (highly significant)
+- **R²** = `r r2_ex1`: Nurse staffing explains `r round(r2_ex1 * 100, 1)`% of variance in readmission rates
+- **Practical meaning**: Improving staffing is associated with meaningful reductions in costly readmissions
+
+---
+
+# Exercise 2: Multiple Linear Regression {.section-time data-time="20 min"}
+
+## Background and Context
+
+In Exercise 1, you examined only nurse staffing (`nurse_ratio`). But readmission rates likely depend on multiple factors with the following predictions:
+
+- **Patient illness severity** (`avg_case_severity`): Sicker patients are more likely to return
+- **Patient age** (`avg_patient_age`): Older patients often have more complications and are more likely to be readmitted
+- **Hospital experience** (`annual_volume`): Hospitals that treat more patients annually may have better systems and outcomes
+
+Build a more comprehensive model predicting readmission rates (`readmission_rate`) using all available predictors. This will help you understand:
+
+- Does nurse staffing (`nurse_ratio`) still matter after controlling for patient characteristics?
+- How much does hospital experience (`annual_volume`) contribute?
+- Are any predictors redundant (multicollinearity)?, etc.
+
+## Your Tasks
+
+1. Fit a multiple regression model with readmission rates (`readmission_rate`) as the outcome and all four predictors: nurse staffing (`nurse_ratio`), illness severity (`avg_case_severity`), patient age (`avg_patient_age`), and hospital experience (`annual_volume`)
+2. Interpret each coefficient (what does it mean in practical terms?)
+3. Compare R² to the simple regression model - did adding predictors improve prediction?
+4. Check for multicollinearity using VIF
+
+```{r}
+#| label: practice-exercise2
+#| eval: false
+
+# Your code here:
+
+# 1. Fit multiple regression
+model_multiple_practice <- lm(readmission_rate ~ nurse_ratio + avg_case_severity +
+                              avg_patient_age + annual_volume, data = cms_practice)
+summary(model_multiple_practice)
+
+# 2. Check VIF
+car::vif(model_multiple_practice)
+
+# 3. Compare models
+glance(model_simple_practice)$r.squared
+glance(model_multiple_practice)$r.squared
+```
+
+## Exercise 2 Solution
+
+```{r}
+#| label: solution-exercise2
+#| code-fold: true
+
+# 1. Fit multiple regression
+model_multiple_practice <- lm(readmission_rate ~ nurse_ratio + avg_case_severity +
+                              avg_patient_age + annual_volume, data = cms_practice)
+summary(model_multiple_practice)
+
+# Display coefficient table
+tidy(model_multiple_practice, conf.int = TRUE) %>%
+  mutate(across(where(is.numeric), ~round(., 4))) %>%
+  kable(caption = "Multiple Regression: Predicting Readmission Rates") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+# 2. Check VIF
+vif_ex2 <- car::vif(model_multiple_practice)
+tibble(
+  Variable = names(vif_ex2),
+  VIF = round(vif_ex2, 2),
+  Interpretation = case_when(
+    vif_ex2 < 5 ~ "No concern",
+    vif_ex2 < 10 ~ "Moderate concern",
+    TRUE ~ "High concern"
+  )
+) %>%
+  kable(caption = "Multicollinearity Check") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+# 3. Compare R² values
+cat("Simple model R²:", round(glance(model_simple_practice)$r.squared, 3), "\n")
+cat("Multiple model R²:", round(glance(model_multiple_practice)$r.squared, 3), "\n")
+cat("Improvement:", round((glance(model_multiple_practice)$r.squared -
+                           glance(model_simple_practice)$r.squared) * 100, 1), "%\n")
+```
+
+**Interpretation**:
+
+```{r}
+#| echo: false
+coefs_ex2 <- coef(model_multiple_practice)
+r2_multi_ex2 <- round(glance(model_multiple_practice)$r.squared, 3)
+r2_simple_ex2 <- round(glance(model_simple_practice)$r.squared, 3)
+```
+
+**Coefficients (holding all other variables constant)**:
+
+1. **nurse_ratio** = `r round(coefs_ex2[2], 3)`: Each additional nurse per patient reduces readmissions by `r abs(round(coefs_ex2[2], 2))` percentage points (still significant after controlling for patient characteristics!)
+
+2. **avg_case_severity** = `r round(coefs_ex2[3], 3)`: Each 1-point increase in illness severity increases readmissions by `r round(coefs_ex2[3], 2)` percentage points (sicker patients are harder to keep out of the hospital)
+
+3. **avg_patient_age** = `r round(coefs_ex2[4], 3)`: Each additional year of average patient age increases readmissions by `r round(coefs_ex2[4], 2)` percentage points (older patients have more complications)
+
+4. **annual_volume** = `r round(coefs_ex2[5], 5)`: Each additional 1,000 patients treated annually reduces readmissions by approximately `r abs(round(coefs_ex2[5] * 1000, 3))` percentage points (hospital experience matters slightly)
+
+**Model Comparison**:
+
+- Multiple model R² = `r r2_multi_ex2` (explains `r round(r2_multi_ex2 * 100, 1)`% of variance)
+- Simple model R² = `r r2_simple_ex2` (explains `r round(r2_simple_ex2 * 100, 1)`% of variance)
+- **Improvement**: Adding patient characteristics and hospital volume explains an additional **`r round((r2_multi_ex2 - r2_simple_ex2) * 100, 1)`%** of variance
+
+**Multicollinearity**: All VIF values are low (< 5), indicating no multicollinearity concerns. Coefficient estimates are stable and trustworthy.
+
+---
+
+# Exercise 3: Making Predictions {.section-time data-time="15 min"}
+
+## Background and Context
+
+Now let's use your model to make real-world predictions!
+
+Imagine you're a healthcare consultant comparing two very different hospitals:
+
+**Hospital A**: A large, experienced hospital
+
+- `annual_volume` = 12,000 patients annually (lots of experience)
+- `nurse_ratio` = 4.0 nurses per patient (excellent staffing)
+- `avg_case_severity` = 2.0 (moderate patient illness severity)
+- `avg_patient_age` = 55 years
+
+**Hospital B**: A smaller, less experienced hospital
+
+- `annual_volume` = 3,000 patients annually (less experience)
+- `nurse_ratio` = 2.0 nurses per patient (limited staffing)
+- `avg_case_severity` = 2.8 (high patient illness severity)
+- `avg_patient_age` = 68 years (older population)
+
+
+## Your Tasks
+
+1. Use your multiple regression model to predict readmission rates for both hospitals. Calculate the predictions for Hospital A and Hospital B manually using the regression equation to verify you understand how predictions work.
+
+```{r}
+#| label: practice-exercise3-task2
+#| eval: false
+#| code-fold: true
+
+# Your code here:
+# Extract coefficients
+coeffs <- coef(model_multiple_practice)
+
+# Manual calculation for Hospital A
+# nurse_ratio = 4.0, avg_case_severity = 2.0, avg_patient_age = 55, annual_volume = 12000
+
+manual_prediction_A <- coeffs[1] +  # Intercept
+                     coeffs[2] * 4.0 +  # nurse_ratio effect
+                     coeffs[3] * 2.0 +  # severity effect
+                     coeffs[4] * 55 +  # age effect
+                     coeffs[5] * 12000  # volume effect
+
+manual_prediction_A
+
+
+# Manual calculation for Hospital B
+# nurse_ratio = 2.0, avg_case_severity = 2.8, avg_patient_age = 68, annual_volume = 3000
+
+manual_prediction_B <- coeffs[1] +  # Intercept
+                     coeffs[2] * 2.0 +  # nurse_ratio effect
+                     coeffs[3] * 2.8 +  # severity effect
+                     coeffs[4] * 68 +  # age effect
+                     coeffs[5] * 3000  # volume effect
+
+manual_prediction_B
+
+# Compare to predict() function result - should be the same!
+```
+
+2. Hospital B wants to improve their readmission rate. What would happen if they improved their nurse staffing from 2.0 to 3.5 nurses per patient (keeping everything else the same)?
+
+```{r}
+#| label: practice-exercise3-task3
+#| eval: false
+#| code-fold: true
+
+# Your code here:
+
+# Original Hospital B
+hospital_b_original <- tibble(
+  nurse_ratio = 2.0,
+  avg_case_severity = 2.8,
+  avg_patient_age = 68,
+  annual_volume = 3000
+)
+
+# Hospital B with improved staffing
+hospital_b_improved <- tibble(
+  nurse_ratio = 3.5,  # Improved from 2.0 to 3.5
+  avg_case_severity = 2.8,
+  avg_patient_age = 68,
+  annual_volume = 3000
+)
+
+# Compare predictions
+original_rate <- predict(model_multiple_practice, newdata = hospital_b_original)
+improved_rate <- predict(model_multiple_practice, newdata = hospital_b_improved)
+
+cat("Original predicted rate:", round(original_rate, 2), "%\n")
+cat("Improved predicted rate:", round(improved_rate, 2), "%\n")
+cat("Reduction:", round(original_rate - improved_rate, 2), "percentage points\n")
+
+# Question: How much would readmission rates decrease?
+```
+
+## Exercise 3 Solution
+
+### Task 1 Solution: Manual Predictions
+
+```{r}
+#| label: solution-exercise3-task1
+#| code-fold: true
+
+# Extract coefficients
+coeffs <- coef(model_multiple_practice)
+
+cat("Regression equation:\n")
+cat("Readmission Rate = ", round(coeffs[1], 2),
+    " + ", round(coeffs[2], 3), " * nurse_ratio",
+    " + ", round(coeffs[3], 3), " * severity",
+    " + ", round(coeffs[4], 3), " * age",
+    " + ", round(coeffs[5], 5), " * volume\n\n")
+
+# Manual calculation for Hospital A
+manual_prediction_A <- coeffs[1] +
+                     coeffs[2] * 4.0 +
+                     coeffs[3] * 2.0 +
+                     coeffs[4] * 55 +
+                     coeffs[5] * 12000
+
+cat("Hospital A (best case):\n")
+cat("  Predicted readmission rate:", round(manual_prediction_A, 2), "%\n\n")
+
+# Manual calculation for Hospital B
+manual_prediction_B <- coeffs[1] +
+                     coeffs[2] * 2.0 +
+                     coeffs[3] * 2.8 +
+                     coeffs[4] * 68 +
+                     coeffs[5] * 3000
+
+cat("Hospital B (worst case):\n")
+cat("  Predicted readmission rate:", round(manual_prediction_B, 2), "%\n\n")
+
+cat("Difference:", round(manual_prediction_B - manual_prediction_A, 2), "percentage points\n")
+
+# Verify with predict() function
+hospitals_compare <- tibble(
+  hospital = c("A (Best)", "B (Worst)"),
+  nurse_ratio = c(4.0, 2.0),
+  avg_case_severity = c(2.0, 2.8),
+  avg_patient_age = c(55, 68),
+  annual_volume = c(12000, 3000)
+) %>%
+  mutate(predicted_readmission = predict(model_multiple_practice, newdata = .))
+
+hospitals_compare %>%
+  mutate(predicted_readmission = round(predicted_readmission, 2)) %>%
+  kable(caption = "Predicted Readmission Rates: Hospital Comparison") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+### Task 2 Solution: Staffing Improvement Scenario
+
+```{r}
+#| label: solution-exercise3-task2
+#| code-fold: true
+
+# Original Hospital B
+hospital_b_original <- tibble(
+  nurse_ratio = 2.0,
+  avg_case_severity = 2.8,
+  avg_patient_age = 68,
+  annual_volume = 3000
+)
+
+# Hospital B with improved staffing
+hospital_b_improved <- tibble(
+  nurse_ratio = 3.5,
+  avg_case_severity = 2.8,
+  avg_patient_age = 68,
+  annual_volume = 3000
+)
+
+# Compare predictions
+original_rate <- predict(model_multiple_practice, newdata = hospital_b_original)
+improved_rate <- predict(model_multiple_practice, newdata = hospital_b_improved)
+reduction <- original_rate - improved_rate
+
+cat("Hospital B Staffing Improvement Analysis:\n\n")
+cat("Original predicted rate (2.0 nurses/patient):", round(original_rate, 2), "%\n")
+cat("Improved predicted rate (3.5 nurses/patient):", round(improved_rate, 2), "%\n")
+cat("Expected reduction:", round(reduction, 2), "percentage points\n\n")
+
+# Calculate using the coefficient directly
+nurse_coef <- coeffs[2]
+staffing_increase <- 3.5 - 2.0
+expected_change <- nurse_coef * staffing_increase
+
+cat("Verification using coefficient:\n")
+cat("  Staffing increase: ", staffing_increase, " nurses per patient\n")
+cat("  Coefficient: ", round(nurse_coef, 3), "\n")
+cat("  Expected change: ", round(nurse_coef, 3), " × ", staffing_increase,
+    " = ", round(expected_change, 2), " percentage points\n")
+```
+
+**Interpretation**:
+
+By increasing nurse staffing from 2.0 to 3.5 nurses per patient, Hospital B could expect to reduce their readmission rate by approximately **`r round(reduction, 2)` percentage points**. Given that each readmission costs thousands of dollars, this improvement could result in substantial cost savings and better patient outcomes.
+
+**Business recommendation**: The investment in additional nursing staff would likely be justified by:
+
+1. Reduced readmission penalties (CMS penalizes high readmission rates)
+2. Improved patient outcomes and satisfaction
+3. Potential cost savings from avoided readmissions
+4. Better reputation and competitive positioning
+
+---
+
+# Summary and Reflection
+
+## Key Takeaways
+
+After completing this practice session, you should be able to:
+
+- ✓ Fit simple and multiple linear regression models using `lm()`
+- ✓ Interpret regression coefficients (direction, magnitude, significance)
+- ✓ Understand what "holding other variables constant" means in multiple regression
+- ✓ Assess model fit using R² and adjusted R²
+- ✓ Make predictions for new observations using `predict()`
+- ✓ Check model assumptions using diagnostic plots
+- ✓ Detect multicollinearity using VIF
+- ✓ Apply regression analysis to real healthcare management problems
+
+## Quick Reference: Regression Workflow
+
+| Step | What to Do | R Code |
+|------|-----------|--------|
+| **1. Visualize** | Create scatterplot to see relationship | `ggplot(data, aes(x, y)) + geom_point() + geom_smooth(method = "lm")` |
+| **2. Fit Model** | Simple regression | `lm(outcome ~ predictor, data = data)` |
+| | Multiple regression | `lm(outcome ~ pred1 + pred2 + pred3, data = data)` |
+| **3. Interpret** | View summary | `summary(model)` |
+| | Extract coefficients | `coef(model)` or `tidy(model)` |
+| **4. Assess Fit** | Check R² | `summary(model)$r.squared` |
+| **5. Predict** | Make predictions | `predict(model, newdata = new_data)` |
+| **6. Diagnose** | Check assumptions | `plot(model, which = 1:2)` |
+| | Check multicollinearity | `car::vif(model)` |
+
+## Common Interpretation Mistakes to Avoid
+
+1. **Confusing association with causation**: Regression shows associations, not causes. Just because X predicts Y doesn't mean X causes Y.
+
+2. **Ignoring practical significance**: A statistically significant result (p < 0.05) may not be practically important. Always consider magnitude!
+
+3. **Extrapolating beyond the data**: Predictions are most reliable within the range of observed predictor values.
+
+4. **Misinterpreting multiple regression coefficients**: Each coefficient shows the effect **holding other variables constant**, not the total effect.
+
+5. **Ignoring multicollinearity**: High multicollinearity makes coefficients unstable and hard to interpret, even if R² is high.
+
+---
+
+# What's Next?
+
+This completes your practice with simple and multiple linear regression. In future sessions, you'll learn:
+
+- **Categorical predictors**: Using indicator (dummy) variables in regression
+- **Interaction effects**: When the effect of one variable depends on another
+- **Model selection**: Choosing which predictors to include
+- **Logistic regression**: Predicting binary outcomes (yes/no, success/failure)
+- **Advanced topics**: Regularization, cross-validation, and more
+
+Keep practicing with different datasets, and remember: the best way to learn regression is by doing it!
+
+---

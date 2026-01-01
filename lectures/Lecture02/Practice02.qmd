@@ -1,0 +1,975 @@
+---
+title: "Week 2: Practice Activities"
+subtitle: ""
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+set.seed(2026)
+```
+
+# Overview
+
+Welcome to the hands-on practice session! This document contains guided exercises to reinforce what you learned in the lecture.
+
+**What you'll practice:**
+
+- Creating variables and working with data types
+- Building and manipulating vectors
+- Working with data frames
+- Using dplyr functions for data wrangling
+- Creating your first analysis in Quarto
+
+**Format**: Fill-in-the-blank code sections (marked with `___`)
+
+**Instructions**:
+
+1. Complete the code by replacing `___` with appropriate values
+2. Run each chunk to verify your code works
+3. Answer the interpretation questions
+4. Don't worry about mistakes - they're part of learning!
+
+---
+
+# Common Errors and How to Fix Them
+
+You **WILL** encounter errors - that's completely normal! Here are the most common ones:
+
+## Error 1: "object not found"
+
+```r
+Error: object 'patient_data' not found
+```
+
+**Cause**: You didn't run the chunk that creates the dataset
+
+**Fix**: Scroll up, run the data generation chunk, then try again
+
+## Error 2: "could not find function"
+
+```r
+Error: could not find function "filter"
+```
+
+**Cause**: The tidyverse package isn't loaded
+
+**Fix**: Run the `setup` chunk at the top of this document that has `library(tidyverse)`
+
+## Error 3: Spelling and capitalization
+
+R is case-sensitive! `Age` ≠ `age`
+
+**Fix**: Use `names(data_frame)` to check exact column names
+
+## Error 4: Missing comma or parenthesis
+
+```r
+# ❌ Wrong:
+c(1, 2, 3 4, 5)
+
+# ✅ Right:
+c(1, 2, 3, 4, 5)
+```
+
+**Fix**: Count your parentheses and commas carefully
+
+::: {.callout-tip}
+## Tip: When You Get Stuck
+
+1. Read the error message: It often tells you exactly what's wrong
+2. Check your spelling and capitalization
+3. Make sure you ran all previous chunks
+4. Try running your code line by line to find the problem
+5. Ask your classmates or instructor!
+:::
+
+---
+
+# Activity 1: R Basics {.activity-time data-time="15 min"}
+
+## Scenario
+
+You're a new data analyst at City General Hospital. Before diving into complex analyses, you need to practice basic R operations using simple patient data.
+
+## Task 1.1: Creating Variables
+
+Create variables for a single patient's information:
+
+```{r}
+#| label: task1_1
+#| eval: false
+
+# Fill in the blanks
+patient_name <- "___"  # Enter any name
+patient_age <- ___  # Enter an age (number)
+is_admitted <- ___  # TRUE or FALSE
+department <- "___"  # Choose: "ER", "ICU", or "Surgery"
+
+# View the values (run this to check your work)
+patient_name
+patient_age
+is_admitted
+department
+```
+
+**Question**: What data type is each variable? Use `class()` to check:
+
+```{r}
+#| label: task1_1_var_class
+#| eval: false
+
+# Fill in the blanks to check types
+class(___)  # patient_name
+class(___)  # patient_age
+class(___)  # is_admitted
+class(___)  # department
+```
+
+::: {.callout-note icon=false}
+## Your Answer
+
+- patient_name is type: ___
+- patient_age is type: ___
+- is_admitted is type: ___
+- department is type: ___
+:::
+
+## Task 1.2: Working with Vectors
+
+Create vectors containing information for 5 patients:
+
+```{r}
+#| label: task1_2
+#| eval: false
+
+# Fill in the blanks - create a vector with 5 ages
+ages <- c(___, ___, ___, ___, ___)
+
+# Create a vector with 3 departments
+departments <- c("___", "___", "___")
+
+# View the vectors
+ages
+departments
+
+# Calculate average age
+mean(___)  # Fill in the vector name
+
+# Find the youngest patient
+min(___)  # Fill in the vector name
+
+# Find the oldest patient
+max(___)  # Fill in the vector name
+```
+
+**Question**: What is the average age? What are the minimum and maximum ages?
+
+::: {.callout-note icon=false}
+## Your Answer
+
+- the average age of the patients is: ___
+- the minimum age of the patients is: ___
+- the mamximum age of the patients is: ___
+:::
+
+
+## Task 1.3: Accessing Vector Elements
+
+Practice extracting specific elements from vectors:
+
+```{r}
+#| label: task1_3
+#| eval: false
+
+# Use the ages vector from above
+ages
+
+# Get the first patient's age
+ages[___]  # Fill in the position number
+
+# Get the third patient's age
+ages[___]
+
+# Get the first three patients' ages
+ages[___:___]  # Fill in the range
+
+# Get ages for patients 2 and 4
+ages[c(___, ___)]  # Fill in the positions
+```
+
+---
+
+# Activity 2: Working with Data Frames {.activity-time data-time="10 min"}
+
+## Generate Patient Dataset
+
+Run this code to create a patient dataset:
+
+```{r}
+# Patient data
+patients <- data.frame(
+  patient_id = 101:110,
+  name = c("Alice Smith", "Bob Johnson", "Carol White", "David Brown",
+           "Eve Davis", "Frank Miller", "Grace Lee", "Henry Wilson",
+           "Iris Moore", "Jack Taylor"),
+  age = c(45, 67, 32, 58, 71, 44, 55, 62, 48, 39),
+  department = c("ER", "ICU", "Surgery", "ER", "Cardiology",
+                 "ER", "Orthopedics", "ICU", "Surgery", "ER"),
+  los = c(2, 7, 3, 1, 5, 2, 4, 8, 3, 1),
+  total_charges = c(2500, 12000, 5000, 1500, 8000,
+                    2800, 6000, 15000, 5500, 1800),
+  readmitted = c(FALSE, TRUE, FALSE, FALSE, TRUE,
+                 FALSE, FALSE, TRUE, FALSE, FALSE)
+)
+
+# View the data
+patients
+```
+
+## Task 2.1: Exploring the Data Frame
+
+::: {.callout-tip}
+## New Helper Functions
+
+These functions help you explore data frames:
+
+- `nrow(df)`: counts the number of rows (observations)
+- `ncol(df)`: counts the number of columns (variables)
+- `names(df)`: shows the column names
+- `str(df)`: shows the structure (data types of each column)
+- `summary(df)`: shows summary statistics for each column
+:::
+
+```{r}
+#| label: task2_1
+#| eval: false
+
+# How many rows (patients)?
+nrow(___)  # Fill in the data frame name
+
+# How many columns (variables)?
+ncol(___)
+
+# What are the column names?
+names(___)
+
+# View structure
+str(___)
+
+# View summary statistics
+summary(___)
+```
+
+**Question**: How many patients are in the dataset? What is the average age?
+
+::: {.callout-note icon=false}
+## Your Answer
+
+- The number of patients in the dataset is: ______
+- The average age of the patients is: ______
+:::
+
+## Task 2.2: Accessing Data Frame Elements
+
+```{r}
+#| label: task2_2
+#| eval: false
+
+# Get the age column (two ways)
+patients$___  # method 1: Dollar sign notation
+patients[, "___"]  # method 2: Bracket notation
+
+# Get the first patient (all columns)
+patients[___, ]  # Fill in the row number
+
+# Get patient 3's total charges (total_charges)
+patients[___, "___"]  # Fill in row number and column name
+
+# Get the first 3 patients
+patients[___:___, ]  # Fill in the range
+```
+
+---
+
+# Activity 3: Data Wrangling with dplyr {.activity-time data-time="20 min"}
+
+## Generate Healthcare Dataset
+
+Run this code to create a larger dataset for analysis:
+
+```{r}
+# Generate hospital performance data
+healthcare_data <- tibble(
+  patient_id = 1:100,
+  age = sample(18:90, 100, replace = TRUE),
+  gender = sample(c("Male", "Female"), 100, replace = TRUE),
+  department = sample(c("Emergency", "Cardiology", "Orthopedics", "Surgery"),
+                      100, replace = TRUE),
+  los = sample(1:14, 100, replace = TRUE),
+  total_charges = round(runif(100, 1000, 50000), 2),
+  insurance = sample(c("Medicare", "Medicaid", "Private", "Self-Pay"),
+                     100, replace = TRUE),
+  readmitted_30day = sample(c(TRUE, FALSE), 100, replace = TRUE,
+                            prob = c(0.15, 0.85))
+)
+
+# View first few rows
+head(healthcare_data)
+```
+
+## Task 3.1: Select Columns
+
+Choose specific columns from the dataset:
+
+```{r}
+#| label: task3_1_1
+#| eval: false
+
+# Select patient_id, age, and department
+healthcare_data |>
+  select(___, ___, ___)
+```
+
+```{r}
+#| label: task3_1_2
+#| eval: false
+
+# Select all columns from patient_id to department
+healthcare_data |>
+  select(___:___)
+```
+
+```{r}
+#| label: task3_1_3
+#| eval: false
+
+# Select all columns that start with "total"
+healthcare_data |>
+  select(starts_with("___"))
+```
+
+## Task 3.2: Filter Rows
+
+Select specific patients based on criteria:
+
+```{r}
+#| label: task3_2_1
+#| eval: false
+
+# Find all patients age 65 or older
+healthcare_data |>
+  filter(___ >= ___)
+```
+
+```{r}
+#| label: task3_2_2
+#| eval: false
+
+# Find all Emergency department patients
+healthcare_data |>
+  filter(___ == "___")
+```
+
+```{r}
+#| label: task3_2_3
+#| eval: false
+
+# Find senior patients (age >= 65) in the Emergency department
+healthcare_data |>
+  filter(___ >= ___, ___ == "___")
+```
+
+```{r}
+#| label: task3_2_4
+#| eval: false
+
+# Find patients in either Cardiology or Surgery
+healthcare_data |>
+  filter(department %in% c("___", "___"))
+```
+
+**Question**: How many patients are 65 or older? (Hint: count the rows in your filtered result)
+
+::: {.callout-note icon=false}
+## Your Answer
+
+- The number of patients who are 65 or older is: ______
+:::
+
+## Task 3.3: Create New Columns with Mutate
+
+Create new variables based on existing ones:
+
+```{r}
+#| label: task3_3_1
+#| eval: false
+
+# Create a cost_per_day column
+healthcare_data |>
+  mutate(cost_per_day = ___ / ___) |>
+  select(patient_id, total_charges, los, cost_per_day)
+```
+
+```{r}
+#| label: task3_3_2
+#| eval: false
+
+# Create age groups
+healthcare_data |>
+  mutate(
+    age_group = case_when(
+      age < ___ ~ "Under 40",
+      age < ___ ~ "40-64",
+      TRUE ~ "65+"
+    )
+  ) |>
+  select(patient_id, age, age_group)
+```
+
+```{r}
+#| label: task3_3_3
+#| eval: false
+
+# Flag high-cost patients (total charges > $25,000)
+healthcare_data |>
+  mutate(high_cost = ___ > ___) |>
+  select(patient_id, total_charges, high_cost)
+```
+
+## Task 3.4: Sort with Arrange
+
+Order your data:
+
+```{r}
+#| label: task3_4_1
+#| eval: false
+
+# Sort by age (youngest first)
+healthcare_data |>
+  arrange(___) |>
+  select(patient_id, age, department)
+```
+
+```{r}
+#| label: task3_4_2
+#| eval: false
+
+# Sort by total charges (highest first)
+# Hint: use desc() for descending order
+healthcare_data |>
+  arrange(desc(___)) |>
+  select(patient_id, total_charges)
+```
+
+```{r}
+#| label: task3_4_3
+#| eval: false
+
+# Sort by department, then by age within each department
+healthcare_data |>
+  arrange(___, ___) |>
+  select(patient_id, department, age)
+```
+
+## Task 3.5: Summarize Data
+
+Calculate summary statistics:
+
+```{r}
+#| label: task3_5_1
+#| eval: false
+
+# Calculate overall statistics
+healthcare_data |>
+  summarize(
+    total_patients = n(),
+    mean_age = mean(___),
+    mean_los = mean(___),
+    mean_charges = mean(___),
+    readmit_rate = mean(___)  # TRUE=1, FALSE=0, so mean gives proportion
+  )
+```
+
+**Question**: What is the average age and average length of stay?
+
+::: {.callout-note icon=false}
+## Your Answer
+
+- The average age is: ______
+- The average length of stay is: ______
+:::
+
+## Task 3.6: Group By and Summarize
+
+This is where dplyr becomes powerful! Calculate statistics for each group:
+
+```{r}
+#| label: task3_6_1
+#| eval: false
+
+# Statistics by department
+healthcare_data |>
+  group_by(___) |>
+  summarize(
+    patient_count = n(),
+    mean_age = mean(___),
+    mean_los = mean(___),
+    mean_charges = mean(___),
+    readmit_rate = mean(___)
+  )
+```
+
+**Question**: Which department has the highest average charges? Which has the highest readmission rate?
+
+::: {.callout-note icon=false}
+## Your Answer
+
+- The department that has the highest average total charges is: ______
+- The department that has the highest 30-day readmission rate is: ______
+:::
+
+```{r}
+#| label: task3_6_2
+#| eval: false
+
+# Statistics by insurance type
+healthcare_data |>
+  group_by(___) |>
+  summarize(
+    patient_count = n(),
+    mean_age = round(mean(___), 1),
+    mean_charges = round(mean(___), 2)
+  ) |>
+  arrange(desc(mean_charges))
+```
+
+## Task 3.7: Combining Multiple Operations
+
+Put it all together! Create a complex analysis pipeline:
+
+```{r}
+#| label: task3_7_1
+#| eval: false
+
+# Analyze high-cost senior patients by department
+healthcare_data |>
+  filter(___ >= 65) |>  # Seniors only
+  mutate(high_cost = total_charges > 25000) |>  # Flag expensive cases
+  group_by(___, ___) |>  # Group by department and high_cost
+  summarize(
+    count = n(),
+    avg_los = round(mean(___), 1),
+    .groups = "drop"
+  ) |>
+  arrange(___, desc(___))  # Sort by department, then by high_cost
+```
+
+**Question**: What insight does this analysis provide about senior patients?
+
+::: {.callout-note icon=false}
+## Your Answer
+
+:::
+
+---
+
+# Activity 4: Create Your First Quarto Report {.activity-time data-time="15 min"}
+
+## Task 4.1: Set Up Your Report
+
+Create a new Quarto document:
+
+1. In RStudio: File → New File → Quarto Document
+2. Title: "Hospital Readmission Analysis"
+3. Author: Your name
+4. Format: HTML
+5. Click "Create"
+
+## Task 4.2: Customize the YAML Header
+
+The YAML header controls your document's appearance. Modify it to:
+
+```yaml
+---
+title: "Hospital Readmission Analysis"
+author: "Your Name"  # Add your name here
+date: today
+format:
+  html:
+    toc: true  # Add a table of contents
+    code-fold: show  # Allow readers to hide code
+    theme: cosmo  # Use a nice theme
+---
+```
+
+## Task 4.3: Add Code Chunk Options
+
+Practice controlling how code appears in your output:
+
+````markdown
+```{{r}}
+#| label: setup
+#| echo: false
+#| message: false
+
+# This chunk runs but doesn't show in the output
+library(tidyverse)
+set.seed(2026)
+```
+````
+
+**Your turn**: Create a setup chunk that:
+
+1. Loads the tidyverse
+2. Doesn't show the code (`echo: false`)
+3. Hides messages (`message: false`)
+
+## Task 4.4: Generate and Display Data
+
+Create a code chunk that generates patient data:
+
+````markdown
+```{{r}}
+#| label: generate-data
+
+# Generate sample hospital data
+healthcare_data <- tibble(
+  patient_id = 1:100,
+  age = sample(18:90, 100, replace = TRUE),
+  department = sample(c("Emergency", "Cardiology", "Orthopedics", "Surgery"),
+                      100, replace = TRUE),
+  readmitted_30day = sample(c(TRUE, FALSE), 100, replace = TRUE,
+                            prob = c(0.15, 0.85))
+)
+
+# Display first few rows
+head(healthcare_data)
+```
+````
+
+## Task 4.5: Use Inline R Code
+
+::: {.callout-tip}
+## New Helper Function: `n_distinct()`
+
+`n_distinct()` is a dplyr function that counts the number of unique values in a variable.
+
+**Example**:
+
+- `n_distinct(healthcare_data$department)` counts how many unique departments exist
+- This is useful for summarizing categorical variables in your reports
+:::
+
+Add text that uses inline R code to show results:
+
+```markdown
+## Data Overview
+
+The dataset contains `r nrow(healthcare_data)` patients across
+`r n_distinct(healthcare_data$department)` departments.
+The overall readmission rate is `r round(mean(healthcare_data$readmitted_30day) * 100, 1)`%.
+```
+
+**Your turn**: Fill in the blanks to add inline R code to your markdown text:
+
+```{r}
+#| eval: false
+- Total patients: `r nrow(___)`
+- Number of departments: `r n_distinct(healthcare_data$___)`
+- Readmission rate: `r round(mean(healthcare_data$___) * 100, 1)`%
+```
+
+
+**Hint**: Replace `___` with the appropriate variable or column names. This is markdown text with inline R code (using backtick-r syntax), not an R code chunk.
+
+## Task 4.6: Add Analysis Code
+
+Create a code chunk that analyzes readmission rates by department:
+
+````markdown
+```{{r}}
+#| label: readmission-analysis
+
+# Calculate readmission rates by department
+readmit_summary <- healthcare_data |>
+  group_by(___) |>
+  summarize(
+    total_patients = n(),
+    readmissions = sum(___),
+    readmit_rate = round(mean(___) * 100, 1)
+  ) |>
+  arrange(desc(readmit_rate))
+
+# Display the results
+readmit_summary
+```
+````
+
+Fill in the blanks:
+
+- Group by: `___` (which variable?)
+- Sum of readmissions: `___` (which variable?)
+- Mean readmission rate: `___` (which variable?)
+
+## Task 4.7: Add Narrative Interpretation
+
+After your analysis, add text interpreting the results:
+
+```markdown
+## Key Findings
+
+Based on the analysis, the department with the highest readmission rate is
+[fill in department name], with a rate of [fill in percentage]%.
+```
+
+## Task 4.8: Render Your Report
+
+1. Click the "Render" button (or press Cmd/Ctrl + Shift + K)
+2. View the HTML output
+3. Check that:
+   - Table of contents appears
+   - Inline R code shows actual numbers
+   - Code chunks run and display results
+
+## Task 4.9: Experiment with Options
+
+Try changing these code chunk options and re-render:
+
+- Change `echo: false` to `echo: true` - what happens?
+- Change `code-fold: true` to `code-fold: false` in YAML - what happens?
+- Try `eval: false` on one code chunk - what happens?
+
+::: {.callout-note icon=false}
+## Reflection Questions
+
+1. **What's the advantage of using inline R code instead of typing numbers directly?**
+
+<br>
+
+2. **When would you use `echo: false`? When would you use `echo: true`?**
+
+<br>
+
+3. **What happens when you re-render with different data (try changing the seed)?**
+
+<br>
+:::
+
+---
+
+# Summary and Reflection
+
+## What You Practiced Today
+
+✓ Creating variables with different data types
+✓ Working with vectors and data frames
+✓ Using dplyr verbs: `select()`, `filter()`, `mutate()`, `arrange()`, `summarize()`
+✓ Grouping data with `group_by()`
+✓ Combining operations with the pipe `|>`
+✓ Creating a Quarto report
+
+## Key Concepts to Remember
+
+::: {.callout-important}
+## Essential Takeaways
+
+1. **The pipe `|>` makes code readable** - chain operations together
+2. **`group_by()` + `summarize()` is powerful** - analyze by groups
+3. **Comments explain your code** - use `#` liberally
+4. **Quarto makes work reproducible** - code + narrative + output
+5. **Practice makes perfect** - the more you code, the easier it gets!
+:::
+
+---
+
+# Solutions
+
+Solutions are provided below. Try to complete the exercises independently before checking!
+
+## Activity 1 Solutions
+
+### Task 1.1
+
+```{r}
+patient_name <- "John Doe"
+patient_age <- 45
+is_admitted <- TRUE
+department <- "ER"
+
+class(patient_name)    # "character"
+class(patient_age)     # "numeric"
+class(is_admitted)     # "logical"
+class(department)      # "character"
+```
+
+### Task 1.2
+
+```{r}
+ages <- c(45, 62, 33, 58, 71)
+departments <- c("ER", "ICU", "Surgery", "ER", "Cardiology")
+
+mean(ages)  # 53.8
+min(ages)   # 33
+max(ages)   # 71
+```
+
+### Task 1.3
+
+```{r}
+ages[1]      # 45
+ages[3]      # 33
+ages[1:3]    # 45 62 33
+ages[c(2, 4)]  # 62 58
+```
+
+## Activity 2 Solutions
+
+### Task 2.1
+
+```{r}
+nrow(patients)    # 10
+ncol(patients)    # 7
+names(patients)
+str(patients)
+summary(patients)
+```
+
+### Task 2.2
+
+```{r}
+patients$age
+patients[, "age"]
+patients[1, ]
+patients[3, "total_charges"]
+patients[1:3, ]
+```
+
+## Activity 3 Solutions
+
+### Task 3.1
+
+```{r}
+healthcare_data |>
+  select(patient_id, age, department)
+
+healthcare_data |>
+  select(patient_id:department)
+
+healthcare_data |>
+  select(starts_with("total"))
+```
+
+### Task 3.2
+
+```{r}
+healthcare_data |>
+  filter(age >= 65)
+
+healthcare_data |>
+  filter(department == "Emergency")
+
+healthcare_data |>
+  filter(age >= 65, department == "Emergency")
+
+healthcare_data |>
+  filter(department %in% c("Cardiology", "Surgery"))
+```
+
+### Task 3.3
+
+```{r}
+healthcare_data |>
+  mutate(cost_per_day = total_charges / los) |>
+  select(patient_id, total_charges, los, cost_per_day)
+
+healthcare_data |>
+  mutate(
+    age_group = case_when(
+      age < 40 ~ "Under 40",
+      age < 65 ~ "40-64",
+      TRUE ~ "65+"
+    )
+  ) |>
+  select(patient_id, age, age_group)
+
+healthcare_data |>
+  mutate(high_cost = total_charges > 25000) |>
+  select(patient_id, total_charges, high_cost)
+```
+
+### Task 3.4
+
+```{r}
+healthcare_data |>
+  arrange(age) |>
+  select(patient_id, age, department)
+
+healthcare_data |>
+  arrange(desc(total_charges)) |>
+  select(patient_id, total_charges)
+
+healthcare_data |>
+  arrange(department, age) |>
+  select(patient_id, department, age)
+```
+
+### Task 3.5
+
+```{r}
+healthcare_data |>
+  summarize(
+    total_patients = n(),
+    mean_age = mean(age),
+    mean_los = mean(los),
+    mean_charges = mean(total_charges),
+    readmit_rate = mean(readmitted_30day)
+  )
+```
+
+### Task 3.6
+
+```{r}
+healthcare_data |>
+  group_by(department) |>
+  summarize(
+    patient_count = n(),
+    mean_age = mean(age),
+    mean_los = mean(los),
+    mean_charges = mean(total_charges),
+    readmit_rate = mean(readmitted_30day)
+  )
+
+healthcare_data |>
+  group_by(insurance) |>
+  summarize(
+    patient_count = n(),
+    mean_age = round(mean(age), 1),
+    mean_charges = round(mean(total_charges), 2)
+  ) |>
+  arrange(desc(mean_charges))
+```
+
+### Task 3.7
+
+```{r}
+healthcare_data |>
+  filter(age >= 65) |>
+  mutate(high_cost = total_charges > 25000) |>
+  group_by(department, high_cost) |>
+  summarize(
+    count = n(),
+    avg_los = round(mean(los), 1),
+    .groups = "drop"
+  ) |>
+  arrange(department, desc(high_cost))
+```
+

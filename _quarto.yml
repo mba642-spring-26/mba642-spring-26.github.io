@@ -19,6 +19,17 @@ website:
     right:
     - icon: github
       href: https://github.com/mba642-spring-26/mba642-spring-26.github.io/
+  sidebar:
+    background: "#D9E3E4"
+    style: "docked"
+    search: true
+    contents:
+      - href: index.qmd
+        text: Home
+      - href: syllabus.qmd
+        text: Syllabus
+      - href: schedule.qmd
+        text: Schedule
 
 format:
   html:
