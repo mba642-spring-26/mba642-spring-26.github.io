@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances. \nAny changes will be announced in class and posted on the course website and Canvas.&lt;&gt;\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Notes\nPractice Files\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\nAssignment 1\n\n\n4\nFeb 4\nData visualization\n\n\nAssignment 2\n\n\n5\nFeb 11\nMean difference 1: t-test\n\n\nAssignment 3\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n\n\n-\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n\n\nAssignment 4\n\n\n8\nMar 4\nCrosstab and correlation\n\n\nAssignment 5\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n-\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n\n\n\n\n\n12\nApr 1\nLinear regression analysis 2\n\n\nAssignment 6\n\n\n13\nApr 8\nLogistic regression analysis\n\n\nAssignment 7\n\n\n14\nApr 15\nConjoint analysis\n\n\nAssignment 8\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n\n\nAssignment 9\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n\n\nAssignment 10\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\nAssignments will be informed during the class",
+    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Notes\nPractice Files\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\nReflection 2\n\n\n4\nFeb 4\nData visualization\n\n\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n\n\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n\n\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n\n\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n\n\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n-\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n\n\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n\n\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n\n\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n\n\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n\n\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n\n\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\nAssignments will be informed during the class",
     "crumbs": [
       "Home",
       "Schedule"
@@ -2787,7 +2787,7 @@
     "href": "index.html",
     "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
     "section": "",
-    "text": "This is a class website for Business Analytics in Healthcare Management class. (Spring 2026).\nAll class materials for lectures will be posted here.\nPlease check the syllabus for course policies and grading information and the schedule for tentative course schedule.\nAll grading and assignment instructions and submissions will be through our class Canvas page.",
+    "text": "This is a class website for Business Analytics in Healthcare Management class. (Spring 2026).\nAll class materials for lectures will be managed and posted here.\nPlease check the syllabus for course policies and grading information and the schedule for tentative course schedule.\nAll grading and assignment instructions and submissions will be through our class Canvas page.",
     "crumbs": [
       "Home"
     ]
@@ -2797,7 +2797,7 @@
     "href": "syllabus.html",
     "title": "Course Information",
     "section": "",
-    "text": "Course Title: Business Analytics in Healthcare Management\nLevel: Graduate (Master’s)\nTime: 6:00 PM - 8:15 PM (Wednesdays)\nTerm: Spring 2026\nInstructor: Sangsuk Yoon (syoon1@udayton.edu)\nFormat: Online Synchronous (Use the Zoom link on Canvas to join the class)\nOffice Hours: Will be announced in the first week of class\nCourse Schedule: Please check the course schedule page",
+    "text": "Course Title: Business Analytics in Healthcare Management\nLevel: Graduate (Master’s)\nTime: 6:00 PM - 8:15 PM (Wednesdays)\nTerm: Spring 2026\nInstructor: Sangsuk Yoon (syoon1@udayton.edu)\nFormat: Online Synchronous (Use the Zoom link on Canvas to join the class)\nOffice Hours: Wednesdays 1:30 PM - 3:00 PM or after class or by appointment (Zoom)\nCourse Schedule: Please check the course schedule page",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2808,7 +2808,7 @@
     "href": "syllabus.html#course-description",
     "title": "Course Information",
     "section": "Course Description:",
-    "text": "Course Description:\nThis graduate-level course provides a comprehensive introduction to business analytics in healthcare management, progressing from basic statistical concepts and data visualization to practical applications of data analytics in healthcare management decisions. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare datasets. Students will gain hands-on experience with classic and modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making.",
+    "text": "Course Description:\nThis graduate-level course provides a comprehensive introduction to business analytics in healthcare management, progressing from basic statistical concepts and data visualization to practical applications of data analytics in healthcare management contexts. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare datasets. Students will gain hands-on experience with classic and modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making.",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2819,7 +2819,7 @@
     "href": "syllabus.html#prerequisites",
     "title": "Course Information",
     "section": "Prerequisites:",
-    "text": "Prerequisites:\nThere are no prerequisites for this course. This course is designed to accommodate students with varying levels of statistical and programming background. All necessary concepts will be introduced from the ground up.",
+    "text": "Prerequisites:\nThere are no prerequisites for this course. This course is designed to accommodate students with varying levels of statistical and programming backgrounds. All necessary concepts will be introduced from the ground up.",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2841,7 +2841,7 @@
     "href": "syllabus.html#course-website",
     "title": "Course Information",
     "section": "Course Website:",
-    "text": "Course Website:\n\nCourse Materials will be posted here: https://mba642-spring-26.github.io\nAssignments, grading, and exams will be informed, managed, and submitted through our class Canvas page.",
+    "text": "Course Website:\n\nCourse Materials will be posted here and through our Canvas page: https://mba642-spring-26.github.io\nAssignments, grading, and exams will be informed, managed, and submitted through our class Canvas page.",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2870,11 +2870,11 @@
     ]
   },
   {
-    "objectID": "syllabus.html#assignments-100-points-10-assignments-each-with-10-points",
-    "href": "syllabus.html#assignments-100-points-10-assignments-each-with-10-points",
+    "objectID": "syllabus.html#assignments-90-points-9-assignments-each-with-10-points",
+    "href": "syllabus.html#assignments-90-points-9-assignments-each-with-10-points",
     "title": "Course Information",
-    "section": "Assignments: 100 points (10 assignments, each with 10 points)",
-    "text": "Assignments: 100 points (10 assignments, each with 10 points)\nThere will be 10 assignments throughout the semester. Each assignment requires students to apply the analytical methods learned in the class session to new healthcare data analytics scenarios. For example, in Week 4, after we cover data visualization, you will be asked to visualize results with a new dataset. Assignments will focus on different healthcare management contexts and typically take 30-60 minutes to complete. Assignments are due weekly by Sunday at 11:59 PM.",
+    "section": "Assignments: 90 points (9 assignments, each with 10 points)",
+    "text": "Assignments: 90 points (9 assignments, each with 10 points)\nThere will be 9 assignments throughout the semester. Each assignment requires students to apply the analytical methods learned in the class session to new healthcare data analytics scenarios. For example, in Week 4, after we cover data visualization, you will be asked to visualize results with a new dataset. Assignments will focus on different healthcare management contexts and typically take 30-60 minutes to complete. Assignments are due weekly by Sunday at 11:59 PM.",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2885,7 +2885,7 @@
     "href": "syllabus.html#class-participation-and-reflection-78-points",
     "title": "Course Information",
     "section": "Class Participation and Reflection: 78 points",
-    "text": "Class Participation and Reflection: 78 points\nThis course includes 14 class sessions. After we finish each session (starting from the second class), I would like to hear about what you learned and what questions remain unclear. To encourage engagement with the course contents, you will need to write a short list of responses to the following questions:\n\nWhat were the three most interesting or exciting things you learned from the session? and why?\nWhat were the three most unclear or confusing things from the session? and why?\n\nYou can include more than three for each, but you must include at least three per question. So, there are six interesting or unclear things you will have in each reflection, and each one will worth 1 point (total 6 points per class session; max is 6 points). There will be 13 reflection assignments throughout the semester (6 points × 13 reflections = 78 points). Reflection submissions are due weekly by Sunday at 11:59 PM.",
+    "text": "Class Participation and Reflection: 78 points\nThis course includes 14 class sessions. After we finish each session (starting from the second class, meaning you will submit 13 reflections total), I would like to hear about what you learned and what questions remain unclear. To encourage engagement with the course contents, you will need to write a short list of responses to the following questions:\n\nWhat were the three most interesting or exciting things you learned from the session? and why?\nWhat were the three most unclear or confusing things from the session? and why?\n\nYou can include more than three for each, but you must include at least three per question. So, there are six interesting or unclear things you will have in each reflection, and each one will be worth 1 point (total 6 points per class session; max is 6 points). There will be 13 reflection assignments throughout the semester (6 points × 13 reflections = 78 points). Reflection submissions are due weekly by Sunday at 11:59 PM.\nYou don’t need to get stressed about this. Your reflections do not need to be fancy or very long (just one short paragraph for each point). I simply want to understand what genuinely resonated with you or what felt challenging. For example, you might write something like: “Learning how to draw a bar graph using ggplot was interesting. I didn’t know how to draw graphs in R before, so discovering this was exciting.” Or you could say: “Understanding the interaction effect was confusing. It’s unclear to me whether it means the effect of A is different from the effect of B, or whether the effect of A changes depending on B.” These kinds of honest, straightforward reflections are exactly what I’m looking for. The goal is to help me understand your learning experience so I can better support you throughout the course.",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2896,7 +2896,7 @@
     "href": "syllabus.html#midterm-exam-50-points",
     "title": "Course Information",
     "section": "Midterm Exam: 50 points",
-    "text": "Midterm Exam: 50 points\nThere will be a midterm exam in Week 9 of the semester. The exam will cover topics covered from Week 1 through Week 8. The exam will be online, and students need to complete it within 24 hours.",
+    "text": "Midterm Exam: 50 points\nThere will be a midterm exam in Week 9 of the semester. The exam will cover topics from Week 1 through Week 8. The exam will be online and available for the full day on the scheduled class day (from 12:00 AM to 11:59 PM).",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2907,7 +2907,7 @@
     "href": "syllabus.html#final-exam-50-points",
     "title": "Course Information",
     "section": "Final Exam: 50 points",
-    "text": "Final Exam: 50 points\nThere will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class this semester. The exam will be online, and students need to complete within 24 hours.\nFinal course letter grades will be assigned as follows:\n\n\n\nLetter Grade\nQuality Points\nPercentage Range\n\n\n\n\nA\n4.000\n260 - 278\n\n\nA-\n3.667\n250 - 259\n\n\nB+\n3.333\n240 - 249\n\n\nB\n3.000\n230 - 239\n\n\nB-\n2.667\n220 - 229\n\n\nC\n2.000\n195 - 219\n\n\nF\n0.000\n0 - 194",
+    "text": "Final Exam: 50 points\nThere will be a final exam in the last week of the semester. The exam will be cumulative and cover topics discussed throughout the semester. The exam will be online and available for the full day on the scheduled class day (from 12:00 AM to 11:59 PM).\nFinal course letter grades will be assigned as follows:\n\n\n\nLetter Grade\nQuality Points\nPoint Range\n\n\n\n\nA\n4.000\n250 - 268\n\n\nA-\n3.667\n240 - 249\n\n\nB+\n3.333\n230 - 239\n\n\nB\n3.000\n220 - 229\n\n\nB-\n2.667\n210 - 219\n\n\nC\n2.000\n185 - 209\n\n\nF\n0.000\n0 - 184",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2918,7 +2918,7 @@
     "href": "syllabus.html#attendance-policy",
     "title": "Course Information",
     "section": "Attendance Policy:",
-    "text": "Attendance Policy:\nThis course is delivered online synchronously, and attendance is required. Attendance will be measured before or middle of each class at random. If you miss more than three class sessions, you cannot pass this course (= your grade will be F). Missing class does not relieve your responsibility for assignments, reflection, or exams.",
+    "text": "Attendance Policy:\nThis course is delivered online synchronously, and regular attendance is expected. Attendance will be recorded at a random point during each session. I understand that life happens. If you must miss a class, please let me know in advance when possible. All lecture recordings and materials will be available on Canvas so you can catch up. However, missing class does not relieve your responsibility for assignments, reflections, or exams, as these are due on set deadlines regardless of attendance.",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2929,7 +2929,7 @@
     "href": "syllabus.html#communication-policy",
     "title": "Course Information",
     "section": "Communication Policy:",
-    "text": "Communication Policy:\n\nAll course-related communication should be sent to my UD email: syoon1@udayton.edu\nI will do my best to respond to emails within 24 hours during weekdays (Monday-Friday)\nPlease note that emails sent during weekends, holidays, or university breaks may receive delayed responses",
+    "text": "Communication Policy:\n\nFeel free to reach out to me anytime at my UD email: syoon1@udayton.edu. I’m always happy to help!\nI typically respond to emails within 24 hours on weekdays (Monday–Friday).\nOn weekends and holidays, I’ll be recharging my batteries (and pretending emails don’t exist), so expect a response when I’m back online. Thanks for understanding! :)",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2940,7 +2940,7 @@
     "href": "syllabus.html#classroom-etiquette",
     "title": "Course Information",
     "section": "Classroom Etiquette:",
-    "text": "Classroom Etiquette:\n\nTURN ON the camera during class time to facilitate engagement and interaction.\nTreat class time as a meeting in current/future professional life.\nShow respect for yourself, your peers, and our school; behave in a civil and appropriate manner for a school of business.\nProfessional language is required in all class discussions and written assignments.",
+    "text": "Classroom Etiquette:\n\nCamera on, please! Keeping your camera on helps create a more engaging and connected learning environment.\nThink of our class sessions as professional team meetings, which is a valuable practice for your current and future career.\nBe respectful to yourself, your peers, and our community. Let’s maintain a welcoming and professional atmosphere.\nUse professional language in all class discussions and written work.",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2951,7 +2951,7 @@
     "href": "syllabus.html#technological-problems",
     "title": "Course Information",
     "section": "Technological Problems:",
-    "text": "Technological Problems:\n\nStudents are responsible for ensuring reliable internet connectivity when joining the class and submitting assignments.\nAll students must maintain an active UD email account and Zoom and Canvas access.\nTechnical issues with personal computers or software (including R and R-Studio) are the student’s responsibility.\nFor hardware issues, contact your device manufacturer. For software issues, contact UD IT services. I will provide guidance on course-specific technical matters when possible.",
+    "text": "Technological Problems:\n\nPlease ensure you have reliable internet access for joining class and submitting assignments.\nKeep your UD email, Zoom, and Canvas accounts active and accessible throughout the semester.\nYou are responsible for resolving any technical issues with your personal devices or software (including R and RStudio).\nNeed tech help? For hardware issues, contact your device manufacturer. For general software issues, reach out to UD IT services. For course-specific technical questions (like R code not working), feel free to ask me!",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -2962,29 +2962,29 @@
     "href": "syllabus.html#late-submissions",
     "title": "Course Information",
     "section": "Late Submissions:",
-    "text": "Late Submissions:\nA late submission is subject to the following policy:\n\nReflections: a 1.5-point reduction from the points you earn will apply for each 24-hour period past the deadline. Reflections submitted more than 48 hours late will receive zero points.\nAssignments: a 2-point reduction from the points you earn will apply for each 24-hour period past the deadline. Assignments submitted more than 48 hours late will receive zero points.\nExams: Exams must be completed within the specified time frame. No late submissions will be accepted for exams.",
+    "text": "Late Submissions:\nLife gets busy, and I understand that sometimes things don’t go as planned. However, please try your best to submit on time. Here’s what happens if you’re late:\n\nReflections: 1.5 points deducted for each 24 hours late. Submissions over 48 hours late receive zero points.\nAssignments: 2 points deducted for each 24 hours late. Submissions over 48 hours late receive zero points.\nExams: Must be completed within the specified time frame—no late submissions accepted.",
     "crumbs": [
       "Home",
       "Syllabus"
     ]
   },
   {
-    "objectID": "syllabus.html#retaining-assignments-and-research-exercises",
-    "href": "syllabus.html#retaining-assignments-and-research-exercises",
+    "objectID": "syllabus.html#keep-your-work",
+    "href": "syllabus.html#keep-your-work",
     "title": "Course Information",
-    "section": "Retaining Assignments and Research Exercises:",
-    "text": "Retaining Assignments and Research Exercises:\n\nStudents must keep a copy of each Assignment and any related documents. In the unlikely event that an Assignment or Research Exercise is misplaced or cannot be found, the onus is on you to provide a backup copy of the assignment.\nIn addition, you must keep your graded assignments. Any queries concerning the awarded grade (e.g., a discrepancy between what is posted on Canvas and what is on your paper) can only be resolved with the original assignment document.",
+    "section": "Keep Your Work:",
+    "text": "Keep Your Work:\n\nAlways save a copy of your submitted assignments—just in case anything gets lost along the way.\nHold onto your graded work as well. If you ever have questions about a grade (e.g., a mismatch between Canvas and your feedback), having the original document will help us resolve it quickly.",
     "crumbs": [
       "Home",
       "Syllabus"
     ]
   },
   {
-    "objectID": "syllabus.html#check-grades",
-    "href": "syllabus.html#check-grades",
+    "objectID": "syllabus.html#stay-on-top-of-your-grades",
+    "href": "syllabus.html#stay-on-top-of-your-grades",
     "title": "Course Information",
-    "section": "Check Grades:",
-    "text": "Check Grades:\nStudents are responsible for regularly monitoring their grades on Canvas. If you think an assignment that you handed in was not graded, or that the grade that was posted is wrong, feel free to reach out to me for review and verification.",
+    "section": "Stay on Top of Your Grades:",
+    "text": "Stay on Top of Your Grades:\nPlease check your grades on Canvas regularly. If you notice something missing or think a grade might be incorrect, don’t hesitate to reach out. I’m happy to take another look!",
     "crumbs": [
       "Home",
       "Syllabus"
@@ -3629,7 +3629,7 @@
     "href": "lectures/Lecture02/Lecture02.html#what-is-quarto",
     "title": "Week 2: R, RStudio, Quarto, and Data Wrangling",
     "section": "2.3 What is Quarto?",
-    "text": "2.3 What is Quarto?\nQuarto is a scientific publishing system that combines:\n\nCode (R, Python, etc.)\nText (formatted with Markdown)\nOutput (tables, figures, results)\n\n…all in a single document that can be rendered to HTML, PDF, Word, or presentations.\n\n2.3.1 Why Use Quarto?\nImagine you analyze hospital readmission data and create a report in Word with charts from Excel. Two weeks later, you get updated data. What happens?\nTraditional Approach:\n\nRe-analyze data in Excel\nRe-create all charts\nCopy-paste new charts into Word\nUpdate text to match new numbers\nHope you don’t miss anything!\n\nWith Quarto:\n\nUpdate your data file\nClick “Render”\nDone! Everything updates automatically\n\n\n\n2.3.2 Quarto Document Structure\nA Quarto document has three parts:\n\n2.3.2.1 1. YAML Header (Metadata)\n---\ntitle: \"My Analysis\"\nauthor: \"Your Name\"\ndate: today\nformat: html\n---\nThis controls document settings and appearance.\n\n\n2.3.2.2 2. Markdown Text (Narrative)\n## Introduction\n\nThis analysis examines **patient satisfaction** across three hospitals.\n\nWe found that:\n- Wait times vary significantly\n- Satisfaction decreases with longer waits\nThis creates formatted text (headings, bold, lists, etc.).\n\n\n2.3.2.3 3. Code Chunks (Analysis)\n```{r}\n# Calculate average satisfaction\nmean(patient_data$satisfaction_score)\n```\nThis executes R code and shows results in your document.\n\n\n\n2.3.3 Code Chunk Options\nYou can control how code chunks behave using options. Add options at the top of a code chunk with #|:\n```{r}\n#| echo: false     # Don't show the code, only the output\n#| eval: true      # Run this code (true is default)\n#| warning: false  # Hide warnings\n#| message: false  # Hide messages\n\n# Your code here\n```\nCommon options:\n\necho: false: Hide the code, show only results (good for reports to non-technical audience)\neval: false: Show the code but don’t run it (good for examples)\ninclude: false: Run the code but hide both code and output (good for setup)\nwarning: false: Suppress warning messages\nmessage: false: Suppress package loading messages\nfig-width: 8 and fig-height: 6: Control plot dimensions (sizes)\n\nExample use case:\n#| echo: false\n#| message: false\n\n# This chunk loads packages silently\nlibrary(tidyverse)\n\n\n2.3.4 Inline R Code\nYou can insert R results directly into your text using `r ` with R code inside the backticks:\n\nToday's date is `r Sys.Date()`.\n\nThe result of 2 + 2 is `r 2 + 2`.\n\nWhen rendered, these become:\n\n“Today’s date is 2026-01-01”\n“The result of 2 + 2 is 4”.\n\nExample with data:\nLet’s create a simple dataset about patient age:\n\npatient_age &lt;- c(44, 32, 56, 43, 67, 78, 13, 25, 47)\n\nIf we would like to describe the average age of the patients in text using the expression below:\n\nThe average patient age is `r mean(patient_age)` years.\n\nWe have the rendered output like:\n\nThe average patient age is 45 years.\n\nWhy this is powerful?:\n\nWhen data updates, all numbers in your report update automatically!\n\n\n\n2.3.5 Creating Your First Quarto Document\nLet’s create a Quarto document that you’ll use throughout today’s lesson. This will become your personal reference document!\nIn RStudio:\n\nFile → New File → Quarto Document\nTitle: “Week 2 - My R Learning Notes”\nAuthor: Your name\nFormat: HTML\nClick “Create”\nSave it as Week02_mynotes.qmd (File → Save)\n\n\n\n\n\n\n\nImportantTry It Yourself! (5 minutes)\n\n\n\nPause here and create your learning document:\n\nFollow the steps above to create Week02_mynotes.qmd\nClick “Render” to verify your setup works\nKeep this document open - you’ll add code to it as we go through Parts 2-4\n\nImportant workflow tips:\n\nYou can run individual code line with Cmd/Ctrl + Enter (no need to render every time!)\nYou can run individual code chunk line with Cmd/Ctrl + Shift + Enter (no need to render every time!)\nAdd new code chunks with Cmd/Ctrl + Option/Alt + I\nOnly click “Render” when you want to see the final formatted document\n\nThis document will become your complete Week 2 reference with all the code you practice today.\nAfter 5 minutes, we’ll continue with Part 2: R Basics."
+    "text": "2.3 What is Quarto?\nQuarto is a scientific publishing system that combines:\n\nCode (R, Python, etc.)\nText (formatted with Markdown)\nOutput (tables, figures, results)\n\n…all in a single document that can be rendered to HTML, PDF, Word, or presentations.\n\n2.3.1 Why Use Quarto?\nImagine you analyze hospital readmission data and create a report in Word with charts from Excel. Two weeks later, you get updated data. What happens?\nTraditional Approach:\n\nRe-analyze data in Excel\nRe-create all charts\nCopy-paste new charts into Word\nUpdate text to match new numbers\nHope you don’t miss anything!\n\nWith Quarto:\n\nUpdate your data file\nClick “Render”\nDone! Everything updates automatically\n\n\n\n2.3.2 Quarto Document Structure\nA Quarto document has three parts:\n\n2.3.2.1 1. YAML Header (Metadata)\n---\ntitle: \"My Analysis\"\nauthor: \"Your Name\"\ndate: today\nformat: html\n---\nThis controls document settings and appearance.\n\n\n2.3.2.2 2. Markdown Text (Narrative)\n## Introduction\n\nThis analysis examines **patient satisfaction** across three hospitals.\n\nWe found that:\n- Wait times vary significantly\n- Satisfaction decreases with longer waits\nThis creates formatted text (headings, bold, lists, etc.).\n\n\n2.3.2.3 3. Code Chunks (Analysis)\n```{r}\n# Calculate average satisfaction\nmean(patient_data$satisfaction_score)\n```\nThis executes R code and shows results in your document.\n\n\n\n2.3.3 Code Chunk Options\nYou can control how code chunks behave using options. Add options at the top of a code chunk with #|:\n```{r}\n#| echo: false     # Don't show the code, only the output\n#| eval: true      # Run this code (true is default)\n#| warning: false  # Hide warnings\n#| message: false  # Hide messages\n\n# Your code here\n```\nCommon options:\n\necho: false: Hide the code, show only results (good for reports to non-technical audience)\neval: false: Show the code but don’t run it (good for examples)\ninclude: false: Run the code but hide both code and output (good for setup)\nwarning: false: Suppress warning messages\nmessage: false: Suppress package loading messages\nfig-width: 8 and fig-height: 6: Control plot dimensions (sizes)\n\nExample use case:\n#| echo: false\n#| message: false\n\n# This chunk loads packages silently\nlibrary(tidyverse)\n\n\n2.3.4 Inline R Code\nYou can insert R results directly into your text using `r ` with R code inside the backticks:\n\nToday's date is `r Sys.Date()`.\n\nThe result of 2 + 2 is `r 2 + 2`.\n\nWhen rendered, these become:\n\n“Today’s date is 2026-01-11”\n“The result of 2 + 2 is 4”.\n\nExample with data:\nLet’s create a simple dataset about patient age:\n\npatient_age &lt;- c(44, 32, 56, 43, 67, 78, 13, 25, 47)\n\nIf we would like to describe the average age of the patients in text using the expression below:\n\nThe average patient age is `r mean(patient_age)` years.\n\nWe have the rendered output like:\n\nThe average patient age is 45 years.\n\nWhy this is powerful?:\n\nWhen data updates, all numbers in your report update automatically!\n\n\n\n2.3.5 Creating Your First Quarto Document\nLet’s create a Quarto document that you’ll use throughout today’s lesson. This will become your personal reference document!\nIn RStudio:\n\nFile → New File → Quarto Document\nTitle: “Week 2 - My R Learning Notes”\nAuthor: Your name\nFormat: HTML\nClick “Create”\nSave it as Week02_mynotes.qmd (File → Save)\n\n\n\n\n\n\n\nImportantTry It Yourself! (5 minutes)\n\n\n\nPause here and create your learning document:\n\nFollow the steps above to create Week02_mynotes.qmd\nClick “Render” to verify your setup works\nKeep this document open - you’ll add code to it as we go through Parts 2-4\n\nImportant workflow tips:\n\nYou can run individual code line with Cmd/Ctrl + Enter (no need to render every time!)\nYou can run individual code chunk line with Cmd/Ctrl + Shift + Enter (no need to render every time!)\nAdd new code chunks with Cmd/Ctrl + Option/Alt + I\nOnly click “Render” when you want to see the final formatted document\n\nThis document will become your complete Week 2 reference with all the code you practice today.\nAfter 5 minutes, we’ll continue with Part 2: R Basics."
   },
   {
     "objectID": "lectures/Lecture02/Lecture02.html#your-first-r-commands",

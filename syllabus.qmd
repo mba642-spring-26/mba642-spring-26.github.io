@@ -25,7 +25,7 @@ format:
 
 **Format:** Online Synchronous (Use the Zoom link on Canvas to join the class)
 
-**Office Hours**: Will be announced in the first week of class
+**Office Hours**: Wednesdays 1:30 PM - 3:00 PM or after class or by appointment (Zoom)
 
 **Course Schedule**: Please check the course [schedule](https://mba642-spring-26.github.io/schedule.html) page
 
@@ -33,11 +33,11 @@ format:
 
 ## Course Description:
 
-This graduate-level course provides a comprehensive introduction to business analytics in healthcare management, progressing from basic statistical concepts and data visualization to practical applications of data analytics in healthcare management decisions. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare datasets. Students will gain hands-on experience with classic and modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making.
+This graduate-level course provides a comprehensive introduction to business analytics in healthcare management, progressing from basic statistical concepts and data visualization to practical applications of data analytics in healthcare management contexts. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare datasets. Students will gain hands-on experience with classic and modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making.
 
 ## Prerequisites:
 
-There are no prerequisites for this course. This course is designed to accommodate students with varying levels of statistical and programming background. All necessary concepts will be introduced from the ground up.
+There are no prerequisites for this course. This course is designed to accommodate students with varying levels of statistical and programming backgrounds. All necessary concepts will be introduced from the ground up.
 
 ## Course Objectives:
 
@@ -53,7 +53,7 @@ By the end of this course, students will be able to:
 
 ## Course Website:
 
-1.  Course Materials will be posted here: <https://mba642-spring-26.github.io>
+1.  Course Materials will be posted here and through our Canvas page: <https://mba642-spring-26.github.io>
 
 2.  Assignments, grading, and exams will be informed, managed, and submitted through our class Canvas page.
 
@@ -103,87 +103,89 @@ This course utilizes R and R-Studio as the primary analytical tools. R is a powe
 
 |             Component              |     Points     |
 |:----------------------------------:|:--------------:|
-|            Assignments             |   100 points   |
+|            Assignments             |   90 points   |
 | Class Participation and Reflection |   78 points    |
 |            Midterm Exam            |   50 points    |
 |             Final Exam             |   50 points    |
-|             **Total**              | **278 points** |
+|             **Total**              | **268 points** |
 
-## Assignments: 100 points (10 assignments, each with 10 points)
+## Assignments: 90 points (9 assignments, each with 10 points)
 
-There will be 10 assignments throughout the semester. Each assignment requires students to apply the analytical methods learned in the class session to new healthcare data analytics scenarios. For example, in Week 4, after we cover data visualization, you will be asked to visualize results with a new dataset. Assignments will focus on different healthcare management contexts and typically take 30-60 minutes to complete. Assignments are due weekly by Sunday at 11:59 PM.
+There will be 9 assignments throughout the semester. Each assignment requires students to apply the analytical methods learned in the class session to new healthcare data analytics scenarios. For example, in Week 4, after we cover data visualization, you will be asked to visualize results with a new dataset. Assignments will focus on different healthcare management contexts and typically take 30-60 minutes to complete. Assignments are due weekly by Sunday at 11:59 PM.
 
 ## Class Participation and Reflection: 78 points
 
-This course includes 14 class sessions. After we finish each session (starting from the second class), I would like to hear about what you learned and what questions remain unclear. To encourage engagement with the course contents, you will need to write a short list of responses to the following questions:
+This course includes 14 class sessions. After we finish each session (starting from the second class, meaning you will submit 13 reflections total), I would like to hear about what you learned and what questions remain unclear. To encourage engagement with the course contents, you will need to write a short list of responses to the following questions:
 
 1.  **What were the three most interesting or exciting things you learned from the session? and why?**
 2.  **What were the three most unclear or confusing things from the session? and why?**
 
-You can include more than three for each, but you must include at least three per question. So, there are six interesting or unclear things you will have in each reflection, and each one will worth 1 point (total 6 points per class session; max is 6 points). There will be 13 reflection assignments throughout the semester (6 points × 13 reflections = 78 points). Reflection submissions are due weekly by Sunday at 11:59 PM.
+You can include more than three for each, but you must include at least three per question. So, there are six interesting or unclear things you will have in each reflection, and each one will be worth 1 point (total 6 points per class session; max is 6 points). There will be 13 reflection assignments throughout the semester (6 points × 13 reflections = 78 points). Reflection submissions are due weekly by Sunday at 11:59 PM.
+
+You don't need to get stressed about this. Your reflections do not need to be fancy or very long (just one short paragraph for each point). I simply want to understand what genuinely resonated with you or what felt challenging. For example, you might write something like: "Learning how to draw a bar graph using ggplot was interesting. I didn't know how to draw graphs in R before, so discovering this was exciting." Or you could say: "Understanding the interaction effect was confusing. It's unclear to me whether it means the effect of A is different from the effect of B, or whether the effect of A changes depending on B." These kinds of honest, straightforward reflections are exactly what I'm looking for. The goal is to help me understand your learning experience so I can better support you throughout the course.
 
 ## Midterm Exam: 50 points
 
-There will be a midterm exam in Week 9 of the semester. The exam will cover topics covered from Week 1 through Week 8. The exam will be online, and students need to complete it within 24 hours.
+There will be a midterm exam in Week 9 of the semester. The exam will cover topics from Week 1 through Week 8. The exam will be online and available for the full day on the scheduled class day (from 12:00 AM to 11:59 PM).
 
 ## Final Exam: 50 points
 
-There will be a final exam in the last week of the semester. The exam will be cumulative and cover what we cover in class this semester. The exam will be online, and students need to complete within 24 hours.
+There will be a final exam in the last week of the semester. The exam will be cumulative and cover topics discussed throughout the semester. The exam will be online and available for the full day on the scheduled class day (from 12:00 AM to 11:59 PM).
 
 **Final course letter grades** will be assigned as follows:
 
-| Letter Grade | Quality Points | Percentage Range |
-|:------------:|:--------------:|:----------------:|
-|      A       |     4.000      |    260 - 278     |
-|      A-      |     3.667      |    250 - 259     |
-|      B+      |     3.333      |    240 - 249     |
-|      B       |     3.000      |    230 - 239     |
-|      B-      |     2.667      |    220 - 229     |
-|      C       |     2.000      |    195 - 219     |
-|      F       |     0.000      |     0 - 194      |
+| Letter Grade | Quality Points | Point Range |
+|:------------:|:--------------:|:-----------:|
+|      A       |     4.000      |  250 - 268  |
+|      A-      |     3.667      |  240 - 249  |
+|      B+      |     3.333      |  230 - 239  |
+|      B       |     3.000      |  220 - 229  |
+|      B-      |     2.667      |  210 - 219  |
+|      C       |     2.000      |  185 - 209  |
+|      F       |     0.000      |   0 - 184   |
 
 # Class Policies
 
 ## Attendance Policy:
 
-This course is delivered online synchronously, and attendance is required. Attendance will be measured before or middle of each class at random. If you miss more than three class sessions, you cannot pass this course (= your grade will be F). Missing class does not relieve your responsibility for assignments, reflection, or exams.
+This course is delivered online synchronously, and regular attendance is expected. Attendance will be recorded at a random point during each session. I understand that life happens. If you must miss a class, please let me know in advance when possible. All lecture recordings and materials will be available on Canvas so you can catch up. However, missing class does not relieve your responsibility for assignments, reflections, or exams, as these are due on set deadlines regardless of attendance.
 
 ## Communication Policy:
 
--   All course-related communication should be sent to my UD email: syoon1\@udayton.edu
--   I will do my best to respond to emails within 24 hours during weekdays (Monday-Friday)
--   Please note that emails sent during weekends, holidays, or university breaks may receive delayed responses
+-   Feel free to reach out to me anytime at my UD email: syoon1\@udayton.edu. I'm always happy to help!
+-   I typically respond to emails within 24 hours on weekdays (Monday–Friday).
+-   On weekends and holidays, I'll be recharging my batteries (and pretending emails don't exist), so expect a response when I'm back online. Thanks for understanding! :)
 
 ## Classroom Etiquette:
 
--   TURN ON the camera during class time to facilitate engagement and interaction.
--   Treat class time as a meeting in current/future professional life.
--   Show respect for yourself, your peers, and our school; behave in a civil and appropriate manner for a school of business.
--   Professional language is required in all class discussions and written assignments.
+-   **Camera on, please!** Keeping your camera on helps create a more engaging and connected learning environment.
+-   Think of our class sessions as professional team meetings, which is a valuable practice for your current and future career.
+-   Be respectful to yourself, your peers, and our community. Let's maintain a welcoming and professional atmosphere.
+-   Use professional language in all class discussions and written work.
 
 ## Technological Problems:
 
--   Students are responsible for ensuring reliable internet connectivity when joining the class and submitting assignments.
--   All students must maintain an active UD email account and Zoom and Canvas access.
--   Technical issues with personal computers or software (including R and R-Studio) are the student’s responsibility.
--   For hardware issues, contact your device manufacturer. For software issues, contact UD IT services. I will provide guidance on course-specific technical matters when possible.
+-   Please ensure you have reliable internet access for joining class and submitting assignments.
+-   Keep your UD email, Zoom, and Canvas accounts active and accessible throughout the semester.
+-   You are responsible for resolving any technical issues with your personal devices or software (including R and RStudio).
+-   **Need tech help?** For hardware issues, contact your device manufacturer. For general software issues, reach out to UD IT services. For course-specific technical questions (like R code not working), feel free to ask me!
 
 ## Late Submissions:
 
-A late submission is subject to the following policy:
+Life gets busy, and I understand that sometimes things don't go as planned. However, please try your best to submit on time. Here's what happens if you're late:
 
--   **Reflections**: a 1.5-point reduction from the points you earn will apply for each 24-hour period past the deadline. Reflections submitted more than 48 hours late will receive zero points.
--   **Assignments**: a 2-point reduction from the points you earn will apply for each 24-hour period past the deadline. Assignments submitted more than 48 hours late will receive zero points.
--   **Exams**: Exams must be completed within the specified time frame. No late submissions will be accepted for exams.
+-   **Reflections**: 1.5 points deducted for each 24 hours late. Submissions over 48 hours late receive zero points.
+-   **Assignments**: 2 points deducted for each 24 hours late. Submissions over 48 hours late receive zero points.
+-   **Exams**: Must be completed within the specified time frame—no late submissions accepted.
 
-## Retaining Assignments and Research Exercises:
+## Keep Your Work:
 
--   Students must keep a copy of each Assignment and any related documents. In the unlikely event that an Assignment or Research Exercise is misplaced or cannot be found, the onus is on you to provide a backup copy of the assignment.
--   In addition, you must keep your graded assignments. Any queries concerning the awarded grade (e.g., a discrepancy between what is posted on Canvas and what is on your paper) can only be resolved with the original assignment document.
+-   Always save a copy of your submitted assignments—just in case anything gets lost along the way.
+-   Hold onto your graded work as well. If you ever have questions about a grade (e.g., a mismatch between Canvas and your feedback), having the original document will help us resolve it quickly.
 
-## Check Grades:
+## Stay on Top of Your Grades:
 
-Students are responsible for regularly monitoring their grades on Canvas. If you think an assignment that you handed in was not graded, or that the grade that was posted is wrong, feel free to reach out to me for review and verification.
+Please check your grades on Canvas regularly. If you notice something missing or think a grade might be incorrect, don't hesitate to reach out. I'm happy to take another look!
 
 # University Policies
 
