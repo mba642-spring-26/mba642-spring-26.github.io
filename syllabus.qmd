@@ -13,7 +13,7 @@ format:
 
 # Course Information
 
-**Course Title:** Business Analytics in Healthcare Management
+**Course Title:** Business Analytics in Healthcare Management (MBA 642)
 
 **Level:** Graduate (Master's)
 
@@ -103,7 +103,7 @@ This course utilizes R and R-Studio as the primary analytical tools. R is a powe
 
 |             Component              |     Points     |
 |:----------------------------------:|:--------------:|
-|            Assignments             |   90 points   |
+|            Assignments             |   90 points    |
 | Class Participation and Reflection |   78 points    |
 |            Midterm Exam            |   50 points    |
 |             Final Exam             |   50 points    |
