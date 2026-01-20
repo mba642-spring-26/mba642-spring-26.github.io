@@ -1,0 +1,11 @@
+patient_id,name,age,department,los,total_charges,readmitted
+101,Alice Smith,45,ER,2,2500,FALSE
+102,Bob Johnson,67,ICU,7,12000,TRUE
+103,Carol White,32,Surgery,3,5000,FALSE
+104,David Brown,58,ER,1,1500,FALSE
+105,Eve Davis,71,Cardiology,5,8000,TRUE
+106,Frank Miller,44,ER,2,2800,FALSE
+107,Grace Lee,55,Orthopedics,4,6000,FALSE
+108,Henry Wilson,62,ICU,8,15000,TRUE
+109,Iris Moore,48,Surgery,3,5500,FALSE
+110,Jack Taylor,39,ER,1,1800,FALSE
