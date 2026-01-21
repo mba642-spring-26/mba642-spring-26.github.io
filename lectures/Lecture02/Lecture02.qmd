@@ -363,7 +363,7 @@ patient_age <- c(44, 32, 56, 43, 67, 78, 13, 25, 47)
 Let's create a Quarto document that you'll use throughout today's lesson. 
 This will become your personal reference document!
 
-**In R-Studio:**
+**In RStudio:**
 
 1. File → New File → Quarto Document
 2. Title: "Week 2 - My R Learning Notes"
@@ -379,16 +379,17 @@ This will become your personal reference document!
 
 1. Follow the steps above to create `Week02_mynotes.qmd`
 2. Click "Render" to verify your setup works
-3. **Keep this document open** - you'll add code to it as we go through later parts
+3. **Keep this document open**—you'll add code to it as we go
 
-**Important workflow tips:**
+**Keyboard shortcuts you'll use often:**
 
-- You can run individual code line with **Cmd/Ctrl + Enter** (no need to render every time!)
-- You can run individual code chunk line with **Cmd/Ctrl + Shift + Enter** (no need to render every time!)
-- Add new code chunks with **Cmd/Ctrl + Option/Alt + I**
-- Only click "Render" when you want to see the final formatted document
+| Action | Mac | Windows |
+|--------|-----|---------|
+| Run current line | Cmd + Enter | Ctrl + Enter |
+| Run entire chunk | Cmd + Shift + Enter | Ctrl + Shift + Enter |
+| Insert new chunk | Cmd + Option + I | Ctrl + Alt + I |
 
-This document will become your complete Week 2 reference with all the code you practice today.
+**Tip**: Use these shortcuts to run code as you go. You only need to click "Render" when you want to see the final formatted document.
 
 **After 5 minutes**, we'll continue with Part 2: R Basics.
 :::
@@ -404,100 +405,187 @@ Let's start with simple operations. You can type these in the Console or in a co
 
 ### R as a Calculator
 
+R can perform all basic arithmetic operations. Here are the operators you'll use:
+
+| Operation | R Operator | Example |
+|-----------|------------|---------|
+| Addition | `+` | `5 + 3` |
+| Subtraction | `-` | `10 - 4` |
+| Multiplication | `*` | `6 * 7` |
+| Division | `/` | `20 / 4` |
+| Exponentiation | `^` | `2^3` |
+
+Let's try each one:
+
+**Addition** (`+`): Adds two numbers together.
+
 ```{r}
-#| label: r-calculator
-# Addition
 5 + 3
+```
 
-# Subtraction
+**Subtraction** (`-`): Subtracts the second number from the first.
+
+```{r}
 10 - 4
+```
 
-# Multiplication
+**Multiplication** (`*`): Multiplies two numbers. Note: R uses `*`, not `x`.
+
+```{r}
 6 * 7
+```
 
-# Division
+**Division** (`/`): Divides the first number by the second.
+
+```{r}
 20 / 4
+```
 
-# Exponentiation (power)
+**Exponentiation** (`^`): Raises a number to a power. For example, `2^3` means 2 × 2 × 2.
+
+```{r}
 2^3
 ```
 
 ::: {.callout-tip}
 ## Comments: Your Code's Documentation
 
-The `#` symbol creates a **comment** - text that R ignores but humans read. Use comments liberally!
+The `#` symbol creates a **comment**—text that R ignores but humans read.
 
-**Bad** (no context):
+**Why use comments?**
+
+- Help others (and your future self) understand your code
+- Explain your reasoning, not just what the code does
+- Make complex logic easier to follow
+
+**Example: Poor commenting (no context)**
+
 ```r
 x <- 150
 y <- 4.5
 z <- x * y
 ```
 
-**Good** (explains the "why"):
+What do `x`, `y`, and `z` represent? It's unclear.
+
+**Example: Good commenting (explains the "why")**
+
 ```r
 patient_count <- 150  # Current cohort size
 average_los <- 4.5    # Mean length of stay in days
 total_patient_days <- patient_count * average_los
 ```
 
-**Tip**: Comment the "why" and "what," not the "how." Your code shows how it works; comments explain why you're doing it.
+Now the purpose is clear, and the variable names themselves are descriptive.
+
+**Best practice**: Comments explain why you're doing it and what the values mean.
 :::
 
 ### Creating Variables
 
-Variables store values for later use. Use the assignment operator `<-`.
+Variables store values for later use. 
+Think of a variable as a labeled container. you put a value inside, and you can retrieve it later by its name.
+
+**The assignment operator `<-`**
+
+In R, we use `<-` (less-than followed by a hyphen) to assign values to variables. The arrow points from the value to the variable name.
 
 ```{r}
-#| label: create-variables
-# Store values
 patient_count <- 150
-average_los <- 4.5 # LOS = Length of Stay
+```
 
-# View values
+This reads as: "assign the value 150 to the variable named `patient_count`."
+
+**Viewing variable values**
+
+To see what's stored in a variable, simply type its name:
+
+```{r}
 patient_count
-average_los
+```
 
-# Use in calculations
+**Using variables in calculations**
+
+Once you've stored values, you can use them in calculations:
+
+```{r}
+average_los <- 4.5 # LOS = Length of Stay (in days)
+
+# Calculate total patient days
 total_patient_days <- patient_count * average_los
 total_patient_days
 ```
 
+**Why use variables?**
+
+- **Reusability**: Use the same value in multiple places
+- **Clarity**: Meaningful names make code self-documenting
+- **Flexibility**: Change a value once and it updates everywhere
+
 ::: {.callout-tip}
 ## Variable Naming Rules
 
-- ✅ **Good names**: `patient_count`, `average_los`, `readmission_rate`
-- ❌ **Avoid**: spaces (`patient count`), special characters (`patient#`), starting with numbers (`2patients`)
+| Rule | Example | Why it matters |
+|------|---------|----------------|
+| Use descriptive names | `patient_count` | Makes code readable |
+| Use underscores for spaces | `average_los` | Spaces aren't allowed |
+| Start with a letter | `los_days` | Numbers first cause errors |
+| Avoid special characters | `rate_2024` | Only letters, numbers, underscores, and dots |
 
-**Best practice**: Use descriptive names with underscores
+**Avoid these common mistakes:**
+
+- ❌ `patient count` (spaces not allowed)
+- ❌ `patient#` (special characters)
+- ❌ `2patients` (can't start with a number)
+- ❌ `x`, `y`, `z` (not descriptive)
 :::
 
 ## Data Types
 
-R treats different types of data differently. Understanding data types is crucial for analysis.
+R treats different types of data differently. 
+For example, R can calculate `5 + 3`, but what would `"John" + 3` mean? R uses data types to know what operations are valid.
+
+**The four main data types you'll use:**
+
+| Type | What it stores | Example |
+|------|----------------|---------|
+| Numeric | Numbers (integers and decimals) | `42`, `3.14`, `0.85` |
+| Character | Text (strings) | `"John"`, `"Hospital A"` |
+| Logical | True/False values | `TRUE`, `FALSE` |
+| Factor | Categories | `"Male"`, `"Female"` |
 
 ### 1. Numeric
 
-Numbers with or without decimals:
+Numeric data includes any number, whole numbers (integers) or decimals.
+
+**Creating numeric variables:**
 
 ```{r}
-# Integer-like
 num_beds <- 200
-class(num_beds) # Check the type
-
-# Decimal
 occupancy_rate <- 0.85
-class(occupancy_rate)
+```
 
-# Scientific notation for very large/small numbers
-population <- 3.3e8 # 330,000,000
+**Checking data type with `class()`:**
+
+The `class()` function tells you what type of data R thinks you have:
+
+```{r}
+class(num_beds)
+class(occupancy_rate)
+```
+
+Both return `"numeric"` because R treats all numbers (with or without decimals) as numeric by default.
+
+**Scientific notation for very large or small numbers:**
+
+R can handle extremely large or small numbers using scientific notation:
+
+```{r}
+population <- 3.3e8 # 330,000,000 (330 million)
 population
 
-# More scientific notation examples
-large_number <- 1.5e6 # 1.5 × 10^6 = 1,500,000
-small_number <- 2.5e-4 # 2.5 × 10^-4 = 0.00025
-large_number
-small_number
+tiny_value <- 2.5e-4 # 0.00025
+tiny_value
 ```
 
 ::: {.callout-note}
@@ -505,19 +593,21 @@ small_number
 
 Scientific notation uses `e` to represent "times 10 to the power of":
 
-- `3.3e8` means 3.3 × 10^8^ = 3.3 × 100,000,000 = 330,000,000
-- `1.5e6` means 1.5 × 10^6^ = 1.5 × 1,000,000 = 1,500,000
-- `2.5e-4` means 2.5 × 10^-4^ = 2.5 × 0.0001 = 0.00025
+| Notation | Meaning | Result |
+|----------|---------|--------|
+| `3.3e8` | 3.3 × 10^8^ | 330,000,000 |
+| `1.5e6` | 1.5 × 10^6^ | 1,500,000 |
+| `2.5e-4` | 2.5 × 10^-4^ | 0.00025 |
 
-**The number after `e`**:
+**Quick rule:**
 
-- Positive (`e8`): Move decimal point **8 places to the right** (larger number)
-- Negative (`e-4`): Move decimal point **4 places to the left** (smaller number)
+- Positive exponent (`e8`): Move decimal **right** → bigger number
+- Negative exponent (`e-4`): Move decimal **left** → smaller number
 
-**When R shows scientific notation**: R automatically displays very large or very small numbers in scientific notation for readability.
+R automatically displays very large or small numbers in scientific notation for readability.
 :::
 
-**Numeric is Used for**: Age, costs, lab values, any quantitative measure
+**Healthcare examples of numeric data:** Age, costs, lab values, vital signs, dosages, etc. Any quantitative measure
 
 ### 2. Character (Text)
 
@@ -703,107 +793,166 @@ This will help you practice creating variables and understanding data types.
 
 ## Data Structures
 
+Data structures organize your data. 
+The two most important structures in R are **vectors** (one-dimensional) and **data frames** (two-dimensional tables).
+
 ### Vectors: One-Dimensional Data
 
-A **vector** is a sequence of elements of the **same type**:
+A **vector** is a sequence of elements of the **same type**. Think of it as a single column of data.
+
+**Creating vectors with `c()`:**
+
+The `c()` function ("combine") creates vectors:
 
 ```{r}
-# Create vectors with c() - "combine" function
 ages <- c(45, 67, 32, 58, 71)
 ages
+```
 
+```{r}
 departments <- c("ER", "ICU", "Surgery", "ER", "Pediatrics")
 departments
+```
 
-# Check length
+**Checking vector length:**
+
+Use `length()` to see how many elements are in a vector:
+
+```{r}
 length(ages)
+```
 
-# Access elements by position (starts at 1!)
+**Accessing elements by position:**
+
+Use square brackets `[ ]` to access specific elements. **Important:** R starts counting at 1, not 0!
+
+```{r}
 ages[1] # First element
 ages[3] # Third element
 ages[1:3] # Elements 1 through 3
+```
 
-# Vector operations
+**Vector operations:**
+
+When you apply an operation to a vector, R applies it to every element:
+
+```{r}
 ages + 1 # Adds 1 to each element
+```
+
+Built-in functions work on entire vectors:
+
+```{r}
 mean(ages) # Calculate average
 sum(ages) # Calculate sum
 ```
 
-**Key point**: Vectors can only contain one data type!
+::: {.callout-warning}
+## Vectors Can Only Contain One Data Type
+
+If you mix types, R converts everything to a common type (usually character):
 
 ```{r}
-# Mixing types - R converts to common type
 mixed <- c(25, "years", 100)
 mixed # Everything becomes character: "25" "years" "100"
 ```
+
+This is called **type coercion**. R follows this priority: logical → numeric → character.
+:::
+
+---
 
 ### Data Frames: Two-Dimensional Data
 
 A **data frame** is a table where:
 
-- Each column is a vector (variable)
-- Each row is an observation
-- Columns can have different data types (but within the column, elements are the same type)
+- Each **column** is a vector (a variable)
+- Each **row** is an observation (a record)
+- Different columns can have different data types
 
-**This is how most healthcare data is organized!**
+**This is how most healthcare data is organized!** Think of it like a spreadsheet or database table.
+
+**Creating a data frame:**
 
 ```{r}
-#| label: create-dataframe
-# Create a data frame
 patients <- data.frame(
-    patient_id = c(101, 102, 103, 104, 105), # patient's unique ID
-    age = c(45, 67, 32, 58, 71), # patient's age
-    gender = c("F", "M", "F", "M", "F"), # patient's gender
-    department = c("ER", "ICU", "Surgery", "ER", "Pediatrics"), # hospoital deparment the patient assigned
-    los = c(2, 7, 3, 1, 4), # Length of stay
+    patient_id = c(101, 102, 103, 104, 105),
+    age = c(45, 67, 32, 58, 71),
+    gender = c("F", "M", "F", "M", "F"),
+    department = c("ER", "ICU", "Surgery", "ER", "Pediatrics"),
+    los = c(2, 7, 3, 1, 4), # Length of stay (days)
     readmitted = c(FALSE, TRUE, FALSE, FALSE, TRUE)
 )
+```
 
-# View the data frame
+**Viewing the data frame:**
+
+```{r}
 patients
+```
 
-# Check structure
+**Checking structure with `str()`:**
+
+The `str()` function shows the structure of your data, including column names, types, and sample values:
+
+```{r}
 str(patients)
+```
 
-# Access columns
-patients$age # Dollar sign notation
+**Accessing columns (two ways):**
+
+```{r}
+patients$age # Dollar sign notation (most common)
 patients[, "department"] # Bracket notation
+```
 
-# Access rows
-patients[1, ] # First row
+**Accessing rows:**
+
+```{r}
+patients[1, ] # First row (all columns)
 patients[1:3, ] # First three rows
+```
 
-# Access specific cell
+**Accessing a specific cell:**
+
+```{r}
 patients[2, "gender"] # Row 2, column "gender"
 ```
+
+::: {.callout-tip}
+## Quick Reference: Data Frame Access Syntax
+
+| What you want | Syntax | Example |
+|---------------|--------|---------|
+| One column | `df$column` | `patients$age` |
+| One column (alt) | `df[, "column"]` | `patients[, "age"]` |
+| One row | `df[row, ]` | `patients[1, ]` |
+| Multiple rows | `df[rows, ]` | `patients[1:3, ]` |
+| Specific cell | `df[row, "column"]` | `patients[2, "gender"]` |
+:::
 
 ::: {.callout-note}
 ## How to Practice: Working in Your Quarto Document
 
 **You should be working in** `Week02_mynotes.qmd` (the document you created earlier).
 
-**How to run code**:
+**How to run code:**
 
-- Type code in a code chunk (use **Cmd/Ctrl + Option/Alt + I** to create new chunks)
-- Run the current line or selection with **Cmd/Ctrl + Enter**
-- You don't need to click "Render" after every change!
+| Action | Mac | Windows |
+|--------|-----|---------|
+| Run current line | Cmd + Enter | Ctrl + Enter |
+| Run entire chunk | Cmd + Shift + Enter | Ctrl + Shift + Enter |
+| Insert new chunk | Cmd + Option + I | Ctrl + Alt + I |
 
-**Think of it this way**:
-
-- **While learning**: Run code chunks interactively (Cmd/Ctrl + Shift + Enter)
-- **To see final result**: Click "Render" to create a beautiful formatted document
-- **At end of session**: You'll have a complete reference document with all your learning
-
-**Tip**: You can also experiment in the Console for quick tests, but adding code to your Quarto document ensures you keep a record of what you learned.
+**Workflow tip:** Run code interactively while learning. Only click "Render" when you want to see the final formatted document.
 :::
 
 ## Loading Data
 
-In real work, you'll load data from files rather than creating it manually.
+In real work, you'll load data from files rather than creating it manually. 
+Before we do that, you need to understand **packages**, one of R's most powerful features.
 
 ### Understanding R Packages
-
-Before we load data, you need to understand **packages** - one of R's most powerful features.
 
 #### What Are Packages?
 
@@ -883,16 +1032,18 @@ library(tidyverse)
 
 When you run `library(tidyverse)`, it loads 8 core packages:
 
-- **readr**: Read data files (CSV, TSV, etc.)
-- **dplyr**: Manipulate data (filter, select, summarize)
-- **ggplot2**: Create visualizations
-- **tidyr**: Reshape data
-- **tibble**: Enhanced data frames
-- **stringr**: Work with text
-- **forcats**: Work with factors
-- **purrr**: Functional programming
+| Package | Purpose | Example functions |
+|---------|---------|------------------|
+| **readr** | Read data files | `read_csv()`, `read_tsv()` |
+| **dplyr** | Manipulate data | `filter()`, `select()`, `mutate()` |
+| **ggplot2** | Create visualizations | `ggplot()`, `geom_point()` |
+| **tidyr** | Reshape data | `pivot_longer()`, `pivot_wider()` |
+| **tibble** | Enhanced data frames | `tibble()`, `as_tibble()` |
+| **stringr** | Work with text | `str_replace()`, `str_detect()` |
+| **forcats** | Work with factors | `fct_reorder()`, `fct_lump()` |
+| **purrr** | Functional programming | `map()`, `map_df()` |
 
-**For this course**, we'll primarily use `readr` and `dplyr`.
+**For this course**, we'll primarily use `readr` (for reading data) and `dplyr` (for data manipulation).
 
 ::: {.callout-tip}
 ## Best Practice: Load Packages at the Top
@@ -911,80 +1062,151 @@ This makes it clear what packages your analysis needs.
 
 ### Reading CSV Files
 
-CSV (Comma-Separated Values) is the most common data format:
+CSV (Comma-Separated Values) is the most common data format. It's a plain text file where values are separated by commas, and it can be opened in Excel or any text editor.
+
+**Loading the required package:**
 
 ```{r}
 #| eval: false
 
-# Load tidyverse (includes readr package)
-library(tidyverse)
-
-# Read a CSV file
-patient_data <- read_csv("hospital_data.csv")
-
-# View the data
-head(patient_data) # First 6 rows
-View(patient_data) # Open in spreadsheet viewer
+library(tidyverse) # Includes the readr package
 ```
 
-**Common issues**:
+**Reading a CSV file with `read_csv()`:**
+
+```{r}
+#| eval: false
+
+patient_data <- read_csv("hospital_data.csv")
+```
+
+This creates a data frame called `patient_data` containing all the data from the file.
+
+**Viewing your data:**
+
+After loading, you'll want to inspect the data:
+
+```{r}
+#| eval: false
+
+head(patient_data) # First 6 rows (quick preview)
+View(patient_data) # Open in RStudio's spreadsheet viewer
+glimpse(patient_data) # Compact structure view
+```
 
 ::: {.callout-warning}
-## File Not Found Error
+## Troubleshooting: "File Not Found" Error
 
-If you get `Error: 'hospital_data.csv' does not exist`, check:
+If you get `Error: 'hospital_data.csv' does not exist`, try these steps:
 
-1. **Is the file in your working directory?**
-   - Use `getwd()` to see your current directory
-   - Use `list.files()` to see what files are there
+1. **Check your working directory:**
+   ```r
+   getwd()       # Shows current directory
+   list.files()  # Lists files in that directory
+   ```
 
-2. **Is the path correct?**
-   - Use full path: `read_csv("/Users/yourname/Documents/hospital_data.csv")`
-   - Or use RStudio Projects to organize your work
+2. **Use the full file path:**
+   ```r
+   read_csv("/Users/yourname/Documents/hospital_data.csv")
+   ```
+
+3. **Use RStudio Projects** (recommended): This sets the working directory automatically to your project folder.
 :::
 
 ### Other Common Formats
 
+Different data formats require different functions:
+
+| Format | Package | Function | Example |
+|--------|---------|----------|---------|
+| CSV (comma-separated) | readr | `read_csv()` | `read_csv("data.csv")` |
+| TSV (tab-separated) | readr | `read_tsv()` | `read_tsv("data.txt")` |
+| Excel (.xlsx) | readxl | `read_excel()` | `read_excel("data.xlsx")` |
+| R data file (.rds) | base R | `readRDS()` | `readRDS("data.rds")` |
+
+**Example: Reading an Excel file:**
+
 ```{r}
 #| eval: false
 
-# Excel files (need readxl package)
-library(readxl)
+library(readxl) # Need to load this package first
 data <- read_excel("hospital_data.xlsx")
-
-# Tab-separated files
-data <- read_tsv("hospital_data.txt")
-
-# R data files
-data <- readRDS("hospital_data.rds")
 ```
+
+::: {.callout-note}
+## Why Use `read_csv()` Instead of `read.csv()`?
+
+R has two CSV functions:
+
+- `read.csv()` - Base R (built-in, older)
+- `read_csv()` - From readr/tidyverse (faster, smarter)
+
+We use `read_csv()` because it:
+
+- Reads files faster (especially large files)
+- Guesses column types more accurately
+- Produces cleaner output (tibbles instead of data frames)
+:::
 
 ## Getting Help
 
-R has extensive built-in help. Use these when you're stuck:
+R has extensive built-in help. Knowing how to find help is one of the most important skills you'll develop!
+
+**Getting help on a specific function:**
+
+Use `?` followed by the function name to open its help page:
 
 ```{r}
 #| eval: false
 
-# Get help on a specific function
-?read_csv
-?filter
-?mean
-
-# Search for help on a topic
-??regression
-??"missing values"
-
-# See examples
-example(mean)
+?mean # Help on the mean() function
+?read_csv # Help on read_csv() from readr
+?filter # Help on filter() from dplyr
 ```
 
-**Tip**: Help pages show: 
+**Searching for help on a topic:**
 
-- **Description**: What the function does
-- **Usage**: How to call it
-- **Arguments**: What options are available
-- **Examples**: Working code you can try
+Use `??` to search across all help pages when you don't know the exact function name:
+
+```{r}
+#| eval: false
+
+??regression # Search for anything related to regression
+??"missing values" # Search a phrase (use quotes)
+```
+
+**Viewing examples:**
+
+The `example()` function runs the example code from a function's help page directly in your console. This is a great way to see a function in action without writing any code yourself:
+
+```{r}
+#| eval: false
+
+example(mean) # Runs example code for mean()
+```
+
+::: {.callout-tip}
+## Understanding Help Pages
+
+Help pages follow a standard structure:
+
+| Section | What it tells you |
+|---------|-------------------|
+| **Description** | What the function does |
+| **Usage** | How to call it (syntax) |
+| **Arguments** | Available options and their defaults |
+| **Value** | What the function returns |
+| **Examples** | Working code you can copy and try |
+
+**Tip**: Scroll to the Examples section first—often the easiest way to learn!
+:::
+
+**Other helpful resources:**
+
+- **RStudio's Help pane** (bottom-right) - Type in the search box
+- **Google**: Search "R how to [your question]"
+- **Stack Overflow**: Millions of R questions answered
+- **ChatGPT/Claude**: Great for explaining error messages
 
 ---
 
@@ -992,31 +1214,37 @@ example(mean)
 
 ## From Data Structures to Data Manipulation
 
-Now that you know how to create and access data frames, let's learn how to actually **manipulate** them. This is where R becomes incredibly powerful for data analysis.
+Now that you know how to create and access data frames, let's learn how to **manipulate** them. This is where R becomes incredibly powerful for data analysis.
 
 **What you'll learn in this section:**
 
-- How to select only the columns you need
-- How to filter rows based on conditions
-- How to create new calculated fields
-- How to summarize data by groups
-- How to combine all these operations into powerful analysis pipelines
+| Skill | What it does | dplyr function |
+|-------|--------------|----------------|
+| Select columns | Keep only the variables you need | `select()` |
+| Filter rows | Keep only observations that meet criteria | `filter()` |
+| Create new columns | Calculate new variables from existing ones | `mutate()` |
+| Summarize data | Calculate statistics (mean, count, etc.) | `summarize()` |
+| Group operations | Apply functions to subgroups | `group_by()` |
 
-This is the core skill of data wrangling - transforming raw data into insights.
+**Data wrangling** is the process of cleaning, transforming, and organizing raw data into a format ready for analysis. This is the core skill—transforming raw data into insights.
 
 ## Introduction to the Tidyverse
 
 The **tidyverse** is a collection of R packages designed for data science with a common philosophy and grammar.
 
-**Why Tidyverse?**
+**Why use the tidyverse?**
 
-**Traditional R** (hard to read):
+Compare these two approaches to the same task (calculating average length of stay for patients over 50):
+
+**Traditional R** (nested, hard to read):
 
 ```r
 round(mean(subset(patients, age > 50)$los), 2)
 ```
 
-**Tidyverse** (reads like English):
+You have to read from the inside out: first `subset`, then extract `$los`, then `mean`, then `round`. Confusing!
+
+**Tidyverse** (sequential, reads like English):
 
 ```r
 patients |>
@@ -1024,48 +1252,50 @@ patients |>
   summarize(mean_los = round(mean(los), 2))
 ```
 
-Much clearer!
+You read left to right, top to bottom: take patients, then filter, then summarize. Much clearer!
 
-## The Pipe Operator: |> 
+## The Pipe Operator: `|>`
 
-- The pipe operator `|>` passes output from one function to the next. (or often you see it as `%>%`)
+The pipe operator `|>` passes the output from one function as the input to the next function.
 
-**Read it as "and then"**:
+**Read it as "and then":**
+
+- Take this data, **and then** do this, **and then** do that.
+
+**Example without the pipe** (nested, hard to read):
 
 ```{r}
-# Without pipe (hard to read, nested)
 round(mean(c(1, 2, 3, 4, 5)), 2)
+```
 
-# With pipe (easy to read, sequential)
+**Same example with the pipe** (sequential, easy to read):
+
+```{r}
 c(1, 2, 3, 4, 5) |>
     mean() |>
     round(2)
 ```
 
-Think: "Take this data, **and then** do this, **and then** do that."
+Both produce the same result, but the piped version is easier to understand and modify.
+
+::: {.callout-note}
+## About the Pipe
+
+You may also see `%>%` in online tutorials—this is the older tidyverse pipe from the magrittr package. We use `|>` because it's built into R (version 4.1+) and doesn't require loading any packages. For most tasks, they work identically.
+:::
 
 ## Sample Dataset
 
-Let's create a healthcare dataset to practice with:
+Let's load a healthcare dataset to practice with:
 
 ```{r}
 #| label: generate-healthcare-data
-# Set seed for reproducibility
+
+# Set a random seed for reproducibility 
 set.seed(2026)
 
 # Create sample data (simplified version)
-healthcare_data <- tibble(
-    patient_id = 1:100,
-    age = sample(18:90, 100, replace = TRUE),
-    gender = sample(c("Male", "Female"), 100, replace = TRUE),
-    department = sample(c("Emergency", "Cardiology", "Orthopedics"),
-        100,
-        replace = TRUE
-    ),
-    los = sample(1:14, 100, replace = TRUE),
-    total_charges = round(runif(100, 1000, 50000), 2),
-    readmitted_30day = sample(c(TRUE, FALSE), 100, replace = TRUE, prob = c(0.15, 0.85))
-)
+healthcare_data <- read_csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week02_healthcare_data.csv")
 
 # View first few rows
 head(healthcare_data)
@@ -1096,7 +1326,7 @@ healthcare_data |>
     select(starts_with("total"))
 ```
 
-**When to use**: Simplify your data by keeping only relevant columns
+**When to use**: Simplify your data by keeping only relevant columns (variables)
 
 ### 2. `filter()` - Choose Rows
 
@@ -1199,153 +1429,126 @@ This will help you practice creating calculated fields and sorting data.
 **After 5 minutes**, we'll learn how to calculate summary statistics.
 :::
 
-::: {.callout-note}
-## Take a Breath!
-
-You've just learned **four powerful data manipulation functions** in quick succession:
-
-- `select()` - choose columns
-- `filter()` - choose rows
-- `mutate()` - create columns
-- `arrange()` - sort
-
-Take 30 seconds to stretch, shake out your hands, and breathe. Data wrangling is mentally intensive, so that's completely normal!
-
-**Next up**: The two most powerful functions, `summarize()` and `group_by()`, which will let you calculate statistics and analyze by groups.
-:::
-
-::: {.callout-tip}
-## Quick Checkpoint: Core dplyr Functions
-
-Before continuing, verify you understand:
-
-1. Which function picks columns? → `select()`
-2. Which function picks rows based on conditions? → `filter()`
-3. Which function creates new columns? → `mutate()`
-4. What does `|>` do? → Passes output from one function to the next
-5. How do you sort in descending order? → `arrange(desc(variable))`
-
-If you're confused about any function, now is the time to ask!
-:::
-
 ### 5. `summarize()` - Calculate Statistics
 
-- Reduce data to summary values:
+The `summarize()` function reduces your data to summary statistics (like mean, count, etc.).
+
+**Single statistic:**
 
 ```{r}
-#| label: dplyr-summarize
-# Single statistic - calculate one summary value
+#| label: dplyr-summarize-single
 healthcare_data |>
     summarize(mean_age = mean(age))
+```
 
-# Multiple statistics - calculate several summaries at once
+**Multiple statistics at once:**
+
+```{r}
+#| label: dplyr-summarize-multiple
 healthcare_data |>
     summarize(
-        total_patients = n(), # n() counts the number of rows
-        mean_age = mean(age), # mean() calculates average
+        total_patients = n(),
+        mean_age = mean(age),
         mean_charges = mean(total_charges),
-        readmit_rate = mean(readmitted_30day) # mean() on logical: TRUE=1, FALSE=0, so this gives proportion
+        readmit_rate = mean(readmitted_30day)
     )
 ```
 
 ::: {.callout-tip}
-## Understanding `n()` and Summary Functions
+## Common Summary Functions
 
-**`n()`**: Counts the number of rows (observations)
+| Function | What it calculates | Example |
+|----------|-------------------|---------|
+| `n()` | Count of rows | `n()` → 100 patients |
+| `mean()` | Average | `mean(age)` → 52.3 |
+| `median()` | Middle value | `median(los)` → 4 days |
+| `sd()` | Standard deviation | `sd(age)` → 15.2 |
+| `min()`, `max()` | Minimum, maximum | `min(age)` → 18, `max(age)` → 95 |
+| `sum()` | Total | `sum(total_charges)` → $1,250,000 |
 
-- `n()` = total count, no arguments needed
-- Useful for: "How many patients?", "How many observations?"
-
-**`mean()` with logical values**: Calculates proportions
-
-- `mean(readmitted_30day)` where values are TRUE/FALSE
-- R treats TRUE as 1 and FALSE as 0
-- So `mean()` gives you the proportion of TRUE values (i.e., readmission rate)
-
-**Other useful summary functions**:
-
-- `median()`, `sd()` (standard deviation), `min()`, `max()`, `sum()`
+**Pro tip:** `mean()` on TRUE/FALSE values gives you a proportion! R treats TRUE as 1 and FALSE as 0, so `mean(readmitted_30day)` returns the readmission rate.
 :::
 
-**When to use**: Get overall statistics, create summary tables
+**When to use:** Get overall statistics, create summary tables
 
 ### 6. `group_by()` - Group Operations
 
-- **This is where dplyr becomes powerful!** Group data before summarizing:
+The `group_by()` function is where dplyr becomes powerful. It calculates statistics **separately for each group**.
+
+**Example: Statistics by department**
 
 ```{r}
 #| label: dplyr-group-by
-# Summary by department - calculate statistics for EACH department separately
 healthcare_data |>
-    group_by(department) |> # Group by department first
-    summarize( # Then calculate summaries for each group
-        patient_count = n(), # Count patients in each department
-        mean_age = mean(age), # Average age in each department
-        mean_los = mean(los), # Average length of stay in each department
-        mean_charges = mean(total_charges), # Average charges in each department
-        readmit_rate = mean(readmitted_30day) # Readmission rate in each department
+    group_by(department) |>
+    summarize(
+        patient_count = n(),
+        mean_age = mean(age),
+        mean_los = mean(los),
+        mean_charges = mean(total_charges),
+        readmit_rate = mean(readmitted_30day)
     ) |>
-    arrange(desc(mean_charges)) # Sort by highest charges first
+    arrange(desc(mean_charges))
 ```
 
 ::: {.callout-note}
-## How `group_by()` Works
+## How `group_by()` Changes the Result
 
-Without `group_by()`:
+| Without `group_by()` | With `group_by(department)` |
+|---------------------|----------------------------|
+| One row of results | One row **per department** |
+| Mean age = 52.3 (all patients) | Mean age = 45 (ER), 67 (ICU), 38 (Surgery)... |
 
-- `summarize()` calculates **one** value across all data
-- Example: mean age of **all** patients = 52.3 years
-
-With `group_by(department)`:
-
-- `summarize()` calculates **separate** values for each department
-- Example: mean age in ER = 45, mean age in ICU = 67, etc.
-
-Think: "Calculate statistics **separately for each group**"
+Think of it as: "Calculate this **for each** department separately."
 :::
 
-**Real-world insight**: This analysis quickly shows which departments have highest costs and readmission rates!
+**Real-world insight:** This analysis quickly reveals which departments have the highest costs and readmission rates—critical for hospital administrators!
 
 ## Combining Operations
 
-- The power of `dplyr` is combining multiple operations:
+The real power of dplyr is **chaining multiple operations together** in a single pipeline. Each step transforms the data, and the result flows to the next step.
+
+**Example: A complete analysis pipeline**
 
 ```{r}
-# Complex analysis in one pipeline
+#| label: dplyr-pipeline
 healthcare_data |>
-    filter(age >= 50) |> # Focus on older patients, 50+
-    mutate(high_cost = total_charges > 25000) |> # Flag expensive cases (if greater than 25000, TRUE, otherwise FALSE)
-    group_by(department, high_cost) |> # Group by department and cost
+    filter(age >= 50) |>
+    mutate(high_cost = total_charges > 25000) |>
+    group_by(department, high_cost) |>
     summarize(
         count = n(),
         avg_los = round(mean(los), 1),
-        .groups = "drop" # Remove grouping structure after summarizing
+        .groups = "drop"
     ) |>
     arrange(department, desc(high_cost))
 ```
 
-**What this tells us**: How many high-cost vs. regular-cost patients in each department, and their average length of stay.
+**Breaking down this pipeline step by step:**
+
+| Step | Function | What it does |
+|------|----------|--------------|
+| 1 | `filter(age >= 50)` | Keep only patients 50 years or older |
+| 2 | `mutate(high_cost = ...)` | Create a TRUE/FALSE flag for charges > $25,000 |
+| 3 | `group_by(department, high_cost)` | Group by department AND cost category |
+| 4 | `summarize(...)` | Count patients and calculate average LOS per group |
+| 5 | `arrange(...)` | Sort alphabetically by department, high-cost first |
+
+**Result:** A table showing how many high-cost vs. regular-cost patients each department has, along with their average length of stay.
 
 ::: {.callout-note}
-## Understanding `.groups = "drop"`
+## What is `.groups = "drop"`?
 
-When you use `group_by()` with multiple variables, the data stays "grouped" after `summarize()`. This can cause unexpected behavior in later operations.
+When you `group_by()` multiple variables, the data stays "grouped" after `summarize()`. Adding `.groups = "drop"` removes the grouping so subsequent operations (like `arrange()`) work as expected.
 
-**`.groups` options**:
+| Option | Effect |
+|--------|--------|
+| `"drop"` | Remove all grouping (recommended) |
+| `"drop_last"` | Keep all groups except the last one |
+| `"keep"` | Keep the grouping structure |
 
-- `"drop"`: Remove all grouping (recommended for most cases)
-- `"drop_last"`: Keep all groups except the last one
-- `"keep"`: Keep the grouping structure
-
-**Why use `.groups = "drop"`?**
-
-- Makes the output a regular (ungrouped) data frame
-- Prevents grouping from affecting subsequent operations like `arrange()`
-- Clearer intent in your code
-
-If you don't specify `.groups`, dplyr will show a message reminding you to choose. Using `.groups = "drop"` silences this message and makes your intention clear.
+If you forget to specify, dplyr will show a reminder message. Using `.groups = "drop"` silences this and makes your intent clear.
 :::
-
 
 ::: {.callout-important}
 ## Try It Yourself! (5 minutes)
@@ -1354,68 +1557,126 @@ If you don't specify `.groups`, dplyr will show a message reminding you to choos
 
 - **Task 3.6**: Group by and summarize
 
-This will help you practice the powerful `group_by()` + `summarize()` pattern.
-
-**After 5 minutes**, we'll continue with combining operations and wrap up.
+Practice the powerful `group_by()` + `summarize()` pattern.
 :::
 
 ## Handling Missing Values
 
-- Real (healthcare) data often has missing values (in R, they are filled with `NA`):
+Real-world data (especially healthcare data) often has missing values. In R, missing values are represented as `NA` (Not Available).
+
+**Creating example data with missing values:**
 
 ```{r}
-# Create data with missing values
+#| label: missing-data-example
 patient_vitals <- tibble(
     patient_id = 1:5,
     blood_pressure = c(120, 135, NA, 142, NA),
     heart_rate = c(72, 85, 78, NA, 65)
 )
-
 patient_vitals
+```
 
-# Count NAs
+**Counting missing values:**
+
+Use `is.na()` to detect NAs, and `sum()` to count them:
+
+```{r}
+#| label: count-na
 patient_vitals |>
     summarize(
-        bp_missing = sum(is.na(blood_pressure)), # Summing the number of NAs in boold_pressure
-        hr_missing = sum(is.na(heart_rate)) # Summing the number of NAs in heart_rate
+        bp_missing = sum(is.na(blood_pressure)),
+        hr_missing = sum(is.na(heart_rate))
     )
+```
 
-# Calculate mean (NAs cause problems!)
-mean(patient_vitals$blood_pressure) # Returns NA
+**The NA problem with calculations:**
 
-# Remove NAs from calculation
-mean(patient_vitals$blood_pressure, na.rm = TRUE) # Works! (na.rm is the key!)
+Many functions return `NA` if any value is missing:
 
-# Remove rows with NAs
+```{r}
+#| label: na-problem
+mean(patient_vitals$blood_pressure) # Returns NA!
+```
+
+**Solution: Use `na.rm = TRUE`:**
+
+The `na.rm` argument ("NA remove") tells the function to ignore missing values:
+
+```{r}
+#| label: na-rm-solution
+mean(patient_vitals$blood_pressure, na.rm = TRUE) # Works!
+```
+
+**Removing rows with missing values:**
+
+```{r}
+#| label: drop-na
+# Remove rows with ANY missing value
 patient_vitals |>
-    drop_na() # Removes rows with any NA
+    drop_na()
 
-# Remove rows with NA in specific column
+# Remove rows with NA in a specific column only
 patient_vitals |>
     drop_na(blood_pressure)
 ```
 
+::: {.callout-tip}
+## Quick Reference: Handling NAs
+
+| Task | Function | Example |
+|------|----------|---------|
+| Detect NAs | `is.na()` | `is.na(blood_pressure)` → TRUE/FALSE |
+| Count NAs | `sum(is.na())` | `sum(is.na(bp))` → 2 |
+| Ignore NAs in calculations | `na.rm = TRUE` | `mean(bp, na.rm = TRUE)` |
+| Remove rows with any NA | `drop_na()` | `df |> drop_na()` |
+| Remove rows with NA in specific column | `drop_na(col)` | `df |> drop_na(bp)` |
+:::
+
 ::: {.callout-warning}
 ## Missing Data Caution
 
-Always investigate WHY data is missing before removing it! Missing data may not be random and could bias your analysis.
+Always investigate **why** data is missing before removing it! Missing data is often not random:
+
+- Patients too sick to complete surveys
+- Equipment malfunctions during critical events
+- Data entry errors for certain staff shifts
+
+Blindly removing NAs could bias your analysis. Consider consulting with domain experts about the best approach.
 :::
 
 ---
 
 # Putting It All Together {.section-time data-time="10 min"}
 
-## End-to-End Example: Readmission Analysis
+## End-to-End Example: Readmission Analysis Report
 
-Let's combine everything into a realistic analysis:
+Let's combine everything you've learned into a realistic, complete analysis. You'll answer a research question using dplyr and create a professional Quarto report.
 
-**Question**: Which departments have the highest readmission rates, and does this vary by patient age?
+**Research Question:** Which departments have the highest 30-day readmission rates, and does this vary by patient age?
 
-Let's run the code below to add `age_group` variable that indicates age categories:
+### Step 1: Set Up Your Quarto Document
+
+Create a new Quarto document with this YAML header:
+
+```yaml
+---
+title: "30-Day Readmission Analysis"
+author: "Your Name"
+date: today
+format: html
+---
+```
+
+### Step 2: Load Packages and Prepare Data
+
+Add this code chunk to load tidyverse and create age categories:
 
 ```{r}
-#| label: readmission-analysis-step1
-# Step 1: Prepare data
+#| label: readmission-step1
+# Load packages
+library(tidyverse)
+
+# Create age groups using case_when()
 healthcare_data_clean <- healthcare_data |>
     mutate(
         age_group = case_when(
@@ -1423,16 +1684,23 @@ healthcare_data_clean <- healthcare_data |>
             age < 65 ~ "40-64",
             TRUE ~ "65+"
         ),
+        # Convert to factor to control the order
         age_group = factor(age_group, levels = c("Under 40", "40-64", "65+"))
     )
 ```
 
-Now let's check readmission rates across departments (`department`) and age groups (`age_group`) using `dplyr`:
+**What this does:**
+- `case_when()` creates categories based on conditions (like nested IF statements)
+- `factor()` ensures age groups display in a logical order, not alphabetically
+
+### Step 3: Analyze Readmission Rates by Department and Age
+
+Now calculate readmission statistics for each department-age combination.
+
+**Important:** We'll also filter out groups with fewer than 5 patients. Why? Small sample sizes produce unreliable rates—a 100% readmission rate from 1 patient is misleading!
 
 ```{r}
-#| label: readmission-analysis-step2
-
-# Step 2: Analyze by department and age group
+#| label: readmission-step2
 readmission_analysis <- healthcare_data_clean |>
     group_by(department, age_group) |>
     summarize(
@@ -1441,90 +1709,80 @@ readmission_analysis <- healthcare_data_clean |>
         readmit_rate = round(mean(readmitted_30day) * 100, 1),
         .groups = "drop"
     ) |>
-    filter(total_patients >= 5) |> # Only groups with enough patients
-    arrange(department, age_group, desc(readmit_rate))
+    filter(total_patients >= 5) |>
+    arrange(department, age_group)
 
-# View results
 readmission_analysis
 ```
 
-**Key findings** (from this simulated data):
+**Breaking down this pipeline:**
 
-- We can see which department-age combinations have highest readmission rates
-- This could guide targeted interventions
+| Step | Code | Purpose |
+|------|------|---------|
+| 1 | `group_by(department, age_group)` | Calculate separately for each combination |
+| 2 | `n()` | Count patients in each group |
+| 3 | `sum(readmitted_30day)` | Count how many were readmitted |
+| 4 | `mean(readmitted_30day) * 100` | Calculate percentage (TRUE=1, FALSE=0) |
+| 5 | `filter(total_patients >= 5)` | Remove groups with too few patients (unreliable rates) |
+| 6 | `arrange()` | Sort results for readability |
 
-## Creating Your Analysis Report
+### Step 4: Interpret and Report Your Findings
 
-Now put this in a Quarto document:
+Add narrative text to your Quarto document explaining the results:
 
-````markdown
----
-title: "30-Day Readmission Analysis"
-author: "Your Name"
-date: today
-format: html
----
-
-## Executive Summary
-
-This analysis examines 30-day readmission rates across departments and age groups.
-
-## Data Overview
-
-We analyzed `r nrow(healthcare_data)` patient encounters.
-
-```{{r}}
-library(tidyverse)
-
-# Load and prepare data
-healthcare_data_clean <- healthcare_data |>
-  mutate(
-    age_group = case_when(
-      age < 40 ~ "Under 40",
-      age < 65 ~ "40-64",
-      TRUE ~ "65+"
-    )
-  )
-```
-
+```markdown
 ## Key Findings
 
-```{{r}}
-# Analysis code here
+The analysis reveals that readmission rates vary by both department and age group.
+[Describe the patterns you see in the data.]
+
+## Recommendations
+
+Based on these findings, targeted interventions should focus on:
+- [Department/age combinations with highest rates]
 ```
 
-The analysis reveals...
-````
+### Step 5: Render Your Report
 
-When you **Render** this document:
+Click the **Render** button in RStudio. Your Quarto document will:
 
-- Code executes automatically
-- Results appear in the output
-- You get a professional HTML report
-- If data changes, just re-render!
+- Execute all code automatically
+- Display results inline
+- Generate a professional HTML report
+- Be fully reproducible—if data changes, just re-render!
 
 ## What You've Learned Today
 
-Congratulations! In this session, you've built a strong foundation for data analysis in R:
+You've built a foundation for data analysis in R. Here's a summary of everything covered:
 
-1. **The Tools**:
-   - R: Programming language for statistics
-   - RStudio: User-friendly workspace
-   - Quarto: Reproducible documents combining code, text, and output
+### 1. The Tools
 
-2. **R Basics**:
-   - Data types: numeric, character, logical, factor
-   - Data structures: vectors, data frames
-   - Variables, assignment operator `<-`, and basic operations
+| Tool | Purpose |
+|------|---------|
+| **R** | Programming language for statistics and data analysis |
+| **RStudio** | User-friendly IDE that makes working with R easier |
+| **Quarto** | Create reproducible documents combining code, text, and output |
 
-3. **Data Wrangling with `dplyr`**:
-   - `select()`: Choose columns
-   - `filter()`: Choose rows
-   - `mutate()`: Create/modify columns
-   - `arrange()`: Sort data
-   - `summarize()`: Calculate statistics
-   - `group_by()`: Group operations (the power move!)
-   - Pipe operator `|>`: Chain operations together
+### 2. R Basics
+
+- **Data types:** numeric, character, logical, factor
+- **Data structures:** vectors (1D) and data frames (2D tables)
+- **Variables and assignment:** Use `<-` to store values
+- **Getting help:** `?function_name` and `??search_term`
+
+### 3. Data Wrangling with dplyr
+
+| Function | Purpose |
+|----------|---------|
+| `select()` | Choose columns (variables) |
+| `filter()` | Choose rows based on conditions |
+| `mutate()` | Create or modify columns |
+| `arrange()` | Sort data |
+| `summarize()` | Calculate statistics |
+| `group_by()` | Apply operations by group |
+| `|>` or `%>%`(pipe) | Chain operations together |
+
+**The key insight:** You can chain these functions together with `|>` to create powerful, readable analysis pipelines.
 
 
 ## Practice Time!

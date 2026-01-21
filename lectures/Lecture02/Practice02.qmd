@@ -164,10 +164,10 @@ departments
 # Calculate average age
 mean(___)  # Fill in the vector name
 
-# Find the youngest patient
+# Find the youngest patient's age
 min(___)  # Fill in the vector name
 
-# Find the oldest patient
+# Find the oldest patient's age
 max(___)  # Fill in the vector name
 ```
 
@@ -178,7 +178,7 @@ max(___)  # Fill in the vector name
 
 - the average age of the patients is: ___
 - the minimum age of the patients is: ___
-- the mamximum age of the patients is: ___
+- the maximum age of the patients is: ___
 :::
 
 
@@ -212,24 +212,11 @@ ages[c(___, ___)]  # Fill in the positions
 
 ## Generate Patient Dataset
 
-Run this code to create a patient dataset:
+Run this code to load a patient dataset:
 
 ```{r}
 # Patient data
-patients <- data.frame(
-  patient_id = 101:110,
-  name = c("Alice Smith", "Bob Johnson", "Carol White", "David Brown",
-           "Eve Davis", "Frank Miller", "Grace Lee", "Henry Wilson",
-           "Iris Moore", "Jack Taylor"),
-  age = c(45, 67, 32, 58, 71, 44, 55, 62, 48, 39),
-  department = c("ER", "ICU", "Surgery", "ER", "Cardiology",
-                 "ER", "Orthopedics", "ICU", "Surgery", "ER"),
-  los = c(2, 7, 3, 1, 5, 2, 4, 8, 3, 1),
-  total_charges = c(2500, 12000, 5000, 1500, 8000,
-                    2800, 6000, 15000, 5500, 1800),
-  readmitted = c(FALSE, TRUE, FALSE, FALSE, TRUE,
-                 FALSE, FALSE, TRUE, FALSE, FALSE)
-)
+patients <- read_csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week02_patients_data.csv")
 
 # View the data
 patients
@@ -304,26 +291,13 @@ patients[___:___, ]  # Fill in the range
 
 ## Generate Healthcare Dataset
 
-Run this code to create a larger dataset for analysis:
+Run this code to load a larger dataset for analysis:
 
 ```{r}
 # Generate hospital performance data
-healthcare_data <- tibble(
-  patient_id = 1:100,
-  age = sample(18:90, 100, replace = TRUE),
-  gender = sample(c("Male", "Female"), 100, replace = TRUE),
-  department = sample(c("Emergency", "Cardiology", "Orthopedics", "Surgery"),
-                      100, replace = TRUE),
-  los = sample(1:14, 100, replace = TRUE),
-  total_charges = round(runif(100, 1000, 50000), 2),
-  insurance = sample(c("Medicare", "Medicaid", "Private", "Self-Pay"),
-                     100, replace = TRUE),
-  readmitted_30day = sample(c(TRUE, FALSE), 100, replace = TRUE,
-                            prob = c(0.15, 0.85))
-)
-
+practice_data <- read_csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week02_practice_data.csv")
 # View first few rows
-head(healthcare_data)
+head(practice_data)
 ```
 
 ## Task 3.1: Select Columns
@@ -335,7 +309,7 @@ Choose specific columns from the dataset:
 #| eval: false
 
 # Select patient_id, age, and department
-healthcare_data |>
+practice_data |>
   select(___, ___, ___)
 ```
 
@@ -344,7 +318,7 @@ healthcare_data |>
 #| eval: false
 
 # Select all columns from patient_id to department
-healthcare_data |>
+practice_data |>
   select(___:___)
 ```
 
@@ -353,7 +327,7 @@ healthcare_data |>
 #| eval: false
 
 # Select all columns that start with "total"
-healthcare_data |>
+practice_data |>
   select(starts_with("___"))
 ```
 
@@ -366,7 +340,7 @@ Select specific patients based on criteria:
 #| eval: false
 
 # Find all patients age 65 or older
-healthcare_data |>
+practice_data |>
   filter(___ >= ___)
 ```
 
@@ -375,7 +349,7 @@ healthcare_data |>
 #| eval: false
 
 # Find all Emergency department patients
-healthcare_data |>
+practice_data |>
   filter(___ == "___")
 ```
 
@@ -384,7 +358,7 @@ healthcare_data |>
 #| eval: false
 
 # Find senior patients (age >= 65) in the Emergency department
-healthcare_data |>
+practice_data |>
   filter(___ >= ___, ___ == "___")
 ```
 
@@ -393,7 +367,7 @@ healthcare_data |>
 #| eval: false
 
 # Find patients in either Cardiology or Surgery
-healthcare_data |>
+practice_data |>
   filter(department %in% c("___", "___"))
 ```
 
@@ -414,7 +388,7 @@ Create new variables based on existing ones:
 #| eval: false
 
 # Create a cost_per_day column
-healthcare_data |>
+practice_data |>
   mutate(cost_per_day = ___ / ___) |>
   select(patient_id, total_charges, los, cost_per_day)
 ```
@@ -424,7 +398,7 @@ healthcare_data |>
 #| eval: false
 
 # Create age groups
-healthcare_data |>
+practice_data |>
   mutate(
     age_group = case_when(
       age < ___ ~ "Under 40",
@@ -440,7 +414,7 @@ healthcare_data |>
 #| eval: false
 
 # Flag high-cost patients (total charges > $25,000)
-healthcare_data |>
+practice_data |>
   mutate(high_cost = ___ > ___) |>
   select(patient_id, total_charges, high_cost)
 ```
@@ -454,7 +428,7 @@ Order your data:
 #| eval: false
 
 # Sort by age (youngest first)
-healthcare_data |>
+practice_data |>
   arrange(___) |>
   select(patient_id, age, department)
 ```
@@ -465,7 +439,7 @@ healthcare_data |>
 
 # Sort by total charges (highest first)
 # Hint: use desc() for descending order
-healthcare_data |>
+practice_data |>
   arrange(desc(___)) |>
   select(patient_id, total_charges)
 ```
@@ -475,7 +449,7 @@ healthcare_data |>
 #| eval: false
 
 # Sort by department, then by age within each department
-healthcare_data |>
+practice_data |>
   arrange(___, ___) |>
   select(patient_id, department, age)
 ```
@@ -489,7 +463,7 @@ Calculate summary statistics:
 #| eval: false
 
 # Calculate overall statistics
-healthcare_data |>
+practice_data |>
   summarize(
     total_patients = n(),
     mean_age = mean(___),
@@ -517,7 +491,7 @@ This is where dplyr becomes powerful! Calculate statistics for each group:
 #| eval: false
 
 # Statistics by department
-healthcare_data |>
+practice_data |>
   group_by(___) |>
   summarize(
     patient_count = n(),
@@ -542,7 +516,7 @@ healthcare_data |>
 #| eval: false
 
 # Statistics by insurance type
-healthcare_data |>
+practice_data |>
   group_by(___) |>
   summarize(
     patient_count = n(),
@@ -561,7 +535,7 @@ Put it all together! Create a complex analysis pipeline:
 #| eval: false
 
 # Analyze high-cost senior patients by department
-healthcare_data |>
+practice_data |>
   filter(___ >= 65) |>  # Seniors only
   mutate(high_cost = total_charges > 25000) |>  # Flag expensive cases
   group_by(___, ___) |>  # Group by department and high_cost
@@ -578,190 +552,6 @@ healthcare_data |>
 ::: {.callout-note icon=false}
 ## Your Answer
 
-:::
-
----
-
-# Activity 4: Create Your First Quarto Report {.activity-time data-time="15 min"}
-
-## Task 4.1: Set Up Your Report
-
-Create a new Quarto document:
-
-1. In RStudio: File → New File → Quarto Document
-2. Title: "Hospital Readmission Analysis"
-3. Author: Your name
-4. Format: HTML
-5. Click "Create"
-
-## Task 4.2: Customize the YAML Header
-
-The YAML header controls your document's appearance. Modify it to:
-
-```yaml
----
-title: "Hospital Readmission Analysis"
-author: "Your Name"  # Add your name here
-date: today
-format:
-  html:
-    toc: true  # Add a table of contents
-    code-fold: show  # Allow readers to hide code
-    theme: cosmo  # Use a nice theme
----
-```
-
-## Task 4.3: Add Code Chunk Options
-
-Practice controlling how code appears in your output:
-
-````markdown
-```{{r}}
-#| label: setup
-#| echo: false
-#| message: false
-
-# This chunk runs but doesn't show in the output
-library(tidyverse)
-set.seed(2026)
-```
-````
-
-**Your turn**: Create a setup chunk that:
-
-1. Loads the tidyverse
-2. Doesn't show the code (`echo: false`)
-3. Hides messages (`message: false`)
-
-## Task 4.4: Generate and Display Data
-
-Create a code chunk that generates patient data:
-
-````markdown
-```{{r}}
-#| label: generate-data
-
-# Generate sample hospital data
-healthcare_data <- tibble(
-  patient_id = 1:100,
-  age = sample(18:90, 100, replace = TRUE),
-  department = sample(c("Emergency", "Cardiology", "Orthopedics", "Surgery"),
-                      100, replace = TRUE),
-  readmitted_30day = sample(c(TRUE, FALSE), 100, replace = TRUE,
-                            prob = c(0.15, 0.85))
-)
-
-# Display first few rows
-head(healthcare_data)
-```
-````
-
-## Task 4.5: Use Inline R Code
-
-::: {.callout-tip}
-## New Helper Function: `n_distinct()`
-
-`n_distinct()` is a dplyr function that counts the number of unique values in a variable.
-
-**Example**:
-
-- `n_distinct(healthcare_data$department)` counts how many unique departments exist
-- This is useful for summarizing categorical variables in your reports
-:::
-
-Add text that uses inline R code to show results:
-
-```markdown
-## Data Overview
-
-The dataset contains `r nrow(healthcare_data)` patients across
-`r n_distinct(healthcare_data$department)` departments.
-The overall readmission rate is `r round(mean(healthcare_data$readmitted_30day) * 100, 1)`%.
-```
-
-**Your turn**: Fill in the blanks to add inline R code to your markdown text:
-
-```{r}
-#| eval: false
-- Total patients: `r nrow(___)`
-- Number of departments: `r n_distinct(healthcare_data$___)`
-- Readmission rate: `r round(mean(healthcare_data$___) * 100, 1)`%
-```
-
-
-**Hint**: Replace `___` with the appropriate variable or column names. This is markdown text with inline R code (using backtick-r syntax), not an R code chunk.
-
-## Task 4.6: Add Analysis Code
-
-Create a code chunk that analyzes readmission rates by department:
-
-````markdown
-```{{r}}
-#| label: readmission-analysis
-
-# Calculate readmission rates by department
-readmit_summary <- healthcare_data |>
-  group_by(___) |>
-  summarize(
-    total_patients = n(),
-    readmissions = sum(___),
-    readmit_rate = round(mean(___) * 100, 1)
-  ) |>
-  arrange(desc(readmit_rate))
-
-# Display the results
-readmit_summary
-```
-````
-
-Fill in the blanks:
-
-- Group by: `___` (which variable?)
-- Sum of readmissions: `___` (which variable?)
-- Mean readmission rate: `___` (which variable?)
-
-## Task 4.7: Add Narrative Interpretation
-
-After your analysis, add text interpreting the results:
-
-```markdown
-## Key Findings
-
-Based on the analysis, the department with the highest readmission rate is
-[fill in department name], with a rate of [fill in percentage]%.
-```
-
-## Task 4.8: Render Your Report
-
-1. Click the "Render" button (or press Cmd/Ctrl + Shift + K)
-2. View the HTML output
-3. Check that:
-   - Table of contents appears
-   - Inline R code shows actual numbers
-   - Code chunks run and display results
-
-## Task 4.9: Experiment with Options
-
-Try changing these code chunk options and re-render:
-
-- Change `echo: false` to `echo: true` - what happens?
-- Change `code-fold: true` to `code-fold: false` in YAML - what happens?
-- Try `eval: false` on one code chunk - what happens?
-
-::: {.callout-note icon=false}
-## Reflection Questions
-
-1. **What's the advantage of using inline R code instead of typing numbers directly?**
-
-<br>
-
-2. **When would you use `echo: false`? When would you use `echo: true`?**
-
-<br>
-
-3. **What happens when you re-render with different data (try changing the seed)?**
-
-<br>
 :::
 
 ---
@@ -858,40 +648,40 @@ patients[1:3, ]
 ### Task 3.1
 
 ```{r}
-healthcare_data |>
+practice_data |>
   select(patient_id, age, department)
 
-healthcare_data |>
+practice_data |>
   select(patient_id:department)
 
-healthcare_data |>
+practice_data |>
   select(starts_with("total"))
 ```
 
 ### Task 3.2
 
 ```{r}
-healthcare_data |>
+practice_data |>
   filter(age >= 65)
 
-healthcare_data |>
+practice_data |>
   filter(department == "Emergency")
 
-healthcare_data |>
+practice_data |>
   filter(age >= 65, department == "Emergency")
 
-healthcare_data |>
+practice_data |>
   filter(department %in% c("Cardiology", "Surgery"))
 ```
 
 ### Task 3.3
 
 ```{r}
-healthcare_data |>
+practice_data |>
   mutate(cost_per_day = total_charges / los) |>
   select(patient_id, total_charges, los, cost_per_day)
 
-healthcare_data |>
+practice_data |>
   mutate(
     age_group = case_when(
       age < 40 ~ "Under 40",
@@ -901,7 +691,7 @@ healthcare_data |>
   ) |>
   select(patient_id, age, age_group)
 
-healthcare_data |>
+practice_data |>
   mutate(high_cost = total_charges > 25000) |>
   select(patient_id, total_charges, high_cost)
 ```
@@ -909,15 +699,15 @@ healthcare_data |>
 ### Task 3.4
 
 ```{r}
-healthcare_data |>
+practice_data |>
   arrange(age) |>
   select(patient_id, age, department)
 
-healthcare_data |>
+practice_data |>
   arrange(desc(total_charges)) |>
   select(patient_id, total_charges)
 
-healthcare_data |>
+practice_data |>
   arrange(department, age) |>
   select(patient_id, department, age)
 ```
@@ -925,7 +715,7 @@ healthcare_data |>
 ### Task 3.5
 
 ```{r}
-healthcare_data |>
+practice_data |>
   summarize(
     total_patients = n(),
     mean_age = mean(age),
@@ -938,7 +728,7 @@ healthcare_data |>
 ### Task 3.6
 
 ```{r}
-healthcare_data |>
+practice_data |>
   group_by(department) |>
   summarize(
     patient_count = n(),
@@ -948,7 +738,7 @@ healthcare_data |>
     readmit_rate = mean(readmitted_30day)
   )
 
-healthcare_data |>
+practice_data |>
   group_by(insurance) |>
   summarize(
     patient_count = n(),
@@ -961,7 +751,7 @@ healthcare_data |>
 ### Task 3.7
 
 ```{r}
-healthcare_data |>
+practice_data |>
   filter(age >= 65) |>
   mutate(high_cost = total_charges > 25000) |>
   group_by(department, high_cost) |>
