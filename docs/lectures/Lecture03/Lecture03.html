@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-01-01">
+<meta name="dcterms.date" content="2026-01-26">
 
 <title>Basic Statistical Concepts (Lecture Notes) – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
 <style>
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -42,7 +77,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-3d289a51303b78e0a7825b9e9ec0fce7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-cbff5a49fd4941ddeb1237c8d140a4bc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -213,12 +248,14 @@ window.Quarto = {
   <li><a href="#central-tendency-the-typical-value" id="toc-central-tendency-the-typical-value" class="nav-link" data-scroll-target="#central-tendency-the-typical-value"><span class="header-section-number">3.1</span> Central Tendency: The “Typical” Value</a>
   <ul class="collapse">
   <li><a href="#the-three-measures" id="toc-the-three-measures" class="nav-link" data-scroll-target="#the-three-measures"><span class="header-section-number">3.1.1</span> The Three Measures</a></li>
-  <li><a href="#example-length-of-stay-for-nine-patients" id="toc-example-length-of-stay-for-nine-patients" class="nav-link" data-scroll-target="#example-length-of-stay-for-nine-patients"><span class="header-section-number">3.1.2</span> Example: Length of Stay for Nine Patients</a></li>
+  <li><a href="#example-length-of-stay-for-patients" id="toc-example-length-of-stay-for-patients" class="nav-link" data-scroll-target="#example-length-of-stay-for-patients"><span class="header-section-number">3.1.2</span> Example: Length of Stay for Patients</a></li>
+  <li><a href="#how-to-calculate-in-r" id="toc-how-to-calculate-in-r" class="nav-link" data-scroll-target="#how-to-calculate-in-r"><span class="header-section-number">3.1.3</span> How to Calculate in R</a></li>
   </ul></li>
   <li><a href="#dispersion-how-spread-out-is-the-data" id="toc-dispersion-how-spread-out-is-the-data" class="nav-link" data-scroll-target="#dispersion-how-spread-out-is-the-data"><span class="header-section-number">3.2</span> Dispersion: How Spread Out is the Data?</a>
   <ul class="collapse">
   <li><a href="#measures-of-dispersion" id="toc-measures-of-dispersion" class="nav-link" data-scroll-target="#measures-of-dispersion"><span class="header-section-number">3.2.1</span> Measures of Dispersion</a></li>
   <li><a href="#calculating-dispersion-step-by-step-example" id="toc-calculating-dispersion-step-by-step-example" class="nav-link" data-scroll-target="#calculating-dispersion-step-by-step-example"><span class="header-section-number">3.2.2</span> Calculating Dispersion: Step-by-Step Example</a></li>
+  <li><a href="#how-to-calculate-in-r-1" id="toc-how-to-calculate-in-r-1" class="nav-link" data-scroll-target="#how-to-calculate-in-r-1"><span class="header-section-number">3.2.3</span> How to Calculate in R</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#scales-of-measurement" id="toc-scales-of-measurement" class="nav-link" data-scroll-target="#scales-of-measurement"><span class="header-section-number">4</span> Scales of Measurement</a>
@@ -240,43 +277,38 @@ window.Quarto = {
   <li><a href="#left-skewed-negatively-skewed-distribution" id="toc-left-skewed-negatively-skewed-distribution" class="nav-link" data-scroll-target="#left-skewed-negatively-skewed-distribution"><span class="header-section-number">5.2.3</span> 3. Left-Skewed (Negatively Skewed) Distribution</a></li>
   <li><a href="#bimodal-distribution" id="toc-bimodal-distribution" class="nav-link" data-scroll-target="#bimodal-distribution"><span class="header-section-number">5.2.4</span> 4. Bimodal Distribution</a></li>
   </ul></li>
-  <li><a href="#decision-guide-choosing-central-tendency-based-on-shape" id="toc-decision-guide-choosing-central-tendency-based-on-shape" class="nav-link" data-scroll-target="#decision-guide-choosing-central-tendency-based-on-shape"><span class="header-section-number">5.3</span> Decision Guide: Choosing Central Tendency Based on Shape</a></li>
   </ul></li>
-  <li><a href="#synthesis-choosing-the-right-statistics" id="toc-synthesis-choosing-the-right-statistics" class="nav-link" data-scroll-target="#synthesis-choosing-the-right-statistics"><span class="header-section-number">6</span> Synthesis: Choosing the Right Statistics</a>
-  <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">6.1</span> Overview</a></li>
-  <li><a href="#summary-table-statistics-by-measurement-scale" id="toc-summary-table-statistics-by-measurement-scale" class="nav-link" data-scroll-target="#summary-table-statistics-by-measurement-scale"><span class="header-section-number">6.2</span> Summary Table: Statistics by Measurement Scale</a></li>
-  </ul></li>
+  <li><a href="#synthesis-choosing-the-right-statistics" id="toc-synthesis-choosing-the-right-statistics" class="nav-link" data-scroll-target="#synthesis-choosing-the-right-statistics"><span class="header-section-number">6</span> Synthesis: Choosing the Right Statistics</a></li>
   <li><a href="#introduction-to-statistical-inference" id="toc-introduction-to-statistical-inference" class="nav-link" data-scroll-target="#introduction-to-statistical-inference"><span class="header-section-number">7</span> Introduction to Statistical Inference</a>
   <ul class="collapse">
   <li><a href="#from-description-to-inference" id="toc-from-description-to-inference" class="nav-link" data-scroll-target="#from-description-to-inference"><span class="header-section-number">7.1</span> From Description to Inference</a></li>
-  <li><a href="#why-we-need-hypothesis-testing" id="toc-why-we-need-hypothesis-testing" class="nav-link" data-scroll-target="#why-we-need-hypothesis-testing"><span class="header-section-number">7.2</span> Why We Need Hypothesis Testing</a></li>
-  <li><a href="#the-logic-of-null-hypothesis-testing" id="toc-the-logic-of-null-hypothesis-testing" class="nav-link" data-scroll-target="#the-logic-of-null-hypothesis-testing"><span class="header-section-number">7.3</span> The Logic of Null Hypothesis Testing</a></li>
-  <li><a href="#key-terminology" id="toc-key-terminology" class="nav-link" data-scroll-target="#key-terminology"><span class="header-section-number">7.4</span> Key Terminology</a>
+  <li><a href="#the-logic-of-null-hypothesis-testing" id="toc-the-logic-of-null-hypothesis-testing" class="nav-link" data-scroll-target="#the-logic-of-null-hypothesis-testing"><span class="header-section-number">7.2</span> The Logic of Null Hypothesis Testing</a></li>
+  <li><a href="#key-terminology" id="toc-key-terminology" class="nav-link" data-scroll-target="#key-terminology"><span class="header-section-number">7.3</span> Key Terminology</a>
   <ul class="collapse">
-  <li><a href="#null-hypothesis-h₀" id="toc-null-hypothesis-h₀" class="nav-link" data-scroll-target="#null-hypothesis-h₀"><span class="header-section-number">7.4.1</span> Null Hypothesis (H₀)</a></li>
-  <li><a href="#alternative-hypothesis-h₁-or-hₐ" id="toc-alternative-hypothesis-h₁-or-hₐ" class="nav-link" data-scroll-target="#alternative-hypothesis-h₁-or-hₐ"><span class="header-section-number">7.4.2</span> Alternative Hypothesis (H₁ or Hₐ)</a></li>
-  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value"><span class="header-section-number">7.4.3</span> P-value</a></li>
+  <li><a href="#null-hypothesis-h₀" id="toc-null-hypothesis-h₀" class="nav-link" data-scroll-target="#null-hypothesis-h₀"><span class="header-section-number">7.3.1</span> Null Hypothesis (H₀)</a></li>
+  <li><a href="#alternative-hypothesis-h₁-or-hₐ" id="toc-alternative-hypothesis-h₁-or-hₐ" class="nav-link" data-scroll-target="#alternative-hypothesis-h₁-or-hₐ"><span class="header-section-number">7.3.2</span> Alternative Hypothesis (H₁ or Hₐ)</a></li>
+  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value"><span class="header-section-number">7.3.3</span> P-value</a></li>
   </ul></li>
-  <li><a href="#visualizing-the-null-hypothesis" id="toc-visualizing-the-null-hypothesis" class="nav-link" data-scroll-target="#visualizing-the-null-hypothesis"><span class="header-section-number">7.5</span> Visualizing the Null Hypothesis</a></li>
-  <li><a href="#understanding-p-values" id="toc-understanding-p-values" class="nav-link" data-scroll-target="#understanding-p-values"><span class="header-section-number">7.6</span> Understanding P-values</a></li>
+  <li><a href="#visualizing-the-null-hypothesis" id="toc-visualizing-the-null-hypothesis" class="nav-link" data-scroll-target="#visualizing-the-null-hypothesis"><span class="header-section-number">7.4</span> Visualizing the Null Hypothesis</a></li>
+  <li><a href="#understanding-p-values" id="toc-understanding-p-values" class="nav-link" data-scroll-target="#understanding-p-values"><span class="header-section-number">7.5</span> Understanding P-values</a></li>
+  <li><a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors"><span class="header-section-number">7.6</span> Type I and Type II Errors</a>
+  <ul class="collapse">
+  <li><a href="#type-i-error-false-positive" id="toc-type-i-error-false-positive" class="nav-link" data-scroll-target="#type-i-error-false-positive"><span class="header-section-number">7.6.1</span> Type I Error (False Positive)</a></li>
+  <li><a href="#type-ii-error-false-negative" id="toc-type-ii-error-false-negative" class="nav-link" data-scroll-target="#type-ii-error-false-negative"><span class="header-section-number">7.6.2</span> Type II Error (False Negative)</a></li>
+  <li><a href="#the-trade-off" id="toc-the-trade-off" class="nav-link" data-scroll-target="#the-trade-off"><span class="header-section-number">7.6.3</span> The Trade-off</a></li>
+  </ul></li>
+  <li><a href="#the-0.05-threshold" id="toc-the-0.05-threshold" class="nav-link" data-scroll-target="#the-0.05-threshold"><span class="header-section-number">7.7</span> The 0.05 Threshold</a></li>
   </ul></li>
   <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">8</span> Confidence Intervals</a>
   <ul class="collapse">
   <li><a href="#calculating-a-confidence-interval" id="toc-calculating-a-confidence-interval" class="nav-link" data-scroll-target="#calculating-a-confidence-interval"><span class="header-section-number">8.1</span> Calculating a Confidence Interval</a></li>
   <li><a href="#using-confidence-intervals-for-decision-making" id="toc-using-confidence-intervals-for-decision-making" class="nav-link" data-scroll-target="#using-confidence-intervals-for-decision-making"><span class="header-section-number">8.2</span> Using Confidence Intervals for Decision-Making</a></li>
-  <li><a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors"><span class="header-section-number">8.3</span> Type I and Type II Errors</a>
-  <ul class="collapse">
-  <li><a href="#type-i-error-false-positive" id="toc-type-i-error-false-positive" class="nav-link" data-scroll-target="#type-i-error-false-positive"><span class="header-section-number">8.3.1</span> Type I Error (False Positive)</a></li>
-  <li><a href="#type-ii-error-false-negative" id="toc-type-ii-error-false-negative" class="nav-link" data-scroll-target="#type-ii-error-false-negative"><span class="header-section-number">8.3.2</span> Type II Error (False Negative)</a></li>
-  </ul></li>
-  <li><a href="#the-0.05-threshold" id="toc-the-0.05-threshold" class="nav-link" data-scroll-target="#the-0.05-threshold"><span class="header-section-number">8.4</span> The 0.05 Threshold</a></li>
   </ul></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">9</span> Key Takeaways</a>
   <ul class="collapse">
   <li><a href="#main-concepts-to-remember" id="toc-main-concepts-to-remember" class="nav-link" data-scroll-target="#main-concepts-to-remember"><span class="header-section-number">9.1</span> Main Concepts to Remember</a></li>
   </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">10</span> Further Reading</a></li>
+  <li><a href="#further-reading-and-resources" id="toc-further-reading-and-resources" class="nav-link" data-scroll-target="#further-reading-and-resources"><span class="header-section-number">10</span> Further Reading and Resources</a></li>
   </ul>
 </nav>
 </nav>
@@ -290,6 +322,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Basic Statistical Concepts (Lecture Notes)</h1>
+<p class="subtitle lead">Week 03</p>
 </div>
 
 
@@ -300,7 +333,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2026</p>
+      <p class="date">January 26, 2026</p>
     </div>
   </div>
   
@@ -316,6 +349,8 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <section id="why-statistical-concepts-matter-in-healthcare-management" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="why-statistical-concepts-matter-in-healthcare-management"><span class="header-section-number">1.1</span> Why Statistical Concepts Matter in Healthcare Management</h2>
+<p>Imagine you are presenting to your hospital’s board: “Our average patient satisfaction score is 5.2 out of 7.” A board member asks, “Is that good? How does it compare to last quarter? Are all departments performing similarly?”</p>
+<p>Without understanding central tendency, dispersion, and how to interpret differences, you might misrepresent your data, or worse, make decisions based on misleading numbers. This lecture gives you the tools to answer these questions confidently.</p>
 <p>As a healthcare manager, you make decisions daily that affect:</p>
 <ul>
 <li><strong>Patient outcomes</strong>: Quality of care, safety, satisfaction</li>
@@ -338,28 +373,27 @@ window.Quarto = {
 <p>By the end of this session, you will be able to:</p>
 <ol type="1">
 <li><strong>Understand</strong> commonly used measures of central tendency (mean, median, mode) and dispersion (range, variance, standard deviation)</li>
-<li><strong>Identify</strong> the four scales of measurement (or data type) and select appropriate statistics for each</li>
+<li><strong>Identify</strong> the four scales of measurement (also known as data types) and select appropriate statistics for each</li>
 <li><strong>Recognize</strong> how data distribution shapes affect the choice of central tendency measures</li>
-<li><strong>Understand</strong> confidence intervals and their role in quantifying uncertainty</li>
-<li><strong>Understand</strong> the basic logic of hypothesis testing and what p-values mean</li>
-<li><strong>Apply</strong> these concepts to healthcare management decision-making</li>
+<li><strong>Understand</strong> the basic logic of hypothesis testing and how to account for uncertainty in the data</li>
 </ol>
 <hr>
 </section>
 <section id="central-tendency-and-dispersion-measures" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Central Tendency and Dispersion Measures</h1>
 <p>When working with healthcare data, we face a common challenge: <strong>how do we make sense of hundreds or thousands of data points?</strong></p>
-<p>Imagine describing patient satisfaction by reading each score individually: “Patient 1 scored 2, Patient 2 scored 4, Patient 3 scored 6…” With 200 patients, this provides too much detail to identify meaningful patterns.</p>
+<p>Imagine you are describing patient satisfaction by reading each score individually, like “Patient 1 scored 2, Patient 2 scored 4, Patient 3 scored 6…” With 200 patients, this provides too much detail to identify meaningful patterns.</p>
 <p>A good solution is summarizing data using two key types of measures:</p>
 <ul>
-<li>A representative value that indicates where the “center” of the data lies (Central tendency)</li>
-<li>Measures that describe how spread out the data is around that center (dispersion)</li>
+<li>A <strong>representative value</strong> that indicates where the “center” of the data lies (Central tendency)</li>
+<li>Measures that describe how <strong>spread</strong> out the data is around that center (dispersion)</li>
 </ul>
 <p>Together, these summaries help us understand the overall pattern efficiently and communicate findings clearly.</p>
 <p>In this section, we’ll learn the most commonly used central tendency and dispersion measures, what they tell us, and how to calculate them.</p>
 <hr>
 <section id="central-tendency-the-typical-value" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="central-tendency-the-typical-value"><span class="header-section-number">3.1</span> Central Tendency: The “Typical” Value</h2>
+<p><strong>Central tendency</strong> is a statistical summary that identifies a single value as representative of an entire distribution. It aims to describe the “center” of a dataset, providing a typical value useful for summarizing large amounts of data.</p>
 <p>Central tendency measures answer questions like:</p>
 <ul>
 <li>What is the typical length of stay for hip replacement patients?</li>
@@ -368,6 +402,12 @@ window.Quarto = {
 </ul>
 <section id="the-three-measures" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="the-three-measures"><span class="header-section-number">3.1.1</span> The Three Measures</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/image1.png" class="img-fluid figure-img"></p>
+<figcaption>Central Tendency Measures. Source: <a href="https://learningstatisticswithr.com/lsr-0.6.pdf">Learning Statistics with R</a></figcaption>
+</figure>
+</div>
 <section id="mean-arithmetic-average" class="level4" data-number="3.1.1.1">
 <h4 data-number="3.1.1.1" class="anchored" data-anchor-id="mean-arithmetic-average"><span class="header-section-number">3.1.1.1</span> Mean (Arithmetic Average)</h4>
 <p><span class="math display">\[\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n} = \frac{x_1 + x_2 + ... + x_n}{n}\]</span></p>
@@ -382,7 +422,7 @@ window.Quarto = {
 <h4 data-number="3.1.1.2" class="anchored" data-anchor-id="median"><span class="header-section-number">3.1.1.2</span> Median</h4>
 <ul>
 <li>The <strong>middle value</strong> when data is arranged in order</li>
-<li>If n is even, it’s the average of the two middle values</li>
+<li>If <span class="math inline">\(n\)</span> is even, it’s the average of the two middle values (e.g., for 2, 4, 6, 8, the median is 5)</li>
 <li>Less affected by outliers</li>
 <li>Better representation when data is skewed</li>
 </ul>
@@ -397,61 +437,17 @@ window.Quarto = {
 <hr>
 </section>
 </section>
-<section id="example-length-of-stay-for-nine-patients" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="example-length-of-stay-for-nine-patients"><span class="header-section-number">3.1.2</span> Example: Length of Stay for Nine Patients</h3>
-<p>Let’s calculate central tendency measures for these hospital length of stay values (in days):</p>
-<p><strong>Patient LOS data</strong>: 2, 3, 3, 4, 5, 5, 6, 8, 15 days</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table table-striped table-hover caption-top table-sm small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Measure</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Mean</td>
-<td style="text-align: left;">5.67</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Median</td>
-<td style="text-align: left;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Mode</td>
-<td style="text-align: left;">3, 5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Min</td>
-<td style="text-align: left;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Max</td>
-<td style="text-align: left;">15</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">9</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><strong>Calculations</strong>:</p>
-<ul>
-<li><strong>Mean</strong>: (2 + 3 + 3 + 4 + 5 + 5 + 6 + 8 + 15) / 9 = 51 / 9 = <strong>5.67 days</strong></li>
-<li><strong>Median</strong>: Arrange in order and find middle value (5th value) = <strong>5 days</strong></li>
-<li><strong>Mode</strong>: Most frequent values = <strong>3 days and 5 days</strong> (both appear twice)</li>
-</ul>
-<p><strong>Visualization</strong>:</p>
+<section id="example-length-of-stay-for-patients" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="example-length-of-stay-for-patients"><span class="header-section-number">3.1.2</span> Example: Length of Stay for Patients</h3>
+<p>Imagine a small post-surgical recovery unit wherein <strong>eleven</strong> patients were discharged last week. While most recovered typically, one experienced complications. Their lengths of stay (LOS) in days were:</p>
+<p><strong>Patient LOS data</strong>: 2, 2, 2, 3, 3, 4, 5, 5, 6, 8, 15 days</p>
+<p>Let’s understand how we can describe the central tendency of the data.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-los-central" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-los-central-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Lecture03_files/figure-html/fig-los-central-1.png" class="img-fluid figure-img" width="672">
+<img src="Lecture03_files/figure-html/fig-los-central-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-los-central-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Length of Stay with Central Tendency Measures
@@ -460,56 +456,119 @@ Figure&nbsp;1: Length of Stay with Central Tendency Measures
 </div>
 </div>
 </div>
+<p><strong>Calculations</strong>:</p>
+<ul>
+<li><strong>Mean</strong>: (2 + 2 + 2 + 3 + 3 + 4 + 5 + 5 + 6 + 8 + 15) / 11 = 55 / 11 = <strong>5 days</strong></li>
+<li><strong>Median</strong>: Arrange in order and find middle value (6th value) = <strong>4 days</strong></li>
+<li><strong>Mode</strong>: Most frequent value = <strong>2 days</strong> (appears 3 times)</li>
+</ul>
+<p>This indicates that there is no single “best” measure of central tendency. The “right” choice depends on your specific question and the shape of your data. Checking and comparing all three measures helps you get the full story.</p>
+</section>
+<section id="how-to-calculate-in-r" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="how-to-calculate-in-r"><span class="header-section-number">3.1.3</span> How to Calculate in R</h3>
+<p>Now let’s take a look at how to calculate these measures in R.</p>
+<ul>
+<li><code>mean()</code>: Returns the mean of a data vector</li>
+<li><code>median()</code>: Returns the median of a data vector</li>
+<li><code>Mode()</code>: Returns the mode of a data vector (To use the <code>Mode()</code> function, we first need to load <code>DescTools</code> package)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create the data vector</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>los_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">15</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Calculate Mean</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>los_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(los_data)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>los_mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Calculate Median</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>los_median <span class="ot">&lt;-</span> <span class="fu">median</span>(los_data)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>los_median</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Calculate Mode (we first need to load `DescTools` package))</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>los_mode <span class="ot">&lt;-</span> <span class="fu">Mode</span>(los_data)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>los_mode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2
+attr(,"freq")
+[1] 3</code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
 <section id="dispersion-how-spread-out-is-the-data" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="dispersion-how-spread-out-is-the-data"><span class="header-section-number">3.2</span> Dispersion: How Spread Out is the Data?</h2>
-<p>Now that we understand central tendency (where the center is), let’s learn about dispersion (how spread out the data is around that center).</p>
+<p>Now that we understand central tendency (where the center is), let’s learn about dispersion.</p>
+<p><strong>Dispersion</strong> refers to how spread out the data is around that center (i.e., the extent to which a distribution is stretched or squeezed). It tells us how much the values in our dataset differ from the mean and from each other.</p>
 <p><strong>Dispersion measures</strong> answer questions like:</p>
 <ul>
 <li>How consistent are our wait times? (Predictable vs.&nbsp;unpredictable)</li>
-<li>How much do patient outcomes vary across providers?</li>
+<li>How much do patient outcomes vary across providers (hospitals)?</li>
 <li>Is there high variability that needs investigation?</li>
 </ul>
-<p><strong>Why Dispersion Matters</strong></p>
-<p>Knowing the center isn’t enough. We also need to know how much variability exists around that center.</p>
-<p><strong>Example</strong>: Two hospitals both have an average wait time of 45 minutes, but:</p>
+<p>**Why Dispersion Matters?</p>
+<p>Knowing the center isn’t enough. We also need to know how much variability exists around that center. Variability often equates to <strong>risk</strong> or <strong>uncertainty</strong> in healthcare.</p>
+<p>Imagine you are an ambulance medic deciding where to take a critical patient. Two hospitals both have an <strong>average wait time of 45 minutes</strong>, but their consistency differs wildly:</p>
 <ul>
-<li><strong>Hospital A</strong>: Wait times consistently 40-50 minutes → <strong>Low variability</strong> → Predictable</li>
-<li><strong>Hospital B</strong>: Wait times range from 10-120 minutes → <strong>High variability</strong> → Unpredictable</li>
+<li><strong>Hospital A</strong>: Wait times are consistently between <strong>40 and 50 minutes</strong>.
+<ul>
+<li>You <em>know</em> the patient will wait about 45 minutes. It is <strong>predictable</strong>. You can plan for it.</li>
+</ul></li>
+<li><strong>Hospital B</strong>: Wait times fluctuate wildly between <strong>10 minutes and 120 minutes</strong>.
+<ul>
+<li>You <em>might</em> get lucky (10 mins), or you <em>might</em> get stuck for 2 hours (120 mins). It is <strong>unpredictable</strong> and risky.</li>
+</ul></li>
 </ul>
-<p>Which provides a better patient experience? Which is easier to staff?</p>
+<p>Although their “centers” (means) are identical, Hospital A offers a “better” (safer, more reliable) process because it has <strong>lower dispersion</strong>. High dispersion is the enemy of quality control!</p>
 <hr>
 <section id="measures-of-dispersion" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="measures-of-dispersion"><span class="header-section-number">3.2.1</span> Measures of Dispersion</h3>
-<section id="range" class="level4" data-number="3.2.1.1">
-<h4 data-number="3.2.1.1" class="anchored" data-anchor-id="range"><span class="header-section-number">3.2.1.1</span> Range</h4>
+<p>So how do we quantify this “spread” or “risk”? Just as we have specific tools for central tendency, we have statistical measures to describe dispersion.</p>
+<p>Let’s explore the most commonly used measures: <strong>Frequencies or Proportions</strong>, <strong>Range</strong>, <strong>Variance</strong>, and <strong>Standard Deviation</strong>.</p>
+<section id="frequency-and-proportions" class="level4" data-number="3.2.1.1">
+<h4 data-number="3.2.1.1" class="anchored" data-anchor-id="frequency-and-proportions"><span class="header-section-number">3.2.1.1</span> Frequency and Proportions</h4>
+<p>One way we can describe the dispersion of data is by checking how observations are distributed across possible categories. This is especially useful when we can’t calculate a numerical average (like with “Insurance Type”).</p>
+<ul>
+<li><strong>Frequencies</strong>: The count of observations in each category.</li>
+<li><strong>Shares/Percentages</strong>: The proportion of observations in each category.</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<ul>
+<li><strong>Low Dispersion</strong>: 95% of patients have “Private Insurance” (Concentrated).</li>
+<li><strong>High Dispersion</strong>: 25% Private, 25% Medicare, 25% Medicaid, 25% Uninsured (Spread out).</li>
+</ul>
+</section>
+<section id="range" class="level4" data-number="3.2.1.2">
+<h4 data-number="3.2.1.2" class="anchored" data-anchor-id="range"><span class="header-section-number">3.2.1.2</span> Range</h4>
 <p><span class="math display">\[\text{Range} = \text{Maximum} - \text{Minimum}\]</span></p>
 <ul>
-<li>Simplest measure</li>
+<li>It indicates the difference between the largest and smallest values in a dataset</li>
+<li>Simplest measure of dispersion</li>
 <li><strong>Very sensitive to outliers</strong></li>
 <li>Useful for quick assessment</li>
 </ul>
 </section>
-<section id="variance" class="level4" data-number="3.2.1.2">
-<h4 data-number="3.2.1.2" class="anchored" data-anchor-id="variance"><span class="header-section-number">3.2.1.2</span> Variance</h4>
-<p><span class="math display">\[s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n}\]</span></p>
+<section id="variance" class="level4" data-number="3.2.1.3">
+<h4 data-number="3.2.1.3" class="anchored" data-anchor-id="variance"><span class="header-section-number">3.2.1.3</span> Variance</h4>
+<p><span class="math display">\[s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}\]</span></p>
 <ul>
 <li>Average of <strong>squared</strong> deviations from the mean</li>
-<li>Units are squared (e.g., days²) - hard to interpret directly</li>
+<li>Units are squared (e.g., days²), so it is hard to interpret directly</li>
 <li>Foundation for many statistical tests</li>
-<li>We divide by the number of data points</li>
 </ul>
 </section>
-<section id="standard-deviation-sd" class="level4" data-number="3.2.1.3">
-<h4 data-number="3.2.1.3" class="anchored" data-anchor-id="standard-deviation-sd"><span class="header-section-number">3.2.1.3</span> Standard Deviation (SD)</h4>
-<p><span class="math display">\[s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n}}\]</span></p>
+<section id="standard-deviation-sd" class="level4" data-number="3.2.1.4">
+<h4 data-number="3.2.1.4" class="anchored" data-anchor-id="standard-deviation-sd"><span class="header-section-number">3.2.1.4</span> Standard Deviation (SD)</h4>
+<p><span class="math display">\[s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}}\]</span></p>
 <ul>
 <li>Square root of variance</li>
-<li><strong>Same units as original data</strong> (e.g., days)</li>
+<li><strong>Same units as original data</strong> (e.g., days, not days²)</li>
 <li>Most commonly reported measure</li>
-<li>Interpretable: “Typical distance a value deviates from the mean”</li>
 </ul>
 <hr>
 </section>
@@ -517,62 +576,96 @@ Figure&nbsp;1: Length of Stay with Central Tendency Measures
 <section id="calculating-dispersion-step-by-step-example" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="calculating-dispersion-step-by-step-example"><span class="header-section-number">3.2.2</span> Calculating Dispersion: Step-by-Step Example</h3>
 <p>Let’s use the <strong>same length of stay data</strong> from our central tendency example:</p>
-<p><strong>Patient LOS data</strong>: 2, 3, 3, 4, 5, 5, 6, 8, 15 days</p>
+<p><strong>Patient LOS data</strong>: 2, 2, 2, 3, 3, 4, 5, 5, 6, 8, 15 days</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover caption-top table-sm small">
 <thead>
 <tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">LOS (days)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Deviation from Mean</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Squared Deviation</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Patient</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">LOS (days)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Deviation from Mean (5 days)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Squared Deviation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">-3.67</td>
-<td style="text-align: right;">13.44</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">-3</td>
+<td style="text-align: center;">9.0</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">-2.67</td>
-<td style="text-align: right;">7.11</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">-3</td>
+<td style="text-align: center;">9.0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">-2.67</td>
-<td style="text-align: right;">7.11</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">-3</td>
+<td style="text-align: center;">9.0</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">-1.67</td>
-<td style="text-align: right;">2.78</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">4.0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">-0.67</td>
-<td style="text-align: right;">0.44</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">4.0</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">-0.67</td>
-<td style="text-align: right;">0.44</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">1.0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">0.33</td>
-<td style="text-align: right;">0.11</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.0</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">2.33</td>
-<td style="text-align: right;">5.44</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">9.33</td>
-<td style="text-align: right;">87.11</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">9.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">100.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; font-weight: bold; background-color: rgba(230, 243, 255, 255) !important;">Sum</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(230, 243, 255, 255) !important;">55</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(230, 243, 255, 255) !important;">0</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(230, 243, 255, 255) !important;">146.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center; font-weight: bold; background-color: rgba(230, 243, 255, 255) !important;">Average (or Variance)</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(230, 243, 255, 255) !important;">5</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(230, 243, 255, 255) !important;">0</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(230, 243, 255, 255) !important;">14.6</td>
 </tr>
 </tbody>
 </table>
@@ -580,19 +673,70 @@ Figure&nbsp;1: Length of Stay with Central Tendency Measures
 </div>
 <p><strong>Calculation Steps</strong>:</p>
 <ol type="1">
-<li><strong>Calculate mean</strong>: (2 + 3 + 3 + 4 + 5 + 5 + 6 + 8 + 15) / 9 = 51 / 9 = <strong>5.67 days</strong></li>
-<li><strong>Calculate deviations</strong>: Each value minus the mean (see table above)</li>
-<li><strong>Square the deviations</strong>: Eliminates negative values, emphasizes larger deviations</li>
-<li><strong>Sum and average</strong>: Sum of squared deviations / (n-1) = <strong>Variance</strong> = 15.5 days²</li>
-<li><strong>Take square root</strong>: <strong>Standard Deviation</strong> = <strong>3.94 days</strong></li>
+<li><strong>Calculate mean</strong>: 55 / 11 = <strong>5 days</strong></li>
+<li><strong>Calculate deviations</strong>: Each value minus the mean (see table above; the third column)</li>
+<li><strong>Square the deviations</strong>: Eliminates negative values, emphasizes larger deviations (the fourth column)</li>
+<li><strong>Sum and average (Variance)</strong>: Sum of squared deviations / (n-1) = <strong>14.6 days²</strong></li>
+<li><strong>Take square root (SD)</strong>: <span class="math inline">\(\sqrt{\text{Variance}}\)</span> = <strong>3.82 days</strong></li>
 </ol>
+</section>
+<section id="how-to-calculate-in-r-1" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="how-to-calculate-in-r-1"><span class="header-section-number">3.2.3</span> How to Calculate in R</h3>
+<p>Let’s take a look at how to calculate these measures in R. By using the following functions, we can calculate dispersion measures.</p>
+<ul>
+<li><code>table()</code>: Calculates frequencies (counts) for categorical data</li>
+<li><code>prop.table()</code>: Calculates proportions (shares) from a table (i.e., combining <code>prop.table()</code> and <code>table()</code>)</li>
+<li><code>range()</code>: Returns the minimum and maximum</li>
+<li><code>var()</code>: Calculates the Variance (automatically uses n-1)</li>
+<li><code>sd()</code>: Calculates the Standard Deviation (automatically uses n-1)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Calculate Frequencies and Proportions </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequencies (Counts)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(los_example)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>los_example
+ 2  3  4  5  6  8 15 
+ 3  2  1  2  1  1  1 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportions (Shares)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(los_example))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>los_example
+         2          3          4          5          6          8         15 
+0.27272727 0.18181818 0.09090909 0.18181818 0.09090909 0.09090909 0.09090909 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Calculate Range</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>los_range <span class="ot">&lt;-</span> <span class="fu">range</span>(los_example)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>los_range </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2 15</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To get the single number (max - min):</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(los_range)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Calculate Variance</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>los_var <span class="ot">&lt;-</span> <span class="fu">var</span>(los_example)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>los_var</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14.6</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Calculate Standard Deviation</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>los_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(los_example)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>los_sd </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.820995</code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
 </section>
 <section id="scales-of-measurement" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Scales of Measurement</h1>
-<p>Now that you understand tools to describe data (mean, median, mode, SD, variance, range), let’s talk about <strong>when</strong> each tool is appropriate to use.</p>
+<p>Now that you understand tools to describe data (central tendency and dispersion measures), let’s talk about <strong>when</strong> each tool is appropriate to use.</p>
 <p>Not all statistics work with all types of data. Using the wrong statistic for your data type can lead to meaningless or misleading results.</p>
 <hr>
 <section id="what-are-measurement-scales" class="level2" data-number="4.1">
@@ -610,7 +754,7 @@ Figure&nbsp;1: Length of Stay with Central Tendency Measures
 </section>
 <section id="the-four-scales" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="the-four-scales"><span class="header-section-number">4.2</span> The Four Scales</h2>
-<p>There are four different types of measurement scale (nominal, ordinal, interval, ratio). Let’s take a look at them.</p>
+<p>There are four different types of measurement scales (nominal, ordinal, interval, and ratio). Let’s examine each.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-scales-hierarchy" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -629,8 +773,7 @@ Figure&nbsp;2: Hierarchy of Measurement Scales
 </section>
 <section id="nominal-scale" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="nominal-scale"><span class="header-section-number">4.3</span> Nominal Scale</h2>
-<p><strong>Definition</strong>:</p>
-<p>Numbers or labels indicate different categories or groups with NO inherent order.</p>
+<p>A nominal scale uses numbers or labels to classify data into distinct categories or groups that have <strong>no inherent order</strong> or ranking.</p>
 <p><strong>Examples</strong></p>
 <ul>
 <li><strong>Diagnosis codes</strong>: <a href="https://www.cms.gov/medicare/coordination-benefits-recovery/overview/icd-code-lists">ICD-10 codes</a> (e.g., I5031 for Acute Heart Failure)</li>
@@ -646,43 +789,43 @@ Figure&nbsp;2: Hierarchy of Measurement Scales
 <li><strong>Dispersion</strong>: Frequency distribution, percentages across response categories</li>
 </ul>
 <p>You CANNOT calculate a meaningful mean or median for nominal data. Even if categories are coded as numbers (1, 2, 3, 4), the average is meaningless!</p>
-<p><strong>Example</strong>: If we code Private=1, Medicare=2, Medicaid=3, Uninsured=4, an “average” of 2.3 is meaningless—it doesn’t represent any real insurance category!</p>
+<p>For example, if we code Private=1, Medicare=2, Medicaid=3, Uninsured=4, an “average” of 2.3 is meaningless. It doesn’t represent any real insurance category and non-interpretable!</p>
 <div class="cell">
 <div id="tbl-insurance-freq" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-insurance-freq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Distribution of Insurance Types in Patient Sample
+Table&nbsp;1: Distribution of Insurance Types
 </figcaption>
 <div aria-describedby="tbl-insurance-freq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table table-striped table-hover do-not-create-environment cell caption-top table-sm small">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Insurance Type</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Count</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Percentage</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Insurance Type</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Count</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Percentage</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Medicaid</td>
-<td style="text-align: right;">119</td>
-<td style="text-align: right;">11.9</td>
+<td style="text-align: center;">Medicaid</td>
+<td style="text-align: center;">119</td>
+<td style="text-align: center;">11.9</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Medicare</td>
-<td style="text-align: right;">334</td>
-<td style="text-align: right;">33.4</td>
+<td style="text-align: center;">Medicare</td>
+<td style="text-align: center;">334</td>
+<td style="text-align: center;">33.4</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Private</td>
-<td style="text-align: right;">443</td>
-<td style="text-align: right;">44.3</td>
+<td style="text-align: center;">Private</td>
+<td style="text-align: center;">443</td>
+<td style="text-align: center;">44.3</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Uninsured</td>
-<td style="text-align: right;">104</td>
-<td style="text-align: right;">10.4</td>
+<td style="text-align: center;">Uninsured</td>
+<td style="text-align: center;">104</td>
+<td style="text-align: center;">10.4</td>
 </tr>
 </tbody>
 </table>
@@ -695,16 +838,20 @@ Table&nbsp;1: Distribution of Insurance Types in Patient Sample
 </section>
 <section id="ordinal-scale" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="ordinal-scale"><span class="header-section-number">4.4</span> Ordinal Scale</h2>
-<p><strong>Definition</strong>:</p>
-<p>Numbers or categories indicate relative order or rank, but <strong>intervals between values are not necessarily equal</strong>.</p>
-<p><strong>Key characteristic</strong>:</p>
+<p>An ordinal scale uses numbers or categories to classify data into groups that have a <strong>relative order</strong> or rank, but the intervals between values are not necessarily equal.</p>
 <p>We know that Category A &gt; Category B &gt; Category C, but we DON’T know if the difference between A and B equals the difference between B and C.</p>
 <p><strong>Examples</strong></p>
 <ul>
 <li><strong>Pain scale categories</strong>: None, Mild, Moderate, Severe</li>
 <li><strong>Age groups</strong>: 18-44, 45-64, 65-74, 75+</li>
-<li><strong>NYHA Heart Failure Class</strong>: I (mild) → II → III → IV (severe)</li>
-<li><strong>Triage categories</strong>: Immediate, Emergent, Urgent, Less Urgent, Non-Urgent</li>
+<li><strong>NYHA Heart Failure Class</strong>: Classifies heart failure severity based on physical activity limitations.
+<ul>
+<li>I (No limitation) → II (Slight) → III (Marked) → IV (Unable to carry on any physical activity)</li>
+</ul></li>
+<li><strong>Triage categories</strong>: Determines treatment priority in emergency departments.
+<ul>
+<li>Immediate (Life-threatening) → Emergent → Urgent → Non-Urgent</li>
+</ul></li>
 <li><strong>Cancer staging</strong>: Stage I → Stage II → Stage III → Stage IV</li>
 <li><strong>Functional status</strong>: Independent, Needs minimal assistance, Needs moderate assistance, Fully dependent</li>
 </ul>
@@ -712,7 +859,10 @@ Table&nbsp;1: Distribution of Insurance Types in Patient Sample
 <p>Among the central tendency and dispersion measures you learned earlier, which are appropriate for ordinal scale data?</p>
 <ul>
 <li><strong>Central tendency</strong>: Mode (most common category), Median (middle rank)</li>
-<li><strong>Dispersion</strong>: Frequency distribution, Percentages, Range</li>
+<li><strong>Dispersion</strong>: Frequency distribution, Percentages, Range.
+<ul>
+<li><em>Note on Range</em>: For ordinal data, range is reported as the <strong>minimum to maximum categories</strong> (e.g., “Outcomes ranged from ‘Mild’ to ‘Severe’”). It shows the full spread of responses.</li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -729,39 +879,38 @@ Figure&nbsp;3: Distribution of Age Groups in Readmission Data
 </div>
 </div>
 <p><strong>Why You Cannot Average Ordinal Data</strong></p>
-<p>A mean for ordinal data is not meaningful. Even if categories are coded as numbers (1, 2, 3, 4), arithmetic operations are meaningless because intervals are not equal!</p>
+<p>A mean for ordinal data is <strong>not meaningful</strong>. Even if categories are coded as numbers (1, 2, 3, 4), arithmetic operations are meaningless because intervals are not equal!</p>
 <p>This is a critical point that’s often misunderstood. Let’s see why averaging ordinal data produces meaningless results.</p>
 <p><strong>Example</strong>: Suppose we ask 100 patients to rate their post-operative pain using these categories:</p>
 <ul>
 <li>None (coded as 1) — 20 patients</li>
-<li>Mild (coded as 2) — 30 patients</li>
-<li>Moderate (coded as 3) — 35 patients</li>
+<li>Mild (coded as 2) — 25 patients</li>
+<li>Moderate (coded as 3) — 40 patients</li>
 <li>Severe (coded as 4) — 15 patients</li>
 </ul>
-<p>If we calculate the mean: (20×1 + 30×2 + 35×3 + 15×4) / 100 = <strong>2.45</strong></p>
-<p><strong>What does 2.45 mean?</strong> Is it “somewhere between Mild and Moderate”? The answer is <strong>we don’t know!</strong> because:</p>
+<p>If we calculate the mean: (20×1 + 25×2 + 40×3 + 15×4) / 100 = <strong>2.50</strong></p>
+<p><strong>What does 2.50 mean?</strong> Is it “exactly between Mild and Moderate”? The answer is <strong>we don’t know!</strong> because:</p>
 <ul>
 <li>The difference between None→Mild might be very small (minor discomfort)</li>
 <li>The difference between Moderate→Severe might be huge (unbearable pain)</li>
 <li>We cannot assume equal intervals, so averaging is meaningless!</li>
 </ul>
-<p><strong>Better approach</strong>: Report that the <strong>median</strong> is Moderate, and 50% of patients reported Moderate or Severe pain. This is interpretable and meaningful.</p>
+<p>So, a better approach would be to report that the <strong>median</strong> is Moderate, and 55% of patients reported Moderate or Severe pain. This is interpretable and meaningful.</p>
 <hr>
 </section>
 <section id="interval-scale" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="interval-scale"><span class="header-section-number">4.5</span> Interval Scale</h2>
-<p><strong>Definition</strong>:</p>
-<p>Numbers have <strong>equal intervals</strong> between scale points, but no true zero point. Differences are meaningful, but ratios are not.</p>
-<p><strong>Key characteristic</strong>:</p>
+<p>An interval scale uses numbers that have <strong>equal intervals</strong> between scale points, but there is no true zero point. Differences are meaningful, but ratios are not.</p>
 <p>The difference between 1 and 2 is the same as the difference between 6 and 7. This makes addition, subtraction, and averaging meaningful.</p>
 <p><strong>Examples</strong></p>
 <p><strong>Classic interval scales:</strong></p>
 <ul>
-<li><strong>Temperature</strong> (Fahrenheit or Celsius) — 0° doesn’t mean “no temperature”; it’s an arbitrary reference point</li>
-<li><strong>Calendar year</strong> — Year 0 is arbitrary; 2020 isn’t “twice as recent” as 1010</li>
+<li><strong>Temperature</strong> (Fahrenheit or Celsius): 0° doesn’t mean “no temperature”; it’s an arbitrary reference point</li>
+<li><strong>Calendar year</strong>: Year 0 is arbitrary; 2020 isn’t “twice as recent” as 1010</li>
 </ul>
 <p><strong>Healthcare applications</strong> (less common):</p>
 <ul>
+<li><strong>Body temperature</strong>: 98.6°F vs 100.4°F (Difference is meaningful, but 0° is not absent heat)</li>
 <li><strong>Numeric satisfaction scales</strong> (1-7 or 1-10 with equal intervals assumed)</li>
 <li><strong>Numeric pain scales</strong> (0-10 where each point represents an equal increase in pain)</li>
 <li><strong>Quality of life scores</strong> from validated instruments (0-100 with equal intervals assumed)</li>
@@ -802,15 +951,15 @@ Figure&nbsp;4: Distribution of Patient Satisfaction Scores (1-7 Scale)
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Special Case: Numeric Satisfaction/Pain Scales (Quasi-Interval)
+<span class="screen-reader-only">Note</span>Special Note: Numeric Satisfaction and Pain Scales
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The complexity</strong>: Numeric rating scales (1-7, 1-10) for satisfaction or pain are technically ordinal, but in healthcare practice they’re often treated as interval scales.</p>
-<p><strong>Quick guide</strong>:</p>
+<p><strong>The complexity</strong>: Numeric rating scales (1-7, 1-10) for satisfaction or pain are technically ordinal (the gap between “1” and “2” may not equal the gap between “6” and “7”). However, in healthcare practice and research, these scales are often <strong>treated as interval data</strong> to enable calculation of means and standard deviations.</p>
+<p><strong>Practical guidance</strong>:</p>
 <ul>
 <li><strong>Category labels</strong> (Poor/Fair/Good/Excellent) → <strong>Ordinal</strong> → Use median only</li>
-<li><strong>Numeric scales</strong> (1-7, 1-10) → <strong>Quasi-Interval</strong> → Can use mean, but report median too</li>
+<li><strong>Numeric scales</strong> (1-7, 1-10) → <strong>Treated as interval</strong> → Can calculate mean, but reporting median alongside is good practice</li>
 </ul>
 </div>
 </div>
@@ -818,20 +967,16 @@ Figure&nbsp;4: Distribution of Patient Satisfaction Scores (1-7 Scale)
 </section>
 <section id="ratio-scale" class="level2" data-number="4.6">
 <h2 data-number="4.6" class="anchored" data-anchor-id="ratio-scale"><span class="header-section-number">4.6</span> Ratio Scale</h2>
-<p><strong>Definition</strong>:</p>
-<p>Has all properties of interval scale plus a <strong>true zero (absolute zero) point</strong>, where zero means “absence of the attribute.” Ratios between values are meaningful.</p>
-<p><strong>Key characteristic</strong>:</p>
-<p>Zero means “none” or “absence,” making statements like “twice as much” meaningful.</p>
+<p>A ratio scale has all the properties of an interval scale but adds a <strong>true zero point</strong> (absolute zero), where zero represents the total absence of the attribute.</p>
+<p>Zero means “none” or “absence,” making ratio statements like “twice as much” meaningful.</p>
 <p><strong>Examples</strong></p>
 <ul>
-<li><strong>Length of stay</strong> (days) — 0 days = no stay</li>
-<li><strong>Wait time</strong> (minutes) — 0 minutes = no wait</li>
-<li><strong>Total charges</strong> ($) — $0 = no charges</li>
-<li><strong>Number of comorbidities</strong> — 0 = no comorbidities</li>
-<li><strong>Age</strong> (years) — 0 = birth</li>
-<li><strong>Blood pressure</strong> (mmHg), <strong>Heart rate</strong> (bpm)</li>
-<li><strong>Weight, height</strong></li>
-<li><strong>Readmission rate</strong> (%)</li>
+<li><strong>Length of stay</strong> (days): 0 days = no stay</li>
+<li><strong>Wait time</strong> (minutes): 0 minutes = no wait</li>
+<li><strong>Total charges</strong> ($): $0 = no charges</li>
+<li><strong>Number of comorbidities</strong>: 0 = no comorbidities</li>
+<li><strong>Age</strong> (years): 0 = birth (start of life)</li>
+<li><strong>Clinical measures</strong>: Weight, height, heart rate, blood pressure</li>
 </ul>
 <p><strong>Appropriate Statistics for Ratio Data</strong></p>
 <p>Among the central tendency and dispersion measures you learned earlier, which are appropriate for ratio scale data?</p>
@@ -869,6 +1014,19 @@ Figure&nbsp;5: Distribution of Length of Stay (Days)
 <h1 data-number="5"><span class="header-section-number">5</span> Distribution Shapes and Choosing Statistics</h1>
 <section id="why-distribution-shape-matters" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="why-distribution-shape-matters"><span class="header-section-number">5.1</span> Why Distribution Shape Matters</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Key Prerequisite
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Distribution shape considerations apply primarily to <strong>interval and ratio data</strong>, where calculating means and standard deviations is meaningful. For nominal data (categories with no order) and ordinal data (ranked categories), we don’t typically analyze distribution “shape” in the same way; instead, we focus on frequency distributions and percentages.</p>
+</div>
+</div>
 <p>The shape of your data distribution affects which measure of central tendency best represents the “typical” value. This is crucial for accurate healthcare reporting and decision-making.</p>
 <p>For example, if a hospital administrator asks, “What’s our realistic expectation of patient length of stay?” The answer may not be that simple: it depends on the distribution!</p>
 <hr>
@@ -877,12 +1035,13 @@ Figure&nbsp;5: Distribution of Length of Stay (Days)
 <h2 data-number="5.2" class="anchored" data-anchor-id="four-common-distribution-shapes"><span class="header-section-number">5.2</span> Four Common Distribution Shapes</h2>
 <section id="normal-symmetric-distribution" class="level3" data-number="5.2.1">
 <h3 data-number="5.2.1" class="anchored" data-anchor-id="normal-symmetric-distribution"><span class="header-section-number">5.2.1</span> 1. Normal (Symmetric) Distribution</h3>
-<p><strong>Characteristics</strong>:</p>
+<p>A symmetric distribution where the majority of observations cluster around a central peak, and values further away from the mean taper off equally in both directions.</p>
+<p><strong>Key Characteristics</strong>:</p>
 <ul>
-<li>Bell-shaped and symmetric around the mean</li>
-<li>Mean ≈ Median ≈ Mode (all at the center)</li>
-<li>Most values cluster near the mean, with fewer values in the tails</li>
-<li>Use <strong>Mean</strong> as central tendency</li>
+<li><strong>Symmetry</strong>: The left and right sides of the distribution are mirror images of each other, forming a classic “bell shape.”</li>
+<li><strong>Alignment of Measures</strong>: The <strong>Mean, Median, and Mode are all approximately equal</strong> and located at the center of the distribution.</li>
+<li><strong>Predictable Spread</strong>: Most data points fall close to the average, with outliers being rare and equally distributed on both tails.</li>
+<li><strong>Preferred Measure</strong>: Use the <strong>Mean</strong> to describe central tendency, as it uses all data points and provides the most accurate reflection of the center.</li>
 </ul>
 <p><strong>Healthcare Example: Systolic Blood Pressure</strong></p>
 <p>Blood pressure in a healthy population typically follows a normal distribution, with most people having values near 120 mmHg.</p>
@@ -944,12 +1103,13 @@ Figure&nbsp;7: The Empirical Rule Applied to Blood Pressure
 </section>
 <section id="right-skewed-positively-skewed-distribution" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="right-skewed-positively-skewed-distribution"><span class="header-section-number">5.2.2</span> 2. Right-Skewed (Positively Skewed) Distribution</h3>
-<p><strong>Characteristics</strong>:</p>
+<p>An asymmetric distribution where the tail extends significantly towards higher positivity values (to the right), indicating the presence of outliers at the high end.</p>
+<p><strong>Key Characteristics</strong>:</p>
 <ul>
-<li>Long tail to the right (toward higher values): there are (several) extremely high values</li>
-<li>Most values cluster on the left (lower end)</li>
-<li>Mean &gt; Median &gt; Mode</li>
-<li>Use <strong>Median</strong> as central tendency</li>
+<li><strong>Tail Direction</strong>: The “tail” of the distribution pulls to the <strong>right</strong> (positive direction).</li>
+<li><strong>Clustering</strong>: The majority of data points cluster on the <strong>left</strong> (lower values).</li>
+<li><strong>Relationship of Measures</strong>: The extreme high values pull the Mean upward, so typically <strong>Mean &gt; Median &gt; Mode</strong>.</li>
+<li><strong>Preferred Measure</strong>: Use the <strong>Median</strong> for central tendency, as the Mean is inflated by the high outliers.</li>
 </ul>
 <p><strong>Healthcare Example: Length of Stay</strong></p>
 <p>Hospital length of stay is typically <strong>right-skewed</strong> because most patients have shorter stays, but a few have very long stays.</p>
@@ -967,35 +1127,24 @@ Figure&nbsp;8: Right-Skewed Distribution: Length of Stay
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Healthcare Management Insight
-</div>
-</div>
-<div class="callout-body-container callout-body">
 <p>When reporting average length of stay or costs to stakeholders:</p>
 <ul>
 <li><strong>Median</strong> often tells a fairer story for skewed data</li>
 <li><strong>Mean</strong> is inflated by a few very long stays or expensive cases</li>
 <li><strong>Best practice</strong>: Report both and explain the difference!</li>
 </ul>
-<p><strong>Example statement</strong>: “The median length of stay is 3.8 days, meaning half of patients stay 3.8 days or less. However, the mean is 4.8 days due to a small number of patients with extended stays.”</p>
-</div>
-</div>
+<p>For example, you may state: “The median length of stay is 3.8 days, meaning half of patients stay 3.8 days or less. However, the mean is 4.8 days due to a small number of patients with extended stays.”</p>
 <hr>
 </section>
 <section id="left-skewed-negatively-skewed-distribution" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="left-skewed-negatively-skewed-distribution"><span class="header-section-number">5.2.3</span> 3. Left-Skewed (Negatively Skewed) Distribution</h3>
-<p><strong>Characteristics</strong>:</p>
+<p>An asymmetric distribution where the tail extends significantly towards lower values (to the left), indicating the presence of outliers at the low end.</p>
+<p><strong>Key Characteristics</strong>:</p>
 <ul>
-<li>Long tail to the left (toward lower values): there are (several) extremely low values</li>
-<li>Most values cluster on the right (higher end)</li>
-<li>Mean &lt; Median &lt; Mode</li>
-<li>Use <strong>Median</strong> as central tendency</li>
+<li><strong>Tail Direction</strong>: The “tail” of the distribution pulls to the <strong>left</strong> (negative direction).</li>
+<li><strong>Clustering</strong>: The majority of data points cluster on the <strong>right</strong> (higher values).</li>
+<li><strong>Relationship of Measures</strong>: The extreme low values pull the Mean downward, so typically <strong>Mean &lt; Median &lt; Mode</strong>.</li>
+<li><strong>Preferred Measure</strong>: Use the <strong>Median</strong> for central tendency, as the Mean is dragged down by the low outliers.</li>
 </ul>
 <p><strong>Healthcare Example: Patient Satisfaction Ratings</strong></p>
 <p>When patients rate satisfaction on a 0-100 scale, scores often cluster toward the high end (most patients are satisfied), with a tail toward lower scores (dissatisfied patients).</p>
@@ -1013,20 +1162,21 @@ Figure&nbsp;9: Left-Skewed Distribution: Patient Satisfaction
 </div>
 </div>
 </div>
-<p><strong>Key Insight</strong>: Most patients are highly satisfied (scores cluster near 100), but a few very dissatisfied patients pull the mean down. The median better represents the typical patient experience.</p>
+<p>The result shows that most patients are highly satisfied, as shown by a median score of 86. However, the mean is lower (84.5) because a small group of very dissatisfied patients pulled the average down.</p>
 <hr>
 </section>
 <section id="bimodal-distribution" class="level3" data-number="5.2.4">
 <h3 data-number="5.2.4" class="anchored" data-anchor-id="bimodal-distribution"><span class="header-section-number">5.2.4</span> 4. Bimodal Distribution</h3>
-<p><strong>Characteristics</strong>:</p>
+<p>A distribution that has <strong>two distinct peaks</strong> (modes), suggesting that the data represents two separate underlying groups or populations mixed together.</p>
+<p><strong>Key Characteristics</strong>:</p>
 <ul>
-<li>Two distinct peaks (modes)</li>
-<li>Indicates two different subgroups in your data</li>
-<li>Mean and median fall between the peaks and don’t represent either group well</li>
-<li><strong>Analyze subgroups separately</strong> rather than combining them</li>
+<li><strong>Peak Structure</strong>: Unlike a bell curve, this distribution looks like a camel’s back with two humps.</li>
+<li><strong>Underlying Subgroups</strong>: The two peaks usually indicate two different populations (e.g., healthy vs.&nbsp;sick, day vs.&nbsp;night shift).</li>
+<li><strong>Central Tendency Issues</strong>: The Mean and Median usually fall in the “valley” between the peaks, which means the “typical” value describes almost no one!</li>
+<li><strong>Best Practice</strong>: Do not analyze as one group. <strong>Stratify your data</strong> and analyze the two subgroups separately.</li>
 </ul>
 <p><strong>Healthcare Example: ED Wait Times by Shift</strong></p>
-<p>Emergency department wait times show two peaks - one for day shift (faster) and one for night shift (slower, due to reduced staffing).</p>
+<p>Emergency department wait times show two peaks, one for day shift (faster) and one for night shift (slower, due to reduced staffing).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-bimodal-ed" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1041,7 +1191,7 @@ Figure&nbsp;10: Bimodal Distribution: ED Wait Times by Shift
 </div>
 </div>
 </div>
-<p><strong>Better approach</strong>: Analyze by shift separately:</p>
+<p>A Better approach can be analyzing the data by shift separately:</p>
 <div class="cell">
 <div id="tbl-bimodal-subgroups" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1082,78 +1232,23 @@ Table&nbsp;2: ED Wait Times by Shift (Subgroup Analysis)
 </figure>
 </div>
 </div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Management Implication
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Overall average (38.5 min) is misleading!</strong> It doesn’t represent either day shift (~22 min) or night shift (~55 min) patients.</p>
-<p><strong>Action</strong>: Different shifts need different strategies. Don’t make decisions based on the overall average when you have bimodal data.</p>
-</div>
-</div>
+<ul>
+<li><strong>Overall average (38.5 min) is misleading!</strong> It doesn’t represent either day shift (~22 min) or night shift (~55 min) patients.</li>
+<li>Different shifts need different strategies. Don’t make decisions based on the overall average when you have bimodal data. For example, the night shift might need increased staffing or process improvements to reduce wait times, while the day shift process is performing well.</li>
+</ul>
 <hr>
 </section>
-</section>
-<section id="decision-guide-choosing-central-tendency-based-on-shape" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="decision-guide-choosing-central-tendency-based-on-shape"><span class="header-section-number">5.3</span> Decision Guide: Choosing Central Tendency Based on Shape</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 52%">
-<col style="width: 34%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Distribution Shape</th>
-<th>Best Measure</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Normal (Symmetric)</strong></td>
-<td>Mean</td>
-<td>Represents balance point well; not distorted by outliers</td>
-</tr>
-<tr class="even">
-<td><strong>Right-skewed</strong></td>
-<td>Median</td>
-<td>Not pulled by high outliers; better represents “typical” value</td>
-</tr>
-<tr class="odd">
-<td><strong>Left-skewed</strong></td>
-<td>Median</td>
-<td>Not pulled by low outliers; better represents “typical” value</td>
-</tr>
-<tr class="even">
-<td><strong>Bimodal</strong></td>
-<td>Analyze subgroups separately</td>
-<td>Mean/median fall between peaks, not representative of either group</td>
-</tr>
-</tbody>
-</table>
-<hr>
 </section>
 </section>
 <section id="synthesis-choosing-the-right-statistics" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Synthesis: Choosing the Right Statistics</h1>
-<section id="overview" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">6.1</span> Overview</h2>
 <p>Now that you’ve learned about measurement scales, central tendency, dispersion, and distribution shapes, let’s synthesize this knowledge into a practical guide for choosing appropriate statistics in healthcare analysis.</p>
 <p><strong>Two key factors determine which statistics to use:</strong></p>
 <ol type="1">
 <li><strong>Measurement scale</strong> → What statistics are <em>mathematically appropriate</em></li>
 <li><strong>Distribution shape</strong> → Which statistics <em>best represent</em> your data</li>
 </ol>
-<hr>
-</section>
-<section id="summary-table-statistics-by-measurement-scale" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="summary-table-statistics-by-measurement-scale"><span class="header-section-number">6.2</span> Summary Table: Statistics by Measurement Scale</h2>
+<p><strong>Summary Table: Statistics by Measurement Scale</strong></p>
 <div class="cell">
 <div id="tbl-scale-stats" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1208,52 +1303,101 @@ Table&nbsp;3: Appropriate Statistics by Measurement Scale
 </figure>
 </div>
 </div>
+<p><br></p>
+<p><strong>Summary Table: Statistics by Distribution Shape</strong></p>
+<div class="cell">
+<div id="tbl-shape-stats" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-shape-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Best Measures by Distribution Shape (Interval/Ratio Data)
+</figcaption>
+<div aria-describedby="tbl-shape-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover do-not-create-environment cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Distribution Shape</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Characteristics</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Best Central Tendency</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Reasoning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: 3cm; font-weight: bold;">Normal (Symmetric)</td>
+<td style="text-align: left; width: 4cm;">Mounds in center, tails equal</td>
+<td style="text-align: left; width: 3cm;">Mean</td>
+<td style="text-align: left; width: 5cm;">Uses all data; efficient</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 3cm; font-weight: bold;">Right-Skewed (Positive)</td>
+<td style="text-align: left; width: 4cm;">Long tail to right (high outliers)</td>
+<td style="text-align: left; width: 3cm;">Median</td>
+<td style="text-align: left; width: 5cm;">Not distorted by high outliers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 3cm; font-weight: bold;">Left-Skewed (Negative)</td>
+<td style="text-align: left; width: 4cm;">Long tail to left (low outliers)</td>
+<td style="text-align: left; width: 3cm;">Median</td>
+<td style="text-align: left; width: 5cm;">Not distorted by low outliers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 3cm; font-weight: bold;">Bimodal</td>
+<td style="text-align: left; width: 4cm;">Two distinct peaks</td>
+<td style="text-align: left; width: 3cm;">None (Analyze subgroups)</td>
+<td style="text-align: left; width: 5cm;">Overall average is misleading</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
 <hr>
-</section>
 </section>
 <section id="introduction-to-statistical-inference" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Introduction to Statistical Inference</h1>
 <section id="from-description-to-inference" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="from-description-to-inference"><span class="header-section-number">7.1</span> From Description to Inference</h2>
-<p>So far, we’ve focused on <strong>descriptive statistics</strong> (i.e., summarizing data we have). But healthcare managers need <strong>inferential statistics</strong>: drawing conclusions or making inferences about populations from samples.</p>
-<p>We typically work with <strong>samples</strong> (subset of patients; data we have) but want to make conclusions about <strong>populations</strong> (all patients, future patients).</p>
-<p><strong>Example</strong>:</p>
+<p>So far, we’ve focused on <strong>descriptive statistics</strong> (summarizing the data we have in hand using measures like mean, median, standard deviation, and visualizations). Descriptive statistics answer questions like “What is the average length of stay?” or “How satisfied are our patients?”</p>
+<p>But as healthcare managers, we rarely have access to data from everyone we care about. Instead, we collect data from <strong>samples</strong> and want to make conclusions about <strong>populations</strong>. This is where <strong>inferential statistics</strong> comes in: the science of drawing conclusions about populations based on sample data, while accounting for uncertainty.</p>
+<p><strong>Why the distinction matters</strong>:</p>
 <ul>
-<li><strong>Sample</strong>: 200 patients we surveyed about satisfaction</li>
-<li><strong>Population</strong>: All patients who visit our hospital (past, present, future)</li>
-<li>Is the (observed) satisfaction difference between Department A and Department B in our sample statistically significant, or just random chance?</li>
+<li><strong>Sample</strong>: The subset of individuals from whom we actually collected data. These are the patients in our dataset.</li>
+<li><strong>Population</strong>: The larger group we want to understand and make decisions about, often including past, present, and future patients. (i.e., all members of the group we are interested in)</li>
 </ul>
-<hr>
-</section>
-<section id="why-we-need-hypothesis-testing" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="why-we-need-hypothesis-testing"><span class="header-section-number">7.2</span> Why We Need Hypothesis Testing</h2>
-<p>Let’s think about this case:</p>
+<p>Any statistic we calculate from a sample (e.g., a sample mean) is just an <em>estimate</em> of the true population parameter. Different samples would give us slightly different estimates. Inferential statistics helps us quantify this uncertainty.</p>
+<p><strong>Healthcare Example: Patient Satisfaction Survey</strong></p>
+<p>Imagine you conduct a satisfaction survey at your hospital:</p>
 <ul>
-<li>Hospital A has a mean satisfaction score of 5.5 (n=100 patients)</li>
-<li>Hospital B has 5.2 (n=100 patients)</li>
+<li><strong>Population</strong>: All patients who have visited, are visiting, or will visit your hospital</li>
+<li><strong>Sample</strong>: 200 patients surveyed over one month</li>
+<li><strong>Sample statistic</strong>: Department A’s mean satisfaction score is 4.8/7; Department B’s is 4.2/7</li>
 </ul>
-<p><strong>Questions a manager asks</strong>:</p>
+<p>The key question is whether Department A is truly better in terms of patient satisfaction, or whether this 0.6-point difference is just due to random chance in who happened to be surveyed.</p>
+<p><strong>Questions managers commonly ask</strong>:</p>
 <ol type="1">
 <li>Is this difference meaningful?</li>
-<li>Could this difference just be due to random sampling?</li>
-<li>If we surveyed 100 different patients, would we see the same pattern?</li>
+<li>Could it just be due to random sampling?</li>
+<li>If we surveyed 200 different patients, would we see the same pattern?</li>
 </ol>
-<p><strong>This is where hypothesis testing helps!</strong></p>
+<p>This is exactly the kind of question inferential statistics, specifically <strong>hypothesis testing</strong>, is designed to answer. We need tools to distinguish <strong>real differences</strong> from <strong>sampling noise</strong>.</p>
 <hr>
 </section>
-<section id="the-logic-of-null-hypothesis-testing" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="the-logic-of-null-hypothesis-testing"><span class="header-section-number">7.3</span> The Logic of Null Hypothesis Testing</h2>
-<p>Broadly, there are two ways to make statistical inferences about populations from samples:</p>
+<section id="the-logic-of-null-hypothesis-testing" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="the-logic-of-null-hypothesis-testing"><span class="header-section-number">7.2</span> The Logic of Null Hypothesis Testing</h2>
+<p>So how do we actually perform hypothesis testing? Broadly, there are two ways to make statistical inferences about populations from samples:</p>
 <ol type="1">
 <li>Bayesian approach</li>
 <li>Frequentist approach (null hypothesis testing)</li>
 </ol>
-<p>Both approaches have pros and cons, but we’ll focus on the null hypothesis testing approach in this class for computational simplicity.</p>
-<p>Let’s assume that we want to understand whether there’s a significant difference in patient satisfaction between Hospital A and Hospital B.</p>
-<p>Broadly, null hypothesis testing uses the following approach:</p>
+<p>Both approaches have pros and cons, but we’ll focus on the null hypothesis testing approach in this class for <em>computational simplicity</em>.</p>
+<p>Let’s assume that we want to understand whether there’s a significant difference in patient satisfaction between two hospitals: Hospital A and Hospital B.</p>
+<p>Null hypothesis testing uses the following approach:</p>
 <ol type="1">
 <li><strong>Assume there’s NO difference</strong> between the two hospitals (Null Hypothesis, H₀)</li>
-<li><strong>Calculate</strong> how likely our observed data would be if this assumption were true</li>
+<li><strong>Calculate</strong> how likely our observed data would be if this assumption were true (this probability is called the <strong>p-value</strong>)</li>
 <li><strong>If very unlikely</strong> (p-value &lt; threshold) → Reject the assumption → Conclude there IS a difference (or the difference is statistically significant)</li>
 </ol>
 <p><strong>Think of it like a criminal trial</strong>:</p>
@@ -1261,14 +1405,15 @@ Table&nbsp;3: Appropriate Statistics by Measurement Scale
 <li><strong>Null hypothesis (H₀)</strong>: Defendant is innocent (no effect, no difference)</li>
 <li><strong>Alternative hypothesis (H₁)</strong>: Defendant is guilty (there is an effect/difference)</li>
 <li><strong>Evidence</strong>: Our data</li>
+<li><strong>Standard of proof</strong>: p &lt; 0.05 (similar to “beyond reasonable doubt”)</li>
 <li><strong>Verdict</strong>: If evidence strongly contradicts innocence → Reject H₀</li>
 </ul>
 <hr>
 </section>
-<section id="key-terminology" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="key-terminology"><span class="header-section-number">7.4</span> Key Terminology</h2>
-<section id="null-hypothesis-h₀" class="level3" data-number="7.4.1">
-<h3 data-number="7.4.1" class="anchored" data-anchor-id="null-hypothesis-h₀"><span class="header-section-number">7.4.1</span> Null Hypothesis (H₀)</h3>
+<section id="key-terminology" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="key-terminology"><span class="header-section-number">7.3</span> Key Terminology</h2>
+<section id="null-hypothesis-h₀" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="null-hypothesis-h₀"><span class="header-section-number">7.3.1</span> Null Hypothesis (H₀)</h3>
 <p>The “no effect” or “no difference” assumption. This is what we’re testing against.</p>
 <p><strong>Healthcare examples</strong>:</p>
 <ul>
@@ -1277,8 +1422,8 @@ Table&nbsp;3: Appropriate Statistics by Measurement Scale
 <li>H₀: Mean LOS for diabetic patients = Mean LOS for non-diabetic patients</li>
 </ul>
 </section>
-<section id="alternative-hypothesis-h₁-or-hₐ" class="level3" data-number="7.4.2">
-<h3 data-number="7.4.2" class="anchored" data-anchor-id="alternative-hypothesis-h₁-or-hₐ"><span class="header-section-number">7.4.2</span> Alternative Hypothesis (H₁ or Hₐ)</h3>
+<section id="alternative-hypothesis-h₁-or-hₐ" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="alternative-hypothesis-h₁-or-hₐ"><span class="header-section-number">7.3.2</span> Alternative Hypothesis (H₁ or Hₐ)</h3>
 <p>What we’re trying to find evidence for.</p>
 <p><strong>Healthcare examples</strong>:</p>
 <ul>
@@ -1287,16 +1432,16 @@ Table&nbsp;3: Appropriate Statistics by Measurement Scale
 <li>H₁: Mean LOS differs between diabetic and non-diabetic patients (two-tailed)</li>
 </ul>
 </section>
-<section id="p-value" class="level3" data-number="7.4.3">
-<h3 data-number="7.4.3" class="anchored" data-anchor-id="p-value"><span class="header-section-number">7.4.3</span> P-value</h3>
-<p>The probability of observing data as extreme or more extreme than what we observed, If the null hypothesis were true.</p>
-<p><strong>Important</strong>: The p-value is NOT the probability that H₀ or H₁ is true!</p>
+<section id="p-value" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="p-value"><span class="header-section-number">7.3.3</span> P-value</h3>
+<p>The probability of observing data as extreme or more extreme than what we observed, if the null hypothesis were true.</p>
+<p><strong>Important</strong>: The p-value is NOT the probability that H₀ or H₁ is true! See the “Understanding P-values” section below for details and common misconceptions.</p>
 <hr>
 </section>
 </section>
-<section id="visualizing-the-null-hypothesis" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="visualizing-the-null-hypothesis"><span class="header-section-number">7.5</span> Visualizing the Null Hypothesis</h2>
-<p>We can understand expected results and their probabilities when H₀ is true.</p>
+<section id="visualizing-the-null-hypothesis" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="visualizing-the-null-hypothesis"><span class="header-section-number">7.4</span> Visualizing the Null Hypothesis</h2>
+<p>To understand how p-values work, it helps to visualize what results we would <em>expect</em> to see if the null hypothesis were true and where our observed data falls within that distribution.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-null-model" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1313,114 +1458,145 @@ Figure&nbsp;11: The Null Model: Expected Results When the Null is True
 </div>
 <p><strong>Interpretation</strong>:</p>
 <ul>
-<li><strong>Blue curve</strong>: Expected distribution of differences if H₀ (no difference) is true</li>
-<li><strong>Middle region</strong>: Observed differences here are likely outcomes with H₀ → Do NOT reject</li>
-<li><strong>Red tails</strong>: Observed differences here are unlikely outcomes under H₀ → Reject H₀ (statistically significant; significant difference)</li>
+<li><p><strong>Blue curve</strong>: This shows the distribution of differences we would expect to observe <em>if there truly were no difference between groups</em> (i.e., if H₀ is true). Most random samples would produce differences near zero.</p></li>
+<li><p><strong>Middle region</strong>: If our observed difference falls here, it’s consistent with what we’d expect from random sampling alone. The p-value would be large (≥ 0.05), so we do NOT reject H₀.</p></li>
+<li><p><strong>Red tails</strong>: If our observed difference falls in these extreme regions, it would be very unlikely to occur by chance alone (p-value &lt; 0.05). This provides evidence against H₀, so we reject it and conclude the difference is statistically significant.</p></li>
 </ul>
 <hr>
 </section>
-<section id="understanding-p-values" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="understanding-p-values"><span class="header-section-number">7.6</span> Understanding P-values</h2>
+<section id="understanding-p-values" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="understanding-p-values"><span class="header-section-number">7.5</span> Understanding P-values</h2>
+<p>Now that we’ve visualized how the null distribution works, let’s deepen our understanding of p-values and address common misconceptions.</p>
 <p><strong>What is a P-value?</strong></p>
-<p>A p-value is the probability of getting results at least as extreme as what we observed, <strong>assuming H₀ is true</strong></p>
+<p>A p-value is the probability of getting results at least as extreme as what we observed, <strong>assuming H₀ is true</strong>.</p>
 <p><strong>Small p-value (typically &lt; 0.05)</strong>: Our data would be surprising if H₀ were true → Evidence against H₀</p>
 <p><strong>Large p-value (≥ 0.05)</strong>: Our data wouldn’t be surprising if H₀ were true → Not enough evidence against H₀</p>
 <p><strong>What is not a P-value?</strong></p>
-<p>Common Misconceptions are:</p>
+<p>Common misconceptions include:</p>
 <ol type="1">
-<li>A p-value means the probability of H₀ is true (X)</li>
-</ol>
+<li>A p-value is the probability that H₀ is true (X)
 <ul>
-<li>p-value assumes H₀ is true, doesn’t tell us probability H₀ is true</li>
-</ul>
-<ol start="2" type="1">
-<li>p ≥ 0.05 means there’s no difference (X)</li>
-</ol>
+<li>The p-value assumes H₀ is true and doesn’t tell us the probability that H₀ is true</li>
+</ul></li>
+<li>p ≥ 0.05 means there’s no difference (X)
 <ul>
 <li>It indicates that we don’t have sufficient evidence to reject H₀ (absence of evidence ≠ evidence of absence)</li>
-</ul>
-<ol start="3" type="1">
-<li>p &lt; 0.05 means the result is clinically and practically important (X)</li>
-</ol>
+</ul></li>
+<li>p &lt; 0.05 means the result is clinically and practically important (X)
 <ul>
 <li>It means statistically significant, not necessarily clinically or practically meaningful</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="type-i-and-type-ii-errors" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="type-i-and-type-ii-errors"><span class="header-section-number">7.6</span> Type I and Type II Errors</h2>
+<p>When we make decisions based on hypothesis testing, we’re working with incomplete information (a sample, not the entire population). This means we can make mistakes. There are exactly two types of errors possible:</p>
+<section id="type-i-error-false-positive" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="type-i-error-false-positive"><span class="header-section-number">7.6.1</span> Type I Error (False Positive)</h3>
+<p>A Type I error occurs when we <strong>reject H₀ even though it’s actually true</strong>, which means we conclude there’s a real difference when there isn’t one.</p>
+<ul>
+<li><p><strong>In the criminal trial analogy</strong>: This is like convicting an innocent person. We declared them guilty when they were actually innocent.</p></li>
+<li><p><strong>In healthcare</strong>: Concluding a new treatment works better than the standard of care when it actually doesn’t. This could lead to adopting an ineffective (or even harmful) treatment, wasting resources, and potentially harming patients.</p></li>
+<li><p><strong>How we control it</strong>: We set the significance level α (typically 0.05), which represents the maximum probability of Type I error we’re willing to accept. By using α = 0.05, we accept a 5% chance of incorrectly rejecting a true null hypothesis.</p></li>
 </ul>
+</section>
+<section id="type-ii-error-false-negative" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="type-ii-error-false-negative"><span class="header-section-number">7.6.2</span> Type II Error (False Negative)</h3>
+<p>A Type II error occurs when we <strong>fail to reject H₀ even though it’s actually false</strong>, which means we miss a real difference that exists.</p>
+<ul>
+<li><p><strong>In the criminal trial analogy</strong>: This is like letting a guilty person go free. We declared them innocent when they were actually guilty.</p></li>
+<li><p><strong>In healthcare</strong>: Concluding a new treatment doesn’t work when it actually does. This means missing an opportunity to improve patient outcomes (e.g., patients continue receiving inferior care because we failed to detect a real improvement).</p></li>
+<li><p><strong>The probability of Type II error</strong> is denoted β. The complement (1 - β) is called <strong>statistical power</strong> (the probability of correctly detecting a real effect when one exists).</p></li>
+</ul>
+</section>
+<section id="the-trade-off" class="level3" data-number="7.6.3">
+<h3 data-number="7.6.3" class="anchored" data-anchor-id="the-trade-off"><span class="header-section-number">7.6.3</span> The Trade-off</h3>
+<p>We can’t eliminate both types of errors simultaneously. There’s an inherent trade-off:</p>
+<ul>
+<li>Setting a <strong>stricter threshold</strong> (e.g., 0.01 instead of 0.05) reduces Type I errors but increases Type II errors (we become more conservative and miss more real effects)</li>
+<li>Setting a <strong>looser threshold</strong> (e.g., 0.10) reduces Type II errors but increases Type I errors (we become more liberal and detect more false positives)</li>
+</ul>
+<p>The choice of threshold depends on the consequences of each type of error in your specific context.</p>
+<hr>
+</section>
+</section>
+<section id="the-0.05-threshold" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="the-0.05-threshold"><span class="header-section-number">7.7</span> The 0.05 Threshold</h2>
+<p><strong>Why do we use p &lt; 0.05 as the standard?</strong></p>
+<p>The <a href="https://en.wikipedia.org/wiki/P-value">0.05 threshold</a> was popularized by statistician <strong>Ronald Fisher</strong> in the 1920s. It’s important to understand that this is <strong>not based on mathematical proof</strong>. It’s simply a convention that the scientific community adopted as a reasonable balance between being too strict and too lenient.</p>
+<p><strong>What 0.05 means</strong>:</p>
+<ul>
+<li>If we use α = 0.05, we accept that <strong>5% of the time</strong> (1 in 20), we will incorrectly reject a true null hypothesis (Type I error)</li>
+<li>This threshold was chosen as a practical compromise (strict enough to filter out most random noise, but not so strict that we miss real effects)</li>
+</ul>
+<p><strong>When to use different thresholds</strong>:</p>
+<ul>
+<li><strong>Stricter thresholds (0.01, 0.001)</strong>: When the consequences of a false positive are severe (e.g., approving a drug that doesn’t work, or worse, causes harm)</li>
+<li><strong>Looser thresholds (0.10)</strong>: In exploratory research where missing a potentially real effect is more costly than a false positive</li>
+</ul>
+<p><strong>For this course</strong>: We’ll use 0.05 as the conventional threshold unless there’s further instruction. However, always remember that 0.05 is arbitrary. What matters most is understanding what the p-value tells you about your data and making decisions appropriate to your context.</p>
 <hr>
 </section>
 </section>
 <section id="confidence-intervals" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> Confidence Intervals</h1>
+<p>So far, we’ve focused on <strong>hypothesis testing</strong>, which answers the question: “Is there a statistically significant difference?” But hypothesis testing only gives us a yes/no answer. <strong>Confidence intervals</strong> go further by telling us <em>how big</em> the effect might be and <em>how uncertain</em> we are about that estimate.</p>
 <p><strong>What is a Confidence Interval?</strong></p>
 <p>A <strong>confidence interval (CI)</strong> provides a range of plausible values for a <strong>population</strong> parameter (like a mean) based on sample data.</p>
-<p>Instead of just reporting a single estimate, like “the average wait time is 45 minutes,” a confidence interval communicates the uncertainty in this estimate due to sampling variability.</p>
+<p>Instead of just reporting a single estimate, like “the average wait time is 45 minutes,” a confidence interval communicates the uncertainty in this estimate due to sampling variability. For example, we might say: “The average wait time is 45 minutes, with a 95% confidence interval of [42, 48] minutes.”</p>
+<p><strong>Why this matters for managers</strong>:</p>
+<p>Point estimates can be misleading. If you report that “Hospital A’s readmission rate is 12%” without a confidence interval, stakeholders might not realize how uncertain that number is. A CI of [8%, 16%] tells a very different story than [11.5%, 12.5%]. The first suggests considerable uncertainty; the second suggests a precise estimate.</p>
 <p><strong>Understanding the 95% Confidence Level</strong></p>
 <p>A 95% confidence interval means that if we were to repeatedly draw samples of the same size from the population and construct confidence intervals using the same method, approximately 95% of those intervals would contain the true population parameter. (<a href="https://seeing-theory.brown.edu/frequentist-inference/index.html#section2">see this</a>)</p>
-<p>It does not mean that there’s a 95% probability that the true mean lies within the specific interval calculated from the observed data. The population parameter is fixed; what varies from sample to sample is the interval itself.</p>
+<p><strong>A common misconception</strong>: It does NOT mean that there’s a 95% probability that the true mean lies within the specific interval we calculated. The population parameter is fixed (it doesn’t change); what varies from sample to sample is the interval itself.</p>
+<p><strong>Healthcare Example</strong>: Suppose your hospital calculates a 95% CI for patient satisfaction as [4.2, 4.8] on a 7-point scale. It would be incorrect to say “there’s a 95% chance the true satisfaction is between 4.2 and 4.8.” The true satisfaction score is whatever it is (say, 4.5). What we can say is: “If we repeated this survey many times, 95% of the confidence intervals we construct would contain the true value.” Our particular interval either contains the true value or it doesn’t (we just don’t know which).</p>
 <hr>
 <section id="calculating-a-confidence-interval" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="calculating-a-confidence-interval"><span class="header-section-number">8.1</span> Calculating a Confidence Interval</h2>
-<p>For a mean, the 95% CI is approximately:</p>
+<p>Now let’s see how we can calculate a confidence interval. The formula for calculating a confidence interval is straightforward once you understand its components. For a mean, the 95% CI is approximately:</p>
 <p><span class="math display">\[\text{CI} = \bar{x} \pm 2 \times \frac{s}{\sqrt{n}}\]</span></p>
 <p>Where:</p>
 <ul>
 <li><span class="math inline">\(\bar{x}\)</span> = sample mean</li>
 <li><span class="math inline">\(s\)</span> = sample standard deviation</li>
 <li><span class="math inline">\(n\)</span> = sample size</li>
+<li><span class="math inline">\(\frac{s}{\sqrt{n}}\)</span> = <strong>standard error (SE)</strong>, which measures how much the sample mean is expected to vary from sample to sample</li>
 <li>The value 2 is approximately the critical value for 95% confidence (more precisely, 1.96)</li>
 </ul>
 <p><strong>What this tells us</strong>:</p>
 <ul>
-<li>Larger samples lead to <strong>Narrower</strong> CI, reflecting more precise estimates</li>
-<li>More variability (larger SD) leads to <strong>Wider</strong> CI, reflecting greater uncertainty</li>
+<li><strong>Larger samples</strong> lead to <strong>narrower</strong> CI, reflecting more precise estimates. This is because the standard error decreases as n increases.</li>
+<li><strong>More variability</strong> (larger SD) leads to <strong>wider</strong> CI, reflecting greater uncertainty. More variable data requires wider intervals to capture the true value.</li>
 </ul>
 <p><strong>An Example: Wait Times</strong></p>
+<p>Suppose we have a sample of 100 patients with a mean wait time of 45 minutes and a standard deviation of 15 minutes. We want to construct a 95% confidence interval for the population mean wait time.</p>
 <p><strong>Sample data</strong>: 100 patients, mean wait time = 45 minutes, SD = 15 minutes</p>
 <p><strong>95% CI calculation</strong>: <span class="math display">\[45 \pm 2 \times \frac{15}{\sqrt{100}} = 45 \pm 2 \times 1.5 = 45 \pm 3 = [42, 48]\]</span></p>
 <p><strong>Interpretation</strong>:</p>
-<p>Using this estimation procedure, we construct an interval from 42 to 48 minutes. If the population mean wait time were between 42 and 48, observing a sample mean like the one we obtained would not be surprising.</p>
+<p>Using this estimation procedure, we construct an interval from 42 to 48 minutes. We are 95% confident that the true population mean wait time falls within this range.</p>
+<p><strong>What this means for decision-making</strong>: If your hospital’s target is “average wait time under 40 minutes,” this CI tells you that you’re likely not meeting that goal, even the lower bound (42 minutes) exceeds the target. However, if the target were “under 50 minutes,” you could be confident you’re meeting it since the entire interval falls below 50.</p>
 <hr>
 </section>
 <section id="using-confidence-intervals-for-decision-making" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="using-confidence-intervals-for-decision-making"><span class="header-section-number">8.2</span> Using Confidence Intervals for Decision-Making</h2>
-<p><strong>Comparing Two Groups</strong></p>
-<p>Let’s assume that we have two hospitals’ average satisfaction scores and their confidence intervals</p>
+<p>One of the most practical applications of confidence intervals is comparing groups to determine if differences are meaningful. CIs provide a visual and intuitive way to assess significance without running a formal hypothesis test.</p>
+<p><strong>Comparing Two Groups: Non-Overlapping CIs</strong></p>
+<p>Let’s assume that we have two hospitals’ average satisfaction scores and their confidence intervals.</p>
 <p>Hospital A mean satisfaction = 5.5 [CI: 5.2, 5.8] Hospital B mean satisfaction = 4.8 [CI: 4.5, 5.1]</p>
 <p><strong>Question</strong>: Are these hospitals’ satisfaction scores significantly different?</p>
-<p><strong>Answer</strong>: Yes! The confidence intervals <strong>don’t overlap</strong>, suggesting a significant difference exists.</p>
-<p>If the CIs overlapped substantially (e.g., A: [5.0, 5.8], B: [4.8, 5.4]), we’d be less confident there’s a true difference.</p>
-<hr>
-</section>
-<section id="type-i-and-type-ii-errors" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="type-i-and-type-ii-errors"><span class="header-section-number">8.3</span> Type I and Type II Errors</h2>
-<p>When we make decisions based on hypothesis testing, two types of errors are possible:</p>
-<section id="type-i-error-false-positive" class="level3" data-number="8.3.1">
-<h3 data-number="8.3.1" class="anchored" data-anchor-id="type-i-error-false-positive"><span class="header-section-number">8.3.1</span> Type I Error (False Positive)</h3>
+<p><strong>Answer</strong>: Yes, very likely! The confidence intervals <strong>don’t overlap</strong>, which strongly suggests a statistically significant difference exists. This corresponds to what we would find if we ran a formal hypothesis test—we would likely reject the null hypothesis that the two hospitals have equal satisfaction scores.</p>
+<p><strong>Comparing Two Groups: Overlapping CIs</strong></p>
+<p>Now consider a different scenario:</p>
+<p>Hospital C mean satisfaction = 5.2 [CI: 4.8, 5.6] Hospital D mean satisfaction = 4.9 [CI: 4.5, 5.3]</p>
+<p><strong>Question</strong>: Are these hospitals’ satisfaction scores significantly different?</p>
+<p><strong>Answer</strong>: We can’t tell just by looking. The CIs <strong>overlap</strong> (both include values around 4.8–5.3), but this doesn’t necessarily mean there’s no significant difference. Overlapping CIs require a formal statistical test for a definitive answer.</p>
+<p><strong>Important Nuance About CI Overlap</strong></p>
 <ul>
-<li><strong>Definition</strong>: Concluding there’s a difference/effect when there actually isn’t</li>
-<li><strong>Probability</strong>: α = 0.05 (the significance level we set)</li>
-<li><strong>Example</strong>: Concluding a new treatment works when it actually doesn’t → Waste resources, potential harm to patients</li>
+<li><strong>Non-overlapping CIs</strong>: Strongly suggest statistical significance. You can be confident the difference is real.</li>
+<li><strong>Overlapping CIs</strong>: Do NOT necessarily mean non-significance. Two means can be statistically significantly different even if their individual 95% CIs overlap slightly.</li>
+<li>For definitive testing when CIs overlap, use a formal statistical test (like a t-test) or calculate a CI for the <strong>difference between means</strong>. If that CI excludes zero, the difference is significant.</li>
 </ul>
-</section>
-<section id="type-ii-error-false-negative" class="level3" data-number="8.3.2">
-<h3 data-number="8.3.2" class="anchored" data-anchor-id="type-ii-error-false-negative"><span class="header-section-number">8.3.2</span> Type II Error (False Negative)</h3>
-<ul>
-<li><strong>Definition</strong>: Failing to detect a real difference/effect that actually exists</li>
-<li><strong>Example</strong>: Concluding a new treatment doesn’t work when it actually does → Miss opportunity to improve care</li>
-</ul>
-<p><strong>Key insight</strong>: We can’t eliminate both types of errors simultaneously. Setting a stricter threshold (e.g., 0.01 instead of 0.05) reduces Type I errors but increases Type II errors.</p>
-<hr>
-</section>
-</section>
-<section id="the-0.05-threshold" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="the-0.05-threshold"><span class="header-section-number">8.4</span> The 0.05 Threshold</h2>
-<p><strong>Why p &lt; 0.05?</strong></p>
-<ul>
-<li>It’s a <strong>convention</strong>, not a magical number</li>
-<li>Represents a 5% chance of Type I error (false positive)</li>
-<li>Sometimes we use stricter thresholds (0.01, 0.001) for more important decisions</li>
-<li>Some fields use 0.01 or even lower</li>
-</ul>
-<p><strong>For this course</strong>: We’ll use 0.05 as the conventional threshold unless there’s any further instruction</p>
 <hr>
 </section>
 </section>
@@ -1454,7 +1630,7 @@ Figure&nbsp;11: The Null Model: Expected Results When the Null is True
 <li><strong>Confidence intervals</strong> quantify uncertainty around estimates
 <ul>
 <li>Provide a range of plausible values, not just a point estimate</li>
-<li>Larger samples → narrower (more precise) intervals</li>
+<li>Larger samples <strong>and</strong> lower variability → narrower (more precise) intervals</li>
 </ul></li>
 <li><strong>Hypothesis testing logic</strong>
 <ul>
@@ -1463,16 +1639,30 @@ Figure&nbsp;11: The Null Model: Expected Results When the Null is True
 <li>Small p-value → Reject H₀</li>
 <li><strong>Statistical significance ≠ Practical/clinical importance</strong></li>
 </ul></li>
+<li><strong>Decision Errors &amp; Thresholds</strong>
+<ul>
+<li><strong>Type I Error</strong> (False Positive): Finding a difference when none exists (risk controlled by α = 0.05)</li>
+<li><strong>Type II Error</strong> (False Negative): Missing a difference that actually exists (risk decreases with higher power)</li>
+<li><strong>0.05 Threshold</strong>: A standard convention, not a distinct cutoff for “truth”</li>
+</ul></li>
 </ol>
 <hr>
 </section>
 </section>
-<section id="further-reading" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Further Reading</h1>
+<section id="further-reading-and-resources" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Further Reading and Resources</h1>
+<p><strong>Articles:</strong></p>
 <ul>
-<li><p>Lakens, D. (2014). <a href="https://daniellakens.blogspot.com/2014/12/98-capture-percentages-and-999.html">98% Capture Percentages and 99.9% Confidence Intervals</a> - Understanding confidence intervals beyond the conventional 95%</p></li>
-<li><p>Lakens, D. (2017). <a href="https://daniellakens.blogspot.com/2017/12/understanding-common-misconceptions.html">Understanding Common Misconceptions About P-values</a> - Clarifying frequent misinterpretations of statistical significance</p></li>
-<li><p>Navarro, D. <a href="https://learningstatisticswithr.com/lsr-0.6.pdf">Learning Statistics with R</a> - Free comprehensive textbook covering statistical concepts with R applications</p></li>
+<li><p>Lakens, D. (2014). <a href="https://lakens.github.io/statistical_inferences/01-pvalue.html">Improving Your Statistical Inferences; Chapter 1. Using p-values to test a hypothesis</a></p></li>
+<li><p>Lakens, D. (2017). <a href="https://lakens.github.io/statistical_inferences/07-CI.html">Improving Your Statistical Inferences; Chapter 7. Confidence Intervals</a></p></li>
+</ul>
+<p><strong>Books:</strong></p>
+<ul>
+<li>Navarro, D. <a href="https://learningstatisticswithr.com/lsr-0.6.pdf">Learning Statistics with R</a> - Free comprehensive textbook covering statistical concepts with R applications</li>
+</ul>
+<p><strong>Interactive Visualizations:</strong></p>
+<ul>
+<li>Brown University. <a href="https://seeing-theory.brown.edu/frequentist-inference/index.html">Seeing Theory: Frequentist Inference</a> - Beautiful interactive visualizations of confidence intervals, hypothesis testing, and the central limit theorem</li>
 </ul>
 
 
