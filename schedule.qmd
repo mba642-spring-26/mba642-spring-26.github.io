@@ -16,10 +16,10 @@ Any changes will be announced in class and posted on the course website and Canv
 
 ::: column-screen-inset-right
 | Week | Date | Topic | Lecture Slides | Lecture Notes | Practice Files | Assignments |
-|:-------:|:-------:|:-----------|:-------:|:----------:|:----------:|:----------:|
+|:---------:|:---------:|:----------|:---------:|:---------:|:---------:|:---------:|
 | 1 | Jan 14 | Introduction & Course Overview | [{{< fa file-alt >}}](/lectures/Lecture01/Lecture01.pdf){target="_blank"} | \- | \- | \- |
 | 2 | Jan 21 | A primer on R, R-Studio, Quarto, and Data Wrangling | [{{< fa file-alt >}}](/lectures/Lecture02/Slide02.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture02/Lecture02.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture02/Practice02.qmd){target="_blank"} | Reflection 1 |
-| 3 | Jan 28 | Basic Statistical Concepts | \- | [{{< fa file-alt >}}](/lectures/Lecture03/Lecture03.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture03/Practice03.qmd){target="_blank"} | Reflection 2 |
+| 3 | Jan 28 | Basic Statistical Concepts | [{{< fa file-alt >}}](/lectures/Lecture03/Slide03.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture03/Lecture03.qmd){target="_blank"} | \- | Reflection 2 |
 | 4 | Feb 4 | Data visualization | \- | [{{< fa file-alt >}}](/lectures/Lecture04/Lecture04.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture04/Practice04.qmd){target="_blank"} | Reflection 3, Assignment 1 |
 | 5 | Feb 11 | Mean difference 1: t-test | \- | [{{< fa file-alt >}}](/lectures/Lecture05/Lecture05.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture05/Practice05.qmd){target="_blank"} | Reflection 4, Assignment 2 |
 | 6 | Feb 18 | Mean difference 2: ANOVA 1 | \- | [{{< fa file-alt >}}](/lectures/Lecture06/Lecture06.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture06/Practice06.qmd){target="_blank"} | Reflection 5 |
@@ -33,7 +33,7 @@ Any changes will be announced in class and posted on the course website and Canv
 | 14 | Apr 15 | Conjoint analysis | \- | [{{< fa file-alt >}}](/lectures/Lecture14/Lecture14.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture14/Practice14.qmd){target="_blank"} | Reflection 11, Assignment 7 |
 | 15 | Apr 22 | Predictive analytics 1: Penalized Regression | \- | [{{< fa file-alt >}}](/lectures/Lecture15/Lecture15.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture15/Practice15.qmd){target="_blank"} | Reflection 12, Assignment 8 |
 | 16 | Apr 29 | Predictive analytics 2: Decision Trees | \- | [{{< fa file-alt >}}](/lectures/Lecture16/Lecture16.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture16/Practice16.qmd){target="_blank"} | Reflection 13, Assignment 9 |
-| 17 | May 6 | Final Exam | \- | \- | \- |
+| 17 | May 6 | Final Exam | \- | \- | \- |  |
 :::
 
 [*Assignments will be informed during the class*]{style="font-size: 15px;"}
