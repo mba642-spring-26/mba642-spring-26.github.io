@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Slides\nLecture Notes\nPractice Files\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\n-\nReflection 2\n\n\n4\nFeb 4\nData visualization\n-\n\n-\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n-\n\n\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n-\n\n\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n-\n\n\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n-\n\n\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n-\n-\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n-\n\n\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n-\n\n\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n-\n\n\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n-\n\n\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n-\n\n\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n-\n\n\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\n\nAssignments will be informed during the class",
+    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Slides\nLecture Notes\nPractice Files\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\n-\nReflection 2\n\n\n4\nFeb 4\nData visualization\n\n\n-\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n-\n\n\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n-\n\n\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n-\n\n\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n-\n\n\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n-\n-\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n-\n\n\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n-\n\n\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n-\n\n\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n-\n\n\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n-\n\n\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n-\n\n\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\n\nAssignments will be informed during the class",
     "crumbs": [
       "Home",
       "Schedule"
@@ -2923,6 +2923,534 @@
     "text": "Questions?\n\nFeel free to ask me anything you’re curious about!\nClass Reflection Assignment is due by this Sunday at 11:59 PM"
   },
   {
+    "objectID": "lectures/Lecture04/Slide04.html#why-visualization-matters",
+    "href": "lectures/Lecture04/Slide04.html#why-visualization-matters",
+    "title": "Basics of Data Visualization",
+    "section": "Why Visualization Matters",
+    "text": "Why Visualization Matters\nCompare these two formats:\n\n\nTable View\n\n\n\nDepartment\nAvg Sat\nWait\n\n\n\n\nCardiology\n7.2\n45\n\n\nEmergency\n6.8\n67\n\n\nOrthopedics\n7.9\n38\n\n\nSurgery\n7.4\n52\n\n\n\n\nVisualization"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#why-visualization-matters-1",
+    "href": "lectures/Lecture04/Slide04.html#why-visualization-matters-1",
+    "title": "Basics of Data Visualization",
+    "section": "Why Visualization Matters",
+    "text": "Why Visualization Matters\nWhich format helped you identify the problem department faster?\n\n\nMost likely, the visualization! You probably spotted the shortest bar in less than a second.\n\n\n\n\nBoth formats convey identical information, but visualization leverages our brain’s pre-attentive visual processing to make comparisons nearly instantaneous.\n\n\n\n\nWe can easily process information from visualizations and maintain the key information."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#todays-learning-goals",
+    "href": "lectures/Lecture04/Slide04.html#todays-learning-goals",
+    "title": "Basics of Data Visualization",
+    "section": "Today’s Learning Goals",
+    "text": "Today’s Learning Goals\nData visualization helps you:\n\nSpeed up understanding by revealing patterns instantly\nBridge expertise gaps so anyone can grasp the message\nDrive action by making it obvious where attention is needed"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#what-makes-a-good-visualization",
+    "href": "lectures/Lecture04/Slide04.html#what-makes-a-good-visualization",
+    "title": "Basics of Data Visualization",
+    "section": "What Makes a Good Visualization?",
+    "text": "What Makes a Good Visualization?\n1. Truthful: Accurate representation without distortion\n\n✅ Appropriate scales\n❌ Truncated axes that distort relationships (See examples)\n\n\n\n\n\n\n\ntruncated\n\n\n\n\n\n\n\nnon-truncated"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#what-makes-a-good-visualization-1",
+    "href": "lectures/Lecture04/Slide04.html#what-makes-a-good-visualization-1",
+    "title": "Basics of Data Visualization",
+    "section": "What Makes a Good Visualization?",
+    "text": "What Makes a Good Visualization?\n2. Functional: Serves a clear purpose\n\n✅ Right chart type for the data and question\n❌ Pie chart with 15 slices (See examples)\n\n\n\n\n\n\n\nPie Chart\n\n\n\n\n\n\n\nbar chart"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#what-makes-a-good-visualization-2",
+    "href": "lectures/Lecture04/Slide04.html#what-makes-a-good-visualization-2",
+    "title": "Basics of Data Visualization",
+    "section": "What Makes a Good Visualization?",
+    "text": "What Makes a Good Visualization?\n3. Insightful: Reveals hidden patterns\n\n✅ Shows patterns, relationships, or anomalies\n❌ Just displaying raw totals\n\n\nAnscombe’s Quartet"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#what-makes-a-good-visualization-3",
+    "href": "lectures/Lecture04/Slide04.html#what-makes-a-good-visualization-3",
+    "title": "Basics of Data Visualization",
+    "section": "What Makes a Good Visualization?",
+    "text": "What Makes a Good Visualization?\n4. Clear: Easy to understand at a glance\n\n✅ Descriptive titles and labels\n❌ Color overload, missing legends\n\n\n\n\n\n\n\nNo labels\n\n\n\n\n\n\n\nWith Labels"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#topics-for-today",
+    "href": "lectures/Lecture04/Slide04.html#topics-for-today",
+    "title": "Basics of Data Visualization",
+    "section": "Topics for Today",
+    "text": "Topics for Today\n\nOverview: Choosing the right visualization\nThe Grammar of Graphics (ggplot2)\nEssential Plot Types: Details & Code\nPractice: Applying skills to ED data"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#histogram",
+    "href": "lectures/Lecture04/Slide04.html#histogram",
+    "title": "Basics of Data Visualization",
+    "section": "1. Histogram",
+    "text": "1. Histogram\n\nDistribution of one continuous variable\nUse when:\n\nUnderstanding the shape (skew, outliers) of a single measure.\ne.g.,) “What is the typical patient wait time?”"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#bar-chart",
+    "href": "lectures/Lecture04/Slide04.html#bar-chart",
+    "title": "Basics of Data Visualization",
+    "section": "2. Bar Chart",
+    "text": "2. Bar Chart\n\nCompare counts or values across categories\nUse when:\n\nComparing size or frequency between groups.\ne.g.,) “Which department has the most patients?”"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#box-plot",
+    "href": "lectures/Lecture04/Slide04.html#box-plot",
+    "title": "Basics of Data Visualization",
+    "section": "3. Box Plot",
+    "text": "3. Box Plot\n\nCompare distributions across groups\nUse when:\n\nComparing median and spread across groups.\ne.g.,) “Do satisfaction scores differ by department?”"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#scatterplot",
+    "href": "lectures/Lecture04/Slide04.html#scatterplot",
+    "title": "Basics of Data Visualization",
+    "section": "4. Scatterplot",
+    "text": "4. Scatterplot\n\nRelationship between two continuous variables\nUse when:\n\nChecking if X is related to Y.\ne.g.,) “Does longer wait time relate to lower satisfaction?”"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#line-chart",
+    "href": "lectures/Lecture04/Slide04.html#line-chart",
+    "title": "Basics of Data Visualization",
+    "section": "5. Line Chart",
+    "text": "5. Line Chart\n\nTrends over time\nUse when:\n\nTracking changes or seasonality.\ne.g.,) “How has patient volume changed this year?”"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#faceted-plot",
+    "href": "lectures/Lecture04/Slide04.html#faceted-plot",
+    "title": "Basics of Data Visualization",
+    "section": "6. Faceted Plot",
+    "text": "6. Faceted Plot\n\nCompare patterns across groups\nUse when:\n\nComparing the same plot across different subgroups.\ne.g.,) “Does satisfaction distribution differ by department?”"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#quick-reference-table",
+    "href": "lectures/Lecture04/Slide04.html#quick-reference-table",
+    "title": "Basics of Data Visualization",
+    "section": "Quick Reference Table",
+    "text": "Quick Reference Table\n\n\n\nYour Question\nUse This\n\n\n\n\n“What’s the distribution of a single variable?”\nHistogram\n\n\n“How many cases in each category?”\nBar Chart\n\n\n“How do groups compare?”\nBox Plot / Faceted\n\n\n“Is there a relationship between two variables?”\nScatterplot\n\n\n“How does it change over time?”\nLine Chart"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#understanding-ggplot2",
+    "href": "lectures/Lecture04/Slide04.html#understanding-ggplot2",
+    "title": "Basics of Data Visualization",
+    "section": "Understanding ggplot2",
+    "text": "Understanding ggplot2\nConcept: Build plots layer by layer.\n\n 3 Essential Layers:\n\nData: Your dataframe\nAesthetics (aes): Mapping variables to visuals (x, y, color, size)\nGeometrics (geom): The shape (bar, point, line)"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#basic-template",
+    "href": "lectures/Lecture04/Slide04.html#basic-template",
+    "title": "Basics of Data Visualization",
+    "section": "Basic Template",
+    "text": "Basic Template\nggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) +\n  &lt;GEOM_FUNCTION&gt;()\n\nExample with ToothGrowth data:\n\nggplot(data = ToothGrowth, mapping = aes(x = supp, y = len)) +\n  geom_boxplot()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#adding-layers",
+    "href": "lectures/Lecture04/Slide04.html#adding-layers",
+    "title": "Basics of Data Visualization",
+    "section": "Adding Layers",
+    "text": "Adding Layers\nStart simple, then refine by adding layers with +:\n\nggplot(data = ToothGrowth, mapping = aes(x = supp, y = len)) +\n  geom_boxplot(fill = \"steelblue\", alpha = 0.7) +\n  labs(title = \"Tooth Length by Supplement Type\",\n       x = \"Supplement\", y = \"Tooth Length\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#common-geometries",
+    "href": "lectures/Lecture04/Slide04.html#common-geometries",
+    "title": "Basics of Data Visualization",
+    "section": "Common Geometries",
+    "text": "Common Geometries\n\n\n\nType\nGeom\nUse Case\n\n\n\n\n1 Continuous\ngeom_histogram()\nDistribution\n\n\n1 Categorical\ngeom_bar()\nCounts\n\n\n2 Continuous\ngeom_point()\nRelationship\n\n\nContinuous + Time\ngeom_line()\nTrend\n\n\nContinuous + Cat\ngeom_boxplot()\nComparison"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#other-useful-components",
+    "href": "lectures/Lecture04/Slide04.html#other-useful-components",
+    "title": "Basics of Data Visualization",
+    "section": "Other Useful Components",
+    "text": "Other Useful Components\n\nLabels: labs(title, x, y, color, caption)\nScales: scale_x_continuous(), scale_color_brewer()\nFacets: facet_wrap(~ variable), facet_grid(row ~ col)\nThemes: theme_minimal(), theme_classic(), theme_bw()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#loading-the-data",
+    "href": "lectures/Lecture04/Slide04.html#loading-the-data",
+    "title": "Basics of Data Visualization",
+    "section": "Loading the Data",
+    "text": "Loading the Data\nPatient Satisfaction Survey\n\n# Demonstration data\npatient_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week04_demonstration_data.csv\")\n\n# Practice data (ED visits)\ned_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week04_practice_data.csv\")\ned_data$month &lt;- factor(ed_data$month, levels = c(\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"))"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#dataset-preview",
+    "href": "lectures/Lecture04/Slide04.html#dataset-preview",
+    "title": "Basics of Data Visualization",
+    "section": "Dataset Preview",
+    "text": "Dataset Preview\n\nhead(patient_data, 5)\n\n  X patient_id age  department satisfaction_score wait_time_minutes\n1 1          1  63   Emergency                7.2                67\n2 2          2  39   Emergency                7.2                40\n3 3          3  57   Emergency                6.0                28\n4 4          4  54 Orthopedics                9.2                73\n5 5          5  45     Surgery                6.0                32\n  length_of_stay_days\n1                   9\n2                   2\n3                   5\n4                   4\n5                   6"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#dataset-variables",
+    "href": "lectures/Lecture04/Slide04.html#dataset-variables",
+    "title": "Basics of Data Visualization",
+    "section": "Dataset Variables",
+    "text": "Dataset Variables\n\n\n\nVariable\nDescription\nType\n\n\n\n\npatient_id\nUnique patient identifier\nNumeric\n\n\nage\nPatient age in years\nContinuous\n\n\ndepartment\nHospital department\nCategorical\n\n\nsatisfaction_score\nOverall satisfaction (1-10)\nContinuous\n\n\nwait_time_minutes\nWait time before seeing provider\nContinuous\n\n\nlength_of_stay_days\nHospital length of stay\nDiscrete"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#histogram-purpose",
+    "href": "lectures/Lecture04/Slide04.html#histogram-purpose",
+    "title": "Basics of Data Visualization",
+    "section": "1. Histogram: Purpose",
+    "text": "1. Histogram: Purpose\nPurpose: Reveal the distribution pattern of continuous data\n\nWhere values cluster\nSymmetric or skewed\nPotential outliers\n\nWhen to use: Examining distribution of age, wait times, length of stay, or any continuous measure."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-basic-histogram",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-basic-histogram",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Basic Histogram",
+    "text": "Demonstration: Basic Histogram\nQuestion: What is the typical age of our patients?\n\nggplot(data = patient_data, mapping = aes(x = age)) +\n  geom_histogram()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-improved-histogram",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-improved-histogram",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Improved Histogram",
+    "text": "Demonstration: Improved Histogram\nAdding styling and labels:\n\nggplot(patient_data, aes(x = age)) +\n  geom_histogram(binwidth = 5, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Distribution of Patient Ages\",\n       x = \"Age (years)\", y = \"Number of Patients\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#components-used",
+    "href": "lectures/Lecture04/Slide04.html#components-used",
+    "title": "Basics of Data Visualization",
+    "section": "Components Used",
+    "text": "Components Used\n\ngeom_histogram(): Creates histogram by dividing continuous variable into bins\nbinwidth = 5: Controls bin size (each bar = 5-year age range)\nfill and color: Control bar appearance (interior and border)\nlabs(): Adds title and axis labels\ntheme_minimal(): Applies clean appearance"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#why-binwidth-matters",
+    "href": "lectures/Lecture04/Slide04.html#why-binwidth-matters",
+    "title": "Basics of Data Visualization",
+    "section": "Why Binwidth Matters",
+    "text": "Why Binwidth Matters\n\n\n\n\n\n\nImportant\n\n\nThe same data can tell different stories:\n\nToo narrow (binwidth = 1): Noisy, jagged patterns\nToo wide (binwidth = 20): Hides important features\nJust right: Reveals true distribution pattern"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#interpreting-histograms",
+    "href": "lectures/Lecture04/Slide04.html#interpreting-histograms",
+    "title": "Basics of Data Visualization",
+    "section": "Interpreting Histograms",
+    "text": "Interpreting Histograms\nWhat story does the shape tell?\n\nShape: Symmetric, right-skewed, or left-skewed?\nCenter: Where do most values cluster?\nSpread: Are values tight or widely variable?\nOutliers: Any isolated bars far from the group?\nModality: One peak (unimodal) or multiple peaks?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-histogram",
+    "href": "lectures/Lecture04/Slide04.html#practice-histogram",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Histogram",
+    "text": "Practice: Histogram\nCreate a histogram showing the distribution of wait times (wait_time_minutes) in the ED data.\n\n# Fill in the blanks (replace ___ with appropriate values)\nggplot(data = ed_data, mapping = aes(x = ___)) +\n  geom_histogram(binwidth = ___, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribution of ED Patient Wait Times\",\n    x = \"___\",\n    y = \"___\"\n  ) +\n  theme_minimal()\n\nQuestion: What is the approximate center of the distribution? Is it symmetric or skewed?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#bar-chart-purpose",
+    "href": "lectures/Lecture04/Slide04.html#bar-chart-purpose",
+    "title": "Basics of Data Visualization",
+    "section": "2. Bar Chart: Purpose",
+    "text": "2. Bar Chart: Purpose\nPurpose: Compare frequencies or counts across categories\n\nWhich groups are larger/smaller\nAlso useful for comparing average values across measures\n\nWhen to use: Patient counts by department, admission type, insurance status, or any categorical grouping."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-bar-chart",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-bar-chart",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Bar Chart",
+    "text": "Demonstration: Bar Chart\nQuestion: How many patients in each department?\n\nggplot(patient_data, aes(x = department)) +\n  geom_bar(fill = \"darkgreen\", width = 0.5, alpha = 0.7) +\n  labs(title = \"Patient Volume by Department\",\n       x = \"Department\", y = \"Number of Patients\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#components-used-1",
+    "href": "lectures/Lecture04/Slide04.html#components-used-1",
+    "title": "Basics of Data Visualization",
+    "section": "Components Used",
+    "text": "Components Used\n\ngeom_bar(): Automatically counts observations in each category\nalpha = 0.7: Controls transparency (0 = transparent, 1 = opaque)\nwidth = 0.5: Controls bar width\nlabs(): Adds clear labels and title"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-bar-chart",
+    "href": "lectures/Lecture04/Slide04.html#practice-bar-chart",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Bar Chart",
+    "text": "Practice: Bar Chart\nCreate a bar chart showing the number of ED visits by month (month).\n\n# Fill in the blanks\nggplot(data = ed_data, mapping = aes(x = ___)) +\n  geom_bar(fill = \"darkgreen\", alpha = 0.7) +\n  labs(\n    title = \"Monthly ED Patient Volume\",\n    x = \"___\",\n    y = \"Number of Visits\"\n  ) +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\nQuestion: Are visits evenly distributed across months, or are there patterns?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#box-plot-purpose",
+    "href": "lectures/Lecture04/Slide04.html#box-plot-purpose",
+    "title": "Basics of Data Visualization",
+    "section": "3. Box Plot: Purpose",
+    "text": "3. Box Plot: Purpose\nPurpose: Compact five-number summary of distribution\n\nMinimum, 25th percentile, median, 75th percentile, maximum\nIdeal for identifying typical range and outliers\n\nWhen to use: Comparing distributions across groups, identifying outliers in metrics."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-box-plot",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-box-plot",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Box Plot",
+    "text": "Demonstration: Box Plot\nQuestion: What are the typical satisfaction scores?\n\nggplot(patient_data, aes(x = \"\", y = satisfaction_score)) +\n  geom_boxplot(fill = \"coral\", width = 0.2, alpha = 0.6) +\n  labs(title = \"Distribution of Patient Satisfaction Scores\",\n       x = \"\", y = \"Satisfaction Score (1-10)\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#interpreting-box-plots",
+    "href": "lectures/Lecture04/Slide04.html#interpreting-box-plots",
+    "title": "Basics of Data Visualization",
+    "section": "Interpreting Box Plots",
+    "text": "Interpreting Box Plots\nA 5-Number Summary in one glance:\n\nBox (IQR): The middle 50% of data. Taller box = more variability.\nLine (Median): The exact middle value.\nWhiskers: The expected range (1.5× IQR).\nDots (Outliers): Individual cases that are unusually high/low."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#interpreting-box-plots-continued",
+    "href": "lectures/Lecture04/Slide04.html#interpreting-box-plots-continued",
+    "title": "Basics of Data Visualization",
+    "section": "Interpreting Box Plots (continued)",
+    "text": "Interpreting Box Plots (continued)\nQuick Guide\n\nMedian position within box: If not centered, distribution is skewed\nBox height (IQR): Taller boxes indicate more variability\nWhisker lengths: Asymmetric whiskers suggest skewness\nOutliers: Many outliers may indicate data quality issues"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-box-plot",
+    "href": "lectures/Lecture04/Slide04.html#practice-box-plot",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Box Plot",
+    "text": "Practice: Box Plot\nCreate a box plot showing the distribution of wait times (wait_time_minutes) in the ED.\n\n# Fill in the blanks\nggplot(data = ed_data, mapping = aes(x = \"\", y = ___)) +\n  geom_boxplot(fill = \"lightblue\") +\n  labs(\n    title = \"Distribution of ED Wait Times\",\n    x = \"\",\n    y = \"Wait Time (minutes)\"\n  ) +\n  theme_minimal()\n\nQuestion: What is the approximate median wait time? Are there any outliers?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#why-relationships-matter",
+    "href": "lectures/Lecture04/Slide04.html#why-relationships-matter",
+    "title": "Basics of Data Visualization",
+    "section": "Why Relationships Matter",
+    "text": "Why Relationships Matter\nSo far, we talked about how to visualize single variables (distributions, counts)\n Now, let’s talk about relationships between variables\n\nDoes one variable affect another?\nDo they move together or in opposite directions?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#scatterplot-purpose",
+    "href": "lectures/Lecture04/Slide04.html#scatterplot-purpose",
+    "title": "Basics of Data Visualization",
+    "section": "4. Scatterplot: Purpose",
+    "text": "4. Scatterplot: Purpose\nPurpose: Reveal relationships between two continuous variables\n\nPositive correlation (move together)\nNegative correlation (opposite directions)\nNo clear pattern\n\nWhen to use: Examining whether wait time relates to satisfaction, age relates to length of stay, etc."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-basic-scatterplot",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-basic-scatterplot",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Basic Scatterplot",
+    "text": "Demonstration: Basic Scatterplot\nQuestion: Does wait time affect satisfaction?\n\nggplot(patient_data, aes(x = wait_time_minutes, y = satisfaction_score)) +\n  geom_point(alpha = 0.5, color = \"darkblue\") +\n  labs(title = \"Relationship Between Wait Time and Satisfaction\",\n       x = \"Wait Time (minutes)\", y = \"Satisfaction Score (1-10)\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-adding-trend-line",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-adding-trend-line",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Adding Trend Line",
+    "text": "Demonstration: Adding Trend Line\n\nggplot(patient_data, aes(x = wait_time_minutes, y = satisfaction_score)) +\n  geom_point(alpha = 0.5, color = \"darkblue\") +\n  geom_smooth(method = \"lm\", se = TRUE, color = \"red\") +\n  labs(title = \"Wait Time and Satisfaction with Linear Trend\",\n       x = \"Wait Time (minutes)\", y = \"Satisfaction Score (1-10)\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#components-used-2",
+    "href": "lectures/Lecture04/Slide04.html#components-used-2",
+    "title": "Basics of Data Visualization",
+    "section": "Components Used",
+    "text": "Components Used\n\ngeom_point(): Plots individual data points\ngeom_smooth(method = \"lm\"): Adds linear regression trend line\nse = TRUE: Displays confidence interval (shaded area)\nalpha = 0.5: Makes points semi-transparent for overlap visibility"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#interpreting-scatterplots",
+    "href": "lectures/Lecture04/Slide04.html#interpreting-scatterplots",
+    "title": "Basics of Data Visualization",
+    "section": "Interpreting Scatterplots",
+    "text": "Interpreting Scatterplots\nDescribing the relationship:\n\nDirection: Positive (upward /) or Negative (downward )?\nStrength: Strong (points tight around line) or Weak (scattered)?\nForm: Linear (straight) or Non-linear (curved)?\nOutliers: Any points far from the general pattern?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-scatterplot",
+    "href": "lectures/Lecture04/Slide04.html#practice-scatterplot",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Scatterplot",
+    "text": "Practice: Scatterplot\nCreate a scatterplot showing the relationship between ED census (number of patients, ed_census) and wait times (wait_time_minutes). Add a trend line.\n\n# Fill in the blanks\nggplot(data = ed_data, mapping = aes(x = ___, y = ___)) +\n  geom_point(alpha = 0.5, color = \"darkblue\") +\n  geom_smooth(method = \"lm\", se = TRUE, color = \"red\") +\n  labs(\n    title = \"Relationship Between ED Census and Wait Times\",\n    x = \"___\",\n    y = \"___\"\n  ) +\n  theme_minimal()\n\nQuestion: Is there a positive or negative relationship? What does this mean for ED operations?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#line-chart-purpose",
+    "href": "lectures/Lecture04/Slide04.html#line-chart-purpose",
+    "title": "Basics of Data Visualization",
+    "section": "5. Line Chart: Purpose",
+    "text": "5. Line Chart: Purpose\nPurpose: Reveal trends over time\n\nHow a metric rises, falls, or cycles\nEssential for tracking performance and seasonal patterns\n\nWhen to use: Monthly readmission rates, weekly patient volumes, daily ED wait times."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#line-chart-data",
+    "href": "lectures/Lecture04/Slide04.html#line-chart-data",
+    "title": "Basics of Data Visualization",
+    "section": "Line Chart Data",
+    "text": "Line Chart Data\nCreating monthly patient volume data:\n\nmonthly_data &lt;- data.frame(\n  month = factor(month.abb, levels = month.abb),\n  patient_volume = c(180, 165, 195, 210, 225, 240, \n                     235, 220, 205, 215, 190, 175)\n)\nhead(monthly_data)\n\n  month patient_volume\n1   Jan            180\n2   Feb            165\n3   Mar            195\n4   Apr            210\n5   May            225\n6   Jun            240"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-line-chart",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-line-chart",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Line Chart",
+    "text": "Demonstration: Line Chart\nQuestion: How does the patientvolume change over time?\n\nggplot(monthly_data, aes(x = month, y = patient_volume, group = 1)) +\n  geom_line(color = \"steelblue\", linewidth = 1) +\n  geom_point(color = \"steelblue\", size = 2) +\n  labs(title = \"Monthly Patient Volume\",\n       x = \"Month\", y = \"Number of Patients\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#components-used-3",
+    "href": "lectures/Lecture04/Slide04.html#components-used-3",
+    "title": "Basics of Data Visualization",
+    "section": "Components Used",
+    "text": "Components Used\n\ngeom_line(): Connects points in order\ngeom_point(): Adds dots at each data point\ngroup = 1: Tells ggplot to connect all points as one line (needed when x-axis is categorical, any numbers are fine)\nlinewidth: Controls line thickness"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#interpreting-line-charts",
+    "href": "lectures/Lecture04/Slide04.html#interpreting-line-charts",
+    "title": "Basics of Data Visualization",
+    "section": "Interpreting Line Charts",
+    "text": "Interpreting Line Charts\nWhat to look for:\n\nOverall trend: Increasing, decreasing, or stable?\nPatterns: Seasonal cycles or regular fluctuations?\nAnomalies: Any sudden spikes or drops?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-line-chart",
+    "href": "lectures/Lecture04/Slide04.html#practice-line-chart",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Line Chart",
+    "text": "Practice: Line Chart\nCreate a line chart showing monthly average wait times using the ED data.\n\n# First, summarize monthly data\nmonthly_summary &lt;- ed_data %&gt;%\n  group_by(month) %&gt;%\n  summarize(avg_wait = mean(wait_time_minutes))\n\n# Then create the line chart\nggplot(data = monthly_summary, mapping = aes(x = ___, y = ___, group = 1)) +\n  geom_line(color = \"steelblue\", linewidth = 1) +\n  geom_point(color = \"steelblue\", size = 2) +\n  labs(\n    title = \"Monthly Average ED Wait Times\",\n    x = \"___\",\n    y = \"___\"\n  ) +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\nQuestion: Do you see any seasonal patterns in wait times?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#why-group-comparisons",
+    "href": "lectures/Lecture04/Slide04.html#why-group-comparisons",
+    "title": "Basics of Data Visualization",
+    "section": "Why Group Comparisons?",
+    "text": "Why Group Comparisons?\nCompare distributions or relationships across categories:\n\nDo certain departments have higher satisfaction?\nDoes the relationship between wait time and satisfaction differ by department?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#grouped-box-plot-concept",
+    "href": "lectures/Lecture04/Slide04.html#grouped-box-plot-concept",
+    "title": "Basics of Data Visualization",
+    "section": "Grouped Box Plot: Concept",
+    "text": "Grouped Box Plot: Concept\nPurpose: Compare distributions across groups side-by-side\n\nReveal whether different groups have similar or different patterns\nIdentify which groups need attention"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-grouped-box-plot",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-grouped-box-plot",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Grouped Box Plot",
+    "text": "Demonstration: Grouped Box Plot\nQuestion: Do satisfaction scores differ by department?\n\nggplot(patient_data, aes(x = department, y = satisfaction_score, \n                          fill = department)) +\n  geom_boxplot(alpha = 0.7, width = 0.3) +\n  labs(title = \"Patient Satisfaction by Department\",\n       x = \"Department\", y = \"Satisfaction Score (1-10)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-grouped-box-plot",
+    "href": "lectures/Lecture04/Slide04.html#practice-grouped-box-plot",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Grouped Box Plot",
+    "text": "Practice: Grouped Box Plot\nCreate grouped box plots to compare wait times (wait_time_minutes) across different shifts (shift: Day, Evening, Night).\n\n# Fill in the blanks\nggplot(data = ed_data, mapping = aes(x = ___, y = ___, fill = ___)) +\n  geom_boxplot(alpha = 0.7) +\n  labs(\n    title = \"ED Wait Times by Shift\",\n    x = \"Shift\",\n    y = \"Wait Time (minutes)\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\nQuestion: Which shift tends to have the highest median wait time?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#bar-chart-of-means-concept",
+    "href": "lectures/Lecture04/Slide04.html#bar-chart-of-means-concept",
+    "title": "Basics of Data Visualization",
+    "section": "Bar Chart of Means: Concept",
+    "text": "Bar Chart of Means: Concept\nPurpose: Compare average values across groups\n\nShows the mean of a continuous variable by category\nGood for presentations when comparing group averages"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-bar-chart-of-means",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-bar-chart-of-means",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Bar Chart of Means",
+    "text": "Demonstration: Bar Chart of Means\nQuestion: What is the average satisfaction by department?\n\nggplot(patient_data, aes(x = department, y = satisfaction_score, \n                          fill = department)) +\n  geom_bar(stat = \"summary\", fun = \"mean\", alpha = 0.8) +\n  labs(title = \"Average Patient Satisfaction by Department\",\n       x = \"Department\", y = \"Average Satisfaction Score (1-10)\") +\n  ylim(0, 10) +\n  theme_minimal() +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#components-used-4",
+    "href": "lectures/Lecture04/Slide04.html#components-used-4",
+    "title": "Basics of Data Visualization",
+    "section": "Components Used",
+    "text": "Components Used\n\ngeom_bar(stat = \"summary\", fun = \"mean\"): Calculates and plots the mean for each group\nylim(): Sets y-axis limits (important for proper context)\n\nBar chart of means vs Box plot:\n\nBar chart: Shows average clearly, good for presentations\nBox plot: Shows full distribution, better for exploration"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-bar-chart-of-means",
+    "href": "lectures/Lecture04/Slide04.html#practice-bar-chart-of-means",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Bar Chart of Means",
+    "text": "Practice: Bar Chart of Means\nCreate a bar chart showing the average wait time (wait_time_minutes) for each acuity level (acuity_level).\n\n# Fill in the blanks\nggplot(data = ed_data, mapping = aes(x = factor(___), y = ___, \n                                      fill = factor(___))) +\n  geom_bar(stat = \"summary\", fun = \"___\", alpha = 0.8) +\n  labs(\n    title = \"Average ED Wait Times by Acuity\",\n    x = \"Acuity Level\",\n    y = \"Average Wait Time (minutes)\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\nQuestion: Does the average wait time increase or decrease as acuity level goes up (1 to 5)?\n\nNote: Acuity 1 is most critical (should be fastest), Acuity 5 is least critical."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#grouped-scatterplot-concept",
+    "href": "lectures/Lecture04/Slide04.html#grouped-scatterplot-concept",
+    "title": "Basics of Data Visualization",
+    "section": "Grouped Scatterplot: Concept",
+    "text": "Grouped Scatterplot: Concept\nPurpose: See if relationships differ across subgroups\n\nAdd color or shape by group\nSeparate trend lines for each group"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-grouped-scatterplot",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-grouped-scatterplot",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Grouped Scatterplot",
+    "text": "Demonstration: Grouped Scatterplot\nQuestion: Does the wait-satisfaction relationship differ by department?\n\nggplot(patient_data, aes(x = wait_time_minutes, y = satisfaction_score,\n                          color = department)) +\n  geom_point(alpha = 0.6, size = 2) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(title = \"Wait Time and Satisfaction by Department\",\n       x = \"Wait Time (minutes)\", y = \"Satisfaction Score (1-10)\",\n       color = \"Department\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#interpreting-grouped-slopes",
+    "href": "lectures/Lecture04/Slide04.html#interpreting-grouped-slopes",
+    "title": "Basics of Data Visualization",
+    "section": "Interpreting Grouped Slopes",
+    "text": "Interpreting Grouped Slopes\n\nOrthopedics: Negative relationship (satisfaction ↓ as wait ↑)\nSurgery & Cardiology: Nearly flat (wait time has little impact)\nEmergency: Slight positive trend (possible triage effect?)\n\n\nThis suggests different departments may need different improvement strategies."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-grouped-scatterplot",
+    "href": "lectures/Lecture04/Slide04.html#practice-grouped-scatterplot",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Grouped Scatterplot",
+    "text": "Practice: Grouped Scatterplot\nCreate a scatterplot showing the relationship between wait time (wait_time_minutes) and length of stay (length_of_stay_hours), with points colored by shift (shift). Add trend lines without confidence intervals.\n\n# Fill in the blanks\nggplot(data = ed_data, mapping = aes(x = ___, y = ___, color = ___)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(\n    title = \"Wait Time vs. Length of Stay by Shift\",\n    x = \"Wait Time (minutes)\",\n    y = \"Length of Stay (hours)\",\n    color = \"Shift\"\n  ) +\n  theme_minimal()\n\nQuestion: Do the lines have similar slopes, or does the relationship change by shift?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#faceting-small-multiples",
+    "href": "lectures/Lecture04/Slide04.html#faceting-small-multiples",
+    "title": "Basics of Data Visualization",
+    "section": "Faceting: Small Multiples",
+    "text": "Faceting: Small Multiples\nPurpose: Create separate panels for each group\n\nEasier to see within-group patterns\nCleaner than overlapping colors when many groups"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#demonstration-faceted-plot",
+    "href": "lectures/Lecture04/Slide04.html#demonstration-faceted-plot",
+    "title": "Basics of Data Visualization",
+    "section": "Demonstration: Faceted Plot",
+    "text": "Demonstration: Faceted Plot\n\nggplot(patient_data, aes(x = wait_time_minutes, y = satisfaction_score)) +\n  geom_point(alpha = 0.5, color = \"steelblue\") +\n  geom_smooth(method = \"lm\", se = TRUE, color = \"darkred\") +\n  facet_wrap(~ department, nrow = 2) +\n  labs(title = \"Wait Time vs. Satisfaction Across Departments\",\n       x = \"Wait Time (minutes)\", y = \"Satisfaction Score (1-10)\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#components-used-5",
+    "href": "lectures/Lecture04/Slide04.html#components-used-5",
+    "title": "Basics of Data Visualization",
+    "section": "Components Used",
+    "text": "Components Used\n\nfacet_wrap(~ variable): Creates separate panels for each value\nnrow = 2: Arranges panels in 2 rows\nThe ~ symbol means “by” or “split by” (formula notation)\n\nWhen to use faceting: When groups are too crowded on a single plot, or when you want to emphasize within-group patterns."
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#practice-faceted-plot",
+    "href": "lectures/Lecture04/Slide04.html#practice-faceted-plot",
+    "title": "Basics of Data Visualization",
+    "section": "Practice: Faceted Plot",
+    "text": "Practice: Faceted Plot\nCreate a faceted scatterplot showing the relationship between wait time (wait_time_minutes) and length of stay (length_of_stay_hours), with separate panels for each shift (shift).\n\n# Fill in the blanks\nggplot(data = ed_data, mapping = aes(x = ___, y = ___)) +\n  geom_point(alpha = 0.5, color = \"steelblue\") +\n  geom_smooth(method = \"lm\", se = TRUE, color = \"darkred\") +\n  facet_wrap(~ ___) +\n  labs(\n    title = \"Wait Time vs. Length of Stay Across Shifts\",\n    x = \"___\",\n    y = \"___\"\n  ) +\n  theme_minimal()\n\nQuestion: Compare this to the previous colored scatterplot. Which approach makes it easier to see within-shift patterns?"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#quick-reference-matching-chart-to-question",
+    "href": "lectures/Lecture04/Slide04.html#quick-reference-matching-chart-to-question",
+    "title": "Basics of Data Visualization",
+    "section": "Quick Reference: Matching Chart to Question",
+    "text": "Quick Reference: Matching Chart to Question\n\n\n\nYour Question\nUse This\n\n\n\n\n“What’s the distribution?”\nHistogram\n\n\n“How many in each category?”\nBar Chart\n\n\n“How do groups compare?”\nBox Plot / Faceted\n\n\n“Is there a relationship?”\nScatterplot\n\n\n“How does it change over time?”\nLine Chart"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#key-takeaways",
+    "href": "lectures/Lecture04/Slide04.html#key-takeaways",
+    "title": "Basics of Data Visualization",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nVisualization matters: Reveals patterns instantly\nGrammar of graphics: Data + Aesthetics + Geometry\nChoose the right chart for your question\nStart simple, then refine: Add layers iteratively\nPractice is key: The more you create, the better you get"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#assignments",
+    "href": "lectures/Lecture04/Slide04.html#assignments",
+    "title": "Basics of Data Visualization",
+    "section": "Assignments",
+    "text": "Assignments\n\nReflection: Please share your thoughts on the lecture (3 interesting and 3 confusing things)\nAssignment: Complete week04_visualization_assignment.qmd\n\n\nPoints: 10 points\nDue: Feb 8, 2026\nSubmit: via Canvas"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#key-references",
+    "href": "lectures/Lecture04/Slide04.html#key-references",
+    "title": "Basics of Data Visualization",
+    "section": "Key References",
+    "text": "Key References\n\nHealy, K. (2018). Data Visualization: A Practical Introduction. Princeton University Press.\nWickham, H., Navarro, D., & Pedersen, T. L. (2023). ggplot2: Elegant Graphics for Data Analysis. https://ggplot2-book.org/\nWilke, C. O. (2019). Fundamentals of Data Visualization. https://clauswilke.com/dataviz/"
+  },
+  {
+    "objectID": "lectures/Lecture04/Slide04.html#online-resources",
+    "href": "lectures/Lecture04/Slide04.html#online-resources",
+    "title": "Basics of Data Visualization",
+    "section": "Online Resources",
+    "text": "Online Resources\n\nR Graphics Cookbook: https://r-graphics.org/\nggplot2 documentation: https://ggplot2.tidyverse.org/\nData-to-Viz (chart selection): https://www.data-to-viz.com/"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
+    "section": "",
+    "text": "This is a class website for Business Analytics in Healthcare Management class. (Spring 2026).\nAll class materials for lectures will be managed and posted here.\nPlease check the syllabus for course policies and grading information and the schedule for tentative course schedule.\nAll grading and assignment instructions and submissions will be through our class Canvas page.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
     "objectID": "syllabus.html",
     "href": "syllabus.html",
     "title": "Course Information",
@@ -3284,23 +3812,6 @@
       "Home",
       "Syllabus"
     ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
-    "section": "",
-    "text": "This is a class website for Business Analytics in Healthcare Management class. (Spring 2026).\nAll class materials for lectures will be managed and posted here.\nPlease check the syllabus for course policies and grading information and the schedule for tentative course schedule.\nAll grading and assignment instructions and submissions will be through our class Canvas page.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
     "objectID": "lectures/Lecture04/Lecture04.html",
@@ -4098,7 +4609,7 @@
     "href": "lectures/Lecture02/Lecture02.html#what-is-quarto",
     "title": "Week 2: R, RStudio, Quarto, and Data Wrangling",
     "section": "2.3 What is Quarto?",
-    "text": "2.3 What is Quarto?\nQuarto is a scientific publishing system that combines:\n\nCode (R, Python, etc.)\nText (formatted with Markdown)\nOutput (tables, figures, results)\n\nAll three live in a single document that can be rendered to HTML, PDF, Word, or presentations.\n\n2.3.1 Why Use Quarto?\nImagine you analyze hospital readmission data and create a report in Word with charts from Excel. Two weeks later, you get updated data. What happens?\nTraditional Approach:\n\nRe-analyze data in Excel and recreate all charts → time-consuming and tedious\nCopy-paste new charts into Word and update text to match new numbers → error-prone and easy to miss something\n\nWith Quarto:\n\nUpdate your data file\nClick “Render”\nDone—everything updates automatically → reproducible and reliable\n\n\n\n2.3.2 Quarto Document Structure\nA Quarto document has three parts:\n\n2.3.2.1 1. YAML Header (Metadata)\n\nThis controls document settings and appearance.\n\n---\ntitle: \"My Analysis\"\nauthor: \"Your Name\"\ndate: today\nformat: html\n---\n\n\n2.3.2.2 2. Markdown Text (Narrative)\n\nThis creates formatted text (headings, bold, lists, etc.).\n\n## Introduction\n\nThis analysis examines **patient satisfaction** across three hospitals.\n\nWe found that:\n- Wait times vary significantly\n- Satisfaction decreases with longer waits\n\n\n2.3.2.3 3. Code Chunks (Analysis)\n\nThis executes R code and shows results in your document.\n\n```{r}\n# Calculate average satisfaction\nmean(patient_data$satisfaction_score)\n```\n\n\n\n2.3.3 Code Chunk Options\n\nYou can control how code chunks behave using options. Add options at the top of a code chunk with #|:\n\n```{r}\n#| echo: false     # Don't show the code, only the output\n#| eval: true      # Run this code (true is default)\n#| warning: false  # Hide warnings\n#| message: false  # Hide messages\n\n# Your code here\n```\nCommon options:\n\necho: false: Hide the code, show only results (good for reports to non-technical audience)\neval: false: Show the code but don’t run it (good for examples)\ninclude: false: Run the code but hide both code and output (good for setup)\nwarning: false: Suppress warning messages\nmessage: false: Suppress package loading messages\nfig-width: 8 and fig-height: 6: Control plot dimensions (sizes)\n\nExample use case:\n```{r}\n#| echo: false\n#| message: false\n\n# This chunk loads packages silently\nlibrary(tidyverse)\n```\n\n\n2.3.4 Inline R Code\n\nYou can insert R results directly into your text.\nThe syntax is: ` r &lt;code&gt; ` (backtick + r + space + code + backtick; see example below).\nDon’t put a space between backtick and r and code and backtick\n\nExample syntax (what you type):\n\n\nToday’s date is ` r Sys.Date() `.\nThe result of 2 + 2 is ` r 2 + 2 `.\n\n\nWhen rendered, these become:\n\n\n“Today’s date is 2026-02-01”\n“The result of 2 + 2 is 4”\n\n\nExample with data:\n\nLet’s create a simple dataset about patient age:\n\n\npatient_age &lt;- c(44, 32, 56, 43, 67, 78, 13, 25, 47)\n\n\nIf we write in our Quarto document:\n\n\n\nThe average patient age is ` r mean(patient_age) ` years.\n\n\n\nIt renders as:\n\n\n\nThe average patient age is 45 years.\n\n\nWhy this is powerful?:\n\nWhen data updates, all numbers in your report update automatically!\n\n\n\n2.3.5 Creating Your First Quarto Document\nLet’s create a Quarto document that you’ll use throughout today’s lesson. This will become your personal reference document!\nIn RStudio:\n\nFile → New File → Quarto Document\nTitle: “Week 2 - My R Learning Notes”\nAuthor: Your name\nFormat: HTML\nClick “Create”\nSave it as Week02_mynotes.qmd (File → Save)\n\n\n\n\n\n\n\nImportantTry It Yourself! (5 minutes)\n\n\n\nPause here and create your learning document:\n\nFollow the steps above to create Week02_mynotes.qmd\nClick “Render” to verify your setup works\nKeep this document open—you’ll add code to it as we go\n\nKeyboard shortcuts you’ll use often:\n\n\n\nAction\nMac\nWindows\n\n\n\n\nRun current line\nCmd + Enter\nCtrl + Enter\n\n\nRun entire chunk\nCmd + Shift + Enter\nCtrl + Shift + Enter\n\n\nInsert new chunk\nCmd + Option + I\nCtrl + Alt + I\n\n\n\nTip: Use these shortcuts to run code as you go. You only need to click “Render” when you want to see the final formatted document.\nAfter 5 minutes, we’ll continue with Part 2: R Basics."
+    "text": "2.3 What is Quarto?\nQuarto is a scientific publishing system that combines:\n\nCode (R, Python, etc.)\nText (formatted with Markdown)\nOutput (tables, figures, results)\n\nAll three live in a single document that can be rendered to HTML, PDF, Word, or presentations.\n\n2.3.1 Why Use Quarto?\nImagine you analyze hospital readmission data and create a report in Word with charts from Excel. Two weeks later, you get updated data. What happens?\nTraditional Approach:\n\nRe-analyze data in Excel and recreate all charts → time-consuming and tedious\nCopy-paste new charts into Word and update text to match new numbers → error-prone and easy to miss something\n\nWith Quarto:\n\nUpdate your data file\nClick “Render”\nDone—everything updates automatically → reproducible and reliable\n\n\n\n2.3.2 Quarto Document Structure\nA Quarto document has three parts:\n\n2.3.2.1 1. YAML Header (Metadata)\n\nThis controls document settings and appearance.\n\n---\ntitle: \"My Analysis\"\nauthor: \"Your Name\"\ndate: today\nformat: html\n---\n\n\n2.3.2.2 2. Markdown Text (Narrative)\n\nThis creates formatted text (headings, bold, lists, etc.).\n\n## Introduction\n\nThis analysis examines **patient satisfaction** across three hospitals.\n\nWe found that:\n- Wait times vary significantly\n- Satisfaction decreases with longer waits\n\n\n2.3.2.3 3. Code Chunks (Analysis)\n\nThis executes R code and shows results in your document.\n\n```{r}\n# Calculate average satisfaction\nmean(patient_data$satisfaction_score)\n```\n\n\n\n2.3.3 Code Chunk Options\n\nYou can control how code chunks behave using options. Add options at the top of a code chunk with #|:\n\n```{r}\n#| echo: false     # Don't show the code, only the output\n#| eval: true      # Run this code (true is default)\n#| warning: false  # Hide warnings\n#| message: false  # Hide messages\n\n# Your code here\n```\nCommon options:\n\necho: false: Hide the code, show only results (good for reports to non-technical audience)\neval: false: Show the code but don’t run it (good for examples)\ninclude: false: Run the code but hide both code and output (good for setup)\nwarning: false: Suppress warning messages\nmessage: false: Suppress package loading messages\nfig-width: 8 and fig-height: 6: Control plot dimensions (sizes)\n\nExample use case:\n```{r}\n#| echo: false\n#| message: false\n\n# This chunk loads packages silently\nlibrary(tidyverse)\n```\n\n\n2.3.4 Inline R Code\n\nYou can insert R results directly into your text.\nThe syntax is: ` r &lt;code&gt; ` (backtick + r + space + code + backtick; see example below).\nDon’t put a space between backtick and r and code and backtick\n\nExample syntax (what you type):\n\n\nToday’s date is ` r Sys.Date() `.\nThe result of 2 + 2 is ` r 2 + 2 `.\n\n\nWhen rendered, these become:\n\n\n“Today’s date is 2026-02-04”\n“The result of 2 + 2 is 4”\n\n\nExample with data:\n\nLet’s create a simple dataset about patient age:\n\n\npatient_age &lt;- c(44, 32, 56, 43, 67, 78, 13, 25, 47)\n\n\nIf we write in our Quarto document:\n\n\n\nThe average patient age is ` r mean(patient_age) ` years.\n\n\n\nIt renders as:\n\n\n\nThe average patient age is 45 years.\n\n\nWhy this is powerful?:\n\nWhen data updates, all numbers in your report update automatically!\n\n\n\n2.3.5 Creating Your First Quarto Document\nLet’s create a Quarto document that you’ll use throughout today’s lesson. This will become your personal reference document!\nIn RStudio:\n\nFile → New File → Quarto Document\nTitle: “Week 2 - My R Learning Notes”\nAuthor: Your name\nFormat: HTML\nClick “Create”\nSave it as Week02_mynotes.qmd (File → Save)\n\n\n\n\n\n\n\nImportantTry It Yourself! (5 minutes)\n\n\n\nPause here and create your learning document:\n\nFollow the steps above to create Week02_mynotes.qmd\nClick “Render” to verify your setup works\nKeep this document open—you’ll add code to it as we go\n\nKeyboard shortcuts you’ll use often:\n\n\n\nAction\nMac\nWindows\n\n\n\n\nRun current line\nCmd + Enter\nCtrl + Enter\n\n\nRun entire chunk\nCmd + Shift + Enter\nCtrl + Shift + Enter\n\n\nInsert new chunk\nCmd + Option + I\nCtrl + Alt + I\n\n\n\nTip: Use these shortcuts to run code as you go. You only need to click “Render” when you want to see the final formatted document.\nAfter 5 minutes, we’ll continue with Part 2: R Basics."
   },
   {
     "objectID": "lectures/Lecture02/Lecture02.html#your-first-r-commands",
