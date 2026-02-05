@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Slides\nLecture Notes\nPractice Files\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\n-\nReflection 2\n\n\n4\nFeb 4\nData visualization\n\n\n-\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n-\n\n\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n-\n\n\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n-\n\n\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n-\n\n\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n-\n-\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n-\n\n\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n-\n\n\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n-\n\n\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n-\n\n\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n-\n\n\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n-\n\n\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\n\nAssignments will be informed during the class",
+    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Slides\nLecture Notes\nAssignment Instruction\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\n-\nReflection 2\n\n\n4\nFeb 4\nData visualization\n\n\n\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n-\n\n-\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n-\n\n-\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n-\n\n-\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n-\n\n-\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n-\n-\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n-\n\n-\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n-\n\n-\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n-\n\n-\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n-\n\n-\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n-\n\n-\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n-\n\n-\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\n\nAssignments will be informed during the class",
     "crumbs": [
       "Home",
       "Schedule"
@@ -2923,6 +2923,477 @@
     "text": "Questions?\n\nFeel free to ask me anything you’re curious about!\nClass Reflection Assignment is due by this Sunday at 11:59 PM"
   },
   {
+    "objectID": "lectures/Lecture04/Assignment04.html",
+    "href": "lectures/Lecture04/Assignment04.html",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "",
+    "text": "Total Points: 10 points\n\nDue Date: February 8, 2026\nSubmission: Upload your completed .qmd file to Canvas\n\n\n\nThis assignment assesses your ability to:\n\nSelect appropriate visualization types for different analytical questions\nCreate visualizations using the ggplot2 package\nCustomize plots for professional presentation\nInterpret visualizations in a healthcare management context\n\n\n\n\n\nComplete all 7 tasks below\nFill in the blanks (replace ___ with appropriate code)\nAfter completing each code chunk, change #| eval: false to #| eval: true to run it\nAnswer all interpretation questions (1-2 sentences each)\nEnsure all visualizations have proper labels, titles, and themes\nRun all code chunks to verify they work before submitting"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#learning-objectives",
+    "href": "lectures/Lecture04/Assignment04.html#learning-objectives",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "",
+    "text": "This assignment assesses your ability to:\n\nSelect appropriate visualization types for different analytical questions\nCreate visualizations using the ggplot2 package\nCustomize plots for professional presentation\nInterpret visualizations in a healthcare management context"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#instructions",
+    "href": "lectures/Lecture04/Assignment04.html#instructions",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "",
+    "text": "Complete all 7 tasks below\nFill in the blanks (replace ___ with appropriate code)\nAfter completing each code chunk, change #| eval: false to #| eval: true to run it\nAnswer all interpretation questions (1-2 sentences each)\nEnsure all visualizations have proper labels, titles, and themes\nRun all code chunks to verify they work before submitting"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#dataset-background",
+    "href": "lectures/Lecture04/Assignment04.html#dataset-background",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "2.1 Dataset Background",
+    "text": "2.1 Dataset Background\nThe healthyR_data dataset simulates administrative data from a hospital system, including:\n\nPatient visit information: When patients arrived and left, how long they stayed\nFinancial data: Charges, payments, adjustments, and amounts due\nService categories: Which departments/service lines provided care\nQuality indicators: Readmission flags and length of stay comparisons\n\nThis type of data is commonly used by healthcare managers to analyze operational efficiency, financial performance, and quality metrics."
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#loading-and-preparing-the-data",
+    "href": "lectures/Lecture04/Assignment04.html#loading-and-preparing-the-data",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "2.2 Loading and Preparing the Data",
+    "text": "2.2 Loading and Preparing the Data\nFirst, run the code below to load required packages. If you haven’t installed these packages yet, you can install them by running install.packages(\"ggplot2\"), install.packages(\"dplyr\"), install.packages(\"tidyr\"), and install.packages(\"healthyR.data\") in the R console.\n\n# Load required packages\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(healthyR.data)\n\nset.seed(2026)  # For reproducibility\n\nNow, run the following code to load a sample of the dataset for this assignment:\n\n# Load the healthyR_data dataset and take a sample for this assignment\nhospital_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week04_assignment_data.csv\")\n\n# View first few rows\nhead(hospital_data, 10)\n\n    X      mrn   visit_id visit_start_date_time visit_end_date_time\n1   1 77098452 1139993089   2012-10-28 11:27:00 2012-10-30 16:35:00\n2   2 56293043 3098204271   2012-02-15 05:00:00          2012-02-15\n3   3 19771259 3244311127   2010-04-20 05:00:00          2010-04-20\n4   4 94399269 8870774333   2020-11-04 15:13:00          2020-11-04\n5   5 35454631 1980956427   2013-03-16 14:10:00 2013-03-20 16:12:00\n6   6 76322064 3045107386   2015-04-16 05:00:00          2015-04-16\n7   7 27606841 3656727163   2017-07-14 05:00:00          2017-07-14\n8   8 80122407 3925163432   2010-03-17 05:00:00          2010-03-17\n9   9 30447593 1401023817   2012-04-05 04:50:00 2012-04-08 15:07:00\n10 10 15158745 1621385747   2014-04-24 13:00:00 2014-04-30 14:19:00\n   total_charge_amount total_amount_due total_adjustment_amount payer_grouping\n1             31437.88           200.00               -23077.14     Blue Cross\n2             14249.07             0.00                -5699.63     Commercial\n3              9670.48             0.00                -1948.64     Medicare B\n4             16297.31         16297.31                    0.00     Commercial\n5             37508.27             0.00               -29177.47   Medicare HMO\n6             12037.37             0.00                -9094.19            HMO\n7             11329.25             0.00               -11329.25     Blue Cross\n8             10637.04             0.00                -8479.21     Medicare B\n9             28142.60             0.00               -21701.06       Medicaid\n10            55016.36             0.00               -55016.36     Medicare A\n   total_payment_amount ip_op_flag                 service_line length_of_stay\n1              -8160.74          I                      Medical              2\n2              -8549.44          O           General Outpatient              0\n3              -7721.84          O           General Outpatient              0\n4                  0.00          O           General Outpatient              0\n5              -8642.87          I Laparoscopic Cholecystectomy              4\n6              -2943.18          O           General Outpatient              0\n7                  0.00          O           General Outpatient              0\n8              -2157.83          O           General Outpatient              0\n9              -6441.54          I                          CHF              3\n10             -7507.30          I                    Pneumonia              6\n   expected_length_of_stay length_of_stay_threshold los_outlier_flag\n1                       NA                       NA                0\n2                       NA                       NA                0\n3                       NA                       NA                0\n4                       NA                       NA                0\n5                       NA                       NA                0\n6                       NA                       NA                0\n7                       NA                       NA                0\n8                       NA                       NA                0\n9                       NA                       NA                0\n10                    TRUE                     TRUE                0\n   readmit_flag readmit_expectation visit_month      los_category\n1             0                  NA     October  Short (1-2 days)\n2             0                  NA    February  Short (1-2 days)\n3             0                  NA       April  Short (1-2 days)\n4             0                  NA    November  Short (1-2 days)\n5             0                  NA       March Medium (3-5 days)\n6             0                  NA       April  Short (1-2 days)\n7             0                  NA        July  Short (1-2 days)\n8             0                  NA       March  Short (1-2 days)\n9             0                  NA       April Medium (3-5 days)\n10            1                  NA       April    Long (6+ days)"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#key-variables",
+    "href": "lectures/Lecture04/Assignment04.html#key-variables",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "2.3 Key Variables",
+    "text": "2.3 Key Variables\n\n\n\n\n\n\n\n\nVariable\nDescription\nType\n\n\n\n\nmrn\nMedical Record Number (patient identifier)\nCharacter\n\n\nvisit_id\nUnique visit identifier\nCharacter\n\n\nvisit_start_date_time\nDate and time of visit start\nDateTime\n\n\nvisit_end_date_time\nDate and time of visit end\nDateTime\n\n\ntotal_charge_amount\nTotal charges for the visit (USD)\nNumeric\n\n\ntotal_amount_due\nAmount still owed\nNumeric\n\n\nlength_of_stay\nDuration of hospital stay (days)\nNumeric\n\n\nservice_line\nDepartment/service providing care\nCategorical\n\n\nreadmit_flag\nWhether patient was readmitted\nCategorical (Y/N)\n\n\npayer_grouping\nInsurance payer category\nCategorical\n\n\nvisit_month\nMonth of the visit (created above)\nCategorical\n\n\nlos_category\nLength of stay category (created above)\nCategorical"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#task-1-distribution-of-length-of-stay-1-point",
+    "href": "lectures/Lecture04/Assignment04.html#task-1-distribution-of-length-of-stay-1-point",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "Task 1: Distribution of Length of Stay (1 point)",
+    "text": "Task 1: Distribution of Length of Stay (1 point)\nCreate a histogram showing the distribution of patient length of stay (length_of_stay).\nRequirements:\n\nUse appropriate binwidth (try 1 day per bin)\nUse fill = \"steelblue\" and color = \"white\"\nInclude proper axis labels with units\nApply theme_minimal()\n\n\n# Fill in the blanks\nggplot(data = ___, mapping = aes(x = ___)) +\n  geom_histogram(binwidth = ___, \n                 fill = ___, \n                 color = ___) +\n  labs(title = \"Distribution of Patient Length of Stay\",\n       x = \"___\",\n       y = \"___\") +\n  ___()\n\nInterpretation Question: Describe the shape of the distribution. Is it symmetric or skewed? Where do most patients fall?\n\n\n\n\n\n\nNote✏️ Your Answer (1-2 sentences)\n\n\n\n[Write your answer here in the .qmd file]"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#task-2-patient-volume-by-service-line-1.5-points",
+    "href": "lectures/Lecture04/Assignment04.html#task-2-patient-volume-by-service-line-1.5-points",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "Task 2: Patient Volume by Service Line (1.5 points)",
+    "text": "Task 2: Patient Volume by Service Line (1.5 points)\nCreate a bar chart showing the number of patient visits for each service line (service_line).\nRequirements:\n\nUse geom_bar() to count visits automatically\nUse fill = \"darkgreen\" with alpha = 0.7\nRotate x-axis labels if needed for readability (from 0 to 90 degrees)\nInclude proper title and labels\n\n\n# Fill in the blanks\nggplot(data = ___, mapping = aes(x = ___)) +\n  geom_bar(fill = ___, \n           alpha = ___) +\n  labs(title = \"___\",\n       x = \"Service Line\",\n       y = \"___\") +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = ___, hjust = 1))\n\nInterpretation Question: Which service line has the highest volume? Which has the lowest?\n\n\n\n\n\n\nNote✏️ Your Answer (1-2 sentences)\n\n\n\n[Write your answer here in the .qmd file]"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#task-3-comparing-charges-across-service-lines-1.5-points",
+    "href": "lectures/Lecture04/Assignment04.html#task-3-comparing-charges-across-service-lines-1.5-points",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "Task 3: Comparing Charges Across Service Lines (1.5 points)",
+    "text": "Task 3: Comparing Charges Across Service Lines (1.5 points)\nCreate grouped box plots comparing total charge amounts across different service lines.\nRequirements:\n\nMap service_line to x-axis and total_charge_amount to y-axis\nUse fill aesthetic to color by service line\nMake the boxplot with alpha = 0.5\nUse appropriate axis labels\n\n\n# Fill in the blanks\nggplot(data = ___, \n       mapping = aes(x = ___, \n                     y = ___, \n                     fill = ___)) +\n  geom_boxplot(alpha = ___) +\n  labs(title = \"Total Charges by Service Line\",\n       x = \"___\",\n       y = \"___\") +\n  theme_minimal() +\n  theme(legend.position = \"\",\n        axis.text.x = element_text(angle = 45, hjust = 1))\n\nInterpretation Question: Which service line shows the highest median charges? Which shows the most variability (widest box)?\n\n\n\n\n\n\nNote✏️ Your Answer (1-2 sentences)\n\n\n\n[Write your answer here in the .qmd file]"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#task-4-relationship-between-length-of-stay-and-charges-1.5-points",
+    "href": "lectures/Lecture04/Assignment04.html#task-4-relationship-between-length-of-stay-and-charges-1.5-points",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "Task 4: Relationship Between Length of Stay and Charges (1.5 points)",
+    "text": "Task 4: Relationship Between Length of Stay and Charges (1.5 points)\nCreate a scatterplot showing the relationship between length of stay (length_of_stay, x-axis) and total charges (total_charge_amount, y-axis). Add a linear trend line.\nRequirements:\n\nUse geom_point() with alpha = 0.5 for transparency\nAdd geom_smooth() with method = \"lm\" for a linear trend line\nColor the trend line red\nInclude axis labels with units\n\n\n# Fill in the blanks\nggplot(data = ___, \n       mapping = aes(x = ___, y = ___)) +\n  geom_point(alpha = ___, color = \"darkblue\") +\n  geom_smooth(method = ___, \n              se = TRUE, \n              color = ___) +\n  labs(title = \"Relationship Between Length of Stay and Total Charges\",\n       x = \"___\",\n       y = \"___\") +\n  theme_minimal()\n\nInterpretation Question: Is the relationship positive, negative, or no clear pattern? What does this mean for hospital costs?\n\n\n\n\n\n\nNote✏️ Your Answer (1-2 sentences)\n\n\n\n[Write your answer here in the .qmd file]"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#task-5-monthly-patient-volume-trend-1.5-points",
+    "href": "lectures/Lecture04/Assignment04.html#task-5-monthly-patient-volume-trend-1.5-points",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "Task 5: Monthly Patient Volume Trend (1.5 points)",
+    "text": "Task 5: Monthly Patient Volume Trend (1.5 points)\nCalculate the number of visits per month (visit_month) and create a line chart showing the trend.\nRequirements:\n\nFirst, summarize the data to get monthly counts\nUse geom_line() and geom_point() together\nRemember to use group = 1 in the aesthetic\nFor the line, use color = \"steelblue\" and linewidth = 1\nFor the points, use color = \"darkorange\" and size = 3\nRotate x-axis labels for readability (from 0 to 90 degrees)\n\n\n# Step 1: Calculate monthly visit counts\nmonthly_visits &lt;- hospital_data %&gt;%\n  group_by(___) %&gt;%\n  summarize(visit_count = n())\n\n# Step 2: Create the line chart\nggplot(data = ___, \n       mapping = aes(x = ___, y = ___, group = ___)) +\n  geom_line(color = \"steelblue\", linewidth = ___) +\n  geom_point(color = \"steelblue\", size = ___) +\n  labs(title = \"Monthly Patient Visit Volume\",\n       x = \"___\",\n       y = \"___\") +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = ___, hjust = 1))\n\nInterpretation Question: Do you see any seasonal pattern or trend? Are there months with notably high or low volumes?\n\n\n\n\n\n\nNote✏️ Your Answer (1-2 sentences)\n\n\n\n[Write your answer here in the .qmd file]"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#task-6-average-charges-by-payer-type-1.5-points",
+    "href": "lectures/Lecture04/Assignment04.html#task-6-average-charges-by-payer-type-1.5-points",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "Task 6: Average Charges by Payer Type (1.5 points)",
+    "text": "Task 6: Average Charges by Payer Type (1.5 points)\nCreate a bar chart showing the average total charges (total_charge_amount) for each payer type (payer_grouping).\nRequirements:\n\nUse geom_bar() with stat = \"summary\" and fun = \"mean\" to calculate averages\nMap payer_grouping to the fill aesthetic\nUse alpha = 0.8 for transparency\nRemove the legend (since it’s redundant with x-axis labels)\nRotate x-axis labels for readability (from 0 to 90 degrees)\n\n\n# Fill in the blanks\nggplot(data = ___, \n       mapping = aes(x = ___, y = ___, fill = ___)) +\n  geom_bar(stat = ___, \n           fun = ___, \n           alpha = ___) +\n  labs(title = \"Average Total Charges by Payer Type\",\n       x = \"___\",\n       y = \"___\") +\n  theme_minimal() +\n  theme(legend.position = \"none\",\n        axis.text.x = element_text(angle = ___, hjust = 1))\n\nInterpretation Question: Which payer type has the highest average charges? Which has the lowest?\n\n\n\n\n\n\nNote✏️ Your Answer (1-2 sentences)\n\n\n\n[Write your answer here in the .qmd file]"
+  },
+  {
+    "objectID": "lectures/Lecture04/Assignment04.html#task-7-faceted-analysis---charges-by-payer-type-1.5-points",
+    "href": "lectures/Lecture04/Assignment04.html#task-7-faceted-analysis---charges-by-payer-type-1.5-points",
+    "title": "Assignment 1: Data Visualization Assignment (Week 04)",
+    "section": "Task 7: Faceted Analysis - Charges by Payer Type (1.5 points)",
+    "text": "Task 7: Faceted Analysis - Charges by Payer Type (1.5 points)\nCreate faceted box plots showing total charges (total_charge_amount) distribution by length of stay category (los_category), with separate panels for each payer grouping (payer_grouping).\nRequirements:\n\nUse facet_wrap() to create separate panels by payer_grouping\nMap los_category to x-axis and total_charge_amount to y-axis\nUse fill aesthetic for length of stay category\nRotate x-axis labels for readability (from 0 to 90 degrees)\n\n\n# Fill in the blanks\nggplot(data = ___, \n       mapping = aes(x = ___, \n                     y = ___, \n                     fill = ___)) +\n  geom_boxplot(alpha = 0.7) +\n  facet_wrap(~ ___) +\n  labs(title = \"Total Charges by Length of Stay Category and Payer Type\",\n       x = \"___\",\n       y = \"___\",\n       fill = \"Length of Stay\") +\n  theme_minimal() + \n  theme(legend.position = \"none\",\n        axis.text.x = element_text(angle = ___, hjust = 1))\n\nInterpretation Question: Do the charge patterns differ across payer types? Do longer stays consistently result in higher charges regardless of payer?\n\n\n\n\n\n\nNote✏️ Your Answer (1-2 sentences)\n\n\n\n[Write your answer here in the .qmd file]"
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Course Information",
+    "section": "",
+    "text": "Course Title: Business Analytics in Healthcare Management (MBA 642)\nLevel: Graduate (Master’s)\nTime: 6:00 PM - 8:15 PM (Wednesdays)\nTerm: Spring 2026\nInstructor: Sangsuk Yoon (syoon1@udayton.edu)\nFormat: Online Synchronous (Use the Zoom link on Canvas to join the class)\nOffice Hours: Wednesdays 1:30 PM - 3:00 PM or after class or by appointment (Zoom)\nCourse Schedule: Please check the course schedule page",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#course-description",
+    "href": "syllabus.html#course-description",
+    "title": "Course Information",
+    "section": "Course Description:",
+    "text": "Course Description:\nThis graduate-level course provides a comprehensive introduction to business analytics in healthcare management, progressing from basic statistical concepts and data visualization to practical applications of data analytics in healthcare management contexts. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare datasets. Students will gain hands-on experience with classic and modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#prerequisites",
+    "href": "syllabus.html#prerequisites",
+    "title": "Course Information",
+    "section": "Prerequisites:",
+    "text": "Prerequisites:\nThere are no prerequisites for this course. This course is designed to accommodate students with varying levels of statistical and programming backgrounds. All necessary concepts will be introduced from the ground up.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#course-objectives",
+    "href": "syllabus.html#course-objectives",
+    "title": "Course Information",
+    "section": "Course Objectives:",
+    "text": "Course Objectives:\nBy the end of this course, students will be able to:\n\nEvaluate the role and application of analytics in healthcare management decision-making\nConduct exploratory data analysis on different types of healthcare data (patient surveys, health outcomes, etc.)\nSelect and apply appropriate statistical methods to healthcare management problems to extract meaningful insights\nInterpret analytical results and communicate findings effectively to diverse stakeholders\nDesign and implement data-driven solutions for real-world healthcare management challenges",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#course-website",
+    "href": "syllabus.html#course-website",
+    "title": "Course Information",
+    "section": "Course Website:",
+    "text": "Course Website:\n\nCourse Materials will be posted here and through our Canvas page: https://mba642-spring-26.github.io\nAssignments, grading, and exams will be informed, managed, and submitted through our class Canvas page.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#textbooks",
+    "href": "syllabus.html#textbooks",
+    "title": "Course Information",
+    "section": "Textbooks:",
+    "text": "Textbooks:\nTwo textbooks will be used for this course. You do not need to purchase them. Both books are freely available through the University of Dayton library.\n\n“Statistics for Health Data Science: An Organic Approach”\n\n\nAuthors: Ruth Etzioni, Micha Mandel, and Roman Gulati\nISBN: 978-3-030-59888-4\nThis book is freely available through UD library\n\n\n“Statistical Analytics for Health Data Science with SAS and R”\n\n\nAuthors: Jeffrey Willson, Ding-Geng Chen, and Karl E. Peace\nISBN: 978-1-032-32569-9\nThis book is freely available through UD library\n\nOther Helpful Books and Readings:\n\n“R for Data Science” (available for free online)\n\n\nAuthors: Hadley Wickham and Garrett Grolemund\nThis book is freely available online\n\n\n“Introduction to Modern Statistics”\n\n\nAuthors: Mine Çetinkaya-Rundel and Jeffrey S. Simonoff\nThis book is freely available online\n\n\nStatistical Rethinking for the 21st Century\n\n\nAuthors: Russell A. Poldrack\nThis book is freely available online",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#r-and-r-studio",
+    "href": "syllabus.html#r-and-r-studio",
+    "title": "Course Information",
+    "section": "R and R-Studio:",
+    "text": "R and R-Studio:\nThis course utilizes R and R-Studio as the primary analytical tools. R is a powerful, open-source programming language specifically designed for statistical data analysis, widely used in both academia and industry for analytics. R-Studio is an integrated development environment (IDE) that makes R programming more accessible and efficient through its user-friendly interface, offering features such as data visualization, code editing, debugging, and project management capabilities. Students will learn to use these tools to analyze healthcare data, create visualizations, develop statistical models, and generate reports. You can download R and R-Studio from the following links:\n\nR: https://www.r-project.org\nR-Studio: https://posit.co/downloads/\n\nYou should install R first since R-Studio runs on R.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#assignments-90-points-9-assignments-each-with-10-points",
+    "href": "syllabus.html#assignments-90-points-9-assignments-each-with-10-points",
+    "title": "Course Information",
+    "section": "Assignments: 90 points (9 assignments, each with 10 points)",
+    "text": "Assignments: 90 points (9 assignments, each with 10 points)\nThere will be 9 assignments throughout the semester. Each assignment requires students to apply the analytical methods learned in the class session to new healthcare data analytics scenarios. For example, in Week 4, after we cover data visualization, you will be asked to visualize results with a new dataset. Assignments will focus on different healthcare management contexts and typically take 30-60 minutes to complete. Assignments are due weekly by Sunday at 11:59 PM.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#class-participation-and-reflection-78-points",
+    "href": "syllabus.html#class-participation-and-reflection-78-points",
+    "title": "Course Information",
+    "section": "Class Participation and Reflection: 78 points",
+    "text": "Class Participation and Reflection: 78 points\nThis course includes 14 class sessions. After we finish each session (starting from the second class, meaning you will submit 13 reflections total), I would like to hear about what you learned and what questions remain unclear. To encourage engagement with the course contents, you will need to write a short list of responses to the following questions:\n\nWhat were the three most interesting or exciting things you learned from the session? and why?\nWhat were the three most unclear or confusing things from the session? and why?\n\nYou can include more than three for each, but you must include at least three per question. So, there are six interesting or unclear things you will have in each reflection, and each one will be worth 1 point (total 6 points per class session; max is 6 points). There will be 13 reflection assignments throughout the semester (6 points × 13 reflections = 78 points). Reflection submissions are due weekly by Sunday at 11:59 PM.\nYou don’t need to get stressed about this. Your reflections do not need to be fancy or very long (just one short paragraph for each point). I simply want to understand what genuinely resonated with you or what felt challenging. For example, you might write something like: “Learning how to draw a bar graph using ggplot was interesting. I didn’t know how to draw graphs in R before, so discovering this was exciting.” Or you could say: “Understanding the interaction effect was confusing. It’s unclear to me whether it means the effect of A is different from the effect of B, or whether the effect of A changes depending on B.” These kinds of honest, straightforward reflections are exactly what I’m looking for. The goal is to help me understand your learning experience so I can better support you throughout the course.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#midterm-exam-50-points",
+    "href": "syllabus.html#midterm-exam-50-points",
+    "title": "Course Information",
+    "section": "Midterm Exam: 50 points",
+    "text": "Midterm Exam: 50 points\nThere will be a midterm exam in Week 9 of the semester. The exam will cover topics from Week 1 through Week 8. The exam will be online and available for the full day on the scheduled class day (from 12:00 AM to 11:59 PM).",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#final-exam-50-points",
+    "href": "syllabus.html#final-exam-50-points",
+    "title": "Course Information",
+    "section": "Final Exam: 50 points",
+    "text": "Final Exam: 50 points\nThere will be a final exam in the last week of the semester. The exam will be cumulative and cover topics discussed throughout the semester. The exam will be online and available for the full day on the scheduled class day (from 12:00 AM to 11:59 PM).\nFinal course letter grades will be assigned as follows:\n\n\n\nLetter Grade\nQuality Points\nPoint Range\n\n\n\n\nA\n4.000\n250 - 268\n\n\nA-\n3.667\n240 - 249\n\n\nB+\n3.333\n230 - 239\n\n\nB\n3.000\n220 - 229\n\n\nB-\n2.667\n210 - 219\n\n\nC\n2.000\n185 - 209\n\n\nF\n0.000\n0 - 184",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#attendance-policy",
+    "href": "syllabus.html#attendance-policy",
+    "title": "Course Information",
+    "section": "Attendance Policy:",
+    "text": "Attendance Policy:\nThis course is delivered online synchronously, and regular attendance is expected. Attendance will be recorded at a random point during each session. I understand that life happens. If you must miss a class, please let me know in advance when possible. All lecture recordings and materials will be available on Canvas so you can catch up. However, missing class does not relieve your responsibility for assignments, reflections, or exams, as these are due on set deadlines regardless of attendance.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#communication-policy",
+    "href": "syllabus.html#communication-policy",
+    "title": "Course Information",
+    "section": "Communication Policy:",
+    "text": "Communication Policy:\n\nFeel free to reach out to me anytime at my UD email: syoon1@udayton.edu. I’m always happy to help!\nI typically respond to emails within 24 hours on weekdays (Monday–Friday).\nOn weekends and holidays, I’ll be recharging my batteries (and pretending emails don’t exist), so expect a response when I’m back online. Thanks for understanding! :)",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#classroom-etiquette",
+    "href": "syllabus.html#classroom-etiquette",
+    "title": "Course Information",
+    "section": "Classroom Etiquette:",
+    "text": "Classroom Etiquette:\n\nCamera on, please! Keeping your camera on helps create a more engaging and connected learning environment.\nThink of our class sessions as professional team meetings, which is a valuable practice for your current and future career.\nBe respectful to yourself, your peers, and our community. Let’s maintain a welcoming and professional atmosphere.\nUse professional language in all class discussions and written work.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#technological-problems",
+    "href": "syllabus.html#technological-problems",
+    "title": "Course Information",
+    "section": "Technological Problems:",
+    "text": "Technological Problems:\n\nPlease ensure you have reliable internet access for joining class and submitting assignments.\nKeep your UD email, Zoom, and Canvas accounts active and accessible throughout the semester.\nYou are responsible for resolving any technical issues with your personal devices or software (including R and RStudio).\nNeed tech help? For hardware issues, contact your device manufacturer. For general software issues, reach out to UD IT services. For course-specific technical questions (like R code not working), feel free to ask me!",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#late-submissions",
+    "href": "syllabus.html#late-submissions",
+    "title": "Course Information",
+    "section": "Late Submissions:",
+    "text": "Late Submissions:\nLife gets busy, and I understand that sometimes things don’t go as planned. However, please try your best to submit on time. Here’s what happens if you’re late:\n\nReflections: 1.5 points deducted for each 24 hours late. Submissions over 48 hours late receive zero points.\nAssignments: 2 points deducted for each 24 hours late. Submissions over 48 hours late receive zero points.\nExams: Must be completed within the specified time frame—no late submissions accepted.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#keep-your-work",
+    "href": "syllabus.html#keep-your-work",
+    "title": "Course Information",
+    "section": "Keep Your Work:",
+    "text": "Keep Your Work:\n\nAlways save a copy of your submitted assignments—just in case anything gets lost along the way.\nHold onto your graded work as well. If you ever have questions about a grade (e.g., a mismatch between Canvas and your feedback), having the original document will help us resolve it quickly.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#stay-on-top-of-your-grades",
+    "href": "syllabus.html#stay-on-top-of-your-grades",
+    "title": "Course Information",
+    "section": "Stay on Top of Your Grades:",
+    "text": "Stay on Top of Your Grades:\nPlease check your grades on Canvas regularly. If you notice something missing or think a grade might be incorrect, don’t hesitate to reach out. I’m happy to take another look!",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#civility-respect-and-privacy",
+    "href": "syllabus.html#civility-respect-and-privacy",
+    "title": "Course Information",
+    "section": "Civility, Respect, and Privacy",
+    "text": "Civility, Respect, and Privacy\nThe University of Dayton adopted a “Statement of Dignity which states the following: “A primary assertion of both our religious and civil traditions is the inviolable dignity of each person. Recognition of and respect for the person are central to our life as a Christian and education community and are what allow us to pursue our common mission while being many diverse persons. Thus discrimination, harassment, and any other conduct that diminishes the worth of a person are incompatible with our fundamental commitment as a Catholic university conducted in the Marianist tradition.”",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#classroom-climate-and-bias-experiences-and-process",
+    "href": "syllabus.html#classroom-climate-and-bias-experiences-and-process",
+    "title": "Course Information",
+    "section": "Classroom Climate and Bias Experiences and Process",
+    "text": "Classroom Climate and Bias Experiences and Process\nAs part of a University for the Common Good that aims to be an anti-racist university, I want all students to feel safe, respected, and valued in all of their classes. Should you have an experience in this class, or in any SBA class, where you feel devalued because of an incident in class, we would like to know. You are free to discuss the issue with me. You can also contact our Associate Dean, Dr. Marsha Keune (mkeune1@udayton.edu), share your experience with the Equity Compliance Office (equitycompliance@udayton.edu or 937-229-3622) or submit an incident report.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#intellectual-property-statement",
+    "href": "syllabus.html#intellectual-property-statement",
+    "title": "Course Information",
+    "section": "Intellectual Property Statement",
+    "text": "Intellectual Property Statement\nThe materials shared with you during this course are authored and owned by the instructor and/or the book publisher. Copyright laws must be respected at all times.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#academic-honesty",
+    "href": "syllabus.html#academic-honesty",
+    "title": "Course Information",
+    "section": "Academic Honesty",
+    "text": "Academic Honesty\nYou are expected to do your own written work on all assignments and projects. For specific UD policies concerning academic honesty, see the University’s Academic Honor Code in the Academic Catalog.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#contract-cheating",
+    "href": "syllabus.html#contract-cheating",
+    "title": "Course Information",
+    "section": "Contract Cheating",
+    "text": "Contract Cheating\nContract cheating occurs when a student pays someone (such as a person or company found online) to write essays or complete assignments for a class. This defeats the purpose of the course, and I encourage you to follow the academic honor code and seek to develop a personal sense of academic integrity which lays the foundation for an ethical life. Contract cheating is especially dangerous because of the risk of bribery and extortion (at any point after after college.) Students are often lured into contract cheating by signing up for online tutoring services. Remember that UD provides many learning support resources through the Office of Learning Resources.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#academic-integrity-and-chatgptai-generated-content",
+    "href": "syllabus.html#academic-integrity-and-chatgptai-generated-content",
+    "title": "Course Information",
+    "section": "Academic Integrity and ChatGPT/AI Generated Content",
+    "text": "Academic Integrity and ChatGPT/AI Generated Content\nAs a student at UD, you are expected to adhere to the Standards of Conduct outlined in the Academic Honor Code. One of the goals for your educational development is to develop your critical thinking and writing skills, which can be weakened by regularly utilizing AI for writing. Thus, for this course, all submitted writing should be your own, original work. If you quote or copy content from ChatGPT or other AI sources, it must be appropriately cited in your submissions. As your instructor, I am required to investigate all suspected violations of academic dishonesty and follow the honor code violation procedures, which can result in an NC for the course.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#dropping-the-course",
+    "href": "syllabus.html#dropping-the-course",
+    "title": "Course Information",
+    "section": "Dropping the Course",
+    "text": "Dropping the Course\nYou are responsible for understanding the University’s policies and procedures regarding withdrawing from courses. You should also be aware of the current deadlines and penalties for dropping classes. Information on withdrawal from courses is available in the Academic Catalog under Grades and Scholarship. You may also want to speak with your academic advisor.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#student-feedback-tool",
+    "href": "syllabus.html#student-feedback-tool",
+    "title": "Course Information",
+    "section": "Student Feedback Tool",
+    "text": "Student Feedback Tool\nThe University will ask for your anonymous feedback regarding instruction in this course through the online Student Feedback Tool (SFT). Your candid, respectful opinions and constructive suggestions have an impact on the quality of teaching at UD. Instructions for how to complete SFT will be sent to your UD email account towards the end of the term, and you will be given time in class to complete it. If you encounter teaching problems accessing SFT, contact the UDit Service Center at 937-229-3888 or itservicecenter@udayton.edu. To learn more about SFT, visit https://go.udayton.edu/sft.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#support-for-your-learning-in-this-course",
+    "href": "syllabus.html#support-for-your-learning-in-this-course",
+    "title": "Course Information",
+    "section": "Support for Your Learning in This Course",
+    "text": "Support for Your Learning in This Course\nThe Ryan C. Harris Learning Teaching Center’s Office of Learning Resources (OLR) is a learning resource for students, parents, faculty, and staff at the University of Dayton. Please contact OLR via email at OLR@udayton.edu or by calling 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing individuals) or visit the office on the ground floor of Roesch Library (LTC 023) if you would like to talk about how you could become a more effective learner. You can also check out the website: go.udayton.edu/learning.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#students-with-disabilities",
+    "href": "syllabus.html#students-with-disabilities",
+    "title": "Course Information",
+    "section": "Students with Disabilities",
+    "text": "Students with Disabilities\nIf you are a student with a disability and feel you may need a reasonable accommodation to fulfill the essential functions of this course, you are encouraged to connect with the Office of Learning Resources (OLR). OLR provides accommodations and services for students with a variety of disabilities, including physical, medical, and psychiatric. You may contact OLR to learn more about the process and procedures for requesting accommodations via email at disabilityservices@udayton.edu or at 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing), or by visiting the office in Roesch Library (LTC 023.)\nIf you need assistance with alternate formats of electronic course materials (such as converting a PDF into an accessible format), visit OLR’s website to use the tool, Sensus Access, for document conversion.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#wellbeing-and-success",
+    "href": "syllabus.html#wellbeing-and-success",
+    "title": "Course Information",
+    "section": "Wellbeing and Success",
+    "text": "Wellbeing and Success\nAt UD, we know health and wellbeing are important to your success. That’s why we help students of all backgrounds build a foundation for holistic wellbeing. We provide the services, resources and support you need to be successful on campus and in life. Health and Wellbeing resources include the following:\n\nDean of Students Office: Student Care and Advocacy at 937-229-1212\nCounseling Center at 937-229-3141\nStudent Health Center at 937-229-3131\nCenter for Alcohol and Other Drugs Resources and Education at go.udayton.edu/cadre\nBrook Center at go.udayton.edu/brook (includes LGBTQ+ Student Services)\nCampus Recreation at activeflyers.udayton.edu\nYOU@Dayton at wellbeing.udayton.edu",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#student-success-network",
+    "href": "syllabus.html#student-success-network",
+    "title": "Course Information",
+    "section": "Student Success Network",
+    "text": "Student Success Network\nUD makes student success a priority. For this reason, I will be using the Student Success Network (SSN) in this course as an early identification and intervention system designed to enable your academic success and graduation. If I notice that you are struggling with issues such as attendance, class participation, or assignment performance, I may choose to send notification through SSN in order to connect you with appropriate campus resources. These referrals are designed to maximize your chances for success, not as punishment, so please respond to any communications you may receive from me, your Academic Advisor, the Dean’s Office, or other campus offices regarding your academic progress in this course. Please see the Student Success Network website for more information.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#write-place",
+    "href": "syllabus.html#write-place",
+    "title": "Course Information",
+    "section": "Write Place",
+    "text": "Write Place\nThe Write Place offers free writing assistance on any assignment at any stage of the writing process. To make an appointment with the Write Place, email writeplace@udayton.edu.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#library-research-support",
+    "href": "syllabus.html#library-research-support",
+    "title": "Course Information",
+    "section": "Library Research Support",
+    "text": "Library Research Support\nRoesch Library’s reference services offer free research assistance on any assignment at any stage of the research process. Visit the first floor Information Desk to meet in-person, or connect remotely with a librarian via the Libraries’ Get Help page. Research consultation service hours are listed online. No appointment is necessary, although they are available. To make an appointment with a librarian, see either the Library Resources tab in Canvas or make an appointment online.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#religious-accommodations",
+    "href": "syllabus.html#religious-accommodations",
+    "title": "Course Information",
+    "section": "Religious Accommodations",
+    "text": "Religious Accommodations\nUD strives for an inclusive climate and welcomes students from all backgrounds, faiths and experiences. If religious observance impedes your ability to participate fully in classroom activities or a principal holiday from your religious tradition occurs during the semester and conflicts with class, please make me aware of this immediately to determine if a reasonable accommodation is possible. Find out more about how to request a religious accommodation.",
+    "crumbs": [
+      "Home",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
+    "section": "",
+    "text": "This is a class website for Business Analytics in Healthcare Management class. (Spring 2026).\nAll class materials for lectures will be managed and posted here.\nPlease check the syllabus for course policies and grading information and the schedule for tentative course schedule.\nAll grading and assignment instructions and submissions will be through our class Canvas page.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
     "objectID": "lectures/Lecture04/Slide04.html#why-visualization-matters",
     "href": "lectures/Lecture04/Slide04.html#why-visualization-matters",
     "title": "Basics of Data Visualization",
@@ -3432,386 +3903,6 @@
     "title": "Basics of Data Visualization",
     "section": "Online Resources",
     "text": "Online Resources\n\nR Graphics Cookbook: https://r-graphics.org/\nggplot2 documentation: https://ggplot2.tidyverse.org/\nData-to-Viz (chart selection): https://www.data-to-viz.com/"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "MBA 642: Business Analytics in Healthcare Management (Spring 2026)",
-    "section": "",
-    "text": "This is a class website for Business Analytics in Healthcare Management class. (Spring 2026).\nAll class materials for lectures will be managed and posted here.\nPlease check the syllabus for course policies and grading information and the schedule for tentative course schedule.\nAll grading and assignment instructions and submissions will be through our class Canvas page.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "Course Information",
-    "section": "",
-    "text": "Course Title: Business Analytics in Healthcare Management (MBA 642)\nLevel: Graduate (Master’s)\nTime: 6:00 PM - 8:15 PM (Wednesdays)\nTerm: Spring 2026\nInstructor: Sangsuk Yoon (syoon1@udayton.edu)\nFormat: Online Synchronous (Use the Zoom link on Canvas to join the class)\nOffice Hours: Wednesdays 1:30 PM - 3:00 PM or after class or by appointment (Zoom)\nCourse Schedule: Please check the course schedule page",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#course-description",
-    "href": "syllabus.html#course-description",
-    "title": "Course Information",
-    "section": "Course Description:",
-    "text": "Course Description:\nThis graduate-level course provides a comprehensive introduction to business analytics in healthcare management, progressing from basic statistical concepts and data visualization to practical applications of data analytics in healthcare management contexts. As healthcare organizations increasingly rely on data-driven insights, this course prepares students to navigate and analyze complex healthcare datasets. Students will gain hands-on experience with classic and modern analytical tools while learning to address real-world healthcare management challenges through evidence-based decision-making.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#prerequisites",
-    "href": "syllabus.html#prerequisites",
-    "title": "Course Information",
-    "section": "Prerequisites:",
-    "text": "Prerequisites:\nThere are no prerequisites for this course. This course is designed to accommodate students with varying levels of statistical and programming backgrounds. All necessary concepts will be introduced from the ground up.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#course-objectives",
-    "href": "syllabus.html#course-objectives",
-    "title": "Course Information",
-    "section": "Course Objectives:",
-    "text": "Course Objectives:\nBy the end of this course, students will be able to:\n\nEvaluate the role and application of analytics in healthcare management decision-making\nConduct exploratory data analysis on different types of healthcare data (patient surveys, health outcomes, etc.)\nSelect and apply appropriate statistical methods to healthcare management problems to extract meaningful insights\nInterpret analytical results and communicate findings effectively to diverse stakeholders\nDesign and implement data-driven solutions for real-world healthcare management challenges",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#course-website",
-    "href": "syllabus.html#course-website",
-    "title": "Course Information",
-    "section": "Course Website:",
-    "text": "Course Website:\n\nCourse Materials will be posted here and through our Canvas page: https://mba642-spring-26.github.io\nAssignments, grading, and exams will be informed, managed, and submitted through our class Canvas page.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#textbooks",
-    "href": "syllabus.html#textbooks",
-    "title": "Course Information",
-    "section": "Textbooks:",
-    "text": "Textbooks:\nTwo textbooks will be used for this course. You do not need to purchase them. Both books are freely available through the University of Dayton library.\n\n“Statistics for Health Data Science: An Organic Approach”\n\n\nAuthors: Ruth Etzioni, Micha Mandel, and Roman Gulati\nISBN: 978-3-030-59888-4\nThis book is freely available through UD library\n\n\n“Statistical Analytics for Health Data Science with SAS and R”\n\n\nAuthors: Jeffrey Willson, Ding-Geng Chen, and Karl E. Peace\nISBN: 978-1-032-32569-9\nThis book is freely available through UD library\n\nOther Helpful Books and Readings:\n\n“R for Data Science” (available for free online)\n\n\nAuthors: Hadley Wickham and Garrett Grolemund\nThis book is freely available online\n\n\n“Introduction to Modern Statistics”\n\n\nAuthors: Mine Çetinkaya-Rundel and Jeffrey S. Simonoff\nThis book is freely available online\n\n\nStatistical Rethinking for the 21st Century\n\n\nAuthors: Russell A. Poldrack\nThis book is freely available online",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#r-and-r-studio",
-    "href": "syllabus.html#r-and-r-studio",
-    "title": "Course Information",
-    "section": "R and R-Studio:",
-    "text": "R and R-Studio:\nThis course utilizes R and R-Studio as the primary analytical tools. R is a powerful, open-source programming language specifically designed for statistical data analysis, widely used in both academia and industry for analytics. R-Studio is an integrated development environment (IDE) that makes R programming more accessible and efficient through its user-friendly interface, offering features such as data visualization, code editing, debugging, and project management capabilities. Students will learn to use these tools to analyze healthcare data, create visualizations, develop statistical models, and generate reports. You can download R and R-Studio from the following links:\n\nR: https://www.r-project.org\nR-Studio: https://posit.co/downloads/\n\nYou should install R first since R-Studio runs on R.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#assignments-90-points-9-assignments-each-with-10-points",
-    "href": "syllabus.html#assignments-90-points-9-assignments-each-with-10-points",
-    "title": "Course Information",
-    "section": "Assignments: 90 points (9 assignments, each with 10 points)",
-    "text": "Assignments: 90 points (9 assignments, each with 10 points)\nThere will be 9 assignments throughout the semester. Each assignment requires students to apply the analytical methods learned in the class session to new healthcare data analytics scenarios. For example, in Week 4, after we cover data visualization, you will be asked to visualize results with a new dataset. Assignments will focus on different healthcare management contexts and typically take 30-60 minutes to complete. Assignments are due weekly by Sunday at 11:59 PM.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#class-participation-and-reflection-78-points",
-    "href": "syllabus.html#class-participation-and-reflection-78-points",
-    "title": "Course Information",
-    "section": "Class Participation and Reflection: 78 points",
-    "text": "Class Participation and Reflection: 78 points\nThis course includes 14 class sessions. After we finish each session (starting from the second class, meaning you will submit 13 reflections total), I would like to hear about what you learned and what questions remain unclear. To encourage engagement with the course contents, you will need to write a short list of responses to the following questions:\n\nWhat were the three most interesting or exciting things you learned from the session? and why?\nWhat were the three most unclear or confusing things from the session? and why?\n\nYou can include more than three for each, but you must include at least three per question. So, there are six interesting or unclear things you will have in each reflection, and each one will be worth 1 point (total 6 points per class session; max is 6 points). There will be 13 reflection assignments throughout the semester (6 points × 13 reflections = 78 points). Reflection submissions are due weekly by Sunday at 11:59 PM.\nYou don’t need to get stressed about this. Your reflections do not need to be fancy or very long (just one short paragraph for each point). I simply want to understand what genuinely resonated with you or what felt challenging. For example, you might write something like: “Learning how to draw a bar graph using ggplot was interesting. I didn’t know how to draw graphs in R before, so discovering this was exciting.” Or you could say: “Understanding the interaction effect was confusing. It’s unclear to me whether it means the effect of A is different from the effect of B, or whether the effect of A changes depending on B.” These kinds of honest, straightforward reflections are exactly what I’m looking for. The goal is to help me understand your learning experience so I can better support you throughout the course.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#midterm-exam-50-points",
-    "href": "syllabus.html#midterm-exam-50-points",
-    "title": "Course Information",
-    "section": "Midterm Exam: 50 points",
-    "text": "Midterm Exam: 50 points\nThere will be a midterm exam in Week 9 of the semester. The exam will cover topics from Week 1 through Week 8. The exam will be online and available for the full day on the scheduled class day (from 12:00 AM to 11:59 PM).",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#final-exam-50-points",
-    "href": "syllabus.html#final-exam-50-points",
-    "title": "Course Information",
-    "section": "Final Exam: 50 points",
-    "text": "Final Exam: 50 points\nThere will be a final exam in the last week of the semester. The exam will be cumulative and cover topics discussed throughout the semester. The exam will be online and available for the full day on the scheduled class day (from 12:00 AM to 11:59 PM).\nFinal course letter grades will be assigned as follows:\n\n\n\nLetter Grade\nQuality Points\nPoint Range\n\n\n\n\nA\n4.000\n250 - 268\n\n\nA-\n3.667\n240 - 249\n\n\nB+\n3.333\n230 - 239\n\n\nB\n3.000\n220 - 229\n\n\nB-\n2.667\n210 - 219\n\n\nC\n2.000\n185 - 209\n\n\nF\n0.000\n0 - 184",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#attendance-policy",
-    "href": "syllabus.html#attendance-policy",
-    "title": "Course Information",
-    "section": "Attendance Policy:",
-    "text": "Attendance Policy:\nThis course is delivered online synchronously, and regular attendance is expected. Attendance will be recorded at a random point during each session. I understand that life happens. If you must miss a class, please let me know in advance when possible. All lecture recordings and materials will be available on Canvas so you can catch up. However, missing class does not relieve your responsibility for assignments, reflections, or exams, as these are due on set deadlines regardless of attendance.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#communication-policy",
-    "href": "syllabus.html#communication-policy",
-    "title": "Course Information",
-    "section": "Communication Policy:",
-    "text": "Communication Policy:\n\nFeel free to reach out to me anytime at my UD email: syoon1@udayton.edu. I’m always happy to help!\nI typically respond to emails within 24 hours on weekdays (Monday–Friday).\nOn weekends and holidays, I’ll be recharging my batteries (and pretending emails don’t exist), so expect a response when I’m back online. Thanks for understanding! :)",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#classroom-etiquette",
-    "href": "syllabus.html#classroom-etiquette",
-    "title": "Course Information",
-    "section": "Classroom Etiquette:",
-    "text": "Classroom Etiquette:\n\nCamera on, please! Keeping your camera on helps create a more engaging and connected learning environment.\nThink of our class sessions as professional team meetings, which is a valuable practice for your current and future career.\nBe respectful to yourself, your peers, and our community. Let’s maintain a welcoming and professional atmosphere.\nUse professional language in all class discussions and written work.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#technological-problems",
-    "href": "syllabus.html#technological-problems",
-    "title": "Course Information",
-    "section": "Technological Problems:",
-    "text": "Technological Problems:\n\nPlease ensure you have reliable internet access for joining class and submitting assignments.\nKeep your UD email, Zoom, and Canvas accounts active and accessible throughout the semester.\nYou are responsible for resolving any technical issues with your personal devices or software (including R and RStudio).\nNeed tech help? For hardware issues, contact your device manufacturer. For general software issues, reach out to UD IT services. For course-specific technical questions (like R code not working), feel free to ask me!",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#late-submissions",
-    "href": "syllabus.html#late-submissions",
-    "title": "Course Information",
-    "section": "Late Submissions:",
-    "text": "Late Submissions:\nLife gets busy, and I understand that sometimes things don’t go as planned. However, please try your best to submit on time. Here’s what happens if you’re late:\n\nReflections: 1.5 points deducted for each 24 hours late. Submissions over 48 hours late receive zero points.\nAssignments: 2 points deducted for each 24 hours late. Submissions over 48 hours late receive zero points.\nExams: Must be completed within the specified time frame—no late submissions accepted.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#keep-your-work",
-    "href": "syllabus.html#keep-your-work",
-    "title": "Course Information",
-    "section": "Keep Your Work:",
-    "text": "Keep Your Work:\n\nAlways save a copy of your submitted assignments—just in case anything gets lost along the way.\nHold onto your graded work as well. If you ever have questions about a grade (e.g., a mismatch between Canvas and your feedback), having the original document will help us resolve it quickly.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#stay-on-top-of-your-grades",
-    "href": "syllabus.html#stay-on-top-of-your-grades",
-    "title": "Course Information",
-    "section": "Stay on Top of Your Grades:",
-    "text": "Stay on Top of Your Grades:\nPlease check your grades on Canvas regularly. If you notice something missing or think a grade might be incorrect, don’t hesitate to reach out. I’m happy to take another look!",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#civility-respect-and-privacy",
-    "href": "syllabus.html#civility-respect-and-privacy",
-    "title": "Course Information",
-    "section": "Civility, Respect, and Privacy",
-    "text": "Civility, Respect, and Privacy\nThe University of Dayton adopted a “Statement of Dignity which states the following: “A primary assertion of both our religious and civil traditions is the inviolable dignity of each person. Recognition of and respect for the person are central to our life as a Christian and education community and are what allow us to pursue our common mission while being many diverse persons. Thus discrimination, harassment, and any other conduct that diminishes the worth of a person are incompatible with our fundamental commitment as a Catholic university conducted in the Marianist tradition.”",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#classroom-climate-and-bias-experiences-and-process",
-    "href": "syllabus.html#classroom-climate-and-bias-experiences-and-process",
-    "title": "Course Information",
-    "section": "Classroom Climate and Bias Experiences and Process",
-    "text": "Classroom Climate and Bias Experiences and Process\nAs part of a University for the Common Good that aims to be an anti-racist university, I want all students to feel safe, respected, and valued in all of their classes. Should you have an experience in this class, or in any SBA class, where you feel devalued because of an incident in class, we would like to know. You are free to discuss the issue with me. You can also contact our Associate Dean, Dr. Marsha Keune (mkeune1@udayton.edu), share your experience with the Equity Compliance Office (equitycompliance@udayton.edu or 937-229-3622) or submit an incident report.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#intellectual-property-statement",
-    "href": "syllabus.html#intellectual-property-statement",
-    "title": "Course Information",
-    "section": "Intellectual Property Statement",
-    "text": "Intellectual Property Statement\nThe materials shared with you during this course are authored and owned by the instructor and/or the book publisher. Copyright laws must be respected at all times.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#academic-honesty",
-    "href": "syllabus.html#academic-honesty",
-    "title": "Course Information",
-    "section": "Academic Honesty",
-    "text": "Academic Honesty\nYou are expected to do your own written work on all assignments and projects. For specific UD policies concerning academic honesty, see the University’s Academic Honor Code in the Academic Catalog.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#contract-cheating",
-    "href": "syllabus.html#contract-cheating",
-    "title": "Course Information",
-    "section": "Contract Cheating",
-    "text": "Contract Cheating\nContract cheating occurs when a student pays someone (such as a person or company found online) to write essays or complete assignments for a class. This defeats the purpose of the course, and I encourage you to follow the academic honor code and seek to develop a personal sense of academic integrity which lays the foundation for an ethical life. Contract cheating is especially dangerous because of the risk of bribery and extortion (at any point after after college.) Students are often lured into contract cheating by signing up for online tutoring services. Remember that UD provides many learning support resources through the Office of Learning Resources.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#academic-integrity-and-chatgptai-generated-content",
-    "href": "syllabus.html#academic-integrity-and-chatgptai-generated-content",
-    "title": "Course Information",
-    "section": "Academic Integrity and ChatGPT/AI Generated Content",
-    "text": "Academic Integrity and ChatGPT/AI Generated Content\nAs a student at UD, you are expected to adhere to the Standards of Conduct outlined in the Academic Honor Code. One of the goals for your educational development is to develop your critical thinking and writing skills, which can be weakened by regularly utilizing AI for writing. Thus, for this course, all submitted writing should be your own, original work. If you quote or copy content from ChatGPT or other AI sources, it must be appropriately cited in your submissions. As your instructor, I am required to investigate all suspected violations of academic dishonesty and follow the honor code violation procedures, which can result in an NC for the course.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#dropping-the-course",
-    "href": "syllabus.html#dropping-the-course",
-    "title": "Course Information",
-    "section": "Dropping the Course",
-    "text": "Dropping the Course\nYou are responsible for understanding the University’s policies and procedures regarding withdrawing from courses. You should also be aware of the current deadlines and penalties for dropping classes. Information on withdrawal from courses is available in the Academic Catalog under Grades and Scholarship. You may also want to speak with your academic advisor.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#student-feedback-tool",
-    "href": "syllabus.html#student-feedback-tool",
-    "title": "Course Information",
-    "section": "Student Feedback Tool",
-    "text": "Student Feedback Tool\nThe University will ask for your anonymous feedback regarding instruction in this course through the online Student Feedback Tool (SFT). Your candid, respectful opinions and constructive suggestions have an impact on the quality of teaching at UD. Instructions for how to complete SFT will be sent to your UD email account towards the end of the term, and you will be given time in class to complete it. If you encounter teaching problems accessing SFT, contact the UDit Service Center at 937-229-3888 or itservicecenter@udayton.edu. To learn more about SFT, visit https://go.udayton.edu/sft.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#support-for-your-learning-in-this-course",
-    "href": "syllabus.html#support-for-your-learning-in-this-course",
-    "title": "Course Information",
-    "section": "Support for Your Learning in This Course",
-    "text": "Support for Your Learning in This Course\nThe Ryan C. Harris Learning Teaching Center’s Office of Learning Resources (OLR) is a learning resource for students, parents, faculty, and staff at the University of Dayton. Please contact OLR via email at OLR@udayton.edu or by calling 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing individuals) or visit the office on the ground floor of Roesch Library (LTC 023) if you would like to talk about how you could become a more effective learner. You can also check out the website: go.udayton.edu/learning.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#students-with-disabilities",
-    "href": "syllabus.html#students-with-disabilities",
-    "title": "Course Information",
-    "section": "Students with Disabilities",
-    "text": "Students with Disabilities\nIf you are a student with a disability and feel you may need a reasonable accommodation to fulfill the essential functions of this course, you are encouraged to connect with the Office of Learning Resources (OLR). OLR provides accommodations and services for students with a variety of disabilities, including physical, medical, and psychiatric. You may contact OLR to learn more about the process and procedures for requesting accommodations via email at disabilityservices@udayton.edu or at 937-229-2066 (TTY: Ohio Relay 711 for deaf/hard of hearing), or by visiting the office in Roesch Library (LTC 023.)\nIf you need assistance with alternate formats of electronic course materials (such as converting a PDF into an accessible format), visit OLR’s website to use the tool, Sensus Access, for document conversion.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#wellbeing-and-success",
-    "href": "syllabus.html#wellbeing-and-success",
-    "title": "Course Information",
-    "section": "Wellbeing and Success",
-    "text": "Wellbeing and Success\nAt UD, we know health and wellbeing are important to your success. That’s why we help students of all backgrounds build a foundation for holistic wellbeing. We provide the services, resources and support you need to be successful on campus and in life. Health and Wellbeing resources include the following:\n\nDean of Students Office: Student Care and Advocacy at 937-229-1212\nCounseling Center at 937-229-3141\nStudent Health Center at 937-229-3131\nCenter for Alcohol and Other Drugs Resources and Education at go.udayton.edu/cadre\nBrook Center at go.udayton.edu/brook (includes LGBTQ+ Student Services)\nCampus Recreation at activeflyers.udayton.edu\nYOU@Dayton at wellbeing.udayton.edu",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#student-success-network",
-    "href": "syllabus.html#student-success-network",
-    "title": "Course Information",
-    "section": "Student Success Network",
-    "text": "Student Success Network\nUD makes student success a priority. For this reason, I will be using the Student Success Network (SSN) in this course as an early identification and intervention system designed to enable your academic success and graduation. If I notice that you are struggling with issues such as attendance, class participation, or assignment performance, I may choose to send notification through SSN in order to connect you with appropriate campus resources. These referrals are designed to maximize your chances for success, not as punishment, so please respond to any communications you may receive from me, your Academic Advisor, the Dean’s Office, or other campus offices regarding your academic progress in this course. Please see the Student Success Network website for more information.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#write-place",
-    "href": "syllabus.html#write-place",
-    "title": "Course Information",
-    "section": "Write Place",
-    "text": "Write Place\nThe Write Place offers free writing assistance on any assignment at any stage of the writing process. To make an appointment with the Write Place, email writeplace@udayton.edu.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#library-research-support",
-    "href": "syllabus.html#library-research-support",
-    "title": "Course Information",
-    "section": "Library Research Support",
-    "text": "Library Research Support\nRoesch Library’s reference services offer free research assistance on any assignment at any stage of the research process. Visit the first floor Information Desk to meet in-person, or connect remotely with a librarian via the Libraries’ Get Help page. Research consultation service hours are listed online. No appointment is necessary, although they are available. To make an appointment with a librarian, see either the Library Resources tab in Canvas or make an appointment online.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "syllabus.html#religious-accommodations",
-    "href": "syllabus.html#religious-accommodations",
-    "title": "Course Information",
-    "section": "Religious Accommodations",
-    "text": "Religious Accommodations\nUD strives for an inclusive climate and welcomes students from all backgrounds, faiths and experiences. If religious observance impedes your ability to participate fully in classroom activities or a principal holiday from your religious tradition occurs during the semester and conflicts with class, please make me aware of this immediately to determine if a reasonable accommodation is possible. Find out more about how to request a religious accommodation.",
-    "crumbs": [
-      "Home",
-      "Syllabus"
-    ]
   },
   {
     "objectID": "lectures/Lecture04/Lecture04.html",

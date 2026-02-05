@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Assignment 1: Data Visualization Assignment (Week 04) – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0d5ce8690ce9c09784bd6cc6cc69282a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mba642-spring-26/mba642-spring-26.github.io/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Assignment 1: Data Visualization Assignment (Week 04)</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#assignment-overview" id="toc-assignment-overview" class="nav-link active" data-scroll-target="#assignment-overview"><span class="header-section-number">1</span> Assignment Overview</a>
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</a></li>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions"><span class="header-section-number">1.2</span> Instructions</a></li>
+  </ul></li>
+  <li><a href="#about-the-dataset" id="toc-about-the-dataset" class="nav-link" data-scroll-target="#about-the-dataset"><span class="header-section-number">2</span> About the Dataset</a>
+  <ul class="collapse">
+  <li><a href="#dataset-background" id="toc-dataset-background" class="nav-link" data-scroll-target="#dataset-background"><span class="header-section-number">2.1</span> Dataset Background</a></li>
+  <li><a href="#loading-and-preparing-the-data" id="toc-loading-and-preparing-the-data" class="nav-link" data-scroll-target="#loading-and-preparing-the-data"><span class="header-section-number">2.2</span> Loading and Preparing the Data</a></li>
+  <li><a href="#key-variables" id="toc-key-variables" class="nav-link" data-scroll-target="#key-variables"><span class="header-section-number">2.3</span> Key Variables</a></li>
+  </ul></li>
+  <li><a href="#grading-rubric" id="toc-grading-rubric" class="nav-link" data-scroll-target="#grading-rubric"><span class="header-section-number">3</span> Grading Rubric</a></li>
+  <li><a href="#assignment-tasks" id="toc-assignment-tasks" class="nav-link" data-scroll-target="#assignment-tasks"><span class="header-section-number">4</span> Assignment Tasks</a>
+  <ul class="collapse">
+  <li><a href="#task-1-distribution-of-length-of-stay-1-point" id="toc-task-1-distribution-of-length-of-stay-1-point" class="nav-link" data-scroll-target="#task-1-distribution-of-length-of-stay-1-point">Task 1: Distribution of Length of Stay (1 point)</a></li>
+  <li><a href="#task-2-patient-volume-by-service-line-1.5-points" id="toc-task-2-patient-volume-by-service-line-1.5-points" class="nav-link" data-scroll-target="#task-2-patient-volume-by-service-line-1.5-points">Task 2: Patient Volume by Service Line (1.5 points)</a></li>
+  <li><a href="#task-3-comparing-charges-across-service-lines-1.5-points" id="toc-task-3-comparing-charges-across-service-lines-1.5-points" class="nav-link" data-scroll-target="#task-3-comparing-charges-across-service-lines-1.5-points">Task 3: Comparing Charges Across Service Lines (1.5 points)</a></li>
+  <li><a href="#task-4-relationship-between-length-of-stay-and-charges-1.5-points" id="toc-task-4-relationship-between-length-of-stay-and-charges-1.5-points" class="nav-link" data-scroll-target="#task-4-relationship-between-length-of-stay-and-charges-1.5-points">Task 4: Relationship Between Length of Stay and Charges (1.5 points)</a></li>
+  <li><a href="#task-5-monthly-patient-volume-trend-1.5-points" id="toc-task-5-monthly-patient-volume-trend-1.5-points" class="nav-link" data-scroll-target="#task-5-monthly-patient-volume-trend-1.5-points">Task 5: Monthly Patient Volume Trend (1.5 points)</a></li>
+  <li><a href="#task-6-average-charges-by-payer-type-1.5-points" id="toc-task-6-average-charges-by-payer-type-1.5-points" class="nav-link" data-scroll-target="#task-6-average-charges-by-payer-type-1.5-points">Task 6: Average Charges by Payer Type (1.5 points)</a></li>
+  <li><a href="#task-7-faceted-analysis---charges-by-payer-type-1.5-points" id="toc-task-7-faceted-analysis---charges-by-payer-type-1.5-points" class="nav-link" data-scroll-target="#task-7-faceted-analysis---charges-by-payer-type-1.5-points">Task 7: Faceted Analysis - Charges by Payer Type (1.5 points)</a></li>
+  </ul></li>
+  <li><a href="#submission-checklist" id="toc-submission-checklist" class="nav-link" data-scroll-target="#submission-checklist"><span class="header-section-number">5</span> Submission Checklist</a></li>
+  <li><a href="#points-summary" id="toc-points-summary" class="nav-link" data-scroll-target="#points-summary"><span class="header-section-number">6</span> Points Summary</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 1: Data Visualization Assignment (Week 04)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="assignment-overview" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Assignment Overview</h1>
+<ul>
+<li><strong>Total Points</strong>: 10 points<br>
+</li>
+<li><strong>Due Date</strong>: February 8, 2026</li>
+<li><strong>Submission</strong>: Upload your completed .qmd file to Canvas</li>
+</ul>
+<section id="learning-objectives" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</h2>
+<p>This assignment assesses your ability to:</p>
+<ul>
+<li>Select appropriate visualization types for different analytical questions</li>
+<li>Create visualizations using the <code>ggplot2</code> package</li>
+<li>Customize plots for professional presentation</li>
+<li>Interpret visualizations in a healthcare management context</li>
+</ul>
+</section>
+<section id="instructions" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="instructions"><span class="header-section-number">1.2</span> Instructions</h2>
+<ol type="1">
+<li>Complete all 7 tasks below</li>
+<li>Fill in the blanks (replace <code>___</code> with appropriate code)</li>
+<li>After completing each code chunk, change <code>#| eval: false</code> to <code>#| eval: true</code> to run it</li>
+<li>Answer all interpretation questions (1-2 sentences each)</li>
+<li>Ensure all visualizations have proper labels, titles, and themes</li>
+<li>Run all code chunks to verify they work before submitting</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="about-the-dataset" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> About the Dataset</h1>
+<p><strong>Hospital Administrative Data</strong></p>
+<p>For this assignment, we will use the <code>healthyR_data</code> dataset from the <code>healthyR.data</code> package. This is a realistic healthcare administrative dataset containing hospital visit records with patient, financial, and quality information.</p>
+<section id="dataset-background" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="dataset-background"><span class="header-section-number">2.1</span> Dataset Background</h2>
+<p>The <code>healthyR_data</code> dataset simulates administrative data from a hospital system, including:</p>
+<ul>
+<li><strong>Patient visit information</strong>: When patients arrived and left, how long they stayed</li>
+<li><strong>Financial data</strong>: Charges, payments, adjustments, and amounts due</li>
+<li><strong>Service categories</strong>: Which departments/service lines provided care</li>
+<li><strong>Quality indicators</strong>: Readmission flags and length of stay comparisons</li>
+</ul>
+<p>This type of data is commonly used by healthcare managers to analyze operational efficiency, financial performance, and quality metrics.</p>
+</section>
+<section id="loading-and-preparing-the-data" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="loading-and-preparing-the-data"><span class="header-section-number">2.2</span> Loading and Preparing the Data</h2>
+<p>First, run the code below to load required packages. If you haven’t installed these packages yet, you can install them by running <code>install.packages("ggplot2")</code>, <code>install.packages("dplyr")</code>, <code>install.packages("tidyr")</code>, and <code>install.packages("healthyR.data")</code> in the R console.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(healthyR.data)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)  <span class="co"># For reproducibility</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, run the following code to load a sample of the dataset for this assignment:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the healthyR_data dataset and take a sample for this assignment</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>hospital_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week04_assignment_data.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View first few rows</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hospital_data, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    X      mrn   visit_id visit_start_date_time visit_end_date_time
+1   1 77098452 1139993089   2012-10-28 11:27:00 2012-10-30 16:35:00
+2   2 56293043 3098204271   2012-02-15 05:00:00          2012-02-15
+3   3 19771259 3244311127   2010-04-20 05:00:00          2010-04-20
+4   4 94399269 8870774333   2020-11-04 15:13:00          2020-11-04
+5   5 35454631 1980956427   2013-03-16 14:10:00 2013-03-20 16:12:00
+6   6 76322064 3045107386   2015-04-16 05:00:00          2015-04-16
+7   7 27606841 3656727163   2017-07-14 05:00:00          2017-07-14
+8   8 80122407 3925163432   2010-03-17 05:00:00          2010-03-17
+9   9 30447593 1401023817   2012-04-05 04:50:00 2012-04-08 15:07:00
+10 10 15158745 1621385747   2014-04-24 13:00:00 2014-04-30 14:19:00
+   total_charge_amount total_amount_due total_adjustment_amount payer_grouping
+1             31437.88           200.00               -23077.14     Blue Cross
+2             14249.07             0.00                -5699.63     Commercial
+3              9670.48             0.00                -1948.64     Medicare B
+4             16297.31         16297.31                    0.00     Commercial
+5             37508.27             0.00               -29177.47   Medicare HMO
+6             12037.37             0.00                -9094.19            HMO
+7             11329.25             0.00               -11329.25     Blue Cross
+8             10637.04             0.00                -8479.21     Medicare B
+9             28142.60             0.00               -21701.06       Medicaid
+10            55016.36             0.00               -55016.36     Medicare A
+   total_payment_amount ip_op_flag                 service_line length_of_stay
+1              -8160.74          I                      Medical              2
+2              -8549.44          O           General Outpatient              0
+3              -7721.84          O           General Outpatient              0
+4                  0.00          O           General Outpatient              0
+5              -8642.87          I Laparoscopic Cholecystectomy              4
+6              -2943.18          O           General Outpatient              0
+7                  0.00          O           General Outpatient              0
+8              -2157.83          O           General Outpatient              0
+9              -6441.54          I                          CHF              3
+10             -7507.30          I                    Pneumonia              6
+   expected_length_of_stay length_of_stay_threshold los_outlier_flag
+1                       NA                       NA                0
+2                       NA                       NA                0
+3                       NA                       NA                0
+4                       NA                       NA                0
+5                       NA                       NA                0
+6                       NA                       NA                0
+7                       NA                       NA                0
+8                       NA                       NA                0
+9                       NA                       NA                0
+10                    TRUE                     TRUE                0
+   readmit_flag readmit_expectation visit_month      los_category
+1             0                  NA     October  Short (1-2 days)
+2             0                  NA    February  Short (1-2 days)
+3             0                  NA       April  Short (1-2 days)
+4             0                  NA    November  Short (1-2 days)
+5             0                  NA       March Medium (3-5 days)
+6             0                  NA       April  Short (1-2 days)
+7             0                  NA        July  Short (1-2 days)
+8             0                  NA       March  Short (1-2 days)
+9             0                  NA       April Medium (3-5 days)
+10            1                  NA       April    Long (6+ days)</code></pre>
+</div>
+</div>
+</section>
+<section id="key-variables" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="key-variables"><span class="header-section-number">2.3</span> Key Variables</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 44%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>mrn</code></td>
+<td>Medical Record Number (patient identifier)</td>
+<td>Character</td>
+</tr>
+<tr class="even">
+<td><code>visit_id</code></td>
+<td>Unique visit identifier</td>
+<td>Character</td>
+</tr>
+<tr class="odd">
+<td><code>visit_start_date_time</code></td>
+<td>Date and time of visit start</td>
+<td>DateTime</td>
+</tr>
+<tr class="even">
+<td><code>visit_end_date_time</code></td>
+<td>Date and time of visit end</td>
+<td>DateTime</td>
+</tr>
+<tr class="odd">
+<td><code>total_charge_amount</code></td>
+<td>Total charges for the visit (USD)</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td><code>total_amount_due</code></td>
+<td>Amount still owed</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td><code>length_of_stay</code></td>
+<td>Duration of hospital stay (days)</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td><code>service_line</code></td>
+<td>Department/service providing care</td>
+<td>Categorical</td>
+</tr>
+<tr class="odd">
+<td><code>readmit_flag</code></td>
+<td>Whether patient was readmitted</td>
+<td>Categorical (Y/N)</td>
+</tr>
+<tr class="even">
+<td><code>payer_grouping</code></td>
+<td>Insurance payer category</td>
+<td>Categorical</td>
+</tr>
+<tr class="odd">
+<td><code>visit_month</code></td>
+<td>Month of the visit (created above)</td>
+<td>Categorical</td>
+</tr>
+<tr class="even">
+<td><code>los_category</code></td>
+<td>Length of stay category (created above)</td>
+<td>Categorical</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="grading-rubric" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Grading Rubric</h1>
+<p>Each task specifies point values. Points are allocated as follows:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 25%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Weight</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Code correctness</td>
+<td>50%</td>
+<td>Code runs without errors and produces correct visualization type</td>
+</tr>
+<tr class="even">
+<td>Customization</td>
+<td>30%</td>
+<td>Proper labels, titles, themes, and aesthetics as specified</td>
+</tr>
+<tr class="odd">
+<td>Interpretation</td>
+<td>20%</td>
+<td>Thoughtful 1-2 sentence response addressing the question</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation Guidance</strong>: Your interpretations should be brief but specific. For example:</p>
+<ul>
+<li>✅ Good: “The median length of stay for Cardiology (4 days) is higher than Surgery (2 days), suggesting cardiac patients typically require longer recovery.”</li>
+<li>❌ Too vague: “The departments are different.”</li>
+<li>❌ Too long: [5+ sentences of analysis]</li>
+</ul>
+<hr>
+</section>
+<section id="assignment-tasks" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Assignment Tasks</h1>
+<section id="task-1-distribution-of-length-of-stay-1-point" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-1-distribution-of-length-of-stay-1-point">Task 1: Distribution of Length of Stay (1 point)</h2>
+<p>Create a <strong>histogram</strong> showing the distribution of patient length of stay (<code>length_of_stay</code>).</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Use appropriate binwidth (try 1 day per bin)</li>
+<li>Use <code>fill = "steelblue"</code> and <code>color = "white"</code></li>
+<li>Include proper axis labels with units</li>
+<li>Apply <code>theme_minimal()</code></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ___, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> ___, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> ___, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> ___) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Patient Length of Stay"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"___"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">___</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Describe the shape of the distribution. Is it symmetric or skewed? Where do most patients fall?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here in the .qmd file]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-2-patient-volume-by-service-line-1.5-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-2-patient-volume-by-service-line-1.5-points">Task 2: Patient Volume by Service Line (1.5 points)</h2>
+<p>Create a <strong>bar chart</strong> showing the number of patient visits for each service line (<code>service_line</code>).</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Use <code>geom_bar()</code> to count visits automatically</li>
+<li>Use <code>fill = "darkgreen"</code> with <code>alpha = 0.7</code></li>
+<li>Rotate x-axis labels if needed for readability (from 0 to 90 degrees)</li>
+<li>Include proper title and labels</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ___, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> ___, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> ___) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"___"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Service Line"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> ___, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Which service line has the highest volume? Which has the lowest?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here in the .qmd file]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-3-comparing-charges-across-service-lines-1.5-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-3-comparing-charges-across-service-lines-1.5-points">Task 3: Comparing Charges Across Service Lines (1.5 points)</h2>
+<p>Create <strong>grouped box plots</strong> comparing total charge amounts across different service lines.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Map <code>service_line</code> to x-axis and <code>total_charge_amount</code> to y-axis</li>
+<li>Use <code>fill</code> aesthetic to color by service line</li>
+<li>Make the boxplot with alpha = 0.5</li>
+<li>Use appropriate axis labels</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ___, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> ___, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> ___) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Total Charges by Service Line"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"___"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">""</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Which service line shows the highest median charges? Which shows the most variability (widest box)?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here in the .qmd file]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-4-relationship-between-length-of-stay-and-charges-1.5-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-4-relationship-between-length-of-stay-and-charges-1.5-points">Task 4: Relationship Between Length of Stay and Charges (1.5 points)</h2>
+<p>Create a <strong>scatterplot</strong> showing the relationship between length of stay (<code>length_of_stay</code>, x-axis) and total charges (<code>total_charge_amount</code>, y-axis). Add a linear trend line.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Use <code>geom_point()</code> with <code>alpha = 0.5</code> for transparency</li>
+<li>Add <code>geom_smooth()</code> with <code>method = "lm"</code> for a linear trend line</li>
+<li>Color the trend line red</li>
+<li>Include axis labels with units</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ___, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> ___, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> ___, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> ___) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship Between Length of Stay and Total Charges"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"___"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Is the relationship positive, negative, or no clear pattern? What does this mean for hospital costs?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here in the .qmd file]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-5-monthly-patient-volume-trend-1.5-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-5-monthly-patient-volume-trend-1.5-points">Task 5: Monthly Patient Volume Trend (1.5 points)</h2>
+<p>Calculate the number of visits per month (<code>visit_month</code>) and create a <strong>line chart</strong> showing the trend.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>First, summarize the data to get monthly counts</li>
+<li>Use <code>geom_line()</code> and <code>geom_point()</code> together</li>
+<li>Remember to use <code>group = 1</code> in the aesthetic</li>
+<li>For the line, use <code>color = "steelblue"</code> and <code>linewidth = 1</code></li>
+<li>For the points, use <code>color = "darkorange"</code> and <code>size = 3</code></li>
+<li>Rotate x-axis labels for readability (from 0 to 90 degrees)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Calculate monthly visit counts</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>monthly_visits <span class="ot">&lt;-</span> hospital_data <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(___) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">visit_count =</span> <span class="fu">n</span>())</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create the line chart</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ___, </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">group =</span> ___)) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> ___) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> ___) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monthly Patient Visit Volume"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"___"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> ___, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Do you see any seasonal pattern or trend? Are there months with notably high or low volumes?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here in the .qmd file]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-6-average-charges-by-payer-type-1.5-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-6-average-charges-by-payer-type-1.5-points">Task 6: Average Charges by Payer Type (1.5 points)</h2>
+<p>Create a <strong>bar chart</strong> showing the average total charges (<code>total_charge_amount</code>) for each payer type (<code>payer_grouping</code>).</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Use <code>geom_bar()</code> with <code>stat = "summary"</code> and <code>fun = "mean"</code> to calculate averages</li>
+<li>Map <code>payer_grouping</code> to the <code>fill</code> aesthetic</li>
+<li>Use <code>alpha = 0.8</code> for transparency</li>
+<li>Remove the legend (since it’s redundant with x-axis labels)</li>
+<li>Rotate x-axis labels for readability (from 0 to 90 degrees)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ___, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> ___, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">fun =</span> ___, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> ___) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Total Charges by Payer Type"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"___"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> ___, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Which payer type has the highest average charges? Which has the lowest?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here in the .qmd file]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-7-faceted-analysis---charges-by-payer-type-1.5-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-7-faceted-analysis---charges-by-payer-type-1.5-points">Task 7: Faceted Analysis - Charges by Payer Type (1.5 points)</h2>
+<p>Create <strong>faceted box plots</strong> showing total charges (<code>total_charge_amount</code>) distribution by length of stay category (<code>los_category</code>), with separate panels for each payer grouping (<code>payer_grouping</code>).</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Use <code>facet_wrap()</code> to create separate panels by <code>payer_grouping</code></li>
+<li>Map <code>los_category</code> to x-axis and <code>total_charge_amount</code> to y-axis</li>
+<li>Use <code>fill</code> aesthetic for length of stay category</li>
+<li>Rotate x-axis labels for readability (from 0 to 90 degrees)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ___, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> ___, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> ___) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Total Charges by Length of Stay Category and Payer Type"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"___"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Length of Stay"</span>) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> ___, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Do the charge patterns differ across payer types? Do longer stays consistently result in higher charges regardless of payer?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here in the .qmd file]</em></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="submission-checklist" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Submission Checklist</h1>
+<p>Before submitting, verify:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">All 7 code chunks run without errors</label></li>
+<li><label><input type="checkbox">All blanks are filled in with appropriate values</label></li>
+<li><label><input type="checkbox">All <code>#| eval: false</code> changed to <code>#| eval: true</code></label></li>
+<li><label><input type="checkbox">All visualizations have titles and axis labels</label></li>
+<li><label><input type="checkbox">All 7 interpretation questions are answered (1-2 sentences each)</label></li>
+<li><label><input type="checkbox">Visualizations use appropriate themes and colors</label></li>
+<li><label><input type="checkbox">File knits to HTML successfully</label></li>
+</ul>
+<hr>
+</section>
+<section id="points-summary" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Points Summary</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Points</th>
+<th>Visualization Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Task 1</td>
+<td>1.0</td>
+<td>Histogram (length of stay distribution)</td>
+</tr>
+<tr class="even">
+<td>Task 2</td>
+<td>1.5</td>
+<td>Bar chart (service line volume)</td>
+</tr>
+<tr class="odd">
+<td>Task 3</td>
+<td>1.5</td>
+<td>Grouped box plots (charges by service line)</td>
+</tr>
+<tr class="even">
+<td>Task 4</td>
+<td>1.5</td>
+<td>Scatterplot with trend line</td>
+</tr>
+<tr class="odd">
+<td>Task 5</td>
+<td>1.5</td>
+<td>Line chart (monthly trends)</td>
+</tr>
+<tr class="even">
+<td>Task 6</td>
+<td>1.5</td>
+<td>Bar chart (average charges by payer)</td>
+</tr>
+<tr class="odd">
+<td>Task 7</td>
+<td>1.5</td>
+<td>Faceted box plots</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>10.0</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>Good luck!</strong></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

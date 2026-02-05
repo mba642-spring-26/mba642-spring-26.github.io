@@ -1,0 +1,438 @@
+---
+title: "Assignment 1: Data Visualization Assignment (Week 04)"
+subtitle: ""
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme: 
+      - cosmo
+      - lecture.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(healthyR.data)
+```
+
+# Assignment Overview
+
+- **Total Points**: 10 points  
+- **Due Date**: February 8, 2026
+- **Submission**: Upload your completed .qmd file to Canvas
+
+## Learning Objectives
+
+This assignment assesses your ability to:
+
+- Select appropriate visualization types for different analytical questions
+- Create visualizations using the `ggplot2` package
+- Customize plots for professional presentation
+- Interpret visualizations in a healthcare management context
+
+## Instructions
+
+1. Complete all 7 tasks below
+2. Fill in the blanks (replace `___` with appropriate code)
+3. After completing each code chunk, change `#| eval: false` to `#| eval: true` to run it
+4. Answer all interpretation questions (1-2 sentences each)
+5. Ensure all visualizations have proper labels, titles, and themes
+6. Run all code chunks to verify they work before submitting
+
+---
+
+# About the Dataset
+
+**Hospital Administrative Data**
+
+For this assignment, we will use the `healthyR_data` dataset from the `healthyR.data` package. This is a realistic healthcare administrative dataset containing hospital visit records with patient, financial, and quality information.
+
+## Dataset Background
+
+The `healthyR_data` dataset simulates administrative data from a hospital system, including:
+
+- **Patient visit information**: When patients arrived and left, how long they stayed
+- **Financial data**: Charges, payments, adjustments, and amounts due
+- **Service categories**: Which departments/service lines provided care
+- **Quality indicators**: Readmission flags and length of stay comparisons
+
+This type of data is commonly used by healthcare managers to analyze operational efficiency, financial performance, and quality metrics.
+
+## Loading and Preparing the Data
+
+First, run the code below to load required packages. If you haven't installed these packages yet, you can install them by running `install.packages("ggplot2")`, `install.packages("dplyr")`, `install.packages("tidyr")`, and `install.packages("healthyR.data")` in the R console.
+
+```{r}
+#| label: load-packages
+
+# Load required packages
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(healthyR.data)
+
+set.seed(2026)  # For reproducibility
+```
+
+Now, run the following code to load a sample of the dataset for this assignment:
+
+```{r}
+#| label: load-data
+
+# Load the healthyR_data dataset and take a sample for this assignment
+hospital_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week04_assignment_data.csv")
+
+# View first few rows
+head(hospital_data, 10)
+```
+
+## Key Variables
+
+| Variable | Description | Type |
+|----------|-------------|------|
+| `mrn` | Medical Record Number (patient identifier) | Character |
+| `visit_id` | Unique visit identifier | Character |
+| `visit_start_date_time` | Date and time of visit start | DateTime |
+| `visit_end_date_time` | Date and time of visit end | DateTime |
+| `total_charge_amount` | Total charges for the visit (USD) | Numeric |
+| `total_amount_due` | Amount still owed | Numeric |
+| `length_of_stay` | Duration of hospital stay (days) | Numeric |
+| `service_line` | Department/service providing care | Categorical |
+| `readmit_flag` | Whether patient was readmitted | Categorical (Y/N) |
+| `payer_grouping` | Insurance payer category | Categorical |
+| `visit_month` | Month of the visit (created above) | Categorical |
+| `los_category` | Length of stay category (created above) | Categorical |
+
+---
+
+# Grading Rubric
+
+Each task specifies point values. Points are allocated as follows:
+
+| Component | Weight | Description |
+|-----------|--------|-------------|
+| Code correctness | 50% | Code runs without errors and produces correct visualization type |
+| Customization | 30% | Proper labels, titles, themes, and aesthetics as specified |
+| Interpretation | 20% | Thoughtful 1-2 sentence response addressing the question |
+
+**Interpretation Guidance**: Your interpretations should be brief but specific. For example:
+
+- ✅ Good: "The median length of stay for Cardiology (4 days) is higher than Surgery (2 days), suggesting cardiac patients typically require longer recovery."
+- ❌ Too vague: "The departments are different."
+- ❌ Too long: [5+ sentences of analysis]
+
+---
+
+# Assignment Tasks
+
+## Task 1: Distribution of Length of Stay (1 point) {.unnumbered}
+
+Create a **histogram** showing the distribution of patient length of stay (`length_of_stay`).
+
+**Requirements:**
+
+- Use appropriate binwidth (try 1 day per bin)
+- Use `fill = "steelblue"` and `color = "white"`
+- Include proper axis labels with units
+- Apply `theme_minimal()`
+
+```{r}
+#| label: task1-histogram
+#| eval: false
+
+# Fill in the blanks
+ggplot(data = ___, mapping = aes(x = ___)) +
+  geom_histogram(binwidth = ___, 
+                 fill = ___, 
+                 color = ___) +
+  labs(title = "Distribution of Patient Length of Stay",
+       x = "___",
+       y = "___") +
+  ___()
+```
+
+**Interpretation Question**: Describe the shape of the distribution. Is it symmetric or skewed? Where do most patients fall?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here in the .qmd file]*
+
+:::
+
+---
+
+## Task 2: Patient Volume by Service Line (1.5 points) {.unnumbered}
+
+Create a **bar chart** showing the number of patient visits for each service line (`service_line`).
+
+**Requirements:**
+
+- Use `geom_bar()` to count visits automatically
+- Use `fill = "darkgreen"` with `alpha = 0.7`
+- Rotate x-axis labels if needed for readability (from 0 to 90 degrees)
+- Include proper title and labels
+
+```{r}
+#| label: task2-barchart
+#| eval: false
+
+# Fill in the blanks
+ggplot(data = ___, mapping = aes(x = ___)) +
+  geom_bar(fill = ___, 
+           alpha = ___) +
+  labs(title = "___",
+       x = "Service Line",
+       y = "___") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = ___, hjust = 1))
+```
+
+**Interpretation Question**: Which service line has the highest volume? Which has the lowest?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here in the .qmd file]*
+
+:::
+
+---
+
+## Task 3: Comparing Charges Across Service Lines (1.5 points) {.unnumbered}
+
+Create **grouped box plots** comparing total charge amounts across different service lines.
+
+**Requirements:**
+
+- Map `service_line` to x-axis and `total_charge_amount` to y-axis
+- Use `fill` aesthetic to color by service line
+- Make the boxplot with alpha = 0.5
+- Use appropriate axis labels
+
+```{r}
+#| label: task3-boxplot
+#| eval: false
+
+# Fill in the blanks
+ggplot(data = ___, 
+       mapping = aes(x = ___, 
+                     y = ___, 
+                     fill = ___)) +
+  geom_boxplot(alpha = ___) +
+  labs(title = "Total Charges by Service Line",
+       x = "___",
+       y = "___") +
+  theme_minimal() +
+  theme(legend.position = "",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+**Interpretation Question**: Which service line shows the highest median charges? Which shows the most variability (widest box)?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here in the .qmd file]*
+
+:::
+
+---
+
+## Task 4: Relationship Between Length of Stay and Charges (1.5 points) {.unnumbered}
+
+Create a **scatterplot** showing the relationship between length of stay (`length_of_stay`, x-axis) and total charges (`total_charge_amount`, y-axis). Add a linear trend line.
+
+**Requirements:**
+
+- Use `geom_point()` with `alpha = 0.5` for transparency
+- Add `geom_smooth()` with `method = "lm"` for a linear trend line
+- Color the trend line red
+- Include axis labels with units
+
+```{r}
+#| label: task4-scatterplot
+#| eval: false
+
+# Fill in the blanks
+ggplot(data = ___, 
+       mapping = aes(x = ___, y = ___)) +
+  geom_point(alpha = ___, color = "darkblue") +
+  geom_smooth(method = ___, 
+              se = TRUE, 
+              color = ___) +
+  labs(title = "Relationship Between Length of Stay and Total Charges",
+       x = "___",
+       y = "___") +
+  theme_minimal()
+```
+
+**Interpretation Question**: Is the relationship positive, negative, or no clear pattern? What does this mean for hospital costs?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here in the .qmd file]*
+
+:::
+
+---
+
+## Task 5: Monthly Patient Volume Trend (1.5 points) {.unnumbered}
+
+Calculate the number of visits per month (`visit_month`) and create a **line chart** showing the trend.
+
+**Requirements:**
+
+- First, summarize the data to get monthly counts
+- Use `geom_line()` and `geom_point()` together
+- Remember to use `group = 1` in the aesthetic
+- For the line, use `color = "steelblue"` and `linewidth = 1`
+- For the points, use `color = "darkorange"` and `size = 3`
+- Rotate x-axis labels for readability (from 0 to 90 degrees)
+
+```{r}
+#| label: task5-linechart
+#| eval: false
+
+# Step 1: Calculate monthly visit counts
+monthly_visits <- hospital_data %>%
+  group_by(___) %>%
+  summarize(visit_count = n())
+
+# Step 2: Create the line chart
+ggplot(data = ___, 
+       mapping = aes(x = ___, y = ___, group = ___)) +
+  geom_line(color = "steelblue", linewidth = ___) +
+  geom_point(color = "steelblue", size = ___) +
+  labs(title = "Monthly Patient Visit Volume",
+       x = "___",
+       y = "___") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = ___, hjust = 1))
+```
+
+**Interpretation Question**: Do you see any seasonal pattern or trend? Are there months with notably high or low volumes?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here in the .qmd file]*
+
+:::
+
+---
+
+## Task 6: Average Charges by Payer Type (1.5 points) {.unnumbered}
+
+Create a **bar chart** showing the average total charges (`total_charge_amount`) for each payer type (`payer_grouping`).
+
+**Requirements:**
+
+- Use `geom_bar()` with `stat = "summary"` and `fun = "mean"` to calculate averages
+- Map `payer_grouping` to the `fill` aesthetic
+- Use `alpha = 0.8` for transparency
+- Remove the legend (since it's redundant with x-axis labels)
+- Rotate x-axis labels for readability (from 0 to 90 degrees)
+
+```{r}
+#| label: task6-barchart-means
+#| eval: false
+
+# Fill in the blanks
+ggplot(data = ___, 
+       mapping = aes(x = ___, y = ___, fill = ___)) +
+  geom_bar(stat = ___, 
+           fun = ___, 
+           alpha = ___) +
+  labs(title = "Average Total Charges by Payer Type",
+       x = "___",
+       y = "___") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = ___, hjust = 1))
+```
+
+**Interpretation Question**: Which payer type has the highest average charges? Which has the lowest?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here in the .qmd file]*
+
+:::
+
+---
+
+## Task 7: Faceted Analysis - Charges by Payer Type (1.5 points) {.unnumbered}
+
+Create **faceted box plots** showing total charges (`total_charge_amount`) distribution by length of stay category (`los_category`), with separate panels for each payer grouping (`payer_grouping`).
+
+**Requirements:**
+
+- Use `facet_wrap()` to create separate panels by `payer_grouping`
+- Map `los_category` to x-axis and `total_charge_amount` to y-axis
+- Use `fill` aesthetic for length of stay category
+- Rotate x-axis labels for readability (from 0 to 90 degrees)
+
+```{r}
+#| label: task7-faceted
+#| eval: false
+
+# Fill in the blanks
+ggplot(data = ___, 
+       mapping = aes(x = ___, 
+                     y = ___, 
+                     fill = ___)) +
+  geom_boxplot(alpha = 0.7) +
+  facet_wrap(~ ___) +
+  labs(title = "Total Charges by Length of Stay Category and Payer Type",
+       x = "___",
+       y = "___",
+       fill = "Length of Stay") +
+  theme_minimal() + 
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = ___, hjust = 1))
+```
+
+**Interpretation Question**: Do the charge patterns differ across payer types? Do longer stays consistently result in higher charges regardless of payer?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here in the .qmd file]*
+
+:::
+
+---
+
+# Submission Checklist
+
+Before submitting, verify:
+
+- [ ] All 7 code chunks run without errors
+- [ ] All blanks are filled in with appropriate values
+- [ ] All `#| eval: false` changed to `#| eval: true`
+- [ ] All visualizations have titles and axis labels
+- [ ] All 7 interpretation questions are answered (1-2 sentences each)
+- [ ] Visualizations use appropriate themes and colors
+- [ ] File knits to HTML successfully
+
+---
+
+# Points Summary
+
+| Task | Points | Visualization Type |
+|------|--------|-------------------|
+| Task 1 | 1.0 | Histogram (length of stay distribution) |
+| Task 2 | 1.5 | Bar chart (service line volume) |
+| Task 3 | 1.5 | Grouped box plots (charges by service line) |
+| Task 4 | 1.5 | Scatterplot with trend line |
+| Task 5 | 1.5 | Line chart (monthly trends) |
+| Task 6 | 1.5 | Bar chart (average charges by payer) |
+| Task 7 | 1.5 | Faceted box plots |
+| **Total** | **10.0** | |
+
+---
+
+**Good luck!**
