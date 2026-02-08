@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-01">
+<meta name="dcterms.date" content="2026-02-09">
 
 <title>Mean Comparison 1: t-Tests – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
 <style>
@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-20c3e5c7c73ad9b4506b9f07be6a8356.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-604a5dd36684a50abe6acf259e8a2828.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -239,33 +239,43 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction-to-t-tests" id="toc-introduction-to-t-tests" class="nav-link active" data-scroll-target="#introduction-to-t-tests">Introduction to T-Tests</a>
+  <li><a href="#introduction-to-t-tests" id="toc-introduction-to-t-tests" class="nav-link active" data-scroll-target="#introduction-to-t-tests">Introduction to t-tests</a>
   <ul class="collapse">
-  <li><a href="#why-t-tests-matter" id="toc-why-t-tests-matter" class="nav-link" data-scroll-target="#why-t-tests-matter">Why T-Tests Matter</a></li>
+  <li><a href="#why-t-tests-matter" id="toc-why-t-tests-matter" class="nav-link" data-scroll-target="#why-t-tests-matter">Why t-tests Matter</a></li>
   <li><a href="#overview-of-the-three-t-test-types" id="toc-overview-of-the-three-t-test-types" class="nav-link" data-scroll-target="#overview-of-the-three-t-test-types">Overview of the Three t-Test Types</a></li>
   </ul></li>
-  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link" data-scroll-target="#one-sample-t-test">1. One-Sample T-Test</a>
+  <li><a href="#datasets-for-today" id="toc-datasets-for-today" class="nav-link" data-scroll-target="#datasets-for-today">Datasets for Today</a>
+  <ul class="collapse">
+  <li><a href="#dataset-variables" id="toc-dataset-variables" class="nav-link" data-scroll-target="#dataset-variables">Dataset Variables</a>
+  <ul class="collapse">
+  <li><a href="#hospital_ops-demonstration-data" id="toc-hospital_ops-demonstration-data" class="nav-link" data-scroll-target="#hospital_ops-demonstration-data"><code>hospital_ops</code> (Demonstration Data)</a></li>
+  <li><a href="#patient_outcomes-practice-data" id="toc-patient_outcomes-practice-data" class="nav-link" data-scroll-target="#patient_outcomes-practice-data"><code>patient_outcomes</code> (Practice Data)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link" data-scroll-target="#one-sample-t-test">1. One-Sample t-Test</a>
   <ul class="collapse">
   <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">What is it?</a>
   <ul class="collapse">
   <li><a href="#key-components" id="toc-key-components" class="nav-link" data-scroll-target="#key-components">Key Components</a></li>
   </ul></li>
   <li><a href="#when-to-use-it" id="toc-when-to-use-it" class="nav-link" data-scroll-target="#when-to-use-it">When to Use It</a></li>
-  <li><a href="#scenario-emergency-department-waiting-times" id="toc-scenario-emergency-department-waiting-times" class="nav-link" data-scroll-target="#scenario-emergency-department-waiting-times">Scenario: Emergency Department Waiting Times</a></li>
+  <li><a href="#one-sample-t-test-scenario-ed-waiting-times" id="toc-one-sample-t-test-scenario-ed-waiting-times" class="nav-link" data-scroll-target="#one-sample-t-test-scenario-ed-waiting-times">One-Sample t-test Scenario: ED Waiting Times</a></li>
+  <li><a href="#hypotheses" id="toc-hypotheses" class="nav-link" data-scroll-target="#hypotheses">Hypotheses</a></li>
   <li><a href="#the-formula" id="toc-the-formula" class="nav-link" data-scroll-target="#the-formula">The Formula</a>
   <ul class="collapse">
   <li><a href="#understanding-the-formula" id="toc-understanding-the-formula" class="nav-link" data-scroll-target="#understanding-the-formula">Understanding the Formula</a></li>
   </ul></li>
   <li><a href="#example-calculation" id="toc-example-calculation" class="nav-link" data-scroll-target="#example-calculation">Example Calculation</a></li>
+  <li><a href="#visualizing-the-data" id="toc-visualizing-the-data" class="nav-link" data-scroll-target="#visualizing-the-data">Visualizing the Data</a></li>
   <li><a href="#visualizing-the-null-distribution" id="toc-visualizing-the-null-distribution" class="nav-link" data-scroll-target="#visualizing-the-null-distribution">Visualizing the Null Distribution</a></li>
-  <li><a href="#conducting-in-r" id="toc-conducting-in-r" class="nav-link" data-scroll-target="#conducting-in-r">Conducting in R</a>
+  <li><a href="#conducting-one-sample-t-test-in-r" id="toc-conducting-one-sample-t-test-in-r" class="nav-link" data-scroll-target="#conducting-one-sample-t-test-in-r">Conducting one-sample t-test in R</a>
   <ul class="collapse">
   <li><a href="#interpreting-the-output" id="toc-interpreting-the-output" class="nav-link" data-scroll-target="#interpreting-the-output">Interpreting the Output</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#practice-checkpoint-1" id="toc-practice-checkpoint-1" class="nav-link" data-scroll-target="#practice-checkpoint-1">Practice Checkpoint 1</a></li>
+  <li><a href="#practice-one-sample-t-test" id="toc-practice-one-sample-t-test" class="nav-link" data-scroll-target="#practice-one-sample-t-test">✏️ Practice: One-Sample t-Test</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#independent-samples-t-test" id="toc-independent-samples-t-test" class="nav-link" data-scroll-target="#independent-samples-t-test">2. Independent-Samples T-Test</a>
+  <li><a href="#independent-samples-t-test" id="toc-independent-samples-t-test" class="nav-link" data-scroll-target="#independent-samples-t-test">2. Independent-Samples t-test</a>
   <ul class="collapse">
   <li><a href="#what-is-it-1" id="toc-what-is-it-1" class="nav-link" data-scroll-target="#what-is-it-1">What is it?</a>
   <ul class="collapse">
@@ -273,18 +283,19 @@ window.Quarto = {
   <li><a href="#why-independent" id="toc-why-independent" class="nav-link" data-scroll-target="#why-independent">Why “Independent”?</a></li>
   </ul></li>
   <li><a href="#when-to-use-it-1" id="toc-when-to-use-it-1" class="nav-link" data-scroll-target="#when-to-use-it-1">When to Use It</a></li>
-  <li><a href="#scenario-comparing-patient-intake-systems" id="toc-scenario-comparing-patient-intake-systems" class="nav-link" data-scroll-target="#scenario-comparing-patient-intake-systems">Scenario: Comparing Patient Intake Systems</a></li>
+  <li><a href="#independent-samples-t-test-scenario-comparing-patient-intake-systems" id="toc-independent-samples-t-test-scenario-comparing-patient-intake-systems" class="nav-link" data-scroll-target="#independent-samples-t-test-scenario-comparing-patient-intake-systems">Independent-Samples t-test Scenario: Comparing Patient Intake Systems</a></li>
+  <li><a href="#hypotheses-1" id="toc-hypotheses-1" class="nav-link" data-scroll-target="#hypotheses-1">Hypotheses</a></li>
   <li><a href="#the-formula-1" id="toc-the-formula-1" class="nav-link" data-scroll-target="#the-formula-1">The Formula</a>
   <ul class="collapse">
   <li><a href="#understanding-the-formula-1" id="toc-understanding-the-formula-1" class="nav-link" data-scroll-target="#understanding-the-formula-1">Understanding the Formula</a></li>
   </ul></li>
   <li><a href="#example-comparing-hospital-intake-times" id="toc-example-comparing-hospital-intake-times" class="nav-link" data-scroll-target="#example-comparing-hospital-intake-times">Example: Comparing Hospital Intake Times</a></li>
-  <li><a href="#visualizing-group-differences" id="toc-visualizing-group-differences" class="nav-link" data-scroll-target="#visualizing-group-differences">Visualizing Group Differences</a></li>
+  <li><a href="#visualizing-the-data-1" id="toc-visualizing-the-data-1" class="nav-link" data-scroll-target="#visualizing-the-data-1">Visualizing the Data</a></li>
   <li><a href="#visualizing-the-null-distribution-1" id="toc-visualizing-the-null-distribution-1" class="nav-link" data-scroll-target="#visualizing-the-null-distribution-1">Visualizing the Null Distribution</a></li>
-  <li><a href="#conducting-in-r-1" id="toc-conducting-in-r-1" class="nav-link" data-scroll-target="#conducting-in-r-1">Conducting in R</a>
+  <li><a href="#conducting-in-r" id="toc-conducting-in-r" class="nav-link" data-scroll-target="#conducting-in-r">Conducting in R</a>
   <ul class="collapse">
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
-  <li><a href="#practice-checkpoint-2" id="toc-practice-checkpoint-2" class="nav-link" data-scroll-target="#practice-checkpoint-2">Practice Checkpoint 2</a></li>
+  <li><a href="#practice-independent-samples-t-test" id="toc-practice-independent-samples-t-test" class="nav-link" data-scroll-target="#practice-independent-samples-t-test">✏️ Practice: Independent-Samples t-Test</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#paired-samples-t-test" id="toc-paired-samples-t-test" class="nav-link" data-scroll-target="#paired-samples-t-test">3. Paired-Samples T-Test</a>
@@ -295,7 +306,8 @@ window.Quarto = {
   <li><a href="#why-use-paired-data" id="toc-why-use-paired-data" class="nav-link" data-scroll-target="#why-use-paired-data">Why Use Paired Data?</a></li>
   </ul></li>
   <li><a href="#when-to-use-it-2" id="toc-when-to-use-it-2" class="nav-link" data-scroll-target="#when-to-use-it-2">When to Use It</a></li>
-  <li><a href="#scenario-pain-management-protocol" id="toc-scenario-pain-management-protocol" class="nav-link" data-scroll-target="#scenario-pain-management-protocol">Scenario: Pain Management Protocol</a></li>
+  <li><a href="#paired-samples-t-test-scenario-pain-management-protocol" id="toc-paired-samples-t-test-scenario-pain-management-protocol" class="nav-link" data-scroll-target="#paired-samples-t-test-scenario-pain-management-protocol">Paired-Samples t-test Scenario: Pain Management Protocol</a></li>
+  <li><a href="#hypotheses-2" id="toc-hypotheses-2" class="nav-link" data-scroll-target="#hypotheses-2">Hypotheses</a></li>
   <li><a href="#the-formula-2" id="toc-the-formula-2" class="nav-link" data-scroll-target="#the-formula-2">The Formula</a>
   <ul class="collapse">
   <li><a href="#understanding-the-formula-2" id="toc-understanding-the-formula-2" class="nav-link" data-scroll-target="#understanding-the-formula-2">Understanding the Formula</a></li>
@@ -303,13 +315,13 @@ window.Quarto = {
   <li><a href="#example-pain-management-protocol" id="toc-example-pain-management-protocol" class="nav-link" data-scroll-target="#example-pain-management-protocol">Example: Pain Management Protocol</a></li>
   <li><a href="#visualizing-paired-data" id="toc-visualizing-paired-data" class="nav-link" data-scroll-target="#visualizing-paired-data">Visualizing Paired Data</a></li>
   <li><a href="#visualizing-the-null-distribution-2" id="toc-visualizing-the-null-distribution-2" class="nav-link" data-scroll-target="#visualizing-the-null-distribution-2">Visualizing the Null Distribution</a></li>
-  <li><a href="#conducting-in-r-2" id="toc-conducting-in-r-2" class="nav-link" data-scroll-target="#conducting-in-r-2">Conducting in R</a>
+  <li><a href="#conducting-in-r-1" id="toc-conducting-in-r-1" class="nav-link" data-scroll-target="#conducting-in-r-1">Conducting in R</a>
   <ul class="collapse">
   <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
-  <li><a href="#practice-checkpoint-3" id="toc-practice-checkpoint-3" class="nav-link" data-scroll-target="#practice-checkpoint-3">Practice Checkpoint 3</a></li>
+  <li><a href="#practice-paired-samples-t-test" id="toc-practice-paired-samples-t-test" class="nav-link" data-scroll-target="#practice-paired-samples-t-test">✏️ Practice: Paired-Samples t-test</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#choosing-the-right-t-test" id="toc-choosing-the-right-t-test" class="nav-link" data-scroll-target="#choosing-the-right-t-test">Choosing the Right T-Test</a>
+  <li><a href="#choosing-the-right-t-test" id="toc-choosing-the-right-t-test" class="nav-link" data-scroll-target="#choosing-the-right-t-test">Choosing the Right t-test</a>
   <ul class="collapse">
   <li><a href="#decision-flowchart" id="toc-decision-flowchart" class="nav-link" data-scroll-target="#decision-flowchart">Decision Flowchart</a></li>
   </ul></li>
@@ -339,7 +351,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2026</p>
+      <p class="date">February 9, 2026</p>
     </div>
   </div>
   
@@ -352,21 +364,24 @@ window.Quarto = {
 
 
 <section id="introduction-to-t-tests" class="level1">
-<h1>Introduction to T-Tests</h1>
+<h1>Introduction to t-tests</h1>
 <section id="why-t-tests-matter" class="level2">
-<h2 class="anchored" data-anchor-id="why-t-tests-matter">Why T-Tests Matter</h2>
+<h2 class="anchored" data-anchor-id="why-t-tests-matter">Why t-tests Matter</h2>
 <p>t-tests are among the most fundamental and widely-used statistical tools that allow us to make data-driven decisions by comparing means and determining whether observed differences are simply due to chance or not.</p>
-<p>Consider this scenario: A hospital administrator notices that their emergency department’s average waiting time appears to be 52 minutes, while the regional standard is 45 minutes. Is this 7-minute difference a systematic problem that needs addressing, or could it simply be random variation in the data? This is exactly the type of question that t-tests help us answer.</p>
-<p>t-tests determine whether observed differences are <strong>statistically significant</strong>. In other words, they examine whether the differences we see in our sample data likely reflect true differences in the population, or whether they could have occurred simply by chance. This distinction is critical because acting on random noise can waste resources, while ignoring real problems can harm outcomes.</p>
+<p><strong>Consider this scenario</strong>:</p>
+<blockquote class="blockquote">
+<p>A hospital administrator notices that their emergency department’s average waiting time appears to be 52 minutes, while the regional standard is 45 minutes. Is this 7-minute difference a systematic problem that needs addressing, or could it simply be random variation in the data? This is exactly the type of question that t-tests help us answer.</p>
+</blockquote>
+<p>t-tests are to <strong>compare means</strong>. Specifically, they determine whether observed <strong>mean differences</strong> are statistically significant—that is, whether the differences we see in our sample data likely reflect true differences in the population, or whether they could have occurred simply by chance. This distinction is critical because acting on random noise can waste resources, while ignoring real problems can harm outcomes.</p>
 </section>
 <section id="overview-of-the-three-t-test-types" class="level2">
 <h2 class="anchored" data-anchor-id="overview-of-the-three-t-test-types">Overview of the Three t-Test Types</h2>
 <p>There are three types of t-tests, each designed for different research scenarios:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 36%">
-<col style="width: 31%">
-<col style="width: 31%">
+<col style="width: 24%">
+<col style="width: 37%">
+<col style="width: 37%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -393,16 +408,118 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Understanding when to use each type is crucial for valid statistical inference. Using the wrong test can lead to incorrect conclusions (i.e., either finding differences that don’t exist or missing differences that do). The following sections will explain each test in detail, with worked examples and R code that you can apply to your own data.</p>
+<ul>
+<li>The following sections will explain each test in detail, with worked examples and R code that you can apply to your own data.</li>
+</ul>
 <hr>
 </section>
 </section>
+<section id="datasets-for-today" class="level1">
+<h1>Datasets for Today</h1>
+<ul>
+<li><p>We’ll use two datasets throughout this lecture: one for demonstrations and one for practice activities.</p></li>
+<li><p>Load the datasets and required packagesusing the code below.</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstration dataset</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>hospital_ops <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week05_demo_data.csv"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Practice dataset</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>patient_outcomes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week05_practice_data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="dataset-variables" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-variables">Dataset Variables</h2>
+<section id="hospital_ops-demonstration-data" class="level3">
+<h3 class="anchored" data-anchor-id="hospital_ops-demonstration-data"><code>hospital_ops</code> (Demonstration Data)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>patient_id</code></td>
+<td>Unique patient identifier</td>
+</tr>
+<tr class="even">
+<td><code>ed_wait_time</code></td>
+<td>ED waiting time (minutes)</td>
+</tr>
+<tr class="odd">
+<td><code>intake_hospital</code></td>
+<td>Hospital system (A=Digital, B=Paper)</td>
+</tr>
+<tr class="even">
+<td><code>intake_time</code></td>
+<td>Patient intake processing time (minutes)</td>
+</tr>
+<tr class="odd">
+<td><code>pain_before</code>, <code>pain_after</code></td>
+<td>Pain scores (0-10 scale)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="patient_outcomes-practice-data" class="level3">
+<h3 class="anchored" data-anchor-id="patient_outcomes-practice-data"><code>patient_outcomes</code> (Practice Data)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>patient_id</code></td>
+<td>Unique patient identifier</td>
+</tr>
+<tr class="even">
+<td><code>satisfaction</code></td>
+<td>Patient satisfaction (1-10 scale)</td>
+</tr>
+<tr class="odd">
+<td><code>protocol_group</code></td>
+<td>Clinical protocol (New = Enhanced Recovery, Standard = Standard Care)</td>
+</tr>
+<tr class="even">
+<td><code>length_of_stay</code></td>
+<td>Hospital stay (days)</td>
+</tr>
+<tr class="odd">
+<td><code>bp_before</code>, <code>bp_after</code></td>
+<td>Systolic blood pressure (mmHg)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+</section>
 <section id="one-sample-t-test" class="level1">
-<h1>1. One-Sample T-Test</h1>
+<h1>1. One-Sample t-Test</h1>
 <section id="what-is-it" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-it">What is it?</h2>
-<p>A <strong>one-sample t-test</strong> is a statistical procedure that compares a sample mean to a known or hypothesized population value. It answers a fundamental question: <em>Is our sample mean significantly different from a specific benchmark, or could the difference we observe be due to random chance?</em></p>
-<p>This test is particularly useful when you have a single group of observations and want to compare their average to some external standard or target value. For example, if there is a law regarding a maximum acceptable waiting time, or if industry benchmarks establish expected performance levels, the one-sample t-test helps you determine whether your organization is meeting those standards.</p>
+<p>A <strong>one-sample t-test</strong> is a statistical procedure that compares a sample mean to a known or hypothesized population value. It answers a fundamental question:</p>
+<ul>
+<li><em>Is our sample mean significantly different from a specific benchmark, or could the difference we observe be due to random chance?</em></li>
+</ul>
+<p>This test is particularly useful when you have <strong>a single group of observations</strong> and want to compare their average to some external standard or target value. For example, if there is a law regarding a maximum acceptable waiting time, or if industry benchmarks establish expected performance levels, the one-sample t-test helps you determine whether your organization is meeting those standards.</p>
 <section id="key-components" class="level3">
 <h3 class="anchored" data-anchor-id="key-components">Key Components</h3>
 <ul>
@@ -416,17 +533,43 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="when-to-use-it">When to Use It</h2>
 <p>The one-sample t-test is appropriate whenever you need to compare your data against a fixed reference point. Common scenarios include:</p>
 <ul>
-<li>Comparing performance against <strong>national or industry benchmarks</strong> (e.g., average length of stay compared to national average)</li>
-<li>Testing if outcomes meet <strong>target levels</strong> set by management or regulators (e.g., patient satisfaction scores vs.&nbsp;a target of 8.0)</li>
-<li>Evaluating if measurements achieve <strong>recommended standards</strong> (e.g., medication dosages achieving target blood levels)</li>
-<li>Assessing if operational metrics meet <strong>regulatory requirements</strong> (e.g., waiting times vs.&nbsp;regulatory standards)</li>
+<li>Comparing performance against <strong>national or industry benchmarks</strong>
+<ul>
+<li>e.g.,) average length of stay compared to national average</li>
+</ul></li>
+<li>Testing if outcomes meet <strong>target levels</strong> set by management or regulators
+<ul>
+<li>e.g.,) patient satisfaction scores vs.&nbsp;a target of 8.0</li>
+</ul></li>
+<li>Evaluating if measurements achieve <strong>recommended standards</strong>
+<ul>
+<li>e.g.,) medication dosages achieving target blood levels</li>
+</ul></li>
+<li>Assessing if operational metrics meet <strong>regulatory requirements</strong>
+<ul>
+<li>e.g.,) waiting times vs.&nbsp;regulatory standards</li>
+</ul></li>
 </ul>
 </section>
-<section id="scenario-emergency-department-waiting-times" class="level2">
-<h2 class="anchored" data-anchor-id="scenario-emergency-department-waiting-times">Scenario: Emergency Department Waiting Times</h2>
-<p>Imagine you are an administrator at a hospital where the regional average emergency department waiting time is <strong>45 minutes</strong>. Recently, you’ve received complaints that patients are waiting too long. To investigate, you randomly sample 30 patients and record their waiting times.</p>
-<p>Your sample shows an average waiting time of 52 minutes. But before concluding that there’s a problem, you need to ask: Is this difference of 7 minutes statistically significant, or could it simply be due to the natural variation we’d expect when taking a random sample?</p>
-<p>This is precisely what the one-sample t-test will help us determine.</p>
+<section id="one-sample-t-test-scenario-ed-waiting-times" class="level2">
+<h2 class="anchored" data-anchor-id="one-sample-t-test-scenario-ed-waiting-times">One-Sample t-test Scenario: ED Waiting Times</h2>
+<ul>
+<li><p>Imagine you are an administrator at a hospital where the regional average emergency department waiting time is <strong>45 minutes</strong>. Recently, you’ve received complaints that patients are waiting too long. To investigate, you randomly sample 30 patients and record their waiting times.</p></li>
+<li><p>Your <strong>sample</strong> shows an average waiting time of <strong>52 minutes</strong>. But before concluding that there’s a problem (i.e., the hospital is underperforming), you need to ask:</p>
+<ul>
+<li>Is this difference of 7 minutes statistically significant, or could it simply be due to the natural variation we’d expect when taking a random sample?</li>
+</ul></li>
+<li><p>This is precisely what the one-sample t-test will help us determine.</p></li>
+</ul>
+</section>
+<section id="hypotheses" class="level2">
+<h2 class="anchored" data-anchor-id="hypotheses">Hypotheses</h2>
+<p>For our ED waiting times scenario, we set up our hypotheses as:</p>
+<ul>
+<li><strong>Null Hypothesis (H₀)</strong>: μ = 45 (The hospital’s mean waiting time equals the 45-minute regional standard)</li>
+<li><strong>Alternative Hypothesis (H₁)</strong>: μ ≠ 45 (The hospital’s mean waiting time differs from the standard)</li>
+</ul>
+<p>The t-test will help us decide whether to reject H₀ based on our sample data.</p>
 </section>
 <section id="the-formula" class="level2">
 <h2 class="anchored" data-anchor-id="the-formula">The Formula</h2>
@@ -434,10 +577,10 @@ window.Quarto = {
 <p><span class="math display">\[t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}\]</span></p>
 <p>Where:</p>
 <ul>
-<li><span class="math inline">\(\bar{X}\)</span>: sample mean (the average of your observed data)</li>
-<li><span class="math inline">\(\mu_0\)</span>: hypothesized/known mean (the benchmark you’re comparing against)</li>
+<li><span class="math inline">\(\bar{X}\)</span>: sample mean (e.g., 52 minutes in our scenario)</li>
+<li><span class="math inline">\(\mu_0\)</span>: hypothesized/known mean (e.g., 45-minute benchmark)</li>
 <li><span class="math inline">\(s\)</span>: sample standard deviation (measures the spread of your data)</li>
-<li><span class="math inline">\(n\)</span>: sample size (number of observations)</li>
+<li><span class="math inline">\(n\)</span>: sample size (e.g., 30 patients in our scenario)</li>
 </ul>
 <section id="understanding-the-formula" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-the-formula">Understanding the Formula</h3>
@@ -451,21 +594,19 @@ window.Quarto = {
 </section>
 <section id="example-calculation" class="level2">
 <h2 class="anchored" data-anchor-id="example-calculation">Example Calculation</h2>
-<p>Let’s work through a concrete example. Suppose we collected waiting times from 30 randomly selected patients:</p>
+<p>Let’s work through a concrete example using our demonstration dataset. We have waiting times from 30 randomly selected ED patients:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data: ED waiting times (minutes) from 30 patients</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>waiting_times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">47</span>, <span class="dv">48</span>, <span class="dv">50</span>, <span class="dv">44</span>, <span class="dv">49</span>, <span class="dv">46</span>, <span class="dv">42</span>, <span class="dv">51</span>, <span class="dv">45</span>, <span class="dv">48</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">44</span>, <span class="dv">47</span>, <span class="dv">46</span>, <span class="dv">43</span>, <span class="dv">48</span>, <span class="dv">45</span>, <span class="dv">47</span>, <span class="dv">41</span>, <span class="dv">49</span>, <span class="dv">44</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">50</span>, <span class="dv">43</span>, <span class="dv">46</span>, <span class="dv">42</span>, <span class="dv">47</span>, <span class="dv">48</span>, <span class="dv">49</span>, <span class="dv">44</span>, <span class="dv">46</span>, <span class="dv">47</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate statistics</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(waiting_times)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(waiting_times)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(waiting_times)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="dv">45</span>  <span class="co"># benchmark (regional average)</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate t-statistic manually</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> (x_bar <span class="sc">-</span> mu_0) <span class="sc">/</span> (s <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract ED waiting times from our dataset</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>waiting_times <span class="ot">&lt;-</span> hospital_ops<span class="sc">$</span>ed_wait_time</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="dv">45</span>  <span class="co"># benchmark (regional average)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate statistics</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(waiting_times)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(waiting_times)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(waiting_times)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate t-statistic manually</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> (x_bar <span class="sc">-</span> mu_0) <span class="sc">/</span> (s <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -486,6 +627,32 @@ window.Quarto = {
 </div>
 <p>The t-statistic tells us how many standard errors our sample mean (approximately 46 minutes) is away from the benchmark (45 minutes). A large absolute t-value suggests the difference is unlikely to be due to chance.</p>
 </section>
+<section id="visualizing-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-data">Visualizing the Data</h2>
+<p>Before running a statistical test, it’s always good practice to <strong>visualize your data</strong>. A histogram helps us understand the distribution of ED waiting times:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hospital_ops, <span class="fu">aes</span>(<span class="at">x =</span> ed_wait_time)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mu_0, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> x_bar, <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> mu_0 <span class="sc">-</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="dv">7</span>, <span class="at">label =</span> <span class="st">"Benchmark</span><span class="sc">\n</span><span class="st">(45 min)"</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> x_bar <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="dv">7</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Sample Mean</span><span class="sc">\n</span><span class="st">("</span>, <span class="fu">round</span>(x_bar, <span class="dv">1</span>), <span class="st">" min)"</span>), </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of ED Waiting Times"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Comparing sample mean (green) to benchmark (red dashed)"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Waiting Time (minutes)"</span>, <span class="at">y =</span> <span class="st">"Number of Patients"</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture05_files/figure-html/one-sample-histogram-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The visualization shows that most waiting times cluster between 42-50 minutes, and our sample mean (green line) is clearly above the 45-minute benchmark (red dashed line).</p>
+</section>
 <section id="visualizing-the-null-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-null-distribution">Visualizing the Null Distribution</h2>
 <p>Visualizing what we would expect to see <strong>if the null hypothesis were true</strong> (i.e., if the true population mean really were 45 minutes) helps us understand hypothesis testing. This is called the <strong>null distribution</strong>.</p>
@@ -501,19 +668,19 @@ window.Quarto = {
 </div>
 <p>Notice that our calculated t-statistic (the red vertical line) falls into the right rejection region. This tells us visually that our sample mean is significantly different from the benchmark (i.e., such an extreme result would be very unlikely if the true mean were actually 45 minutes).</p>
 </section>
-<section id="conducting-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="conducting-in-r">Conducting in R</h2>
+<section id="conducting-one-sample-t-test-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="conducting-one-sample-t-test-in-r">Conducting one-sample t-test in R</h2>
 <p>In practice, we use R’s built-in <code>t.test()</code> function rather than calculating everything manually. This function handles all the computations and provides a complete summary of results:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform one-sample t-test</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(waiting_times, <span class="at">mu =</span> <span class="dv">45</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform one-sample t-test</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(hospital_ops<span class="sc">$</span>ed_wait_time, <span class="at">mu =</span> <span class="dv">45</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>One Sample t-test
 
-Parameter     |  Mean | mu | Difference |         95% CI | t(29) |     p
-------------------------------------------------------------------------
-waiting_times | 46.20 | 45 |       1.20 | [45.23, 47.17] |  2.52 | 0.017
+Parameter    |  Mean | mu | Difference |         95% CI | t(29) |     p
+-----------------------------------------------------------------------
+ed_wait_time | 46.20 | 45 |       1.20 | [45.23, 47.17] |  2.52 | 0.017
 
 Alternative hypothesis: true mean is not equal to 45</code></pre>
 </div>
@@ -525,7 +692,7 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 <li><p><strong>t-statistic</strong> (2.52): This measures how far our sample mean is from the hypothesized value in standard error units. Our value is quite large, indicating a substantial deviation.</p></li>
 <li><p><strong>df</strong> (degrees of freedom = 29): This equals n - 1 and determines the shape of the t-distribution used for calculating the p-value.</p></li>
 <li><p><strong>p-value</strong> (0.0174): This is the probability of observing a t-statistic as extreme as ours (or more extreme) if the null hypothesis were true. Our very small p-value indicates this would be extremely unlikely.</p></li>
-<li><p><strong>95% confidence interval</strong> [45.23, 47.17]: If we get samples repeatedly from the population of this sample, 95% of those samples’ mean values are expected to be within this range. Because 45 is <strong>not</strong> contained in this interval, we can reject the null hypothesis.</p></li>
+<li><p><strong>95% confidence interval</strong> [45.23, 47.17]: We are 95% confident that the true population mean lies within this range. Because 45 is <strong>not</strong> contained in this interval, we can reject the null hypothesis.</p></li>
 <li><p><strong>Sample mean</strong> (46.2): The average of our observed waiting times.</p></li>
 </ul>
 </section>
@@ -533,24 +700,49 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>Since the p-value is much less than 0.05, we <strong>reject the null hypothesis</strong>. The evidence strongly suggests that the hospital’s average ED waiting time is significantly higher than the 45-minute regional standard. This finding warrants investigation into the causes of the longer wait times and potential interventions to address the issue.</p>
 </section>
-<section id="practice-checkpoint-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-1">Practice Checkpoint 1</h3>
-<div class="callout callout-style-default callout-important callout-titled">
+<section id="practice-one-sample-t-test" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-one-sample-t-test">✏️ Practice: One-Sample t-Test</h3>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Try It Yourself! (5 minutes)
+<span class="screen-reader-only">Note</span>Your Turn! (5 minutes)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Pause here!</strong> Open <code>week05_t-tests_practice.qmd</code> and complete:</p>
-<ul>
-<li><strong>Task 1.1</strong>: Perform a one-sample t-test for patient satisfaction scores</li>
-</ul>
-<p>This will help you practice conducting and interpreting one-sample t-tests on your own.</p>
-<p><strong>After 5 minutes</strong>, we’ll continue with the lecture.</p>
+<p>A clinic wants to test if their average patient satisfaction score differs from the national average of <strong>8.0</strong> (out of 10). Use the <code>patient_outcomes</code> dataset.</p>
+<p><strong>Step 1: Explore the data</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract satisfaction scores from patient_outcomes</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>satisfaction_scores <span class="ot">&lt;-</span> patient_outcomes<span class="sc">$</span>___</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate descriptive statistics</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample size:"</span>, <span class="fu">length</span>(satisfaction_scores), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample mean:"</span>, <span class="fu">mean</span>(satisfaction_scores), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample SD:"</span>, <span class="fu">sd</span>(satisfaction_scores), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 2: Visualize the data</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram with benchmark line</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_outcomes, <span class="fu">aes</span>(<span class="at">x =</span> ___)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">8.0</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Patient Satisfaction Scores"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Satisfaction Score"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 3: Perform the t-test</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks (replace ___ with appropriate values)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>result_satisfaction <span class="ot">&lt;-</span> <span class="fu">t.test</span>(___, <span class="at">mu =</span> ___)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_satisfaction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>Based on the p-value, is there a significant difference from the national average?</li>
+</ol>
 </div>
 </div>
 <hr>
@@ -558,10 +750,13 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 </section>
 </section>
 <section id="independent-samples-t-test" class="level1">
-<h1>2. Independent-Samples T-Test</h1>
+<h1>2. Independent-Samples t-test</h1>
 <section id="what-is-it-1" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-it-1">What is it?</h2>
-<p>An <strong>independent-samples t-test</strong> (also called a two-sample t-test) compares means from two different, unrelated groups to determine if they are significantly different from each other. Unlike the one-sample t-test where we compare against a fixed benchmark, here we’re asking: <em>Are these two group means significantly different from each other, or could the observed difference be due to random variation?</em></p>
+<p>An <strong>independent-samples t-test</strong> (also called a two-sample t-test) compares means from two different, unrelated groups to determine if they are significantly different from each other. Unlike the one-sample t-test where we compare against a fixed benchmark, here we’re asking:</p>
+<ul>
+<li><em>Are these two group means significantly different from each other, or could the observed difference be due to random variation?</em></li>
+</ul>
 <p>This test is fundamental for comparing any two distinct groups, such as different treatment groups, different facilities, different time periods, or any other meaningful categorization. The key requirement is that the groups must be <strong>independent</strong>, meaning that the observations in one group have no relationship to the observations in the other group.</p>
 <section id="key-requirements" class="level3">
 <h3 class="anchored" data-anchor-id="key-requirements">Key Requirements</h3>
@@ -572,7 +767,7 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 </section>
 <section id="why-independent" class="level3">
 <h3 class="anchored" data-anchor-id="why-independent">Why “Independent”?</h3>
-<p>The term “independent” distinguishes this test from the paired-samples t-test. In an independent-samples design, each observation belongs to only one group, and there’s no natural pairing between observations across groups. If you measured the same patients before and after treatment, that would require a paired test instead.</p>
+<p>The term “independent” distinguishes this test from the paired-samples t-test, which we will talk about next. In an independent-samples design, each observation belongs to only one group, and there’s no natural pairing between observations across groups. If you measured the same patients before and after treatment, that would require a paired test instead.</p>
 </section>
 </section>
 <section id="when-to-use-it-1" class="level2">
@@ -585,10 +780,22 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 <li><strong>Demographic comparisons</strong>: Do outcomes differ between urban and rural facilities?</li>
 </ul>
 </section>
-<section id="scenario-comparing-patient-intake-systems" class="level2">
-<h2 class="anchored" data-anchor-id="scenario-comparing-patient-intake-systems">Scenario: Comparing Patient Intake Systems</h2>
-<p>Imagine your health system is considering whether to invest in digital intake systems across all facilities. Currently, Hospital A uses a digital tablet-based intake system, while Hospital B uses traditional paper forms. Before making a system-wide investment, leadership wants to know: <strong>Does the digital system actually result in faster processing times?</strong></p>
+<section id="independent-samples-t-test-scenario-comparing-patient-intake-systems" class="level2">
+<h2 class="anchored" data-anchor-id="independent-samples-t-test-scenario-comparing-patient-intake-systems">Independent-Samples t-test Scenario: Comparing Patient Intake Systems</h2>
+<p>Imagine your health system is considering whether to invest in digital intake systems (the registration process when patients first arrive) across all facilities. Currently, Hospital A uses a digital tablet-based intake system, while Hospital B uses traditional paper forms. Before making a system-wide investment, leadership wants to know:</p>
+<ul>
+<li><strong>Does the digital system actually result in faster processing times?</strong></li>
+</ul>
 <p>You collect processing time data from 20 randomly selected patients at each hospital. The question is whether any difference you observe represents a significant difference in system efficiency, or whether it could simply be due to natural variation in processing times.</p>
+</section>
+<section id="hypotheses-1" class="level2">
+<h2 class="anchored" data-anchor-id="hypotheses-1">Hypotheses</h2>
+<p>For our intake systems comparison:</p>
+<ul>
+<li><strong>Null Hypothesis (H₀)</strong>: μ₁ = μ₂ (Mean processing time is the same for both systems)</li>
+<li><strong>Alternative Hypothesis (H₁)</strong>: μ₁ ≠ μ₂ (Mean processing times differ between systems)</li>
+</ul>
+<p>The t-test will help us decide whether the observed difference is statistically significant.</p>
 </section>
 <section id="the-formula-1" class="level2">
 <h2 class="anchored" data-anchor-id="the-formula-1">The Formula</h2>
@@ -608,55 +815,67 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 </section>
 <section id="example-comparing-hospital-intake-times" class="level2">
 <h2 class="anchored" data-anchor-id="example-comparing-hospital-intake-times">Example: Comparing Hospital Intake Times</h2>
-<p>Let’s analyze the processing times (in minutes) from our two hospitals:</p>
+<p>Let’s analyze the processing times from our demonstration dataset using the two hospitals:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hospital A (Digital): Processing times in minutes</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>hospital_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">14</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">13</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">19</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Hospital B (Paper): Processing times in minutes</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>hospital_B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">20</span>, <span class="dv">16</span>, <span class="dv">18</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract data from our dataset</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>hospital_A <span class="ot">&lt;-</span> hospital_ops<span class="sc">$</span>intake_time[hospital_ops<span class="sc">$</span>intake_hospital <span class="sc">==</span> <span class="st">"A_Digital"</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>hospital_B <span class="ot">&lt;-</span> hospital_ops<span class="sc">$</span>intake_time[hospital_ops<span class="sc">$</span>intake_hospital <span class="sc">==</span> <span class="st">"B_Paper"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Hospital A (Digital):</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Mean: 14.7 minutes</code></pre>
+<pre><code>  Mean: 14.53 minutes</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  SD: 1.59 </code></pre>
+<pre><code>  SD: 1.3 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  n: 20 </code></pre>
+<pre><code>  n: 15 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hospital B (Paper):</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Mean: 16.4 minutes</code></pre>
+<pre><code>  Mean: 16.53 minutes</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  SD: 1.79 </code></pre>
+<pre><code>  SD: 1.64 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  n: 20 </code></pre>
+<pre><code>  n: 15 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Difference between two sample means: -1.7 minutes</code></pre>
+<pre><code>Difference between two sample means: -2 minutes</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Pooled Standard Deviation: 1.69 </code></pre>
+<pre><code>Pooled Standard Deviation: 1.48 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>t-value: -3.17 </code></pre>
+<pre><code>t-value: -3.7 </code></pre>
 </div>
 </div>
 </section>
-<section id="visualizing-group-differences" class="level2">
-<h2 class="anchored" data-anchor-id="visualizing-group-differences">Visualizing Group Differences</h2>
+<section id="visualizing-the-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-data-1">Visualizing the Data</h2>
+<p>Before running our t-test, let’s visualize the distribution of processing times for both hospitals:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create grouped data for visualization</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>intake_viz <span class="ot">&lt;-</span> hospital_ops <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hospital_label =</span> <span class="fu">ifelse</span>(intake_hospital <span class="sc">==</span> <span class="st">"A_Digital"</span>, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"A: Digital System"</span>, <span class="st">"B: Paper Forms"</span>))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plot with individual points</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(intake_viz, <span class="fu">aes</span>(<span class="at">x =</span> hospital_label, <span class="at">y =</span> intake_time, <span class="at">fill =</span> hospital_label)) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Patient Intake Processing Times by System"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Comparing digital (A) vs. paper (B) intake systems"</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Hospital System"</span>, <span class="at">y =</span> <span class="st">"Processing Time (minutes)"</span>) <span class="sc">+</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -665,6 +884,7 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 </div>
 </div>
 </div>
+<p>The box plot clearly shows that Hospital A (digital system) has lower and less variable processing times than Hospital B (paper forms).</p>
 </section>
 <section id="visualizing-the-null-distribution-1" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-null-distribution-1">Visualizing the Null Distribution</h2>
@@ -678,55 +898,89 @@ Alternative hypothesis: true mean is not equal to 45</code></pre>
 </div>
 </div>
 </section>
-<section id="conducting-in-r-1" class="level2">
-<h2 class="anchored" data-anchor-id="conducting-in-r-1">Conducting in R</h2>
+<section id="conducting-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="conducting-in-r">Conducting in R</h2>
 <p>We can conduct an independent-samples t-test using <code>t.test()</code> with two groups:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform independent samples t-test</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># var.equal = TRUE uses pooled variance (Student's t-test)</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>result_ind <span class="ot">&lt;-</span> <span class="fu">t.test</span>(hospital_A, hospital_B, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform independent samples t-test</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># var.equal = TRUE uses pooled variance (Student's t-test)</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>result_ind <span class="ot">&lt;-</span> <span class="fu">t.test</span>(hospital_A, hospital_B, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Two Sample t-test
 
 Parameter1 | Parameter2 | Mean_Parameter1 | Mean_Parameter2 | Difference
 ------------------------------------------------------------------------
-hospital_A | hospital_B |           14.70 |           16.40 |      -1.70
+hospital_A | hospital_B |           14.53 |           16.53 |      -2.00
 
-Parameter1 |         95% CI | t(38) |     p
--------------------------------------------
-hospital_A | [-2.78, -0.62] | -3.17 | 0.003
+Parameter1 |         95% CI | t(28) |      p
+--------------------------------------------
+hospital_A | [-3.11, -0.89] | -3.70 | &lt; .001
 
 Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative syntax using formula</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># result_ind_oneset &lt;- t.test(intake_time ~ intake_hospital, data = hospital_ops, var.equal = TRUE)</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(result_ind_oneset)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
 <ul>
-<li><strong>Mean difference</strong>: -1.7 minutes</li>
-<li><strong>t-statistic</strong>: -3.174</li>
-<li><strong>p-value</strong>: 0.003</li>
+<li><strong>Mean difference</strong>: -2 minutes</li>
+<li><strong>t-statistic</strong>: -3.7</li>
+<li><strong>p-value</strong>: 0.0009416</li>
 <li><strong>Conclusion</strong>: Since p-value &lt; 0.05, we reject the null hypothesis. The digital intake system (Hospital A) has significantly shorter processing times than the paper system (Hospital B).</li>
 </ul>
 </section>
-<section id="practice-checkpoint-2" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-2">Practice Checkpoint 2</h3>
-<div class="callout callout-style-default callout-important callout-titled">
+<section id="practice-independent-samples-t-test" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-independent-samples-t-test">✏️ Practice: Independent-Samples t-Test</h3>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Try It Yourself! (5 minutes)
+<span class="screen-reader-only">Note</span>Your Turn! (5 minutes)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Open <code>week05_t-tests_practice.qmd</code> and complete:</p>
-<ul>
-<li><strong>Task 2.1</strong>: Perform an independent-samples t-test comparing length of stay between two groups</li>
-</ul>
-<p>This will help you practice conducting and interpreting independent-samples t-tests.</p>
-<p><strong>After completing this task</strong>, we’ll continue with paired-samples t-tests.</p>
+<p>A hospital wants to compare the length of stay (in days) between patients receiving a new <strong>Enhanced Recovery Protocol (ERP)</strong> (which focuses on early mobilization and nutrition to speed up recovery) versus <strong>Standard Care</strong>. Use the <code>patient_outcomes</code> dataset.</p>
+<p><strong>Step 1: Explore the data</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract length of stay by group</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>new_protocol <span class="ot">&lt;-</span> patient_outcomes<span class="sc">$</span>length_of_stay[patient_outcomes<span class="sc">$</span>protocol_group <span class="sc">==</span> <span class="st">"___"</span>]</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>standard_care <span class="ot">&lt;-</span> patient_outcomes<span class="sc">$</span>length_of_stay[patient_outcomes<span class="sc">$</span>protocol_group <span class="sc">==</span> <span class="st">"___"</span>]</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate descriptive statistics for both groups</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"New Protocol: Mean ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(new_protocol), <span class="dv">2</span>), <span class="st">"days</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Standard Care: Mean ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(standard_care), <span class="dv">2</span>), <span class="st">"days</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Difference:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(new_protocol) <span class="sc">-</span> <span class="fu">mean</span>(standard_care), <span class="dv">2</span>), <span class="st">"days</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 2: Visualize the data</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a box plot comparing both groups</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(patient_outcomes, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Length of Stay by Discharge Protocol"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Protocol Type"</span>, <span class="at">y =</span> <span class="st">"Length of Stay (days)"</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 3: Perform the t-test</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>result_los <span class="ot">&lt;-</span> <span class="fu">t.test</span>(___, ___, <span class="at">var.equal =</span> ___)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># or result_los &lt;- t.test(___ ~ ___, data = ___, var.equal = ___)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_los)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>Is the difference in length of stay statistically significant?</li>
+<li>Should the hospital adopt the new discharge protocol based on these results?</li>
+</ol>
 </div>
 </div>
 <hr>
@@ -737,8 +991,11 @@ Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 <h1>3. Paired-Samples T-Test</h1>
 <section id="what-is-it-2" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-it-2">What is it?</h2>
-<p>A <strong>paired-samples t-test</strong> (also called a dependent t-test or matched-pairs t-test) compares two related measurements on the same subjects or matched pairs. Unlike the independent-samples t-test where we compare different groups of people, here we’re asking: <em>Is there a significant change within the same individuals between two time points, conditions, or measures?</em></p>
-<p>This test is particularly powerful because by measuring the same subjects twice, we can control for individual differences. Each person serves as their own control, which reduces variability and increases our ability to detect true effects.</p>
+<p>A <strong>paired-samples t-test</strong> (also called a dependent t-test or matched-pairs t-test) compares two related measurements on the same subjects or matched pairs. Unlike the independent-samples t-test where we compare different groups of people, here we’re asking:</p>
+<ul>
+<li><em>Is there a significant change within the same individuals between two time points, conditions, or measures?</em></li>
+</ul>
+<p>This test is particularly powerful because by measuring <strong>the same subjects</strong> twice, we can control for individual differences. Each person serves as their own control, which reduces variability and increases our ability to detect true effects.</p>
 <section id="key-characteristic" class="level3">
 <h3 class="anchored" data-anchor-id="key-characteristic">Key Characteristic</h3>
 <p>The data comes in <strong>pairs</strong>, which means each subject has exactly two measurements that are linked. For example:</p>
@@ -776,10 +1033,19 @@ Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="scenario-pain-management-protocol" class="level2">
-<h2 class="anchored" data-anchor-id="scenario-pain-management-protocol">Scenario: Pain Management Protocol</h2>
-<p>A hospital implemented a new pain management protocol and wants to evaluate its effectiveness. Rather than comparing different groups of patients (which would introduce confounding variables like age, health status, or pain tolerance), the hospital measures pain scores (0-10 scale) for 30 patients <strong>before</strong> and <strong>after</strong> receiving the protocol.</p>
-<p>The key question is: Did the protocol significantly reduce pain? By using the same patients as their own controls, we can isolate the effect of the protocol from individual differences in pain perception and tolerance.</p>
+<section id="paired-samples-t-test-scenario-pain-management-protocol" class="level2">
+<h2 class="anchored" data-anchor-id="paired-samples-t-test-scenario-pain-management-protocol">Paired-Samples t-test Scenario: Pain Management Protocol</h2>
+<p>A hospital implemented <strong>a new non-pharmacological pain management protocol</strong> (integrating guided imagery and music therapy) and wants to evaluate its effectiveness. Rather than comparing different groups of patients (which would introduce confounding variables like age, health status, or pain tolerance), the hospital measures pain scores (0-10 scale) for 30 patients <strong>before</strong> and <strong>after</strong> receiving the protocol.</p>
+<p>The key question is: <strong>Did the protocol significantly reduce pain?</strong></p>
+<p>By using the same patients as their own controls, we can isolate the effect of the protocol from individual differences in pain perception and tolerance.</p>
+</section>
+<section id="hypotheses-2" class="level2">
+<h2 class="anchored" data-anchor-id="hypotheses-2">Hypotheses</h2>
+<p>For our pain management protocol evaluation:</p>
+<ul>
+<li><strong>Null Hypothesis (H₀)</strong>: μ_D = 0 (The mean difference in pain scores is zero—no change)</li>
+<li><strong>Alternative Hypothesis (H₁)</strong>: μ_D ≠ 0 (The mean difference is not zero—pain scores changed)</li>
+</ul>
 </section>
 <section id="the-formula-2" class="level2">
 <h2 class="anchored" data-anchor-id="the-formula-2">The Formula</h2>
@@ -794,7 +1060,7 @@ Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 <section id="understanding-the-formula-2" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-the-formula-2">Understanding the Formula</h3>
 <p>Notice that this formula is essentially identical to the one-sample t-test formula! This is because the paired t-test is really just a one-sample t-test performed on the <strong>differences</strong>. We’re testing whether the mean difference is significantly different from zero.</p>
-<p>Instead of working with two sets of measurements (e.g., average before - average after), we first calculate the difference for each pair (e.g., Before - After for each patient). Then we examine whether the average of these differences significantly different from zero.</p>
+<p>Instead of working with two sets of measurements (e.g., average before - average after), we <strong>first calculate the difference for each pair</strong> (e.g., Before - After for each patient). Then we examine whether the average of these differences significantly different from zero.</p>
 <ul>
 <li>If the mean difference is close to zero → no significant difference</li>
 <li>If the mean difference is far from zero (relative to variability) → significant difference</li>
@@ -804,15 +1070,11 @@ Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 </section>
 <section id="example-pain-management-protocol" class="level2">
 <h2 class="anchored" data-anchor-id="example-pain-management-protocol">Example: Pain Management Protocol</h2>
+<p>Let’s analyze the pain scores from our demonstration dataset:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pain scores before and after intervention</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>            <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>           <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>,</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>           <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract pain scores from our dataset</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> hospital_ops<span class="sc">$</span>pain_before</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span> hospital_ops<span class="sc">$</span>pain_after</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -871,13 +1133,13 @@ Alternative hypothesis: true difference in means is not equal to 0</code></pre>
 </div>
 </div>
 </section>
-<section id="conducting-in-r-2" class="level2">
-<h2 class="anchored" data-anchor-id="conducting-in-r-2">Conducting in R</h2>
+<section id="conducting-in-r-1" class="level2">
+<h2 class="anchored" data-anchor-id="conducting-in-r-1">Conducting in R</h2>
 <p>We can conduct a paired-sample t-test using <code>t.test()</code> function with the <code>paired = TRUE</code> argument:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform paired samples t-test</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>result_paired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(before, after, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_paired)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform paired samples t-test</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>result_paired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(before, after, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_paired)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Paired t-test
 
@@ -893,28 +1155,69 @@ Alternative hypothesis: true mean difference is not equal to 0</code></pre>
 <ul>
 <li><strong>Mean difference</strong>: 0.4 points</li>
 <li><strong>t-statistic</strong>: 2.845</li>
-<li><strong>p-value</strong>: 0.01</li>
+<li><strong>p-value</strong>: 0.008068</li>
 <li><strong>Conclusion</strong>: Since p-value &lt; 0.05, we reject the null hypothesis. The pain management protocol significantly reduced pain scores.</li>
 </ul>
 </section>
-<section id="practice-checkpoint-3" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-3">Practice Checkpoint 3</h3>
-<div class="callout callout-style-default callout-important callout-titled">
+<section id="practice-paired-samples-t-test" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-paired-samples-t-test">✏️ Practice: Paired-Samples t-test</h3>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Try It Yourself! (5 minutes)
+<span class="screen-reader-only">Note</span>Your Turn! (5 minutes)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Open <code>week05_t-tests_practice.qmd</code> and complete:</p>
-<ul>
-<li><strong>Task 3.1</strong>: Perform a paired-samples t-test for blood pressure intervention</li>
-</ul>
-<p>This will help you practice conducting and interpreting paired-samples t-tests.</p>
-<p><strong>After completing this task</strong>, we’ll review how to choose the right test.</p>
+<p>A health clinic wants to evaluate the effectiveness of a <strong>lifestyle intervention program</strong> (a 12-week program including dietary modification and weekly exercise coaching) on reducing systolic blood pressure. Use the <code>patient_outcomes</code> dataset.</p>
+<p><strong>Step 1: Explore the data</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract blood pressure data from patient_outcomes</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>bp_before <span class="ot">&lt;-</span> patient_outcomes<span class="sc">$</span>___</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>bp_after <span class="ot">&lt;-</span> patient_outcomes<span class="sc">$</span>___</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate descriptive statistics</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Before: Mean ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(bp_before), <span class="dv">2</span>), <span class="st">"mmHg</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"After: Mean ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(bp_after), <span class="dv">2</span>), <span class="st">"mmHg</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean difference:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(bp_before <span class="sc">-</span> bp_after), <span class="dv">2</span>), <span class="st">"mmHg</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 2: Visualize the data</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a before/after comparison plot</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># First, reshape data for plotting</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>bp_plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="fu">rep</span>(patient_outcomes<span class="sc">$</span>patient_id, <span class="dv">2</span>),</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Before"</span>, <span class="st">"After"</span>), <span class="at">each =</span> <span class="fu">nrow</span>(patient_outcomes)), </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Before"</span>, <span class="st">"After"</span>)),</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">bp =</span> <span class="fu">c</span>(patient_outcomes<span class="sc">$</span>bp_before, patient_outcomes<span class="sc">$</span>bp_after)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the spaghetti plot</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bp_plot_data, <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> bp, <span class="at">group =</span> patient_id)) <span class="sc">+</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> time), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"line"</span>, </span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Blood Pressure Before vs. After Intervention"</span>,</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Systolic BP (mmHg)"</span>) <span class="sc">+</span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 3: Perform the t-test</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>result_bp <span class="ot">&lt;-</span> <span class="fu">t.test</span>(___, ___, <span class="at">paired =</span> ___)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_bp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>Is the change in blood pressure statistically significant?</li>
+<li>Would you recommend this lifestyle intervention program for blood pressure management?</li>
+</ol>
 </div>
 </div>
 <hr>
@@ -922,7 +1225,7 @@ Alternative hypothesis: true mean difference is not equal to 0</code></pre>
 </section>
 </section>
 <section id="choosing-the-right-t-test" class="level1">
-<h1>Choosing the Right T-Test</h1>
+<h1>Choosing the Right t-test</h1>
 <section id="decision-flowchart" class="level2">
 <h2 class="anchored" data-anchor-id="decision-flowchart">Decision Flowchart</h2>
 <p>Use this guide to select the appropriate t-test:</p>

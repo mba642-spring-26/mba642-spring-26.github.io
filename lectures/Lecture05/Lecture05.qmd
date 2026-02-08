@@ -2,14 +2,14 @@
 title: "Mean Comparison 1: t-Tests"
 subtitle: "MBA642: Business Analytics in Healthcare Management"
 Week: "Week 5"
-date: 01/01/2026
+date: 02/09/2026
 format:
   html:
     toc: true
     toc-depth: 3
     code-fold: false
     code-tool: false
-    theme: cosmo
+    theme: [lecture.scss, cosmo]
     highlight-style: github
 execute:
   warning: false
@@ -26,39 +26,92 @@ library(gridExtra)
 set.seed(2026)
 ```
 
-# Introduction to T-Tests
+# Introduction to t-tests
 
-## Why T-Tests Matter
+## Why t-tests Matter
 
 t-tests are among the most fundamental and widely-used statistical tools that allow us to make data-driven decisions by comparing means and determining whether observed differences are simply due to chance or not.
 
-Consider this scenario: A hospital administrator notices that their emergency department's average waiting time appears to be 52 minutes, while the regional standard is 45 minutes. Is this 7-minute difference a systematic problem that needs addressing, or could it simply be random variation in the data? This is exactly the type of question that t-tests help us answer.
+**Consider this scenario**: 
 
-t-tests determine whether observed differences are **statistically significant**. In other words, they examine whether the differences we see in our sample data likely reflect true differences in the population, or whether they could have occurred simply by chance. This distinction is critical because acting on random noise can waste resources, while ignoring real problems can harm outcomes.
+> A hospital administrator notices that their emergency department's average waiting time appears to be 52 minutes, while the regional standard is 45 minutes. Is this 7-minute difference a systematic problem that needs addressing, or could it simply be random variation in the data? This is exactly the type of question that t-tests help us answer.
+
+t-tests are to **compare means**. Specifically, they determine whether observed **mean differences** are statistically significant—that is, whether the differences we see in our sample data likely reflect true differences in the population, or whether they could have occurred simply by chance. This distinction is critical because acting on random noise can waste resources, while ignoring real problems can harm outcomes.
 
 ## Overview of the Three t-Test Types
 
 There are three types of t-tests, each designed for different research scenarios:
 
 | Test Type | Purpose | Example |
-|---------------------------|-----------------------|-----------------------|
+|---------------|-----------------------|-----------------------|
 | **One-sample** | Compare a sample mean to a known or hypothesized value | Testing if average wait time differs from a 45-minute standard |
 | **Independent-samples** | Compare means from two separate, unrelated groups | Comparing processing times between two different intake systems |
 | **Paired-samples** | Compare two related measurements on the same subjects | Measuring scores before and after an intervention |
 
-Understanding when to use each type is crucial for valid statistical inference.
-Using the wrong test can lead to incorrect conclusions (i.e., either finding differences that don't exist or missing differences that do).
-The following sections will explain each test in detail, with worked examples and R code that you can apply to your own data.
 
-------------------------------------------------------------------------
+- The following sections will explain each test in detail, with worked examples and R code that you can apply to your own data.
 
-# 1. One-Sample T-Test
+--- 
+
+# Datasets for Today
+
+- We'll use two datasets throughout this lecture: one for demonstrations and one for practice activities.
+
+- Load the datasets and required packagesusing the code below. 
+
+```{r}
+#| label: load-data
+
+# Load required packages
+library(ggplot2)
+library(dplyr)
+library(parameters)
+library(gridExtra)
+
+# Set seed for reproducibility
+set.seed(2026)
+
+# Demonstration dataset
+hospital_ops <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week05_demo_data.csv")
+
+# Practice dataset
+patient_outcomes <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week05_practice_data.csv")
+```
+
+
+## Dataset Variables
+
+### `hospital_ops` (Demonstration Data)
+
+| Variable | Description |
+|----------|-------------|
+| `patient_id` | Unique patient identifier |
+| `ed_wait_time` | ED waiting time (minutes) |
+| `intake_hospital` | Hospital system (A=Digital, B=Paper) |
+| `intake_time` | Patient intake processing time (minutes) |
+| `pain_before`, `pain_after` | Pain scores (0-10 scale) |
+
+### `patient_outcomes` (Practice Data)
+
+| Variable | Description |
+|----------|-------------|
+| `patient_id` | Unique patient identifier |
+| `satisfaction` | Patient satisfaction (1-10 scale) |
+| `protocol_group` | Clinical protocol (New = Enhanced Recovery, Standard = Standard Care) |
+| `length_of_stay` | Hospital stay (days) |
+| `bp_before`, `bp_after` | Systolic blood pressure (mmHg) |
+
+---
+
+# 1. One-Sample t-Test
 
 ## What is it?
 
-A **one-sample t-test** is a statistical procedure that compares a sample mean to a known or hypothesized population value. It answers a fundamental question: *Is our sample mean significantly different from a specific benchmark, or could the difference we observe be due to random chance?*
+A **one-sample t-test** is a statistical procedure that compares a sample mean to a known or hypothesized population value. It answers a fundamental question: 
 
-This test is particularly useful when you have a single group of observations and want to compare their average to some external standard or target value. For example, if there is a law regarding a maximum acceptable waiting time, or if industry benchmarks establish expected performance levels, the one-sample t-test helps you determine whether your organization is meeting those standards.
+- *Is our sample mean significantly different from a specific benchmark, or could the difference we observe be due to random chance?*
+
+This test is particularly useful when you have **a single group of observations** and want to compare their average to some external standard or target value. For example, if there is a law regarding a maximum acceptable waiting time, or if industry benchmarks establish expected performance levels, the one-sample t-test helps you determine whether your organization is meeting those standards.
 
 ### Key Components
 
@@ -72,18 +125,32 @@ If this deviation is large enough, we conclude that the difference is unlikely t
 
 The one-sample t-test is appropriate whenever you need to compare your data against a fixed reference point. Common scenarios include:
 
--   Comparing performance against **national or industry benchmarks** (e.g., average length of stay compared to national average)
--   Testing if outcomes meet **target levels** set by management or regulators (e.g., patient satisfaction scores vs. a target of 8.0)
--   Evaluating if measurements achieve **recommended standards** (e.g., medication dosages achieving target blood levels)
--   Assessing if operational metrics meet **regulatory requirements** (e.g., waiting times vs. regulatory standards)
+-   Comparing performance against **national or industry benchmarks** 
+    - e.g.,) average length of stay compared to national average
+-   Testing if outcomes meet **target levels** set by management or regulators 
+    - e.g.,) patient satisfaction scores vs. a target of 8.0
+-   Evaluating if measurements achieve **recommended standards** 
+    - e.g.,) medication dosages achieving target blood levels
+-   Assessing if operational metrics meet **regulatory requirements** 
+    - e.g.,) waiting times vs. regulatory standards
 
-## Scenario: Emergency Department Waiting Times
+## One-Sample t-test Scenario: ED Waiting Times
 
-Imagine you are an administrator at a hospital where the regional average emergency department waiting time is **45 minutes**. Recently, you've received complaints that patients are waiting too long. To investigate, you randomly sample 30 patients and record their waiting times.
+- Imagine you are an administrator at a hospital where the regional average emergency department waiting time is **45 minutes**. Recently, you've received complaints that patients are waiting too long. To investigate, you randomly sample 30 patients and record their waiting times.
 
-Your sample shows an average waiting time of 52 minutes. But before concluding that there's a problem, you need to ask: Is this difference of 7 minutes statistically significant, or could it simply be due to the natural variation we'd expect when taking a random sample?
+- Your **sample** shows an average waiting time of **52 minutes**. But before concluding that there's a problem (i.e., the hospital is underperforming), you need to ask: 
+    - Is this difference of 7 minutes statistically significant, or could it simply be due to the natural variation we'd expect when taking a random sample?
 
-This is precisely what the one-sample t-test will help us determine.
+- This is precisely what the one-sample t-test will help us determine.
+
+## Hypotheses
+
+For our ED waiting times scenario, we set up our hypotheses as:
+
+- **Null Hypothesis (H₀)**: μ = 45 (The hospital's mean waiting time equals the 45-minute regional standard)
+- **Alternative Hypothesis (H₁)**: μ ≠ 45 (The hospital's mean waiting time differs from the standard)
+
+The t-test will help us decide whether to reject H₀ based on our sample data.
 
 ## The Formula
 
@@ -93,10 +160,10 @@ $$t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}$$
 
 Where:
 
--   $\bar{X}$: sample mean (the average of your observed data)
--   $\mu_0$: hypothesized/known mean (the benchmark you're comparing against)
+-   $\bar{X}$: sample mean (e.g., 52 minutes in our scenario)
+-   $\mu_0$: hypothesized/known mean (e.g., 45-minute benchmark)
 -   $s$: sample standard deviation (measures the spread of your data)
--   $n$: sample size (number of observations)
+-   $n$: sample size (e.g., 30 patients in our scenario)
 
 ### Understanding the Formula
 
@@ -111,20 +178,19 @@ A t-statistic far from zero (either positive or negative) means our sample mean 
 
 ## Example Calculation
 
-Let's work through a concrete example. Suppose we collected waiting times from 30 randomly selected patients:
+Let's work through a concrete example using our demonstration dataset. We have waiting times from 30 randomly selected ED patients:
 
 ```{r}
 #| label: one-sample-example
-# Sample data: ED waiting times (minutes) from 30 patients
-waiting_times <- c(47, 48, 50, 44, 49, 46, 42, 51, 45, 48,
-                   44, 47, 46, 43, 48, 45, 47, 41, 49, 44,
-                   50, 43, 46, 42, 47, 48, 49, 44, 46, 47)
+
+# Extract ED waiting times from our dataset
+waiting_times <- hospital_ops$ed_wait_time
+mu_0 <- 45  # benchmark (regional average)
 
 # Calculate statistics
 n <- length(waiting_times)
 x_bar <- mean(waiting_times)
 s <- sd(waiting_times)
-mu_0 <- 45  # benchmark (regional average)
 
 # Calculate t-statistic manually
 t_stat <- (x_bar - mu_0) / (s / sqrt(n))
@@ -140,6 +206,31 @@ cat("t-statistic:", round(t_stat, 2))
 ```
 
 The t-statistic tells us how many standard errors our sample mean (approximately `r round(mean(waiting_times))` minutes) is away from the benchmark (`r mu_0` minutes). A large absolute t-value suggests the difference is unlikely to be due to chance.
+
+## Visualizing the Data
+
+Before running a statistical test, it's always good practice to **visualize your data**. A histogram helps us understand the distribution of ED waiting times:
+
+```{r}
+#| label: one-sample-histogram
+#| fig-width: 7
+#| fig-height: 4
+
+ggplot(hospital_ops, aes(x = ed_wait_time)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "white", alpha = 0.8) +
+  geom_vline(xintercept = mu_0, color = "red", linetype = "dashed", linewidth = 1) +
+  geom_vline(xintercept = x_bar, color = "darkgreen", linewidth = 1) +
+  annotate("text", x = mu_0 - 0.5, y = 7, label = "Benchmark\n(45 min)", 
+           color = "red", hjust = 1, size = 3) +
+  annotate("text", x = x_bar + 0.5, y = 7, label = paste0("Sample Mean\n(", round(x_bar, 1), " min)"), 
+           color = "darkgreen", hjust = 0, size = 3) +
+  labs(title = "Distribution of ED Waiting Times",
+       subtitle = "Comparing sample mean (green) to benchmark (red dashed)",
+       x = "Waiting Time (minutes)", y = "Number of Patients") +
+  theme_minimal()
+```
+
+The visualization shows that most waiting times cluster between 42-50 minutes, and our sample mean (green line) is clearly above the 45-minute benchmark (red dashed line).
 
 ## Visualizing the Null Distribution
 
@@ -188,7 +279,7 @@ ggplot(data.frame(x = x_range, y = y_values), aes(x, y)) +
 Notice that our calculated t-statistic (the red vertical line) falls into the right rejection region.
 This tells us visually that our sample mean is significantly different from the benchmark (i.e., such an extreme result would be very unlikely if the true mean were actually 45 minutes).
 
-## Conducting in R
+## Conducting one-sample t-test in R
 
 In practice, we use R's built-in `t.test()` function rather than calculating everything manually. This function handles all the computations and provides a complete summary of results:
 
@@ -196,7 +287,7 @@ In practice, we use R's built-in `t.test()` function rather than calculating eve
 #| label: one-sample-ttest
 
 # Perform one-sample t-test
-result <- t.test(waiting_times, mu = 45)
+result <- t.test(hospital_ops$ed_wait_time, mu = 45)
 parameters(result)
 ```
 
@@ -210,7 +301,7 @@ Let's break down what each part of the output means:
 
 -   **p-value** (`r format(result$p.value, scientific = FALSE, digits = 3)`): This is the probability of observing a t-statistic as extreme as ours (or more extreme) if the null hypothesis were true. Our very small p-value indicates this would be extremely unlikely.
 
--   **95% confidence interval** \[`r round(result$conf.int[1], 2)`, `r round(result$conf.int[2], 2)`\]: If we get samples repeatedly from the population of this sample, 95% of those samples' mean values are expected to be within this range. Because 45 is **not** contained in this interval, we can reject the null hypothesis.
+-   **95% confidence interval** \[`r round(result$conf.int[1], 2)`, `r round(result$conf.int[2], 2)`\]: We are 95% confident that the true population mean lies within this range. Because 45 is **not** contained in this interval, we can reject the null hypothesis.
 
 -   **Sample mean** (`r round(result$estimate, 2)`): The average of our observed waiting times.
 
@@ -218,28 +309,70 @@ Let's break down what each part of the output means:
 
 Since the p-value is much less than 0.05, we **reject the null hypothesis**. The evidence strongly suggests that the hospital's average ED waiting time is significantly higher than the 45-minute regional standard. This finding warrants investigation into the causes of the longer wait times and potential interventions to address the issue.
 
-### Practice Checkpoint 1 {.unnumbered}
+### ✏️ Practice: One-Sample t-Test {.unnumbered}
 
-::: {.callout-important}
-## Try It Yourself! (5 minutes)
+::: {.callout-note}
+## Your Turn! (5 minutes)
 
-**Pause here!** Open `week05_t-tests_practice.qmd` and complete:
+A clinic wants to test if their average patient satisfaction score differs from the national average of **8.0** (out of 10). Use the `patient_outcomes` dataset.
 
-- **Task 1.1**: Perform a one-sample t-test for patient satisfaction scores
+**Step 1: Explore the data**
 
-This will help you practice conducting and interpreting one-sample t-tests on your own.
+```{r}
+#| label: practice-one-sample-explore
+#| eval: false
 
-**After 5 minutes**, we'll continue with the lecture.
+# Extract satisfaction scores from patient_outcomes
+satisfaction_scores <- patient_outcomes$___
+
+# Calculate descriptive statistics
+cat("Sample size:", length(satisfaction_scores), "\n")
+cat("Sample mean:", mean(satisfaction_scores), "\n")
+cat("Sample SD:", sd(satisfaction_scores), "\n")
+```
+
+**Step 2: Visualize the data**
+
+```{r}
+#| label: practice-one-sample-viz
+#| eval: false
+
+# Create a histogram with benchmark line
+ggplot(patient_outcomes, aes(x = ___)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "white") +
+  geom_vline(xintercept = 8.0, color = "red", linetype = "dashed", linewidth = 1) +
+  labs(title = "Distribution of Patient Satisfaction Scores",
+       x = "Satisfaction Score", y = "Count") +
+  theme_minimal()
+```
+
+**Step 3: Perform the t-test**
+
+```{r}
+#| label: practice-one-sample
+#| eval: false
+
+# Fill in the blanks (replace ___ with appropriate values)
+result_satisfaction <- t.test(___, mu = ___)
+parameters(result_satisfaction)
+```
+
+**Questions**:
+
+1. Based on the p-value, is there a significant difference from the national average?
+
 :::
 
 
 ------------------------------------------------------------------------
 
-# 2. Independent-Samples T-Test
+# 2. Independent-Samples t-test
 
 ## What is it?
 
-An **independent-samples t-test** (also called a two-sample t-test) compares means from two different, unrelated groups to determine if they are significantly different from each other. Unlike the one-sample t-test where we compare against a fixed benchmark, here we're asking: *Are these two group means significantly different from each other, or could the observed difference be due to random variation?*
+An **independent-samples t-test** (also called a two-sample t-test) compares means from two different, unrelated groups to determine if they are significantly different from each other. Unlike the one-sample t-test where we compare against a fixed benchmark, here we're asking: 
+
+- *Are these two group means significantly different from each other, or could the observed difference be due to random variation?*
 
 This test is fundamental for comparing any two distinct groups, such as different treatment groups, different facilities, different time periods, or any other meaningful categorization. The key requirement is that the groups must be **independent**, meaning that the observations in one group have no relationship to the observations in the other group.
 
@@ -250,7 +383,7 @@ This test is fundamental for comparing any two distinct groups, such as differen
 
 ### Why "Independent"?
 
-The term "independent" distinguishes this test from the paired-samples t-test. In an independent-samples design, each observation belongs to only one group, and there's no natural pairing between observations across groups. If you measured the same patients before and after treatment, that would require a paired test instead.
+The term "independent" distinguishes this test from the paired-samples t-test, which we will talk about next. In an independent-samples design, each observation belongs to only one group, and there's no natural pairing between observations across groups. If you measured the same patients before and after treatment, that would require a paired test instead.
 
 ## When to Use It
 
@@ -261,11 +394,22 @@ The independent-samples t-test is appropriate whenever you want to compare two s
 -   **Intervention studies**: Did the intervention group have better outcomes than the control group?
 -   **Demographic comparisons**: Do outcomes differ between urban and rural facilities?
 
-## Scenario: Comparing Patient Intake Systems
+## Independent-Samples t-test Scenario: Comparing Patient Intake Systems
 
-Imagine your health system is considering whether to invest in digital intake systems across all facilities. Currently, Hospital A uses a digital tablet-based intake system, while Hospital B uses traditional paper forms. Before making a system-wide investment, leadership wants to know: **Does the digital system actually result in faster processing times?**
+Imagine your health system is considering whether to invest in digital intake systems (the registration process when patients first arrive) across all facilities. Currently, Hospital A uses a digital tablet-based intake system, while Hospital B uses traditional paper forms. Before making a system-wide investment, leadership wants to know: 
+
+- **Does the digital system actually result in faster processing times?**
 
 You collect processing time data from 20 randomly selected patients at each hospital. The question is whether any difference you observe represents a significant difference in system efficiency, or whether it could simply be due to natural variation in processing times.
+
+## Hypotheses
+
+For our intake systems comparison:
+
+- **Null Hypothesis (H₀)**: μ₁ = μ₂ (Mean processing time is the same for both systems)
+- **Alternative Hypothesis (H₁)**: μ₁ ≠ μ₂ (Mean processing times differ between systems)
+
+The t-test will help us decide whether the observed difference is statistically significant.
 
 ## The Formula
 
@@ -289,18 +433,14 @@ The resulting t-statistic tells us how many standard errors the observed differe
 
 ## Example: Comparing Hospital Intake Times
 
-Let's analyze the processing times (in minutes) from our two hospitals:
+Let's analyze the processing times from our demonstration dataset using the two hospitals:
 
 ```{r}
 #| label: independent-example
 
-# Hospital A (Digital): Processing times in minutes
-hospital_A <- c(15, 16, 13, 15, 14, 13, 17, 14, 15, 14,
-                15, 16, 14, 15, 12, 14, 13, 16, 14, 19)
-
-# Hospital B (Paper): Processing times in minutes
-hospital_B <- c(16, 18, 15, 17, 17, 16, 14, 20, 16, 18,
-                17, 18, 14, 15, 17, 16, 18, 17, 17, 12)
+# Extract data from our dataset
+hospital_A <- hospital_ops$intake_time[hospital_ops$intake_hospital == "A_Digital"]
+hospital_B <- hospital_ops$intake_time[hospital_ops$intake_hospital == "B_Paper"]
 ```
 
 ```{r}
@@ -333,34 +473,33 @@ cat("Pooled Standard Deviation:", round(mean(pool_se), 2), "\n")
 cat("t-value:", round(mean(ind_ttest_test_statistics), 2), "\n")
 ```
 
+## Visualizing the Data
 
-
-
-## Visualizing Group Differences
+Before running our t-test, let's visualize the distribution of processing times for both hospitals:
 
 ```{r}
 #| label: independent-viz
 #| fig-width: 10
 #| fig-height: 5
-#| echo: false
 
-# Create data frame
-intake_data <- data.frame(
-  time = c(hospital_A, hospital_B),
-  hospital = factor(rep(c("A: Digital", "B: Paper"), each = 20))
-)
+# Create grouped data for visualization
+intake_viz <- hospital_ops %>%
+  mutate(hospital_label = ifelse(intake_hospital == "A_Digital", 
+                                  "A: Digital System", "B: Paper Forms"))
 
-# Box plot
-ggplot(intake_data, aes(x = hospital, y = time, fill = hospital)) +
-  geom_boxplot(alpha = 0.7, width=0.3) +
-  geom_jitter(width = 0.1, alpha = 0.5) +
-  scale_fill_manual(values = c("#2E86AB", "#A23B72")) +
-  labs(title = "Patient Intake Processing Times",
-       x = "Hospital System", y = "Time (minutes)") +
+# Box plot with individual points
+ggplot(intake_viz, aes(x = hospital_label, y = intake_time, fill = hospital_label)) +
+  geom_boxplot(alpha = 0.7, width = 0.4) +
+  geom_jitter(width = 0.1, alpha = 0.5, size = 2) +
+  labs(title = "Patient Intake Processing Times by System",
+       subtitle = "Comparing digital (A) vs. paper (B) intake systems",
+       x = "Hospital System", y = "Processing Time (minutes)") +
   theme_minimal() +
   theme(legend.position = "none",
         plot.title = element_text(face = "bold"))
 ```
+
+The box plot clearly shows that Hospital A (digital system) has lower and less variable processing times than Hospital B (paper forms).
 
 ## Visualizing the Null Distribution
 
@@ -418,28 +557,77 @@ We can conduct an independent-samples t-test using `t.test()` with two groups:
 # var.equal = TRUE uses pooled variance (Student's t-test)
 result_ind <- t.test(hospital_A, hospital_B, var.equal = TRUE)
 parameters(result_ind)
+
+# Alternative syntax using formula
+# result_ind_oneset <- t.test(intake_time ~ intake_hospital, data = hospital_ops, var.equal = TRUE)
+# parameters(result_ind_oneset)
 ```
 
 
 ### Interpretation
 
 -   **Mean difference**: `r round(mean(hospital_A) - mean(hospital_B), 2)` minutes
--   **t-statistic**: `r round(result_ind$statistic, 3)`
--   **p-value**: `r round(result_ind$p.value, 3)`
+-   **t-statistic**: `r round(result_ind$statistic, 2)`
+-   **p-value**: `r format(result_ind$p.value, scientific = FALSE, digits = 4, nsmall = 4)`
 -   **Conclusion**: Since p-value \< 0.05, we reject the null hypothesis. The digital intake system (Hospital A) has significantly shorter processing times than the paper system (Hospital B).
 
-### Practice Checkpoint 2 {.unnumbered}
+### ✏️ Practice: Independent-Samples t-Test {.unnumbered}
 
-::: {.callout-important}
-## Try It Yourself! (5 minutes)
+::: {.callout-note}
+## Your Turn! (5 minutes)
 
-Open `week05_t-tests_practice.qmd` and complete:
+A hospital wants to compare the length of stay (in days) between patients receiving a new **Enhanced Recovery Protocol (ERP)** (which focuses on early mobilization and nutrition to speed up recovery) versus **Standard Care**. Use the `patient_outcomes` dataset.
 
-- **Task 2.1**: Perform an independent-samples t-test comparing length of stay between two groups
+**Step 1: Explore the data**
 
-This will help you practice conducting and interpreting independent-samples t-tests.
+```{r}
+#| label: practice-independent-explore
+#| eval: false
 
-**After completing this task**, we'll continue with paired-samples t-tests.
+# Extract length of stay by group
+new_protocol <- patient_outcomes$length_of_stay[patient_outcomes$protocol_group == "___"]
+standard_care <- patient_outcomes$length_of_stay[patient_outcomes$protocol_group == "___"]
+
+# Calculate descriptive statistics for both groups
+cat("New Protocol: Mean =", round(mean(new_protocol), 2), "days\n")
+cat("Standard Care: Mean =", round(mean(standard_care), 2), "days\n")
+cat("Difference:", round(mean(new_protocol) - mean(standard_care), 2), "days\n")
+```
+
+**Step 2: Visualize the data**
+
+```{r}
+#| label: practice-independent-viz
+#| eval: false
+
+# Create a box plot comparing both groups
+ggplot(patient_outcomes, aes(x = ___, y = ___, fill = ___)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.1, alpha = 0.5) +
+  labs(title = "Length of Stay by Discharge Protocol",
+       x = "Protocol Type", y = "Length of Stay (days)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**Step 3: Perform the t-test**
+
+```{r}
+#| label: practice-independent
+#| eval: false
+
+# Fill in the blanks
+result_los <- t.test(___, ___, var.equal = ___)
+
+# or result_los <- t.test(___ ~ ___, data = ___, var.equal = ___)
+
+parameters(result_los)
+```
+
+**Questions**:
+
+1. Is the difference in length of stay statistically significant?
+2. Should the hospital adopt the new discharge protocol based on these results?
 :::
 
 
@@ -449,9 +637,11 @@ This will help you practice conducting and interpreting independent-samples t-te
 
 ## What is it?
 
-A **paired-samples t-test** (also called a dependent t-test or matched-pairs t-test) compares two related measurements on the same subjects or matched pairs. Unlike the independent-samples t-test where we compare different groups of people, here we're asking: *Is there a significant change within the same individuals between two time points,  conditions, or measures?*
+A **paired-samples t-test** (also called a dependent t-test or matched-pairs t-test) compares two related measurements on the same subjects or matched pairs. Unlike the independent-samples t-test where we compare different groups of people, here we're asking: 
 
-This test is particularly powerful because by measuring the same subjects twice, we can control for individual differences. Each person serves as their own control, which reduces variability and increases our ability to detect true effects.
+- *Is there a significant change within the same individuals between two time points,  conditions, or measures?*
+
+This test is particularly powerful because by measuring **the same subjects** twice, we can control for individual differences. Each person serves as their own control, which reduces variability and increases our ability to detect true effects.
 
 ### Key Characteristic
 
@@ -481,11 +671,21 @@ The paired-samples t-test is appropriate whenever your measurements are somehow 
     -   Morning vs. evening measurements on the same individuals
     -   Left eye vs. right eye comparisons
 
-## Scenario: Pain Management Protocol
+## Paired-Samples t-test Scenario: Pain Management Protocol
 
-A hospital implemented a new pain management protocol and wants to evaluate its effectiveness. Rather than comparing different groups of patients (which would introduce confounding variables like age, health status, or pain tolerance), the hospital measures pain scores (0-10 scale) for 30 patients **before** and **after** receiving the protocol.
+A hospital implemented **a new non-pharmacological pain management protocol** (integrating guided imagery and music therapy) and wants to evaluate its effectiveness. Rather than comparing different groups of patients (which would introduce confounding variables like age, health status, or pain tolerance), the hospital measures pain scores (0-10 scale) for 30 patients **before** and **after** receiving the protocol.
 
-The key question is: Did the protocol significantly reduce pain? By using the same patients as their own controls, we can isolate the effect of the protocol from individual differences in pain perception and tolerance.
+The key question is: **Did the protocol significantly reduce pain?**
+
+By using the same patients as their own controls, we can isolate the effect of the protocol from individual differences in pain perception and tolerance.
+
+## Hypotheses
+
+For our pain management protocol evaluation:
+
+- **Null Hypothesis (H₀)**: μ_D = 0 (The mean difference in pain scores is zero—no change)
+- **Alternative Hypothesis (H₁)**: μ_D ≠ 0 (The mean difference is not zero—pain scores changed)
+
 
 ## The Formula
 
@@ -503,7 +703,7 @@ Where:
 
 Notice that this formula is essentially identical to the one-sample t-test formula! This is because the paired t-test is really just a one-sample t-test performed on the **differences**. We're testing whether the mean difference is significantly different from zero.
 
-Instead of working with two sets of measurements (e.g., average before - average after), we first calculate the difference for each pair (e.g., Before - After for each patient). Then we examine whether the average of these differences significantly different from zero.
+Instead of working with two sets of measurements (e.g., average before - average after), we **first calculate the difference for each pair** (e.g., Before - After for each patient). Then we examine whether the average of these differences significantly different from zero.
 
 -   If the mean difference is close to zero → no significant difference
 -   If the mean difference is far from zero (relative to variability) → significant difference
@@ -512,17 +712,14 @@ This approach is powerful because it accounts for individual baseline difference
 
 ## Example: Pain Management Protocol
 
+Let's analyze the pain scores from our demonstration dataset:
+
 ```{r}
 #| label: paired-example
 
-# Pain scores before and after intervention
-before <- c(7, 8, 6, 7, 7, 8, 6, 7, 8, 7,
-            7, 6, 8, 7, 7, 8, 7, 6, 8, 7,
-            7, 8, 7, 6, 8, 7, 7, 8, 7, 6)
-
-after <- c(6, 9, 5, 7, 6, 8, 5, 6, 8, 9,
-           7, 5, 8, 6, 6, 8, 6, 6, 7, 7,
-           6, 7, 7, 5, 7, 7, 7, 7, 6, 7)
+# Extract pain scores from our dataset
+before <- hospital_ops$pain_before
+after <- hospital_ops$pain_after
 ```
 
 ```{r}
@@ -571,7 +768,6 @@ p1 <- ggplot(pain_data, aes(x = time, y = score, group = patient)) +
                linewidth = 2, color = "red") +
   stat_summary(aes(group = 1), fun = mean, geom = "point",
                size = 4, color = "red") +
-  scale_color_manual(values = c("#E63946", "#2A9D8F")) +
   labs(title = "Individual Patient Pain Scores",
        subtitle = "Red line shows mean change",
        x = "", y = "Pain Score (0-10)") +
@@ -640,28 +836,83 @@ parameters(result_paired)
 
 -   **Mean difference**: `r round(mean(differences), 2)` points
 -   **t-statistic**: `r round(result_paired$statistic, 3)`
--   **p-value**: `r round(result_paired$p.value, 2)`
+-   **p-value**: `r format(result_paired$p.value, scientific = FALSE, digits = 4, nsmall = 4)`
 -   **Conclusion**: Since p-value \< 0.05, we reject the null hypothesis. The pain management protocol significantly reduced pain scores.
 
 
-### Practice Checkpoint 3 {.unnumbered}
+### ✏️ Practice: Paired-Samples t-test {.unnumbered}
 
-::: {.callout-important}
-## Try It Yourself! (5 minutes)
+::: {.callout-note}
+## Your Turn! (5 minutes)
 
-Open `week05_t-tests_practice.qmd` and complete:
+A health clinic wants to evaluate the effectiveness of a **lifestyle intervention program** (a 12-week program including dietary modification and weekly exercise coaching) on reducing systolic blood pressure. Use the `patient_outcomes` dataset.
 
-- **Task 3.1**: Perform a paired-samples t-test for blood pressure intervention
+**Step 1: Explore the data**
 
-This will help you practice conducting and interpreting paired-samples t-tests.
+```{r}
+#| label: practice-paired-explore
+#| eval: false
 
-**After completing this task**, we'll review how to choose the right test.
+# Extract blood pressure data from patient_outcomes
+bp_before <- patient_outcomes$___
+bp_after <- patient_outcomes$___
+
+# Calculate descriptive statistics
+cat("Before: Mean =", round(mean(bp_before), 2), "mmHg\n")
+cat("After: Mean =", round(mean(bp_after), 2), "mmHg\n")
+cat("Mean difference:", round(mean(bp_before - bp_after), 2), "mmHg\n")
+```
+
+**Step 2: Visualize the data**
+
+```{r}
+#| label: practice-paired-viz
+#| eval: false
+
+# Create a before/after comparison plot
+# First, reshape data for plotting
+bp_plot_data <- data.frame(
+  patient_id = rep(patient_outcomes$patient_id, 2),
+  time = factor(rep(c("Before", "After"), each = nrow(patient_outcomes)), 
+                levels = c("Before", "After")),
+  bp = c(patient_outcomes$bp_before, patient_outcomes$bp_after)
+)
+
+# Create the spaghetti plot
+ggplot(bp_plot_data, aes(x = time, y = bp, group = patient_id)) +
+  geom_line(alpha = 0.3, color = "gray40") +
+  geom_point(aes(color = time), size = 2) +
+  stat_summary(aes(group = 1), fun = mean, geom = "line", 
+               linewidth = 2, color = "red") +
+  stat_summary(aes(group = 1), fun = mean, geom = "point", 
+               size = 4, color = "red") +
+  labs(title = "Blood Pressure Before vs. After Intervention",
+       x = "", y = "Systolic BP (mmHg)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**Step 3: Perform the t-test**
+
+```{r}
+#| label: practice-paired
+#| eval: false
+
+# Fill in the blanks
+result_bp <- t.test(___, ___, paired = ___)
+parameters(result_bp)
+```
+
+**Questions**:
+
+1. Is the change in blood pressure statistically significant?
+2. Would you recommend this lifestyle intervention program for blood pressure management?
 :::
 
 
 ------------------------------------------------------------------------
 
-# Choosing the Right T-Test
+# Choosing the Right t-test
 
 ## Decision Flowchart
 
