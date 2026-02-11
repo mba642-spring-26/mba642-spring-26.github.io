@@ -1,0 +1,400 @@
+---
+title: "Lab Assignment 2: t-tests (Week 05)"
+subtitle: ""
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme: 
+      - cosmo
+      - lecture.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(ggplot2)
+library(dplyr)
+library(parameters)
+```
+
+# Assignment Overview
+
+- **Total Points**: 10 points  
+- **Due Date**: February 15, 2026
+- **Submission**: Upload your completed .qmd and rendered html files to Canvas
+
+## Learning Objectives
+
+This assignment assesses your ability to:
+
+- Identify the appropriate t-test for different research scenarios
+- Conduct one-sample, independent-samples, and paired-samples t-tests using R
+- Interpret t-test output including t-statistics and p-values
+- Draw data-driven conclusions in a healthcare management context
+
+## Instructions
+
+1. Complete all 6 tasks below
+2. Fill in the blanks (replace `___` with appropriate code or values)
+3. After completing each code chunk, change `#| eval: false` to `#| eval: true` to run it
+4. Answer all interpretation questions (1-2 sentences each)
+5. Run all code chunks to verify they work before submitting
+
+---
+
+# About the Dataset
+
+**Hospital Quality Improvement Study**
+
+For this assignment, we will use data from a hospital quality improvement initiative. The dataset contains records from 40 patients **who were readmitted** across two departments, tracking clinical outcomes and the impact of a **Mindfulness-Based Stress Reduction (MBSR)** program on patient anxiety.
+
+## Dataset Background
+
+This dataset simulates a quality improvement study at a multi-department hospital system. It captures:
+
+- **Readmission outcomes**: How quickly readmitted patients returned after discharge (compared to the 30-day national benchmark)
+- **Departmental costs**: Treatment costs across Cardiology and Orthopedics
+- **Intervention effectiveness**: Patient anxiety scores measured before and after an MBSR program integrating guided meditation, breathing exercises, and progressive relaxation
+
+This type of data is commonly used by healthcare managers to evaluate clinical benchmarks, compare departmental performance, and assess the effectiveness of patient wellness programs.
+
+## Loading and Preparing the Data
+
+First, run the code below to load required packages. If you haven't installed these packages yet, run `install.packages("ggplot2")`, `install.packages("dplyr")`, and `install.packages("parameters")` in the R console.
+
+```{r}
+#| label: load-packages
+
+# Load required packages
+library(ggplot2)
+library(dplyr)
+library(parameters)
+
+set.seed(2026)  # For reproducibility
+```
+
+Now, run the following code to load the dataset for this assignment:
+
+```{r}
+#| label: load-data
+
+# Load the assignment dataset
+qi_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week05_assignment_data.csv")
+
+# View first few rows
+head(qi_data, 10)
+```
+
+## Key Variables
+
+| Variable | Description | Type |
+|----------|-------------|------|
+| `patient_id` | Unique patient identifier | Numeric |
+| `department` | Hospital department (Cardiology or Orthopedics) | Categorical |
+| `cost_of_care` | Total treatment cost (USD) | Numeric |
+| `readmission_days` | Days from discharge to readmission | Numeric |
+| `anxiety_before` | Anxiety score before MBSR program (0–10 scale) | Numeric |
+| `anxiety_after` | Anxiety score after MBSR program (0–10 scale) | Numeric |
+| `satisfaction` | Patient satisfaction score (1–10 scale) | Numeric |
+
+---
+
+# Grading Rubric
+
+Each task specifies point values. Points are allocated as follows:
+
+| Component | Weight | Description |
+|-----------|--------|-------------|
+| Code correctness | 50% | Code runs without errors and produces correct output |
+| Completeness | 30% | All blanks filled in, correct t-test type and arguments used |
+| Interpretation | 20% | Thoughtful 1-2 sentence response addressing the question |
+
+**Interpretation Guidance**: Your interpretations should be brief but specific. For example:
+
+- ✅ Good: "The p-value of 0.0032 is less than 0.05, so we reject the null hypothesis. The hospital's average readmission time (26.6 days) is significantly lower than the 30-day national benchmark."
+- ❌ Too vague: "The result is significant."
+- ❌ Too long: [3+ sentences of analysis]
+
+---
+
+# Assignment Tasks
+
+## Task 1: Identifying the Right t-Test (2 points) {.unnumbered}
+
+For each scenario below, identify which type of t-test is most appropriate. Write **"one-sample"**, **"independent-samples"**, or **"paired-samples"** in the answer box.
+
+**(a)** A hospital administrator wants to know whether the average patient satisfaction score at their facility differs from the national average of 7.5 out of 10. *(0.5 points)*
+
+::: {.callout-note icon=false title="✏️ Your Answer"}
+*[Write your answer here]*
+
+:::
+
+**(b)** A researcher compares recovery times between patients who received robotic-assisted surgery and those who had traditional open surgery. The patients are different individuals in each group. *(0.5 points)*
+
+::: {.callout-note icon=false title="✏️ Your Answer"}
+*[Write your answer here]*
+
+:::
+
+**(c)** A clinic measures patient blood pressure before and after a 6-month exercise intervention to see if the program was effective. *(0.5 points)*
+
+::: {.callout-note icon=false title="✏️ Your Answer"}
+*[Write your answer here]*
+
+:::
+
+**(d)** A quality improvement team wants to determine whether their hospital's average length of stay is different from the CMS (Centers for Medicare & Medicaid Services) benchmark of 4.5 days. *(0.5 points)*
+
+::: {.callout-note icon=false title="✏️ Your Answer"}
+*[Write your answer here]*
+
+:::
+
+---
+
+## Task 2: One-Sample t-Test — Readmission Benchmark (2 points) {.unnumbered}
+
+The national benchmark for hospital readmission is **30 days**. Your hospital's quality improvement team wants to determine whether your patients' average readmission time differs from this benchmark.
+
+**Step 1**: Extract the readmission data and compute descriptive statistics.
+
+```{r}
+#| label: task2-descriptives
+#| eval: false
+
+# Extract readmission days
+readmission <- qi_data$___
+
+# Descriptive statistics
+cat("Sample size:", length(readmission), "\n")
+cat("Sample mean:", round(mean(readmission), 2), "days\n")
+cat("Sample SD:", round(sd(readmission), 2), "\n")
+cat("Benchmark:", ___, "days\n")
+```
+
+**Step 2**: Perform the one-sample t-test and view the results.
+
+```{r}
+#| label: task2-ttest
+#| eval: false
+
+# Perform one-sample t-test comparing readmission days to the benchmark
+result_readmission <- t.test(___, mu = ___)
+parameters(result_readmission)
+```
+
+**Interpretation Question**: Based on the p-value, is the hospital's average readmission time significantly different from the 30-day benchmark? What does this suggest for the quality improvement team?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here]*
+
+:::
+
+---
+
+## Task 3: Independent-Samples t-Test — Departmental Costs (2 points) {.unnumbered}
+
+Hospital leadership wants to compare treatment costs between the **Cardiology** and **Orthopedics** departments to inform budget allocation decisions.
+
+**Step 1**: Separate the cost data by department and compute descriptive statistics.
+
+```{r}
+#| label: task3-descriptives
+#| eval: false
+
+# Extract treatment costs for each department
+cardiology_cost <- qi_data$cost_of_care[qi_data$department == "___"]
+orthopedics_cost <- qi_data$cost_of_care[qi_data$department == "___"]
+
+# Descriptive statistics
+cat("Cardiology:\n")
+cat("  Mean: $", round(mean(cardiology_cost), 2), "\n")
+cat("  SD: $", round(sd(cardiology_cost), 2), "\n")
+cat("  n:", length(cardiology_cost), "\n\n")
+
+cat("Orthopedics:\n")
+cat("  Mean: $", round(mean(orthopedics_cost), 2), "\n")
+cat("  SD: $", round(sd(orthopedics_cost), 2), "\n")
+cat("  n:", length(orthopedics_cost), "\n\n")
+
+cat("Difference: $", round(mean(cardiology_cost) - mean(orthopedics_cost), 2))
+```
+
+**Step 2**: Perform the independent-samples t-test.
+
+```{r}
+#| label: task3-ttest
+#| eval: false
+
+# Perform independent-samples t-test
+result_cost <- t.test(___, ___, var.equal = ___)
+parameters(result_cost)
+```
+
+**Interpretation Question**: Is there a statistically significant difference in treatment costs between the two departments? What recommendation would you make to hospital leadership regarding budget allocation?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here]*
+
+:::
+
+---
+
+## Task 4: Visualizing Group Differences (1 point) {.unnumbered}
+
+Create a **box plot** comparing treatment costs between Cardiology and Orthopedics. This visualization supports your analysis from Task 3.
+
+```{r}
+#| label: task4-boxplot
+#| eval: false
+
+# Fill in the blanks
+ggplot(data = qi_data, 
+       mapping = aes(x = ___, 
+                     y = ___, 
+                     fill = ___)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Treatment Costs by Department",
+       x = "___",
+       y = "___") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**Interpretation Question**: Based on the box plot, do the two departments appear to have different cost distributions? How does the visualization support (or contradict) your t-test result from Task 3?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here]*
+
+:::
+
+---
+
+## Task 5: Paired-Samples t-Test — MBSR Program Effectiveness (2 points) {.unnumbered}
+
+The hospital implemented a **Mindfulness-Based Stress Reduction (MBSR)** program to reduce patient anxiety. Anxiety was measured on a 0–10 scale before and after the program for the same 40 patients. The quality team wants to know if the program significantly reduced anxiety.
+
+**Step 1**: Extract the paired data and compute descriptive statistics.
+
+```{r}
+#| label: task5-descriptives
+#| eval: false
+
+# Extract anxiety scores
+anxiety_pre <- qi_data$___
+anxiety_post <- qi_data$___
+
+# Descriptive statistics
+cat("Before MBSR:\n")
+cat("  Mean:", round(mean(anxiety_pre), 2), "\n")
+cat("  SD:", round(sd(anxiety_pre), 2), "\n\n")
+
+cat("After MBSR:\n")
+cat("  Mean:", round(mean(anxiety_post), 2), "\n")
+cat("  SD:", round(sd(anxiety_post), 2), "\n\n")
+
+cat("Mean difference:", round(mean(anxiety_pre - anxiety_post), 2), "points\n")
+```
+
+**Step 2**: Perform the paired-samples t-test.
+
+```{r}
+#| label: task5-ttest
+#| eval: false
+
+# Perform paired-samples t-test
+result_anxiety <- t.test(___, ___, paired = ___)
+parameters(result_anxiety)
+```
+
+**Interpretation Question**: Based on the p-value, did the MBSR program significantly reduce patient anxiety? Would you recommend continuing the program?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here]*
+
+:::
+
+---
+
+## Task 6: Visualizing Paired Data (1 point) {.unnumbered}
+
+Create a **spaghetti plot** (paired line plot) showing individual patient anxiety changes before and after the MBSR program.
+
+```{r}
+#| label: task6-spaghetti
+#| eval: false
+
+# Create data frame for visualization
+anxiety_viz <- data.frame(
+  patient = rep(1:___, 2),
+  time = factor(rep(c("Before", "After"), each = ___),
+                levels = c("Before", "After")),
+  score = c(___, ___)
+)
+
+# Create spaghetti plot
+ggplot(anxiety_viz, aes(x = ___, y = ___, group = ___)) +
+  geom_line(alpha = 0.3, color = "gray30") +
+  geom_point(aes(color = ___), size = 2, alpha = 0.7) +
+  stat_summary(aes(group = 1), fun = mean, geom = "line",
+               linewidth = 2, color = "red") +
+  stat_summary(aes(group = 1), fun = mean, geom = "point",
+               size = 4, color = "red") +
+  labs(title = "Patient Anxiety Scores Before and After MBSR Program",
+       subtitle = "Red line shows mean change",
+       x = "",
+       y = "___") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**Interpretation Question**: What does the red line (mean) tell you about the overall effect? Do all patients show the same pattern, or is there individual variability?
+
+::: {.callout-note icon=false title="✏️ Your Answer (1-2 sentences)"}
+*[Write your answer here]*
+
+:::
+
+---
+
+# Submission Checklist
+
+Before submitting, verify:
+
+- [ ] All 6 tasks are completed
+- [ ] All blanks (`___`) are filled in with appropriate values
+- [ ] All `#| eval: false` changed to `#| eval: true`
+- [ ] All code chunks run without errors
+- [ ] All interpretation questions are answered (1-2 sentences each)
+- [ ] Visualizations have appropriate titles and axis labels
+- [ ] File renders to HTML successfully
+
+---
+
+# Points Summary
+
+| Task | Points | Description |
+|------|--------|-------------|
+| Task 1 | 2.0 | Identifying the correct t-test type (4 scenarios × 0.5) |
+| Task 2 | 2.0 | One-sample t-test (readmission vs. benchmark) |
+| Task 3 | 2.0 | Independent-samples t-test (departmental costs) |
+| Task 4 | 1.0 | Box plot visualization (group comparison) |
+| Task 5 | 2.0 | Paired-samples t-test (MBSR program effectiveness) |
+| Task 6 | 1.0 | Spaghetti plot visualization (paired data) |
+| **Total** | **10.0** | |
+
+---
+
+**Good luck!**

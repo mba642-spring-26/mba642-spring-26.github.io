@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lab Assignment 2: t-tests (Week 05) – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0d5ce8690ce9c09784bd6cc6cc69282a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mba642-spring-26/mba642-spring-26.github.io/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lab Assignment 2: t-tests (Week 05)</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#assignment-overview" id="toc-assignment-overview" class="nav-link active" data-scroll-target="#assignment-overview"><span class="header-section-number">1</span> Assignment Overview</a>
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</a></li>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions"><span class="header-section-number">1.2</span> Instructions</a></li>
+  </ul></li>
+  <li><a href="#about-the-dataset" id="toc-about-the-dataset" class="nav-link" data-scroll-target="#about-the-dataset"><span class="header-section-number">2</span> About the Dataset</a>
+  <ul class="collapse">
+  <li><a href="#dataset-background" id="toc-dataset-background" class="nav-link" data-scroll-target="#dataset-background"><span class="header-section-number">2.1</span> Dataset Background</a></li>
+  <li><a href="#loading-and-preparing-the-data" id="toc-loading-and-preparing-the-data" class="nav-link" data-scroll-target="#loading-and-preparing-the-data"><span class="header-section-number">2.2</span> Loading and Preparing the Data</a></li>
+  <li><a href="#key-variables" id="toc-key-variables" class="nav-link" data-scroll-target="#key-variables"><span class="header-section-number">2.3</span> Key Variables</a></li>
+  </ul></li>
+  <li><a href="#grading-rubric" id="toc-grading-rubric" class="nav-link" data-scroll-target="#grading-rubric"><span class="header-section-number">3</span> Grading Rubric</a></li>
+  <li><a href="#assignment-tasks" id="toc-assignment-tasks" class="nav-link" data-scroll-target="#assignment-tasks"><span class="header-section-number">4</span> Assignment Tasks</a>
+  <ul class="collapse">
+  <li><a href="#task-1-identifying-the-right-t-test-2-points" id="toc-task-1-identifying-the-right-t-test-2-points" class="nav-link" data-scroll-target="#task-1-identifying-the-right-t-test-2-points">Task 1: Identifying the Right t-Test (2 points)</a></li>
+  <li><a href="#task-2-one-sample-t-test-readmission-benchmark-2-points" id="toc-task-2-one-sample-t-test-readmission-benchmark-2-points" class="nav-link" data-scroll-target="#task-2-one-sample-t-test-readmission-benchmark-2-points">Task 2: One-Sample t-Test — Readmission Benchmark (2 points)</a></li>
+  <li><a href="#task-3-independent-samples-t-test-departmental-costs-2-points" id="toc-task-3-independent-samples-t-test-departmental-costs-2-points" class="nav-link" data-scroll-target="#task-3-independent-samples-t-test-departmental-costs-2-points">Task 3: Independent-Samples t-Test — Departmental Costs (2 points)</a></li>
+  <li><a href="#task-4-visualizing-group-differences-1-point" id="toc-task-4-visualizing-group-differences-1-point" class="nav-link" data-scroll-target="#task-4-visualizing-group-differences-1-point">Task 4: Visualizing Group Differences (1 point)</a></li>
+  <li><a href="#task-5-paired-samples-t-test-mbsr-program-effectiveness-2-points" id="toc-task-5-paired-samples-t-test-mbsr-program-effectiveness-2-points" class="nav-link" data-scroll-target="#task-5-paired-samples-t-test-mbsr-program-effectiveness-2-points">Task 5: Paired-Samples t-Test — MBSR Program Effectiveness (2 points)</a></li>
+  <li><a href="#task-6-visualizing-paired-data-1-point" id="toc-task-6-visualizing-paired-data-1-point" class="nav-link" data-scroll-target="#task-6-visualizing-paired-data-1-point">Task 6: Visualizing Paired Data (1 point)</a></li>
+  </ul></li>
+  <li><a href="#submission-checklist" id="toc-submission-checklist" class="nav-link" data-scroll-target="#submission-checklist"><span class="header-section-number">5</span> Submission Checklist</a></li>
+  <li><a href="#points-summary" id="toc-points-summary" class="nav-link" data-scroll-target="#points-summary"><span class="header-section-number">6</span> Points Summary</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab Assignment 2: t-tests (Week 05)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="assignment-overview" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Assignment Overview</h1>
+<ul>
+<li><strong>Total Points</strong>: 10 points<br>
+</li>
+<li><strong>Due Date</strong>: February 15, 2026</li>
+<li><strong>Submission</strong>: Upload your completed .qmd and rendered html files to Canvas</li>
+</ul>
+<section id="learning-objectives" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</h2>
+<p>This assignment assesses your ability to:</p>
+<ul>
+<li>Identify the appropriate t-test for different research scenarios</li>
+<li>Conduct one-sample, independent-samples, and paired-samples t-tests using R</li>
+<li>Interpret t-test output including t-statistics and p-values</li>
+<li>Draw data-driven conclusions in a healthcare management context</li>
+</ul>
+</section>
+<section id="instructions" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="instructions"><span class="header-section-number">1.2</span> Instructions</h2>
+<ol type="1">
+<li>Complete all 6 tasks below</li>
+<li>Fill in the blanks (replace <code>___</code> with appropriate code or values)</li>
+<li>After completing each code chunk, change <code>#| eval: false</code> to <code>#| eval: true</code> to run it</li>
+<li>Answer all interpretation questions (1-2 sentences each)</li>
+<li>Run all code chunks to verify they work before submitting</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="about-the-dataset" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> About the Dataset</h1>
+<p><strong>Hospital Quality Improvement Study</strong></p>
+<p>For this assignment, we will use data from a hospital quality improvement initiative. The dataset contains records from 40 patients <strong>who were readmitted</strong> across two departments, tracking clinical outcomes and the impact of a <strong>Mindfulness-Based Stress Reduction (MBSR)</strong> program on patient anxiety.</p>
+<section id="dataset-background" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="dataset-background"><span class="header-section-number">2.1</span> Dataset Background</h2>
+<p>This dataset simulates a quality improvement study at a multi-department hospital system. It captures:</p>
+<ul>
+<li><strong>Readmission outcomes</strong>: How quickly readmitted patients returned after discharge (compared to the 30-day national benchmark)</li>
+<li><strong>Departmental costs</strong>: Treatment costs across Cardiology and Orthopedics</li>
+<li><strong>Intervention effectiveness</strong>: Patient anxiety scores measured before and after an MBSR program integrating guided meditation, breathing exercises, and progressive relaxation</li>
+</ul>
+<p>This type of data is commonly used by healthcare managers to evaluate clinical benchmarks, compare departmental performance, and assess the effectiveness of patient wellness programs.</p>
+</section>
+<section id="loading-and-preparing-the-data" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="loading-and-preparing-the-data"><span class="header-section-number">2.2</span> Loading and Preparing the Data</h2>
+<p>First, run the code below to load required packages. If you haven’t installed these packages yet, run <code>install.packages("ggplot2")</code>, <code>install.packages("dplyr")</code>, and <code>install.packages("parameters")</code> in the R console.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)  <span class="co"># For reproducibility</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, run the following code to load the dataset for this assignment:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the assignment dataset</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>qi_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week05_assignment_data.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View first few rows</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(qi_data, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   patient_id department cost_of_care readmission_days anxiety_before
+1           1 Cardiology        16658             19.6            5.1
+2           2 Cardiology        12177             32.8            9.1
+3           3 Cardiology        15590             19.3            5.1
+4           4 Cardiology        14963             29.6            4.5
+5           5 Cardiology        13333             21.8            6.7
+6           6 Cardiology         8155             37.1            8.1
+7           7 Cardiology        13142             32.3            6.8
+8           8 Cardiology        12344             24.8            5.7
+9           9 Cardiology        15518             32.9            8.6
+10         10 Cardiology        13873             30.4           10.0
+   anxiety_after satisfaction
+1            2.0          9.5
+2            5.8          6.8
+3            3.7          6.8
+4            2.4          8.7
+5            7.2          7.3
+6            6.4          7.5
+7            6.1          8.5
+8            4.7          7.1
+9            6.8          6.9
+10           7.8          7.5</code></pre>
+</div>
+</div>
+</section>
+<section id="key-variables" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="key-variables"><span class="header-section-number">2.3</span> Key Variables</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 44%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>patient_id</code></td>
+<td>Unique patient identifier</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td><code>department</code></td>
+<td>Hospital department (Cardiology or Orthopedics)</td>
+<td>Categorical</td>
+</tr>
+<tr class="odd">
+<td><code>cost_of_care</code></td>
+<td>Total treatment cost (USD)</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td><code>readmission_days</code></td>
+<td>Days from discharge to readmission</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td><code>anxiety_before</code></td>
+<td>Anxiety score before MBSR program (0–10 scale)</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td><code>anxiety_after</code></td>
+<td>Anxiety score after MBSR program (0–10 scale)</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td><code>satisfaction</code></td>
+<td>Patient satisfaction score (1–10 scale)</td>
+<td>Numeric</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="grading-rubric" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Grading Rubric</h1>
+<p>Each task specifies point values. Points are allocated as follows:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 25%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Weight</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Code correctness</td>
+<td>50%</td>
+<td>Code runs without errors and produces correct output</td>
+</tr>
+<tr class="even">
+<td>Completeness</td>
+<td>30%</td>
+<td>All blanks filled in, correct t-test type and arguments used</td>
+</tr>
+<tr class="odd">
+<td>Interpretation</td>
+<td>20%</td>
+<td>Thoughtful 1-2 sentence response addressing the question</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation Guidance</strong>: Your interpretations should be brief but specific. For example:</p>
+<ul>
+<li>✅ Good: “The p-value of 0.0032 is less than 0.05, so we reject the null hypothesis. The hospital’s average readmission time (26.6 days) is significantly lower than the 30-day national benchmark.”</li>
+<li>❌ Too vague: “The result is significant.”</li>
+<li>❌ Too long: [3+ sentences of analysis]</li>
+</ul>
+<hr>
+</section>
+<section id="assignment-tasks" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Assignment Tasks</h1>
+<section id="task-1-identifying-the-right-t-test-2-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-1-identifying-the-right-t-test-2-points">Task 1: Identifying the Right t-Test (2 points)</h2>
+<p>For each scenario below, identify which type of t-test is most appropriate. Write <strong>“one-sample”</strong>, <strong>“independent-samples”</strong>, or <strong>“paired-samples”</strong> in the answer box.</p>
+<p><strong>(a)</strong> A hospital administrator wants to know whether the average patient satisfaction score at their facility differs from the national average of 7.5 out of 10. <em>(0.5 points)</em></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<p><strong>(b)</strong> A researcher compares recovery times between patients who received robotic-assisted surgery and those who had traditional open surgery. The patients are different individuals in each group. <em>(0.5 points)</em></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<p><strong>(c)</strong> A clinic measures patient blood pressure before and after a 6-month exercise intervention to see if the program was effective. <em>(0.5 points)</em></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<p><strong>(d)</strong> A quality improvement team wants to determine whether their hospital’s average length of stay is different from the CMS (Centers for Medicare &amp; Medicaid Services) benchmark of 4.5 days. <em>(0.5 points)</em></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-2-one-sample-t-test-readmission-benchmark-2-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-2-one-sample-t-test-readmission-benchmark-2-points">Task 2: One-Sample t-Test — Readmission Benchmark (2 points)</h2>
+<p>The national benchmark for hospital readmission is <strong>30 days</strong>. Your hospital’s quality improvement team wants to determine whether your patients’ average readmission time differs from this benchmark.</p>
+<p><strong>Step 1</strong>: Extract the readmission data and compute descriptive statistics.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract readmission days</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>readmission <span class="ot">&lt;-</span> qi_data<span class="sc">$</span>___</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Descriptive statistics</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample size:"</span>, <span class="fu">length</span>(readmission), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample mean:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(readmission), <span class="dv">2</span>), <span class="st">"days</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample SD:"</span>, <span class="fu">round</span>(<span class="fu">sd</span>(readmission), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Benchmark:"</span>, ___, <span class="st">"days</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 2</strong>: Perform the one-sample t-test and view the results.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform one-sample t-test comparing readmission days to the benchmark</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>result_readmission <span class="ot">&lt;-</span> <span class="fu">t.test</span>(___, <span class="at">mu =</span> ___)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_readmission)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Based on the p-value, is the hospital’s average readmission time significantly different from the 30-day benchmark? What does this suggest for the quality improvement team?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-3-independent-samples-t-test-departmental-costs-2-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-3-independent-samples-t-test-departmental-costs-2-points">Task 3: Independent-Samples t-Test — Departmental Costs (2 points)</h2>
+<p>Hospital leadership wants to compare treatment costs between the <strong>Cardiology</strong> and <strong>Orthopedics</strong> departments to inform budget allocation decisions.</p>
+<p><strong>Step 1</strong>: Separate the cost data by department and compute descriptive statistics.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract treatment costs for each department</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cardiology_cost <span class="ot">&lt;-</span> qi_data<span class="sc">$</span>cost_of_care[qi_data<span class="sc">$</span>department <span class="sc">==</span> <span class="st">"___"</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>orthopedics_cost <span class="ot">&lt;-</span> qi_data<span class="sc">$</span>cost_of_care[qi_data<span class="sc">$</span>department <span class="sc">==</span> <span class="st">"___"</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Descriptive statistics</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Cardiology:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Mean: $"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(cardiology_cost), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  SD: $"</span>, <span class="fu">round</span>(<span class="fu">sd</span>(cardiology_cost), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  n:"</span>, <span class="fu">length</span>(cardiology_cost), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Orthopedics:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Mean: $"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(orthopedics_cost), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  SD: $"</span>, <span class="fu">round</span>(<span class="fu">sd</span>(orthopedics_cost), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  n:"</span>, <span class="fu">length</span>(orthopedics_cost), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Difference: $"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(cardiology_cost) <span class="sc">-</span> <span class="fu">mean</span>(orthopedics_cost), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 2</strong>: Perform the independent-samples t-test.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform independent-samples t-test</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>result_cost <span class="ot">&lt;-</span> <span class="fu">t.test</span>(___, ___, <span class="at">var.equal =</span> ___)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_cost)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Is there a statistically significant difference in treatment costs between the two departments? What recommendation would you make to hospital leadership regarding budget allocation?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-4-visualizing-group-differences-1-point" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-4-visualizing-group-differences-1-point">Task 4: Visualizing Group Differences (1 point)</h2>
+<p>Create a <strong>box plot</strong> comparing treatment costs between Cardiology and Orthopedics. This visualization supports your analysis from Task 3.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> qi_data, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> ___, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Treatment Costs by Department"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"___"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Based on the box plot, do the two departments appear to have different cost distributions? How does the visualization support (or contradict) your t-test result from Task 3?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-5-paired-samples-t-test-mbsr-program-effectiveness-2-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-5-paired-samples-t-test-mbsr-program-effectiveness-2-points">Task 5: Paired-Samples t-Test — MBSR Program Effectiveness (2 points)</h2>
+<p>The hospital implemented a <strong>Mindfulness-Based Stress Reduction (MBSR)</strong> program to reduce patient anxiety. Anxiety was measured on a 0–10 scale before and after the program for the same 40 patients. The quality team wants to know if the program significantly reduced anxiety.</p>
+<p><strong>Step 1</strong>: Extract the paired data and compute descriptive statistics.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract anxiety scores</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>anxiety_pre <span class="ot">&lt;-</span> qi_data<span class="sc">$</span>___</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>anxiety_post <span class="ot">&lt;-</span> qi_data<span class="sc">$</span>___</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Descriptive statistics</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Before MBSR:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Mean:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(anxiety_pre), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  SD:"</span>, <span class="fu">round</span>(<span class="fu">sd</span>(anxiety_pre), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"After MBSR:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Mean:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(anxiety_post), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  SD:"</span>, <span class="fu">round</span>(<span class="fu">sd</span>(anxiety_post), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean difference:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(anxiety_pre <span class="sc">-</span> anxiety_post), <span class="dv">2</span>), <span class="st">"points</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 2</strong>: Perform the paired-samples t-test.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform paired-samples t-test</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>result_anxiety <span class="ot">&lt;-</span> <span class="fu">t.test</span>(___, ___, <span class="at">paired =</span> ___)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(result_anxiety)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: Based on the p-value, did the MBSR program significantly reduce patient anxiety? Would you recommend continuing the program?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="task-6-visualizing-paired-data-1-point" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="task-6-visualizing-paired-data-1-point">Task 6: Visualizing Paired Data (1 point)</h2>
+<p>Create a <strong>spaghetti plot</strong> (paired line plot) showing individual patient anxiety changes before and after the MBSR program.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame for visualization</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>anxiety_viz <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>___, <span class="dv">2</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Before"</span>, <span class="st">"After"</span>), <span class="at">each =</span> ___),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Before"</span>, <span class="st">"After"</span>)),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(___, ___)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create spaghetti plot</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anxiety_viz, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">group =</span> ___)) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"gray30"</span>) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> ___), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"line"</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Patient Anxiety Scores Before and After MBSR Program"</span>,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Red line shows mean change"</span>,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"___"</span>) <span class="sc">+</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Interpretation Question</strong>: What does the red line (mean) tell you about the overall effect? Do all patients show the same pattern, or is there individual variability?</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="✏️ Your Answer (1-2 sentences)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Your Answer (1-2 sentences)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>[Write your answer here]</em></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="submission-checklist" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Submission Checklist</h1>
+<p>Before submitting, verify:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">All 6 tasks are completed</label></li>
+<li><label><input type="checkbox">All blanks (<code>___</code>) are filled in with appropriate values</label></li>
+<li><label><input type="checkbox">All <code>#| eval: false</code> changed to <code>#| eval: true</code></label></li>
+<li><label><input type="checkbox">All code chunks run without errors</label></li>
+<li><label><input type="checkbox">All interpretation questions are answered (1-2 sentences each)</label></li>
+<li><label><input type="checkbox">Visualizations have appropriate titles and axis labels</label></li>
+<li><label><input type="checkbox">File renders to HTML successfully</label></li>
+</ul>
+<hr>
+</section>
+<section id="points-summary" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Points Summary</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 29%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Points</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Task 1</td>
+<td>2.0</td>
+<td>Identifying the correct t-test type (4 scenarios × 0.5)</td>
+</tr>
+<tr class="even">
+<td>Task 2</td>
+<td>2.0</td>
+<td>One-sample t-test (readmission vs.&nbsp;benchmark)</td>
+</tr>
+<tr class="odd">
+<td>Task 3</td>
+<td>2.0</td>
+<td>Independent-samples t-test (departmental costs)</td>
+</tr>
+<tr class="even">
+<td>Task 4</td>
+<td>1.0</td>
+<td>Box plot visualization (group comparison)</td>
+</tr>
+<tr class="odd">
+<td>Task 5</td>
+<td>2.0</td>
+<td>Paired-samples t-test (MBSR program effectiveness)</td>
+</tr>
+<tr class="even">
+<td>Task 6</td>
+<td>1.0</td>
+<td>Spaghetti plot visualization (paired data)</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>10.0</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>Good luck!</strong></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
