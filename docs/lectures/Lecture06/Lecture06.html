@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-01">
+<meta name="dcterms.date" content="2026-02-16">
 
-<title>Mean Comparison 2: One-Way and Repeated-Measure ANOVA – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<title>Mean Comparison 2: One-Way and Repeated-Measures ANOVA – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-20c3e5c7c73ad9b4506b9f07be6a8356.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-7b997789b8c97d15811d7b52a81c6dd1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -187,7 +187,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Mean Comparison 2: One-Way and Repeated-Measure ANOVA</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Mean Comparison 2: One-Way and Repeated-Measures ANOVA</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -242,7 +242,7 @@ window.Quarto = {
   <li><a href="#introduction-to-anova" id="toc-introduction-to-anova" class="nav-link active" data-scroll-target="#introduction-to-anova">Introduction to ANOVA</a>
   <ul class="collapse">
   <li><a href="#why-anova-matters" id="toc-why-anova-matters" class="nav-link" data-scroll-target="#why-anova-matters">Why ANOVA Matters?</a></li>
-  <li><a href="#the-problem-with-multiple-t-tests" id="toc-the-problem-with-multiple-t-tests" class="nav-link" data-scroll-target="#the-problem-with-multiple-t-tests">The Problem with Multiple t-Tests</a>
+  <li><a href="#the-problem-with-multiple-t-tests" id="toc-the-problem-with-multiple-t-tests" class="nav-link" data-scroll-target="#the-problem-with-multiple-t-tests">The Problem with Multiple t-tests</a>
   <ul class="collapse">
   <li><a href="#familywise-error-rate" id="toc-familywise-error-rate" class="nav-link" data-scroll-target="#familywise-error-rate">Familywise Error Rate</a></li>
   <li><a href="#anova-solves-this-problem" id="toc-anova-solves-this-problem" class="nav-link" data-scroll-target="#anova-solves-this-problem">ANOVA Solves This Problem</a></li>
@@ -262,12 +262,12 @@ window.Quarto = {
   <li><a href="#understanding-the-f-statistic" id="toc-understanding-the-f-statistic" class="nav-link" data-scroll-target="#understanding-the-f-statistic">Understanding the F-Statistic</a></li>
   </ul></li>
   <li><a href="#example-patient-satisfaction-by-department" id="toc-example-patient-satisfaction-by-department" class="nav-link" data-scroll-target="#example-patient-satisfaction-by-department">Example: Patient Satisfaction by Department</a></li>
-  <li><a href="#manual-calculation-understanding-the-f-statistic" id="toc-manual-calculation-understanding-the-f-statistic" class="nav-link" data-scroll-target="#manual-calculation-understanding-the-f-statistic">Manual Calculation: Understanding the F-Statistic</a>
-  <ul class="collapse">
-  <li><a href="#understanding-what-these-numbers-mean" id="toc-understanding-what-these-numbers-mean" class="nav-link" data-scroll-target="#understanding-what-these-numbers-mean">Understanding What These Numbers Mean</a></li>
-  </ul></li>
   <li><a href="#visualizing-group-differences" id="toc-visualizing-group-differences" class="nav-link" data-scroll-target="#visualizing-group-differences">Visualizing Group Differences</a></li>
-  <li><a href="#visualizing-the-f-distribution-under-the-null-hypothesis" id="toc-visualizing-the-f-distribution-under-the-null-hypothesis" class="nav-link" data-scroll-target="#visualizing-the-f-distribution-under-the-null-hypothesis">Visualizing the F-Distribution under the Null Hypothesis</a></li>
+  <li><a href="#visualizing-the-f-distribution-under-the-null-hypothesis" id="toc-visualizing-the-f-distribution-under-the-null-hypothesis" class="nav-link" data-scroll-target="#visualizing-the-f-distribution-under-the-null-hypothesis">Visualizing the F-Distribution under the Null Hypothesis</a>
+  <ul class="collapse">
+  <li><a href="#hypotheses" id="toc-hypotheses" class="nav-link" data-scroll-target="#hypotheses">Hypotheses</a></li>
+  <li><a href="#interpretation-of-the-graph" id="toc-interpretation-of-the-graph" class="nav-link" data-scroll-target="#interpretation-of-the-graph">Interpretation of the graph</a></li>
+  </ul></li>
   <li><a href="#conducting-one-way-anova-in-r" id="toc-conducting-one-way-anova-in-r" class="nav-link" data-scroll-target="#conducting-one-way-anova-in-r">Conducting One-Way ANOVA in R</a>
   <ul class="collapse">
   <li><a href="#interpreting-the-anova-table" id="toc-interpreting-the-anova-table" class="nav-link" data-scroll-target="#interpreting-the-anova-table">Interpreting the ANOVA Table</a></li>
@@ -278,22 +278,19 @@ window.Quarto = {
   <li><a href="#what-is-tukeys-hsd" id="toc-what-is-tukeys-hsd" class="nav-link" data-scroll-target="#what-is-tukeys-hsd">What is Tukey’s HSD?</a></li>
   <li><a href="#conducting-tukeys-hsd-in-r-using-emmeans" id="toc-conducting-tukeys-hsd-in-r-using-emmeans" class="nav-link" data-scroll-target="#conducting-tukeys-hsd-in-r-using-emmeans">Conducting Tukey’s HSD in R Using emmeans</a></li>
   <li><a href="#interpreting-tukeys-hsd-output" id="toc-interpreting-tukeys-hsd-output" class="nav-link" data-scroll-target="#interpreting-tukeys-hsd-output">Interpreting Tukey’s HSD Output</a></li>
-  <li><a href="#practice-checkpoint-1" id="toc-practice-checkpoint-1" class="nav-link" data-scroll-target="#practice-checkpoint-1">Practice Checkpoint 1</a></li>
+  <li><a href="#practice-activity-1-staff-training-programs" id="toc-practice-activity-1-staff-training-programs" class="nav-link" data-scroll-target="#practice-activity-1-staff-training-programs">Practice Activity 1: Staff Training Programs</a></li>
   </ul></li>
   <li><a href="#example-2-comparing-care-coordination-models" id="toc-example-2-comparing-care-coordination-models" class="nav-link" data-scroll-target="#example-2-comparing-care-coordination-models">Example 2: Comparing Care Coordination Models</a>
   <ul class="collapse">
   <li><a href="#interpreting-the-anova-results" id="toc-interpreting-the-anova-results" class="nav-link" data-scroll-target="#interpreting-the-anova-results">Interpreting the ANOVA Results</a></li>
   <li><a href="#post-hoc-analysis-pairwise-comparisons" id="toc-post-hoc-analysis-pairwise-comparisons" class="nav-link" data-scroll-target="#post-hoc-analysis-pairwise-comparisons">Post-Hoc Analysis: Pairwise Comparisons</a></li>
   <li><a href="#detailed-interpretation-of-pairwise-comparisons" id="toc-detailed-interpretation-of-pairwise-comparisons" class="nav-link" data-scroll-target="#detailed-interpretation-of-pairwise-comparisons">Detailed Interpretation of Pairwise Comparisons</a></li>
-  <li><a href="#practice-checkpoint-2" id="toc-practice-checkpoint-2" class="nav-link" data-scroll-target="#practice-checkpoint-2">Practice Checkpoint 2</a></li>
+  <li><a href="#practice-activity-2-hospital-operating-costs" id="toc-practice-activity-2-hospital-operating-costs" class="nav-link" data-scroll-target="#practice-activity-2-hospital-operating-costs">Practice Activity 2: Hospital Operating Costs</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#repeated-measures-anova" id="toc-repeated-measures-anova" class="nav-link" data-scroll-target="#repeated-measures-anova">2. Repeated-Measures ANOVA</a>
   <ul class="collapse">
-  <li><a href="#what-is-it-1" id="toc-what-is-it-1" class="nav-link" data-scroll-target="#what-is-it-1">What is it?</a>
-  <ul class="collapse">
-  <li><a href="#key-components-1" id="toc-key-components-1" class="nav-link" data-scroll-target="#key-components-1">Key Components</a></li>
-  </ul></li>
+  <li><a href="#what-is-it-1" id="toc-what-is-it-1" class="nav-link" data-scroll-target="#what-is-it-1">What is it?</a></li>
   <li><a href="#when-to-use-it-1" id="toc-when-to-use-it-1" class="nav-link" data-scroll-target="#when-to-use-it-1">When to Use It</a></li>
   <li><a href="#scenario-1-diabetes-management-program" id="toc-scenario-1-diabetes-management-program" class="nav-link" data-scroll-target="#scenario-1-diabetes-management-program">Scenario 1: Diabetes Management Program</a>
   <ul class="collapse">
@@ -313,23 +310,22 @@ window.Quarto = {
   <li><a href="#conducting-repeated-measures-anova-in-r" id="toc-conducting-repeated-measures-anova-in-r" class="nav-link" data-scroll-target="#conducting-repeated-measures-anova-in-r">Conducting Repeated-Measures ANOVA in R</a>
   <ul class="collapse">
   <li><a href="#interpreting-the-output" id="toc-interpreting-the-output" class="nav-link" data-scroll-target="#interpreting-the-output">Interpreting the Output</a></li>
-  <li><a href="#conclusion-and-clinical-interpretation" id="toc-conclusion-and-clinical-interpretation" class="nav-link" data-scroll-target="#conclusion-and-clinical-interpretation">Conclusion and Clinical Interpretation</a></li>
+  <li><a href="#conclusion-and-interpretation" id="toc-conclusion-and-interpretation" class="nav-link" data-scroll-target="#conclusion-and-interpretation">Conclusion and Interpretation</a></li>
   </ul></li>
   <li><a href="#post-hoc-tests-for-repeated-measures" id="toc-post-hoc-tests-for-repeated-measures" class="nav-link" data-scroll-target="#post-hoc-tests-for-repeated-measures">Post-Hoc Tests for Repeated Measures</a>
   <ul class="collapse">
   <li><a href="#interpreting-post-hoc-results" id="toc-interpreting-post-hoc-results" class="nav-link" data-scroll-target="#interpreting-post-hoc-results">Interpreting Post-Hoc Results</a></li>
-  <li><a href="#practice-checkpoint-3" id="toc-practice-checkpoint-3" class="nav-link" data-scroll-target="#practice-checkpoint-3">Practice Checkpoint 3</a></li>
+  <li><a href="#practice-activity-3-pain-management-follow-up" id="toc-practice-activity-3-pain-management-follow-up" class="nav-link" data-scroll-target="#practice-activity-3-pain-management-follow-up">Practice Activity 3: Pain Management Follow-up</a></li>
   </ul></li>
   <li><a href="#example-2-staff-burnout-across-shift-schedules" id="toc-example-2-staff-burnout-across-shift-schedules" class="nav-link" data-scroll-target="#example-2-staff-burnout-across-shift-schedules">Example 2: Staff Burnout Across Shift Schedules</a>
   <ul class="collapse">
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
-  <li><a href="#practice-checkpoint-4" id="toc-practice-checkpoint-4" class="nav-link" data-scroll-target="#practice-checkpoint-4">Practice Checkpoint 4</a></li>
+  <li><a href="#practice-activity-4-employee-engagement-survey" id="toc-practice-activity-4-employee-engagement-survey" class="nav-link" data-scroll-target="#practice-activity-4-employee-engagement-survey">Practice Activity 4: Employee Engagement Survey</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
   <ul class="collapse">
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
-  <li><a href="#why-anova-matters-for-healthcare-managers" id="toc-why-anova-matters-for-healthcare-managers" class="nav-link" data-scroll-target="#why-anova-matters-for-healthcare-managers">Why ANOVA Matters for Healthcare Managers</a></li>
   </ul></li>
   <li><a href="#references-and-further-reading" id="toc-references-and-further-reading" class="nav-link" data-scroll-target="#references-and-further-reading">References and Further Reading</a>
   <ul class="collapse">
@@ -344,7 +340,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mean Comparison 2: One-Way and Repeated-Measure ANOVA</h1>
+<h1 class="title">Mean Comparison 2: One-Way and Repeated-Measures ANOVA</h1>
 <p class="subtitle lead">MBA642: Business Analytics in Healthcare Management</p>
 </div>
 
@@ -356,7 +352,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2026</p>
+      <p class="date">February 16, 2026</p>
     </div>
   </div>
   
@@ -379,11 +375,11 @@ window.Quarto = {
 <li>Assessing staff performance across <strong>four different training programs</strong></li>
 <li>Tracking patient outcomes at <strong>multiple time points</strong> during recovery</li>
 </ul>
-<p>While t-tests are excellent for comparing two groups, they cannot handle these multi-group comparisons. This is where <strong>Analysis of Variance (ANOVA)</strong> becomes essential. ANOVA allows us to determine whether there are statistically significant differences among three or more group means in <strong>a single test</strong>.</p>
+<p>While t-tests are excellent for comparing two groups (independent-samples t-test) or two related measures such as pre- and post-intervention scores (paired t-test), they cannot handle these multi-group or multi-timepoint comparisons. This is where <strong>Analysis of Variance (ANOVA)</strong> becomes essential. <strong>One-way ANOVA</strong> extends the independent-samples t-test to three or more groups, and <strong>repeated-measures ANOVA</strong> extends the paired t-test to three or more time points or related conditions—all in <strong>a single test</strong>.</p>
 </section>
 <section id="the-problem-with-multiple-t-tests" class="level2">
-<h2 class="anchored" data-anchor-id="the-problem-with-multiple-t-tests">The Problem with Multiple t-Tests</h2>
-<p>You might wonder: “Why not just run multiple t-tests to compare each pair of groups?” This approach is tempting but fundamentally flawed due to the <strong>familywise error rate</strong> problem.</p>
+<h2 class="anchored" data-anchor-id="the-problem-with-multiple-t-tests">The Problem with Multiple t-tests</h2>
+<p>You might wonder why not just run multiple t-tests to compare each pair of groups? This approach is tempting but fundamentally flawed due to the <strong>familywise error rate</strong> problem.</p>
 <section id="familywise-error-rate" class="level3">
 <h3 class="anchored" data-anchor-id="familywise-error-rate">Familywise Error Rate</h3>
 <p>Each time we conduct a statistical test at α = 0.05, we accept a 5% chance of making a Type I error (false positive; concluding there’s a difference when there isn’t one). When we perform multiple tests, these error rates increase.</p>
@@ -394,13 +390,13 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lecture06_files/figure-html/error-rate-demo-1.png" class="img-fluid figure-img" width="576"></p>
+<p><img src="Lecture06_files/figure-html/error-rate-demo-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>For example, with just 4 groups, you would need 6 pairwise t-tests. The familywise error rate becomes: <span class="math display">\[1 - (0.95)^6 = 0.265 = 26.5\%\]</span></p>
-<p>This means you have a 26.5% chance of finding at least one “significant” difference by pure chance—far from the 5% we intended!</p>
+<p>This means you have a 26.5% chance of finding at least one “significant” difference by pure chance, which is way far from the 5% we intended!</p>
 </section>
 <section id="anova-solves-this-problem" class="level3">
 <h3 class="anchored" data-anchor-id="anova-solves-this-problem">ANOVA Solves This Problem</h3>
@@ -494,35 +490,18 @@ window.Quarto = {
 <section id="understanding-the-f-statistic" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-the-f-statistic">Understanding the F-Statistic</h3>
 <p>The F-statistic is a <strong>ratio</strong>:</p>
+<p><img src="./images/image1.png" class="img-fluid"></p>
 <ul>
-<li><strong>F ≈ 1</strong>: Between-group variance is similar to within-group variance → group means are likely not different</li>
-<li><strong>F &gt;&gt; 1</strong>: Between-group variance is much larger than within-group variance → group means are likely different</li>
+<li>When variance between groups is larger than variance within groups, F-statistic will be large</li>
+<li>When variance between groups is smaller than variance within groups, F-statistic will be small</li>
 </ul>
-<p>Think of it this way: If the groups truly have different means, the variance between their means should be larger than what we would expect from random sampling variation (within-group variance).</p>
 </section>
 </section>
 <section id="example-patient-satisfaction-by-department" class="level2">
 <h2 class="anchored" data-anchor-id="example-patient-satisfaction-by-department">Example: Patient Satisfaction by Department</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Patient satisfaction scores (1-10 scale) for four departments</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>emergency <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.7</span>, <span class="fl">6.7</span>, <span class="fl">7.9</span>, <span class="fl">7.2</span>, <span class="fl">8.1</span>, <span class="fl">7.5</span>, <span class="fl">7.3</span>, <span class="fl">7.4</span>, <span class="fl">7.0</span>, <span class="fl">7.6</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               <span class="fl">7.9</span>, <span class="fl">7.7</span>, <span class="fl">7.7</span>, <span class="fl">7.9</span>, <span class="fl">7.1</span>, <span class="fl">7.5</span>, <span class="fl">7.7</span>, <span class="fl">7.9</span>, <span class="fl">7.2</span>, <span class="fl">7.2</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>cardiology <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">8.1</span>, <span class="fl">8.5</span>, <span class="fl">7.9</span>, <span class="fl">6.3</span>, <span class="fl">8.3</span>, <span class="fl">8.0</span>, <span class="fl">8.4</span>, <span class="fl">8.2</span>, <span class="fl">7.8</span>, <span class="fl">8.5</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                <span class="fl">7.6</span>, <span class="fl">8.1</span>, <span class="fl">8.4</span>, <span class="fl">7.9</span>, <span class="fl">8.0</span>, <span class="fl">8.2</span>, <span class="fl">8.0</span>, <span class="fl">8.3</span>, <span class="fl">8.5</span>, <span class="fl">6.8</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>orthopedics <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.8</span>, <span class="fl">8.0</span>, <span class="fl">7.5</span>, <span class="fl">7.9</span>, <span class="fl">8.2</span>, <span class="fl">7.6</span>, <span class="fl">7.7</span>, <span class="fl">8.1</span>, <span class="fl">7.4</span>, <span class="fl">7.8</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">8.0</span>, <span class="fl">7.6</span>, <span class="fl">7.9</span>, <span class="fl">7.5</span>, <span class="fl">7.8</span>, <span class="fl">8.1</span>, <span class="fl">6.7</span>, <span class="fl">7.9</span>, <span class="fl">7.6</span>, <span class="fl">8.0</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>oncology <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">8.4</span>, <span class="fl">8.8</span>, <span class="fl">8.2</span>, <span class="fl">7.6</span>, <span class="fl">8.9</span>, <span class="fl">6.3</span>, <span class="fl">8.7</span>, <span class="fl">6.5</span>, <span class="fl">8.1</span>, <span class="fl">8.6</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>              <span class="fl">8.8</span>, <span class="fl">8.4</span>, <span class="fl">6.7</span>, <span class="fl">8.2</span>, <span class="fl">8.5</span>, <span class="fl">7.9</span>, <span class="fl">8.3</span>, <span class="fl">8.6</span>, <span class="fl">8.4</span>, <span class="fl">8.7</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>satisfaction_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(emergency, cardiology, orthopedics, oncology),</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">department =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Emergency"</span>, <span class="st">"Cardiology"</span>, <span class="st">"Orthopedics"</span>, <span class="st">"Oncology"</span>),</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                          <span class="at">each =</span> <span class="dv">20</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Patient satisfaction Data </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>satisfaction_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week06_satisfaction.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -566,119 +545,22 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="manual-calculation-understanding-the-f-statistic" class="level2">
-<h2 class="anchored" data-anchor-id="manual-calculation-understanding-the-f-statistic">Manual Calculation: Understanding the F-Statistic</h2>
-<p>Let’s manually calculate the ANOVA components to understand what the test is actually doing. This mirrors the manual calculation approach we used for t-tests.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Calculate group means and overall mean</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mean_emergency <span class="ot">&lt;-</span> <span class="fu">mean</span>(emergency)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mean_cardiology <span class="ot">&lt;-</span> <span class="fu">mean</span>(cardiology)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mean_orthopedics <span class="ot">&lt;-</span> <span class="fu">mean</span>(orthopedics)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>mean_oncology <span class="ot">&lt;-</span> <span class="fu">mean</span>(oncology)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>grand_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(satisfaction_data<span class="sc">$</span>score)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Calculate Sum of Squares Between Groups (SSB)</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>n_per_group <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ssb <span class="ot">&lt;-</span> n_per_group <span class="sc">*</span> (</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  (mean_emergency <span class="sc">-</span> grand_mean)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  (mean_cardiology <span class="sc">-</span> grand_mean)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  (mean_orthopedics <span class="sc">-</span> grand_mean)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  (mean_oncology <span class="sc">-</span> grand_mean)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Calculate Sum of Squares Within Groups (SSW)</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>ssw <span class="ot">&lt;-</span> <span class="fu">sum</span>((emergency <span class="sc">-</span> mean_emergency)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>       <span class="fu">sum</span>((cardiology <span class="sc">-</span> mean_cardiology)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>       <span class="fu">sum</span>((orthopedics <span class="sc">-</span> mean_orthopedics)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>       <span class="fu">sum</span>((oncology <span class="sc">-</span> mean_oncology)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Calculate degrees of freedom</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span>  <span class="co"># number of groups</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>n_total <span class="ot">&lt;-</span> <span class="fu">nrow</span>(satisfaction_data)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>df_between <span class="ot">&lt;-</span> k <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>df_within <span class="ot">&lt;-</span> n_total <span class="sc">-</span> k</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: Calculate Mean Squares</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>ms_between <span class="ot">&lt;-</span> ssb <span class="sc">/</span> df_between</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>ms_within <span class="ot">&lt;-</span> ssw <span class="sc">/</span> df_within</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Calculate F-statistic</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>f_statistic <span class="ot">&lt;-</span> ms_between <span class="sc">/</span> ms_within</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 7: Calculate p-value</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(f_statistic, df_between, df_within)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Manual ANOVA Calculation:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>========================</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Group Means:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Emergency:     7.51 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Cardiology:    7.99 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Orthopedics:   7.76 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Oncology:      8.13 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Grand Mean:    7.85 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Sum of Squares:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Between groups (SSB):  4.45 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Within groups (SSW):   21.93 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Degrees of Freedom:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Between:  3 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Within:   76 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mean Squares:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  MS Between:  1.48 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  MS Within:   0.29 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>F-statistic:  5.14 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>p-value:      0.00272 </code></pre>
-</div>
-</div>
-<section id="understanding-what-these-numbers-mean" class="level3">
-<h3 class="anchored" data-anchor-id="understanding-what-these-numbers-mean">Understanding What These Numbers Mean</h3>
-<ul>
-<li><p><strong>Between-group variance</strong> (MS Between = 1.48): This measures how much the department means differ from each other. Larger values indicate greater differences among departments.</p></li>
-<li><p><strong>Within-group variance</strong> (MS Within = 0.29): This measures the typical variation among patients within the same department. It represents “noise” or natural variation.</p></li>
-<li><p><strong>F-statistic</strong> (F = 5.14): The ratio of between-group to within-group variance. Our F-value of 5.14 means the between-group variance is 5.14 times larger than the within-group variance, suggesting real differences exist among departments.</p></li>
-</ul>
-</section>
-</section>
 <section id="visualizing-group-differences" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-group-differences">Visualizing Group Differences</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plot</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(satisfaction_data, <span class="fu">aes</span>(<span class="at">x =</span> department, <span class="at">y =</span> score, <span class="at">fill =</span> department)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Patient Satisfaction by Department"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Department"</span>, <span class="at">y =</span> <span class="st">"Satisfaction Score (1-10)"</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -699,13 +581,31 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<section id="hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="hypotheses">Hypotheses</h3>
+<ul>
+<li><strong>Null hypothesis</strong> (<span class="math inline">\(H_0\)</span>): All group means are equal (<span class="math inline">\(\mu_1 = \mu_2 = \mu_3 = \mu_4\)</span>)</li>
+<li><strong>Alternative hypothesis</strong> (<span class="math inline">\(H_A\)</span>): At least one group mean is different from the others</li>
+</ul>
+</section>
+<section id="interpretation-of-the-graph" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-of-the-graph">Interpretation of the graph</h3>
+<ul>
+<li>The density plot shows the F-distribution under the null hypothesis.</li>
+<li>The red line indicates the calculated F-statistic, and the shaded gray area indicates the rejection region.</li>
+<li>The area to the right of the calculated F-statistic (under the curve) is the p-value.</li>
+<li>If the F-statistic falls in the rejection region, we reject the null hypothesis and conclude that there are significant differences among the group means.</li>
+<li>However, a significant ANOVA result does not tell us <strong>which</strong> specific groups differ from each other. To identify where the differences lie, we need to conduct <strong>post-hoc analysis</strong> while controlling for the familywise error rate.</li>
+</ul>
+</section>
 </section>
 <section id="conducting-one-way-anova-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="conducting-one-way-anova-in-r">Conducting One-Way ANOVA in R</h2>
+<p>As we now understand the basic concept of ANOVA, let’s conduct one-way ANOVA in R. In R, you can conduct a one-way ANOVA by using the <code>aov(y ~ x, data = data)</code> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform one-way ANOVA</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(score <span class="sc">~</span> department, <span class="at">data =</span> satisfaction_data)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform one-way ANOVA</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(score <span class="sc">~</span> department, <span class="at">data =</span> satisfaction_data)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value  Pr(&gt;F)   
 department   3  4.451  1.4838   5.143 0.00272 **
@@ -722,10 +622,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Between groups: <span class="math inline">\(k - 1 = 4 - 1 = 3\)</span></li>
 <li>Within groups: <span class="math inline">\(N - k = 80 - 4 = 76\)</span></li>
 </ul></li>
-<li><p><strong>Sum Sq (Sum of Squares)</strong>: Total variance explained by the factor (between) vs.&nbsp;unexplained variance (within)</p></li>
+<li><p><strong>Sum Sq (Sum of Squares)</strong>: The amount of variation attributed to each source. The factor row (e.g., <code>department</code>) shows variation <strong>due to group differences</strong>, while the <code>Residuals</code> row shows variation <strong>within groups</strong> (individual differences not explained by group membership)</p></li>
 <li><p><strong>Mean Sq (Mean Square)</strong>: Sum of Squares divided by degrees of freedom</p></li>
-<li><p><strong>F value</strong>: The test statistic—ratio of between-group to within-group variance</p></li>
-<li><p><strong>Pr(&gt;F)</strong>: The p-value—probability of observing this F-value if all group means were truly equal</p></li>
+<li><p><strong>F value</strong>: The test statistic (ratio of between-group to within-group variance)</p></li>
+<li><p><strong>Pr(&gt;F)</strong>: The p-value (the probability of observing this F-value if all group means were truly equal)</p></li>
 </ul>
 </section>
 <section id="conclusion-from-anova" class="level3">
@@ -742,13 +642,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Tukey’s HSD is designed to solve a specific problem: <strong>How do we compare all pairs of groups while maintaining our overall Type I error rate at α = 0.05?</strong></p>
 <p><strong>Key features:</strong></p>
 <ol type="1">
-<li><p><strong>Tests all pairwise comparisons</strong> - For k groups, it tests all <span class="math inline">\(\frac{k(k-1)}{2}\)</span> possible pairs</p>
+<li><p><strong>Tests all pairwise comparisons</strong>: For k groups, it tests all <span class="math inline">\(\frac{k(k-1)}{2}\)</span> possible pairs</p>
 <ul>
 <li>4 groups → 6 comparisons</li>
 <li>5 groups → 10 comparisons</li>
 </ul></li>
-<li><p><strong>Controls familywise error rate</strong> - Your overall chance of making at least one Type I error stays at 5% across ALL comparisons (not 5% per comparison)</p></li>
-<li><p><strong>Uses the studentized range distribution</strong> - More appropriate than t-distribution for multiple comparisons</p></li>
+<li><p><strong>Controls familywise error rate</strong>: Your overall chance of making at least one Type I error stays at 5% across ALL comparisons (not 5% per comparison)</p></li>
+<li><p><strong>Uses the studentized range distribution</strong>: More appropriate than t-distribution for multiple comparisons</p></li>
 </ol>
 <p><strong>The HSD critical value:</strong></p>
 <p><span class="math display">\[HSD = q_{\alpha, k, df_{error}} \times \sqrt{\frac{MS_{within}}{n}}\]</span></p>
@@ -763,11 +663,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="conducting-tukeys-hsd-in-r-using-emmeans" class="level3">
 <h3 class="anchored" data-anchor-id="conducting-tukeys-hsd-in-r-using-emmeans">Conducting Tukey’s HSD in R Using emmeans</h3>
-<p>Now let’s use the <code>emmeans</code> package, which is the modern standard for post-hoc testing:</p>
+<ul>
+<li><p>Now let’s use the <code>emmeans</code> package, which is the modern standard for post-hoc testing. This gives us the estimated marginal means (EMMs), which are the adjusted means for each group.</p></li>
+<li><p>Then, we need to specify the pairwise comparisons using the <code>pairs()</code> function and the <code>adjust = "tukey"</code> argument to apply Tukey’s HSD adjustment.</p></li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Calculate estimated marginal means</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>emm_dept <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(anova_result, <span class="sc">~</span> department)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>emm_dept</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Calculate estimated marginal means</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>emm_dept <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(anova_result, <span class="sc">~</span> department)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>emm_dept</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> department  emmean   SE df lower.CL upper.CL
  Cardiology    7.99 0.12 76     7.75     8.23
@@ -777,9 +680,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 
 Confidence level used: 0.95 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Perform pairwise comparisons with Tukey adjustment</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>tukey_pairs <span class="ot">&lt;-</span> <span class="fu">pairs</span>(emm_dept, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>tukey_pairs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Perform pairwise comparisons with Tukey adjustment</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tukey_pairs <span class="ot">&lt;-</span> <span class="fu">pairs</span>(emm_dept, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tukey_pairs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast                 estimate   SE df t.ratio p.value
  Cardiology - Emergency      0.480 0.17 76   2.826  0.0300
@@ -815,53 +718,155 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 <caption>Significant Pairwise Differences (p &lt; 0.05)</caption>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Comparison</th>
-<th style="text-align: right;">Difference</th>
-<th style="text-align: left;">Adjusted p-value</th>
+<th style="text-align: center;">Comparison</th>
+<th style="text-align: center;">Difference</th>
+<th style="text-align: center;">Adjusted p-value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Cardiology - Emergency</td>
-<td style="text-align: right;">0.48</td>
-<td style="text-align: left;">0.0300</td>
+<td style="text-align: center;">Cardiology - Emergency</td>
+<td style="text-align: center;">0.48</td>
+<td style="text-align: center;">0.0300</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Emergency - Oncology</td>
-<td style="text-align: right;">-0.62</td>
-<td style="text-align: left;">0.0026</td>
+<td style="text-align: center;">Emergency - Oncology</td>
+<td style="text-align: center;">-0.62</td>
+<td style="text-align: center;">0.0026</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </section>
-<section id="practice-checkpoint-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-1">Practice Checkpoint 1</h3>
+<section id="practice-activity-1-staff-training-programs" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-activity-1-staff-training-programs">Practice Activity 1: Staff Training Programs</h3>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Try It Yourself! (10 minutes)
+<span class="screen-reader-only">Important</span>Try It Yourself!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Pause here!</strong> Open <code>week06_anova1_practice.qmd</code> and complete:</p>
-<ul>
-<li><strong>Practice Activity 1</strong>: Staff Training Programs (One-Way ANOVA)</li>
-</ul>
-<p>This will help you practice conducting one-way ANOVA and interpreting post-hoc tests on your own.</p>
+<p>Complete the following practice activity by replacing the <code>___</code> blanks with appropriate values or function names. Run each chunk to verify your analysis and answer the interpretation questions.</p>
 <p><strong>After 10 minutes</strong>, we’ll continue with the next example.</p>
 </div>
 </div>
+<section id="scenario-case" class="level4">
+<h4 class="anchored" data-anchor-id="scenario-case">Scenario Case</h4>
+<ul>
+<li><p>A hospital compares the effectiveness of <strong>three different training programs</strong> for improving nurse medication safety scores (out of 100). These scores assess nurses’ competency in safe medication handling, including correct dosage identification, drug interaction awareness, and proper administration procedures.</p></li>
+<li><p>Research on simulation-based and blended learning approaches has shown significant improvements in medication safety competency for nurses.</p></li>
+<li><p><strong>Programs</strong>:</p>
+<ul>
+<li><strong>Traditional</strong>: Classroom lectures and written materials</li>
+<li><strong>Simulation</strong>: Hands-on practice with realistic patient scenarios</li>
+<li><strong>Blended</strong>: Combination of online modules, in-person sessions, and simulation</li>
+</ul></li>
+<li><p><strong>Research Question</strong>: Do the three training programs result in different medication safety competency scores?</p></li>
+</ul>
+</section>
+<section id="dataset" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dataset">Dataset</h4>
+<p>Load the dataset using the code below:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Training program Data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>training_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week06_training_data.csv"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View first few rows</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(training_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X score     program
+1 1    78 Traditional
+2 2    82 Traditional
+3 3    75 Traditional
+4 4    80 Traditional
+5 5    77 Traditional
+6 6    83 Traditional</code></pre>
+</div>
+</div>
+</section>
+<section id="task-1.1-explore-the-data" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-1.1-explore-the-data">Task 1.1: Explore the Data</h4>
+<p>Before running ANOVA, let’s examine summary statistics:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and SD by program</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> training_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(___) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(___), <span class="dv">2</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">round</span>(<span class="fu">sd</span>(___), <span class="dv">2</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: Which program appears to have the highest mean score? Do the means look different enough to suggest a real difference?</p>
+</section>
+<section id="task-1.2-visualize-the-comparison" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-1.2-visualize-the-comparison">Task 1.2: Visualize the Comparison</h4>
+<p>Create a boxplot comparing scores across the three programs:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create boxplot</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> training_data, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Medication Safety Scores by Training Program"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"___"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Safety Score (out of 100)"</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: Based on the boxplot, do you see differences in the median scores across programs? Do any programs show more variability (wider boxes)?</p>
+</section>
+<section id="task-1.3-conduct-one-way-anova" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-1.3-conduct-one-way-anova">Task 1.3: Conduct One-Way ANOVA</h4>
+<p>Now run the ANOVA to test if the differences are statistically significant:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform one-way ANOVA</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>anova_training <span class="ot">&lt;-</span> <span class="fu">aov</span>(___ <span class="sc">~</span> ___, <span class="at">data =</span> training_data)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display ANOVA table</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(___)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>What is the F-statistic?</li>
+<li>What is the p-value?</li>
+<li>Is the result statistically significant at α = 0.05?</li>
+<li>What is your conclusion?</li>
+</ol>
+</section>
+<section id="task-1.4-post-hoc-tests" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-1.4-post-hoc-tests">Task 1.4: Post-Hoc Tests</h4>
+<p>Since ANOVA is significant, run Tukey’s HSD to identify which programs differ:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate estimated marginal means</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>emm_training <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(___, <span class="sc">~</span> ___)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>emm_training</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pairwise comparisons with Tukey adjustment</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>tukey_training <span class="ot">&lt;-</span> <span class="fu">pairs</span>(___, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>tukey_training</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>Which pairwise comparisons are statistically significant (p &lt; 0.05)?</li>
+<li>Which training program appears most effective?</li>
+<li>What is the practical significance of these differences?</li>
+</ol>
+</section>
 </section>
 </section>
 <section id="example-2-comparing-care-coordination-models" class="level2">
 <h2 class="anchored" data-anchor-id="example-2-comparing-care-coordination-models">Example 2: Comparing Care Coordination Models</h2>
-<p>A health system wants to evaluate <strong>three different care coordination models</strong> for managing patients with chronic conditions. They measure 30-day readmission rates (%) across facilities using each model.</p>
-<p><strong>Real-world context:</strong> Studies have shown that different care coordination approaches produce varying outcomes, with community health worker interventions and transition care coordinator models demonstrating significant reductions in hospital readmissions. The comparative effectiveness of different models remains an important question for resource allocation.</p>
+<ul>
+<li><p>A health system wants to evaluate <strong>three different care coordination models</strong> for managing patients with chronic conditions. They measure 30-day readmission rates (%) across facilities using each model.</p></li>
+<li><p>Studies have shown that different care coordination approaches produce varying outcomes, with community health worker interventions and transition care coordinator models demonstrating significant reductions in hospital readmissions. The comparative effectiveness of different models remains an important question for resource allocation.</p></li>
+</ul>
 <p><strong>Model A: Nurse-Led Telephone Follow-Up</strong></p>
 <ul>
 <li>Registered nurses call patients within 48 hours of discharge</li>
@@ -887,26 +892,24 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 <li>Weekly team huddles to review high-risk patients</li>
 <li>Highest resource intensity but most comprehensive approach</li>
 </ul>
-<p>Do these three care coordination models differ significantly in their effectiveness at reducing 30-day hospital readmissions?</p>
+<p><strong>Do these three care coordination models differ significantly in their effectiveness at reducing 30-day hospital readmissions?</strong></p>
+<p>Let’s load the dataset using the code below and visually inspect the average readmission rates across the three models:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 30-day readmission rates (%) by care coordination model</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>model_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.5</span>, <span class="fl">14.2</span>, <span class="fl">11.8</span>, <span class="fl">13.6</span>, <span class="fl">12.9</span>, <span class="fl">14.8</span>, <span class="fl">11.5</span>, <span class="fl">13.2</span>, <span class="fl">12.7</span>, <span class="fl">14.1</span>,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>             <span class="fl">13.4</span>, <span class="fl">12.2</span>, <span class="fl">14.5</span>, <span class="fl">11.9</span>, <span class="fl">13.8</span>, <span class="fl">12.4</span>, <span class="fl">14.3</span>, <span class="fl">13.1</span>, <span class="fl">12.6</span>, <span class="fl">13.9</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>model_B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">10.2</span>, <span class="fl">11.5</span>, <span class="fl">9.8</span>, <span class="fl">10.9</span>, <span class="fl">11.2</span>, <span class="fl">10.5</span>, <span class="fl">9.6</span>, <span class="fl">11.8</span>, <span class="fl">10.3</span>, <span class="fl">11.1</span>,</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>             <span class="fl">10.7</span>, <span class="fl">9.9</span>, <span class="fl">11.4</span>, <span class="fl">10.1</span>, <span class="fl">10.8</span>, <span class="fl">11.6</span>, <span class="fl">9.7</span>, <span class="fl">10.6</span>, <span class="fl">11.3</span>, <span class="fl">10.4</span>)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>model_C <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">8.5</span>, <span class="fl">9.2</span>, <span class="fl">7.8</span>, <span class="fl">8.9</span>, <span class="fl">9.5</span>, <span class="fl">8.2</span>, <span class="fl">7.6</span>, <span class="fl">9.1</span>, <span class="fl">8.6</span>, <span class="fl">8.8</span>,</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>             <span class="fl">9.3</span>, <span class="fl">8.1</span>, <span class="fl">8.7</span>, <span class="fl">7.9</span>, <span class="fl">9.4</span>, <span class="fl">8.3</span>, <span class="fl">7.7</span>, <span class="fl">9.0</span>, <span class="fl">8.4</span>, <span class="fl">8.9</span>)</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>readmission_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">rate =</span> <span class="fu">c</span>(model_A, model_B, model_C),</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Model A: Nurse Phone"</span>, <span class="st">"Model B: CHW Visits"</span>,</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Model C: Integrated"</span>), <span class="at">each =</span> <span class="dv">20</span>))</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load 30-day readmission rates (%) by care coordination model</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>readmission_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week06_readmission_data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(readmission_data, <span class="fu">aes</span>(<span class="at">x =</span> model, <span class="at">y =</span> rate, <span class="at">fill =</span> model)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"30-Day Readmission Rates by Care Coordination Model"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Care Model"</span>, <span class="at">y =</span> <span class="st">"Readmission Rate (%)"</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -915,10 +918,19 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 </div>
 </div>
 </div>
+<ul>
+<li>Model A’s median readmission rate is the highest, while Model C’s median readmission rate is the lowest.</li>
+<li>Are these three Models’ average readmission rates significantly different? Let’s test this by running a one-way ANOVA.</li>
+</ul>
+<p><strong>Hypotheses:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: All three models have equal mean readmission rates (<span class="math inline">\(\mu_A = \mu_B = \mu_C\)</span>)</li>
+<li><span class="math inline">\(H_A\)</span>: At least one model’s mean readmission rate is different from the others</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform ANOVA</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>anova_readmit <span class="ot">&lt;-</span> <span class="fu">aov</span>(rate <span class="sc">~</span> model, <span class="at">data =</span> readmission_data)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_readmit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform ANOVA</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>anova_readmit <span class="ot">&lt;-</span> <span class="fu">aov</span>(rate <span class="sc">~</span> model, <span class="at">data =</span> readmission_data)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_readmit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)    
 model        2 209.91  104.95   183.3 &lt;2e-16 ***
@@ -929,22 +941,24 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <section id="interpreting-the-anova-results" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-the-anova-results">Interpreting the ANOVA Results</h3>
-<p>With F = 183.32 and p &lt; 0.05, we <strong>reject the null hypothesis</strong>. There are statistically significant differences in 30-day readmission rates among the three care coordination models.</p>
-<p><strong>Observed mean readmission rates:</strong></p>
+<ul>
+<li><p>With F = 183.32 and p &lt; 0.05, we <strong>reject the null hypothesis</strong>. There are statistically significant differences in 30-day readmission rates among the three care coordination models (i.e., at least one model’s mean readmission rate differs from the others).</p></li>
+<li><p><strong>Observed mean readmission rates:</strong></p>
 <ul>
 <li>Model A (Nurse Phone): 13.17%</li>
 <li>Model B (CHW Visits): 10.67%</li>
 <li>Model C (Integrated): 8.6%</li>
+</ul></li>
+<li><p><strong>But which specific models differ from each other?</strong> Let’s examine the post-hoc tests.</p></li>
 </ul>
-<p>But which specific models differ from each other? Let’s examine the post-hoc tests.</p>
 </section>
 <section id="post-hoc-analysis-pairwise-comparisons" class="level3">
 <h3 class="anchored" data-anchor-id="post-hoc-analysis-pairwise-comparisons">Post-Hoc Analysis: Pairwise Comparisons</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-hoc test using emmeans</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>emm_readmit <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(anova_readmit, <span class="sc">~</span> model)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>tukey_readmit <span class="ot">&lt;-</span> <span class="fu">pairs</span>(emm_readmit, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>tukey_readmit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-hoc test using emmeans</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>emm_readmit <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(anova_readmit, <span class="sc">~</span> model)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>tukey_readmit <span class="ot">&lt;-</span> <span class="fu">pairs</span>(emm_readmit, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>tukey_readmit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast                                   estimate    SE df t.ratio p.value
  Model A: Nurse Phone - Model B: CHW Visits     2.50 0.239 57  10.448 &lt;0.0001
@@ -962,86 +976,165 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <table class="caption-top table table-sm table-striped small">
 <caption>Tukey HSD Pairwise Comparisons</caption>
 <colgroup>
-<col style="width: 41%">
+<col style="width: 40%">
 <col style="width: 29%">
 <col style="width: 16%">
 <col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Comparison</th>
-<th style="text-align: right;">Difference (percentage points)</th>
-<th style="text-align: right;">Adjusted p-value</th>
-<th style="text-align: left;">Significant?</th>
+<th style="text-align: center;">Comparison</th>
+<th style="text-align: center;">Difference (percentage points)</th>
+<th style="text-align: center;">Adjusted p-value</th>
+<th style="text-align: center;">Significant?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Model A: Nurse Phone - Model B: CHW Visits</td>
-<td style="text-align: right;">2.50</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: center;">Model A: Nurse Phone - Model B: CHW Visits</td>
+<td style="text-align: center;">2.50</td>
+<td style="text-align: center;">&lt;.001</td>
+<td style="text-align: center;">Yes</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Model A: Nurse Phone - Model C: Integrated</td>
-<td style="text-align: right;">4.57</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: center;">Model A: Nurse Phone - Model C: Integrated</td>
+<td style="text-align: center;">4.57</td>
+<td style="text-align: center;">&lt;.001</td>
+<td style="text-align: center;">Yes</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Model B: CHW Visits - Model C: Integrated</td>
-<td style="text-align: right;">2.07</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: center;">Model B: CHW Visits - Model C: Integrated</td>
+<td style="text-align: center;">2.07</td>
+<td style="text-align: center;">&lt;.001</td>
+<td style="text-align: center;">Yes</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><strong>Key findings from Tukey’s HSD:</strong></p>
+<p><br> <strong>Key findings from Tukey’s HSD:</strong></p>
 <ol type="1">
 <li><p><strong>Model B vs.&nbsp;Model A</strong>: Community health worker home visits (Model B) reduce readmission rates by approximately 2.5 <strong>percentage points</strong> compared to nurse-led telephone follow-up (Model A), and this difference is statistically significant (p &lt; 0.05).</p></li>
 <li><p><strong>Model C vs.&nbsp;Model A</strong>: The integrated care team with digital monitoring (Model C) reduces readmission rates by approximately 4.57 <strong>percentage points</strong> compared to Model A, showing the largest improvement (p &lt; 0.001).</p></li>
 <li><p><strong>Model C vs.&nbsp;Model B</strong>: Model C also significantly outperforms Model B, reducing readmissions by approximately 2.07 <strong>percentage points</strong> (p &lt; 0.05).</p></li>
 </ol>
 </section>
-<section id="practice-checkpoint-2" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-2">Practice Checkpoint 2</h3>
+<section id="practice-activity-2-hospital-operating-costs" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-activity-2-hospital-operating-costs">Practice Activity 2: Hospital Operating Costs</h3>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Try It Yourself! (10 minutes)
+<span class="screen-reader-only">Important</span>Try It Yourself!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Open <code>week06_anova1_practice.qmd</code> and complete:</p>
+<p>Complete the following practice activity by replacing the <code>___</code> blanks with appropriate values or function names. This will help you practice with a different dataset involving cost analysis across hospital types.</p>
+</div>
+</div>
+<section id="scenario-case-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="scenario-case-1">Scenario Case</h4>
 <ul>
-<li><strong>Practice Activity 2</strong>: Hospital Operating Costs (One-Way ANOVA)</li>
+<li><p>Compare average cost per patient discharge ($) across <strong>four different hospital types</strong>.</p></li>
+<li><p>Hospital costs vary significantly by ownership type and facility characteristics, with meaningful differences observed between academic, community, and specialty hospitals.</p></li>
+<li><p><strong>Hospital Types</strong>:</p>
+<ul>
+<li><strong>Academic Medical</strong>: Large teaching hospitals affiliated with medical schools</li>
+<li><strong>Community</strong>: Non-teaching hospitals serving local populations</li>
+<li><strong>Critical Access</strong>: Small rural hospitals (≤25 beds) serving remote areas</li>
+<li><strong>Specialty</strong>: Hospitals focused on specific conditions (cardiac, orthopedic, etc.)</li>
+</ul></li>
+<li><p><strong>Research Question</strong>: Do operating costs per discharge differ significantly across hospital types?</p></li>
 </ul>
-<p>This will help you practice with a different dataset involving cost analysis across hospital types.</p>
+</section>
+<section id="dataset-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dataset-1">Dataset</h4>
+<p>Load the dataset for this practice activity using the code below:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Cost per discharge by hospital type</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>cost_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week06_operating_cost.csv"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cost_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X  cost    hospital_type
+1 1 15200 Academic Medical
+2 2 16500 Academic Medical
+3 3 14800 Academic Medical
+4 4 15900 Academic Medical
+5 5 16200 Academic Medical
+6 6 15100 Academic Medical</code></pre>
 </div>
 </div>
+</section>
+<section id="task-2.1-summary-statistics-and-visualization" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-2.1-summary-statistics-and-visualization">Task 2.1: Summary Statistics and Visualization</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>cost_data <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(___) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_cost =</span> <span class="fu">round</span>(<span class="fu">mean</span>(___), <span class="dv">0</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_cost =</span> <span class="fu">round</span>(<span class="fu">sd</span>(___), <span class="dv">0</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cost_data, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"___"</span>,</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Hospital Type"</span>,</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Cost per Discharge ($)"</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">20</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-2.2-one-way-anova" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-2.2-one-way-anova">Task 2.2: One-Way ANOVA</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run ANOVA</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>anova_cost <span class="ot">&lt;-</span> <span class="fu">aov</span>(___ <span class="sc">~</span> ___, <span class="at">data =</span> ___)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_cost)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: Are the cost differences statistically significant?</p>
+</section>
+<section id="task-2.3-post-hoc-comparisons" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-2.3-post-hoc-comparisons">Task 2.3: Post-Hoc Comparisons</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimated marginal means</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>emm_cost <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(___, <span class="sc">~</span> ___)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pairwise comparisons</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(___, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>Which hospital type has the highest costs? Which has the lowest?</li>
+<li>Are all pairwise comparisons significant, or only some?</li>
+<li>What might explain these cost differences?</li>
+</ol>
 <hr>
+</section>
 </section>
 </section>
 </section>
 <section id="repeated-measures-anova" class="level1">
 <h1>2. Repeated-Measures ANOVA</h1>
+<ul>
+<li><p>So far, we have compared means across <strong>independent groups</strong> (e.g., different departments, training programs, or care models) where each observation belongs to only one group.</p></li>
+<li><p>Now we turn to situations where the <strong>same subjects or patients are measured multiple times</strong>. This requires a different approach that accounts for the correlation between repeated observations on the same individual.</p></li>
+</ul>
 <section id="what-is-it-1" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-it-1">What is it?</h2>
-<p>A <strong>repeated-measures ANOVA</strong> (also called within-subjects ANOVA) tests whether there are significant differences across three or more related measurements on the <strong>same respondents</strong>. This design is the extension of the paired t-test to situations involving more than two time points, measurements, or conditions.</p>
-<p>The key advantage of repeated-measures designs is that each respondent serves as their own control, which <strong>reduces error variance</strong> and increases statistical power. By tracking the same individuals over time, we eliminate individual differences as a source of variability.</p>
-<section id="key-components-1" class="level3">
-<h3 class="anchored" data-anchor-id="key-components-1">Key Components</h3>
 <ul>
-<li><strong>Same subjects, respondents, patients</strong> measured multiple times</li>
-<li><strong>Three or more</strong> measurement occasions or conditions</li>
-<li><strong>Related observations</strong>: Each subject contributes data to all conditions</li>
+<li><p>A <strong>repeated-measures ANOVA</strong> (also called within-subjects ANOVA) tests whether there are significant differences across three or more related measurements on the <strong>same respondents</strong>. This design is the extension of the paired t-test to situations involving more than two time points, measurements, or conditions.</p></li>
+<li><p>The key advantage of repeated-measures designs is that each respondent serves as their own control, which <strong>reduces error variance</strong> and increases statistical power. By tracking the same individuals over time, we eliminate individual differences as a source of variability.</p></li>
 </ul>
-</section>
 </section>
 <section id="when-to-use-it-1" class="level2">
 <h2 class="anchored" data-anchor-id="when-to-use-it-1">When to Use It</h2>
@@ -1088,14 +1181,14 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <li>Normal: &lt; 5.7%</li>
 <li>Prediabetes: 5.7-6.4%</li>
 <li>Diabetes: ≥ 6.5%</li>
-<li>Treatment goal for most diabetics: &lt; 7.0%</li>
+<li>Treatment goal: &lt; 7.5%</li>
 </ul></li>
 <li><strong>Why it matters</strong>: Each 1% reduction in HbA1c is associated with significant reductions in diabetes complications (retinopathy, nephropathy, neuropathy)</li>
 </ul>
 </section>
 <section id="study-design" class="level3">
 <h3 class="anchored" data-anchor-id="study-design">Study Design</h3>
-<p>The organization tracks <strong>HbA1c levels</strong> for 25 enrolled patients at four time points:</p>
+<p>The organization tracks <strong>HbA1c levels</strong> for 25 enrolled patients at <strong>four time points</strong>:</p>
 <ul>
 <li><strong>Baseline</strong>: Before program enrollment (typical range: 8-10% for poorly controlled diabetes)</li>
 <li><strong>3 months</strong>: Initial follow-up (early response to intervention)</li>
@@ -1107,18 +1200,24 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <h3 class="anchored" data-anchor-id="why-use-repeated-measures-anova">Why Use Repeated-Measures ANOVA?</h3>
 <p>This is a <strong>perfect scenario</strong> for repeated-measures ANOVA because:</p>
 <ol type="1">
-<li><strong>Same patients tracked over time</strong> - Each patient serves as their own control</li>
-<li><strong>Multiple time points</strong> - Four measurements (more than two)</li>
-<li><strong>Reduces individual variability</strong> - Some patients naturally have higher HbA1c than others; repeated measures accounts for this</li>
-<li><strong>Efficient use of resources</strong> - We need only 25 patients instead of 100 (25 per group × 4 groups) if we used one-way ANOVA</li>
-<li><strong>Longitudinal question</strong> - We want to know if HbA1c changes over time within the same individuals</li>
+<li><strong>Same patients tracked over time</strong>: Each patient serves as their own control</li>
+<li><strong>Multiple time points</strong>: Four measurements (more than two)</li>
+<li><strong>Reduces individual variability</strong>: Some patients naturally have higher HbA1c than others; repeated measures accounts for this</li>
+<li><strong>Efficient use of resources</strong>: We need only 25 patients instead of 100 (25 per group × 4 groups) if we used one-way ANOVA</li>
+<li><strong>Longitudinal question</strong>: We want to know if HbA1c changes over time within the same individuals</li>
 </ol>
 </section>
 <section id="research-questions" class="level3">
 <h3 class="anchored" data-anchor-id="research-questions">Research Questions</h3>
-<p><strong>Primary:</strong> Does HbA1c change significantly over the course of the 12-month program?</p>
-<p><strong>Secondary (if significant):</strong> - At which time points do we see significant improvements? - Do patients reach the clinical target of &lt; 7.0% by 12 months? - Is the improvement sustained or does it plateau?</p>
-<p><strong>Management Implications:</strong> - If effective: Continue funding and expand program - If not effective: Investigate barriers (adherence, program design, patient selection) - Identify when improvements occur to optimize resource allocation</p>
+<ol type="1">
+<li><p>Does HbA1c change significantly over the course of the 12-month program?</p></li>
+<li><p>If significant:</p></li>
+</ol>
+<ul>
+<li>At which time points do we see significant improvements?</li>
+<li>Do patients reach the clinical target of &lt; 7.5% by 12 months?</li>
+<li>Is the improvement sustained or does it plateau?</li>
+</ul>
 </section>
 </section>
 <section id="the-formula-1" class="level2">
@@ -1142,24 +1241,25 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <li><span class="math inline">\(n\)</span> = number of subjects</li>
 <li><span class="math inline">\(t\)</span> = number of time points</li>
 </ul>
-<p><strong>What it measures:</strong> Total variation in all observations from the grand mean. This is the “starting point” that we partition into components.</p>
+<p>This measures total variation in all observations from the grand mean. This is the “starting point” that we partition into components.</p>
 <p><strong>1. Sum of Squares for Time Effect (SS_time):</strong></p>
 <p><span class="math display">\[SS_{time} = n \sum_{j=1}^{t} (\bar{X}_j - \bar{X}_{grand})^2\]</span></p>
 <p>Where:</p>
 <ul>
-<li><span class="math inline">\(n\)</span> = number of subjects</li>
+<li><span class="math inline">\(n\)</span> = number of subjects (the weighting factor; each time point mean is based on <span class="math inline">\(n\)</span> observations)</li>
 <li><span class="math inline">\(t\)</span> = number of time points</li>
 <li><span class="math inline">\(\bar{X}_j\)</span> = mean at time point <span class="math inline">\(j\)</span> (averaging across all subjects)</li>
 <li><span class="math inline">\(\bar{X}_{grand}\)</span> = overall grand mean (across all subjects and all time points)</li>
 </ul>
-<p><strong>What it measures:</strong> How much do the time point means differ from the overall mean?</p>
+<p>This measures how much the time point means differ from the overall mean. We multiply by <span class="math inline">\(n\)</span> because each time point’s mean represents <span class="math inline">\(n\)</span> subjects.</p>
 <p><strong>2. Sum of Squares Between-Subjects (SS_subjects):</strong></p>
 <p><span class="math display">\[SS_{subjects} = t \sum_{i=1}^{n} (\bar{X}_i - \bar{X}_{grand})^2\]</span></p>
 <p>Where:</p>
 <ul>
+<li><span class="math inline">\(t\)</span> = number of time points (the weighting factor; each subject’s mean is based on <span class="math inline">\(t\)</span> observations)</li>
 <li><span class="math inline">\(\bar{X}_i\)</span> = mean for subject <span class="math inline">\(i\)</span> (averaging across all time points)</li>
 </ul>
-<p><strong>What it measures:</strong> How much do individual subjects differ from the overall mean? (This gets removed from the error term!)</p>
+<p>This measures how much individual subjects differ from the overall mean. We multiply by <span class="math inline">\(t\)</span> because each subject’s mean represents <span class="math inline">\(t\)</span> observations. This component gets <strong>removed from the error term</strong>, which is the key advantage of repeated-measures designs!</p>
 <p><strong>3. Sum of Squares Error (SS_error):</strong></p>
 <p><span class="math display">\[SS_{error} = SS_{total} - SS_{subjects} - SS_{time}\]</span></p>
 <p>Or, calculated directly:</p>
@@ -1171,8 +1271,8 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <li><span class="math inline">\(\bar{X}_j\)</span> = mean for time <span class="math inline">\(j\)</span></li>
 <li><span class="math inline">\(\bar{X}_{grand}\)</span> = grand mean</li>
 </ul>
-<p><strong>What it measures:</strong> Random variation left over after removing both subject differences and time effects.</p>
-<p>Notice that <span class="math inline">\(SS_{error}\)</span> is calculated by subtracting out both subject means AND time means. This is why it’s smaller than one-way ANOVA error—we’ve removed the between-subjects variance!</p>
+<p>This measures random variation left over after removing both subject differences and time effects.</p>
+<p>Notice that <span class="math inline">\(SS_{error}\)</span> is calculated by subtracting out both subject means AND time means. This is why it’s smaller than one-way ANOVA error (we’ve removed the between-subjects variance!)</p>
 </section>
 <section id="calculating-the-f-statistic" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-the-f-statistic">Calculating the F-Statistic</h3>
@@ -1181,36 +1281,34 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <p>Where:</p>
 <ul>
 <li><span class="math inline">\(df_{time} = t - 1\)</span> (number of time points minus 1)</li>
-<li><span class="math inline">\(df_{error} = (n-1)(t-1)\)</span> (subjects - 1) × (time points - 1)</li>
+<li><span class="math inline">\(df_{error} = (n-1) \times (t-1)\)</span> (subjects - 1) × (time points - 1)</li>
+</ul>
+<p><strong>Hypotheses:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: All time point means are equal (<span class="math inline">\(\mu_{baseline} = \mu_{3mo} = \mu_{6mo} = \mu_{12mo}\)</span>)</li>
+<li><span class="math inline">\(H_A\)</span>: At least one time point mean is different from the others</li>
 </ul>
 <p><strong>Interpretation:</strong></p>
 <ul>
-<li><strong>F ≈ 1</strong>: Time effect similar to random variation → no significant change</li>
-<li><strong>F &gt;&gt; 1</strong>: Time effect much larger than random variation → significant change over time</li>
+<li>Similar to one-way ANOVA, as the variation across time points is getting larger (vs.&nbsp;smaller), the F-statistic is getting larger (vs.&nbsp;smaller).</li>
+<li>If the F-statistic is large enough, we reject the null hypothesis and conclude that there is a significant change in HbA1c over time.</li>
 </ul>
 </section>
 </section>
 <section id="example-diabetes-management-program" class="level2">
 <h2 class="anchored" data-anchor-id="example-diabetes-management-program">Example: Diabetes Management Program</h2>
+<p>Let’s look at the following example. Load the dataset using the code below:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HbA1c levels (%) for 25 patients at 4 time points</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>n_patients <span class="ot">&lt;-</span> <span class="dv">25</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate realistic data showing improvement over time</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>baseline <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n_patients, <span class="at">mean =</span> <span class="fl">8.5</span>, <span class="at">sd =</span> <span class="fl">0.8</span>), <span class="dv">1</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>month_3 <span class="ot">&lt;-</span> <span class="fu">round</span>(baseline <span class="sc">-</span> <span class="fu">rnorm</span>(n_patients, <span class="at">mean =</span> <span class="fl">0.4</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="dv">1</span>)</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>month_6 <span class="ot">&lt;-</span> <span class="fu">round</span>(month_3 <span class="sc">-</span> <span class="fu">rnorm</span>(n_patients, <span class="at">mean =</span> <span class="fl">0.4</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="dv">1</span>)</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>month_12 <span class="ot">&lt;-</span> <span class="fu">round</span>(month_6 <span class="sc">-</span> <span class="fu">rnorm</span>(n_patients, <span class="at">mean =</span> <span class="fl">0.3</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="dv">1</span>)</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame in long format</span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_patients, <span class="dv">4</span>),</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"3 Months"</span>, <span class="st">"6 Months"</span>, <span class="st">"12 Months"</span>),</span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>                    <span class="at">each =</span> n_patients),</span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"3 Months"</span>, <span class="st">"6 Months"</span>, <span class="st">"12 Months"</span>)),</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">hba1c =</span> <span class="fu">c</span>(baseline, month_3, month_6, month_12)</span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>diabetes_data<span class="sc">$</span>patient_id <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(diabetes_data<span class="sc">$</span>patient_id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load HbA1c levels (%) for 25 patients at 4 time points</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week06_diabetes.csv"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert time to factor with meaningful labels</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> diabetes_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">factor</span>(time, </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"3 Months"</span>, <span class="st">"6 Months"</span>, <span class="st">"12 Months"</span>)), </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">patient_id =</span> <span class="fu">factor</span>(patient_id)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1218,36 +1316,36 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <caption>HbA1c Summary Statistics by Time Point</caption>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Time Point</th>
-<th style="text-align: right;">n</th>
-<th style="text-align: right;">Mean HbA1c (%)</th>
-<th style="text-align: right;">SD</th>
+<th style="text-align: center;">Time Point</th>
+<th style="text-align: center;">n</th>
+<th style="text-align: center;">Mean HbA1c (%)</th>
+<th style="text-align: center;">SD</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Baseline</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">8.38</td>
-<td style="text-align: right;">0.88</td>
+<td style="text-align: center;">Baseline</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">8.24</td>
+<td style="text-align: center;">0.77</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">3 Months</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">7.96</td>
-<td style="text-align: right;">0.95</td>
+<td style="text-align: center;">3 Months</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">7.76</td>
+<td style="text-align: center;">0.80</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">6 Months</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">7.64</td>
-<td style="text-align: right;">0.94</td>
+<td style="text-align: center;">6 Months</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">7.47</td>
+<td style="text-align: center;">0.82</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">12 Months</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">7.34</td>
-<td style="text-align: right;">1.05</td>
+<td style="text-align: center;">12 Months</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">7.17</td>
+<td style="text-align: center;">1.02</td>
 </tr>
 </tbody>
 </table>
@@ -1257,6 +1355,23 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 <section id="visualizing-repeated-measures-data" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-repeated-measures-data">Visualizing Repeated Measures Data</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spaghetti plot showing individual trajectories</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diabetes_data, <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> hba1c, <span class="at">group =</span> patient_id)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"line"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Individual Patient HbA1c Trajectories"</span>,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Red line shows mean across all patients"</span>,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Time Point"</span>, <span class="at">y =</span> <span class="st">"HbA1c (%)"</span>) <span class="sc">+</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1265,25 +1380,39 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 </div>
 </div>
 </div>
+<ul>
+<li>The summary statistics and the trajectory plot show a <strong>downward trend</strong> in mean HbA1c across the four time points, from 8.24% at Baseline to 7.17% at 12 Months.</li>
+<li>Each gray line represents an individual patient’s trajectory, and the red line shows the overall group mean. Most patients show a consistent decline over time.</li>
+<li>Our remaining question is <strong>whether these changes are statistically significant</strong>. Let’s test this with a repeated-measures ANOVA.</li>
+</ul>
 </section>
 <section id="conducting-repeated-measures-anova-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="conducting-repeated-measures-anova-in-r">Conducting Repeated-Measures ANOVA in R</h2>
-<p>For repeated-measures ANOVA, we need to specify the error term to account for the within-subjects design:</p>
+<ul>
+<li>We can also use the <code>aov()</code> function to perform a repeated-measures ANOVA.</li>
+<li>For repeated-measures ANOVA, we additionally need to specify the error term to account for the within-subjects design.</li>
+<li>The error term is specified as <code>Error(patient_id/time)</code>, which tells R that each patient (<code>patient_id</code>) is measured repeatedly across <code>time</code>. This partitions the error into between-subjects and within-subjects components, so the time effect is tested appropriately.</li>
+</ul>
+<p><strong>Hypotheses:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: Mean HbA1c is equal across all four time points (<span class="math inline">\(\mu_{baseline} = \mu_{3mo} = \mu_{6mo} = \mu_{12mo}\)</span>)</li>
+<li><span class="math inline">\(H_A\)</span>: At least one time point’s mean HbA1c differs from the others</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeated-measures ANOVA</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Error(patient_id/time) specifies that time is within subjects</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>rm_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(hba1c <span class="sc">~</span> time <span class="sc">+</span> <span class="fu">Error</span>(patient_id<span class="sc">/</span>time), <span class="at">data =</span> diabetes_data)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rm_anova)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeated-measures ANOVA</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Error(patient_id/time) specifies that time is within subjects</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>rm_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(hba1c <span class="sc">~</span> time <span class="sc">+</span> <span class="fu">Error</span>(patient_id<span class="sc">/</span>time), <span class="at">data =</span> diabetes_data)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rm_anova)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Error: patient_id
           Df Sum Sq Mean Sq F value Pr(&gt;F)
-Residuals 24  83.75    3.49               
+Residuals 24  66.02   2.751               
 
 Error: patient_id:time
           Df Sum Sq Mean Sq F value Pr(&gt;F)    
-time       3 14.780   4.927   84.92 &lt;2e-16 ***
-Residuals 72  4.177   0.058                   
+time       3 15.497   5.166   84.81 &lt;2e-16 ***
+Residuals 72  4.385   0.061                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1298,69 +1427,60 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><strong>Pr(&gt;F)</strong>: p-value for the time effect</li>
 </ul>
 </section>
-<section id="conclusion-and-clinical-interpretation" class="level3">
-<h3 class="anchored" data-anchor-id="conclusion-and-clinical-interpretation">Conclusion and Clinical Interpretation</h3>
-<p><strong>Statistical Conclusion:</strong></p>
-<p>With a significant F-test (p &lt; 0.05), we <strong>reject the null hypothesis</strong>. HbA1c levels changed significantly over the course of the 12-month diabetes management program.</p>
-<p><strong>Clinical Interpretation:</strong></p>
-<p><strong>Mean HbA1c levels by time point:</strong></p>
+<section id="conclusion-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-and-interpretation">Conclusion and Interpretation</h3>
 <ul>
-<li><strong>Baseline</strong>: 8.38% (poorly controlled diabetes)</li>
-<li><strong>3 Months</strong>: 7.96%</li>
-<li><strong>6 Months</strong>: 7.64%</li>
-<li><strong>12 Months</strong>: 7.34%</li>
-</ul>
-<p><strong>Overall improvement</strong>: 1.04 percentage points (a 12.4% relative reduction from baseline)</p>
-<p><strong>Clinical significance:</strong></p>
+<li><p>With a significant F-test (p &lt; 0.05), we <strong>reject the null hypothesis</strong>. HbA1c levels changed significantly over the course of the 12-month diabetes management program.</p></li>
+<li><p>Overall, 1.07 percentage points were improved.</p>
 <ul>
-<li>Patients started with poorly controlled diabetes (average 8.38%)</li>
-<li>By 12 months, average HbA1c approached or achieved the treatment goal of &lt;7.0%</li>
+<li>Patients started with poorly controlled diabetes (average 8.24%)</li>
+<li>By 6 and 12 months, average HbA1c achieved the treatment goal of &lt;7.5%</li>
 <li>This magnitude of reduction is associated with meaningful decreases in long-term complications</li>
+</ul></li>
 </ul>
-<p><strong>But which specific time points differ?</strong> We need post-hoc tests to determine when significant improvements occurred.</p>
+<p><strong>But which specific time points differ?</strong> We need post-hoc tests to determine when significant improvements occurred, whether the improvement continues, or plateaus.</p>
 </section>
 </section>
 <section id="post-hoc-tests-for-repeated-measures" class="level2">
 <h2 class="anchored" data-anchor-id="post-hoc-tests-for-repeated-measures">Post-Hoc Tests for Repeated Measures</h2>
-<p>To identify which time points differ, we use pairwise comparisons with p-value adjustment:</p>
+<ul>
+<li><p>To identify which time points differ, we use pairwise comparisons with p-value adjustment.</p></li>
+<li><p>We can use the same <code>emmeans</code> and <code>pairs</code> functions as before.</p></li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract estimated marginal means</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>emm_time <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(rm_anova, <span class="sc">~</span> time)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>emm_time</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract estimated marginal means</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>emm_time <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(rm_anova, <span class="sc">~</span> time)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>emm_time</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> time      emmean    SE   df lower.CL upper.CL
- Baseline    8.38 0.191 26.4     7.98     8.77
- 3 Months    7.96 0.191 26.4     7.57     8.35
- 6 Months    7.64 0.191 26.4     7.25     8.03
- 12 Months   7.34 0.191 26.4     6.95     7.73
+ Baseline    8.24 0.171 27.2     7.89     8.59
+ 3 Months    7.76 0.171 27.2     7.41     8.11
+ 6 Months    7.47 0.171 27.2     7.12     7.82
+ 12 Months   7.17 0.171 27.2     6.82     7.52
 
 Warning: EMMs are biased unless design is perfectly balanced 
 Confidence level used: 0.95 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pairwise comparisons with Tukey adjustment</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_time, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pairwise comparisons with Tukey adjustment</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_time, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast             estimate     SE df t.ratio p.value
- Baseline - 3 Months     0.416 0.0681 72   6.106 &lt;0.0001
- Baseline - 6 Months     0.736 0.0681 72  10.803 &lt;0.0001
- Baseline - 12 Months    1.036 0.0681 72  15.207 &lt;0.0001
- 3 Months - 6 Months     0.320 0.0681 72   4.697 &lt;0.0001
- 3 Months - 12 Months    0.620 0.0681 72   9.101 &lt;0.0001
- 6 Months - 12 Months    0.300 0.0681 72   4.404  0.0002
+ Baseline - 3 Months     0.480 0.0698 72   6.876 &lt;0.0001
+ Baseline - 6 Months     0.768 0.0698 72  11.002 &lt;0.0001
+ Baseline - 12 Months    1.068 0.0698 72  15.300 &lt;0.0001
+ 3 Months - 6 Months     0.288 0.0698 72   4.126  0.0006
+ 3 Months - 12 Months    0.588 0.0698 72   8.424 &lt;0.0001
+ 6 Months - 12 Months    0.300 0.0698 72   4.298  0.0003
 
 P value adjustment: tukey method for comparing a family of 4 estimates </code></pre>
 </div>
 </div>
 <section id="interpreting-post-hoc-results" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-post-hoc-results">Interpreting Post-Hoc Results</h3>
-<p>The emmeans output shows pairwise comparisons for all time point combinations. Significant values (p.value &lt; 0.05) indicate that those time points have significantly different mean HbA1c levels.</p>
-<p><strong>How to read the output:</strong></p>
-<p><strong>First section (emmeans):</strong></p>
 <ul>
-<li>Shows estimated marginal mean HbA1c at each time point</li>
-<li>Includes standard error (SE) and confidence intervals</li>
-</ul>
-<p><strong>Second section (pairwise comparisons):</strong></p>
+<li><p>The emmeans output shows pairwise comparisons for all time point combinations. Significant values (p.value &lt; 0.05) indicate that those time points have significantly different mean HbA1c levels.</p></li>
+<li><p><strong>First section (emmeans):</strong> shows estimated marginal mean HbA1c at each time point.</p></li>
+<li><p><strong>Second section (pairwise comparisons):</strong></p>
 <ul>
 <li><strong>contrast</strong>: Which two time points are being compared</li>
 <li><strong>estimate</strong>: Difference between the two time point means</li>
@@ -1368,62 +1488,175 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 <li><strong>df</strong>: Degrees of freedom</li>
 <li><strong>t.ratio</strong>: Test statistic</li>
 <li><strong>p.value</strong>: Adjusted p-value (controlling for multiple comparisons)</li>
+</ul></li>
+<li><p>The results show that the diabetes management program <strong>significantly reduced</strong> HbA1c levels at each time point compared to baseline (all p &lt; 0.05). Furthermore, the differences between consecutive time points (3 vs.&nbsp;6 months, 6 vs.&nbsp;12 months) are also significant, suggesting that improvement occurs <strong>continuously</strong> throughout the 12-month period rather than plateauing.</p></li>
 </ul>
 </section>
-<section id="practice-checkpoint-3" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-3">Practice Checkpoint 3</h3>
+<section id="practice-activity-3-pain-management-follow-up" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-activity-3-pain-management-follow-up">Practice Activity 3: Pain Management Follow-up</h3>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Try It Yourself! (15 minutes)
+<span class="screen-reader-only">Important</span>Try It Yourself!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Open <code>week06_anova1_practice.qmd</code> and complete:</p>
+<p>Complete the following practice activity by replacing the <code>___</code> blanks with appropriate values or function names. This will help you practice conducting repeated-measures ANOVA with longitudinal data.</p>
+</div>
+</div>
+<section id="scenario" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="scenario">Scenario</h4>
 <ul>
-<li><strong>Practice Activity 3</strong>: Pain Management Follow-up (Repeated-Measures ANOVA)</li>
+<li><p>A pain clinic measures pain intensity (0-10 VAS scale) for 20 chronic pain patients at <strong>five time points</strong> during a 6-month treatment program.</p></li>
+<li><p>The Visual Analogue Scale (VAS) is a validated, reliable tool for assessing chronic pain intensity over time.</p></li>
+<li><p>Pain perceptions measured across the following time points:</p>
+<ul>
+<li><strong>Baseline</strong>: Before treatment starts</li>
+<li><strong>Month 1</strong>: Early treatment phase</li>
+<li><strong>Month 2</strong>: Continued intervention</li>
+<li><strong>Month 4</strong>: Mid-term follow-up</li>
+<li><strong>Month 6</strong>: End of program</li>
+</ul></li>
+<li><p>The question we want to answer is <strong>whether pain intensity decreases significantly</strong> over the course of the treatment program.</p></li>
 </ul>
-<p>This will help you practice conducting repeated-measures ANOVA with longitudinal data.</p>
+</section>
+<section id="dataset-2" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dataset-2">Dataset</h4>
+<p>Load the dataset using the code below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Pain scores at 5 time points for 20 patients</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>pain_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week06_pain_management.csv"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert time to factor with correct order, and patient_id to factor</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>pain_data <span class="ot">&lt;-</span> pain_data <span class="sc">%&gt;%</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">factor</span>(time, </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"Month 1"</span>, <span class="st">"Month 2"</span>, <span class="st">"Month 4"</span>, <span class="st">"Month 6"</span>)), <span class="co"># make time variable as factor</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">patient_id =</span> <span class="fu">factor</span>(patient_id) <span class="co"># make patient_id as factor</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+<section id="task-3.1-summary-statistics-by-time" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-3.1-summary-statistics-by-time">Task 3.1: Summary Statistics by Time</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean pain at each time point</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>pain_data <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(___) <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_pain =</span> <span class="fu">round</span>(<span class="fu">mean</span>(___), <span class="dv">2</span>),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_pain =</span> <span class="fu">round</span>(<span class="fu">sd</span>(___), <span class="dv">2</span>)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p><strong>Question</strong>: Looking at the means, does pain appear to decrease over time?</p>
+</section>
+<section id="task-3.2-visualize-trajectories" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-3.2-visualize-trajectories">Task 3.2: Visualize Trajectories</h4>
+<p>Create a “spaghetti plot” showing individual patient pain trajectories:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spaghetti plot with individual lines and overall mean</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pain_data, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">group =</span> ___)) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span>  <span class="co"># Individual patient lines</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"line"</span>,  <span class="co"># Overall mean line</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"___"</span>,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Red line shows mean across all patients"</span>,</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Time Point"</span>,</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Pain Intensity (VAS 0-10)"</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: Do most patients show a declining trend? Are there any patients who don’t improve?</p>
+</section>
+<section id="task-3.3-repeated-measures-anova" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-3.3-repeated-measures-anova">Task 3.3: Repeated-Measures ANOVA</h4>
+<p>Now test if the changes are statistically significant:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeated-measures ANOVA</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>rm_anova_pain <span class="ot">&lt;-</span> <span class="fu">aov</span>(___ <span class="sc">~</span> ___ <span class="sc">+</span> <span class="fu">Error</span>(___<span class="sc">/</span>___), <span class="at">data =</span> pain_data)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rm_anova_pain)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>What is the F-value for the time effect?</li>
+<li>What is the p-value?</li>
+<li>Is there a significant change in pain over time?</li>
+</ol>
+</section>
+<section id="task-3.4-post-hoc-tests-for-time-points" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-3.4-post-hoc-tests-for-time-points">Task 3.4: Post-Hoc Tests for Time Points</h4>
+<p>Identify which time points differ significantly:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimated marginal means by time</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>emm_pain <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(___, <span class="sc">~</span> ___)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>emm_pain</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pairwise comparisons</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(___, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>At which time point is pain significantly lower than baseline?</li>
+<li>Is there continued improvement from Month 4 to Month 6?</li>
+<li>What do these results suggest about the treatment timeline?</li>
+</ol>
 <hr>
+</section>
 </section>
 </section>
 <section id="example-2-staff-burnout-across-shift-schedules" class="level2">
 <h2 class="anchored" data-anchor-id="example-2-staff-burnout-across-shift-schedules">Example 2: Staff Burnout Across Shift Schedules</h2>
-<p>A hospital HR department wants to study nurse burnout using the Maslach Burnout Inventory (MBI) emotional exhaustion subscale (score range: 0-54). They measure the <strong>same 20 nurses</strong> under three different shift schedules:</p>
+<ul>
+<li><p>A hospital HR department wants to study nurse burnout using the Maslach Burnout Inventory (MBI) emotional exhaustion subscale (score range: 0-54).</p></li>
+<li><p>They measure the <strong>same 20 nurses</strong> under three different shift schedules:</p>
 <ul>
 <li><strong>Schedule A</strong>: Traditional 8-hour shifts</li>
 <li><strong>Schedule B</strong>: 12-hour shifts</li>
-<li><strong>Schedule C</strong>: Flexible self-scheduling</li>
+<li><strong>Schedule C</strong>: Flexible self-scheduling (nurses choose their own shift times and lengths)</li>
+</ul></li>
+<li><p>Multiple studies have examined the relationship between shift hours and nurse burnout, with research across multiple countries and care settings showing significant associations between shift length and burnout levels.</p></li>
+<li><p>Each nurse works under each schedule for one month, with washout periods between.</p></li>
 </ul>
-<p>Multiple studies have examined the relationship between shift hours and nurse burnout, with research across multiple countries and care settings showing significant associations between shift length and burnout levels.</p>
-<p>Each nurse works under each schedule for one month, with washout periods between.</p>
+<p>Let’s load the dataset and visually inspect the pattern:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Burnout scores for 20 nurses under 3 shift schedules</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>n_nurses <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>schedule_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">35</span>, <span class="dv">28</span>, <span class="dv">38</span>, <span class="dv">30</span>, <span class="dv">36</span>, <span class="dv">33</span>, <span class="dv">29</span>, <span class="dv">37</span>, <span class="dv">31</span>,</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>                <span class="dv">34</span>, <span class="dv">27</span>, <span class="dv">39</span>, <span class="dv">32</span>, <span class="dv">35</span>, <span class="dv">30</span>, <span class="dv">36</span>, <span class="dv">28</span>, <span class="dv">34</span>, <span class="dv">31</span>)</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>schedule_B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">42</span>, <span class="dv">35</span>, <span class="dv">44</span>, <span class="dv">37</span>, <span class="dv">41</span>, <span class="dv">39</span>, <span class="dv">36</span>, <span class="dv">43</span>, <span class="dv">38</span>,</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>                <span class="dv">40</span>, <span class="dv">34</span>, <span class="dv">45</span>, <span class="dv">39</span>, <span class="dv">42</span>, <span class="dv">37</span>, <span class="dv">43</span>, <span class="dv">35</span>, <span class="dv">41</span>, <span class="dv">38</span>)</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>schedule_C <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">28</span>, <span class="dv">22</span>, <span class="dv">30</span>, <span class="dv">24</span>, <span class="dv">29</span>, <span class="dv">26</span>, <span class="dv">23</span>, <span class="dv">31</span>, <span class="dv">25</span>,</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>                <span class="dv">27</span>, <span class="dv">21</span>, <span class="dv">32</span>, <span class="dv">26</span>, <span class="dv">29</span>, <span class="dv">24</span>, <span class="dv">30</span>, <span class="dv">22</span>, <span class="dv">28</span>, <span class="dv">25</span>)</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>burnout_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">nurse_id =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_nurses, <span class="dv">3</span>),</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">schedule =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A: 8-hour"</span>, <span class="st">"B: 12-hour"</span>, <span class="st">"C: Flexible"</span>),</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">each =</span> n_nurses)),</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">burnout =</span> <span class="fu">c</span>(schedule_A, schedule_B, schedule_C)</span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load burnout scores for 20 nurses under 3 shift schedules</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>burnout_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week06_burnout.csv"</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert schedule to factor with correct order</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>burnout_data <span class="ot">&lt;-</span> burnout_data <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">schedule =</span> <span class="fu">factor</span>(schedule, </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"A: 8-hour"</span>, <span class="st">"B: 12-hour"</span>, <span class="st">"C: Flexible"</span>)),</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">nurse_id =</span> <span class="fu">factor</span>(nurse_id)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spaghetti plot</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(burnout_data, <span class="fu">aes</span>(<span class="at">x =</span> schedule, <span class="at">y =</span> burnout, <span class="at">group =</span> nurse_id)) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"line"</span>,</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Individual Nurse Burnout Scores"</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Shift Schedule"</span>, <span class="at">y =</span> <span class="st">"Burnout Score (MBI)"</span>) <span class="sc">+</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1432,6 +1665,15 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 </div>
 </div>
 </div>
+<ul>
+<li>There are variations in Burnout scores across the three shift schedules (Schedule B &gt; Schedule A &gt; Schedule C).</li>
+<li>Now, let’s check whether the difference is statistically significant using repeated-measures ANOVA.</li>
+</ul>
+<p><strong>Hypotheses:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: Mean burnout scores are equal across all three shift schedules (<span class="math inline">\(\mu_A = \mu_B = \mu_C\)</span>)</li>
+<li><span class="math inline">\(H_A\)</span>: At least one shift schedule’s mean burnout score differs from the others</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeated-measures ANOVA</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>rm_anova_burnout <span class="ot">&lt;-</span> <span class="fu">aov</span>(burnout <span class="sc">~</span> schedule <span class="sc">+</span> <span class="fu">Error</span>(nurse_id<span class="sc">/</span>schedule),</span>
@@ -1441,16 +1683,12 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 <pre><code>
 Error: nurse_id
           Df Sum Sq Mean Sq F value Pr(&gt;F)
-Residuals  1 0.1906  0.1906               
+Residuals 19    617   32.47               
 
 Error: nurse_id:schedule
-         Df Sum Sq Mean Sq
-schedule  2   1290   645.3
-
-Error: Within
-          Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-schedule   2  400.7  200.34    17.4 1.47e-06 ***
-Residuals 54  621.6   11.51                     
+          Df Sum Sq Mean Sq F value Pr(&gt;F)    
+schedule   2 1690.1   845.1    5474 &lt;2e-16 ***
+Residuals 38    5.9     0.2                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1458,26 +1696,28 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>emm_schedule <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(rm_anova_burnout, <span class="sc">~</span> schedule)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_schedule, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> contrast                   estimate   SE df t.ratio p.value
- (A: 8-hour) - (B: 12-hour)    -6.17 2.23 54  -2.770  0.0206
- (A: 8-hour) - C: Flexible      6.97 2.23 54   3.126  0.0079
- (B: 12-hour) - C: Flexible    13.14 2.23 54   5.896 &lt;0.0001
+<pre><code> contrast                   estimate    SE df t.ratio p.value
+ (A: 8-hour) - (B: 12-hour)     -6.6 0.124 38 -53.118 &lt;0.0001
+ (A: 8-hour) - C: Flexible       6.4 0.124 38  51.508 &lt;0.0001
+ (B: 12-hour) - C: Flexible     13.0 0.124 38 104.626 &lt;0.0001
 
 P value adjustment: tukey method for comparing a family of 3 estimates </code></pre>
 </div>
 </div>
 <section id="interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
-<p>The highly significant F-test indicates that burnout levels differ across shift schedules.</p>
-<p>Post-hoc tests reveal that:</p>
+<ul>
+<li><p>The highly significant F-test indicates that burnout levels differ across shift schedules (at least one shift schedule’s mean burnout score differs from the others).</p></li>
+<li><p>Post-hoc tests reveal that:</p>
 <ul>
 <li>Flexible scheduling (C) results in significantly lower burnout than both traditional (A) and 12-hour (B) shifts</li>
 <li>12-hour shifts (B) result in significantly higher burnout than 8-hour shifts (A)</li>
+</ul></li>
+<li><p><strong>Management implications</strong>: These findings suggest that offering flexible self-scheduling could be an effective strategy to reduce nurse burnout. Lower burnout can be associated with reduced turnover (saving recruitment and training costs), fewer medical errors, and improved patient satisfaction scores.</p></li>
 </ul>
-<p>This has important implications for nurse retention and patient safety.</p>
 </section>
-<section id="practice-checkpoint-4" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="practice-checkpoint-4">Practice Checkpoint 4</h3>
+<section id="practice-activity-4-employee-engagement-survey" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="practice-activity-4-employee-engagement-survey">Practice Activity 4: Employee Engagement Survey</h3>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1488,14 +1728,51 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Open <code>week06_anova1_practice.qmd</code> and complete:</p>
+<p>This final practice will help you solidify your understanding of repeated-measures designs. This time, you’ll conduct the <strong>entire analysis independently</strong> following the same structure as Practice Activity 3.</p>
+</div>
+</div>
+<section id="scenario-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="scenario-1">Scenario</h4>
 <ul>
-<li><strong>Practice Activity 4</strong>: Employee Engagement Survey (Repeated-Measures ANOVA)</li>
+<li><p>An HR department surveys nurse engagement quarterly over one year (4 time points; across 4 quarters: Q1, Q2, Q3, and Q4).</p></li>
+<li><p>Engagement scores (1-100) capture nurses’ emotional commitment, motivation, and connection to their work (e.g., feeling energized, finding purpose in patient care, and being fully focused during shifts).</p></li>
+<li><p>We want to understand whether nurse engagement changes significantly across the four quarters.</p></li>
 </ul>
-<p>This final practice will help you solidify your understanding of repeated-measures designs.</p>
+</section>
+<section id="dataset-3" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dataset-3">Dataset</h4>
+<p>Load the dataset using the code below:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Engagement scores (1-100) for 25 nurses over 4 quarters</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>engagement_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week06_engagement.csv"</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>engagement_data <span class="ot">&lt;-</span> engagement_data <span class="sc">%&gt;%</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">quarter =</span> <span class="fu">factor</span>(quarter, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>)), </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">nurse_id =</span> <span class="fu">factor</span>(nurse_id)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
+</section>
+<section id="task-4.1-complete-analysis" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-4.1-complete-analysis">Task 4.1: Complete Analysis</h4>
+<p>Conduct the entire analysis independently! Follow these steps:</p>
+<ol type="1">
+<li>Calculate summary statistics by quarter</li>
+<li>Create a visualization (spaghetti plot or boxplot)</li>
+<li>Run repeated-measures ANOVA</li>
+<li>Interpret the F-test</li>
+<li>If significant, run post-hoc tests</li>
+<li>Draw conclusions</li>
+</ol>
+<p><strong>Hint</strong>: Follow the same structure as Practice Activity 3.</p>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>Does engagement change significantly over the year?</li>
+<li>If yes, which quarters differ from each other?</li>
+<li>What recommendations would you make to HR based on these results?</li>
+</ol>
 <hr>
+</section>
 </section>
 </section>
 </section>
@@ -1534,9 +1811,6 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 </tr>
 </tbody>
 </table>
-</section>
-<section id="why-anova-matters-for-healthcare-managers" class="level2">
-<h2 class="anchored" data-anchor-id="why-anova-matters-for-healthcare-managers">Why ANOVA Matters for Healthcare Managers</h2>
 <ul>
 <li><p><strong>One-way ANOVA</strong> enables evidence-based comparisons across multiple departments, facilities, treatment protocols, or patient populations simultaneously while controlling Type I error.</p></li>
 <li><p><strong>Repeated-measures ANOVA</strong> is essential for evaluating longitudinal programs and interventions, tracking patient outcomes over time, measuring the effectiveness of quality improvement initiatives, or assessing staff development programs.</p></li>
@@ -1558,13 +1832,13 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
 </section>
 <section id="healthcare-applications" class="level2">
 <h2 class="anchored" data-anchor-id="healthcare-applications">Healthcare Applications</h2>
-<p>Examples are motivated by the followings:</p>
+<p>Examples are motivated by the following:</p>
 <ul>
-<li><p>Assessing Patient Satisfaction with Hospital Services. (2024). <em>PMC</em>. https://pmc.ncbi.nlm.nih.gov/articles/PMC11988329/</p></li>
+<li><p>Assessing Patient Satisfaction with Hospital Services. (2025). <em>Healthcare (Basel)</em>. https://pmc.ncbi.nlm.nih.gov/articles/PMC11988329/</p></li>
 <li><p>Effect of Community Health Workers on 30-Day Hospital Readmissions. (2021). <em>JAMA Network Open</em>. https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2780265</p></li>
-<li><p>Medication Safety Simulation Training for Anesthesia Professionals. (2024). <em>Clinical Simulation in Nursing</em>. https://www.nursingsimulation.org/article/S1876-1399(24)00152-X/fulltext</p></li>
+<li><p>Medication Safety Simulation Training for Anesthesia Professionals. (2025). <em>Clinical Simulation in Nursing</em>. https://www.nursingsimulation.org/article/S1876-1399(24)00152-X/fulltext</p></li>
 <li><p>Improved Glycemic Control With a Digital Health Intervention in Adults With Type 2 Diabetes. (2021). <em>JMIR Diabetes</em>. https://diabetes.jmir.org/2021/2/e28033/</p></li>
-<li><p>Association of 12 h Shifts and Nurses’ Job Satisfaction, Burnout and Intention to Leave. (2015). <em>PMC</em>. https://pmc.ncbi.nlm.nih.gov/articles/PMC4577950/</p></li>
+<li><p>Association of 12 h Shifts and Nurses’ Job Satisfaction, Burnout and Intention to Leave. (2015). <em>BMJ Open</em>. https://pmc.ncbi.nlm.nih.gov/articles/PMC4577950/</p></li>
 <li><p>Visual Analogue Scale. <em>Physiopedia</em>. https://www.physio-pedia.com/Visual_Analogue_Scale</p></li>
 </ul>
 
