@@ -45,6 +45,11 @@ $code-block-border-color: #ccc !default;
   line-height: 1.3;
 }
 
+.reveal strong,
+.reveal b {
+  color: #4a7fb5;
+}
+
 .reveal h2 {
   border-bottom: 1px solid #dee2e6;
   padding-bottom: 0.3em;
