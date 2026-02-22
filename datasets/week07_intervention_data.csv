@@ -1,61 +1,61 @@
 "","program","facility","id","readmit_rate"
-"1","Standard Discharge","Urban Academic",1,12.4208362637952
-"2","Enhanced Transition","Urban Academic",1,13.1815073580206
-"3","Standard Discharge","Suburban Community",1,12.4753749992505
-"4","Enhanced Transition","Suburban Community",1,7.48512250861592
-"5","Standard Discharge","Rural Critical Access",1,18.2412062620375
-"6","Enhanced Transition","Rural Critical Access",1,8.57538195678502
-"7","Standard Discharge","Urban Academic",2,17.5031122458542
-"8","Enhanced Transition","Urban Academic",2,14.1742802882947
-"9","Standard Discharge","Suburban Community",2,11.8394879256362
-"10","Enhanced Transition","Suburban Community",2,10.4572167552603
-"11","Standard Discharge","Rural Critical Access",2,16.5500440841788
-"12","Enhanced Transition","Rural Critical Access",2,8.74271248869699
-"13","Standard Discharge","Urban Academic",3,15.9686574140158
-"14","Enhanced Transition","Urban Academic",3,15.3255278900567
-"15","Standard Discharge","Suburban Community",3,12.1026289394414
-"16","Enhanced Transition","Suburban Community",3,9.1122288275117
-"17","Standard Discharge","Rural Critical Access",3,16.7125770827809
-"18","Enhanced Transition","Rural Critical Access",3,7.10354784436106
-"19","Standard Discharge","Urban Academic",4,16.2764974109665
-"20","Enhanced Transition","Urban Academic",4,14.3303919044336
-"21","Standard Discharge","Suburban Community",4,10.4530409217504
-"22","Enhanced Transition","Suburban Community",4,8.60589680828739
-"23","Standard Discharge","Rural Critical Access",4,16.1769677540579
-"24","Enhanced Transition","Rural Critical Access",4,9.70231723621458
-"25","Standard Discharge","Urban Academic",5,15.4772733653945
-"26","Enhanced Transition","Urban Academic",5,15.0080053206785
-"27","Standard Discharge","Suburban Community",5,14.3186767486524
-"28","Enhanced Transition","Suburban Community",5,9.49225540708784
-"29","Standard Discharge","Rural Critical Access",5,16.0405704318336
-"30","Enhanced Transition","Rural Critical Access",5,7.80099996970546
-"31","Standard Discharge","Urban Academic",6,13.7037685396658
-"32","Enhanced Transition","Urban Academic",6,15.2646263784045
-"33","Standard Discharge","Suburban Community",6,15.2965602010356
-"34","Enhanced Transition","Suburban Community",6,10.9166264734489
-"35","Standard Discharge","Rural Critical Access",6,17.1310720159615
-"36","Enhanced Transition","Rural Critical Access",6,11.2270792698066
-"37","Standard Discharge","Urban Academic",7,13.7997472221707
-"38","Enhanced Transition","Urban Academic",7,10.8157862758986
-"39","Standard Discharge","Suburban Community",7,8.74998041378009
-"40","Enhanced Transition","Suburban Community",7,8.41410345598964
-"41","Standard Discharge","Rural Critical Access",7,15.3219455022642
-"42","Enhanced Transition","Rural Critical Access",7,7.48228510429298
-"43","Standard Discharge","Urban Academic",8,13.4694319521879
-"44","Enhanced Transition","Urban Academic",8,12.4711639484106
-"45","Standard Discharge","Suburban Community",8,10.2137627921416
-"46","Enhanced Transition","Suburban Community",8,10.7630048405214
-"47","Standard Discharge","Rural Critical Access",8,15.1431501333875
-"48","Enhanced Transition","Rural Critical Access",8,7.60850334550646
-"49","Standard Discharge","Urban Academic",9,12.649227178672
-"50","Enhanced Transition","Urban Academic",9,9.64634093418308
-"51","Standard Discharge","Suburban Community",9,12.3576744159193
-"52","Enhanced Transition","Suburban Community",9,10.0790408215872
-"53","Standard Discharge","Rural Critical Access",9,15.0053033921398
-"54","Enhanced Transition","Rural Critical Access",9,10.2595142514289
-"55","Standard Discharge","Urban Academic",10,14.7850863608144
-"56","Enhanced Transition","Urban Academic",10,10.2854372540301
-"57","Standard Discharge","Suburban Community",10,13.7786843355874
-"58","Enhanced Transition","Suburban Community",10,12.1472515173892
-"59","Standard Discharge","Rural Critical Access",10,14.7527314089788
-"60","Enhanced Transition","Rural Critical Access",10,6.51682574862707
+"1","Standard Discharge","Urban Academic",1,10.0692627412705
+"2","Enhanced Transition","Urban Academic",1,10.3678113240332
+"3","Standard Discharge","Suburban Community",1,11.5707103085653
+"4","Enhanced Transition","Suburban Community",1,8.71858770431285
+"5","Standard Discharge","Rural Critical Access",1,15.6216258606589
+"6","Enhanced Transition","Rural Critical Access",1,8.86135354294526
+"7","Standard Discharge","Urban Academic",2,10.8027547581683
+"8","Enhanced Transition","Urban Academic",2,10.4647314482521
+"9","Standard Discharge","Suburban Community",2,12.3974833919758
+"10","Enhanced Transition","Suburban Community",2,8.88992758343015
+"11","Standard Discharge","Rural Critical Access",2,16.3287297289373
+"12","Enhanced Transition","Rural Critical Access",2,10.0623420833065
+"13","Standard Discharge","Urban Academic",3,11.6444628561306
+"14","Enhanced Transition","Urban Academic",3,8.3247680036083
+"15","Standard Discharge","Suburban Community",3,13.2106188164386
+"16","Enhanced Transition","Suburban Community",3,7.36556501953795
+"17","Standard Discharge","Rural Critical Access",3,15.3293495660616
+"18","Enhanced Transition","Rural Critical Access",3,9.55973993975959
+"19","Standard Discharge","Urban Academic",4,10.31886422074
+"20","Enhanced Transition","Urban Academic",4,11.5507139081662
+"21","Standard Discharge","Suburban Community",4,11.5524494416717
+"22","Enhanced Transition","Suburban Community",4,9.01766722432351
+"23","Standard Discharge","Rural Critical Access",4,12.00631605462
+"24","Enhanced Transition","Rural Critical Access",4,8.19455449515108
+"25","Standard Discharge","Urban Academic",5,10.5449826279861
+"26","Enhanced Transition","Urban Academic",5,12.1712650670844
+"27","Standard Discharge","Suburban Community",5,15.7494903219188
+"28","Enhanced Transition","Suburban Community",5,9.10965557373228
+"29","Standard Discharge","Rural Critical Access",5,14.8707019348557
+"30","Enhanced Transition","Rural Critical Access",5,8.23930233115939
+"31","Standard Discharge","Urban Academic",6,8.20177418440652
+"32","Enhanced Transition","Urban Academic",6,10.2409286346779
+"33","Standard Discharge","Suburban Community",6,11.8475947344433
+"34","Enhanced Transition","Suburban Community",6,10.0161953865221
+"35","Standard Discharge","Rural Critical Access",6,15.7220573418946
+"36","Enhanced Transition","Rural Critical Access",6,8.52652455768275
+"37","Standard Discharge","Urban Academic",7,12.272203763349
+"38","Enhanced Transition","Urban Academic",7,9.70253419454498
+"39","Standard Discharge","Suburban Community",7,11.4002516697505
+"40","Enhanced Transition","Suburban Community",7,10.1910221180495
+"41","Standard Discharge","Rural Critical Access",7,13.4048299101978
+"42","Enhanced Transition","Rural Critical Access",7,7.88084357056131
+"43","Standard Discharge","Urban Academic",8,7.21468304400474
+"44","Enhanced Transition","Urban Academic",8,9.01011358152454
+"45","Standard Discharge","Suburban Community",8,15.1822670172647
+"46","Enhanced Transition","Suburban Community",8,11.2507387613598
+"47","Standard Discharge","Rural Critical Access",8,18.1179316211048
+"48","Enhanced Transition","Rural Critical Access",8,9.90564225733984
+"49","Standard Discharge","Urban Academic",9,11.2780670584783
+"50","Enhanced Transition","Urban Academic",9,7.82109034884768
+"51","Standard Discharge","Suburban Community",9,13.7257988605488
+"52","Enhanced Transition","Suburban Community",9,9.29643621771228
+"53","Standard Discharge","Rural Critical Access",9,14.3889640888621
+"54","Enhanced Transition","Rural Critical Access",9,9.73321730722455
+"55","Standard Discharge","Urban Academic",10,10.4135172886444
+"56","Enhanced Transition","Urban Academic",10,10.0544091577391
+"57","Standard Discharge","Suburban Community",10,13.6076326709679
+"58","Enhanced Transition","Suburban Community",10,9.66092864048345
+"59","Standard Discharge","Rural Critical Access",10,13.5055867661661
+"60","Enhanced Transition","Rural Critical Access",10,7.88349902408314
