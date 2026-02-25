@@ -1,0 +1,1439 @@
+---
+title: "Mean Comparison 3:"
+subtitle: "Two-Way ANOVA"
+author: ""
+date: "2026-02-25"
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    preview-links: auto
+    logo: ""
+    footer: "Week 7 | Two-Way ANOVA"
+    scrollable: true
+    incremental: false
+    code-line-numbers: false
+    highlight-style: github
+    navigation-mode: linear
+execute:
+  warning: false
+  message: false
+  echo: true
+---
+
+```{r setup}
+#| include: false
+library(ggplot2)
+library(tidyverse)
+library(emmeans)
+set.seed(2026)
+```
+
+# Introduction {background-color="#40666e"}
+
+## Where We Left Off
+
+Last week, we learned two ANOVA designs for comparing means across 3+ groups:
+
+::: {.incremental}
+- **One-Way ANOVA**: tests whether group means differ across 3+ independent groups
+- **Repeated-Measures ANOVA**: compares means when the **same subjects** are measured under multiple conditions
+:::
+
+. . .
+
+<br>
+Both designs examined the effect of **one factor** at a time.
+
+. . .
+
+But in healthcare, outcomes are rarely influenced by a single factor.
+
+## The Limitation of One Factor
+
+Let's think about this case: 
+
+> You invest $500,000 in a new nurse training program, and the overall competency score improves by 5 points. Sounds like a success, until you discover it boosted novice nurses' scores by 15 points but *decreased* experienced nurses' scores by 5 points.
+
+. . .
+
+<br>
+
+- A one-way ANOVA would only show the modest average improvement (training program = 5 points).
+
+. . .
+
+
+- **Two-way ANOVA** would have revealed this pattern before hospital-wide rollout (training program x experience levels).
+
+
+## This Week's Question
+
+This week, we extend ANOVA to examine **two factors simultaneously**:
+
+. . .
+
+<br>
+
+> **Does the effect of one factor depend on the level of another factor?**
+
+. . .
+
+<br>
+
+- This is the concept of an **interaction effect**, the most important idea in this lecture.
+
+. . . 
+
+- In the previous example, the effect of training program depends on the level of nurse experience. 
+
+
+## Today's Learning Goals
+
+By the end of this lecture, you will be able to:
+
+::: {.incremental}
+1. **Distinguish** between main effects and interaction effects
+2. **Identify** three types of interaction patterns from interaction plots
+3. **Choose** the correct two-way ANOVA design (between, within, mixed)
+4. **Conduct** two-way ANOVA in R using `aov()` and interpret the results
+5. **Perform** simple effects analysis using `emmeans()` when interactions are significant
+:::
+
+
+# What is Two-Way ANOVA? {background-color="#40666e"}
+
+## Understanding "One-Way" vs. "Two-Way"
+
+In ANOVA, the term "way" refers to the number of **factors** we examine:
+
+. . .
+
+<br> **One-Way ANOVA**: Effect of **one factor** on an outcome
+
+::: {.smaller style="margin-left: 2em;"}
+- e.g., Does satisfaction differ across 4 departments?
+- *Factor*: Department (4 levels) → *Outcome*: Satisfaction score
+:::
+
+. . .
+
+**Two-Way ANOVA**: Effects of **two factors** simultaneously
+
+::: {.smaller style="margin-left: 2em;"}
+- e.g., Does pain reduction depend on treatment type AND severity?
+- *Factor A*: Treatment, *Factor B*: Severity → *Outcome*: Pain reduction
+:::
+
+
+## Why Study Two Factors Simultaneously?
+
+**Two-way ANOVA** allows us to test three things simultaneously:
+
+::: {.incremental}
+1. Test the effect of **Factor A** (main effect of A)
+2. Test the effect of **Factor B** (main effect of B)
+3. Test whether the effect of A **depends on** B (interaction effect A × B)
+:::
+
+
+
+## Main Effects vs. Interaction Effects
+
+Suppose we want to understand the effects of treatment and patient group on recovery score:
+
+. . . 
+
+- **Main Effect**: The effect of one factor on the outcome, **averaged across** all levels of the other factor.
+  - *Main effect of Treatment*: Does the treatment affect recovery, regardless of patient group?
+  - *Main effect of Patient Group*: Do patient groups differ in recovery, regardless of treatment?
+
+. . .
+
+- **Interaction Effect**: The effect of one factor **depends on** the level of another factor.
+  - The treatment improves recovery for severe patients but not for mild patients
+
+. . .
+
+**When there's a significant interaction, main effects can be misleading!**
+
+## Overview of Two-Way ANOVA Designs
+
+| Design | Factor A | Factor B | Example |
+|:------:|:--------:|:--------:|:-------:|
+| **Between-Subjects** | Different subjects | Different subjects | Treatment type × Patient severity |
+| **Within-Subjects** | Same subjects | Same subjects | Drug type × Time of day |
+| **Mixed Design** | Different subjects | Same subjects | Training program × Assessment time |
+
+
+# Understanding Interaction Patterns {background-color="#40666e"}
+
+## Pattern 1: Parallel Lines (No Interaction)
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| label: no-interaction
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+
+no_int <- data.frame(
+  Treatment = rep(c("Standard", "New"), each = 2),
+  Severity = rep(c("Mild", "Severe"), 2),
+  Outcome = c(70, 50, 85, 65)
+)
+
+ggplot(no_int, aes(x = Severity, y = Outcome, color = Treatment, group = Treatment)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  scale_color_manual(values = c("#E63946", "#457B9D")) +
+  labs(title = "No Interaction: Parallel Lines",
+       subtitle = "New treatment is equally better (+15 points)",
+       x = "Disease Severity", y = "Recovery Score") +
+  coord_cartesian(ylim = c(40, 100)) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "bottom")
+```
+:::
+::: {.column width="40%"}
+<br>
+
+- The new treatment improves outcomes by **15 points** for *both* mild and severe patients
+
+- The treatment effect is **consistent** regardless of severity
+
+- Lines are **parallel** → No interaction
+:::
+::::
+
+
+## Pattern 2: Ordinal Interaction 
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| label: ordinal-interaction
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+
+ord_int <- data.frame(
+  Treatment = rep(c("Standard", "New"), each = 2),
+  Severity = rep(c("Mild", "Severe"), 2),
+  Outcome = c(70, 50, 80, 75)
+)
+
+ggplot(ord_int, aes(x = Severity, y = Outcome, color = Treatment, group = Treatment)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  scale_color_manual(values = c("#E63946", "#457B9D")) +
+  labs(title = "Ordinal Interaction: Converging Lines",
+       subtitle = "New treatment helps severe patients more (+25 vs +10)",
+       x = "Disease Severity", y = "Recovery Score") +
+  coord_cartesian(ylim = c(40, 100)) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "bottom")
+```
+:::
+::: {.column width="40%"}
+<br>
+
+- New treatment helps *both* groups, but helps severe patients **much more**
+  - Mild: +10 points
+  - Severe: +25 points
+- Lines **converge** but don't cross → Ordinal interaction
+:::
+::::
+
+
+## Pattern 3: Disordinal (Crossover) Interaction
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+#| label: crossover-interaction
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+
+cross_int <- data.frame(
+  Treatment = rep(c("Standard", "New"), each = 2),
+  Severity = rep(c("Mild", "Severe"), 2),
+  Outcome = c(75, 50, 65, 80)
+)
+
+ggplot(cross_int, aes(x = Severity, y = Outcome, color = Treatment, group = Treatment)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  scale_color_manual(values = c("#E63946", "#457B9D")) +
+  labs(title = "Disordinal (Crossover) Interaction",
+       subtitle = "New treatment helps severe but harms mild patients",
+       x = "Disease Severity", y = "Recovery Score") +
+  coord_cartesian(ylim = c(40, 100)) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "bottom")
+```
+:::
+::: {.column width="40%"}
+<br>
+
+- New treatment *helps* severe patients (+30) but *harms* mild patients (-10)
+- The main effect might appear **small or non-significant** because effects cancel out!
+- Lines **cross** → Disordinal interaction
+:::
+::::
+
+
+## Why Interactions Matter in Healthcare
+
+::: {.incremental}
+1. **Personalized medicine**: Treatment effectiveness often varies by patient characteristics
+2. **Resource allocation**: Interventions may work better in some settings than others
+3. **Safety**: A treatment safe for one population may be harmful for another
+4. **Policy decisions**: Program effectiveness may depend on implementation context
+:::
+
+
+# 1. Two-Way Between-Subjects ANOVA {background-color="#40666e"}
+
+## What is it?
+
+A **two-way between-subjects ANOVA** tests the effects of two factors where **different participants** are in each combination of factor levels.
+
+. . .
+
+<br>
+**Key Characteristics**:
+
+::: {.incremental}
+- Two factors (each with 2+ levels)
+- Each participant is in **only one cell** of the design
+- Tests three effects: Main effect A, Main effect B, A × B interaction
+:::
+
+## When to Use It
+
+Use when you have two categorical factors and each individual is assigned to **only one** combination:
+
+::: {.incremental}
+- **Treatment types** × **patient demographics** → pain scores, recovery time
+  - e.g., Comparing opioid vs. non-opioid pain protocols across age groups (18–39, 40–64, 65+)
+- **Interventions** × **facility types** → length of stay, readmission rates
+  - e.g., Evaluating a discharge planning program across urban, suburban, and rural hospitals
+- **Training programs** × **experience levels** → competency scores, error rates
+  - e.g., Simulation-based vs. lecture-based training for novice vs. experienced nurses
+:::
+
+
+## Scenario: Treatment × Disease Severity
+
+A clinical trial compares **two treatments** for chronic pain across **three severity levels**.
+
+. . .
+
+- **Treatments:**
+  - **Standard Care**: Physical therapy, OTC pain relievers, patient education (~$800/patient)
+  - **Novel Multimodal**: CBT for pain, targeted exercise, non-opioid prescription (~$3,200/patient)
+
+. . .
+
+- **Severity Levels:**
+  - **Mild** (pain 1-3), **Moderate** (pain 4-6), **Severe** (pain 7-10)
+
+. . .
+
+**Outcome**: Pain reduction score (0-100, higher = better)
+
+## Research Questions
+
+1. Does the novel treatment reduce pain more than standard care? (**main effect of treatment**)
+
+. . .
+
+2. Does pain reduction vary by baseline severity? (**main effect of severity**)
+
+. . .
+
+3. Does the treatment effect depend on severity level? (**interaction**)
+
+. . .
+
+<br>
+If the novel treatment only benefits severe patients, prescribing it for everyone would waste the extra $2,400 per patient.
+
+## The Formula
+
+Two-way ANOVA partitions variance into four components:
+
+$$SS_{total} = SS_A + SS_B + SS_{A \times B} + SS_{error}$$
+
+. . .
+
+Three F-statistics are calculated:
+
+$$F_A = \frac{MS_A}{MS_{error}}, \quad F_B = \frac{MS_B}{MS_{error}}, \quad F_{A \times B} = \frac{MS_{A \times B}}{MS_{error}}$$
+
+Degrees of freedom: 
+
+- $df_A = a - 1$ 
+- $df_B = b - 1$ 
+- $df_{A \times B} = (a-1)(b-1)$
+- $df_{error} = N - ab$
+
+
+## Demonstration: Loading the Package and Data
+
+Let's load the packages and data. 
+
+```{r}
+#| label: loading-packages
+
+library(tidyverse)
+library(ggplot2)
+library(emmeans)
+```
+
+```{r}
+#| label: between-example1
+
+# Pain reduction scores for 2 treatments × 3 severity levels
+pain_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_pain_data.csv")
+
+pain_data <- pain_data %>%
+  mutate(
+    severity = factor(severity, levels = c("Mild", "Moderate", "Severe")),
+    treatment = factor(treatment, levels = c("Standard", "Novel"))
+  )
+```
+
+## Demonstration: Summary Statistics
+
+```{r}
+#| echo: false
+pain_summary <- pain_data %>%
+  group_by(treatment, severity) %>%
+  summarise(mean = round(mean(pain_reduction), 1),
+            sd = round(sd(pain_reduction), 1),
+            .groups = "drop")
+
+knitr::kable(pain_summary,
+             col.names = c("Treatment", "Severity", "Mean", "SD"),
+             caption = "**Pain Reduction Scores by Treatment and Severity**",
+             align = "c")
+```
+
+
+## Visualizing the Data
+
+```{r}
+#| label: between-viz1
+#| code-fold: true
+#| fig-width: 8
+#| fig-height: 4.5
+
+pain_means <- pain_data %>%
+  group_by(treatment, severity) %>%
+  summarise(mean = mean(pain_reduction), .groups = "drop")
+
+ggplot(pain_means, aes(x = severity, y = mean, color = treatment, group = treatment)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "Interaction Plot: Treatment × Severity",
+       x = "Disease Severity", y = "Mean Pain Reduction",
+       color = "Treatment") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "bottom")
+```
+
+
+## The R Formula
+
+The R formula for two-way between-subjects ANOVA uses `*` for main effects plus interaction:
+
+```r
+aov(outcome ~ factorA * factorB, data = dataset)
+```
+
+. . .
+
+<br>
+The `*` is shorthand for `treatment + severity + treatment:severity`
+
+. . .
+
+<br>
+**Note**: Unlike repeated-measures ANOVA from Week 6, there is **no `Error()` term** here because each participant appears in only one condition.
+
+
+## Hypotheses
+
+1. **Main effect of treatment**:
+   - $H_0$: $\mu_{Standard} = \mu_{Novel}$
+   - $H_A$: $\mu_{Standard} \neq \mu_{Novel}$
+
+. . .
+
+2. **Main effect of severity**:
+   - $H_0$: $\mu_{Mild} = \mu_{Moderate} = \mu_{Severe}$
+   - $H_A$: At least one severity mean differs
+
+. . .
+
+3. **Interaction**:
+   - $H_0$: The treatment effect is the same at every severity level
+   - $H_A$: The treatment effect depends on severity level
+
+## Demonstration: Running Two-Way ANOVA
+
+```{r}
+#| label: between-test1
+
+# Two-way ANOVA
+anova_pain <- aov(pain_reduction ~ treatment * severity, data = pain_data)
+summary(anova_pain)
+```
+
+## Interpreting the ANOVA Table
+
+The output shows three F-tests:
+
+::: {.incremental}
+- **treatment**: Does pain reduction differ between treatments, averaging across severity?
+- **severity**: Does pain reduction differ across severity, averaging across treatments?
+- **treatment:severity**: Does the treatment difference vary across severity levels?
+:::
+
+. . .
+
+<br>
+Recall the ANOVA table columns: **Df** (degrees of freedom), **Sum Sq** (variation), **Mean Sq** ($SS/df$), **F value**, **Pr(>F)** (p-value)
+
+
+## Results Interpretation
+
+::: {.incremental}
+- **Main effect of treatment**: Significant (p < 0.05). Pain reduction differs between treatments.
+- **Main effect of severity**: Significant (p < 0.05). Pain reduction differs across severity levels.
+- **Interaction (treatment:severity)**: Significant (p < 0.05). The treatment effect is not uniform (it differs depending on severity).
+:::
+
+
+
+## When Interaction is Significant
+
+The main effect tells us the *average* treatment difference collapsed across severity. But the interaction tells us this average is **misleading**.
+
+. . .
+
+<br>
+The Novel treatment's advantage:
+
+::: {.smaller style="margin-left: 2em;"}
+- Mild patients: ~2 points improvement
+- Severe patients: ~12 points improvement
+:::
+
+. . .
+
+<br>
+An administrator who only looked at the main effect might conclude "the Novel treatment is better for everyone (7 vs. 13)." The interaction reveals the $2,400 extra cost may not be justified for mild cases.
+
+. . .
+
+<br>
+**When the interaction is significant, examine simple effects to understand the pattern.**
+
+
+## Simple Effects Analysis
+
+Simple effects examine the effect of one factor **at each level** of the other factor:
+
+```{r}
+#| label: simple-effects1
+
+# Get estimated marginal means
+emm <- emmeans(anova_pain, ~ treatment | severity)
+
+# Simple effects: treatment effect at each severity level
+pairs(emm, adjust = "tukey")
+```
+
+## Interpreting Simple Effects
+
+The output shows the treatment difference (Standard minus Novel) at each severity level:
+
+::: {.incremental}
+- **Mild**: Modest improvement; not statistically significant
+- **Moderate**: Larger improvement; statistically significant
+- **Severe**: Largest improvement; statistically significant
+:::
+
+. . .
+
+<br>
+This suggests a **targeted prescribing strategy**: prioritize the expensive Novel treatment for moderate-to-severe patients; standard treatment may be sufficient for mild cases.
+
+
+## Practice 1: Intervention × Facility Type
+
+- A health system evaluates a **care transition program** on 30-day readmission rates (%) across **facility types**.
+
+. . .
+
+**Care Transition Programs:**
+
+::: {.smaller style="margin-left: 2em;"}
+- **Standard Discharge**: Basic discharge instructions, prescription reconciliation, follow-up appointment
+- **Enhanced Transition**: Standard + transition coordinator, 48-hour call, home medication review, community resource connections
+:::
+
+. . .
+
+**Facility Types:**
+
+::: {.smaller style="margin-left: 2em;"}
+- **Urban Academic**: Large teaching hospitals with extensive care coordination
+- **Suburban Community**: Mid-sized hospitals with standard services
+- **Rural Critical Access**: Small hospitals (<25 beds) with limited specialists
+:::
+
+## Practice 1: Load the Data
+
+Load the dataset using the code below. 
+
+```{r}
+#| label: practice-between1-data
+
+intervention_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_intervention_data.csv")
+```
+
+**Task 1.0**: Explore the data
+
+```{r}
+#| label: practice-between1-explore
+#| eval: false
+
+intervention_data %>%
+  group_by(___, ___) %>%
+  summarise(
+    n = n(),
+    mean = round(mean(___), 1),
+    sd = round(sd(___), 1),
+    .groups = "drop"
+  )
+```
+
+**Question**: Which program-facility combination has the lowest mean readmission rate? Which has the highest?
+
+## Practice 1: Interaction Plot
+
+**Task 1.1**: Create an interaction plot
+
+```{r}
+#| label: practice-between1-plot
+#| eval: false
+
+plot_data <- intervention_data %>%
+  group_by(___, ___) %>%
+  summarise(mean = mean(___), .groups = "drop")
+
+ggplot(plot_data, aes(x = ___, y = ___,
+                      color = ___, group = ___)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "Readmission Rates by Program and Facility Type",
+       x = "Care Transition Program",
+       y = "Mean Readmission Rate (%)",
+       color = "Facility Type") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+**Question**: Do the lines appear parallel, converging, or crossing?
+
+## Practice 1: ANOVA and Simple Effects
+
+**Task 1.2**: Run Two-Way ANOVA
+
+```{r}
+#| label: practice-between1-anova
+#| eval: false
+
+anova_int <- aov(___ ~ ___ * ___, data = intervention_data)
+summary(___)
+```
+
+. . .
+
+**Task 1.3**: Simple Effects Analysis
+
+```{r}
+#| label: practice-between1-simple
+#| eval: false
+
+emm_int <- emmeans(___, ~ ___ | ___)
+pairs(emm_int, adjust = "tukey")
+```
+
+**Questions**:
+
+::: {.smaller}
+1. At which facility types does the Enhanced Transition program significantly reduce readmission rates?
+2. Which facility type benefits the most? What are the implications for healthcare administrators?
+:::
+
+
+# 2. Two-Way Within-Subjects ANOVA {background-color="#40666e"}
+
+## What is it?
+
+A **two-way within-subjects ANOVA** tests the effects of two factors where the **same participants** experience all combinations of both factors.
+
+. . .
+
+<br>
+**Key Characteristics**:
+
+::: {.incremental}
+- Same participants measured under **all** conditions
+- Both factors are within-subjects (repeated measures)
+- More powerful than between-subjects designs
+- Requires fewer participants
+:::
+
+
+## When to Use It
+
+Use when the same participants are measured under **all** combinations of two factors:
+
+::: {.incremental}
+- Same patients tested with **different medications** at **different times of day** → pain control scores
+  - e.g., Each patient tries ibuprofen and acetaminophen in the morning and evening
+- Same staff evaluated on **multiple tasks** across **multiple assessment periods** → performance scores
+  - e.g., Each nurse is assessed on medication administration and charting at months 1 and 6
+- Same clinics measured on **different metrics** in **different seasons** → satisfaction scores
+  - e.g., Each clinic's wait time and communication scores are tracked in summer vs. winter
+:::
+
+
+## Scenario: Medication Type × Time of Day
+
+A clinical study examines whether **medication effectiveness** varies by **time of administration**. The same 20 patients receive each of three medications at two times.
+
+<br>
+
+**Medications:**
+
+::: {.smaller style="margin-left: 2em;"}
+- **Med A**: Standard pain reliever
+- **Med B**: Extended-release pain medication
+- **Med C**: Fast-acting pain medication
+:::
+
+**Time:** Morning vs. Evening
+
+**Outcome**: Effectiveness score (0-100, higher = better pain control)
+
+. . .
+
+**Study Design**: Each patient experiences all 6 conditions (3 medications × 2 times).
+
+## Demonstration: Loading the Data
+
+Let's load the data using the code below:
+
+```{r}
+#| label: within-example1
+
+within_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_within_data.csv")
+
+within_data <- within_data %>%
+  mutate(medication = factor(medication, levels = c("Med A", "Med B", "Med C")),
+         time = factor(time, levels = c("Morning", "Evening")),
+         patient_id = factor(patient_id))
+```
+
+## Demonstration: Summary Statistics
+
+```{r}
+#| echo: false
+within_summary <- within_data %>%
+  group_by(medication, time) %>%
+  summarise(mean = round(mean(effectiveness), 1),
+            sd = round(sd(effectiveness), 1),
+            .groups = "drop")
+
+knitr::kable(within_summary,
+             col.names = c("Medication", "Time", "Mean", "SD"),
+             caption = "**Medication Effectiveness by Type and Time of Day**",
+             align = "c")
+```
+
+
+## Visualizing the Data
+
+```{r}
+#| label: within-viz1
+#| code-fold: true
+#| fig-width: 8
+#| fig-height: 4.5
+
+within_means <- within_data %>%
+  group_by(medication, time) %>%
+  summarise(mean = mean(effectiveness), .groups = "drop")
+
+ggplot(within_means, aes(x = medication, y = mean, color = time, group = time)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "Medication Effectiveness by Time of Administration",
+       subtitle = "Medications show different time-of-day patterns",
+       x = "Medication", y = "Mean Effectiveness Score",
+       color = "Time") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "bottom")
+```
+
+
+## Understanding the Error Term
+
+Since the **same patients** experience all conditions, we account for this using `Error()`:
+
+. . .
+
+- **If the same person experiences all levels of a factor, that factor goes inside `Error(id/...)`**
+
+. . .
+
+<br>
+Here, each patient receives all 3 medications AND both time points, so **both** factors go inside `Error()`:
+
+```r
+aov(outcome ~ factorA * factorB + Error(subject_id / (factorA * factorB)),
+    data = dataset)
+```
+
+
+## Comparing All Formula Types
+
+| Design | Formula | Why? |
+|--------|---------|------|
+| **Between-subjects** | `aov(y ~ A * B)` | Different people in each cell |
+| **One-way repeated** (Week 6) | `aov(y ~ A + Error(id/A))` | Same people across levels of A |
+| **Two-way within** (current) | `aov(y ~ A * B + Error(id/(A*B)))` | Same people across ALL combinations |
+
+
+## Hypotheses
+
+1. **Main effect of medication**:
+   - $H_0$: $\mu_{Med A} = \mu_{Med B} = \mu_{Med C}$
+   - $H_A$: At least one medication mean differs
+
+. . .
+
+2. **Main effect of time**:
+   - $H_0$: $\mu_{Morning} = \mu_{Evening}$
+   - $H_A$: $\mu_{Morning} \neq \mu_{Evening}$
+
+. . .
+
+3. **Interaction**:
+   - $H_0$: The time effect is the same for all medications
+   - $H_A$: The time effect depends on medication
+
+
+## Demonstration: Running Within-Subjects ANOVA
+
+```{r}
+#| label: within-test1
+
+# Two-way within-subjects ANOVA
+within_anova <- aov(effectiveness ~ medication * time +
+                     Error(patient_id/(medication * time)),
+                   data = within_data)
+summary(within_anova)
+```
+
+## Interpreting the Results
+
+Unlike between-subjects output (one table), you'll see **multiple sections** labeled with different "Error" strata. Focus on **F value** and **Pr(>F)**:
+
+::: {.incremental}
+- **medication**: Significant. The three medications produce different effectiveness levels.
+- **time**: Significant. Overall effectiveness differs between morning and evening.
+- **medication:time**: Significant! The time-of-day effect is **different** for different medications.
+:::
+
+. . .
+
+<br>
+Although the main effect of time is significant, the significant interaction tells us the time effect is **not uniform**: some medications work better in the morning, others in the evening.
+
+
+## Simple Effects Analysis
+
+```{r}
+#| label: within-posthoc1
+
+# Simple effects: time effect at each medication level
+emm_within <- emmeans(within_anova, ~ time | medication)
+pairs(emm_within, adjust = "tukey")
+```
+
+
+## Interpreting Simple Effects
+
+The simple effects reveal the time-of-day effect for each medication:
+
+::: {.incremental}
+- **Med A** (Standard): Significantly more effective in the **evening**
+- **Med B** (Extended-release): **No significant difference** (designed for consistent levels)
+- **Med C** (Fast-acting): Significantly more effective in the **morning**
+:::
+
+. . .
+
+<br>
+These findings support **chronotherapy** (timing medication to optimize effectiveness without changing the medication or increasing costs).
+
+
+## Practice 2: Task Type × Shift Period
+
+- A nursing director evaluates whether **nurse performance** on different **task types** changes throughout a 12-hour shift.
+
+. . .
+
+**Task Types:**
+
+::: {.smaller style="margin-left: 2em;"}
+- **Documentation**: Charting, EHR data entry, admission/discharge paperwork
+- **Patient Care**: Vital signs, medication administration, patient education
+:::
+
+. . .
+
+**Shift Periods:**
+
+::: {.smaller style="margin-left: 2em;"}
+- **Beginning** (hours 1-3), **Middle** (hours 4-9), **End** (hours 10-12)
+:::
+
+. . .
+
+The same 15 nurses are evaluated on both task types across all three periods.
+
+
+## Practice 2: Load the Data
+
+Let's load the dataset and explore it. 
+
+```{r}
+#| label: practice-within1-data
+
+task_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_task_data.csv")
+
+task_data <- task_data %>%
+  mutate(
+    task = factor(task, levels = c("Documentation", "Patient Care")),
+    period = factor(period, levels = c("Beginning", "Middle", "End")),
+    nurse_id = factor(nurse_id)
+  )
+```
+
+**Task 2.0**: Explore the data
+
+```{r}
+#| label: practice-within1-explore
+#| eval: false
+
+task_data %>%
+  group_by(___, ___) %>%
+  summarise(
+    mean = round(mean(___), 1),
+    sd = round(sd(___), 1),
+    .groups = "drop"
+  )
+```
+
+
+## Practice 2: Interaction Plot
+
+**Task 2.1**: Create an interaction plot
+
+```{r}
+#| label: practice-within1-plot
+#| eval: false
+
+task_means <- task_data %>%
+  group_by(___, ___) %>%
+  summarise(mean = mean(___), .groups = "drop")
+
+ggplot(task_means, aes(x = ___, y = ___, color = ___, group = ___)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "Performance by Task Type and Shift Period",
+       x = "Shift Period",
+       y = "Mean Performance Score",
+       color = "Task Type") +
+  theme_minimal()
+```
+
+**Questions**:
+
+1. Does one task type decline more than the other over the shift?
+2. What type of interaction does this represent (no interaction, ordinal, or disordinal)?
+
+
+## Practice 2: ANOVA and Simple Effects
+
+**Task 2.2**: Run Within-Subjects ANOVA
+
+```{r}
+#| label: practice-within1-anova
+#| eval: false
+
+task_anova <- aov(___ ~ ___ * ___ + Error(___/(___ * ___)),
+                  data = task_data)
+summary(___)
+```
+
+. . .
+
+**Task 2.3**: Simple Effects Analysis
+
+```{r}
+#| label: practice-within1-simple
+#| eval: false
+
+emm_task <- emmeans(___, ~ ___ | ___)
+pairs(emm_task, adjust = "tukey")
+```
+
+::: {.smaller}
+**Questions**:
+
+1. At which shift periods is there a significant difference between documentation and patient care performance?
+2. Does documentation decline more than patient care? What would you recommend to the nursing director?
+:::
+
+
+# 3. Mixed Design ANOVA {background-color="#40666e"}
+
+## What is it?
+
+A **mixed design ANOVA** combines both between-subjects and within-subjects factors. This is the **most common design in healthcare research**.
+
+. . .
+
+<br>
+**Key Characteristics**:
+
+::: {.incremental}
+- **Between-subjects factor**: Different participants in each group (e.g., treatment groups)
+- **Within-subjects factor**: Same participants measured repeatedly (e.g., time points)
+- The interaction is usually the most important test: do the groups show *different trajectories*?
+:::
+
+
+## When to Use It
+
+Use when different groups of participants are measured **repeatedly**:
+
+::: {.incremental}
+- **Clinical trials**: Treatment group × Time points → symptom severity
+  - e.g., Drug vs. placebo groups measured at baseline, 4 weeks, and 12 weeks
+- **Patient experience**: Hospital unit × Survey domains → satisfaction scores
+  - e.g., ICU vs. med-surg patients surveyed on communication, responsiveness, and discharge 
+- **Quality improvement**: Intervention group × Measurement periods → readmission rates
+  - e.g., Hospitals with vs. without a care coordinator tracked quarterly for one year
+:::
+
+
+## Scenario: Training Program × Assessment Time
+
+A hospital compares **three training programs** for nursing competency. 60 nurses are randomly assigned to one program (between) and assessed at **three time points** (within).
+
+. . .
+
+**Training Programs:**
+
+::: {.smaller style="margin-left: 2em;"}
+- **Traditional Lecture**: Classroom instruction (~$200/nurse)
+- **Simulation-Based**: Hands-on practice with mannequins (~$800/nurse)
+- **Blended Learning**: Online theory + in-person practice (~$600/nurse)
+:::
+
+. . .
+
+**Time Points**: Pre, Post, 3 Months
+
+. . .
+
+**Key Management Question**: *Do more expensive methods maintain their advantage over time?*
+
+
+## Demonstration: Loading the Data
+
+Let's load the dataset using the code below. 
+
+```{r}
+#| label: mixed-example1
+
+mixed_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_mixed_data.csv")
+
+mixed_data <- mixed_data %>%
+  mutate(
+    program = factor(program, levels = c("Traditional", "Simulation", "Blended")),
+    time = factor(time, levels = c("Pre", "Post", "3 Months")),
+    nurse_id = factor(nurse_id)
+  )
+```
+
+
+## Visualizing the Data
+
+```{r}
+#| label: mixed-viz1
+#| code-fold: true
+#| fig-width: 8
+#| fig-height: 4.5
+
+mixed_means <- mixed_data %>%
+  group_by(program, time) %>%
+  summarise(mean = mean(score), .groups = "drop")
+
+ggplot(mixed_means, aes(x = time, y = mean, color = program, group = program)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "Competency Trajectories by Training Program",
+       x = "Assessment Time", y = "Mean Competency Test Score",
+       color = "Program") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "bottom",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+## Understanding the Error Term
+
+Apply the same rule: **Does the same person experience all levels of this factor?**
+
+::: {.incremental}
+- **Program** (between-subjects): Each nurse is in *only one* program → **NOT** in `Error()`
+- **Time** (within-subjects): Each nurse is tested at *all three* time points → **in** `Error()`
+:::
+
+. . .
+
+<br>
+
+```r
+aov(outcome ~ between_factor * within_factor + Error(subject_id / within_factor),
+    data = dataset)
+```
+
+## Complete Formula Comparison
+
+| Design | Formula | Error Term Contains |
+|--------|---------|-------------------|
+| **Between-subjects** | `aov(y ~ A * B)` | Nothing (no repeated measures) |
+| **Within-subjects** | `aov(y ~ A * B + Error(id/(A*B)))` | Both A and B |
+| **Mixed** | `aov(y ~ A * B + Error(id/B))` | Only within-subjects factor B |
+
+
+## Hypotheses
+
+1. **Main effect of program**:
+   - $H_0$: $\mu_{Traditional} = \mu_{Simulation} = \mu_{Blended}$
+   - $H_A$: At least one program mean differs
+
+. . .
+
+2. **Main effect of time**:
+   - $H_0$: $\mu_{Pre} = \mu_{Post} = \mu_{3 Months}$
+   - $H_A$: At least one time point mean differs
+
+. . .
+
+3. **Interaction**:
+   - $H_0$: The time trajectory is the same for all programs
+   - $H_A$: The time trajectory differs across programs
+
+
+## Demonstration: Running Mixed Design ANOVA
+
+```{r}
+#| label: mixed-test1
+
+# Mixed design ANOVA
+mixed_anova <- aov(score ~ program * time + Error(nurse_id/time),
+                   data = mixed_data)
+summary(mixed_anova)
+```
+
+
+## Interpreting the Results
+
+The output has two error strata:
+
+::: {.incremental}
+- **program**: Main effect of training program (Significant)
+- **time**: Main effect of time (Significant): competency scores change over time
+- **program:time**: The interaction (Significant): programs show *different trajectories*!
+:::
+
+. . .
+
+<br>
+
+- Traditional starts equal but falls behind
+- Simulation and Blended maintain their gains
+
+## When Interaction is Significant
+
+Without the interaction, an administrator might conclude all programs need refresher courses equally.
+
+. . .
+
+The interaction reveals:
+
+::: {.smaller style="margin-left: 2em;"}
+- Traditional: significant decay at 3 months
+- Simulation & Blended: retain most of their gains
+:::
+
+. . .
+
+<br>
+**When the interaction is significant, examine simple effects to understand the pattern.**
+
+
+## Simple Effects: Programs at Each Time
+
+```{r}
+#| label: mixed-simple1
+
+# Compare programs at each time point
+emm_mixed <- emmeans(mixed_anova, ~ program | time)
+pairs(emm_mixed, adjust = "tukey")
+```
+
+## Interpreting: Programs at Each Time
+
+At each time point:
+
+::: {.incremental}
+- **Pre**: No significant differences — all three groups started equal
+- **Post**: Significant differences (Blended > Simulation > Traditional)
+- **3 Months**: Significant differences persist (Blended > Simulation > Traditional)
+:::
+
+
+## Practice 3: Therapy Type × Session Number
+
+- A mental health clinic compares **two therapy approaches** for anxiety. 36 patients are randomly assigned to one therapy (between) and measured at **three time points** (within).
+
+. . .
+
+**Therapies:**
+
+::: {.smaller style="margin-left: 2em;"}
+- **CBT**: Identifies and changes negative thought patterns; includes homework
+- **Mindfulness-Based**: Focuses on present-moment awareness; includes meditation
+:::
+
+. . .
+
+**Time Points**: Session 1, Session 3, Session 5
+
+. . .
+
+**Outcome**: Anxiety score (0-100, higher = more severe)
+
+
+## Practice 3: Load the Data
+
+Load the data using the code below and explore the data.
+
+```{r}
+#| label: practice-mixed1-data
+
+therapy_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_therapy_data.csv")
+
+therapy_data <- therapy_data %>%
+  mutate(
+    session = factor(session, levels = c("Session 1", "Session 3", "Session 5")),
+    therapy = factor(therapy, levels = c("CBT", "Mindfulness")),
+    patient_id = factor(patient_id)
+  )
+```
+
+**Task 3.0**: Explore the data
+
+```{r}
+#| label: practice-mixed1-explore
+#| eval: false
+
+therapy_data %>%
+  group_by(___, ___) %>%
+  summarise(
+    mean = round(mean(___), 1),
+    sd = round(sd(___), 1),
+    .groups = "drop"
+  )
+```
+
+
+## Practice 3: Interaction Plot
+
+**Task 3.1**: Create an interaction plot
+
+```{r}
+#| label: practice-mixed1-plot
+#| eval: false
+
+therapy_means <- therapy_data %>%
+  group_by(___, ___) %>%
+  summarise(mean = mean(___), .groups = "drop")
+
+ggplot(therapy_means, aes(x = ___, y = ___, color = ___, group = ___)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "Anxiety Trajectories by Therapy Type",
+       x = "Session",
+       y = "Mean Anxiety Score",
+       color = "Therapy") +
+  theme_minimal()
+```
+
+**Questions**:
+
+1. Do both therapies show the same rate of improvement?
+2. Which therapy shows faster initial improvement?
+
+
+## Practice 3: ANOVA and Simple Effects
+
+**Task 3.2**: Run Mixed Design ANOVA
+
+```{r}
+#| label: practice-mixed1-anova
+#| eval: false
+
+# Between: therapy, Within: session
+therapy_anova <- aov(___ ~ ___ * ___ + Error(___/___),
+                     data = therapy_data)
+summary(___)
+```
+
+. . .
+
+**Task 3.3**: Simple Effects Analysis
+
+```{r}
+#| label: practice-mixed1-simple
+#| eval: false
+
+emm_therapy <- emmeans(___, ~ ___ | ___)
+pairs(emm_therapy, adjust = "tukey")
+```
+
+::: {.smaller}
+**Questions**:
+
+1. At which sessions do the two therapy types differ significantly?
+2. Do the therapies converge by Session 5? What would you tell patients about choosing between therapies?
+:::
+
+
+# Summary {background-color="#40666e"}
+
+## Key Takeaways: Design Formulas
+
+| Design | Between Factor | Within Factor | R Formula |
+|--------|:-:|:-:|-----------|
+| **Between** | A, B | — | `aov(y ~ A * B)` |
+| **Within** | — | A, B | `aov(y ~ A*B + Error(id/(A*B)))` |
+| **Mixed** | A | B | `aov(y ~ A*B + Error(id/B))` |
+
+
+## Key Takeaways: Interaction Patterns
+
+| Pattern | Lines | Interpretation |
+|---------|-------|----------------|
+| **No interaction** | Parallel | Effect of A is same at all levels of B |
+| **Ordinal** | Converge/diverge | Effect of A varies in magnitude but not direction |
+| **Disordinal** | Cross | Effect of A reverses direction across levels of B |
+
+
+## Choosing the Right Design
+
+Ask yourself two questions about each factor:
+
+::: {.incremental}
+1. **"Do different people experience different levels?"** → Between-subjects factor
+2. **"Does each person experience all levels?"** → Within-subjects factor
+:::
+
+. . .
+
+Then match:
+
+::: {.incremental}
+- Both between → **Two-Way Between-Subjects**
+- Both within → **Two-Way Within-Subjects**
+- One of each → **Mixed Design**
+:::
+
+
+## Interpreting Results: Step-by-Step
+
+::: {.incremental}
+1. **Check the interaction first**
+   - Significant → Focus on simple effects. **Do not** interpret main effects in isolation.
+   - Not significant → Interpret main effects directly.
+
+2. **For significant interactions, run simple effects**
+   - `emmeans()` with `pairs()` to compare at each level
+
+3. **Connect to practical implications**
+   - What does this mean for clinical practice or resource allocation?
+   - Which subgroups benefit most?
+:::
+
+
+## Assignments
+
+1. **Reflection**: Please share your thoughts on the lecture
+   - 3 interesting things
+   - 3 confusing things
+
+2. **Lab Assignment 3**
+
+
+# References {background-color="#40666e"}
+
+## Statistical Methods
+
+- Field, A. (2018). *Discovering Statistics Using IBM SPSS Statistics* (5th ed.). SAGE Publications.
+- Maxwell, S. E., & Delaney, H. D. (2004). *Designing Experiments and Analyzing Data* (2nd ed.). Psychology Press.
+- [Navarro, D. (2019). *Learning Statistics with R*.](https://learningstatisticswithr.com/lsr-0.6.pdf){target="_blank"}
+- Wickham, H., & Grolemund, G. (2017). *R for Data Science*. O'Reilly Media.
+
+## Healthcare Applications
+
+Examples are motivated by the following:
+
+- Interpretation of Chronic Pain Clinical Trial Outcomes: IMMPACT Recommended Considerations. (2020). *Pain*. https://pmc.ncbi.nlm.nih.gov/articles/PMC7572524/
+
+- Effectiveness of a Simulation-Based Education Program to Improve Novice Nurses' Clinical Judgment Skills. (2024). *Cureus*. https://pmc.ncbi.nlm.nih.gov/articles/PMC11223944/
+
+- Circadian Variation in Efficacy of Medications. (2020). *Clinical Pharmacology & Therapeutics*. https://pmc.ncbi.nlm.nih.gov/articles/PMC8268638/
+
+- Mindfulness-Based Interventions for Anxiety and Depression. (2017). *The Psychiatric Clinics of North America*. https://pmc.ncbi.nlm.nih.gov/articles/PMC5679245/
