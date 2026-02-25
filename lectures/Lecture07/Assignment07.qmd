@@ -1,0 +1,512 @@
+---
+title: "Lab Assignment 3: ANOVA (Weeks 06-07)"
+subtitle: "MBA642: Business Analytics in Healthcare Management"
+author: "Your Name" 
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme:
+      - cosmo
+      - lecture.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(ggplot2)
+library(tidyverse)
+library(emmeans)
+set.seed(2026)
+```
+
+# Assignment Overview
+
+- **Total Points**: 10 points
+- **Due Date**: March 1, 2026
+- **Submission**: Upload your completed .qmd (no need to submit the rendered html file)
+
+## Learning Objectives
+
+This assignment assesses your ability to:
+
+- Choose the appropriate ANOVA design for different research scenarios
+- Conduct one-way, repeated-measures, and two-way ANOVA analyses in R
+- Interpret ANOVA tables, interaction effects, and post-hoc comparisons
+- Draw data-driven conclusions in a healthcare management context
+
+## Instructions
+
+1. Complete all 5 tasks below
+2. Fill in the blanks (replace `___` with appropriate code or values)
+3. After completing each code chunk, change `#| eval: false` to `#| eval: true` to run it
+4. Answer all interpretation questions (1-2 sentences each)
+5. Run all code chunks to verify they work before submitting
+
+---
+
+# Grading Rubric
+
+Each task is worth 2 points. Points are allocated as follows:
+
+| Component | Weight | Description |
+|-----------|--------|-------------|
+| Code correctness | 50% | Code runs without errors and produces correct output |
+| Completeness | 30% | All blanks filled in, correct ANOVA type and arguments used |
+| Interpretation | 20% | Thoughtful 1-2 sentence response addressing the question |
+
+**Interpretation Guidance**: Your interpretations should be brief but specific. For example:
+
+- **Good**: "The ANOVA shows a significant effect of department (F = 4.52, p = 0.012). Post-hoc tests reveal that the Emergency department has significantly lower satisfaction than Cardiology and Orthopedics."
+- **Too vague**: "The result is significant."
+
+---
+
+# Required Packages
+
+- Load the required packages using the code below: 
+
+```{r}
+#| label: required-packages
+
+library(ggplot2)
+library(tidyverse)
+library(emmeans)
+```
+
+
+
+
+# Assignment Tasks
+
+## Task 1: One-Way ANOVA — Hospital Department Efficiency (2 points) {.unnumbered}
+
+A hospital operations manager wants to compare **average length of stay** (LOS, in days) across **four departments** to identify departments that may need process improvements.
+
+**Departments**: Emergency, Cardiology, Orthopedics, Neurology
+
+```{r}
+#| label: task1-data
+
+# Generate department LOS data
+los_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_assignment_data1.csv")
+```
+
+**Step 1**: Compute summary statistics.
+
+```{r}
+#| label: task1-summary
+#| eval: false
+
+los_data %>%
+  group_by(___) %>%
+  summarise(
+    n = n(),
+    mean = round(mean(___), 2),
+    sd = round(sd(___), 2),
+    .groups = "drop"
+  )
+```
+
+**Step 2**: Run a one-way ANOVA.
+
+```{r}
+#| label: task1-anova
+#| eval: false
+
+# One-way ANOVA
+los_anova <- aov(___ ~ ___, data = los_data)
+summary(___)
+```
+
+**Step 3**: Run post-hoc comparisons using `emmeans`.
+
+```{r}
+#| label: task1-posthoc
+#| eval: false
+
+# Post-hoc pairwise comparisons
+emm_los <- emmeans(___, ~ ___)
+pairs(___, adjust = "tukey")
+```
+
+**Step 4**: Create a box plot comparing LOS across departments.
+
+```{r}
+#| label: task1-plot
+#| eval: false
+
+ggplot(los_data, aes(x = ___, y = ___, fill = ___)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Length of Stay by Department",
+       x = "Department",
+       y = "Length of Stay (days)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**Interpretation Questions**:
+
+1. Is the overall ANOVA significant? What does this tell you?
+2. Which departments differ significantly from each other according to the post-hoc test? What operational recommendations would you make?
+
+::: {.callout-note icon=false title="Your Answer (1-2 sentences each)"}
+*[Write your answers here]*
+
+1. Question 1: 
+
+
+2. Question 2:
+
+
+:::
+
+---
+
+## Task 2: Repeated-Measures ANOVA — Patient Recovery Over Time (2 points) {.unnumbered}
+
+A rehabilitation center tracks **functional mobility scores** for 25 patients at **four time points** after knee replacement surgery to evaluate the recovery trajectory.
+
+**Time Points**: Week 1, Week 4, Week 8, Week 12
+
+```{r}
+#| label: task2-data
+
+recovery_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_assignment_data2.csv")
+recovery_data <- recovery_data |> 
+  mutate(
+    patient_id = factor(patient_id), 
+    time = factor(time, levels = c("Week 1", "Week 4", "Week 8", "Week 12"))
+  )
+```
+
+**Step 1**: Compute summary statistics by time point.
+
+```{r}
+#| label: task2-summary
+#| eval: false
+
+recovery_data %>%
+  group_by(___) %>%
+  summarise(
+    mean = round(mean(___), 1),
+    sd = round(sd(___), 1),
+    .groups = "drop"
+  )
+```
+
+**Step 2**: Run a repeated-measures ANOVA. Remember: the same patients are measured at all time points, so use `Error()`.
+
+```{r}
+#| label: task2-anova
+#| eval: false
+
+# Repeated-measures ANOVA
+recovery_anova <- aov(___ ~ ___ + Error(___/___), data = recovery_data)
+summary(___)
+```
+
+**Step 3**: Run post-hoc comparisons.
+
+```{r}
+#| label: task2-posthoc
+#| eval: false
+
+emm_recovery <- emmeans(___, ~ ___)
+pairs(___, adjust = "tukey")
+```
+
+**Interpretation Questions**:
+
+1. Is the effect of time significant? What does this mean for patient recovery?
+2. Based on the post-hoc results, between which time points do we see the most significant improvement? Does recovery appear to plateau at any point?
+
+::: {.callout-note icon=false title="Your Answer (1-2 sentences each)"}
+*[Write your answers here]*
+
+1. Question 1: 
+
+
+2. Question 2: 
+
+
+:::
+
+---
+
+## Task 3: Two-Way Between-Subjects ANOVA — Training Method x Experience Level (2 points) {.unnumbered}
+
+A hospital evaluates **two training methods** for medication safety competency across **three experience levels**. Different nurses are in each combination of training method and experience level.
+
+**Training Methods**: Traditional Lecture, High-Fidelity Simulation
+
+**Experience Levels**: Novice (<1 year), Intermediate (1-5 years), Expert (>5 years)
+
+```{r}
+#| label: task3-data
+
+training_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_assignment_data3.csv")
+training_data <- training_data |> 
+  mutate(
+    experience = factor(experience, levels = c("Novice", "Intermediate", "Expert"))
+  )
+```
+
+**Step 1**: Create an interaction plot.
+
+```{r}
+#| label: task3-plot
+#| eval: false
+
+training_summary <- training_data %>%
+    group_by(___, ___) %>%
+    summarise(mean = mean(___), .groups = "drop")
+
+ggplot(training_summary, aes(x = ___, y = ___, color = ___, group = ___)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "Competency by Training Method and Experience",
+       x = "Experience Level",
+       y = "Mean Competency Score",
+       color = "Method") +
+  theme_minimal()
+```
+
+**Step 2**: Run two-way between-subjects ANOVA.
+
+```{r}
+#| label: task3-anova
+#| eval: false
+
+training_anova <- aov(___ ~ ___ * ___, data = training_data)
+summary(___)
+```
+
+**Step 3**: Run simple effects analysis.
+
+```{r}
+#| label: task3-simple
+#| eval: false
+
+emm_train <- emmeans(___, ~ ___ | ___)
+pairs(___, adjust = "tukey")
+```
+
+**Interpretation Questions**:
+
+1. Is the interaction significant? What does the interaction plot suggest about the pattern (parallel, ordinal, or disordinal)?
+2. At which experience levels does the training method make a significant difference? What training strategy would you recommend?
+
+::: {.callout-note icon=false title="Your Answer (1-2 sentences each)"}
+*[Write your answers here]*
+
+1. Question 1: 
+
+
+2. Question 2: 
+
+
+
+:::
+
+---
+
+## Task 4: Two-Way Within-Subjects ANOVA — Communication Mode x Instruction Complexity (2 points) {.unnumbered}
+
+A clinic tests whether **patient comprehension** of discharge instructions varies by **communication mode** and **instruction complexity**. The same 18 patients are tested under all combinations (within-subjects design).
+
+**Communication Modes**: Verbal Only, Written + Verbal
+
+**Instruction Complexity**: Simple, Complex
+
+```{r}
+#| label: task4-data
+
+comprehension_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_assignment_data4.csv")
+comprehension_data <- comprehension_data |> 
+  mutate(
+    complexity = factor(complexity, levels = c("Simple", "Complex")),
+    mode = factor(mode, levels = c("Verbal Only", "Written + Verbal")),
+    patient_id = factor(patient_id)
+  )
+
+```
+
+**Step 1**: Create an interaction plot.
+
+```{r}
+#| label: task4-plot
+#| eval: false
+
+comprehension_summary <- comprehension_data %>%
+  group_by(___, ___) %>%
+  summarise(mean = mean(___), .groups = "drop")
+
+ggplot(comprehension_summary, aes(x = ___, y = ___, color = ___, group = ___)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "Comprehension by Mode and Complexity",
+       x = "Instruction Complexity",
+       y = "Mean Comprehension Score",
+       color = "Mode") +
+  theme_minimal()
+```
+
+**Step 2**: Run two-way within-subjects ANOVA. Remember: both factors are within-subjects, so both go in `Error()`.
+
+```{r}
+#| label: task4-anova
+#| eval: false
+
+comp_anova <- aov(___ ~ ___ * ___ + Error(___/(___ * ___)),
+                  data = comprehension_data)
+summary(___)
+```
+
+**Step 3**: Run simple effects analysis.
+
+```{r}
+#| label: task4-simple
+#| eval: false
+
+emm_comp <- emmeans(___, ~ ___ | ___)
+pairs(___, adjust = "tukey")
+```
+
+**Interpretation Questions**:
+
+1. Is the interaction significant? What does this mean about how communication mode affects comprehension for simple vs. complex instructions?
+2. For which instruction type does the communication mode matter more? What practical recommendation would you make for discharge planning?
+
+::: {.callout-note icon=false title="Your Answer (1-2 sentences each)"}
+*[Write your answers here]*
+
+1. Question 1: 
+
+
+2. Question 2: 
+
+
+
+:::
+
+---
+
+## Task 5: Mixed Design ANOVA — Intervention Group x Measurement Time (2 points) {.unnumbered}
+
+A diabetes clinic evaluates an **intensive education program** compared to **usual care**. Patients are assigned to one group (between-subjects) and measured at **three time points** (within-subjects).
+
+**Groups**: Usual Care, Intensive Education
+
+**Outcome**: HbA1c level (%), lower = better blood sugar control
+
+```{r}
+#| label: task5-data
+
+diabetes_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week07_assignment_data5.csv")
+diabetes_data <- diabetes_data |> 
+  mutate(
+    patient_id = factor(patient_id),
+    time = factor(time, levels = c("Baseline", "3 Months", "6 Months")),
+    group = factor(group, levels = c("Usual Care", "Intensive Education"))
+  )
+```
+
+**Step 1**: Create an interaction plot.
+
+```{r}
+#| label: task5-plot
+#| eval: false
+
+diabetes_summary <- diabetes_data %>%
+  group_by(___, ___) %>%
+  summarise(mean = mean(___), .groups = "drop") 
+
+ggplot(diabetes_summary, aes(x = ___, y = ___, color = ___, group = ___)) +
+  geom_line(linewidth = 1.5) +
+  geom_point(size = 4) +
+  labs(title = "HbA1c Trajectories by Education Program",
+       x = "Time Point",
+       y = "Mean HbA1c (%)",
+       color = "Group") +
+  theme_minimal()
+```
+
+**Step 2**: Run mixed design ANOVA. Remember: only the within-subjects factor (time) goes in `Error()`.
+
+```{r}
+#| label: task5-anova
+#| eval: false
+
+diabetes_anova <- aov(___ ~ ___ * ___ + Error(___/___),
+                      data = diabetes_data)
+summary(___)
+```
+
+**Step 3**: Run simple effects — compare groups at each time point.
+
+```{r}
+#| label: task5-simple
+#| eval: false
+
+emm_diabetes <- emmeans(___, ~ ___ | ___)
+pairs(___, adjust = "tukey")
+```
+
+**Interpretation Questions**:
+
+1. Is the interaction significant? What does this tell you about the trajectories of the two groups?
+2. At which time points do the groups differ significantly? If you were a clinic administrator, would you fund this program based on the 3-month results alone? Why or why not?
+
+::: {.callout-note icon=false title="Your Answer (1-2 sentences each)"}
+*[Write your answers here]*
+
+1. Question 1: 
+
+
+2. Question 2: 
+
+
+
+:::
+
+---
+
+# Submission Checklist
+
+Before submitting, verify:
+
+- [ ] All 5 tasks are completed
+- [ ] All blanks (`___`) are filled in with appropriate values
+- [ ] All `#| eval: false` changed to `#| eval: true`
+- [ ] All code chunks run without errors
+- [ ] All interpretation questions are answered (1-2 sentences each)
+- [ ] Visualizations have appropriate titles and axis labels
+- [ ] File renders to HTML successfully
+
+---
+
+# Points Summary
+
+| Task | Points | Topic | Design |
+|------|--------|-------|--------|
+| Task 1 | 2.0 | Hospital department efficiency | One-Way ANOVA |
+| Task 2 | 2.0 | Patient recovery over time | Repeated-Measures ANOVA |
+| Task 3 | 2.0 | Training method × experience | Two-Way Between-Subjects |
+| Task 4 | 2.0 | Communication mode × complexity | Two-Way Within-Subjects |
+| Task 5 | 2.0 | Education program × time | Mixed Design ANOVA |
+| **Total** | **10.0** | | |
+
+---
+
+**Good luck!**
