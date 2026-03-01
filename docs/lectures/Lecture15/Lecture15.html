@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="">
+<meta name="dcterms.date" content="2026-01-01">
+
+<title>Penalized Regression in Healthcare Analytics (Lecture Notes) – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e3454d6c61f52a147682728788a76643.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mba642-spring-26/mba642-spring-26.github.io/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Penalized Regression in Healthcare Analytics (Lecture Notes)</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction-and-learning-objectives" id="toc-introduction-and-learning-objectives" class="nav-link active" data-scroll-target="#introduction-and-learning-objectives"><span class="header-section-number">1</span> Introduction and Learning Objectives</a>
+  <ul class="collapse">
+  <li><a href="#prediction-vs.-explanation-a-critical-distinction" id="toc-prediction-vs.-explanation-a-critical-distinction" class="nav-link" data-scroll-target="#prediction-vs.-explanation-a-critical-distinction"><span class="header-section-number">1.1</span> Prediction vs.&nbsp;Explanation: A Critical Distinction</a></li>
+  <li><a href="#why-prediction-matters-in-healthcare" id="toc-why-prediction-matters-in-healthcare" class="nav-link" data-scroll-target="#why-prediction-matters-in-healthcare"><span class="header-section-number">1.2</span> Why Prediction Matters in Healthcare</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">1.3</span> Learning Objectives</a></li>
+  </ul></li>
+  <li><a href="#conceptual-foundations" id="toc-conceptual-foundations" class="nav-link" data-scroll-target="#conceptual-foundations"><span class="header-section-number">2</span> Conceptual Foundations</a>
+  <ul class="collapse">
+  <li><a href="#review-ordinary-least-squares-ols-regression" id="toc-review-ordinary-least-squares-ols-regression" class="nav-link" data-scroll-target="#review-ordinary-least-squares-ols-regression"><span class="header-section-number">2.1</span> Review: Ordinary Least Squares (OLS) Regression</a>
+  <ul class="collapse">
+  <li><a href="#the-basic-setup" id="toc-the-basic-setup" class="nav-link" data-scroll-target="#the-basic-setup"><span class="header-section-number">2.1.1</span> The Basic Setup</a></li>
+  <li><a href="#how-ols-finds-the-best-coefficients" id="toc-how-ols-finds-the-best-coefficients" class="nav-link" data-scroll-target="#how-ols-finds-the-best-coefficients"><span class="header-section-number">2.1.2</span> How OLS Finds the Best Coefficients</a></li>
+  </ul></li>
+  <li><a href="#problems-with-standard-regression-in-healthcare" id="toc-problems-with-standard-regression-in-healthcare" class="nav-link" data-scroll-target="#problems-with-standard-regression-in-healthcare"><span class="header-section-number">2.2</span> Problems with Standard Regression in Healthcare</a></li>
+  <li><a href="#the-solution-penalized-regression" id="toc-the-solution-penalized-regression" class="nav-link" data-scroll-target="#the-solution-penalized-regression"><span class="header-section-number">2.3</span> The Solution: Penalized Regression</a>
+  <ul class="collapse">
+  <li><a href="#the-key-insight" id="toc-the-key-insight" class="nav-link" data-scroll-target="#the-key-insight"><span class="header-section-number">2.3.1</span> The Key Insight</a></li>
+  <li><a href="#how-the-penalty-helps" id="toc-how-the-penalty-helps" class="nav-link" data-scroll-target="#how-the-penalty-helps"><span class="header-section-number">2.3.2</span> How the Penalty Helps</a></li>
+  <li><a href="#the-role-of-lambda-λ" id="toc-the-role-of-lambda-λ" class="nav-link" data-scroll-target="#the-role-of-lambda-λ"><span class="header-section-number">2.3.3</span> The Role of Lambda (λ)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#penalized-regression-models" id="toc-penalized-regression-models" class="nav-link" data-scroll-target="#penalized-regression-models"><span class="header-section-number">3</span> Penalized Regression Models</a>
+  <ul class="collapse">
+  <li><a href="#ridge-regression-the-l2-penalty" id="toc-ridge-regression-the-l2-penalty" class="nav-link" data-scroll-target="#ridge-regression-the-l2-penalty"><span class="header-section-number">3.1</span> Ridge Regression: The L2 Penalty</a>
+  <ul class="collapse">
+  <li><a href="#mathematical-formulation" id="toc-mathematical-formulation" class="nav-link" data-scroll-target="#mathematical-formulation"><span class="header-section-number">3.1.1</span> Mathematical Formulation</a></li>
+  <li><a href="#how-ridge-regression-works" id="toc-how-ridge-regression-works" class="nav-link" data-scroll-target="#how-ridge-regression-works"><span class="header-section-number">3.1.2</span> How Ridge Regression Works</a></li>
+  <li><a href="#visual-understanding-the-constraint-region" id="toc-visual-understanding-the-constraint-region" class="nav-link" data-scroll-target="#visual-understanding-the-constraint-region"><span class="header-section-number">3.1.3</span> Visual Understanding: The Constraint Region</a></li>
+  <li><a href="#advantages-of-ridge-regression" id="toc-advantages-of-ridge-regression" class="nav-link" data-scroll-target="#advantages-of-ridge-regression"><span class="header-section-number">3.1.4</span> Advantages of Ridge Regression</a></li>
+  <li><a href="#disadvantages-of-ridge-regression" id="toc-disadvantages-of-ridge-regression" class="nav-link" data-scroll-target="#disadvantages-of-ridge-regression"><span class="header-section-number">3.1.5</span> Disadvantages of Ridge Regression</a></li>
+  <li><a href="#when-to-use-ridge-regression" id="toc-when-to-use-ridge-regression" class="nav-link" data-scroll-target="#when-to-use-ridge-regression"><span class="header-section-number">3.1.6</span> When to Use Ridge Regression</a></li>
+  </ul></li>
+  <li><a href="#lasso-regression-the-l1-penalty" id="toc-lasso-regression-the-l1-penalty" class="nav-link" data-scroll-target="#lasso-regression-the-l1-penalty"><span class="header-section-number">3.2</span> LASSO Regression: The L1 Penalty</a>
+  <ul class="collapse">
+  <li><a href="#mathematical-formulation-1" id="toc-mathematical-formulation-1" class="nav-link" data-scroll-target="#mathematical-formulation-1"><span class="header-section-number">3.2.1</span> Mathematical Formulation</a></li>
+  <li><a href="#how-lasso-achieves-feature-selection" id="toc-how-lasso-achieves-feature-selection" class="nav-link" data-scroll-target="#how-lasso-achieves-feature-selection"><span class="header-section-number">3.2.2</span> How LASSO Achieves Feature Selection</a></li>
+  <li><a href="#advantages-of-lasso-regression" id="toc-advantages-of-lasso-regression" class="nav-link" data-scroll-target="#advantages-of-lasso-regression"><span class="header-section-number">3.2.3</span> Advantages of LASSO Regression</a></li>
+  <li><a href="#disadvantages-of-lasso-regression" id="toc-disadvantages-of-lasso-regression" class="nav-link" data-scroll-target="#disadvantages-of-lasso-regression"><span class="header-section-number">3.2.4</span> Disadvantages of LASSO Regression</a></li>
+  <li><a href="#when-to-use-lasso-regression" id="toc-when-to-use-lasso-regression" class="nav-link" data-scroll-target="#when-to-use-lasso-regression"><span class="header-section-number">3.2.5</span> When to Use LASSO Regression</a></li>
+  </ul></li>
+  <li><a href="#elastic-net" id="toc-elastic-net" class="nav-link" data-scroll-target="#elastic-net"><span class="header-section-number">3.3</span> Elastic Net</a>
+  <ul class="collapse">
+  <li><a href="#mathematical-formulation-2" id="toc-mathematical-formulation-2" class="nav-link" data-scroll-target="#mathematical-formulation-2"><span class="header-section-number">3.3.1</span> Mathematical Formulation</a></li>
+  <li><a href="#how-elastic-net-handles-correlated-variables" id="toc-how-elastic-net-handles-correlated-variables" class="nav-link" data-scroll-target="#how-elastic-net-handles-correlated-variables"><span class="header-section-number">3.3.2</span> How Elastic Net Handles Correlated Variables</a></li>
+  <li><a href="#tuning-elastic-net" id="toc-tuning-elastic-net" class="nav-link" data-scroll-target="#tuning-elastic-net"><span class="header-section-number">3.3.3</span> Tuning Elastic Net</a></li>
+  <li><a href="#advantages-of-elastic-net" id="toc-advantages-of-elastic-net" class="nav-link" data-scroll-target="#advantages-of-elastic-net"><span class="header-section-number">3.3.4</span> Advantages of Elastic Net</a></li>
+  <li><a href="#disadvantages-of-elastic-net" id="toc-disadvantages-of-elastic-net" class="nav-link" data-scroll-target="#disadvantages-of-elastic-net"><span class="header-section-number">3.3.5</span> Disadvantages of Elastic Net</a></li>
+  <li><a href="#when-to-use-elastic-net" id="toc-when-to-use-elastic-net" class="nav-link" data-scroll-target="#when-to-use-elastic-net"><span class="header-section-number">3.3.6</span> When to Use Elastic Net</a></li>
+  </ul></li>
+  <li><a href="#comparing-the-three-methods" id="toc-comparing-the-three-methods" class="nav-link" data-scroll-target="#comparing-the-three-methods"><span class="header-section-number">3.4</span> Comparing the Three Methods</a>
+  <ul class="collapse">
+  <li><a href="#side-by-side-comparison" id="toc-side-by-side-comparison" class="nav-link" data-scroll-target="#side-by-side-comparison"><span class="header-section-number">3.4.1</span> Side-by-Side Comparison</a></li>
+  </ul></li>
+  <li><a href="#choosing-lambda-cross-validation" id="toc-choosing-lambda-cross-validation" class="nav-link" data-scroll-target="#choosing-lambda-cross-validation"><span class="header-section-number">3.5</span> Choosing Lambda: Cross-Validation</a></li>
+  </ul></li>
+  <li><a href="#hands-on-implementation-with-r" id="toc-hands-on-implementation-with-r" class="nav-link" data-scroll-target="#hands-on-implementation-with-r"><span class="header-section-number">4</span> Hands-On Implementation with R</a>
+  <ul class="collapse">
+  <li><a href="#the-case-predicting-patient-healthcare-costs" id="toc-the-case-predicting-patient-healthcare-costs" class="nav-link" data-scroll-target="#the-case-predicting-patient-healthcare-costs"><span class="header-section-number">4.1</span> The Case: Predicting Patient Healthcare Costs</a></li>
+  <li><a href="#creating-a-healthcare-cost-prediction-dataset" id="toc-creating-a-healthcare-cost-prediction-dataset" class="nav-link" data-scroll-target="#creating-a-healthcare-cost-prediction-dataset"><span class="header-section-number">4.2</span> Creating a Healthcare Cost Prediction Dataset</a></li>
+  <li><a href="#data-preparation-for-glmnet" id="toc-data-preparation-for-glmnet" class="nav-link" data-scroll-target="#data-preparation-for-glmnet"><span class="header-section-number">4.3</span> Data Preparation for glmnet</a></li>
+  <li><a href="#baseline-ordinary-least-squares-ols-regression" id="toc-baseline-ordinary-least-squares-ols-regression" class="nav-link" data-scroll-target="#baseline-ordinary-least-squares-ols-regression"><span class="header-section-number">4.4</span> Baseline: Ordinary Least Squares (OLS) Regression</a></li>
+  <li><a href="#ridge-regression" id="toc-ridge-regression" class="nav-link" data-scroll-target="#ridge-regression"><span class="header-section-number">4.5</span> Ridge Regression</a>
+  <ul class="collapse">
+  <li><a href="#fitting-the-ridge-model" id="toc-fitting-the-ridge-model" class="nav-link" data-scroll-target="#fitting-the-ridge-model"><span class="header-section-number">4.5.1</span> Fitting the Ridge Model</a></li>
+  <li><a href="#visualizing-the-coefficient-paths" id="toc-visualizing-the-coefficient-paths" class="nav-link" data-scroll-target="#visualizing-the-coefficient-paths"><span class="header-section-number">4.5.2</span> Visualizing the Coefficient Paths</a></li>
+  <li><a href="#cross-validation-to-find-optimal-lambda" id="toc-cross-validation-to-find-optimal-lambda" class="nav-link" data-scroll-target="#cross-validation-to-find-optimal-lambda"><span class="header-section-number">4.5.3</span> Cross-Validation to Find Optimal Lambda</a></li>
+  <li><a href="#examining-ridge-coefficients" id="toc-examining-ridge-coefficients" class="nav-link" data-scroll-target="#examining-ridge-coefficients"><span class="header-section-number">4.5.4</span> Examining Ridge Coefficients</a></li>
+  <li><a href="#ridge-test-set-performance" id="toc-ridge-test-set-performance" class="nav-link" data-scroll-target="#ridge-test-set-performance"><span class="header-section-number">4.5.5</span> Ridge Test Set Performance</a></li>
+  </ul></li>
+  <li><a href="#lasso-regression" id="toc-lasso-regression" class="nav-link" data-scroll-target="#lasso-regression"><span class="header-section-number">4.6</span> LASSO Regression</a>
+  <ul class="collapse">
+  <li><a href="#fitting-the-lasso-model" id="toc-fitting-the-lasso-model" class="nav-link" data-scroll-target="#fitting-the-lasso-model"><span class="header-section-number">4.6.1</span> Fitting the LASSO Model</a></li>
+  <li><a href="#visualizing-lasso-coefficient-paths" id="toc-visualizing-lasso-coefficient-paths" class="nav-link" data-scroll-target="#visualizing-lasso-coefficient-paths"><span class="header-section-number">4.6.2</span> Visualizing LASSO Coefficient Paths</a></li>
+  <li><a href="#cross-validation-for-lasso" id="toc-cross-validation-for-lasso" class="nav-link" data-scroll-target="#cross-validation-for-lasso"><span class="header-section-number">4.6.3</span> Cross-Validation for LASSO</a></li>
+  <li><a href="#lasso-feature-selection" id="toc-lasso-feature-selection" class="nav-link" data-scroll-target="#lasso-feature-selection"><span class="header-section-number">4.6.4</span> LASSO Feature Selection</a></li>
+  <li><a href="#visualizing-important-predictors" id="toc-visualizing-important-predictors" class="nav-link" data-scroll-target="#visualizing-important-predictors"><span class="header-section-number">4.6.5</span> Visualizing Important Predictors</a></li>
+  <li><a href="#lasso-test-set-performance" id="toc-lasso-test-set-performance" class="nav-link" data-scroll-target="#lasso-test-set-performance"><span class="header-section-number">4.6.6</span> LASSO Test Set Performance</a></li>
+  </ul></li>
+  <li><a href="#elastic-net-regression" id="toc-elastic-net-regression" class="nav-link" data-scroll-target="#elastic-net-regression"><span class="header-section-number">4.7</span> Elastic Net Regression</a>
+  <ul class="collapse">
+  <li><a href="#tuning-alpha-and-lambda" id="toc-tuning-alpha-and-lambda" class="nav-link" data-scroll-target="#tuning-alpha-and-lambda"><span class="header-section-number">4.7.1</span> Tuning Alpha and Lambda</a></li>
+  <li><a href="#visualizing-alpha-tuning" id="toc-visualizing-alpha-tuning" class="nav-link" data-scroll-target="#visualizing-alpha-tuning"><span class="header-section-number">4.7.2</span> Visualizing Alpha Tuning</a></li>
+  <li><a href="#fit-final-elastic-net-model" id="toc-fit-final-elastic-net-model" class="nav-link" data-scroll-target="#fit-final-elastic-net-model"><span class="header-section-number">4.7.3</span> Fit Final Elastic Net Model</a></li>
+  </ul></li>
+  <li><a href="#comprehensive-model-comparison" id="toc-comprehensive-model-comparison" class="nav-link" data-scroll-target="#comprehensive-model-comparison"><span class="header-section-number">4.8</span> Comprehensive Model Comparison</a>
+  <ul class="collapse">
+  <li><a href="#performance-summary-table" id="toc-performance-summary-table" class="nav-link" data-scroll-target="#performance-summary-table"><span class="header-section-number">4.8.1</span> Performance Summary Table</a></li>
+  <li><a href="#coefficient-comparison" id="toc-coefficient-comparison" class="nav-link" data-scroll-target="#coefficient-comparison"><span class="header-section-number">4.8.2</span> Coefficient Comparison</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary-and-key-takeaways" id="toc-summary-and-key-takeaways" class="nav-link" data-scroll-target="#summary-and-key-takeaways"><span class="header-section-number">5</span> Summary and Key Takeaways</a>
+  <ul class="collapse">
+  <li><a href="#when-to-use-each-method" id="toc-when-to-use-each-method" class="nav-link" data-scroll-target="#when-to-use-each-method"><span class="header-section-number">5.1</span> When to Use Each Method</a></li>
+  <li><a href="#cross-validation-best-practices" id="toc-cross-validation-best-practices" class="nav-link" data-scroll-target="#cross-validation-best-practices"><span class="header-section-number">5.2</span> Cross-Validation Best Practices</a></li>
+  <li><a href="#important-caveats" id="toc-important-caveats" class="nav-link" data-scroll-target="#important-caveats"><span class="header-section-number">5.3</span> Important Caveats</a></li>
+  </ul></li>
+  <li><a href="#references-and-additional-resources" id="toc-references-and-additional-resources" class="nav-link" data-scroll-target="#references-and-additional-resources"><span class="header-section-number">6</span> References and Additional Resources</a>
+  <ul class="collapse">
+  <li><a href="#primary-methodological-papers" id="toc-primary-methodological-papers" class="nav-link" data-scroll-target="#primary-methodological-papers"><span class="header-section-number">6.1</span> Primary Methodological Papers</a></li>
+  <li><a href="#recommended-textbooks" id="toc-recommended-textbooks" class="nav-link" data-scroll-target="#recommended-textbooks"><span class="header-section-number">6.2</span> Recommended Textbooks</a></li>
+  <li><a href="#r-package-documentation" id="toc-r-package-documentation" class="nav-link" data-scroll-target="#r-package-documentation"><span class="header-section-number">6.3</span> R Package Documentation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Penalized Regression in Healthcare Analytics (Lecture Notes)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-and-learning-objectives" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction and Learning Objectives</h1>
+<section id="prediction-vs.-explanation-a-critical-distinction" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="prediction-vs.-explanation-a-critical-distinction"><span class="header-section-number">1.1</span> Prediction vs.&nbsp;Explanation: A Critical Distinction</h2>
+<p>In previous courses, we learned to use regression to <strong>explain</strong> why things happen (e.g., understand which factors cause higher costs or worse outcomes). This module takes a different approach: we focus on <strong>prediction</strong>, how we can more accurately predict outcomes, rather than explanation.</p>
+<p><strong>What’s the difference?</strong></p>
+<ul>
+<li><strong>Explanation</strong>: Understanding <em>why</em> certain patients cost more (e.g., “Does smoking cause higher costs?”)</li>
+<li><strong>Prediction</strong>: Forecasting <em>how much</em> a patient will cost (regardless of why)</li>
+</ul>
+<p>When explaining, we care about individual variables and their effects. When predicting, we only care about <strong>accuracy</strong> (e.g., how well we can forecast outcomes for new patients). The combination of variables matters more than understanding each one.</p>
+</section>
+<section id="why-prediction-matters-in-healthcare" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="why-prediction-matters-in-healthcare"><span class="header-section-number">1.2</span> Why Prediction Matters in Healthcare</h2>
+<p>Healthcare managers routinely need accurate forecasts:</p>
+<ul>
+<li><strong>Budget planning</strong>: How much will our patient panel cost next year?</li>
+<li><strong>Resource allocation</strong>: Which patients need care management outreach?</li>
+<li><strong>Readmission prevention</strong>: Who is at highest risk of coming back to the hospital?</li>
+</ul>
+<p>Traditional regression often fails at prediction when we have many potential factors to consider, like age, diagnoses, medications, prior utilization, and more. With dozens or hundreds of variables, standard methods either break down mathematically or produce unreliable forecasts.</p>
+<p><strong>Penalized regression</strong> addresses this by penalizing overly complex models: it automatically reduces the influence of less important variables (sometimes to zero), keeping only what matters for prediction.</p>
+</section>
+<section id="learning-objectives" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.3</span> Learning Objectives</h2>
+<p>By the end of this module, you will be able to:</p>
+<ol type="1">
+<li><p><strong>Distinguish</strong> between prediction and explanation, and recognize when each approach is appropriate for healthcare management decisions</p></li>
+<li><p><strong>Explain</strong> why standard regression struggles with prediction when you have many potential factors, and how penalized regression addresses this challenge</p></li>
+<li><p><strong>Compare</strong> the three main types of penalized regression (Ridge, LASSO, and Elastic Net) and choose the right method for different situations</p></li>
+<li><p><strong>Build</strong> penalized regression models in R to predict healthcare outcomes like costs and readmissions</p></li>
+<li><p><strong>Interpret</strong> prediction results appropriately, understanding what the model tells you (future outcomes) and what it doesn’t tell you (causal relationships)</p></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="conceptual-foundations" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Conceptual Foundations</h1>
+<p>This section provides the theoretical foundation you need to understand penalized regression. We’ll start with a review of ordinary least squares regression, identify its limitations, and then see how adding a penalty term addresses these limitations.</p>
+<section id="review-ordinary-least-squares-ols-regression" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="review-ordinary-least-squares-ols-regression"><span class="header-section-number">2.1</span> Review: Ordinary Least Squares (OLS) Regression</h2>
+<p>Before diving into penalized methods, let’s recall how standard linear regression works. This review will help us understand what we’re modifying and why.</p>
+<section id="the-basic-setup" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="the-basic-setup"><span class="header-section-number">2.1.1</span> The Basic Setup</h3>
+<p>In linear regression, we want to predict a continuous outcome variable <span class="math inline">\(Y\)</span> (e.g., healthcare costs) using a set of predictor variables <span class="math inline">\(X_1, X_2, \ldots, X_p\)</span> (e.g., age, diagnoses, prior utilization). We assume the relationship takes the form:</p>
+<p><span class="math display">\[\hat{Y} = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\hat{Y}\)</span> is our predicted value</li>
+<li><span class="math inline">\(\beta_0\)</span> is the intercept (predicted value when all X’s are zero)</li>
+<li><span class="math inline">\(\beta_1, \beta_2, \ldots, \beta_p\)</span> are coefficients that tell us how much <span class="math inline">\(Y\)</span> changes for a one-unit change in each predictor</li>
+</ul>
+<p><strong>Note on terminology</strong>: Throughout this document, we use the terms “predictor,” “variable,” and “feature” interchangeably to refer to the X variables used to predict the outcome.</p>
+</section>
+<section id="how-ols-finds-the-best-coefficients" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="how-ols-finds-the-best-coefficients"><span class="header-section-number">2.1.2</span> How OLS Finds the Best Coefficients</h3>
+<p>OLS finds the coefficient values that minimize the <strong>Sum of Squared Errors (SSE)</strong>, the total squared difference between what we predicted and what actually happened:</p>
+<p><span class="math display">\[\text{Minimize: } SSE = \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2\]</span></p>
+<p>We square the prediction errors (so positive and negative errors don’t cancel out), add them up across all observations, and find the intercept and coefficients that make this sum as small as possible.</p>
+<p>This approach works excellently when:</p>
+<ul>
+<li>We have many more observations than predictors (<span class="math inline">\(n &gt;&gt; p\)</span>)</li>
+<li>Predictors are not highly correlated with each other</li>
+<li>Our primary goal is to understand relationships (statistical inference)</li>
+</ul>
+<p>However, modern healthcare analytics often violates these conditions, leading to several major problems.</p>
+</section>
+</section>
+<section id="problems-with-standard-regression-in-healthcare" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="problems-with-standard-regression-in-healthcare"><span class="header-section-number">2.2</span> Problems with Standard Regression in Healthcare</h2>
+<ol type="1">
+<li>Related variables create confusion</li>
+</ol>
+<ul>
+<li><p>Healthcare factors naturally cluster together. For example, diabetes patients often have high blood pressure and obesity, patients with many doctor visits also have many prescriptions, etc.</p></li>
+<li><p>When variables are related, standard regression can’t determine which one truly drives the outcome. This leads to unstable results: coefficients can become wildly inflated, have wrong signs, or change dramatically with small data changes.</p></li>
+</ul>
+<ol start="2" type="1">
+<li>Too many variables, too few observations</li>
+</ol>
+<ul>
+<li><p>Healthcare data often has hundreds of potential predictors (diagnosis codes, medications, lab tests) but limited patients. For example, a hospital might have 300 patients but 250 potential predictor variables (or even more predictors than patients)</p></li>
+<li><p>The result: the model “memorizes” your specific patients rather than learning general patterns (overfitting). It predicts your current patients perfectly but fails miserably on new patients.</p></li>
+</ul>
+<ol start="3" type="1">
+<li>Hard to identify what factors are really important</li>
+</ol>
+<ul>
+<li><p>Standard regression uses <em>every</em> variable you give it, even irrelevant ones. You end up with all hundreds of variables in your model.</p></li>
+<li><p>Healthcare organizations need interpretable, actionable models (clinicians can’t use hundreds of factors to make decisions).</p></li>
+</ul>
+</section>
+<section id="the-solution-penalized-regression" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="the-solution-penalized-regression"><span class="header-section-number">2.3</span> The Solution: Penalized Regression</h2>
+<section id="the-key-insight" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="the-key-insight"><span class="header-section-number">2.3.1</span> The Key Insight</h3>
+<p>Those problems above stem from too much flexibility (meaning OLS can set coefficients to any value to minimize training error). A potential solution is to <strong>constrain</strong> the coefficients, preventing them from becoming too large.</p>
+<p>We do this by modifying the OLS objective function:</p>
+<p><span class="math display">\[\text{Minimize: } SSE + \lambda \times \text{Penalty}\]</span></p>
+<p><em>In plain language, find coefficients that balance [prediction accuracy] + [penalty for model complexity]</em></p>
+<p>Where:</p>
+<ul>
+<li><strong>SSE</strong> = Sum of Squared Errors (how well the model fits the training data)</li>
+<li><strong>Penalty</strong> = A function of the coefficient sizes (how complex the model is)</li>
+<li><strong>λ (lambda)</strong> = A tuning parameter that controls how much we penalize complexity</li>
+</ul>
+</section>
+<section id="how-the-penalty-helps" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="how-the-penalty-helps"><span class="header-section-number">2.3.2</span> How the Penalty Helps</h3>
+<p><strong>Why does the penalty improve predictions?</strong> Without constraints, standard regression overfits—it “memorizes” the quirks of your specific patients rather than learning general patterns. The penalty prevents this by keeping the model simple enough to work well on new patients. Think of it like studying concepts versus memorizing answers: concepts work on new problems, memorization doesn’t.</p>
+<p>The penalty term creates a tradeoff:</p>
+<ul>
+<li><strong>Making SSE smaller</strong> (better fit) typically requires larger, more complex coefficients</li>
+<li><strong>Making the penalty smaller</strong> requires smaller coefficients</li>
+<li><strong>The optimal solution balances</strong> these competing goals: slightly worse fit on your current data in exchange for better predictions on new patients</li>
+</ul>
+<p><strong>How this addresses each problem</strong>:</p>
+<ul>
+<li><p><strong>Handles correlated variables</strong>: When variables are related (like diabetes, obesity, and blood pressure), the penalty prevents coefficients from becoming wildly inflated.</p></li>
+<li><p><strong>Prevents overfitting with many variables</strong>: The penalty stops the model from “memorizing” your specific patients. By shrinking coefficients, it forces the model to focus only on the strongest, most reliable patterns that will generalize to new patients.</p></li>
+<li><p><strong>Automatic variable selection (LASSO)</strong>: The L1 penalty pushes weak predictors to exactly zero, eliminating them from the model entirely. You end up with a small set of important variables instead of hundreds.</p></li>
+</ul>
+</section>
+<section id="the-role-of-lambda-λ" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="the-role-of-lambda-λ"><span class="header-section-number">2.3.3</span> The Role of Lambda (λ)</h3>
+<p>The tuning parameter λ controls how much we care about the penalty:</p>
+<ul>
+<li><strong>λ = 0</strong>: No penalty, model equals OLS</li>
+<li><strong>Small λ</strong>: Light penalty, close to OLS</li>
+<li><strong>Large λ</strong>: Heavy penalty, coefficients shrunk toward zero</li>
+<li><strong>λ → ∞</strong>: All coefficients forced to zero (except intercept)</li>
+</ul>
+<p>We need to choose λ carefully (too small and we don’t solve our problems; too large and we throw away useful information). We’ll discuss how to select λ using cross-validation later.</p>
+</section>
+</section>
+</section>
+<section id="penalized-regression-models" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Penalized Regression Models</h1>
+<section id="ridge-regression-the-l2-penalty" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="ridge-regression-the-l2-penalty"><span class="header-section-number">3.1</span> Ridge Regression: The L2 Penalty</h2>
+<p>Now let’s examine the first specific type of penalized regression: Ridge regression. This method addresses multicollinearity and overfitting by shrinking all coefficients toward zero.</p>
+<section id="mathematical-formulation" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="mathematical-formulation"><span class="header-section-number">3.1.1</span> Mathematical Formulation</h3>
+<p>Ridge regression adds a penalty based on the <strong>squared values</strong> of coefficients:</p>
+<p><span class="math display">\[\text{Minimize: } \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 + \lambda \sum_{j=1}^{p} \beta_j^2\]</span></p>
+<p>The penalty term <span class="math inline">\(\sum_{j=1}^{p} \beta_j^2\)</span> is called the <strong>L2 penalty</strong> or <strong>squared penalty</strong> because we’re summing squared coefficients.</p>
+<p><strong>What this formula says:</strong></p>
+<p>“Find the coefficients that make predictions accurate (small SSE) while also keeping coefficients small (small sum of squared betas). The parameter λ controls how much we care about keeping coefficients small.”</p>
+</section>
+<section id="how-ridge-regression-works" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="how-ridge-regression-works"><span class="header-section-number">3.1.2</span> How Ridge Regression Works</h3>
+<p>Ridge regression works by gently discouraging large coefficients. Instead of allowing the model to rely too heavily on any single predictor, it nudges all coefficients toward smaller values. This has several important consequences.</p>
+<ol type="1">
+<li>Ridge regression shrinks all coefficients toward zero, but does not remove variables.</li>
+</ol>
+<p>As the penalty becomes stronger, coefficient values get smaller and smaller. However, they do not drop all the way to zero. This means Ridge regression keeps all predictors in the model, but limits how strongly each one can influence the outcome.</p>
+<ol start="2" type="1">
+<li>Larger coefficients are shrunk more than smaller ones.</li>
+</ol>
+<p>Ridge regression is especially uncomfortable with very large coefficients. If one predictor has a much larger effect than others, the penalty pushes it down more strongly. Smaller coefficients are affected less. This helps prevent the model from overreacting to noise or peculiarities in the data.</p>
+<ol start="3" type="1">
+<li>Ridge regression handles correlated predictors smoothly.</li>
+</ol>
+<p>When predictors are highly correlated, ordinary regression often struggles to decide which one deserves credit, leading to unstable or counterintuitive estimates. Ridge regression avoids this problem by sharing the effect across correlated variables. Instead of picking one variable and inflating its coefficient, it assigns moderate coefficients to both, producing more sensible and reliable results.</p>
+</section>
+<section id="visual-understanding-the-constraint-region" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="visual-understanding-the-constraint-region"><span class="header-section-number">3.1.3</span> Visual Understanding: The Constraint Region</h3>
+<p>One of the best ways to understand Ridge regression is geometrically. Imagine we have just two predictors, so we’re looking for β₁ and β₂.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://towardsdatascience.com/wp-content/uploads/2023/11/1VdcJFf5CEOsXojxHG9b9Yw.jpeg" class="img-fluid figure-img"></p>
+<figcaption><a href="https://towardsdatascience.com/courage-to-learn-ml-unraveling-l1-l2-regularization-part-2-1bb171e43b35/">LASSO and Ridge Penalty</a></figcaption>
+</figure>
+</div>
+<p><strong>Understanding the figure:</strong></p>
+<ul>
+<li><p><strong>Red ellipses</strong>: Contour lines of SSE. The center is where SSE is minimized (the OLS solution). Moving away from the center increases SSE.</p></li>
+<li><p><strong>Blue shaded region</strong>: The constraint region - all combinations of β₁ and β₂ that satisfy the penalty constraint. For Ridge, this is a circle because we’re constraining <span class="math inline">\(\beta_1^2 + \beta_2^2 \leq c\)</span> (equation of a circle).</p></li>
+<li><p><strong>The solution</strong>: We want to be as close to the OLS center as possible (small SSE) while staying within the constraint region (small penalty). The Ridge solution is where the (smallest) ellipse touches the circle.</p></li>
+</ul>
+<p><strong>Key insight</strong>: Because the constraint region is a circle, the solution rarely lands exactly on an axis. This means Ridge keeps all variables with non-zero coefficients.</p>
+</section>
+<section id="advantages-of-ridge-regression" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="advantages-of-ridge-regression"><span class="header-section-number">3.1.4</span> Advantages of Ridge Regression</h3>
+<p><strong>1. Handles correlated predictors well</strong></p>
+<p>When predictors overlap heavily, Ridge regression avoids extreme or unstable estimates. Instead of forcing the model to “choose sides,” it spreads influence across related variables in a balanced way.</p>
+<p><strong>2. Reduces coefficient instability from multicollinearity</strong></p>
+<p>When predictors are correlated, ordinary regression produces unstable coefficient estimates that can change dramatically with small data changes. Ridge regression stabilizes these estimates by limiting how large they can grow.</p>
+<p><strong>3. Improves prediction accuracy on new data</strong></p>
+<p>By preventing overfitting to training data, Ridge regression often achieves better prediction performance on new, unseen patients compared to ordinary regression.</p>
+<p><strong>4. Keeps all relevant information</strong></p>
+<p>If most predictors are believed to matter at least a little, Ridge regression retains them all while preventing any single variable from dominating.</p>
+</section>
+<section id="disadvantages-of-ridge-regression" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="disadvantages-of-ridge-regression"><span class="header-section-number">3.1.5</span> Disadvantages of Ridge Regression</h3>
+<p><strong>1. Does not simplify the model</strong></p>
+<p>Ridge regression keeps every predictor in the model. When there are many variables, this can make the model hard to summarize or deploy.</p>
+<p><strong>2. Limited interpretability</strong></p>
+<p>Because effects are spread across many small coefficients, it is difficult to identify which predictors are truly important. Ridge is better suited for prediction than explanation.</p>
+<p><strong>3. Retains noisy predictors</strong></p>
+<p>Variables with no real signal are not removed, only weakened. When many such variables are present, their combined influence can reduce performance.</p>
+</section>
+<section id="when-to-use-ridge-regression" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="when-to-use-ridge-regression"><span class="header-section-number">3.1.6</span> When to Use Ridge Regression</h3>
+<p>Ridge regression is best when:</p>
+<ul>
+<li>Predictors are strongly correlated</li>
+<li>Most variables are expected to carry some information</li>
+<li>Prediction is the main goal (interpretation is less important)</li>
+<li>The number of predictors is moderate rather than very large</li>
+</ul>
+</section>
+</section>
+<section id="lasso-regression-the-l1-penalty" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="lasso-regression-the-l1-penalty"><span class="header-section-number">3.2</span> LASSO Regression: The L1 Penalty</h2>
+<p>LASSO (Least Absolute Shrinkage and Selection Operator) is the other major penalized regression method. Its key advantage over Ridge is <strong>automatic feature selection</strong>: LASSO can eliminate variables entirely by setting their coefficients exactly to zero.</p>
+<section id="mathematical-formulation-1" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="mathematical-formulation-1"><span class="header-section-number">3.2.1</span> Mathematical Formulation</h3>
+<p>LASSO adds a penalty based on the <strong>absolute values</strong> of coefficients:</p>
+<p><span class="math display">\[\text{Minimize: } \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 + \lambda \sum_{j=1}^{p} |\beta_j|\]</span></p>
+<p>The penalty term <span class="math inline">\(\sum_{j=1}^{p} |\beta_j|\)</span> is called the <strong>L1 penalty</strong> or <strong>absolute value penalty</strong>.</p>
+<p>The critical difference from Ridge is that LASSO uses absolute values instead of squared values, which changes the geometry in a way that allows coefficients to become exactly zero.</p>
+</section>
+<section id="how-lasso-achieves-feature-selection" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="how-lasso-achieves-feature-selection"><span class="header-section-number">3.2.2</span> How LASSO Achieves Feature Selection</h3>
+<p>LASSO’s key feature selection property comes from its constraint shape (see the figure above). The LASSO constraint has sharp corners along the axes. When the model searches for the best fit, it often lands on one of these corners—where one or more coefficients are exactly zero.</p>
+<p>In contrast, Ridge regression uses a smooth, round constraint. This makes it unlikely for coefficients to be driven all the way to zero, so all predictors remain in the model.</p>
+</section>
+<section id="advantages-of-lasso-regression" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="advantages-of-lasso-regression"><span class="header-section-number">3.2.3</span> Advantages of LASSO Regression</h3>
+<p><strong>1. Automatic feature selection</strong></p>
+<p>LASSO identifies a small set of important predictors and removes the rest, making it especially useful when many variables are available but only some are informative.</p>
+<p><strong>2. Interpretability</strong></p>
+<p>With fewer active predictors, the model’s logic is easier to understand and explain in practical terms.</p>
+<p><strong>3. Effective in high-dimensional settings</strong></p>
+<p>LASSO works even when the number of predictors exceeds the number of observations, which is common with diagnostic codes, procedures, or lab measures.</p>
+<p><strong>4. Controls overfitting</strong></p>
+<p>By excluding noisy predictors, LASSO reduces the risk of capturing patterns that do not generalize.</p>
+</section>
+<section id="disadvantages-of-lasso-regression" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="disadvantages-of-lasso-regression"><span class="header-section-number">3.2.4</span> Disadvantages of LASSO Regression</h3>
+<p><strong>1. Unstable with correlated predictors</strong></p>
+<p>When predictors are highly correlated, LASSO tends to select one and drop the others. Which variable is chosen can vary across samples, making interpretation fragile.</p>
+<p><strong>2. May discard useful information</strong></p>
+<p>By setting coefficients exactly to zero, LASSO can remove predictors that still carry some signal. In purely predictive tasks, Ridge may perform slightly better.</p>
+<p><strong>3. Selection is limited in very small samples</strong></p>
+<p>When the sample size is small, LASSO can only select a limited number of predictors, potentially missing relevant factors.</p>
+</section>
+<section id="when-to-use-lasso-regression" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="when-to-use-lasso-regression"><span class="header-section-number">3.2.5</span> When to Use LASSO Regression</h3>
+<p>LASSO is best when:</p>
+<ul>
+<li>Identifying key predictors is a primary goal</li>
+<li>Simplicity and interpretability matters</li>
+<li>You have many potential predictors and need feature selection</li>
+<li>Predictors are not highly correlated</li>
+</ul>
+</section>
+</section>
+<section id="elastic-net" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="elastic-net"><span class="header-section-number">3.3</span> Elastic Net</h2>
+<p>Elastic Net combines the strengths of both Ridge and LASSO by using both penalties together. It’s often the best choice in practice because it handles correlated variables better than LASSO while still performing feature selection.</p>
+<section id="mathematical-formulation-2" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="mathematical-formulation-2"><span class="header-section-number">3.3.1</span> Mathematical Formulation</h3>
+<p>Elastic Net minimizes:</p>
+<p><span class="math display">\[\text{Minimize: } \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 + \lambda \left[ \alpha \sum_{j=1}^{p} |\beta_j| + (1-\alpha) \sum_{j=1}^{p} \beta_j^2 \right]\]</span></p>
+<p>Where:</p>
+<ul>
+<li><strong>α (alpha)</strong> controls the mix of L1 and L2 penalties</li>
+<li><strong>α = 1</strong>: Pure LASSO</li>
+<li><strong>α = 0</strong>: Pure Ridge</li>
+<li><strong>0 &lt; α &lt; 1</strong>: Elastic Net blend</li>
+</ul>
+</section>
+<section id="how-elastic-net-handles-correlated-variables" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="how-elastic-net-handles-correlated-variables"><span class="header-section-number">3.3.2</span> How Elastic Net Handles Correlated Variables</h3>
+<p>When predictors are strongly correlated, LASSO tends to select one and discard the rest, even if they all carry meaningful information. Ridge takes the opposite approach, keeping everything and shrinking coefficients together. Elastic Net sits between these two.</p>
+<p>The key idea is the grouping effect. Elastic Net tends to keep or remove groups of related variables together, rather than making arbitrary choices among them. The Ridge component encourages correlated predictors to stay together, while the LASSO component removes predictors (or groups) that contribute little to prediction.</p>
+<p>For example, imagine you include several variables that capture a patient’s overall health status in different ways (e.g., past diagnoses, prior hospital use, overall medical complexity, etc.) along with many unrelated predictors.</p>
+<ul>
+<li>LASSO might keep one of these health measures and drop others</li>
+<li>Ridge would keep all measures, including many irrelevant ones</li>
+<li>Elastic Net would likely keep all of the health measures together, while removing unrelated noise variables</li>
+</ul>
+</section>
+<section id="tuning-elastic-net" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="tuning-elastic-net"><span class="header-section-number">3.3.3</span> Tuning Elastic Net</h3>
+<p>Elastic Net balances two competing goals: simplicity and stability. It uses two parameters two control this balance.</p>
+<ol type="1">
+<li><strong>λ (lambda)</strong>: How strongly coefficients are penalized overall</li>
+<li><strong>α (alpha)</strong>: How much the model behaves like LASSO vs.&nbsp;Ridge</li>
+</ol>
+<p>In practice, the model tries different balances and selects the one that performs best on new data. Rather than committing to LASSO or Ridge upfront, Elastic Net lets the data decide how much feature selection and how much stabilization are needed.</p>
+</section>
+<section id="advantages-of-elastic-net" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="advantages-of-elastic-net"><span class="header-section-number">3.3.4</span> Advantages of Elastic Net</h3>
+<ol type="1">
+<li>Combines feature selection and stability</li>
+</ol>
+<p>Elastic Net can remove unimportant predictors while keeping correlated, meaningful ones together.</p>
+<ol start="2" type="1">
+<li>More stable than LASSO</li>
+</ol>
+<p>When predictors overlap, Elastic Net produces more consistent selections across samples, reducing the risk of arbitrary choices.</p>
+<ol start="3" type="1">
+<li>Effective in very high dimensions</li>
+</ol>
+<p>Unlike LASSO, Elastic Net can retain more predictors when the number of variables far exceeds the number of observations.</p>
+<ol start="4" type="1">
+<li>Highly adaptable</li>
+</ol>
+<p>By adjusting the balance between LASSO and Ridge, Elastic Net can be tailored to different data structures and research goals.</p>
+</section>
+<section id="disadvantages-of-elastic-net" class="level3" data-number="3.3.5">
+<h3 data-number="3.3.5" class="anchored" data-anchor-id="disadvantages-of-elastic-net"><span class="header-section-number">3.3.5</span> Disadvantages of Elastic Net</h3>
+<ol type="1">
+<li>More tuning required</li>
+</ol>
+<p>Elastic Net introduces an extra decision (parameter) compared to Ridge or LASSO, which significantly increases complexity.</p>
+<ol start="2" type="1">
+<li>Same modeling assumptions as linear regression</li>
+</ol>
+<p>Elastic Net improves estimation and selection, but it does not address nonlinearity or misspecified relationships.</p>
+<ol start="3" type="1">
+<li>Not always necessary</li>
+</ol>
+<p>If predictors are largely independent, LASSO alone may suffice. If feature selection is unnecessary, Ridge alone may be simpler.</p>
+</section>
+<section id="when-to-use-elastic-net" class="level3" data-number="3.3.6">
+<h3 data-number="3.3.6" class="anchored" data-anchor-id="when-to-use-elastic-net"><span class="header-section-number">3.3.6</span> When to Use Elastic Net</h3>
+<p>Elastic Net is often a strong default choice, especially when:</p>
+<ul>
+<li>Predictors are correlated and feature selection is desired</li>
+<li>You are not sure whether Ridge or LASSO is more appropriate</li>
+<li>The data are high-dimensional</li>
+<li>Stability in selected predictors matters</li>
+</ul>
+<p>Elastic Net is often the best starting choice because it combines Ridge’s stability with LASSO’s feature selection. If you’re unsure which method to use, start with Elastic Net and let cross-validation determine the optimal balance between Ridge and LASSO.</p>
+</section>
+</section>
+<section id="comparing-the-three-methods" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="comparing-the-three-methods"><span class="header-section-number">3.4</span> Comparing the Three Methods</h2>
+<p>Let’s summarize the key differences to help you choose the right method for your healthcare analytics problem.</p>
+<section id="side-by-side-comparison" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="side-by-side-comparison"><span class="header-section-number">3.4.1</span> Side-by-Side Comparison</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Ridge</th>
+<th>LASSO</th>
+<th>Elastic Net</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Penalty</strong></td>
+<td>L2 (squared)</td>
+<td>L1 (absolute)</td>
+<td>Both L1 and L2</td>
+</tr>
+<tr class="even">
+<td><strong>Feature selection</strong></td>
+<td>No - keeps all variables</td>
+<td>Yes - zeros out variables</td>
+<td>Yes - zeros out variables</td>
+</tr>
+<tr class="odd">
+<td><strong>Correlated predictors</strong></td>
+<td>Excellent - shrinks together</td>
+<td>Poor - arbitrary selection</td>
+<td>Good - groups together</td>
+</tr>
+<tr class="even">
+<td><strong>Works when p &gt; n</strong></td>
+<td>Yes</td>
+<td>Yes (selects ≤ n)</td>
+<td>Yes (can select &gt; n)</td>
+</tr>
+<tr class="odd">
+<td><strong>Number of tuning parameters</strong></td>
+<td>1 (λ)</td>
+<td>1 (λ)</td>
+<td>2 (λ and α)</td>
+</tr>
+<tr class="even">
+<td><strong>Interpretability</strong></td>
+<td>Low (many variables)</td>
+<td>High (sparse model)</td>
+<td>Moderate</td>
+</tr>
+<tr class="odd">
+<td><strong>Best for</strong></td>
+<td>Correlated predictors, all relevant</td>
+<td>Feature selection, uncorrelated</td>
+<td>General use, correlated with selection</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="choosing-lambda-cross-validation" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="choosing-lambda-cross-validation"><span class="header-section-number">3.5</span> Choosing Lambda: Cross-Validation</h2>
+<p>We need to choose the right λ value, but how?</p>
+<p><strong>The challenge:</strong> We can’t just pick the λ that works best on our current patients. That would be like a student memorizing practice test answers. We need to know which λ will work best on <em>new</em> patients we haven’t seen yet.</p>
+<p><strong>The solution: Cross-validation</strong></p>
+<p>Think of cross-validation as creating multiple “practice tests”:</p>
+<ol type="1">
+<li><strong>Divide your data into 10 groups</strong> (called “folds”; the number of groups can vary)</li>
+<li><strong>For each λ value you want to try:</strong>
+<ul>
+<li>Train the model on 9 groups, test on the 10th group</li>
+<li>Repeat 10 times, each time holding out a different group</li>
+<li>Average the prediction errors across all 10 tests</li>
+</ul></li>
+<li><strong>Pick the λ with the lowest average error</strong></li>
+</ol>
+<p><strong>Why this works:</strong> Every patient gets used for both training AND testing (just not at the same time). This efficiently uses all your data to estimate how well each λ will perform on new patients.</p>
+<p><strong>In practice:</strong> The software (like R’s <code>glmnet</code> package) does this automatically. You’ll see which λ performs best, and we’ll discuss how to interpret the results in the hands-on section.</p>
+<hr>
+</section>
+</section>
+<section id="hands-on-implementation-with-r" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Hands-On Implementation with R</h1>
+<p>Now that you understand the theory behind penalized regression, let’s apply these methods to a realistic healthcare analytics problem. In this section, you’ll learn how to implement Ridge, LASSO, and Elastic Net in R and interpret the results.</p>
+<p><strong>What You’ll Learn in This Section:</strong></p>
+<ul>
+<li>How to fit Ridge, LASSO, and Elastic Net models in R</li>
+<li>Use cross-validation to select optimal penalty parameters</li>
+<li>Interpret coefficient paths and model comparisons</li>
+<li>Evaluate prediction performance on test data</li>
+</ul>
+<section id="the-case-predicting-patient-healthcare-costs" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="the-case-predicting-patient-healthcare-costs"><span class="header-section-number">4.1</span> The Case: Predicting Patient Healthcare Costs</h2>
+<p><strong>Problem:</strong></p>
+<p>Imagine you work for a health insurance company. Every year, your company needs to predict how much each patient will cost in healthcare spending so you can:</p>
+<ul>
+<li>Set appropriate insurance premiums</li>
+<li>Budget for the coming year</li>
+<li>Identify high-cost patients who might benefit from care management programs (like helping diabetics control their blood sugar to avoid expensive complications)</li>
+</ul>
+<p><strong>Your Task:</strong></p>
+<p>Build a model that predicts next year’s total healthcare spending for each patient based on information you currently have about them.</p>
+<p><strong>Available Data:</strong></p>
+<p>You have data on 500 patients, including:</p>
+<ul>
+<li><p><strong>Demographics</strong>: Age, sex</p></li>
+<li><p><strong>Socioeconomic factors</strong>: Income level, insurance status</p></li>
+<li><p><strong>Health behaviors</strong>: Smoking, BMI, exercise frequency</p></li>
+<li><p><strong>Chronic conditions</strong>: Diabetes, hypertension, heart disease, COPD (chronic obstructive pulmonary disease; a chronic lung disease), depression, arthritis</p></li>
+<li><p><strong>Prior healthcare use</strong>: Emergency room visits, hospitalizations, doctor visits, number of medications</p></li>
+<li><p>Outcome variable is annual healthcare cost (the total cost of care; the insurance company pays out to hospitals, doctors, and other healthcare providers for a patient’s care over a year).</p></li>
+</ul>
+<p><strong>The Challenge:</strong></p>
+<p>With so many potential predictors (some of which are related to each other), standard regression may struggle. We’ll use penalized regression to build a model that predicts well on new patients.</p>
+<hr>
+</section>
+<section id="creating-a-healthcare-cost-prediction-dataset" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="creating-a-healthcare-cost-prediction-dataset"><span class="header-section-number">4.2</span> Creating a Healthcare Cost Prediction Dataset</h2>
+<p>For this tutorial, we’ll create a realistic simulated dataset representing this scenario.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of patients in our dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate patient characteristics</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>healthcare_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span>n,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Demographics</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">55</span>, <span class="at">sd =</span> <span class="dv">15</span>)),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">female =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.52</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Socioeconomic factors</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">income_level =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.15</span>, <span class="fl">0.20</span>, <span class="fl">0.30</span>, <span class="fl">0.20</span>, <span class="fl">0.15</span>)),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">has_insurance =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.88</span>),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Health behaviors</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.18</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">28</span>, <span class="at">sd =</span> <span class="dv">6</span>), <span class="dv">1</span>),</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">exercise_days =</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="dv">2</span>),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Chronic conditions - these will be major cost drivers</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.12</span>),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">hypertension =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.30</span>),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">heart_disease =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.08</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">copd =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.06</span>),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">depression =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.15</span>),</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">arthritis =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.22</span>),</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Healthcare utilization from prior year</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">ed_visits =</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="fl">0.5</span>),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">hospitalizations =</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="fl">0.15</span>),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">physician_visits =</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="dv">4</span>),</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">num_medications =</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="dv">3</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Make chronic conditions more realistic by adding correlations</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>healthcare_data <span class="ot">&lt;-</span> healthcare_data <span class="sc">%&gt;%</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">diabetes =</span> <span class="fu">ifelse</span>(bmi <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">&amp;</span> age <span class="sc">&gt;</span> <span class="dv">50</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">rbinom</span>(<span class="fu">n</span>(), <span class="dv">1</span>, <span class="fl">0.25</span>), diabetes),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">hypertension =</span> <span class="fu">ifelse</span>(diabetes <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">rbinom</span>(<span class="fu">n</span>(), <span class="dv">1</span>, <span class="fl">0.65</span>), hypertension),</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">heart_disease =</span> <span class="fu">ifelse</span>(diabetes <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> hypertension <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> age <span class="sc">&gt;</span> <span class="dv">60</span>,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">rbinom</span>(<span class="fu">n</span>(), <span class="dv">1</span>, <span class="fl">0.30</span>), heart_disease)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the outcome variable: Annual healthcare costs</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>healthcare_data <span class="ot">&lt;-</span> healthcare_data <span class="sc">%&gt;%</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">annual_cost =</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Base cost</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>      <span class="dv">2000</span> <span class="sc">+</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Demographics</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>      age <span class="sc">*</span> <span class="dv">50</span> <span class="sc">+</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">-</span> has_insurance) <span class="sc">*</span> <span class="dv">1500</span> <span class="sc">+</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Health behaviors</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>      smoker <span class="sc">*</span> <span class="dv">2000</span> <span class="sc">+</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pmax</span>(bmi <span class="sc">-</span> <span class="dv">25</span>, <span class="dv">0</span>) <span class="sc">*</span> <span class="dv">100</span> <span class="sc">+</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Chronic conditions</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>      diabetes <span class="sc">*</span> <span class="dv">5000</span> <span class="sc">+</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>      hypertension <span class="sc">*</span> <span class="dv">2000</span> <span class="sc">+</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>      heart_disease <span class="sc">*</span> <span class="dv">8000</span> <span class="sc">+</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>      copd <span class="sc">*</span> <span class="dv">6000</span> <span class="sc">+</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>      depression <span class="sc">*</span> <span class="dv">1500</span> <span class="sc">+</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>      arthritis <span class="sc">*</span> <span class="dv">1000</span> <span class="sc">+</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Prior utilization</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>      ed_visits <span class="sc">*</span> <span class="dv">1500</span> <span class="sc">+</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>      hospitalizations <span class="sc">*</span> <span class="dv">15000</span> <span class="sc">+</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>      physician_visits <span class="sc">*</span> <span class="dv">200</span> <span class="sc">+</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>      num_medications <span class="sc">*</span> <span class="dv">500</span> <span class="sc">+</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Random noise</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">3000</span>)</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">annual_cost =</span> <span class="fu">pmax</span>(annual_cost, <span class="dv">500</span>))</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Display first few rows</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(healthcare_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  patient_id age female income_level has_insurance smoker  bmi exercise_days
+1          1  63      0            4             0      0 17.5             2
+2          2  39      0            4             1      0 25.1             1
+3          3  57      0            4             1      0 22.0             2
+4          4  54      1            3             1      0 28.3             1
+5          5  45      1            4             0      0 30.4             2
+6          6  17      0            3             1      0 28.6             2
+  diabetes hypertension heart_disease copd depression arthritis ed_visits
+1        0            0             0    0          0         0         1
+2        0            1             0    0          0         0         0
+3        0            0             0    0          0         0         1
+4        0            0             0    0          1         0         2
+5        0            1             0    1          0         1         0
+6        1            0             0    0          0         0         0
+  hospitalizations physician_visits num_medications annual_cost
+1                1                6               1   18783.239
+2                0                5               2    8180.355
+3                0                4               1    8651.316
+4                0                2               7   15082.938
+5                1                3               2   31701.937
+6                0                5               0   11003.337</code></pre>
+</div>
+</div>
+<p>Let’s examine the distribution of annual healthcare costs in our dataset:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(healthcare_data<span class="sc">$</span>annual_cost)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    500    8918   12417   14338   18292   53874 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize distribution</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(healthcare_data, <span class="fu">aes</span>(<span class="at">x =</span> annual_cost)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Annual Healthcare Costs"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">"n = "</span>, n, <span class="st">" patients | Mean = $"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">format</span>(<span class="fu">round</span>(<span class="fu">mean</span>(healthcare_data<span class="sc">$</span>annual_cost)), <span class="at">big.mark =</span> <span class="st">","</span>)),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Annual Cost ($)"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Patients"</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/data-summary-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The distribution shows that most patients have moderate costs (around $8,000-$18,000), but some have very high costs. This right-skewed pattern is typical of healthcare data: most people use healthcare moderately, but a small number have very expensive care (major surgeries, long hospitalizations, etc.).</p>
+</section>
+<section id="data-preparation-for-glmnet" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="data-preparation-for-glmnet"><span class="header-section-number">4.3</span> Data Preparation for glmnet</h2>
+<p>Before we can use penalized regression, we need to prepare our data in a specific format and split it into training and test sets.</p>
+<p>Let’s use 70% of the data to build the model (training set) and 30% to evaluate how well the model predicts on new patients (test set; data not used for training the model). Within the training set, we perform 10-fold cross-validation to choose λ.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split into training (70%) and test (30%) sets</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>train_index <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="at">size =</span> <span class="fl">0.7</span> <span class="sc">*</span> n)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> healthcare_data[train_index, ] <span class="co"># Training Dataset</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> healthcare_data[<span class="sc">-</span>train_index, ] <span class="co"># Test Dataset</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define predictor variables</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>predictor_vars <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(healthcare_data), <span class="fu">c</span>(<span class="st">"patient_id"</span>, <span class="st">"annual_cost"</span>))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create matrix format required by glmnet</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(train_data[, predictor_vars])</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">&lt;-</span> train_data<span class="sc">$</span>annual_cost</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>x_test <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(test_data[, predictor_vars])</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">&lt;-</span> test_data<span class="sc">$</span>annual_cost</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Our dataset now contains 350 patients (70%) in the training set and 150 (30%) in the test set. We have 17 predictor variables (age, sex, income, insurance status, health behaviors, chronic conditions, and prior healthcare use).</p>
+<p><strong>Note</strong>: The <code>glmnet</code> package requires predictors in matrix format (not a data frame) and automatically standardizes them before fitting.</p>
+</section>
+<section id="baseline-ordinary-least-squares-ols-regression" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="baseline-ordinary-least-squares-ols-regression"><span class="header-section-number">4.4</span> Baseline: Ordinary Least Squares (OLS) Regression</h2>
+<p>Before fitting penalized models, let’s establish a baseline using OLS regression:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit OLS model</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ols_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(annual_cost <span class="sc">~</span> ., <span class="at">data =</span> train_data[, <span class="fu">c</span>(predictor_vars, <span class="st">"annual_cost"</span>)])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View summary</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ols_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = annual_cost ~ ., data = train_data[, c(predictor_vars, 
+    "annual_cost")])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7685.0 -1995.6   -33.8  1856.4  9620.5 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         70.03    1376.14   0.051  0.95945    
+age                 53.76      11.70   4.596 6.13e-06 ***
+female             -28.77     347.55  -0.083  0.93408    
+income_level       405.49     143.60   2.824  0.00503 ** 
+has_insurance     -844.12     496.23  -1.701  0.08987 .  
+smoker            2309.65     449.75   5.135 4.81e-07 ***
+bmi                 89.15      31.90   2.795  0.00549 ** 
+exercise_days      -76.90     122.73  -0.627  0.53137    
+diabetes          5265.42     488.39  10.781  &lt; 2e-16 ***
+hypertension      1687.44     377.39   4.471 1.07e-05 ***
+heart_disease     9228.98     584.84  15.780  &lt; 2e-16 ***
+copd              5297.07     716.98   7.388 1.22e-12 ***
+depression        1403.38     440.88   3.183  0.00159 ** 
+arthritis         1736.00     393.26   4.414 1.37e-05 ***
+ed_visits         1244.62     247.23   5.034 7.88e-07 ***
+hospitalizations 15704.48     439.25  35.753  &lt; 2e-16 ***
+physician_visits    71.99      85.95   0.838  0.40289    
+num_medications    501.62     100.24   5.004 9.12e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3178 on 332 degrees of freedom
+Multiple R-squared:  0.8548,    Adjusted R-squared:  0.8473 
+F-statistic: 114.9 on 17 and 332 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Evaluate on test set:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ols_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ols_model, <span class="at">newdata =</span> test_data)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate performance metrics</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ols_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((y_test <span class="sc">-</span> ols_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ols_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(ols_mse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The OLS model’s test set performance shows a Root Mean Squared Error (RMSE) that represents the average prediction error in dollars (OLS RMSE = 3252.71). This baseline performance will help us evaluate whether penalized regression methods offer improvements.</p>
+</section>
+<section id="ridge-regression" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="ridge-regression"><span class="header-section-number">4.5</span> Ridge Regression</h2>
+<p>Now let’s fit a Ridge regression model using the L2 penalty.</p>
+<section id="fitting-the-ridge-model" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="fitting-the-ridge-model"><span class="header-section-number">4.5.1</span> Fitting the Ridge Model</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Ridge regression (alpha = 0)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ridge_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> x_train,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y_train,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="dv">0</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>glmnet</code> package automatically tests a sequence of lambda values to explore different levels of penalty strength.</p>
+</section>
+<section id="visualizing-the-coefficient-paths" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="visualizing-the-coefficient-paths"><span class="header-section-number">4.5.2</span> Visualizing the Coefficient Paths</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot coefficient paths</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge_model, <span class="at">xvar =</span> <span class="st">"lambda"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"Ridge Regression: Coefficient Paths"</span>, <span class="at">line =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/ridge-paths-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation of the plot:</strong></p>
+<ul>
+<li><strong>X-axis</strong>: -Log(λ) (negative log lambda). Left = large penalty (heavy shrinkage), Right = small penalty (close to OLS)</li>
+<li><strong>Y-axis</strong>: Coefficient values</li>
+<li><strong>Each line</strong>: One predictor variable</li>
+<li><strong>Key observation</strong>: As we move left on the plot (larger λ, stronger penalty), all coefficients shrink toward zero, but none reach exactly zero</li>
+</ul>
+</section>
+<section id="cross-validation-to-find-optimal-lambda" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="cross-validation-to-find-optimal-lambda"><span class="header-section-number">4.5.3</span> Cross-Validation to Find Optimal Lambda</h3>
+<p>Let’s find an optimal Lambda value by using a cross-validation approach. We will use a 10-fold cross-validation to evaluate different Lambda values and select the one that minimizes the prediction error.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform 10-fold cross-validation</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ridge_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> x_train,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y_train,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="dv">0</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfolds =</span> <span class="dv">10</span> <span class="co"># how many folds will be used</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot CV results</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge_cv)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"Ridge Regression: Cross-Validation Results"</span>, <span class="at">line =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/ridge-cv-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The cross-validation plot shows prediction error (vertical axis) for different lambda values (horizontal axis). The two vertical dashed lines mark the two lambda options that cross-validation identifies.</p>
+<p><strong>Understanding the two lambda choices:</strong></p>
+<p>Cross-validation provides two options:</p>
+<ul>
+<li><strong>lambda.min</strong>: The λ with the absolute lowest prediction error (best accuracy)</li>
+<li><strong>lambda.1se</strong>: Uses the “1 standard error rule”: selects the largest λ (simplest model) whose prediction error is within 1 standard error of the minimum. This provides a simpler, more robust model with negligible loss in accuracy.</li>
+</ul>
+<p>Let’s use <strong>lambda.1se</strong> as it is often preferred in practice. It produces simpler models that are less likely to overfit and more likely to generalize well to new patients.</p>
+</section>
+<section id="examining-ridge-coefficients" class="level3" data-number="4.5.4">
+<h3 data-number="4.5.4" class="anchored" data-anchor-id="examining-ridge-coefficients"><span class="header-section-number">4.5.4</span> Examining Ridge Coefficients</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract coefficients at lambda.1se</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ridge_coef <span class="ot">&lt;-</span> <span class="fu">coef</span>(ridge_cv, <span class="at">s =</span> <span class="st">"lambda.1se"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ridge_coef</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>18 x 1 sparse Matrix of class "dgCMatrix"
+                  lambda.1se
+(Intercept)       2382.47601
+age                 46.33984
+female              21.26782
+income_level       273.69474
+has_insurance     -759.26109
+smoker            1913.69977
+bmi                 66.29016
+exercise_days       23.33215
+diabetes          4573.08842
+hypertension      1612.26226
+heart_disease     7939.40099
+copd              4407.98301
+depression        1229.50979
+arthritis         1661.80327
+ed_visits         1145.44173
+hospitalizations 13416.17174
+physician_visits    72.96187
+num_medications    394.37403</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All coefficients are non-zero</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>n_nonzero_ridge <span class="ot">&lt;-</span> <span class="fu">sum</span>(ridge_coef[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>n_nonzero_ridge</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17</code></pre>
+</div>
+</div>
+<p>Notice that Ridge regression keeps all variables in the model (i.e., every coefficient is non-zero). Ridge shrinks the coefficients toward zero but never eliminates variables entirely.</p>
+</section>
+<section id="ridge-test-set-performance" class="level3" data-number="4.5.5">
+<h3 data-number="4.5.5" class="anchored" data-anchor-id="ridge-test-set-performance"><span class="header-section-number">4.5.5</span> Ridge Test Set Performance</h3>
+<p>Let’s get the RMSE of the Ridge model using the test dataset.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ridge_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge_cv, <span class="at">s =</span> <span class="st">"lambda.1se"</span>, <span class="at">newx =</span> x_test)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate metrics</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ridge_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((y_test <span class="sc">-</span> ridge_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>ridge_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(ridge_mse)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to OLS</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>improvement <span class="ot">&lt;-</span> (ols_rmse <span class="sc">-</span> ridge_rmse) <span class="sc">/</span> ols_rmse <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ridge regression’s test set RMSE (3152.97) shows whether the penalty improves prediction accuracy compared to OLS. The improvement percentage (3.07%) indicates how much better Ridge performs on new, unseen patients (untrained data).</p>
+</section>
+</section>
+<section id="lasso-regression" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="lasso-regression"><span class="header-section-number">4.6</span> LASSO Regression</h2>
+<p>Now let’s fit a LASSO model using the L1 penalty for automatic feature selection.</p>
+<section id="fitting-the-lasso-model" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="fitting-the-lasso-model"><span class="header-section-number">4.6.1</span> Fitting the LASSO Model</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit LASSO regression (alpha = 1)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>lasso_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> x_train,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y_train,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="dv">1</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="visualizing-lasso-coefficient-paths" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="visualizing-lasso-coefficient-paths"><span class="header-section-number">4.6.2</span> Visualizing LASSO Coefficient Paths</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot coefficient paths</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_model, <span class="at">xvar =</span> <span class="st">"lambda"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"LASSO Regression: Coefficient Paths"</span>, <span class="at">line =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/lasso-paths-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Key observation</strong>: Unlike Ridge, the LASSO paths hit zero! As we move left on the plot (larger λ, stronger penalty), variables are progressively eliminated. This is feature selection.</p>
+</section>
+<section id="cross-validation-for-lasso" class="level3" data-number="4.6.3">
+<h3 data-number="4.6.3" class="anchored" data-anchor-id="cross-validation-for-lasso"><span class="header-section-number">4.6.3</span> Cross-Validation for LASSO</h3>
+<p>Same as our Ridge demonstration, let’s find an optimal lambda value for our LASSO model using a 10-fold cross-validation approach.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform cross-validation</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>lasso_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> x_train,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y_train,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="dv">1</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfolds =</span> <span class="dv">10</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot CV results</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_cv)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"LASSO Regression: Cross-Validation Results"</span>, <span class="at">line =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/lasso-cv-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The cross-validation plot for LASSO is similar to Ridge, but notice the numbers at the top—they show how many variables remain in the model at each lambda value. As we move left on the plot (larger λ, stronger penalty), LASSO eliminates more variables.</p>
+</section>
+<section id="lasso-feature-selection" class="level3" data-number="4.6.4">
+<h3 data-number="4.6.4" class="anchored" data-anchor-id="lasso-feature-selection"><span class="header-section-number">4.6.4</span> LASSO Feature Selection</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At lambda.1se (simpler model)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>lasso_coef_1se <span class="ot">&lt;-</span> <span class="fu">coef</span>(lasso_cv, <span class="at">s =</span> <span class="st">"lambda.1se"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>lasso_coef_1se</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>18 x 1 sparse Matrix of class "dgCMatrix"
+                  lambda.1se
+(Intercept)       4269.44323
+age                 36.88230
+female               .      
+income_level       162.04989
+has_insurance     -131.29559
+smoker            1474.50455
+bmi                 29.31897
+exercise_days        .      
+diabetes          4657.72016
+hypertension      1327.84146
+heart_disease     8228.14367
+copd              4227.08550
+depression         751.02749
+arthritis         1342.71992
+ed_visits         1030.62069
+hospitalizations 14863.47288
+physician_visits     .      
+num_medications    385.30789</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count non-zero coefficients</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>n_nonzero_1se <span class="ot">&lt;-</span> <span class="fu">sum</span>(lasso_coef_1se[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>n_nonzero_1se</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14</code></pre>
+</div>
+</div>
+<p>LASSO’s key feature is automatic variable selection. At lambda.1se (the more conservative choice), even fewer variables are selected, resulting in a simpler model.</p>
+</section>
+<section id="visualizing-important-predictors" class="level3" data-number="4.6.5">
+<h3 data-number="4.6.5" class="anchored" data-anchor-id="visualizing-important-predictors"><span class="header-section-number">4.6.5</span> Visualizing Important Predictors</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract non-zero coefficients</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>lasso_coef_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">rownames</span>(lasso_coef_1se),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">coefficient =</span> <span class="fu">as.vector</span>(lasso_coef_1se)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">!=</span> <span class="st">"(Intercept)"</span>, coefficient <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(coefficient)))</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>lasso_coef_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           variable coefficient
+1  hospitalizations 14863.47288
+2     heart_disease  8228.14367
+3          diabetes  4657.72016
+4              copd  4227.08550
+5            smoker  1474.50455
+6         arthritis  1342.71992
+7      hypertension  1327.84146
+8         ed_visits  1030.62069
+9        depression   751.02749
+10  num_medications   385.30789
+11     income_level   162.04989
+12    has_insurance  -131.29559
+13              age    36.88230
+14              bmi    29.31897</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lasso_coef_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(variable, <span class="fu">abs</span>(coefficient)),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">y =</span> coefficient,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">fill =</span> coefficient <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"firebrick"</span>, <span class="st">"steelblue"</span>),</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Decreases Cost"</span>, <span class="st">"Increases Cost"</span>),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Effect on Cost"</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"LASSO: Key Predictors of Healthcare Costs"</span>,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">"Variables with non-zero coefficients ("</span>, <span class="fu">length</span>(<span class="fu">rownames</span>(lasso_coef_df)),</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>                      <span class="st">" of "</span>, <span class="fu">length</span>(predictor_vars), <span class="st">" selected)"</span>),</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Coefficient (Effect on Annual Cost)"</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/lasso-important-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>LASSO has identified the most important cost drivers. Hospitalizations has the largest coefficient, followed by chronic conditions like heart disease and COPD.</p>
+<p><strong>Interpreting coefficient magnitudes</strong>: These coefficients represent the change in annual cost (in dollars) for a one-unit change in each predictor, holding others constant. For example, if hospitalizations has a coefficient of approximately 15,000, this means each additional hospitalization is associated with roughly $15,000 higher annual costs.</p>
+</section>
+<section id="lasso-test-set-performance" class="level3" data-number="4.6.6">
+<h3 data-number="4.6.6" class="anchored" data-anchor-id="lasso-test-set-performance"><span class="header-section-number">4.6.6</span> LASSO Test Set Performance</h3>
+<p>Let’s test the performance of our LASSO model using the test dataset.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>lasso_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lasso_cv, <span class="at">s =</span> <span class="st">"lambda.1se"</span>, <span class="at">newx =</span> x_test)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate metrics</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>lasso_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((y_test <span class="sc">-</span> lasso_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>lasso_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(lasso_mse)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to OLS</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>improvement_lasso <span class="ot">&lt;-</span> (ols_rmse <span class="sc">-</span> lasso_rmse) <span class="sc">/</span> ols_rmse <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>LASSO achieves competitive prediction accuracy (RMSE = 3194.39, reduction of 1.79% compared to the OLS model) while using far fewer variables than OLS. This demonstrates the power of automatic feature selection (better predictions with simpler models).</p>
+</section>
+</section>
+<section id="elastic-net-regression" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="elastic-net-regression"><span class="header-section-number">4.7</span> Elastic Net Regression</h2>
+<p>Finally, let’s fit an Elastic Net model that combines Ridge and LASSO penalties.</p>
+<section id="tuning-alpha-and-lambda" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="tuning-alpha-and-lambda"><span class="header-section-number">4.7.1</span> Tuning Alpha and Lambda</h3>
+<p>For the alpha parameter (weights of L1 and L2 regularization), we will use a grid search method (starting from 0, we will increase alpha by 0.1 every time).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define grid of alpha values</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>alpha_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Store results</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>elastic_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha_grid,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lambda_1se =</span> <span class="cn">NA</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">mse_1se =</span> <span class="cn">NA</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_features =</span> <span class="cn">NA</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Use consistent CV folds (10)</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>fold_id <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">size =</span> <span class="fu">length</span>(y_train), <span class="at">replace =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Test each alpha value</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(alpha_grid)) {</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  cv_fit <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> x_train,</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> y_train,</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> alpha_grid[i],</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">foldid =</span> fold_id <span class="co"># instead of nfolds, we use foldid approach to have the same data in each fold </span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>  elastic_results<span class="sc">$</span>lambda_1se[i] <span class="ot">&lt;-</span> cv_fit<span class="sc">$</span>lambda<span class="fl">.1</span>se</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get MSE at lambda.1se</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>  idx_1se <span class="ot">&lt;-</span> <span class="fu">which</span>(cv_fit<span class="sc">$</span>lambda <span class="sc">==</span> cv_fit<span class="sc">$</span>lambda<span class="fl">.1</span>se)</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>  elastic_results<span class="sc">$</span>mse_1se[i] <span class="ot">&lt;-</span> cv_fit<span class="sc">$</span>cvm[idx_1se]</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>  coef_temp <span class="ot">&lt;-</span> <span class="fu">coef</span>(cv_fit, <span class="at">s =</span> <span class="st">"lambda.1se"</span>)</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>  elastic_results<span class="sc">$</span>n_features[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(coef_temp <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>elastic_results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   alpha lambda_1se  mse_1se n_features
+1    0.0  1068.0420 11372691         17
+2    0.1   702.7003 11070103         15
+3    0.2   559.4488 11068886         15
+4    0.3   449.2387 11050423         15
+5    0.4   405.8322 11130172         14
+6    0.5   324.6658 11052464         14
+7    0.6   296.9336 11102951         14
+8    0.7   254.5145 11066168         14
+9    0.8   222.7002 11040387         14
+10   0.9   217.2562 11121463         14
+11   1.0   195.5305 11103840         14</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find best alpha</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>best_alpha <span class="ot">&lt;-</span> elastic_results<span class="sc">$</span>alpha[<span class="fu">which.min</span>(elastic_results<span class="sc">$</span>mse_1se)]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>best_alpha</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8</code></pre>
+</div>
+</div>
+<p>The tuning results show the cross-validated MSE for each alpha value (ranging from 0=pure Ridge to 1=pure LASSO). The alpha with the lowest MSE represents the optimal balance between Ridge and LASSO penalties for this dataset (here, when alpha is 0.8).</p>
+</section>
+<section id="visualizing-alpha-tuning" class="level3" data-number="4.7.2">
+<h3 data-number="4.7.2" class="anchored" data-anchor-id="visualizing-alpha-tuning"><span class="header-section-number">4.7.2</span> Visualizing Alpha Tuning</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/elastic-net-viz-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fit-final-elastic-net-model" class="level3" data-number="4.7.3">
+<h3 data-number="4.7.3" class="anchored" data-anchor-id="fit-final-elastic-net-model"><span class="header-section-number">4.7.3</span> Fit Final Elastic Net Model</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit with best alpha</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>elastic_cv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> x_train,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y_train,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> best_alpha,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfolds =</span> <span class="dv">10</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract coefficients</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>elastic_coef <span class="ot">&lt;-</span> <span class="fu">coef</span>(elastic_cv, <span class="at">s =</span> <span class="st">"lambda.1se"</span>)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>n_features_elastic <span class="ot">&lt;-</span> <span class="fu">sum</span>(elastic_coef <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>elastic_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(elastic_cv, <span class="at">s =</span> <span class="st">"lambda.1se"</span>, <span class="at">newx =</span> x_test)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate metrics</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>elastic_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((y_test <span class="sc">-</span> elastic_pred)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>elastic_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(elastic_mse)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>elastic_rmse</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3182.471</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to OLS</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>improvement_elastic <span class="ot">&lt;-</span> (ols_rmse <span class="sc">-</span> elastic_rmse) <span class="sc">/</span> ols_rmse <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>improvement_elastic</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.159499</code></pre>
+</div>
+</div>
+<p>Elastic Net combines the strengths of Ridge and LASSO, achieving strong prediction accuracy while performing feature selection. The model uses the optimal alpha value identified through cross-validation.</p>
+</section>
+</section>
+<section id="comprehensive-model-comparison" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="comprehensive-model-comparison"><span class="header-section-number">4.8</span> Comprehensive Model Comparison</h2>
+<p>Now let’s compare all four models:</p>
+<section id="performance-summary-table" class="level3" data-number="4.8.1">
+<h3 data-number="4.8.1" class="anchored" data-anchor-id="performance-summary-table"><span class="header-section-number">4.8.1</span> Performance Summary Table</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create comparison table</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Model =</span> <span class="fu">c</span>(<span class="st">"OLS"</span>, <span class="st">"Ridge"</span>, <span class="st">"LASSO"</span>, <span class="st">"Elastic Net"</span>),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">RMSE =</span> <span class="fu">round</span>(<span class="fu">c</span>(ols_rmse, ridge_rmse, lasso_rmse, elastic_rmse), <span class="dv">2</span>),</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">MSE =</span> <span class="fu">round</span>(<span class="fu">c</span>(ols_mse, ridge_mse, lasso_mse, elastic_mse), <span class="dv">0</span>),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Features =</span> <span class="fu">c</span>(<span class="fu">length</span>(predictor_vars),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>               <span class="fu">length</span>(predictor_vars),</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>               <span class="fu">length</span>(<span class="fu">rownames</span>(lasso_coef_df)),</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>               n_features_elastic)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate improvement over OLS</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>comparison<span class="sc">$</span>Improvement <span class="ot">=</span> <span class="fu">paste0</span>(</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>((<span class="dv">1</span> <span class="sc">-</span> comparison<span class="sc">$</span>RMSE <span class="sc">/</span> ols_rmse) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>), <span class="st">"%"</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>comparison</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Model    RMSE      MSE Features Improvement
+1         OLS 3252.71 10580144       17          0%
+2       Ridge 3152.97  9941235       17       3.07%
+3       LASSO 3194.39 10204134       14       1.79%
+4 Elastic Net 3182.47 10128122       14       2.16%</code></pre>
+</div>
+</div>
+<p>The comparison table shows test set performance metrics for all four models. Notice how penalized regression methods (Ridge, LASSO, and Elastic Net) typically outperform OLS, and LASSO/Elastic Net achieve this with fewer variables.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/model-comparison-plot-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="coefficient-comparison" class="level3" data-number="4.8.2">
+<h3 data-number="4.8.2" class="anchored" data-anchor-id="coefficient-comparison"><span class="header-section-number">4.8.2</span> Coefficient Comparison</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract all coefficients</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>coef_comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">rownames</span>(ridge_coef),</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">OLS =</span> <span class="fu">c</span>(<span class="fu">coef</span>(ols_model)),</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ridge =</span> <span class="fu">as.vector</span>(ridge_coef),</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">LASSO =</span> <span class="fu">as.vector</span>(lasso_coef_1se),</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ElasticNet =</span> <span class="fu">as.vector</span>(elastic_coef)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>variable,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Model"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Coefficient"</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(coef_comparison, <span class="fu">aes</span>(<span class="at">x =</span> variable, <span class="at">y =</span> Coefficient, <span class="at">fill =</span> Model)) <span class="sc">+</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Coefficient Comparison Across Models"</span>,</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Note how LASSO zeros out less important variables while others keep all"</span>,</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Coefficient Value"</span></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>)</span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture15_files/figure-html/coef-comparison-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Key observations:</strong></p>
+<ol type="1">
+<li><strong>OLS</strong> has the largest coefficients (no shrinkage)</li>
+<li><strong>Ridge</strong> shrinks all coefficients but keeps them non-zero</li>
+<li><strong>LASSO</strong> eliminates several variables entirely (zero coefficients)</li>
+<li><strong>Elastic Net</strong> balances between Ridge and LASSO</li>
+</ol>
+<hr>
+</section>
+</section>
+</section>
+<section id="summary-and-key-takeaways" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Summary and Key Takeaways</h1>
+<section id="when-to-use-each-method" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="when-to-use-each-method"><span class="header-section-number">5.1</span> When to Use Each Method</h2>
+<p><strong>Ridge Regression</strong>:</p>
+<ul>
+<li>Use when you have correlated predictors and want to keep all variables</li>
+<li>Best for prediction when you believe most variables are relevant</li>
+<li>Handles multicollinearity well</li>
+<li>Not suitable when you need feature selection</li>
+</ul>
+<p><strong>LASSO Regression</strong>:</p>
+<ul>
+<li>Use when you need automatic feature selection</li>
+<li>Best for interpretability and sparse models</li>
+<li>Works well with many potential predictors</li>
+<li>Caution with highly correlated predictors (arbitrary selection)</li>
+</ul>
+<p><strong>Elastic Net</strong>:</p>
+<ul>
+<li>Often the best default choice</li>
+<li>Combines strengths of Ridge and LASSO</li>
+<li>Handles correlated predictors better than LASSO</li>
+<li>Performs feature selection like LASSO</li>
+<li>Requires tuning two parameters (α and λ)</li>
+</ul>
+</section>
+<section id="cross-validation-best-practices" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="cross-validation-best-practices"><span class="header-section-number">5.2</span> Cross-Validation Best Practices</h2>
+<ol type="1">
+<li><strong>Always use cross-validation</strong> to select λ (and α for Elastic Net)</li>
+<li><strong>Use consistent folds</strong> when comparing different α values</li>
+<li><strong>Consider lambda.1se</strong> for simpler, more interpretable models</li>
+<li><strong>Use lambda.min</strong> when prediction accuracy is paramount</li>
+<li><strong>Check the CV curve</strong> - flat regions indicate room for simplification</li>
+</ol>
+</section>
+<section id="important-caveats" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="important-caveats"><span class="header-section-number">5.3</span> Important Caveats</h2>
+<ol type="1">
+<li><p><strong>Prediction vs.&nbsp;Causation</strong>: Penalized regression is for prediction, not causal inference. Selected variables are associated with outcomes, not necessarily causal drivers.</p></li>
+<li><p><strong>Feature Selection Stability</strong>: LASSO selections can be unstable, especially with correlated predictors. Run multiple samples or use Elastic Net.</p></li>
+<li><p><strong>Clinical Validation</strong>: Always validate that selected features make clinical sense. Statistical selection doesn’t guarantee clinical relevance.</p></li>
+<li><p><strong>Generalizability</strong>: Models should be validated on external data from different time periods or institutions.</p></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="references-and-additional-resources" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References and Additional Resources</h1>
+<section id="primary-methodological-papers" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="primary-methodological-papers"><span class="header-section-number">6.1</span> Primary Methodological Papers</h2>
+<ul>
+<li><p><strong>Tibshirani, R. (1996)</strong>. Regression shrinkage and selection via the lasso. <em>Journal of the Royal Statistical Society Series B</em>, 58(1), 267-288.</p></li>
+<li><p><strong>Zou, H., &amp; Hastie, T. (2005)</strong>. Regularization and variable selection via the elastic net. <em>Journal of the Royal Statistical Society Series B</em>, 67(2), 301-320.</p></li>
+</ul>
+</section>
+<section id="recommended-textbooks" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="recommended-textbooks"><span class="header-section-number">6.2</span> Recommended Textbooks</h2>
+<ul>
+<li><p><strong>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021)</strong>. <em>An Introduction to Statistical Learning with Applications in R</em> (2nd ed.). Springer.</p></li>
+<li><p><strong>Etzioni, R., et. al.&nbsp;(2020)</strong>. <em>Statistics for Health Data Science</em>. Springer.</p></li>
+</ul>
+</section>
+<section id="r-package-documentation" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="r-package-documentation"><span class="header-section-number">6.3</span> R Package Documentation</h2>
+<ul>
+<li><p><strong>glmnet package</strong>: https://glmnet.stanford.edu/articles/glmnet.html</p></li>
+<li><p><strong>UC Business Analytics R Programming Guide</strong>: <a href="https://uc-r.github.io/regularized_regression">Regularized Regression</a></p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

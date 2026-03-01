@@ -92,7 +92,7 @@ A hospital quality team wants to know if there is an association between **disch
 #| label: task1-data
 
 # Data Loading
-discharge_data <- read.csv("week08_assignment_data1.csv")
+discharge_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_assignment_data1.csv")
 head(discharge_data)
 ```
 
@@ -177,7 +177,7 @@ A hospital finance team wants to understand the relationship between **length of
 #| label: task2-data
 
 # Data Loading
-finance_data <- read.csv("week08_assignment_data2.csv")
+finance_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_assignment_data2.csv")
 head(finance_data)
 ```
 
@@ -237,7 +237,7 @@ An emergency department manager wants to examine the relationship between **tria
 #| label: task3-data
 
 # Data Loading
-ed_triage_data <- read.csv("week08_assignment_data3.csv")
+ed_triage_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_assignment_data3.csv")
 head(ed_triage_data)
 ```
 

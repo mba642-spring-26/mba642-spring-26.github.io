@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="">
+<meta name="dcterms.date" content="2026-01-01">
+
+<title>Conjoint Analysis in Healthcare Management (Lecture Notes) – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e3454d6c61f52a147682728788a76643.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mba642-spring-26/mba642-spring-26.github.io/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Conjoint Analysis in Healthcare Management (Lecture Notes)</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction-to-conjoint-analysis" id="toc-introduction-to-conjoint-analysis" class="nav-link active" data-scroll-target="#introduction-to-conjoint-analysis"><span class="header-section-number">1</span> Introduction to Conjoint Analysis</a>
+  <ul class="collapse">
+  <li><a href="#what-is-conjoint-analysis" id="toc-what-is-conjoint-analysis" class="nav-link" data-scroll-target="#what-is-conjoint-analysis"><span class="header-section-number">1.1</span> What is Conjoint Analysis?</a></li>
+  <li><a href="#why-use-conjoint-analysis-in-healthcare-management" id="toc-why-use-conjoint-analysis-in-healthcare-management" class="nav-link" data-scroll-target="#why-use-conjoint-analysis-in-healthcare-management"><span class="header-section-number">1.2</span> Why Use Conjoint Analysis in Healthcare Management?</a></li>
+  <li><a href="#key-outputs-from-conjoint-analysis" id="toc-key-outputs-from-conjoint-analysis" class="nav-link" data-scroll-target="#key-outputs-from-conjoint-analysis"><span class="header-section-number">1.3</span> Key Outputs from Conjoint Analysis</a>
+  <ul class="collapse">
+  <li><a href="#part-worth-utilities" id="toc-part-worth-utilities" class="nav-link" data-scroll-target="#part-worth-utilities"><span class="header-section-number">1.3.1</span> 1. Part-Worth Utilities</a></li>
+  <li><a href="#attribute-importance" id="toc-attribute-importance" class="nav-link" data-scroll-target="#attribute-importance"><span class="header-section-number">1.3.2</span> 2. Attribute Importance</a></li>
+  <li><a href="#willingness-to-pay-wtp" id="toc-willingness-to-pay-wtp" class="nav-link" data-scroll-target="#willingness-to-pay-wtp"><span class="header-section-number">1.3.3</span> 3. Willingness-to-Pay (WTP)</a></li>
+  <li><a href="#market-share-prediction" id="toc-market-share-prediction" class="nav-link" data-scroll-target="#market-share-prediction"><span class="header-section-number">1.3.4</span> 4. Market Share Prediction</a></li>
+  </ul></li>
+  <li><a href="#two-main-approaches" id="toc-two-main-approaches" class="nav-link" data-scroll-target="#two-main-approaches"><span class="header-section-number">1.4</span> Two Main Approaches</a>
+  <ul class="collapse">
+  <li><a href="#rating-based-conjoint" id="toc-rating-based-conjoint" class="nav-link" data-scroll-target="#rating-based-conjoint"><span class="header-section-number">1.4.1</span> Rating-Based Conjoint</a></li>
+  <li><a href="#choice-based-conjoint-discrete-choice-experiment" id="toc-choice-based-conjoint-discrete-choice-experiment" class="nav-link" data-scroll-target="#choice-based-conjoint-discrete-choice-experiment"><span class="header-section-number">1.4.2</span> Choice-Based Conjoint (Discrete Choice Experiment)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#scenario-health-insurance-plan-selection" id="toc-scenario-health-insurance-plan-selection" class="nav-link" data-scroll-target="#scenario-health-insurance-plan-selection"><span class="header-section-number">2</span> Scenario: Health Insurance Plan Selection</a>
+  <ul class="collapse">
+  <li><a href="#context-and-background" id="toc-context-and-background" class="nav-link" data-scroll-target="#context-and-background"><span class="header-section-number">2.1</span> Context and Background</a></li>
+  <li><a href="#rating-based-conjoint-analysis" id="toc-rating-based-conjoint-analysis" class="nav-link" data-scroll-target="#rating-based-conjoint-analysis"><span class="header-section-number">2.2</span> Rating-Based Conjoint Analysis</a>
+  <ul class="collapse">
+  <li><a href="#conceptual-overview" id="toc-conceptual-overview" class="nav-link" data-scroll-target="#conceptual-overview"><span class="header-section-number">2.2.1</span> Conceptual Overview</a></li>
+  <li><a href="#the-statistical-model" id="toc-the-statistical-model" class="nav-link" data-scroll-target="#the-statistical-model"><span class="header-section-number">2.2.2</span> The Statistical Model</a></li>
+  <li><a href="#generating-the-experimental-design" id="toc-generating-the-experimental-design" class="nav-link" data-scroll-target="#generating-the-experimental-design"><span class="header-section-number">2.2.3</span> Generating the Experimental Design</a></li>
+  <li><a href="#simulating-respondent-data" id="toc-simulating-respondent-data" class="nav-link" data-scroll-target="#simulating-respondent-data"><span class="header-section-number">2.2.4</span> Simulating Respondent Data</a></li>
+  <li><a href="#estimating-part-worth-utilities" id="toc-estimating-part-worth-utilities" class="nav-link" data-scroll-target="#estimating-part-worth-utilities"><span class="header-section-number">2.2.5</span> Estimating Part-Worth Utilities</a></li>
+  <li><a href="#calculating-attribute-importance" id="toc-calculating-attribute-importance" class="nav-link" data-scroll-target="#calculating-attribute-importance"><span class="header-section-number">2.2.6</span> Calculating Attribute Importance</a></li>
+  <li><a href="#calculating-willingness-to-pay-wtp" id="toc-calculating-willingness-to-pay-wtp" class="nav-link" data-scroll-target="#calculating-willingness-to-pay-wtp"><span class="header-section-number">2.2.7</span> Calculating Willingness-to-Pay (WTP)</a></li>
+  <li><a href="#market-share-simulation" id="toc-market-share-simulation" class="nav-link" data-scroll-target="#market-share-simulation"><span class="header-section-number">2.2.8</span> Market Share Simulation</a></li>
+  </ul></li>
+  <li><a href="#choice-based-conjoint-analysis" id="toc-choice-based-conjoint-analysis" class="nav-link" data-scroll-target="#choice-based-conjoint-analysis"><span class="header-section-number">2.3</span> Choice-Based Conjoint Analysis</a>
+  <ul class="collapse">
+  <li><a href="#conceptual-overview-1" id="toc-conceptual-overview-1" class="nav-link" data-scroll-target="#conceptual-overview-1"><span class="header-section-number">2.3.1</span> Conceptual Overview</a></li>
+  <li><a href="#multinomial-logit-model" id="toc-multinomial-logit-model" class="nav-link" data-scroll-target="#multinomial-logit-model"><span class="header-section-number">2.3.2</span> Multinomial Logit Model</a></li>
+  <li><a href="#generating-choice-data" id="toc-generating-choice-data" class="nav-link" data-scroll-target="#generating-choice-data"><span class="header-section-number">2.3.3</span> Generating Choice Data</a></li>
+  <li><a href="#data-preparation-for-mlogit" id="toc-data-preparation-for-mlogit" class="nav-link" data-scroll-target="#data-preparation-for-mlogit"><span class="header-section-number">2.3.4</span> Data Preparation for mlogit</a></li>
+  <li><a href="#indexing-and-model-estimation" id="toc-indexing-and-model-estimation" class="nav-link" data-scroll-target="#indexing-and-model-estimation"><span class="header-section-number">2.3.5</span> Indexing and Model Estimation</a></li>
+  <li><a href="#attribute-importance-choice-based" id="toc-attribute-importance-choice-based" class="nav-link" data-scroll-target="#attribute-importance-choice-based"><span class="header-section-number">2.3.6</span> Attribute Importance (Choice-Based)</a></li>
+  <li><a href="#willingness-to-pay-choice-based" id="toc-willingness-to-pay-choice-based" class="nav-link" data-scroll-target="#willingness-to-pay-choice-based"><span class="header-section-number">2.3.7</span> Willingness-to-Pay (Choice-Based)</a></li>
+  <li><a href="#market-share-simulation-choice-based" id="toc-market-share-simulation-choice-based" class="nav-link" data-scroll-target="#market-share-simulation-choice-based"><span class="header-section-number">2.3.8</span> Market Share Simulation (Choice-Based)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary-and-comparison" id="toc-summary-and-comparison" class="nav-link" data-scroll-target="#summary-and-comparison"><span class="header-section-number">3</span> Summary and Comparison</a>
+  <ul class="collapse">
+  <li><a href="#method-comparison" id="toc-method-comparison" class="nav-link" data-scroll-target="#method-comparison"><span class="header-section-number">3.1</span> Method Comparison</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">3.2</span> Key Takeaways</a></li>
+  </ul></li>
+  <li><a href="#references-and-further-reading" id="toc-references-and-further-reading" class="nav-link" data-scroll-target="#references-and-further-reading"><span class="header-section-number">4</span> References and Further Reading</a>
+  <ul class="collapse">
+  <li><a href="#statistical-methods" id="toc-statistical-methods" class="nav-link" data-scroll-target="#statistical-methods"><span class="header-section-number">4.1</span> Statistical Methods</a></li>
+  <li><a href="#healthcare-applications" id="toc-healthcare-applications" class="nav-link" data-scroll-target="#healthcare-applications"><span class="header-section-number">4.2</span> Healthcare Applications</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Conjoint Analysis in Healthcare Management (Lecture Notes)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-to-conjoint-analysis" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction to Conjoint Analysis</h1>
+<section id="what-is-conjoint-analysis" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="what-is-conjoint-analysis"><span class="header-section-number">1.1</span> What is Conjoint Analysis?</h2>
+<p>Conjoint analysis is a survey-based statistical technique used to understand how people make decisions when facing trade-offs between multiple attributes of a product or service.</p>
+<p>The core idea is simple: in real life, we rarely get everything we want. When choosing a health insurance plan, for example, we might prefer both low premiums AND low deductibles, but plans with low premiums often come with high deductibles. Conjoint analysis helps us understand how people navigate these trade-offs.</p>
+<p>The term “conjoint” comes from “considered jointly” (we’re studying how attributes are evaluated together rather than in isolation). This is crucial because asking someone “Do you prefer low cost?” will always get a “yes,” but asking them to choose between a low-cost option with long wait times vs.&nbsp;a high-cost option with short wait times reveals their true priorities.</p>
+</section>
+<section id="why-use-conjoint-analysis-in-healthcare-management" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="why-use-conjoint-analysis-in-healthcare-management"><span class="header-section-number">1.2</span> Why Use Conjoint Analysis in Healthcare Management?</h2>
+<p>Healthcare managers face constant decisions about service design:</p>
+<ul>
+<li><strong>Insurance plan design</strong>: What combination of premium, deductible, and coverage will attract people?</li>
+<li><strong>Clinic operations</strong>: Should we prioritize shorter wait times or extended hours?</li>
+<li><strong>Telehealth services</strong>: Do patients value video consultations enough to pay more for them?</li>
+<li><strong>Hospital services</strong>: What amenities matter most to patients choosing where to receive care?</li>
+</ul>
+<p>Conjoint analysis answers these questions by quantifying preferences. Instead of relying on intuition or simple surveys (e.g., “Would you like shorter wait times?”), conjoint analysis reveals how much each feature actually matters when people must make realistic trade-offs.</p>
+</section>
+<section id="key-outputs-from-conjoint-analysis" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="key-outputs-from-conjoint-analysis"><span class="header-section-number">1.3</span> Key Outputs from Conjoint Analysis</h2>
+<p>By using conjoint analysis, we can get several valuable insights:</p>
+<section id="part-worth-utilities" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="part-worth-utilities"><span class="header-section-number">1.3.1</span> 1. Part-Worth Utilities</h3>
+<p><strong>Part-worth utilities</strong> (also called “part-worths” or “utility scores”) are the building blocks of conjoint analysis. They represent the value or satisfaction that a person derives from a specific level of an attribute.</p>
+<p><strong>What is “utility”?</strong> In this context, “utility” is an economics term meaning satisfaction or value. Think of it as a numeric score representing how much someone values something. Higher utility = more preferred, lower utility = less preferred.</p>
+<p>Think of it this way: every product or service is a bundle of attributes. A health insurance plan is a bundle of (premium, deductible, network size, etc.). The total utility (satisfaction) a person gets from a plan is the sum of the part-worth utilities for each attribute level in that plan.</p>
+<p>For example, if the part-worth for “Large Network” is +3 and for “Small Network” is 0, then having a large network adds 3 utility units to the overall plan value. These numbers are relative (they only make sense in comparison to other levels of the same attribute, not stand alone).</p>
+</section>
+<section id="attribute-importance" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="attribute-importance"><span class="header-section-number">1.3.2</span> 2. Attribute Importance</h3>
+<p>Once we have part-worth utilities, we can calculate how important each attribute is relative to others. This is done by looking at the <strong>range</strong> of utilities within each attribute (highest level minus lowest level) and comparing these ranges across attributes.</p>
+<p>For example, if premium ranges from 0 to 5 utility units and network size ranges from 0 to 2 units, then premium has a larger impact on preferences and is therefore more “important.”</p>
+</section>
+<section id="willingness-to-pay-wtp" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="willingness-to-pay-wtp"><span class="header-section-number">1.3.3</span> 3. Willingness-to-Pay (WTP)</h3>
+<p>When price or cost is one of the attributes, we can convert utility differences into dollar values. This tells us how much extra a person would be willing to pay for an improvement in another attribute.</p>
+<p>For example, if people would pay $50 more per month for a large network versus a small network, this helps managers decide whether investing in network expansion is worthwhile.</p>
+</section>
+<section id="market-share-prediction" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="market-share-prediction"><span class="header-section-number">1.3.4</span> 4. Market Share Prediction</h3>
+<p>By knowing the utilities for each attribute level, we can predict what percentage of people would choose one option over another. This is invaluable for forecasting demand and competitive positioning.</p>
+</section>
+</section>
+<section id="two-main-approaches" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="two-main-approaches"><span class="header-section-number">1.4</span> Two Main Approaches</h2>
+<p>In this class, we will cover the two most common conjoint methods:</p>
+<section id="rating-based-conjoint" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="rating-based-conjoint"><span class="header-section-number">1.4.1</span> Rating-Based Conjoint</h3>
+<ul>
+<li><strong>What respondents do</strong>: Rate each profile on a scale (e.g., 1-10)</li>
+<li><strong>Analysis approach</strong>: Linear regression (OLS)</li>
+<li><strong>Advantages</strong>: Simple to understand and implement; builds on familiar regression</li>
+<li><strong>Limitations</strong>: Respondents may rate all options similarly, not revealing true trade-offs</li>
+</ul>
+</section>
+<section id="choice-based-conjoint-discrete-choice-experiment" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="choice-based-conjoint-discrete-choice-experiment"><span class="header-section-number">1.4.2</span> Choice-Based Conjoint (Discrete Choice Experiment)</h3>
+<ul>
+<li><strong>What respondents do</strong>: Choose their preferred option from a set</li>
+<li><strong>Analysis approach</strong>: Multinomial logistic regression</li>
+<li><strong>Advantages</strong>: Mimics real-world decisions; forces explicit trade-offs</li>
+<li><strong>Limitations</strong>: Requires more data preparation and unfamiliar statistical method</li>
+</ul>
+<p>Both methods ultimately produce the same types of outputs (part-worths, importance, WTP, market share), but choice-based conjoint is generally preferred in academic research and practice because it better reflects actual decision-making behavior (Louviere et al., 2000).</p>
+<hr>
+<p>Now that you understand what conjoint analysis is and why it’s valuable in healthcare management, let’s work through a practical example. We’ll use one comprehensive case study that demonstrates both rating-based and choice-based approaches, allowing us to see how the methods compare and when you might use each one.</p>
+</section>
+</section>
+</section>
+<section id="scenario-health-insurance-plan-selection" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Scenario: Health Insurance Plan Selection</h1>
+<section id="context-and-background" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="context-and-background"><span class="header-section-number">2.1</span> Context and Background</h2>
+<p>One of the most studied applications of conjoint analysis in healthcare management is understanding how employees choose health insurance plans during open enrollment periods. This is a high-stakes decision for both employees (who will live with the plan for a year) and employers (who subsidize the plans).</p>
+<p>Research has shown that employees often struggle with this decision due to the complexity of plan attributes. Studies by Sinaiko and Hirth (2011) in the <em>Journal of Health Economics</em> found that many employees make “dominated choices” (selecting plans that are objectively worse than alternatives on all dimensions). Understanding which attributes drive choices can help employers design better communication strategies and plan offerings.</p>
+<p>Our example uses three key attributes that consistently appear in health plan conjoint studies:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Level 1</th>
+<th>Level 2</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Monthly Premium</td>
+<td>$200</td>
+<td>$300</td>
+<td>Direct, visible cost paid every month</td>
+</tr>
+<tr class="even">
+<td>Annual Deductible</td>
+<td>$500</td>
+<td>$1,500</td>
+<td>Amount paid before insurance kicks in</td>
+</tr>
+<tr class="odd">
+<td>Network Size</td>
+<td>Large</td>
+<td>Small</td>
+<td>Access to preferred doctors/hospitals</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rating-based-conjoint-analysis" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="rating-based-conjoint-analysis"><span class="header-section-number">2.2</span> Rating-Based Conjoint Analysis</h2>
+<section id="conceptual-overview" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="conceptual-overview"><span class="header-section-number">2.2.1</span> Conceptual Overview</h3>
+<p>In rating-based conjoint analysis, we show respondents hypothetical profiles one at a time and ask them to rate how attractive each option is. For example:</p>
+<blockquote class="blockquote">
+<p><strong>Profile 1</strong>: Monthly premium $200, Deductible $1,500, Small network <em>How likely would you be to choose this plan? (Rate 1-10)</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Profile 2</strong>: Monthly premium $300, Deductible $500, Large network <em>How likely would you be to choose this plan? (Rate 1-10)</em></p>
+</blockquote>
+<p>A respondent might rate Profile 1 as 4/10 and Profile 2 as 7/10.</p>
+<p>By collecting ratings for multiple profiles across many respondents, we can use regression analysis to decompose these ratings into the contribution of each attribute. This works because we have systematically varied the attributes across profiles.</p>
+</section>
+<section id="the-statistical-model" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="the-statistical-model"><span class="header-section-number">2.2.2</span> The Statistical Model</h3>
+<p>Rating-based conjoint uses <strong>ordinary least squares (OLS) regression</strong>, the same technique you’ve learned in previous courses. The model assumes that a person’s rating is a linear combination of the utilities they assign to each attribute level:</p>
+<p><span class="math display">\[\text{Rating} = \beta_0 + \beta_1(\text{Premium}) + \beta_2(\text{Deductible}) + \beta_3(\text{Network}) + \varepsilon\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> is the intercept (baseline rating)</li>
+<li><span class="math inline">\(\beta_1, \beta_2, \beta_3\)</span> are the <strong>part-worth utilities</strong> for each attribute</li>
+<li><span class="math inline">\(\varepsilon\)</span> is random error (individual variation, measurement error, etc.)</li>
+</ul>
+<p>The coefficients we estimate ARE the part-worth utilities. They tell us how much each unit change in an attribute affects the rating.</p>
+<p><strong>Important note about coding variables</strong></p>
+<p>In conjoint analysis, we can code attributes in different ways depending on their nature:</p>
+<ul>
+<li><strong>Continuous variables</strong> (e.g., premium in dollars, deductible in dollars): Treated as numeric values. The coefficient tells us the utility change per unit (e.g., per dollar).</li>
+<li><strong>Categorical variables</strong> (e.g., network size): Coded as dummy variables (0 or 1). The coefficient represents the utility difference between categories (e.g., Large network vs.&nbsp;Small network).</li>
+</ul>
+<p>In our insurance example, Premium and Deductible are continuous (dollar amounts), while Network Size is categorical (Large vs.&nbsp;Small).</p>
+</section>
+<section id="generating-the-experimental-design" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="generating-the-experimental-design"><span class="header-section-number">2.2.3</span> Generating the Experimental Design</h3>
+<p>First, we create all possible combinations of our attribute levels. With 3 attributes × 2 levels each, we have <span class="math inline">\(2^3 = 8\)</span> possible profiles. This is called a <strong>full factorial design</strong>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Health Insurance Plan Profiles (Full Factorial Design)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Premium ($)</th>
+<th style="text-align: center;">Deductible ($)</th>
+<th style="text-align: center;">Network</th>
+<th style="text-align: center;">Profile ID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">Large</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">300</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">Large</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">1500</td>
+<td style="text-align: center;">Large</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">300</td>
+<td style="text-align: center;">1500</td>
+<td style="text-align: center;">Large</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">Small</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">300</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">Small</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">1500</td>
+<td style="text-align: center;">Small</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">300</td>
+<td style="text-align: center;">1500</td>
+<td style="text-align: center;">Small</td>
+<td style="text-align: center;">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="simulating-respondent-data" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="simulating-respondent-data"><span class="header-section-number">2.2.4</span> Simulating Respondent Data</h3>
+<p>Let’s load a dataset for this example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load simulated rating data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># rating_insurance &lt;- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/weeks/week14/rating_insurance_data.csv")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n_respondents <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>rating_insurance <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (resp <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_respondents) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(insurance_profiles)) {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate rating based on true preferences</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># True part-worth utilities (used for simulation):</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - Premium: -0.012 per dollar (higher premium = lower rating)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - Deductible: -0.0007 per dollar (higher deductible = lower rating)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - Large network: +0.6 points (vs. small network)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - Baseline: 6.5 (middle of 1-10 scale)</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># These parameters imply:</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - WTP for $1,000 deductible reduction ≈ $58/month</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - WTP for large vs small network ≈ $50/month</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    rating <span class="ot">&lt;-</span> <span class="fl">6.5</span> <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span><span class="fl">0.012</span> <span class="sc">*</span> insurance_profiles<span class="sc">$</span>premium[i] <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span><span class="fl">0.0007</span> <span class="sc">*</span> insurance_profiles<span class="sc">$</span>deductible[i] <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0.6</span> <span class="sc">*</span> (insurance_profiles<span class="sc">$</span>network[i] <span class="sc">==</span> <span class="st">"Large"</span>) <span class="sc">+</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)  <span class="co"># Add random noise</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Bound rating between 1 and 10</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    rating <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">pmin</span>(<span class="fu">pmax</span>(rating, <span class="dv">1</span>), <span class="dv">10</span>), <span class="dv">1</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    rating_insurance <span class="ot">&lt;-</span> <span class="fu">rbind</span>(rating_insurance, <span class="fu">data.frame</span>(</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">respondent_id =</span> resp,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">profile_id =</span> i,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">premium =</span> insurance_profiles<span class="sc">$</span>premium[i],</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">deductible =</span> insurance_profiles<span class="sc">$</span>deductible[i],</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">network =</span> insurance_profiles<span class="sc">$</span>network[i],</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">rating =</span> rating</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Show first few rows</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rating_insurance, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   respondent_id profile_id premium deductible network rating
+1              1          1     200        500   Large    4.6
+2              1          2     300        500   Large    2.6
+3              1          3     200       1500   Large    3.7
+4              1          4     300       1500   Large    2.4
+5              1          5     200        500   Small    3.4
+6              1          6     300        500   Small    1.3
+7              1          7     200       1500   Small    2.7
+8              1          8     300       1500   Small    1.3
+9              2          1     200        500   Large    4.4
+10             2          2     300        500   Large    2.9</code></pre>
+</div>
+</div>
+<p><strong>Understanding the dataset:</strong></p>
+<p>The <code>rating_insurance</code> dataset has 800 observations (100 respondents × 8 profiles each):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>respondent_id</code></td>
+<td>Unique identifier for each survey respondent (1 to 100)</td>
+</tr>
+<tr class="even">
+<td><code>profile_id</code></td>
+<td>Identifier for each insurance plan profile (1 to 8)</td>
+</tr>
+<tr class="odd">
+<td><code>premium</code></td>
+<td>Monthly premium cost in dollars (200 or 300)</td>
+</tr>
+<tr class="even">
+<td><code>deductible</code></td>
+<td>Annual deductible amount in dollars (500 or 1500)</td>
+</tr>
+<tr class="odd">
+<td><code>network</code></td>
+<td>Network size (Large or Small)</td>
+</tr>
+<tr class="even">
+<td><code>rating</code></td>
+<td>Respondent’s rating of the plan on a 1-10 scale (outcome variable)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="estimating-part-worth-utilities" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="estimating-part-worth-utilities"><span class="header-section-number">2.2.5</span> Estimating Part-Worth Utilities</h3>
+<p>Now we use linear regression to estimate the part-worth utilities. We code Network as a binary indicator (1 = Large, 0 = Small):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create binary indicator for network size</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rating_insurance <span class="ot">&lt;-</span> rating_insurance <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">network_large =</span> <span class="fu">ifelse</span>(network <span class="sc">==</span> <span class="st">"Large"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear regression model</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>model_rating_ins <span class="ot">&lt;-</span> <span class="fu">lm</span>(rating <span class="sc">~</span> premium <span class="sc">+</span> deductible <span class="sc">+</span> network_large,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> rating_insurance)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_rating_ins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = rating ~ premium + deductible + network_large, data = rating_insurance)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.29625 -0.35625  0.00375  0.31525  1.52875 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    6.462e+00  9.658e-02   66.91   &lt;2e-16 ***
+premium       -1.160e-02  3.469e-04  -33.44   &lt;2e-16 ***
+deductible    -7.715e-04  3.469e-05  -22.24   &lt;2e-16 ***
+network_large  6.465e-01  3.469e-02   18.64   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4906 on 796 degrees of freedom
+Multiple R-squared:  0.7112,    Adjusted R-squared:  0.7101 
+F-statistic: 653.3 on 3 and 796 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Estimated Part-Worth Utilities (Rating-Based Conjoint)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">term</th>
+<th style="text-align: center;">estimate</th>
+<th style="text-align: center;">std.error</th>
+<th style="text-align: center;">statistic</th>
+<th style="text-align: center;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">(Intercept)</td>
+<td style="text-align: center;">6.4620</td>
+<td style="text-align: center;">0.0966</td>
+<td style="text-align: center;">66.9074</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">premium</td>
+<td style="text-align: center;">-0.0116</td>
+<td style="text-align: center;">0.0003</td>
+<td style="text-align: center;">-33.4361</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">deductible</td>
+<td style="text-align: center;">-0.0008</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">-22.2379</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">network_large</td>
+<td style="text-align: center;">0.6465</td>
+<td style="text-align: center;">0.0347</td>
+<td style="text-align: center;">18.6349</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Interpreting the coefficients (Part-Worth Utilities):</strong></p>
+<ul>
+<li><strong>Intercept (6.46)</strong>: The baseline value in the regression. Since we only tested premiums of $200-$300 and deductibles of $500-$1,500, this intercept value is outside the range of our data and should not be interpreted in isolation. It’s simply the constant that, combined with the attribute effects, produces the observed ratings.</li>
+<li><strong>Premium (-0.0116)</strong>: Each $100 increase in monthly premium decreases the rating by about 1.16 points.</li>
+<li><strong>Deductible (-0.0008)</strong>: Each $1,000 increase in annual deductible decreases rating by about 0.80 points.</li>
+<li><strong>Network_large (0.65)</strong>: Having a large network (vs.&nbsp;small) increases rating by about 0.65 points.</li>
+</ul>
+<p>The regression coefficients ARE the part-worth utilities. They directly tell us how much each attribute contributes to the overall rating.</p>
+</section>
+<section id="calculating-attribute-importance" class="level3" data-number="2.2.6">
+<h3 data-number="2.2.6" class="anchored" data-anchor-id="calculating-attribute-importance"><span class="header-section-number">2.2.6</span> Calculating Attribute Importance</h3>
+<p>Attribute importance tells us which features have the biggest impact on preferences. The calculation:</p>
+<ol type="1">
+<li>For each attribute, calculate the <strong>utility range</strong>: difference between highest and lowest part-worth values</li>
+<li>Sum all the ranges</li>
+<li>Express each range as a percentage of the total</li>
+</ol>
+<p><strong>Why does a larger range mean more important?</strong></p>
+<p>An attribute’s range tells us how much it can change someone’s overall evaluation. If <em>premium</em> has a utility range of 5 points and <em>network</em> has a range of 2 points, switching from worst to best premium gives you 5 utility points, while switching network levels only gives 2 points. The attribute with the larger range has more power to influence preferences.</p>
+<p><strong>CRITICAL CAVEAT</strong>: These importance scores are completely dependent on the range of levels you test. Testing premium of $200 vs.&nbsp;$201 would make premium appear unimportant, while $200 vs.&nbsp;$500 would make it appear very important. Importance scores do NOT tell us which attributes are “objectively most important.” They tell us which attributes have the most impact GIVEN THE SPECIFIC LEVELS YOU TESTED. Always choose attribute levels that reflect realistic market variation.</p>
+<p>Let’s get regression coefficients and calculate importance:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Extract coefficients</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coef_ins <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_rating_ins)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Calculate utility ranges for each attribute</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>range_premium <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_ins[<span class="st">"premium"</span>] <span class="sc">*</span> (<span class="dv">300</span> <span class="sc">-</span> <span class="dv">200</span>))  <span class="co"># $100 difference in monthly premium</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>range_deductible <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_ins[<span class="st">"deductible"</span>] <span class="sc">*</span> (<span class="dv">1500</span> <span class="sc">-</span> <span class="dv">500</span>))  <span class="co"># $1000 difference in deductible</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>range_network <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_ins[<span class="st">"network_large"</span>] <span class="sc">*</span> <span class="dv">1</span>)  <span class="co"># network size: Large vs Small</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Total range</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>total_range <span class="ot">&lt;-</span> range_premium <span class="sc">+</span> range_deductible <span class="sc">+</span> range_network</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Calculate importance as percentage</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>importance_rating_ins <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">attribute =</span> <span class="fu">c</span>(<span class="st">"Monthly Premium"</span>, <span class="st">"Annual Deductible"</span>, <span class="st">"Network Size"</span>),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">utility_range =</span> <span class="fu">c</span>(range_premium, range_deductible, range_network),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">importance_pct =</span> <span class="fu">c</span>(range_premium, range_deductible, range_network) <span class="sc">/</span> total_range <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(importance_rating_ins, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Attribute"</span>, <span class="st">"Utility Range"</span>, <span class="st">"Importance (%)"</span>),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">align =</span> <span class="st">"c"</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Attribute Importance Scores"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Attribute Importance Scores</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Attribute</th>
+<th style="text-align: center;">Utility Range</th>
+<th style="text-align: center;">Importance (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">premium</td>
+<td style="text-align: center;">Monthly Premium</td>
+<td style="text-align: center;">1.16</td>
+<td style="text-align: center;">45.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">deductible</td>
+<td style="text-align: center;">Annual Deductible</td>
+<td style="text-align: center;">0.77</td>
+<td style="text-align: center;">29.93</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">network_large</td>
+<td style="text-align: center;">Network Size</td>
+<td style="text-align: center;">0.65</td>
+<td style="text-align: center;">25.08</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Visualization:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(importance_rating_ins, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(attribute, importance_pct),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">y =</span> importance_pct)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(importance_pct, <span class="dv">2</span>), <span class="st">"%"</span>)),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Attribute Importance: Health Insurance Plan Selection"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Rating-Based Conjoint Analysis"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Relative Importance (%)"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Importance = utility range as % of total range across all attributes"</span>) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>)) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="fu">max</span>(importance_rating_ins<span class="sc">$</span>importance_pct) <span class="sc">*</span> <span class="fl">1.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture14_files/figure-html/rating-insurance-importance-plot-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation</strong>: Monthly Premium is the most important attribute (45%), followed by Annual Deductible (29.9%), and then Network Size (25.1%). This suggests that when choosing health plans, employees are most sensitive to differences in monthly premium (within the ranges tested).</p>
+</section>
+<section id="calculating-willingness-to-pay-wtp" class="level3" data-number="2.2.7">
+<h3 data-number="2.2.7" class="anchored" data-anchor-id="calculating-willingness-to-pay-wtp"><span class="header-section-number">2.2.7</span> Calculating Willingness-to-Pay (WTP)</h3>
+<p>Willingness-to-pay converts abstract utility values into concrete dollar amounts. This is possible because we included a price attribute (monthly premium) in our study.</p>
+<p><strong>The Logic</strong>:</p>
+<p>If we know (1) how much utility a person gets from each attribute and (2) how much utility they lose per dollar of cost, we can calculate the dollar amount that would exactly offset any utility gain.</p>
+<p>For example, if the utility of a large network is +0.6 points, and the utility loss per dollar of premium is -0.012 points, then: 0.6 / 0.012 = $50. This means respondents value a large network as much as they would value a $50 reduction in monthly premium.</p>
+<p><strong>The Formula</strong>: <span class="math display">\[\text{WTP} = -\frac{\beta_{\text{attribute}}}{\beta_{\text{price}}}\]</span></p>
+<p><strong>WTP Calculations:</strong></p>
+<p>From our regression model:</p>
+<ul>
+<li>Premium coefficient: -0.0116 utility points per dollar</li>
+<li>Network coefficient: 0.6465 utility points for large network</li>
+<li>Deductible coefficient: -0.0008 utility points per dollar</li>
+</ul>
+<p><strong>WTP for Large Network (vs.&nbsp;Small Network)</strong>:</p>
+<p><span class="math display">\[\text{WTP}_{\text{network}} = -\frac{0.6465}{-0.0116} = \$55.73\]</span></p>
+<p><strong>Interpretation</strong>: Enrollees would be willing to pay an additional <strong>$55.73 per month</strong> to have access to a large provider network instead of a small network.</p>
+<p><strong>WTP for $1,000 Lower Deductible</strong>:</p>
+<p>For this calculation, we want to know how much people would pay in monthly premium to reduce their deductible by $1,000.</p>
+<p>The deductible coefficient (-0.0008) tells us that each additional $1 in deductible decreases utility by 0.0008 points.</p>
+<p>Therefore, reducing the deductible by $1,000 <strong>increases</strong> utility by: 0.0008 × 1,000 = 0.8 points</p>
+<p>To find the WTP, we ask: “How much premium increase would cause a utility decrease of 0.8 points?”</p>
+<p><span class="math display">\[\text{WTP}_{\text{deductible}} = -\frac{\beta_{\text{deductible}} \times (-1000)}{\beta_{\text{premium}}} = -\frac{0.8000}{-0.0116} = \$68.97\]</span></p>
+<p><strong>Interpretation</strong>: Enrollees would be willing to pay an additional <strong>$68.97 per month</strong> to reduce their annual deductible by $1,000.</p>
+<p><strong>Summary of WTP Estimates:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Attribute</th>
+<th style="text-align: center;">WTP per Month</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Large Network (vs.&nbsp;Small)</td>
+<td style="text-align: center;">$55.73</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">$1,000 Lower Deductible</td>
+<td style="text-align: center;">$68.97</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Managerial Application</strong>:</p>
+<p>These WTP values help managers make cost-benefit decisions:</p>
+<ul>
+<li><p><strong>Network expansion decision</strong>: If expanding the provider network costs the insurer $30 per member per month, and members are willing to pay $55.73 for it, the expansion is financially viable: the insurer can charge an additional $55.73 in premium while only incurring $30 in costs, creating a $25.73 per member margin.</p></li>
+<li><p><strong>Premium pricing for deductible tiers</strong>: Members are willing to pay $68.97 per month (or $828 annually) to reduce their deductible by $1,000. If the insurer’s expected claims savings from a $1,000 higher deductible is approximately $400 per year, they could price the premium difference at $68.97/month, capturing additional revenue while members still perceive value.</p></li>
+</ul>
+</section>
+<section id="market-share-simulation" class="level3" data-number="2.2.8">
+<h3 data-number="2.2.8" class="anchored" data-anchor-id="market-share-simulation"><span class="header-section-number">2.2.8</span> Market Share Simulation</h3>
+<p>One of the most powerful applications of conjoint analysis is predicting how the market would respond to different product configurations.</p>
+<p><strong>The Process for Rating-Based Conjoint</strong>:</p>
+<ol type="1">
+<li>Define two (or more) competing options</li>
+<li>Calculate the predicted rating for each option using the regression model</li>
+<li>Convert ratings to market shares using proportional allocation</li>
+</ol>
+<p><strong>Proportional Allocation</strong>: If Plan A receives a predicted rating of 8 and Plan B receives 6, we allocate market share proportionally:</p>
+<p><span class="math display">\[\text{Share}_A = \frac{8}{8+6} = 57\% \qquad \text{Share}_B = \frac{6}{8+6} = 43\%\]</span></p>
+<p><strong>Example Scenario:</strong></p>
+<p>Let’s compare two common plan designs:</p>
+<ul>
+<li><strong>Plan A (Premium Plan)</strong>: $250/month premium, $500 annual deductible, Large network</li>
+<li><strong>Plan B (Budget Plan)</strong>: $200/month premium, $1,500 annual deductible, Small network</li>
+</ul>
+<p>Neither plan dominates the other: Plan A is better on deductible and network, while Plan B is better on premium.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define two competing health plans</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plan_A <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Premium Plan"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">premium =</span> <span class="dv">250</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">deductible =</span> <span class="dv">500</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">network_large =</span> <span class="dv">1</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">description =</span> <span class="st">"Mid-price, Low deductible, Large network"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plan_B <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Budget Plan"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">premium =</span> <span class="dv">200</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">deductible =</span> <span class="dv">1500</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">network_large =</span> <span class="dv">0</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">description =</span> <span class="st">"Low-price, High deductible, Small network"</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict ratings for each plan</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>rating_A <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rating_ins, plan_A)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>rating_B <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rating_ins, plan_B)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate market share using proportional allocation</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>total_rating <span class="ot">&lt;-</span> rating_A <span class="sc">+</span> rating_B</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>share_A <span class="ot">&lt;-</span> rating_A <span class="sc">/</span> total_rating</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>share_B <span class="ot">&lt;-</span> rating_B <span class="sc">/</span> total_rating</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Market Share Simulation: Two Competing Plans (Rating-Based)</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 46%">
+<col style="width: 19%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Plan</th>
+<th style="text-align: center;">Configuration</th>
+<th style="text-align: center;">Predicted Rating</th>
+<th style="text-align: center;">Predicted Share</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Premium Plan</td>
+<td style="text-align: center;">Mid-price, Low deductible, Large network</td>
+<td style="text-align: center;">3.82</td>
+<td style="text-align: center;">56.2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Budget Plan</td>
+<td style="text-align: center;">Low-price, High deductible, Small network</td>
+<td style="text-align: center;">2.98</td>
+<td style="text-align: center;">43.8%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Interpretation</strong>: Based on the predicted ratings, approximately 56% of enrollees would prefer the Premium Plan despite its higher cost, because the low deductible and large network compensate for the price difference. This helps managers:</p>
+<ul>
+<li>Forecast enrollment in different plan designs</li>
+<li>Understand competitive positioning</li>
+<li>Optimize plan configurations</li>
+</ul>
+<p><strong>Note on Method</strong>: Proportional allocation is a simple and intuitive approach, but it lacks theoretical grounding. It assumes that if Plan A gets a rating of 8 and Plan B gets a rating of 6, then exactly 57% of people will choose Plan A (8 ÷ 14 = 0.57). However, in reality, people make discrete yes/no choices, not proportional splits—someone either picks Plan A or they don’t. The method assumes market shares directly mirror rating differences, which oversimplifies how people actually choose. For important strategic decisions, choice-based methods with multinomial logit formulas (shown later) are theoretically more sound and preferred in practice because they model the actual choice process.</p>
+<hr>
+</section>
+</section>
+<section id="choice-based-conjoint-analysis" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="choice-based-conjoint-analysis"><span class="header-section-number">2.3</span> Choice-Based Conjoint Analysis</h2>
+<section id="conceptual-overview-1" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="conceptual-overview-1"><span class="header-section-number">2.3.1</span> Conceptual Overview</h3>
+<p>Choice-based conjoint (CBC), also known as a <strong>Discrete Choice Experiment (DCE)</strong>, is considered the gold standard in conjoint analysis because it closely mimics real-world decision-making (Louviere, Hensher, &amp; Swait, 2000).</p>
+<p>Instead of rating profiles individually, respondents are shown <strong>choice sets</strong> containing two or more options and asked to pick their preferred one:</p>
+<blockquote class="blockquote">
+<p><strong>Choice Set 1:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Plan A</th>
+<th>Plan B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Premium</td>
+<td>$200</td>
+<td>$300</td>
+</tr>
+<tr class="even">
+<td>Deductible</td>
+<td>$1,500</td>
+<td>$500</td>
+</tr>
+<tr class="odd">
+<td>Network</td>
+<td>Small</td>
+<td>Large</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Which plan would you choose?</strong> ☐ Plan A ☐ Plan B</p>
+</blockquote>
+<p>By forcing a choice, we ensure that respondents make explicit trade-offs. Someone who wants both low premium AND low deductible must decide which matters more.</p>
+</section>
+<section id="multinomial-logit-model" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="multinomial-logit-model"><span class="header-section-number">2.3.2</span> Multinomial Logit Model</h3>
+<p>Choice-based conjoint uses <strong>multinomial logistic regression</strong> to analyze choice data. This method can handle choice sets with any number of alternatives (2, 3, 4, or more). We’ll use the <code>mlogit</code> package in R, which is the standard tool for discrete choice analysis.</p>
+<p><strong>Key Concept</strong>:</p>
+<p>The model assumes people choose the alternative with the highest utility. The probability of choosing an alternative depends on its utility relative to all other options:</p>
+<p><span class="math display">\[P(\text{Choose alternative } i) = \frac{e^{V_i}}{\sum_{j=1}^{J} e^{V_j}}\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(V_i = \beta_1 X_{i1} + \beta_2 X_{i2} + ... + \beta_k X_{ik}\)</span> is the systematic utility</li>
+<li><span class="math inline">\(V_i\)</span> is the <strong>systematic</strong> (predictable) component of utility based on observed attributes</li>
+<li>There’s also a random component (<span class="math inline">\(\varepsilon_i\)</span>) representing individual taste variation and unmeasured factors</li>
+<li>“Systematic” means we can predict it from the attributes we measure</li>
+<li><span class="math inline">\(J\)</span> is the total number of alternatives in the choice set</li>
+<li>The coefficients (<span class="math inline">\(\beta_1, \beta_2, ..., \beta_k\)</span>) are the <strong>part-worth utilities</strong></li>
+</ul>
+<p><strong>Intuition</strong>: Alternatives with higher utility have exponentially higher choice probabilities. The model estimates the part-worth utilities (<span class="math inline">\(\beta\)</span> coefficients) that best explain the observed choices.</p>
+</section>
+<section id="generating-choice-data" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="generating-choice-data"><span class="header-section-number">2.3.3</span> Generating Choice Data</h3>
+<p>We create choice sets by randomly pairing profiles, then simulate choices based on assumed true utilities:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters for simulation</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n_respondents <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n_choice_sets <span class="ot">&lt;-</span> <span class="dv">8</span>  <span class="co"># Each respondent completes 8 choice tasks</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>choice_insurance <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (resp <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_respondents) {</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (cs <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_choice_sets) {</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Randomly select two different profiles for this choice set</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    profiles <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="dv">2</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    alt_A <span class="ot">&lt;-</span> insurance_profiles[profiles[<span class="dv">1</span>], ]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    alt_B <span class="ot">&lt;-</span> insurance_profiles[profiles[<span class="dv">2</span>], ]</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate utilities using assumed true values</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># True parameters imply:</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - WTP for $1,000 deductible reduction ≈ $50-60/month</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - WTP for large vs small network ≈ $40-50/month</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    utility_A <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.012</span> <span class="sc">*</span> alt_A<span class="sc">$</span>premium <span class="sc">-</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">0.0007</span> <span class="sc">*</span> alt_A<span class="sc">$</span>deductible <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">0.6</span> <span class="sc">*</span> (alt_A<span class="sc">$</span>network <span class="sc">==</span> <span class="st">"Large"</span>) <span class="sc">+</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)  <span class="co"># Random component</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    utility_B <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.012</span> <span class="sc">*</span> alt_B<span class="sc">$</span>premium <span class="sc">-</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">0.0007</span> <span class="sc">*</span> alt_B<span class="sc">$</span>deductible <span class="sc">+</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">0.6</span> <span class="sc">*</span> (alt_B<span class="sc">$</span>network <span class="sc">==</span> <span class="st">"Large"</span>) <span class="sc">+</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Choice: 1 if A chosen, 0 if B chosen</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    choice_A <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(utility_A <span class="sc">&gt;</span> utility_B)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    choice_insurance <span class="ot">&lt;-</span> <span class="fu">rbind</span>(choice_insurance, <span class="fu">data.frame</span>(</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">respondent_id =</span> resp,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">choice_set =</span> cs,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Alternative A attributes</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">premium_A =</span> alt_A<span class="sc">$</span>premium,</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">deductible_A =</span> alt_A<span class="sc">$</span>deductible,</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">network_A =</span> alt_A<span class="sc">$</span>network,</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Alternative B attributes</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">premium_B =</span> alt_B<span class="sc">$</span>premium,</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">deductible_B =</span> alt_B<span class="sc">$</span>deductible,</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">network_B =</span> alt_B<span class="sc">$</span>network,</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Choice outcome</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">choice_A =</span> choice_A</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Display example choice sets</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(choice_insurance, <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  respondent_id choice_set premium_A deductible_A network_A premium_B
+1             1          1       300          500     Large       200
+2             1          2       200         1500     Small       300
+3             1          3       300          500     Small       200
+4             1          4       200         1500     Small       300
+5             1          5       300         1500     Large       300
+6             1          6       200         1500     Large       300
+  deductible_B network_B choice_A
+1         1500     Large        1
+2          500     Small        1
+3         1500     Large        0
+4          500     Large        0
+5         1500     Small        0
+6         1500     Small        1</code></pre>
+</div>
+</div>
+<p><strong>Understanding the dataset</strong>: Each row represents one choice set. The columns show attributes of Alternative A and Alternative B, and <code>choice_A</code> indicates whether the respondent chose A (1) or B (0). So, unlike rating-based data, where responses are ratings, here responses are binary choices.</p>
+</section>
+<section id="data-preparation-for-mlogit" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="data-preparation-for-mlogit"><span class="header-section-number">2.3.4</span> Data Preparation for mlogit</h3>
+<p>The <code>mlogit</code> package requires data in “long format” where each row represents one alternative (not one choice set). We need to:</p>
+<ol type="1">
+<li>Reshape from wide to long format</li>
+<li>Index the data so mlogit understands the nested structure</li>
+</ol>
+<p><strong>From Wide to Long Format:</strong></p>
+<p>Currently each row contains both alternatives side-by-side. We need to transform this so each alternative gets its own row:</p>
+<p><strong>Wide format</strong> (current):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">respondent</th>
+<th style="text-align: center;">choice_set</th>
+<th style="text-align: center;">premium_A</th>
+<th style="text-align: center;">premium_B</th>
+<th style="text-align: center;">network_A</th>
+<th style="text-align: center;">network_B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">300</td>
+<td style="text-align: center;">Large</td>
+<td style="text-align: center;">Small</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Long format</strong> (needed):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">choice_set_id</th>
+<th style="text-align: center;">alternative</th>
+<th style="text-align: center;">premium</th>
+<th style="text-align: center;">network_large</th>
+<th style="text-align: center;">choice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1_1</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1_1</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">300</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Create unique choice set IDs</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>choice_insurance <span class="ot">&lt;-</span> choice_insurance <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">choice_set_id =</span> <span class="fu">paste0</span>(respondent_id, <span class="st">"_"</span>, choice_set))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Reshape to long format</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>choice_long <span class="ot">&lt;-</span> choice_insurance <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(premium_A, premium_B, deductible_A, deductible_B, network_A, network_B),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"alternative"</span>),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"(.*)_(.*)"</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">choice =</span> <span class="fu">case_when</span>(</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      alternative <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">&amp;</span> choice_A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>      alternative <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">&amp;</span> choice_A <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      alternative <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">&amp;</span> choice_A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>      alternative <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">&amp;</span> choice_A <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">network_large =</span> <span class="fu">if_else</span>(network <span class="sc">==</span> <span class="st">"Large"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(respondent_id, <span class="at">choice_set =</span> choice_set_id, alternative,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>         premium, deductible, network_large, choice) <span class="sc">|&gt;</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">respondent_id =</span> <span class="fu">factor</span>(respondent_id)) <span class="sc">|&gt;</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(choice_set, alternative)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the long format structure</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(choice_long, <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 7
+  respondent_id choice_set alternative premium deductible network_large choice
+  &lt;fct&gt;         &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+1 100           100_1      A               200        500             1      1
+2 100           100_1      B               300        500             1      0
+3 100           100_2      A               300       1500             0      0
+4 100           100_2      B               200        500             1      1
+5 100           100_3      A               300       1500             1      0
+6 100           100_3      B               200       1500             1      1
+7 100           100_4      A               300        500             0      1
+8 100           100_4      B               300       1500             0      0</code></pre>
+</div>
+</div>
+<p><strong>Key point</strong>: The <code>pivot_longer()</code> function splits columns like <code>premium_A</code> and <code>premium_B</code> into a single <code>premium</code> column with an <code>alternative</code> indicator. The <code>choice</code> variable shows which alternative was selected (1 = chosen, 0 = not chosen). Thus, within each choice set, they should add up to 1.</p>
+</section>
+<section id="indexing-and-model-estimation" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="indexing-and-model-estimation"><span class="header-section-number">2.3.5</span> Indexing and Model Estimation</h3>
+<p>The <code>dfidx()</code> function prepares the data for mlogit by creating an indexed structure:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data for mlogit</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>choice_for_mlogit <span class="ot">&lt;-</span> choice_long <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>respondent_id) <span class="sc">%&gt;%</span> <span class="co"># exclude respondent_id variable</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()  <span class="co"># Convert to base data.frame</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indexed data format</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>choice_mlogit <span class="ot">&lt;-</span> <span class="fu">dfidx</span>(choice_for_mlogit,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">shape =</span> <span class="st">"long"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">choice =</span> <span class="st">"choice"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">idx =</span> <span class="fu">c</span>(<span class="st">"choice_set"</span>, <span class="st">"alternative"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>What dfidx() does</strong>: It adds special index attributes telling mlogit which rows belong to the same choice set. This is essential for correctly estimating choice probabilities.</p>
+<p>Now we can estimate the model using the <code>mlogit</code> function in R:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit multinomial logit model</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>model_mlogit_ins <span class="ot">&lt;-</span> <span class="fu">mlogit</span>(choice <span class="sc">~</span> premium <span class="sc">+</span> deductible <span class="sc">+</span> network_large <span class="sc">|</span> <span class="dv">0</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> choice_mlogit)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_mlogit_ins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+mlogit(formula = choice ~ premium + deductible + network_large | 
+    0, data = choice_mlogit, method = "nr")
+
+Frequencies of alternatives:choice
+      A       B 
+0.52875 0.47125 
+
+nr method
+5 iterations, 0h:0m:0s 
+g'(-H)^-1g = 8.34E-06 
+successive function values within tolerance limits 
+
+Coefficients :
+                 Estimate  Std. Error  z-value  Pr(&gt;|z|)    
+premium       -0.01380661  0.00120284 -11.4784 &lt; 2.2e-16 ***
+deductible    -0.00060672  0.00011108  -5.4620 4.708e-08 ***
+network_large  0.80173378  0.11308550   7.0896 1.345e-12 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Log-Likelihood: -439.11</code></pre>
+</div>
+</div>
+<p><strong>Understanding the formula</strong>:</p>
+<ul>
+<li><code>choice ~ premium + deductible + network_large</code> specifies the attributes</li>
+<li><code>| 0</code> means “no alternative-specific constants”</li>
+</ul>
+<p>We exclude alternative-specific constants because “Plan A” and “Plan B” are just generic labels (i.e., there’s no inherent preference for “A” vs.&nbsp;“B” independent of their attributes).</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Part-Worth Utilities (Choice-Based Conjoint)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">term</th>
+<th style="text-align: center;">estimate</th>
+<th style="text-align: center;">std.error</th>
+<th style="text-align: center;">statistic</th>
+<th style="text-align: center;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">premium</td>
+<td style="text-align: center;">-0.0138</td>
+<td style="text-align: center;">0.0012</td>
+<td style="text-align: center;">-11.4784</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">deductible</td>
+<td style="text-align: center;">-0.0006</td>
+<td style="text-align: center;">0.0001</td>
+<td style="text-align: center;">-5.4620</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">network_large</td>
+<td style="text-align: center;">0.8017</td>
+<td style="text-align: center;">0.1131</td>
+<td style="text-align: center;">7.0896</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Interpretation</strong>: The estimated coefficients are the part-worth utilities, representing how much each attribute contributes to the <strong>systematic utility</strong> (<span class="math inline">\(V_i\)</span>) of an alternative.</p>
+<ul>
+<li><strong>Premium</strong> (-0.0138): Each additional $1 increase in monthly premium <strong>decreases the utility</strong> of that plan option by 0.0138 points</li>
+<li><strong>Deductible</strong> (-0.0006): Each additional $1 increase in annual deductible <strong>decreases the utility</strong> of that plan option by 0.0006 points</li>
+<li><strong>Network_large</strong> (0.8017): Having a large network (vs.&nbsp;small) <strong>increases the utility</strong> of that plan option by 0.8017 points</li>
+</ul>
+<p><strong>How do utilities translate to choice probabilities?</strong></p>
+<p>The multinomial logit formula converts utilities into choice probabilities:</p>
+<p><span class="math display">\[P(\text{Choose alternative } i) = \frac{e^{V_i}}{\sum_{j} e^{V_j}}\]</span></p>
+<p>where <span class="math inline">\(V_i = \beta_{\text{premium}} \times \text{premium}_i + \beta_{\text{deductible}} \times \text{deductible}_i + \beta_{\text{network}} \times \text{network}_i\)</span> = systematic utility of alternative <span class="math inline">\(i\)</span></p>
+<p><strong>Key insight</strong>: Higher utility → Higher probability of being chosen, but the relationship is <strong>nonlinear</strong> (exponential). A plan with utility of 2.0 is much more likely to be chosen than one with utility of 1.0, not just twice as likely.</p>
+</section>
+<section id="attribute-importance-choice-based" class="level3" data-number="2.3.6">
+<h3 data-number="2.3.6" class="anchored" data-anchor-id="attribute-importance-choice-based"><span class="header-section-number">2.3.6</span> Attribute Importance (Choice-Based)</h3>
+<p>The calculation is identical to rating-based conjoint:</p>
+<ol type="1">
+<li>First, get the range of utilities for each attribute (highest - lowest)</li>
+<li>Then, calculate total range (sum all the ranges)</li>
+<li>Finally, get each range as a percentage of the total</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mlogit coefficients</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>coef_choice <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_mlogit_ins)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate utility ranges</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>range_premium_c <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_choice[<span class="st">"premium"</span>] <span class="sc">*</span> (<span class="dv">300</span> <span class="sc">-</span> <span class="dv">200</span>))  <span class="co"># $100 difference</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>range_deductible_c <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_choice[<span class="st">"deductible"</span>] <span class="sc">*</span> (<span class="dv">1500</span> <span class="sc">-</span> <span class="dv">500</span>))  <span class="co"># $1000 difference</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>range_network_c <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_choice[<span class="st">"network_large"</span>] <span class="sc">*</span> <span class="dv">1</span>)  <span class="co"># Binary (0: small vs. 1: large)</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>total_range_c <span class="ot">&lt;-</span> range_premium_c <span class="sc">+</span> range_deductible_c <span class="sc">+</span> range_network_c</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>importance_choice_ins <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">attribute =</span> <span class="fu">c</span>(<span class="st">"Monthly Premium"</span>, <span class="st">"Annual Deductible"</span>, <span class="st">"Network Size"</span>),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">utility_range =</span> <span class="fu">c</span>(range_premium_c, range_deductible_c, range_network_c),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">importance_pct =</span> <span class="fu">c</span>(range_premium_c, range_deductible_c, range_network_c) <span class="sc">/</span> total_range_c <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(importance_choice_ins, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Attribute"</span>, <span class="st">"Utility Range"</span>, <span class="st">"Importance (%)"</span>),</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">align =</span> <span class="st">"c"</span>,</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Attribute Importance (Choice-Based Conjoint)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Attribute Importance (Choice-Based Conjoint)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Attribute</th>
+<th style="text-align: center;">Utility Range</th>
+<th style="text-align: center;">Importance (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">premium</td>
+<td style="text-align: center;">Monthly Premium</td>
+<td style="text-align: center;">1.38</td>
+<td style="text-align: center;">49.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">deductible</td>
+<td style="text-align: center;">Annual Deductible</td>
+<td style="text-align: center;">0.61</td>
+<td style="text-align: center;">21.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">network_large</td>
+<td style="text-align: center;">Network Size</td>
+<td style="text-align: center;">0.80</td>
+<td style="text-align: center;">28.75</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture14_files/figure-html/choice-insurance-importance-plot-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="willingness-to-pay-choice-based" class="level3" data-number="2.3.7">
+<h3 data-number="2.3.7" class="anchored" data-anchor-id="willingness-to-pay-choice-based"><span class="header-section-number">2.3.7</span> Willingness-to-Pay (Choice-Based)</h3>
+<p>The WTP calculation is the same formula:</p>
+<p><span class="math display">\[\text{WTP} = -\frac{\beta_{\text{attribute}}}{\beta_{\text{price}}}\]</span></p>
+<p><strong>WTP Estimates:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>WTP per Month</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Large Network (vs.&nbsp;Small)</td>
+<td>$58.07</td>
+</tr>
+<tr class="even">
+<td>$1,000 Lower Deductible</td>
+<td>$43.94</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation</strong>: Consumers are willing to pay <strong>$58.07 more per month</strong> for a large network and <strong>$43.94 more per month</strong> for a plan with a $1,000 lower deductible.</p>
+</section>
+<section id="market-share-simulation-choice-based" class="level3" data-number="2.3.8">
+<h3 data-number="2.3.8" class="anchored" data-anchor-id="market-share-simulation-choice-based"><span class="header-section-number">2.3.8</span> Market Share Simulation (Choice-Based)</h3>
+<p>For choice-based conjoint, we use the <strong>multinomial logit formula</strong> to predict market shares:</p>
+<p><span class="math display">\[P(\text{Choose alternative } j) = \frac{e^{U_j}}{\sum_{k=1}^{J} e^{U_k}}\]</span></p>
+<p>Let’s compare the same two plans:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Two Competing Health Insurance Plans</caption>
+<colgroup>
+<col style="width: 31%">
+<col style="width: 23%">
+<col style="width: 26%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Plan</th>
+<th style="text-align: center;">Monthly Premium</th>
+<th style="text-align: center;">Annual Deductible</th>
+<th style="text-align: center;">Network Size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Plan A (Premium Plan)</td>
+<td style="text-align: center;">$250/month</td>
+<td style="text-align: center;">$500</td>
+<td style="text-align: center;">Large</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Plan B (Budget Plan)</td>
+<td style="text-align: center;">$200/month</td>
+<td style="text-align: center;">$1,500</td>
+<td style="text-align: center;">Small</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate utilities for each plan</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>coef_mlogit <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_mlogit_ins)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>utility_A_c <span class="ot">&lt;-</span> coef_mlogit[<span class="st">"premium"</span>] <span class="sc">*</span> <span class="dv">250</span> <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>               coef_mlogit[<span class="st">"deductible"</span>] <span class="sc">*</span> <span class="dv">500</span> <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>               coef_mlogit[<span class="st">"network_large"</span>] <span class="sc">*</span> <span class="dv">1</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>utility_B_c <span class="ot">&lt;-</span> coef_mlogit[<span class="st">"premium"</span>] <span class="sc">*</span> <span class="dv">200</span> <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>               coef_mlogit[<span class="st">"deductible"</span>] <span class="sc">*</span> <span class="dv">1500</span> <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>               coef_mlogit[<span class="st">"network_large"</span>] <span class="sc">*</span> <span class="dv">0</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply multinomial logit formula</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>share_A_c <span class="ot">&lt;-</span> <span class="fu">exp</span>(utility_A_c) <span class="sc">/</span> (<span class="fu">exp</span>(utility_A_c) <span class="sc">+</span> <span class="fu">exp</span>(utility_B_c))</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>share_B_c <span class="ot">&lt;-</span> <span class="fu">exp</span>(utility_B_c) <span class="sc">/</span> (<span class="fu">exp</span>(utility_A_c) <span class="sc">+</span> <span class="fu">exp</span>(utility_B_c))</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>market_share_choice <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">Plan =</span> <span class="fu">c</span>(<span class="st">"Premium Plan"</span>, <span class="st">"Budget Plan"</span>),</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">Premium =</span> <span class="fu">c</span>(<span class="st">"$250"</span>, <span class="st">"$200"</span>),</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">Deductible =</span> <span class="fu">c</span>(<span class="st">"$500"</span>, <span class="st">"$1500"</span>),</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">Network_Size =</span> <span class="fu">c</span>(<span class="st">"Large"</span>, <span class="st">"Small"</span>),</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Total_Utility =</span> <span class="fu">round</span>(<span class="fu">c</span>(utility_A_c, utility_B_c), <span class="dv">2</span>),</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">Market_Share =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">c</span>(share_A_c, share_B_c) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>)</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(market_share_choice,</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Plan"</span>, <span class="st">"Premium"</span>, <span class="st">"Deductible"</span>, <span class="st">"Network Size"</span>, <span class="st">"Total Utility"</span>, <span class="st">"Predicted Share"</span>),</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>             <span class="at">align =</span> <span class="st">"c"</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Market Share Simulation (Choice-Based Conjoint)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Market Share Simulation (Choice-Based Conjoint)</caption>
+<colgroup>
+<col style="width: 17%">
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 17%">
+<col style="width: 18%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Plan</th>
+<th style="text-align: center;">Premium</th>
+<th style="text-align: center;">Deductible</th>
+<th style="text-align: center;">Network Size</th>
+<th style="text-align: center;">Total Utility</th>
+<th style="text-align: center;">Predicted Share</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Premium Plan</td>
+<td style="text-align: center;">$250</td>
+<td style="text-align: center;">$500</td>
+<td style="text-align: center;">Large</td>
+<td style="text-align: center;">-2.95</td>
+<td style="text-align: center;">67.2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Budget Plan</td>
+<td style="text-align: center;">$200</td>
+<td style="text-align: center;">$1500</td>
+<td style="text-align: center;">Small</td>
+<td style="text-align: center;">-3.67</td>
+<td style="text-align: center;">32.8%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Key Difference from Rating-Based</strong>: The logit formula is theoretically grounded in how people make discrete choices, making it more appropriate for predicting actual market behavior than proportional allocation of ratings.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="summary-and-comparison" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Summary and Comparison</h1>
+<section id="method-comparison" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="method-comparison"><span class="header-section-number">3.1</span> Method Comparison</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Comparison of Conjoint Analysis Methods</caption>
+<colgroup>
+<col style="width: 22%">
+<col style="width: 34%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Aspect</th>
+<th style="text-align: center;">Rating-Based</th>
+<th style="text-align: center;">Choice-Based</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Data Collection</td>
+<td style="text-align: center;">Rate each profile (e.g., 1-10 scale)</td>
+<td style="text-align: center;">Choose preferred option from set</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Analysis Method</td>
+<td style="text-align: center;">OLS Linear Regression</td>
+<td style="text-align: center;">Multinomial Logit (mlogit package)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Data Format</td>
+<td style="text-align: center;">Wide format (one row per profile)</td>
+<td style="text-align: center;">Long format (one row per alternative)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Intercept in Model</td>
+<td style="text-align: center;">Yes (baseline rating)</td>
+<td style="text-align: center;">No (only relative preferences matter)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Key Assumption</td>
+<td style="text-align: center;">Utility → Rating is linear</td>
+<td style="text-align: center;">Random utility maximization</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Market Share Prediction</td>
+<td style="text-align: center;">Proportional allocation based on ratings</td>
+<td style="text-align: center;">Multinomial logit formula (theoretically grounded)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Realism</td>
+<td style="text-align: center;">Lower: no forced trade-offs</td>
+<td style="text-align: center;">Higher: mimics actual decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Implementation Complexity</td>
+<td style="text-align: center;">Simpler to design and analyze</td>
+<td style="text-align: center;">Requires data restructuring</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">When to Use</td>
+<td style="text-align: center;">Exploratory research, simple products</td>
+<td style="text-align: center;">When predicting actual choices matters</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="key-takeaways" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">3.2</span> Key Takeaways</h2>
+<ol type="1">
+<li><p><strong>Both methods yield similar part-worth utilities</strong> when properly designed, because they’re measuring the same underlying preferences</p></li>
+<li><p><strong>Choice-based is generally preferred</strong> in academic research and practice because it better mimics real decision-making and forces explicit trade-offs</p></li>
+<li><p><strong>Multinomial logit is the standard for choice-based conjoint</strong>: It handles any number of alternatives (2, 3, 4, or more) and is grounded in random utility theory</p></li>
+<li><p><strong>Data structure matters</strong>: Choice-based conjoint requires “long format” data with proper indexing to identify which alternatives belong to each choice set</p></li>
+<li><p><strong>Attribute importance and WTP use the same formulas</strong> across both methods—calculations rely on utility ranges and coefficients regardless of estimation method</p></li>
+<li><p><strong>The key managerial insight</strong>: Conjoint analysis transforms subjective preferences into quantitative data that supports concrete decisions about pricing, feature prioritization, and competitive strategy</p></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="references-and-further-reading" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> References and Further Reading</h1>
+<section id="statistical-methods" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="statistical-methods"><span class="header-section-number">4.1</span> Statistical Methods</h2>
+<ul>
+<li>Green, P. E., &amp; Srinivasan, V. (1990). Conjoint analysis in marketing: New developments with implications for research and practice. <em>Journal of Marketing</em>, 54(4), 3-19.</li>
+<li>Louviere, J. J., Hensher, D. A., &amp; Swait, J. D. (2000). <em>Stated Choice Methods: Analysis and Applications</em>. Cambridge University Press.</li>
+<li>McFadden, D. (1974). Conditional logit analysis of qualitative choice behavior. In P. Zarembka (Ed.), <em>Frontiers in Econometrics</em> (pp.&nbsp;105-142). Academic Press.</li>
+<li>Orme, B. (2010). <em>Getting Started with Conjoint Analysis: Strategies for Product Design and Pricing Research</em> (2nd ed.). Research Publishers LLC.</li>
+</ul>
+</section>
+<section id="healthcare-applications" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="healthcare-applications"><span class="header-section-number">4.2</span> Healthcare Applications</h2>
+<p>Examples are motivated by the following:</p>
+<ul>
+<li><p>Sinaiko, A. D., &amp; Hirth, R. A. (2011). Consumers, health insurance and dominated choices. <em>Journal of Health Economics</em>, 30(2), 450-457. https://doi.org/10.1016/j.jhealeco.2010.12.007</p></li>
+<li><p>Savira, F., Robinson, S., Toll, K., Spark, L., Thomas, E., Nesbitt, J., Frean, I., &amp; Norman, R. (2023). Consumer preferences for telehealth in Australia: A discrete choice experiment. <em>PLOS ONE</em>, 18(3), e0283821. https://doi.org/10.1371/journal.pone.0283821</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

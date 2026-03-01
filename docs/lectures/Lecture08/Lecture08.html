@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-03-02">
+
+<title>Crosstabulation and Correlation – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-7b997789b8c97d15811d7b52a81c6dd1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mba642-spring-26/mba642-spring-26.github.io/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Crosstabulation and Correlation</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#new-questions-new-methods" id="toc-new-questions-new-methods" class="nav-link" data-scroll-target="#new-questions-new-methods">New Questions, New Methods</a></li>
+  <li><a href="#choosing-the-right-method" id="toc-choosing-the-right-method" class="nav-link" data-scroll-target="#choosing-the-right-method">Choosing the Right Method</a></li>
+  <li><a href="#the-complete-picture-bivariate-analysis-methods" id="toc-the-complete-picture-bivariate-analysis-methods" class="nav-link" data-scroll-target="#the-complete-picture-bivariate-analysis-methods">The Complete Picture: Bivariate Analysis Methods</a></li>
+  </ul></li>
+  <li><a href="#part-1-crosstabulation-chi-square-test" id="toc-part-1-crosstabulation-chi-square-test" class="nav-link" data-scroll-target="#part-1-crosstabulation-chi-square-test">Part 1: Crosstabulation (Chi-Square Test)</a>
+  <ul class="collapse">
+  <li><a href="#what-is-crosstabulation" id="toc-what-is-crosstabulation" class="nav-link" data-scroll-target="#what-is-crosstabulation">What is Crosstabulation?</a>
+  <ul class="collapse">
+  <li><a href="#the-logic-behind-the-test" id="toc-the-logic-behind-the-test" class="nav-link" data-scroll-target="#the-logic-behind-the-test">The Logic Behind the Test</a></li>
+  </ul></li>
+  <li><a href="#when-to-use-crosstabulation" id="toc-when-to-use-crosstabulation" class="nav-link" data-scroll-target="#when-to-use-crosstabulation">When to Use Crosstabulation</a>
+  <ul class="collapse">
+  <li><a href="#key-assumption" id="toc-key-assumption" class="nav-link" data-scroll-target="#key-assumption">Key Assumption</a></li>
+  </ul></li>
+  <li><a href="#scenario-insurance-type-and-hospital-readmission" id="toc-scenario-insurance-type-and-hospital-readmission" class="nav-link" data-scroll-target="#scenario-insurance-type-and-hospital-readmission">Scenario: Insurance Type and Hospital Readmission</a>
+  <ul class="collapse">
+  <li><a href="#background-and-context" id="toc-background-and-context" class="nav-link" data-scroll-target="#background-and-context">Background and Context</a></li>
+  </ul></li>
+  <li><a href="#the-chi-square-formula" id="toc-the-chi-square-formula" class="nav-link" data-scroll-target="#the-chi-square-formula">The Chi-Square Formula</a>
+  <ul class="collapse">
+  <li><a href="#understanding-the-formula" id="toc-understanding-the-formula" class="nav-link" data-scroll-target="#understanding-the-formula">Understanding the Formula</a></li>
+  </ul></li>
+  <li><a href="#manual-calculation-understanding-the-chi-square-statistic" id="toc-manual-calculation-understanding-the-chi-square-statistic" class="nav-link" data-scroll-target="#manual-calculation-understanding-the-chi-square-statistic">Manual Calculation: Understanding the Chi-Square Statistic</a>
+  <ul class="collapse">
+  <li><a href="#step-1-calculate-row-and-column-totals" id="toc-step-1-calculate-row-and-column-totals" class="nav-link" data-scroll-target="#step-1-calculate-row-and-column-totals">Step 1: Calculate Row and Column Totals</a></li>
+  <li><a href="#step-2-calculate-expected-frequencies" id="toc-step-2-calculate-expected-frequencies" class="nav-link" data-scroll-target="#step-2-calculate-expected-frequencies">Step 2: Calculate Expected Frequencies</a></li>
+  <li><a href="#step-3-calculate-chi-square-contribution-for-each-cell" id="toc-step-3-calculate-chi-square-contribution-for-each-cell" class="nav-link" data-scroll-target="#step-3-calculate-chi-square-contribution-for-each-cell">Step 3: Calculate Chi-Square Contribution for Each Cell</a></li>
+  <li><a href="#step-4-sum-to-get-chi-square-statistic" id="toc-step-4-sum-to-get-chi-square-statistic" class="nav-link" data-scroll-target="#step-4-sum-to-get-chi-square-statistic">Step 4: Sum to Get Chi-Square Statistic</a></li>
+  </ul></li>
+  <li><a href="#example-insurance-type-and-readmission" id="toc-example-insurance-type-and-readmission" class="nav-link" data-scroll-target="#example-insurance-type-and-readmission">Example: Insurance Type and Readmission</a></li>
+  <li><a href="#visualizing-the-association" id="toc-visualizing-the-association" class="nav-link" data-scroll-target="#visualizing-the-association">Visualizing the Association</a></li>
+  <li><a href="#visualizing-the-chi-square-distribution" id="toc-visualizing-the-chi-square-distribution" class="nav-link" data-scroll-target="#visualizing-the-chi-square-distribution">Visualizing the Chi-Square Distribution</a>
+  <ul class="collapse">
+  <li><a href="#null-vs.-alternative-hypotheses" id="toc-null-vs.-alternative-hypotheses" class="nav-link" data-scroll-target="#null-vs.-alternative-hypotheses">Null vs.&nbsp;Alternative Hypotheses</a></li>
+  </ul></li>
+  <li><a href="#conducting-the-chi-square-test-in-r" id="toc-conducting-the-chi-square-test-in-r" class="nav-link" data-scroll-target="#conducting-the-chi-square-test-in-r">Conducting the Chi-Square Test in R</a>
+  <ul class="collapse">
+  <li><a href="#examining-expected-frequencies" id="toc-examining-expected-frequencies" class="nav-link" data-scroll-target="#examining-expected-frequencies">Examining Expected Frequencies</a></li>
+  <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">Interpreting the Results</a></li>
+  <li><a href="#conclusion-and-clinical-implications" id="toc-conclusion-and-clinical-implications" class="nav-link" data-scroll-target="#conclusion-and-clinical-implications">Conclusion and Clinical Implications</a></li>
+  </ul></li>
+  <li><a href="#fishers-exact-test-vs.-chi-square-test" id="toc-fishers-exact-test-vs.-chi-square-test" class="nav-link" data-scroll-target="#fishers-exact-test-vs.-chi-square-test">Fisher’s Exact Test vs.&nbsp;Chi-Square Test</a>
+  <ul class="collapse">
+  <li><a href="#when-to-use-fishers-exact-test" id="toc-when-to-use-fishers-exact-test" class="nav-link" data-scroll-target="#when-to-use-fishers-exact-test">When to Use Fisher’s Exact Test</a></li>
+  <li><a href="#how-fishers-exact-test-works" id="toc-how-fishers-exact-test-works" class="nav-link" data-scroll-target="#how-fishers-exact-test-works">How Fisher’s Exact Test Works</a></li>
+  <li><a href="#understanding-the-logic" id="toc-understanding-the-logic" class="nav-link" data-scroll-target="#understanding-the-logic">Understanding the Logic</a></li>
+  <li><a href="#example-small-sample-with-fishers-exact-test" id="toc-example-small-sample-with-fishers-exact-test" class="nav-link" data-scroll-target="#example-small-sample-with-fishers-exact-test">Example: Small Sample with Fisher’s Exact Test</a></li>
+  <li><a href="#interpreting-fishers-exact-test-output" id="toc-interpreting-fishers-exact-test-output" class="nav-link" data-scroll-target="#interpreting-fishers-exact-test-output">Interpreting Fisher’s Exact Test Output</a></li>
+  <li><a href="#practical-guideline" id="toc-practical-guideline" class="nav-link" data-scroll-target="#practical-guideline">Practical Guideline</a></li>
+  </ul></li>
+  <li><a href="#practice-activity-1-surgical-approach-and-complications" id="toc-practice-activity-1-surgical-approach-and-complications" class="nav-link" data-scroll-target="#practice-activity-1-surgical-approach-and-complications">Practice Activity 1: Surgical Approach and Complications</a></li>
+  </ul></li>
+  <li><a href="#part-2-correlation-analysis" id="toc-part-2-correlation-analysis" class="nav-link" data-scroll-target="#part-2-correlation-analysis">Part 2: Correlation Analysis</a>
+  <ul class="collapse">
+  <li><a href="#what-is-correlation" id="toc-what-is-correlation" class="nav-link" data-scroll-target="#what-is-correlation">What is Correlation?</a></li>
+  <li><a href="#the-correlation-coefficient" id="toc-the-correlation-coefficient" class="nav-link" data-scroll-target="#the-correlation-coefficient">The Correlation Coefficient</a>
+  <ul class="collapse">
+  <li><a href="#interpreting-the-correlation-coefficient" id="toc-interpreting-the-correlation-coefficient" class="nav-link" data-scroll-target="#interpreting-the-correlation-coefficient">Interpreting the Correlation Coefficient</a></li>
+  </ul></li>
+  <li><a href="#pearson-vs.-spearman-correlation" id="toc-pearson-vs.-spearman-correlation" class="nav-link" data-scroll-target="#pearson-vs.-spearman-correlation">Pearson vs.&nbsp;Spearman Correlation</a>
+  <ul class="collapse">
+  <li><a href="#pearson-correlation" id="toc-pearson-correlation" class="nav-link" data-scroll-target="#pearson-correlation">Pearson Correlation</a></li>
+  <li><a href="#spearman-correlation" id="toc-spearman-correlation" class="nav-link" data-scroll-target="#spearman-correlation">Spearman Correlation</a></li>
+  </ul></li>
+  <li><a href="#when-to-use-correlation" id="toc-when-to-use-correlation" class="nav-link" data-scroll-target="#when-to-use-correlation">When to Use Correlation</a></li>
+  <li><a href="#scenario-nurse-staffing-and-patient-satisfaction" id="toc-scenario-nurse-staffing-and-patient-satisfaction" class="nav-link" data-scroll-target="#scenario-nurse-staffing-and-patient-satisfaction">Scenario: Nurse Staffing and Patient Satisfaction</a>
+  <ul class="collapse">
+  <li><a href="#background-and-context-1" id="toc-background-and-context-1" class="nav-link" data-scroll-target="#background-and-context-1">Background and Context</a></li>
+  </ul></li>
+  <li><a href="#manual-calculation-understanding-the-pearson-correlation-coefficient" id="toc-manual-calculation-understanding-the-pearson-correlation-coefficient" class="nav-link" data-scroll-target="#manual-calculation-understanding-the-pearson-correlation-coefficient">Manual Calculation: Understanding the Pearson Correlation Coefficient</a>
+  <ul class="collapse">
+  <li><a href="#step-1-calculate-means" id="toc-step-1-calculate-means" class="nav-link" data-scroll-target="#step-1-calculate-means">Step 1: Calculate Means</a></li>
+  <li><a href="#step-2-calculate-deviations-from-the-mean" id="toc-step-2-calculate-deviations-from-the-mean" class="nav-link" data-scroll-target="#step-2-calculate-deviations-from-the-mean">Step 2: Calculate Deviations from the Mean</a></li>
+  <li><a href="#step-3-calculate-sum-of-products-and-sum-of-squares" id="toc-step-3-calculate-sum-of-products-and-sum-of-squares" class="nav-link" data-scroll-target="#step-3-calculate-sum-of-products-and-sum-of-squares">Step 3: Calculate Sum of Products and Sum of Squares</a></li>
+  <li><a href="#step-4-calculate-the-correlation-coefficient" id="toc-step-4-calculate-the-correlation-coefficient" class="nav-link" data-scroll-target="#step-4-calculate-the-correlation-coefficient">Step 4: Calculate the Correlation Coefficient</a></li>
+  <li><a href="#understanding-what-the-correlation-tells-us" id="toc-understanding-what-the-correlation-tells-us" class="nav-link" data-scroll-target="#understanding-what-the-correlation-tells-us">Understanding What the Correlation Tells Us</a></li>
+  </ul></li>
+  <li><a href="#example-nurse-staffing-and-satisfaction" id="toc-example-nurse-staffing-and-satisfaction" class="nav-link" data-scroll-target="#example-nurse-staffing-and-satisfaction">Example: Nurse Staffing and Satisfaction</a></li>
+  <li><a href="#visualizing-the-relationship" id="toc-visualizing-the-relationship" class="nav-link" data-scroll-target="#visualizing-the-relationship">Visualizing the Relationship</a></li>
+  <li><a href="#visualizing-the-sampling-distribution-of-r" id="toc-visualizing-the-sampling-distribution-of-r" class="nav-link" data-scroll-target="#visualizing-the-sampling-distribution-of-r">Visualizing the Sampling Distribution of r</a>
+  <ul class="collapse">
+  <li><a href="#null-and-alternative-hypotheses" id="toc-null-and-alternative-hypotheses" class="nav-link" data-scroll-target="#null-and-alternative-hypotheses">Null and Alternative Hypotheses</a></li>
+  </ul></li>
+  <li><a href="#conducting-pearson-correlation-in-r" id="toc-conducting-pearson-correlation-in-r" class="nav-link" data-scroll-target="#conducting-pearson-correlation-in-r">Conducting Pearson Correlation in R</a>
+  <ul class="collapse">
+  <li><a href="#interpreting-the-results-1" id="toc-interpreting-the-results-1" class="nav-link" data-scroll-target="#interpreting-the-results-1">Interpreting the Results</a></li>
+  </ul></li>
+  <li><a href="#practice-activity-2-ed-wait-time-and-satisfaction" id="toc-practice-activity-2-ed-wait-time-and-satisfaction" class="nav-link" data-scroll-target="#practice-activity-2-ed-wait-time-and-satisfaction">Practice Activity 2: ED Wait Time and Satisfaction</a></li>
+  <li><a href="#example-2-pain-assessment-and-functional-mobility-spearman-correlation" id="toc-example-2-pain-assessment-and-functional-mobility-spearman-correlation" class="nav-link" data-scroll-target="#example-2-pain-assessment-and-functional-mobility-spearman-correlation">Example 2: Pain Assessment and Functional Mobility (Spearman Correlation)</a>
+  <ul class="collapse">
+  <li><a href="#scenario-post-surgical-recovery-assessment" id="toc-scenario-post-surgical-recovery-assessment" class="nav-link" data-scroll-target="#scenario-post-surgical-recovery-assessment">Scenario: Post-Surgical Recovery Assessment</a></li>
+  <li><a href="#background-and-context-2" id="toc-background-and-context-2" class="nav-link" data-scroll-target="#background-and-context-2">Background and Context</a></li>
+  <li><a href="#example-pain-level-and-functional-mobility" id="toc-example-pain-level-and-functional-mobility" class="nav-link" data-scroll-target="#example-pain-level-and-functional-mobility">Example: Pain Level and Functional Mobility</a></li>
+  <li><a href="#visualizing-the-relationship-1" id="toc-visualizing-the-relationship-1" class="nav-link" data-scroll-target="#visualizing-the-relationship-1">Visualizing the Relationship</a></li>
+  <li><a href="#null-and-alternative-hypotheses-1" id="toc-null-and-alternative-hypotheses-1" class="nav-link" data-scroll-target="#null-and-alternative-hypotheses-1">Null and Alternative Hypotheses</a></li>
+  <li><a href="#conducting-spearman-correlation-in-r" id="toc-conducting-spearman-correlation-in-r" class="nav-link" data-scroll-target="#conducting-spearman-correlation-in-r">Conducting Spearman Correlation in R</a></li>
+  <li><a href="#interpreting-the-results-2" id="toc-interpreting-the-results-2" class="nav-link" data-scroll-target="#interpreting-the-results-2">Interpreting the Results</a></li>
+  <li><a href="#conclusion-and-clinical-implications-1" id="toc-conclusion-and-clinical-implications-1" class="nav-link" data-scroll-target="#conclusion-and-clinical-implications-1">Conclusion and Clinical Implications</a></li>
+  </ul></li>
+  <li><a href="#practice-activity-3-nursing-workload-and-job-satisfaction" id="toc-practice-activity-3-nursing-workload-and-job-satisfaction" class="nav-link" data-scroll-target="#practice-activity-3-nursing-workload-and-job-satisfaction">Practice Activity 3: Nursing Workload and Job Satisfaction</a></li>
+  <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis">Limitations of Correlation Analysis</a>
+  <ul class="collapse">
+  <li><a href="#correlation-is-not-causation" id="toc-correlation-is-not-causation" class="nav-link" data-scroll-target="#correlation-is-not-causation">1. Correlation is NOT Causation</a></li>
+  <li><a href="#correlation-only-captures-linear-relationships" id="toc-correlation-only-captures-linear-relationships" class="nav-link" data-scroll-target="#correlation-only-captures-linear-relationships">2. Correlation Only Captures Linear Relationships</a></li>
+  <li><a href="#pearson-correlation-is-sensitive-to-outliers" id="toc-pearson-correlation-is-sensitive-to-outliers" class="nav-link" data-scroll-target="#pearson-correlation-is-sensitive-to-outliers">3. Pearson Correlation is Sensitive to Outliers</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
+  <ul class="collapse">
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a>
+  <ul class="collapse">
+  <li><a href="#crosstabulation-chi-square-test" id="toc-crosstabulation-chi-square-test" class="nav-link" data-scroll-target="#crosstabulation-chi-square-test">Crosstabulation (Chi-Square Test)</a></li>
+  <li><a href="#correlation-analysis" id="toc-correlation-analysis" class="nav-link" data-scroll-target="#correlation-analysis">Correlation Analysis</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#references-and-further-reading" id="toc-references-and-further-reading" class="nav-link" data-scroll-target="#references-and-further-reading">References and Further Reading</a>
+  <ul class="collapse">
+  <li><a href="#statistical-references" id="toc-statistical-references" class="nav-link" data-scroll-target="#statistical-references">Statistical References</a></li>
+  <li><a href="#healthcare-applications" id="toc-healthcare-applications" class="nav-link" data-scroll-target="#healthcare-applications">Healthcare Applications</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Crosstabulation and Correlation</h1>
+<p class="subtitle lead">MBA642: Business Analytics in Healthcare Management</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>In previous sessions (Week 5 and Week 6), we learned how to compare means across groups using t-tests and ANOVA. These tests examined <strong>bivariate relationships</strong> between:</p>
+<ul>
+<li>A <strong>categorical</strong> independent variable (grouping factor)</li>
+<li>A <strong>continuous</strong> dependent variable (outcome measure)</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>t-test: Does patient satisfaction (continuous) differ by hospital location (2 categories)?</li>
+<li>ANOVA: Do wait times (continuous) differ across four departments (4 categories)?</li>
+</ul>
+<p>This week, we expand our analytical toolkit to examine two additional types of bivariate relationships:</p>
+<ol type="1">
+<li><strong>Two categorical variables</strong>: Crosstabulation (Chi-square test)</li>
+<li><strong>Two continuous variables</strong>: Correlation (Pearson or Spearman)</li>
+</ol>
+<section id="new-questions-new-methods" class="level2">
+<h2 class="anchored" data-anchor-id="new-questions-new-methods">New Questions, New Methods</h2>
+<p>The methods we’ve learned so far cannot answer certain important healthcare management questions:</p>
+<p><strong>Crosstabulation addresses questions like:</strong></p>
+<ul>
+<li>Is there an association between <strong>insurance type</strong> (categorical) and <strong>readmission status</strong> (categorical)?
+<ul>
+<li>Insurance type: Medicare, Medicaid, Private (discrete categories)</li>
+<li>Readmission status: Readmitted, Not Readmitted (discrete categories)</li>
+</ul></li>
+<li>Do <strong>surgical approach</strong> (categorical) and <strong>complication occurrence</strong> (categorical) appear related?
+<ul>
+<li>Surgical approach: Minimally Invasive, Open Surgery (discrete categories)</li>
+<li>Complication occurrence: Yes, No (discrete categories)</li>
+</ul></li>
+<li>Is <strong>shift schedule</strong> (categorical) associated with <strong>incident type</strong> (categorical)?
+<ul>
+<li>Shift schedule: Day, Evening, Night (discrete categories)</li>
+<li>Incident type: Medication Error, Patient Fall, Pressure Injury (discrete categories)</li>
+</ul></li>
+</ul>
+<p><strong>Correlation addresses questions like:</strong></p>
+<ul>
+<li>As <strong>nurse staffing levels</strong> (continuous) increase, do <strong>patient satisfaction scores</strong> (continuous) change?
+<ul>
+<li>Nurse staffing: 6.2, 7.8, 9.1, 10.5 hours per patient day (measured on a continuous scale)
+<ul>
+<li><em>This is a staffing ratio: total nurse hours worked ÷ patient census for the unit</em></li>
+</ul></li>
+<li>Satisfaction scores: 72, 85, 91, 88 on a 0-100 scale (measured on a continuous scale)</li>
+</ul></li>
+<li>Is there a relationship between <strong>ED wait time</strong> (continuous) and <strong>satisfaction ratings</strong> (continuous)?
+<ul>
+<li>ED wait time: 23, 45, 67, 102 minutes (measured on a continuous scale)</li>
+<li>Satisfaction ratings: 4.2, 3.8, 2.9, 2.1 on a 1-5 scale (measured on a continuous scale)</li>
+</ul></li>
+<li>Do <strong>pain levels</strong> (ordinal) relate to <strong>mobility scores</strong> (ordinal)?
+<ul>
+<li>Pain levels: 4, 3, 5, 2, 1 on a 1-5 scale (ordered categories, but intervals may not be equal)
+<ul>
+<li><em>5 = Very Severe, 4 = Severe, 3 = Moderate, 2 = Mild, 1 = No Pain</em></li>
+</ul></li>
+<li>Mobility scores: 5, 4, 2, 1 on a 1-5 functional independence scale (ordered categories)
+<ul>
+<li><em>5 = Independent, 4 = Minimal assistance, 3 = Moderate assistance, 2 = Maximal assistance, 1 = Complete dependence</em></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="choosing-the-right-method" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-the-right-method">Choosing the Right Method</h2>
+<p>The method we use depends on the <strong>measurement scale</strong> of both variables:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 26%">
+<col style="width: 38%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Types</th>
+<th>Appropriate Method</th>
+<th>Sample Size Considerations</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Two nominal (categorical) variables</td>
+<td><strong>Crosstabulation</strong> (Chi-square test)</td>
+<td>All expected cell frequencies ≥ 5; use Fisher’s exact if any &lt; 5</td>
+<td>Insurance type × Readmission status</td>
+</tr>
+<tr class="even">
+<td>Two continuous/ordinal variables</td>
+<td><strong>Correlation</strong> (Pearson or Spearman)</td>
+<td>Typically n ≥ 30 for reliable inference; larger samples for detecting weak correlations</td>
+<td>Wait time × Satisfaction score</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-complete-picture-bivariate-analysis-methods" class="level2">
+<h2 class="anchored" data-anchor-id="the-complete-picture-bivariate-analysis-methods">The Complete Picture: Bivariate Analysis Methods</h2>
+<p>Here’s how the methods we’ve learned fit together:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 26%">
+<col style="width: 25%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Independent Variable</th>
+<th>Dependent Variable</th>
+<th>Statistical Test</th>
+<th>Course Week</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Categorical (2 groups)</td>
+<td>Continuous</td>
+<td>Independent t-test</td>
+<td>Week 5 ✓</td>
+</tr>
+<tr class="even">
+<td>Categorical (2 groups, paired)</td>
+<td>Continuous</td>
+<td>Paired t-test</td>
+<td>Week 5 ✓</td>
+</tr>
+<tr class="odd">
+<td>Categorical (3+ groups)</td>
+<td>Continuous</td>
+<td>One-way ANOVA</td>
+<td>Week 6 ✓</td>
+</tr>
+<tr class="even">
+<td>Categorical (3+ repeated)</td>
+<td>Continuous</td>
+<td>Repeated-measures ANOVA</td>
+<td>Week 6 ✓</td>
+</tr>
+<tr class="odd">
+<td><strong>Categorical</strong></td>
+<td><strong>Categorical</strong></td>
+<td><strong>Chi-square / Fisher’s exact</strong></td>
+<td><strong>Week 8 → Part 1</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Continuous</strong></td>
+<td><strong>Continuous</strong></td>
+<td><strong>Pearson/Spearman correlation</strong></td>
+<td><strong>Week 8 → Part 2</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The choice of statistical test depends on the measurement scales of your variables and your hypothesis. This week focuses on the two remaining combinations: categorical-categorical and continuous-continuous relationships.</p>
+<hr>
+</section>
+</section>
+<section id="part-1-crosstabulation-chi-square-test" class="level1">
+<h1>Part 1: Crosstabulation (Chi-Square Test)</h1>
+<section id="what-is-crosstabulation" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-crosstabulation">What is Crosstabulation?</h2>
+<p><strong>Crosstabulation</strong> (also called a contingency table or crosstab) is a statistical method that tests whether there is a significant association between two categorical variables. It answers the question whether these two categorical variables are independent of each other, or if there is a systematic relationship between them.</p>
+<p>The chi-square test of independence is the inferential statistical test used with crosstabulation. It compares the <strong>observed frequencies</strong> in each cell of the table to the <strong>expected frequencies</strong> that would occur if the two variables were completely independent.</p>
+<section id="the-logic-behind-the-test" class="level3">
+<h3 class="anchored" data-anchor-id="the-logic-behind-the-test">The Logic Behind the Test</h3>
+<p>The chi-square test works by comparing what we actually observe in our data to what we would expect to see if there were no relationship between the variables:</p>
+<ul>
+<li><strong>If the variables are independent</strong> (no association): The distribution of one variable should look the same across all categories of the other variable</li>
+<li><strong>If the variables are associated</strong> (dependent): The distribution of one variable will differ across categories of the other variable</li>
+</ul>
+<p>For example, if insurance type and readmission are independent, we would expect the readmission rate to be roughly the same regardless of insurance type. If they are associated, readmission rates would differ by insurance type.</p>
+</section>
+</section>
+<section id="when-to-use-crosstabulation" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-use-crosstabulation">When to Use Crosstabulation</h2>
+<p>Crosstabulation is appropriate when you want to test the association between two <strong>categorical variables</strong>.</p>
+<p>For example:</p>
+<ul>
+<li><strong>Quality outcomes</strong>: Is there an association between treatment protocol (Protocol A vs.&nbsp;Protocol B) and patient outcome (Improved vs.&nbsp;Not Improved)?</li>
+<li><strong>Service utilization</strong>: Is there an association between patient age group (18-39, 40-64, 65+) and choice of service delivery method (In-person vs.&nbsp;Telehealth)?</li>
+<li><strong>Operational decisions</strong>: Is there an association between shift type (Day vs.&nbsp;Night) and incident occurrence (Yes vs.&nbsp;No)?</li>
+<li><strong>Patient behavior</strong>: Is there an association between receiving a follow-up reminder (Yes vs.&nbsp;No) and appointment attendance (Attended vs.&nbsp;No-show)?</li>
+</ul>
+<section id="key-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="key-assumption">Key Assumption</h3>
+<p>For the chi-square test to be valid, each cell in the contingency table should have an <strong>expected frequency of at least 5</strong>. When this assumption is violated (often with small sample sizes), Fisher’s exact test should be used instead (discussed later in this document).</p>
+</section>
+</section>
+<section id="scenario-insurance-type-and-hospital-readmission" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-insurance-type-and-hospital-readmission">Scenario: Insurance Type and Hospital Readmission</h2>
+<section id="background-and-context" class="level3">
+<h3 class="anchored" data-anchor-id="background-and-context">Background and Context</h3>
+<p>Let’s think about the following case:</p>
+<blockquote class="blockquote">
+<p>A hospital quality improvement team wants to understand whether there is an association between patients’ <strong>insurance type</strong> (Medicare, Medicaid, Private) and <strong>30-day readmission status</strong> (Readmitted vs.&nbsp;Not Readmitted).</p>
+</blockquote>
+<p><strong>Why This Matters:</strong></p>
+<p>Hospital readmissions are a critical quality and financial metric for several reasons:</p>
+<ol type="1">
+<li><p><strong>Financial Impact</strong>: Under the Hospital Readmissions Reduction Program (HRRP), Medicare penalizes hospitals with excess readmissions, potentially reducing Medicare payments by up to 3%. For a typical hospital, this can mean millions of dollars in lost revenue.</p></li>
+<li><p><strong>Quality Indicator</strong>: The 30-day readmission rate is used in various quality rankings. High readmission rates can damage a hospital’s reputation and affect patient choice.</p></li>
+<li><p><strong>Patient Outcomes</strong>: Readmissions often indicate gaps in care coordination, inadequate discharge planning, or unmet post-discharge needs. They represent adverse events from the patient perspective.</p></li>
+<li><p><strong>Health Equity</strong>: If readmission rates vary systematically by insurance type, this may reveal disparities in care quality, access to follow-up services, or social determinants of health that the hospital can address.</p></li>
+</ol>
+<p>Studies have shown that socioeconomic factors, often correlated with insurance type, significantly affect readmission risk. Patients with Medicaid or Medicare may face different challenges than privately insured patients, including:</p>
+<ul>
+<li>Limited access to primary care providers</li>
+<li>Higher medication cost-sharing leading to non-adherence</li>
+<li>Greater prevalence of social risk factors (food insecurity, housing instability, transportation barriers)</li>
+</ul>
+<p><strong>Study Design:</strong></p>
+<p>The quality improvement team collected data from <strong>300 patients</strong> discharged from the cardiology unit over the past year. Cardiology patients were selected because:</p>
+<ul>
+<li>Heart failure and acute myocardial infarction (heart attack) have high national readmission rates (≈20-25%)</li>
+<li>These conditions are included in the HRRP penalty calculations</li>
+<li>Post-discharge care requirements are clear (medication adherence, follow-up appointments, weight monitoring)</li>
+</ul>
+<p>The question we want to answer is: <em>Is there a statistically significant association between insurance type and 30-day readmission status?</em></p>
+</section>
+</section>
+<section id="the-chi-square-formula" class="level2">
+<h2 class="anchored" data-anchor-id="the-chi-square-formula">The Chi-Square Formula</h2>
+<p>The chi-square statistic is calculated as:</p>
+<p><span class="math display">\[\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(O_{ij}\)</span>: Observed frequency in cell (i, j)</li>
+<li><span class="math inline">\(E_{ij}\)</span>: Expected frequency in cell (i, j)</li>
+</ul>
+<p>The expected frequency for each cell is calculated as:</p>
+<p><span class="math display">\[E_{ij} = \frac{(\text{Row Total}_i) \times (\text{Column Total}_j)}{\text{Grand Total}}\]</span></p>
+<section id="understanding-the-formula" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-formula">Understanding the Formula</h3>
+<p>The chi-square statistic measures the overall discrepancy between observed and expected frequencies.</p>
+<p>Here, the expected frequencies represent the counts we would see in each cell <strong>if the two variables had no relationship at all</strong> (i.e., if knowing a patient’s insurance type told you nothing about their likelihood of readmission). The chi-square statistic then asks: <strong>how far are our actual data from this “no association” scenario?</strong></p>
+<ul>
+<li><strong>Numerator</strong> <span class="math inline">\((O_{ij} - E_{ij})^2\)</span>: The squared difference between what we observed and what we expected under independence. Squaring ensures all differences are positive and gives more weight to larger discrepancies.</li>
+<li><strong>Denominator</strong> <span class="math inline">\(E_{ij}\)</span>: Dividing by the expected frequency standardizes the difference, so cells with larger expected frequencies don’t dominate the statistic.</li>
+</ul>
+<p>A <strong>larger chi-square value</strong> indicates a greater discrepancy between observed and expected frequencies, suggesting that the variables are likely associated. The p-value tells us the probability of observing such a large chi-square value (or larger) if the variables were truly independent.</p>
+</section>
+</section>
+<section id="manual-calculation-understanding-the-chi-square-statistic" class="level2">
+<h2 class="anchored" data-anchor-id="manual-calculation-understanding-the-chi-square-statistic">Manual Calculation: Understanding the Chi-Square Statistic</h2>
+<p>Before using R to conduct the test, let’s work through a manual calculation to understand what the chi-square test actually does. This will help you interpret the R output more meaningfully.</p>
+<p>Let’s use a simplified example with smaller numbers:</p>
+<p><strong>Example</strong>: A clinic examines whether insurance type (Medicare vs.&nbsp;Private) is associated with follow-up appointment no-show status (No-show vs.&nbsp;Attended).</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Observed Frequencies: Insurance Type × Appointment Status</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">No-show</th>
+<th style="text-align: center;">Attended</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Medicare</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">35</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Private</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">25</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="step-1-calculate-row-and-column-totals" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-calculate-row-and-column-totals">Step 1: Calculate Row and Column Totals</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Observed Frequencies with Marginal Totals</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">No-show</th>
+<th style="text-align: center;">Attended</th>
+<th style="text-align: center;">Row Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Medicare</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">35</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Private</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column Total</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="step-2-calculate-expected-frequencies" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-calculate-expected-frequencies">Step 2: Calculate Expected Frequencies</h3>
+<p>For each cell, the expected frequency is:</p>
+<p><span class="math display">\[E_{ij} = \frac{(\text{Row Total}_i) \times (\text{Column Total}_j)}{\text{Grand Total}}\]</span></p>
+<p>Let’s calculate for each cell:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Expected Frequencies:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Medicare × No-show:    (50 × 40) / 100 = 20</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Medicare × Attended:   (50 × 60) / 100 = 30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Private × No-show:     (50 × 40) / 100 = 20</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Private × Attended:    (50 × 60) / 100 = 30</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Expected Frequencies (if variables were independent)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">No-show</th>
+<th style="text-align: center;">Attended</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Medicare</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Private</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">30</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="step-3-calculate-chi-square-contribution-for-each-cell" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-calculate-chi-square-contribution-for-each-cell">Step 3: Calculate Chi-Square Contribution for Each Cell</h3>
+<p>For each cell, we calculate: <span class="math inline">\(\frac{(O_{ij} - E_{ij})^2}{E_{ij}}\)</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Chi-Square Components:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Medicare × No-show:    (15 - 20.00)² / 20.00 = 1.250</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Medicare × Attended:   (35 - 30.00)² / 30.00 = 0.833</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Private × No-show:     (25 - 20.00)² / 20.00 = 1.250</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Private × Attended:    (25 - 30.00)² / 30.00 = 0.833</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Chi-Square Contribution from Each Cell</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">No-show</th>
+<th style="text-align: center;">Attended</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Medicare</td>
+<td style="text-align: center;">1.25</td>
+<td style="text-align: center;">0.833</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Private</td>
+<td style="text-align: center;">1.25</td>
+<td style="text-align: center;">0.833</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="step-4-sum-to-get-chi-square-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-sum-to-get-chi-square-statistic">Step 4: Sum to Get Chi-Square Statistic</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Final Calculation:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>χ² = 1.250 + 0.833 + 1.250 + 0.833</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>χ² = 4.167</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─────────────────────────────────────</code></pre>
+</div>
+</div>
+<p>This is what a chi-square value captures and how it is calculated.</p>
+<p>To summarize, the chi-square test is:</p>
+<ol type="1">
+<li>Comparing what we <strong>observed</strong> to what we would <strong>expect</strong> if variables were independent</li>
+<li>Squaring differences to make them all positive and emphasize larger discrepancies</li>
+<li>Standardizing by dividing by expected frequencies</li>
+<li>Summing across all cells to get a single test statistic, chi-square value</li>
+</ol>
+<p>Now let’s apply this understanding to our main healthcare example.</p>
+<hr>
+</section>
+</section>
+<section id="example-insurance-type-and-readmission" class="level2">
+<h2 class="anchored" data-anchor-id="example-insurance-type-and-readmission">Example: Insurance Type and Readmission</h2>
+<p>Let’s analyze our hospital readmission data. First, load the dataset and required packages using the code below:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># load the dataset</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>readmission_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_crosstab_dataset.csv"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(readmission_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X insurance    readmission
+1 1   Private Not Readmitted
+2 2  Medicaid Not Readmitted
+3 3  Medicare Not Readmitted
+4 4  Medicare Not Readmitted
+5 5  Medicare Not Readmitted
+6 6  Medicaid     Readmitted</code></pre>
+</div>
+</div>
+<p>Let’s examine the contingency table. In R, by using the <code>table()</code> function, we can create a contingency table.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(readmission_data<span class="sc">$</span>insurance, readmission_data<span class="sc">$</span>readmission)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           Not Readmitted Readmitted
+  Medicaid             57         35
+  Medicare            108         34
+  Private              61          5</code></pre>
+</div>
+</div>
+<p>Let’s examine the row percentages to better understand the pattern. In R, by using the <code>prop.table()</code> function with the <code>table()</code> function, we can calculate the row percentages.</p>
+<ul>
+<li>Setting <code>margin = 1</code> means we calculate proportions across each row (i.e., each row sums to 100%), so we can compare readmission rates <em>within</em> each insurance type.</li>
+<li>If we wanted column percentages instead (each column sums to 100%), we would use <code>margin = 2</code>.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentages by insurance type</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(readmission_data<span class="sc">$</span>insurance, readmission_data<span class="sc">$</span>readmission),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           Not Readmitted Readmitted
+  Medicaid      61.956522  38.043478
+  Medicare      76.056338  23.943662
+  Private       92.424242   7.575758</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-association" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-association">Visualizing the Association</h2>
+<p>Visualizing the data helps us see the pattern before conducting the formal statistical test:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create summary data for plotting</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prop.table</span>(<span class="fu">table</span>(readmission_data<span class="sc">$</span>insurance, readmission_data<span class="sc">$</span>readmission),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(plot_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"insurance"</span>, <span class="st">"readmission"</span>, <span class="st">"percentage"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouped bar chart</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> insurance, <span class="at">y =</span> percentage, <span class="at">fill =</span> readmission)) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, percentage)),</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.4</span>),</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"30-Day Readmission Rates by Insurance Type"</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Cardiology Unit Discharges (n = 300)"</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Insurance Type"</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percentage of Patients"</span>) <span class="sc">+</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture08_files/figure-html/crosstab-viz-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The visualization suggests that readmission rates may differ by insurance type, with Medicaid patients showing higher readmission rates and Private insurance patients showing lower rates.</p>
+<p>The chi-square test will tell us if this difference is statistically significant, which means whether the observed difference reflects a true association between insurance type and readmission, or whether it could have occurred simply by chance if the two variables were actually independent.</p>
+</section>
+<section id="visualizing-the-chi-square-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-chi-square-distribution">Visualizing the Chi-Square Distribution</h2>
+<p>Before conducting the formal test, let’s visualize the chi-square distribution to understand how hypothesis testing works. This graph shows what we would expect to see <strong>if the null hypothesis were true</strong> (i.e., if insurance type and readmission were truly independent).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture08_files/figure-html/chisq-dist-viz-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation of the visualization:</strong></p>
+<ul>
+<li><strong>Black curve</strong>: The chi-square distribution showing what χ² values we would expect if insurance and readmission were independent</li>
+<li><strong>Gray shaded area</strong>: The rejection region (α = 0.05). If our χ² falls here, we reject the null hypothesis</li>
+<li><strong>Red vertical line</strong>: Our observed χ² statistic from the data</li>
+<li><strong>Red shaded area</strong>: The p-value region—the probability of observing a χ² this large or larger if H₀ were true</li>
+</ul>
+<p>Since our observed χ² (red line) falls well into the rejection region, we have strong evidence that insurance type and readmission status are significantly associated.</p>
+<section id="null-vs.-alternative-hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="null-vs.-alternative-hypotheses">Null vs.&nbsp;Alternative Hypotheses</h3>
+<ul>
+<li><strong>H₀</strong>: Insurance type and readmission status are independent (no association)</li>
+<li><strong>Hₐ</strong>: Insurance type and readmission status are not independent (there is a significant association)</li>
+</ul>
+</section>
+</section>
+<section id="conducting-the-chi-square-test-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="conducting-the-chi-square-test-in-r">Conducting the Chi-Square Test in R</h2>
+<p>We use the <code>chisq.test()</code> function with the <code>table()</code> function to perform the chi-square test of independence:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform chi-square test</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>chi_result <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(readmission_data<span class="sc">$</span>insurance,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                                readmission_data<span class="sc">$</span>readmission))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>chi_result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  table(readmission_data$insurance, readmission_data$readmission)
+X-squared = 19.274, df = 2, p-value = 6.527e-05</code></pre>
+</div>
+</div>
+<section id="examining-expected-frequencies" class="level3">
+<h3 class="anchored" data-anchor-id="examining-expected-frequencies">Examining Expected Frequencies</h3>
+<p>It’s important to check that our expected frequencies meet the assumption (all cells ≥ 5):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View expected frequencies</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>chi_result<span class="sc">$</span>expected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           Not Readmitted Readmitted
+  Medicaid       69.30667   22.69333
+  Medicare      106.97333   35.02667
+  Private        49.72000   16.28000</code></pre>
+</div>
+</div>
+<p>All expected frequencies are greater than 5, so the chi-square test is appropriate for this data.</p>
+</section>
+<section id="interpreting-the-results" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-results">Interpreting the Results</h3>
+<p>Let’s break down each component of the output:</p>
+<p><strong>Test Statistic:</strong></p>
+<ul>
+<li><strong>X-squared</strong> = 19.274: This is the chi-square test statistic, measuring the overall discrepancy between observed and expected frequencies.
+<ul>
+<li>Larger values indicate greater differences between what we observed and what we would expect if the variables were independent</li>
+<li>Our value of 19.274 represents the sum of standardized squared differences across all cells in the contingency table</li>
+</ul></li>
+</ul>
+<p><strong>Degrees of Freedom:</strong></p>
+<ul>
+<li><strong>df</strong> = 2: Calculated as (number of rows - 1) × (number of columns - 1)
+<ul>
+<li>In our case: (3 insurance types - 1) × (2 readmission statuses - 1) = 2</li>
+<li>This determines the shape of the chi-square distribution used to calculate the p-value</li>
+</ul></li>
+</ul>
+<p><strong>Statistical Significance:</strong></p>
+<ul>
+<li><strong>p-value</strong> = 6.53e-05: The probability of observing a chi-square statistic this large (or larger) if insurance type and readmission status were truly independent
+<ul>
+<li>Since p &lt; 0.001, this result is statistically significant</li>
+<li>The association we observe may not be due to random chance</li>
+</ul></li>
+</ul>
+</section>
+<section id="conclusion-and-clinical-implications" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-and-clinical-implications">Conclusion and Clinical Implications</h3>
+<p><strong>Statistical Conclusion:</strong></p>
+<p>There is a statistically significant association between insurance type and 30-day readmission status (χ² = 19.27, df = 2, p &lt; 0.001). The readmission rates differ meaningfully by insurance type, with Medicaid patients showing the highest readmission rates and privately insured patients the lowest.</p>
+<p><strong>Clinical Implications:</strong></p>
+<ul>
+<li><strong>Targeted discharge planning</strong>: Medicaid and Medicare patients may benefit from enhanced discharge planning, including transition coordinators and post-discharge follow-up calls</li>
+<li><strong>Resource allocation</strong>: Quality improvement resources could be prioritized for patient populations with higher readmission risk</li>
+<li><strong>Health equity</strong>: The disparity in readmission rates by insurance type may reflect underlying social determinants of health (e.g., access to follow-up care, medication affordability) that the hospital can address through community partnerships</li>
+<li><strong>Financial strategy</strong>: Since Medicare penalizes hospitals for excess readmissions (HRRP), understanding which patient groups drive readmissions helps focus cost-effective interventions</li>
+</ul>
+</section>
+</section>
+<section id="fishers-exact-test-vs.-chi-square-test" class="level2">
+<h2 class="anchored" data-anchor-id="fishers-exact-test-vs.-chi-square-test">Fisher’s Exact Test vs.&nbsp;Chi-Square Test</h2>
+<section id="when-to-use-fishers-exact-test" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-fishers-exact-test">When to Use Fisher’s Exact Test</h3>
+<p>The chi-square test relies on an approximation that works well with large samples. However, when <strong>expected frequencies are small</strong> (typically when any expected cell count is less than 5), this approximation becomes unreliable. In such cases, <strong>Fisher’s exact test</strong> should be used instead.</p>
+<p>Fisher’s exact test calculates the exact probability of observing the data (or more extreme data) under the null hypothesis of independence, without relying on the chi-square approximation.</p>
+</section>
+<section id="how-fishers-exact-test-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-fishers-exact-test-works">How Fisher’s Exact Test Works</h3>
+<p><a href="https://en.wikipedia.org/wiki/Fisher%27s_exact_test">Fisher’s exact test</a> calculates the exact probability of obtaining the observed arrangement of frequencies (or a more extreme arrangement) in a contingency table, given that the row and column totals are fixed.</p>
+<p>For a 2×2 contingency table:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">Outcome A</th>
+<th style="text-align: center;">Outcome B</th>
+<th style="text-align: center;">Row Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Group 1</td>
+<td style="text-align: center;">a</td>
+<td style="text-align: center;">b</td>
+<td style="text-align: center;">a + b</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Group 2</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: center;">d</td>
+<td style="text-align: center;">c + d</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Column Total</td>
+<td style="text-align: center;">a + c</td>
+<td style="text-align: center;">b + d</td>
+<td style="text-align: center;">n</td>
+</tr>
+</tbody>
+</table>
+<p>The probability of observing exactly this arrangement is calculated using the hypergeometric formula:</p>
+<p><a href="https://en.wikipedia.org/wiki/Fisher%27s_exact_test"><img src="images/fisher_formula.svg" class="img-fluid"></a></p>
+<p>Where:</p>
+<ul>
+<li>The numerator represents the product of all row and column marginal factorials</li>
+<li>The denominator represents the total sample factorial times each cell frequency factorial</li>
+</ul>
+<p>The <strong>p-value</strong> is then calculated by summing the probabilities of all possible table arrangements that are equally extreme or more extreme than the observed table (i.e., arrangements that show the same or stronger association), while keeping the marginal totals fixed.</p>
+</section>
+<section id="understanding-the-logic" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-logic">Understanding the Logic</h3>
+<p>The key insight is that Fisher’s exact test asks:</p>
+<ul>
+<li><p>If the null hypothesis of independence were true (i.e., the row variable has no effect on the column variable), what is the probability of seeing data this extreme or more extreme, given our fixed marginal totals?”</p></li>
+<li><p>Unlike the chi-square test which uses an approximation based on the chi-square distribution, Fisher’s test computes this probability exactly by enumerating all possible tables—making it reliable even with very small samples.</p></li>
+</ul>
+</section>
+<section id="example-small-sample-with-fishers-exact-test" class="level3">
+<h3 class="anchored" data-anchor-id="example-small-sample-with-fishers-exact-test">Example: Small Sample with Fisher’s Exact Test</h3>
+<p>Consider a small pilot study examining whether a new discharge protocol affects readmission. Only 20 patients were enrolled (10 per protocol):</p>
+<section id="create-the-contingency-table" class="level4">
+<h4 class="anchored" data-anchor-id="create-the-contingency-table">Create the contingency table</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Small sample data (n = 20)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pilot_data <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">9</span>,   <span class="co"># New Protocol: 1 readmitted, 9 not</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">5</span>, <span class="dv">5</span>),  <span class="co"># Standard Protocol: 5 readmitted, 5 not</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">Protocol =</span> <span class="fu">c</span>(<span class="st">"New"</span>, <span class="st">"Standard"</span>),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">Readmission =</span> <span class="fu">c</span>(<span class="st">"Readmitted"</span>, <span class="st">"Not Readmitted"</span>)))</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>pilot_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Readmission
+Protocol   Readmitted Not Readmitted
+  New               1              9
+  Standard          5              5</code></pre>
+</div>
+</div>
+</section>
+<section id="check-expected-frequencies" class="level4">
+<h4 class="anchored" data-anchor-id="check-expected-frequencies">Check expected frequencies</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(pilot_data)<span class="sc">$</span>expected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Readmission
+Protocol   Readmitted Not Readmitted
+  New               3              7
+  Standard          3              7</code></pre>
+</div>
+</div>
+<p>Notice that <strong>two cells have expected frequencies below 5</strong> (both are 3.0), making the chi-square approximation unreliable. The chi-square test assumes large sample sizes, and when expected frequencies are &lt; 5, the sampling distribution doesn’t follow the theoretical chi-square distribution well. We should use Fisher’s exact test.</p>
+<p>In R, we can use the <code>fisher.test()</code> function to perform Fisher’s exact test:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fisher's exact test</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>fisher_result <span class="ot">&lt;-</span> <span class="fu">fisher.test</span>(pilot_data)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fisher_result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Fisher's Exact Test for Count Data
+
+data:  pilot_data
+p-value = 0.1409
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.002126858 1.565838632
+sample estimates:
+odds ratio 
+ 0.1247162 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="interpreting-fishers-exact-test-output" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-fishers-exact-test-output">Interpreting Fisher’s Exact Test Output</h3>
+<ul>
+<li><p><strong>p-value</strong>: The exact probability of observing this table (or more extreme) if the variables were independent. If p &lt; 0.05, we reject independence and conclude there is a significant association.</p></li>
+<li><p><strong>Odds ratio</strong>: Fisher’s test also provides an odds ratio, which quantifies the strength of association.</p>
+<ul>
+<li>An odds ratio of 1 indicates no association</li>
+<li>Values far from 1 (in either direction; much greater than 1 or close to 0) indicate stronger associations.</li>
+<li>We will talk about this in Logistic Regression.</li>
+</ul></li>
+</ul>
+</section>
+<section id="practical-guideline" class="level3">
+<h3 class="anchored" data-anchor-id="practical-guideline">Practical Guideline</h3>
+<p>Use these decision rules:</p>
+<ol type="1">
+<li>First, run <code>chisq.test()</code> and examine the expected frequencies</li>
+<li>If <strong>all expected frequencies ≥ 5</strong>: Report the chi-square test results</li>
+<li>If <strong>any expected frequency &lt; 5</strong>: Use <code>fisher.test()</code> instead</li>
+</ol>
+</section>
+</section>
+<section id="practice-activity-1-surgical-approach-and-complications" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice-activity-1-surgical-approach-and-complications">Practice Activity 1: Surgical Approach and Complications</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete the following practice activity by replacing the <code>___</code> blanks with appropriate values or function names. Run each chunk to verify your analysis and answer the interpretation questions.</p>
+</div>
+</div>
+<section id="scenario" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="scenario">Scenario</h4>
+<ul>
+<li>A surgical department wants to know if there’s an association between the <strong>surgical approach</strong> (Minimally Invasive vs.&nbsp;Open) and whether patients experienced <strong>post-operative complications</strong> (Yes vs.&nbsp;No).
+<ul>
+<li>Post-operative complications are adverse events that occur after surgery, such as surgical site infections, bleeding, blood clots, delayed wound healing, etc.</li>
+</ul></li>
+<li>The question we want to answer is: <em>Is there a statistically significant association between surgical approach and post-operative complications?</em></li>
+</ul>
+</section>
+<section id="dataset" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dataset">Dataset</h4>
+<p>Run this code to load the surgical outcomes dataset:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Practice dataset</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>surgery_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_practice1_data.csv"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(surgery_data, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    X           approach complications
+1   1               Open            No
+2   2 Minimally Invasive            No
+3   3               Open           Yes
+4   4 Minimally Invasive            No
+5   5 Minimally Invasive            No
+6   6 Minimally Invasive            No
+7   7               Open            No
+8   8 Minimally Invasive            No
+9   9               Open            No
+10 10 Minimally Invasive            No</code></pre>
+</div>
+</div>
+</section>
+<section id="task-1.1-create-a-contingency-table" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-1.1-create-a-contingency-table">Task 1.1: Create a Contingency Table</h4>
+<ul>
+<li>Create a contingency table showing the counts of complications by surgical approach.</li>
+</ul>
+<p><strong>Hint</strong>: Use <code>table()</code> with two variables: <code>surgery_data$approach</code> and <code>surgery_data$complications</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">___</span>(surgery_data<span class="sc">$</span>___, surgery_data<span class="sc">$</span>___)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: Looking at the raw counts, which surgical approach appears to have more complications?</p>
+</section>
+<section id="task-1.2-calculate-row-percentages" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-1.2-calculate-row-percentages">Task 1.2: Calculate Row Percentages</h4>
+<p>Calculate the percentage of patients with complications for each surgical approach (row percentages).</p>
+<p><strong>Hint</strong>: Use <code>prop.table()</code> with <code>margin = 1</code> for row percentages, then multiply by 100</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(surgery_data<span class="sc">$</span>approach, surgery_data<span class="sc">$</span>complications),</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">margin =</span> ___) <span class="sc">*</span> ___</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: What percentage of patients had complications in each surgical approach group?</p>
+</section>
+<section id="task-1.3-visualize-the-association" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-1.3-visualize-the-association">Task 1.3: Visualize the Association</h4>
+<ul>
+<li>Create a grouped bar chart to visually compare complication rates across surgical approaches.</li>
+</ul>
+<p><strong>Hint</strong>: Use <code>prop.table()</code> with <code>margin = 1</code> to create the plot data, then use <code>ggplot()</code> with <code>geom_bar()</code> and <code>position = "dodge"</code> for side-by-side bars.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot data using prop.table</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prop.table</span>(<span class="fu">table</span>(surgery_data<span class="sc">$</span>___, surgery_data<span class="sc">$</span>___),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">margin =</span> ___) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(plot_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"approach"</span>, <span class="st">"complications"</span>, <span class="st">"percentage"</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, percentage)),</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.4</span>),</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Post-Operative Complication Rates by Surgical Approach"</span>,</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Surgical Approach"</span>,</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percentage of Patients"</span>) <span class="sc">+</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: Based on the visualization, does there appear to be a difference in complication rates between the two surgical approaches?</p>
+</section>
+<section id="task-1.4-check-expected-frequencies-and-conduct-the-test" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-1.4-check-expected-frequencies-and-conduct-the-test">Task 1.4: Check Expected Frequencies and Conduct the Test</h4>
+<ul>
+<li>Before conducting a chi-square test, check that all expected frequencies are ≥ 5. Then display the test results.</li>
+</ul>
+<p><strong>Hint</strong>: First run <code>chisq.test()</code> and store it, then access <code>$expected</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>chi_surgery <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(surgery_data<span class="sc">$</span>___, surgery_data<span class="sc">$</span>___))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View expected frequencies</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>chi_surgery<span class="sc">$</span>___</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display test results</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>chi_surgery</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>Are all expected frequencies ≥ 5? Should we use the chi-square test or Fisher’s exact test?</li>
+<li>Based on the p-value, is there a statistically significant association between surgical approach and complications?</li>
+<li>What do you conclude for the surgical department?</li>
+</ol>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-2-correlation-analysis" class="level1">
+<h1>Part 2: Correlation Analysis</h1>
+<section id="what-is-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-correlation">What is Correlation?</h2>
+<p><strong>Correlation analysis</strong> tests whether there is a significant <strong>linear association</strong> between two continuous or ordinal variables. It quantifies both the <strong>direction</strong> (positive or negative) and <strong>strength</strong> of the relationship.</p>
+<p>Unlike crosstabulation which examines categorical variables, correlation examines whether two numeric variables (variables where values have meaningful order or magnitude) tend to change together in a consistent, linear pattern:</p>
+<ul>
+<li><strong>Positive correlation</strong>: As one variable increases (decreases), the other tends to increase (decrease)</li>
+<li><strong>Negative correlation</strong>: As one variable increases (decreases), the other tends to decrease (increase)</li>
+<li><strong>No correlation</strong>: No consistent linear pattern between the variables</li>
+</ul>
+</section>
+<section id="the-correlation-coefficient" class="level2">
+<h2 class="anchored" data-anchor-id="the-correlation-coefficient">The Correlation Coefficient</h2>
+<p>The correlation coefficient is a standardized measure that ranges from <strong>-1 to +1</strong>:</p>
+<p><span class="math display">\[r = \frac{\sum_{i=1}^{n}(X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{n}(X_i - \bar{X})^2} \sqrt{\sum_{i=1}^{n}(Y_i - \bar{Y})^2}}\]</span></p>
+<p>Or equivalently:</p>
+<p><span class="math display">\[r = \frac{Cov(X, Y)}{SD(X) \times SD(Y)}\]</span></p>
+<p>In other words, the correlation coefficient measures how much two variables move together (covariance), scaled by how much each variable varies on its own (standard deviations). This scaling is what keeps r between -1 and +1, making it comparable across different units and scales.</p>
+<section id="interpreting-the-correlation-coefficient" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-correlation-coefficient">Interpreting the Correlation Coefficient</h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Correlation_coefficient">correlation coefficient</a> tells us three things:</p>
+<ol type="1">
+<li><strong>Direction</strong> (sign):
+<ul>
+<li>Positive (+): Variables move in the same direction</li>
+<li>Negative (-): Variables move in opposite directions</li>
+</ul></li>
+<li><strong>Strength</strong>:
+<ul>
+<li>Values close to <strong>0</strong> indicate a weaker association (the two variables don’t move linearly together much)</li>
+<li>Values close to <strong>+1 or -1</strong> indicate a stronger association (knowing one variable tells you a lot about the other)</li>
+<li>Conventionally, the following thresholds based on the absolute value of r are used as guidelines (<a href="https://en.wikipedia.org/wiki/Correlation_coefficient#cite_note-5">Taylor, 1997</a>):
+<ul>
+<li>0.00 - 0.19: Very weak or no correlation</li>
+<li>0.20 - 0.39: Weak correlation</li>
+<li>0.40 - 0.59: Moderate correlation</li>
+<li>0.60 - 0.79: Strong correlation</li>
+<li>0.80 - 1.00: Very strong correlation</li>
+</ul></li>
+</ul></li>
+<li><strong>Statistical significance</strong> (p-value):
+<ul>
+<li>p &lt; 0.05: The correlation is statistically significant</li>
+<li>p ≥ 0.05: The correlation is not statistically significant</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="pearson-vs.-spearman-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="pearson-vs.-spearman-correlation">Pearson vs.&nbsp;Spearman Correlation</h2>
+<section id="pearson-correlation" class="level3">
+<h3 class="anchored" data-anchor-id="pearson-correlation">Pearson Correlation</h3>
+<p><strong>Pearson correlation</strong> measures the linear relationship between two <strong>continuous (interval or ratio)</strong> variables. It uses the raw data values and assumes:</p>
+<ul>
+<li>Both variables are normally distributed (or large sample size)</li>
+<li>The relationship is linear</li>
+</ul>
+<p>Use Pearson correlation for variables like:</p>
+<ul>
+<li>Patient age in years old and length of stay in days</li>
+<li>Wait time in minutes and satisfaction score (1-100 continuous scale)</li>
+<li>Staffing hours and number of patient falls</li>
+</ul>
+</section>
+<section id="spearman-correlation" class="level3">
+<h3 class="anchored" data-anchor-id="spearman-correlation">Spearman Correlation</h3>
+<p><strong>Spearman correlation</strong> measures the monotonic relationship between two variables using <strong>ranks</strong> instead of raw values. It’s appropriate for:</p>
+<ul>
+<li><strong>Ordinal variables</strong> (e.g., pain scale ratings, satisfaction categories)</li>
+<li>Continuous data with <strong>outliers</strong> (ranks minimize outlier influence)</li>
+<li><strong>Non-linear but monotonic</strong> relationships</li>
+</ul>
+<p>Use Spearman correlation for variables like:</p>
+<ul>
+<li>Education level (ordinal) and health literacy score (ordinal, e.g., low/moderate/high)</li>
+<li>Pain rating (ordinal, 1-5: no pain/mild/moderate/severe/very severe) and number of medication requests (ordinal, e.g., none/few/frequent)</li>
+<li>When you suspect outliers might influence Pearson correlation</li>
+</ul>
+</section>
+</section>
+<section id="when-to-use-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-use-correlation">When to Use Correlation</h2>
+<p>Correlation is appropriate when examining the relationship between two <strong>non-categorical variables</strong> (i.e., continuous or ordinal variables whose values have a meaningful order or magnitude, as opposed to nominal categories like insurance type or blood type).</p>
+<p>For example:</p>
+<ul>
+<li><strong>Operational efficiency</strong>: Is there a relationship between nurse-to-patient ratio and patient satisfaction scores?</li>
+<li><strong>Resource utilization</strong>: Is there a relationship between length of stay and total charges?</li>
+<li><strong>Quality metrics</strong>: Is there a relationship between hand hygiene compliance rates and hospital-acquired infection rates?</li>
+<li><strong>Patient outcomes</strong>: Is there a relationship between wait time and patient satisfaction?</li>
+</ul>
+</section>
+<section id="scenario-nurse-staffing-and-patient-satisfaction" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-nurse-staffing-and-patient-satisfaction">Scenario: Nurse Staffing and Patient Satisfaction</h2>
+<section id="background-and-context-1" class="level3">
+<h3 class="anchored" data-anchor-id="background-and-context-1">Background and Context</h3>
+<p>Let’s think about the following case:</p>
+<blockquote class="blockquote">
+<p>A hospital administrator wants to understand whether there is a relationship between <strong>nurse staffing levels</strong> (measured as nursing hours per patient day) and <strong>patient satisfaction scores</strong> (measured on a 0-100 scale).</p>
+</blockquote>
+<p>The relationship between nurse staffing and patient outcomes is one of the most studied and debated topics in healthcare management:</p>
+<ul>
+<li><p>Nursing staff represents a substantial portion of hospital operating budgets (often 25-40%). Understanding the relationship between staffing and patient outcomes informs resource allocation and business case development for staffing increases.</p></li>
+<li><p>Research consistently shows that adequate nurse staffing is associated with better patient outcomes, including lower mortality rates, fewer falls, reduced hospital-acquired infections, and shorter lengths of stay.</p></li>
+<li><p>Adequate staffing affects nurse job satisfaction, burnout, and turnover. High nurse turnover is expensive (recent estimates exceed $60,000 per nurse replacement) and disrupts care continuity.</p></li>
+</ul>
+<p><strong>Research Context:</strong></p>
+<p>Multiple systematic reviews and meta-analyses have examined nurse staffing ratios and patient outcomes:</p>
+<ul>
+<li>Each additional patient per nurse is associated with a 7% increase in 30-day mortality and a 7% increase in failure-to-rescue rates</li>
+<li>Studies show consistent positive associations between nurse staffing levels and patient satisfaction scores</li>
+<li>The “Nursing Hours Per Patient Day” (NHPPD) metric is widely used as a proxy for staffing adequacy, typically ranging from 6-12 hours in acute care settings</li>
+</ul>
+<p><strong>Measurement Details:</strong></p>
+<ul>
+<li><p><strong>Nursing Hours Per Patient Day (NHPPD)</strong>: Total Registered Nurse (RN) hours worked divided by patient census. For example, if a 20-bed unit has 10 nurses working 8-hour shifts on a day when census is 18 patients: (10 × 8) / 18 = 4.4 NHPPD</p></li>
+<li><p><strong>Patient Satisfaction</strong>: Measured using standardized surveys, aggregated to a 0-100 composite score. Scores typically range from 60-90, with national median around 75.</p></li>
+</ul>
+<p><strong>Study Design:</strong></p>
+<p>The administrator collected data from <strong>50 nursing units</strong> across a health system over the past quarter, representing:</p>
+<ul>
+<li>Medical-surgical units (general inpatient care), telemetry units (continuous cardiac monitoring), and step-down units (intermediate care between ICU and regular floors)</li>
+<li>Urban and suburban facilities</li>
+<li>Units ranging from 15-35 beds</li>
+<li>Both teaching and community hospital settings</li>
+</ul>
+<p>Each unit provides one data point: <strong>average NHPPD</strong> for the quarter paired with <strong>average patient satisfaction score</strong> (i.e., each unit provides an average NHPPD-average patient satisfaction pair).</p>
+<p>The question we want to answer is: <em>Is there a statistically significant correlation between nursing hours per patient day and patient satisfaction scores? If so, what is the strength and direction of this relationship?</em></p>
+</section>
+</section>
+<section id="manual-calculation-understanding-the-pearson-correlation-coefficient" class="level2">
+<h2 class="anchored" data-anchor-id="manual-calculation-understanding-the-pearson-correlation-coefficient">Manual Calculation: Understanding the Pearson Correlation Coefficient</h2>
+<p>Before analyzing our full dataset, let’s work through a manual calculation with a small example to understand how the correlation coefficient is computed. This will help you interpret R’s output more meaningfully.</p>
+<p><strong>Example</strong>: A small clinic examines the relationship between nurse staffing hours and patient satisfaction for 6 units:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Sample Data: 6 Nursing Units</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Unit</th>
+<th style="text-align: center;">Nursing Hours (X)</th>
+<th style="text-align: center;">Satisfaction (Y)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">65</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">70</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">75</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">E</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">82</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">85</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="step-1-calculate-means" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-calculate-means">Step 1: Calculate Means</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Mean staffing (X̄): 8.50 hours</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mean satisfaction (Ȳ): 75.83</code></pre>
+</div>
+</div>
+</section>
+<section id="step-2-calculate-deviations-from-the-mean" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-calculate-deviations-from-the-mean">Step 2: Calculate Deviations from the Mean</h3>
+<p>For each observation, calculate how far it is from the mean:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Deviations and Products</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 23%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Unit</th>
+<th style="text-align: center;">X</th>
+<th style="text-align: center;">Y</th>
+<th style="text-align: center;">(X - X̄)</th>
+<th style="text-align: center;">(Y - Ȳ)</th>
+<th style="text-align: center;">(X - X̄)(Y - Ȳ)</th>
+<th style="text-align: center;">(X - X̄)²</th>
+<th style="text-align: center;">(Y - Ȳ)²</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">-2.5</td>
+<td style="text-align: center;">-10.83</td>
+<td style="text-align: center;">27.08</td>
+<td style="text-align: center;">6.25</td>
+<td style="text-align: center;">117.36</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">-1.5</td>
+<td style="text-align: center;">-5.83</td>
+<td style="text-align: center;">8.75</td>
+<td style="text-align: center;">2.25</td>
+<td style="text-align: center;">34.03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">-0.5</td>
+<td style="text-align: center;">-0.83</td>
+<td style="text-align: center;">0.42</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">2.17</td>
+<td style="text-align: center;">1.08</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">4.69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">E</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">82</td>
+<td style="text-align: center;">1.5</td>
+<td style="text-align: center;">6.17</td>
+<td style="text-align: center;">9.25</td>
+<td style="text-align: center;">2.25</td>
+<td style="text-align: center;">38.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">85</td>
+<td style="text-align: center;">2.5</td>
+<td style="text-align: center;">9.17</td>
+<td style="text-align: center;">22.92</td>
+<td style="text-align: center;">6.25</td>
+<td style="text-align: center;">84.03</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="step-3-calculate-sum-of-products-and-sum-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-calculate-sum-of-products-and-sum-of-squares">Step 3: Calculate Sum of Products and Sum of Squares</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Sum of Products (numerator):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Σ(X - X̄)(Y - Ȳ) = 69.50</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sum of Squared Deviations (denominator):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Σ(X - X̄)² = 17.50</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Σ(Y - Ȳ)² = 278.83</code></pre>
+</div>
+</div>
+</section>
+<section id="step-4-calculate-the-correlation-coefficient" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-calculate-the-correlation-coefficient">Step 4: Calculate the Correlation Coefficient</h3>
+<p>The Pearson correlation coefficient formula is:</p>
+<p><span class="math display">\[r = \frac{\sum(X - \bar{X})(Y - \bar{Y})}{\sqrt{\sum(X - \bar{X})^2} \times \sqrt{\sum(Y - \bar{Y})^2}}\]</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Calculation:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>r = 69.50 / (√17.50 × √278.83)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>r = 69.50 / (4.18 × 16.70)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>r = 69.50 / 69.85</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>r = 0.995</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Interpretation:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  • r = 0.995 indicates a strong positive correlation</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  • Direction: As staffing increases, satisfaction increases</code></pre>
+</div>
+</div>
+</section>
+<section id="understanding-what-the-correlation-tells-us" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-what-the-correlation-tells-us">Understanding What the Correlation Tells Us</h3>
+<p>The correlation coefficient measures three things:</p>
+<ol type="1">
+<li><strong>Direction</strong> (sign):
+<ul>
+<li>Positive r = variables move together (both increase or both decrease)</li>
+<li>Negative r = variables move opposite (one increases, other decreases)</li>
+</ul></li>
+<li><strong>Strength</strong> (magnitude):
+<ul>
+<li>|r| close to 1 = strong linear relationship</li>
+<li>|r| close to 0 = weak or no linear relationship</li>
+</ul></li>
+</ol>
+<p>Now let’s apply this to our full dataset of 50 nursing units.</p>
+<hr>
+</section>
+</section>
+<section id="example-nurse-staffing-and-satisfaction" class="level2">
+<h2 class="anchored" data-anchor-id="example-nurse-staffing-and-satisfaction">Example: Nurse Staffing and Satisfaction</h2>
+<p>Let’s load the dataset using the code below:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data loading</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>staffing_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_correlation_data.csv"</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View summary</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>staffing_data <span class="sc">|&gt;</span> </span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(nursing_hours, satisfaction) <span class="sc">|&gt;</span> </span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> nursing_hours     satisfaction   
+ Min.   : 6.100   Min.   : 61.50  
+ 1st Qu.: 7.450   1st Qu.: 74.83  
+ Median : 9.100   Median : 85.40  
+ Mean   : 8.828   Mean   : 83.80  
+ 3rd Qu.:10.275   3rd Qu.: 92.65  
+ Max.   :11.900   Max.   :100.00  </code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-relationship" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-relationship">Visualizing the Relationship</h2>
+<ul>
+<li>Before calculating the correlation, we should visualize the data with a scatter plot:</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(staffing_data, <span class="fu">aes</span>(<span class="at">x =</span> nursing_hours, <span class="at">y =</span> satisfaction)) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship Between Nurse Staffing and Patient Satisfaction"</span>,</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Nursing Hours per Patient Day"</span>,</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Patient Satisfaction Score (0-100)"</span>) <span class="sc">+</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture08_files/figure-html/correlation-viz-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatter plot shows a positive linear trend, indicating that units with higher nursing hours per patient day tend to have higher patient satisfaction scores.</p>
+</section>
+<section id="visualizing-the-sampling-distribution-of-r" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-sampling-distribution-of-r">Visualizing the Sampling Distribution of r</h2>
+<p>Before conducting the formal test, let’s understand the sampling distribution of the correlation coefficient under the null hypothesis (H₀: ρ = 0, where ρ is the population correlation). This helps us understand how unusual our observed correlation is.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture08_files/figure-html/corr-sampling-dist-viz-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Understanding the Visualization:</strong></p>
+<ul>
+<li><strong>Black curve</strong>: The t-distribution representing what we’d expect to see if there were truly no correlation (ρ = 0) in the population</li>
+<li><strong>Gray shaded areas</strong>: The rejection regions (α = 0.05, two-tailed). If our test statistic falls here, we reject H₀</li>
+<li><strong>Red vertical line</strong>: Our observed t-statistic (derived from r = 0.561)</li>
+<li><strong>Red shaded areas</strong>: The p-value (the probability of observing a correlation this strong or stronger if ρ were truly 0)</li>
+</ul>
+<p>Since our observed t-statistic falls well into the rejection region, we have sufficient evidence of a significant positive correlation between nursing staffing and patient satisfaction.</p>
+<p><strong>Note</strong>: By convention, we transform r into a t-statistic to test significance: <span class="math inline">\(t = r\sqrt{\frac{n-2}{1-r^2}}\)</span>, which follows a t-distribution with df = n - 2. This allows us to use the same framework used in other statistical tests to calculate the p-value.</p>
+<section id="null-and-alternative-hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="null-and-alternative-hypotheses">Null and Alternative Hypotheses</h3>
+<ul>
+<li><strong>H₀</strong>: There is no linear correlation between nursing hours per patient day and patient satisfaction scores (ρ = 0)</li>
+<li><strong>Hₐ</strong>: There is a linear correlation between nursing hours per patient day and patient satisfaction scores (ρ ≠ 0)</li>
+</ul>
+</section>
+</section>
+<section id="conducting-pearson-correlation-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="conducting-pearson-correlation-in-r">Conducting Pearson Correlation in R</h2>
+<p>In R, we can use the <code>cor.test()</code> function to calculate the correlation coefficient and test its significance. By default, the <code>cor.test()</code> function performs a Pearson correlation test.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pearson correlation test</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>pearson_result <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(staffing_data<span class="sc">$</span>nursing_hours,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>                           staffing_data<span class="sc">$</span>satisfaction,</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, we can use the with() function:</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co"># with(staffing_data, cor.test(nursing_hours, satisfaction, method = "pearson"))</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>pearson_result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  staffing_data$nursing_hours and staffing_data$satisfaction
+t = 4.6975, df = 48, p-value = 2.24e-05
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.3352105 0.7261183
+sample estimates:
+      cor 
+0.5611958 </code></pre>
+</div>
+</div>
+<section id="interpreting-the-results-1" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-results-1">Interpreting the Results</h3>
+<p>Let’s break down each component of the correlation test output:</p>
+<p><strong>Correlation Coefficient:</strong></p>
+<ul>
+<li><strong>r</strong> = 0.561: This Pearson correlation coefficient indicates a moderate positive linear association between nursing hours per patient day and patient satisfaction scores
+<ul>
+<li><strong>Direction</strong>: Positive (r &gt; 0) means the variables move together in the same direction (as nursing hours increase, satisfaction scores tend to increase)</li>
+<li><strong>Strength</strong>: An r of 0.561 is considered moderate based on conventional guidelines</li>
+</ul></li>
+</ul>
+<p><strong>Test Statistic:</strong></p>
+<ul>
+<li><strong>t-statistic</strong> = 4.698: This measures how many standard errors the observed correlation is deviated from zero (no correlation)
+<ul>
+<li>Calculated as: <span class="math inline">\(t = r\sqrt{\frac{n-2}{1-r^2}}\)</span> = 0.561 × <span class="math inline">\(\sqrt{\frac{50-2}{1-0.561^2}}\)</span></li>
+<li>The large (absolute) t-value indicates the observed correlation is very unlikely under H₀: ρ = 0</li>
+</ul></li>
+</ul>
+<p><strong>Degrees of Freedom:</strong></p>
+<ul>
+<li><strong>df</strong> = 48: Equal to n - 2 = 50 - 2 = 48
+<ul>
+<li>Determines the shape of the t-distribution used to calculate the p-value</li>
+</ul></li>
+</ul>
+<p><strong>Statistical Significance:</strong></p>
+<ul>
+<li><strong>p-value</strong> = 2.24e-05: The probability of observing a correlation of |r| ≥ 0.561 if the true population correlation were zero
+<ul>
+<li>This extremely small p-value (p &lt; 0.001) provides enough evidence against the null hypothesis</li>
+<li>This suggests that this correlation is not due to random sampling variation when there is no correlation between the two variables in the population</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="practice-activity-2-ed-wait-time-and-satisfaction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice-activity-2-ed-wait-time-and-satisfaction">Practice Activity 2: ED Wait Time and Satisfaction</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete the following practice activity by replacing the <code>___</code> blanks with appropriate values or function names. Run each chunk to verify your analysis and answer the interpretation questions.</p>
+</div>
+</div>
+<section id="scenario-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="scenario-1">Scenario</h4>
+<ul>
+<li><p>An emergency department manager wants to examine the relationship between <strong>wait time</strong> (in minutes) and <strong>patient satisfaction score</strong> (0-100).</p></li>
+<li><p>The question we have is: <em>Is there a statistically significant correlation between ED wait time and patient satisfaction scores?</em></p></li>
+</ul>
+</section>
+<section id="dataset-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dataset-1">Dataset</h4>
+<p>Run this code to load the ED dataset:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Practice dataset</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>ed_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_practice2_data.csv"</span>)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ed_data, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    X   x
+1   1 103
+2   2  40
+3   3  73
+4   4  64
+5   5  30
+6   6  88
+7   7  99
+8   8  52
+9   9  16
+10 10  69</code></pre>
+</div>
+</div>
+</section>
+<section id="task-2.1-examine-the-data" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-2.1-examine-the-data">Task 2.1: Examine the Data</h4>
+<p>Get a quick summary of both variables.</p>
+<p><strong>Hint</strong>: Use <code>summary()</code> function</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(___)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: What is the range of wait times? What is the mean satisfaction score?</p>
+</section>
+<section id="task-2.2-create-a-scatterplot" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-2.2-create-a-scatterplot">Task 2.2: Create a Scatterplot</h4>
+<p>Create a scatterplot showing the relationship between wait time (x-axis) and satisfaction (y-axis).</p>
+<p><strong>Hint</strong>: Use <code>ggplot()</code> with <code>geom_point()</code> and <code>geom_smooth(method = "lm")</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ed_data, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___)) <span class="sc">+</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"___"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ED Wait Time vs. Patient Satisfaction"</span>,</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Wait Time (minutes)"</span>,</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Patient Satisfaction Score"</span>) <span class="sc">+</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: Based on the scatterplot, does there appear to be a relationship? Is it positive or negative?</p>
+</section>
+<section id="task-2.3-calculate-pearson-correlation" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-2.3-calculate-pearson-correlation">Task 2.3: Calculate Pearson Correlation</h4>
+<p>Calculate the Pearson correlation coefficient and test its significance.</p>
+<p><strong>Hint</strong>: Use <code>cor.test()</code> with <code>method = "pearson"</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(ed_data, <span class="fu">cor.test</span>(___, ___, <span class="at">method =</span> <span class="st">"___"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>What is the correlation coefficient (r)?</li>
+<li>Is it statistically significant (p &lt; 0.05)?</li>
+<li>Interpret the direction and strength of the correlation.</li>
+<li>What are the practical implications for ED management?</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="example-2-pain-assessment-and-functional-mobility-spearman-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-pain-assessment-and-functional-mobility-spearman-correlation">Example 2: Pain Assessment and Functional Mobility (Spearman Correlation)</h2>
+<section id="scenario-post-surgical-recovery-assessment" class="level3">
+<h3 class="anchored" data-anchor-id="scenario-post-surgical-recovery-assessment">Scenario: Post-Surgical Recovery Assessment</h3>
+</section>
+<section id="background-and-context-2" class="level3">
+<h3 class="anchored" data-anchor-id="background-and-context-2">Background and Context</h3>
+<p>Let’s think about the following case:</p>
+<blockquote class="blockquote">
+<p>A hospital’s orthopedic rehabilitation unit wants to examine the relationship between <strong>patient-reported pain levels</strong> and <strong>functional mobility scores</strong> during post-surgical recovery.</p>
+</blockquote>
+<p>Understanding the pain and mobility relationship is crucial for post-operative care:</p>
+<ul>
+<li><p>Pain is known to inhibit movement and physical therapy engagement, but the strength of this relationship informs treatment priorities</p></li>
+<li><p>If pain significantly impairs mobility, aggressive pain management may accelerate functional recovery and reduce length of stay</p></li>
+<li><p>Both pain control and functional status are key patient reported outcome measures (PROMs) for orthopedic surgery quality assessment</p></li>
+</ul>
+<p><strong>Measurement Details:</strong></p>
+<ul>
+<li><strong>Pain Level</strong>: Patient self-report using numeric rating scale (NRS) from 0-10
+<ul>
+<li>0 = No pain</li>
+<li>1-3 = Mild pain</li>
+<li>4-6 = Moderate pain</li>
+<li>7-10 = Severe pain</li>
+<li>This is an <strong>ordinal</strong> scale (ordered categories, but intervals not necessarily equal)</li>
+</ul></li>
+<li><strong>Mobility Score</strong>: Functional Independence Measure (FIM) locomotion subscale, 1-5
+<ul>
+<li>1 = Complete dependence (unable to walk)</li>
+<li>2 = Maximal assistance (patient performs &lt;25% of effort)</li>
+<li>3 = Moderate assistance (patient performs 50-75% of effort)</li>
+<li>4 = Minimal assistance (patient performs ≥75% of effort)</li>
+<li>5 = Independent (no assistance needed)</li>
+<li>This is also an <strong>ordinal</strong> scale</li>
+</ul></li>
+</ul>
+<p><strong>Why Use Spearman Instead of Pearson?</strong></p>
+<ol type="1">
+<li><strong>Ordinal data</strong>: Both variables are measured on ordinal scales, not true continuous interval/ratio scales</li>
+<li><strong>Non-normal distributions</strong>: Pain scores often show ceiling/floor effects (clustering at extremes)</li>
+<li><strong>Outlier resistance</strong>: Spearman uses ranks rather than raw values, making it less sensitive to extreme scores</li>
+<li><strong>Monotonic relationship</strong>: We expect pain and mobility to have a monotonic (consistent direction) but not necessarily linear relationship</li>
+</ol>
+<p><strong>Study Design:</strong></p>
+<p>Data collected from <strong>40 patients</strong> recovering from total knee replacement surgery, assessed on post-operative day 3.</p>
+<p>The question we want to understand here is: <em>Is there a significant monotonic relationship between pain levels and functional mobility during early post-operative recovery?</em></p>
+</section>
+<section id="example-pain-level-and-functional-mobility" class="level3">
+<h3 class="anchored" data-anchor-id="example-pain-level-and-functional-mobility">Example: Pain Level and Functional Mobility</h3>
+<p>Let’s load the dataset using the code here:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data loading</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>pain_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_spearman_data.csv"</span>)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display first 10 patients</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pain_data, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    X patient_id pain_level mobility_score
+1   1          1          6              3
+2   2          2          3              5
+3   3          3          5              4
+4   4          4          9              4
+5   5          5          9              2
+6   6          6          8              3
+7   7          7          3              4
+8   8          8          2              5
+9   9          9          2              5
+10 10         10          4              5</code></pre>
+</div>
+</div>
+<p>Now, let’s check summary statistics of both variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>pain_data <span class="sc">|&gt;</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pain_level, mobility_score) <span class="sc">|&gt;</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   pain_level     mobility_score
+ Min.   : 1.000   Min.   :2.00  
+ 1st Qu.: 3.000   1st Qu.:3.00  
+ Median : 6.000   Median :4.00  
+ Mean   : 5.425   Mean   :3.85  
+ 3rd Qu.: 8.000   3rd Qu.:5.00  
+ Max.   :10.000   Max.   :5.00  </code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-relationship-1" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-relationship-1">Visualizing the Relationship</h3>
+<p>Before testing the correlation, let’s visualize the relationship between the two variables.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pain_data, <span class="fu">aes</span>(<span class="at">x =</span> pain_level, <span class="at">y =</span> mobility_score)) <span class="sc">+</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship Between Pain Level and Functional Mobility"</span>,</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Post-operative Day 3 following total knee replacement (n = 40)"</span>,</span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Pain Level (0 = None, 10 = Worst Possible)"</span>,</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Functional Mobility Score</span><span class="sc">\n</span><span class="st">(1 = Complete Dependence, 5 = Independent)"</span>) <span class="sc">+</span></span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture08_files/figure-html/spearman-viz-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatter plot shows a clear negative trend between pain level and mobility score. Patients reporting higher pain levels tend to have lower mobility scores.</p>
+</section>
+<section id="null-and-alternative-hypotheses-1" class="level3">
+<h3 class="anchored" data-anchor-id="null-and-alternative-hypotheses-1">Null and Alternative Hypotheses</h3>
+<ul>
+<li><strong>H₀</strong>: There is no monotonic correlation between pain level and functional mobility (ρ = 0)</li>
+<li><strong>Hₐ</strong>: There is a monotonic correlation between pain level and functional mobility (ρ ≠ 0)</li>
+</ul>
+</section>
+<section id="conducting-spearman-correlation-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="conducting-spearman-correlation-in-r">Conducting Spearman Correlation in R</h3>
+<ul>
+<li>We can use the <code>cor.test()</code> function with the <code>method = "spearman"</code> argument to calculate the Spearman correlation coefficient and test its significance.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spearman rank correlation</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>spearman_result <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(pain_data<span class="sc">$</span>pain_level,</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>                            pain_data<span class="sc">$</span>mobility_score,</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">method =</span> <span class="st">"spearman"</span>,</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">exact =</span> <span class="cn">FALSE</span>)  <span class="co"># Use normal approximation for ties</span></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative syntax</span></span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="co"># with(pain_data, cor.test(pain_level, mobility_score, method = "spearman"))</span></span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>spearman_result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  pain_data$pain_level and pain_data$mobility_score
+S = 18653, p-value = 2.576e-08
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+     rho 
+-0.74978 </code></pre>
+</div>
+</div>
+</section>
+<section id="interpreting-the-results-2" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-results-2">Interpreting the Results</h3>
+<p><strong>Spearman’s Rank Correlation Coefficient:</strong></p>
+<ul>
+<li><strong>rho (ρ)</strong> = -0.75: This indicates a strong negative monotonic association
+<ul>
+<li><strong>Direction</strong>: Negative (ρ &lt; 0) means as pain increases, mobility decreases</li>
+<li><strong>Strength</strong>: |ρ| = 0.75 is considered strong</li>
+<li><strong>Interpretation</strong>: Patients with higher pain rankings tend to have lower mobility rankings</li>
+</ul></li>
+</ul>
+<p><strong>Statistical Significance:</strong></p>
+<ul>
+<li><strong>p-value</strong> = 2.58e-08: The probability of observing this strong an association if pain and mobility were truly unrelated
+<ul>
+<li>Since p &lt; 0.05, the correlation is statistically significant</li>
+</ul></li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li><strong>S (Sum of Squared Rank Differences):</strong> S measures how much the rankings of the two variables disagree. A smaller S means the ranks align closely (stronger association), while a larger S means the ranks diverge. The Spearman correlation ρ is derived from S: <span class="math inline">\(\rho = 1 - \frac{6S}{n(n^2 - 1)}\)</span>.</li>
+<li><strong>P-value calculation:</strong> For large samples or when tied ranks exist, R uses a t-approximation: <span class="math inline">\(t = \rho\sqrt{\frac{n-2}{1-\rho^2}}\)</span>, the same transformation used in Pearson correlation. You may see a warning message that <em>“Cannot compute exact p-value with ties”</em>. This means R is using the t-approximation instead of the exact permutation method.</li>
+</ul>
+</section>
+<section id="conclusion-and-clinical-implications-1" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-and-clinical-implications-1">Conclusion and Clinical Implications</h3>
+<ul>
+<li>There is a statistically significant negative monotonic relationship between pain level and functional mobility (Spearman ρ = -0.75, p &lt; 0.001).</li>
+<li>Patients reporting higher pain levels demonstrate lower functional mobility.</li>
+<li>This suggests that integrating pain management into rehabilitation protocols may help improve mobility outcomes.</li>
+</ul>
+</section>
+</section>
+<section id="practice-activity-3-nursing-workload-and-job-satisfaction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice-activity-3-nursing-workload-and-job-satisfaction">Practice Activity 3: Nursing Workload and Job Satisfaction</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Try It Yourself!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete the following practice activity by replacing the <code>___</code> blanks with appropriate values or function names. Run each chunk to verify your analysis and answer the interpretation questions.</p>
+</div>
+</div>
+<section id="scenario-2" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="scenario-2">Scenario</h4>
+<p>A nursing director wants to examine the relationship between <strong>perceived workload</strong> (measured on a 1-5 ordinal scale) and <strong>job satisfaction</strong> (also measured on a 1-5 ordinal scale) among nurses.</p>
+<ul>
+<li><strong>Workload Scale</strong>: 1 = Very light, 2 = Manageable, 3 = Moderate, 4 = Heavy, 5 = Overwhelming</li>
+<li><strong>Job Satisfaction Scale</strong>: 1 = Very dissatisfied, 2 = Dissatisfied, 3 = Neutral, 4 = Satisfied, 5 = Very satisfied</li>
+</ul>
+<p>The question we want to understand is: <em>Is there a significant monotonic relationship between workload and job satisfaction?</em></p>
+</section>
+<section id="dataset-2" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dataset-2">Dataset</h4>
+<ul>
+<li>Run this code to load the nursing workload dataset:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Loading</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>workload_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_practice3_data.csv"</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(workload_data, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    X nurse_id workload satisfaction
+1   1        1        4            3
+2   2        2        4            1
+3   3        3        4            2
+4   4        4        3            2
+5   5        5        3            3
+6   6        6        3            4
+7   7        7        5            1
+8   8        8        3            3
+9   9        9        2            4
+10 10       10        4            2</code></pre>
+</div>
+</div>
+</section>
+<section id="task-3.1-create-a-scatterplot-with-jitter" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-3.1-create-a-scatterplot-with-jitter">Task 3.1: Create a Scatterplot with Jitter</h4>
+<ul>
+<li>Let’s first visualize the relationship between the two variables.</li>
+<li>Since both variables are ordinal (discrete values 1-5), let’s add jitter to see overlapping points.</li>
+</ul>
+<p><strong>Hint</strong>: Use <code>position = position_jitter()</code> inside <code>geom_point()</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(workload_data, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___)) <span class="sc">+</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">height =</span> <span class="fl">0.15</span>)) <span class="sc">+</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Nursing Workload vs. Job Satisfaction"</span>,</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Perceived Workload (1 = Light, 5 = Overwhelming)"</span>,</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Job Satisfaction (1 = Very Dissatisfied, 5 = Very Satisfied)"</span>) <span class="sc">+</span></span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Question</strong>: Based on the scatterplot, what relationship do you observe between workload and job satisfaction?</p>
+</section>
+<section id="task-3.2-calculate-spearman-correlation" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="task-3.2-calculate-spearman-correlation">Task 3.2: Calculate Spearman Correlation</h4>
+<p>Calculate the Spearman rank correlation coefficient.</p>
+<p><strong>Hint</strong>: Use <code>cor.test()</code> with <code>method = "spearman"</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the blanks</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(workload_data, <span class="fu">cor.test</span>(___, ___, <span class="at">method =</span> <span class="st">"___"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>What is the Spearman correlation coefficient (ρ)?</li>
+<li>Is it statistically significant (p &lt; 0.05)?</li>
+<li>Interpret the direction and strength of the correlation.</li>
+<li>What does this suggest for nursing management?</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="limitations-of-correlation-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-correlation-analysis">Limitations of Correlation Analysis</h2>
+<section id="correlation-is-not-causation" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-is-not-causation">1. Correlation is NOT Causation</h3>
+<p>This cannot be emphasized enough. A significant correlation between two variables does not mean one causes the other.</p>
+<p><strong>Healthcare Example</strong>: We might find that hospitals with more parking spaces have lower mortality rates. This doesn’t mean building parking garages saves lives. It might be because larger hospitals tend to have both more parking and more specialized services (or because of other factors).</p>
+<p>Always consider:</p>
+<ul>
+<li><strong>Confounding variables</strong>: A third variable that influences both.
+<ul>
+<li>e.g., A correlation between ice cream sales and drowning deaths does not mean ice cream causes drowning. Summer heat (the confounder) drives both.</li>
+</ul></li>
+<li><strong>Reverse causation</strong>: The outcome may influence the predictor.
+<ul>
+<li>e.g., We might observe that hospitals with more specialists have sicker patients, but sicker patients may be <em>referred to</em> those hospitals, not made sicker by them.</li>
+</ul></li>
+<li><strong>Selection bias</strong>: How the sample was selected might create artificial associations.
+<ul>
+<li>e.g., If we only survey patients who visited the ER, we might find a positive correlation between flu severity and asthma. This may not be because they are related, but because people with mild flu stay home unless they also have asthma complications that bring them to the ER.</li>
+</ul></li>
+</ul>
+</section>
+<section id="correlation-only-captures-linear-relationships" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-only-captures-linear-relationships">2. Correlation Only Captures Linear Relationships</h3>
+<p>A Pearson correlation coefficient of zero means no <strong>linear</strong> relationship. Even if correlation analysis results are not significant, there could still be a strong non-linear relationship. Always visualize your data with a scatterplot first (visualizations can reveal patterns that correlation coefficients alone will miss).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture08_files/figure-html/nonlinear-example-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The inverted U-shape (common in stress-performance relationships) shows a clear pattern, but the linear correlation is near zero.</p>
+</section>
+<section id="pearson-correlation-is-sensitive-to-outliers" class="level3">
+<h3 class="anchored" data-anchor-id="pearson-correlation-is-sensitive-to-outliers">3. Pearson Correlation is Sensitive to Outliers</h3>
+<p>Extreme values can dramatically influence Pearson correlation coefficients. Sometimes extreme values contribute to a significant correlation where it doesn’t truly exist (without those extreme values). This is particularly problematic because it can lead to incorrect conclusions.</p>
+<p><strong>Example: Outlier Creates Spurious Correlation</strong></p>
+<p>Let’s think about a case where we examine the relationship between hospital size (number of beds) and patient satisfaction scores. Without an outlier, there may be no relationship, but a single extreme observation can create a statistically significant correlation (see the graphs below):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lecture08_files/figure-html/outlier-example-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Comparison of Results:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Without outlier:  Pearson r = 0.208, p = 0.457 (Not significant)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>With outlier:     Pearson r = 0.570, p = 0.021 (Significant!)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>With outlier:     Spearman r = 0.318, p = 0.231 (Not significant)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─────────────────────────────────────────────────────</code></pre>
+</div>
+</div>
+<ul>
+<li><p><strong>Without the outlier</strong>: The Pearson correlation is very weak and not statistically significant (p &gt; 0.05). There is no evidence of a linear relationship between hospital size and satisfaction.</p></li>
+<li><p><strong>With the outlier</strong>: A single extreme point (a large hospital with unusually high satisfaction) creates a statistically significant correlation (p &lt; 0.05). This would lead us to incorrectly conclude that larger hospitals have higher satisfaction scores.</p></li>
+<li><p><strong>Spearman correlation</strong> (with the outlier): Because Spearman uses ranks instead of raw values, the effect of the outlier is diluted. The Spearman correlation correctly shows no significant relationship.</p></li>
+</ul>
+<p><strong>Solutions for outliers:</strong></p>
+<ol type="1">
+<li>Investigate outliers (check whether the outliers are data entry errors or legitimate extreme values)</li>
+<li>If legitimate, consider reporting results both with and without the outlier</li>
+<li>Use Spearman correlation instead (robust to outliers)</li>
+</ol>
+<hr>
+</section>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<section id="crosstabulation-chi-square-test" class="level3">
+<h3 class="anchored" data-anchor-id="crosstabulation-chi-square-test">Crosstabulation (Chi-Square Test)</h3>
+<ul>
+<li><strong>Purpose</strong>: Test association between two categorical variables</li>
+<li><strong>Null hypothesis</strong>: The variables are independent (no association)</li>
+<li><strong>Key statistic</strong>: Chi-square (χ²) measures discrepancy between observed and expected frequencies (based on the independence assumption)</li>
+<li><strong>Decision rule</strong>: If p &lt; 0.05, reject independence; conclude significant association</li>
+<li><strong>Use Fisher’s exact test</strong> when any expected cell frequency &lt; 5</li>
+</ul>
+</section>
+<section id="correlation-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-analysis">Correlation Analysis</h3>
+<ul>
+<li><strong>Purpose</strong>: Test linear association between two continuous or ordinal variables</li>
+<li><strong>Correlation coefficient (r)</strong>:
+<ul>
+<li>Ranges from -1 to +1</li>
+<li>Sign indicates direction (positive/negative)</li>
+<li>Absolute value indicates strength</li>
+</ul></li>
+<li><strong>Pearson</strong>: For continuous variables with linear relationships</li>
+<li><strong>Spearman</strong>: For ordinal variables or when outliers are present</li>
+<li><strong>Critical reminder</strong>: Correlation ≠ Causation</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="references-and-further-reading" class="level1">
+<h1>References and Further Reading</h1>
+<section id="statistical-references" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-references">Statistical References</h2>
+<ul>
+<li>Field, A., Miles, J., &amp; Field, Z. (2012). <em>Discovering Statistics Using R</em>. SAGE Publications.</li>
+<li>Navarro, D. (2019). <em>Learning Statistics with R</em>. Available online at https://learningstatisticswithr.com/</li>
+<li>Wickham, H., &amp; Grolemund, G. (2017). <em>R for Data Science</em>. O’Reilly Media.</li>
+</ul>
+</section>
+<section id="healthcare-applications" class="level2">
+<h2 class="anchored" data-anchor-id="healthcare-applications">Healthcare Applications</h2>
+<p>Examples and scenarios are motivated by the following research:</p>
+<ul>
+<li><p>Aiken, L. H., Clarke, S. P., Sloane, D. M., Sochalski, J., &amp; Silber, J. H. (2002). Hospital nurse staffing and patient mortality, nurse burnout, and job dissatisfaction. <em>JAMA</em>, 288(16), 1987-1993. https://jamanetwork.com/journals/jama/fullarticle/195438</p></li>
+<li><p>Joynt, K. E., &amp; Jha, A. K. (2013). Characteristics of hospitals receiving penalties under the Hospital Readmissions Reduction Program. <em>JAMA</em>, 309(4), 342-343.</p></li>
+<li><p>Kutney-Lee, A., McHugh, M. D., Sloane, D. M., et al.&nbsp;(2009). Nursing: A key to patient satisfaction. <em>Health Affairs</em>, 28(4), w669-w677. https://pmc.ncbi.nlm.nih.gov/articles/PMC2718727/</p></li>
+<li><p>NSI Nursing Solutions, Inc.&nbsp;(2024). <em>2024 NSI National Health Care Retention &amp; RN Staffing Report</em>. https://www.nsinursingsolutions.com/Documents/Library/NSI_National_Health_Care_Retention_Report.pdf</p></li>
+<li><p>Harikesavan, K., Chakravarty, R. D., &amp; Maiya, A. G. (2018). Influence of early mobilization program on pain, self-reported and performance based functional measures following total knee replacement. <em>Journal of Clinical Orthopaedics and Trauma</em>, 10(2), 340-344. https://pmc.ncbi.nlm.nih.gov/articles/PMC6383169/</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -374,7 +374,7 @@ library(tidyverse)
 library(ggplot2)
 
 # load the dataset
-readmission_data <- read.csv("week08_crosstab_dataset.csv")
+readmission_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_crosstab_dataset.csv")
 
 head(readmission_data)
 ```
@@ -686,7 +686,7 @@ Run this code to load the surgical outcomes dataset:
 #| label: practice-crosstab-data
 
 # Practice dataset
-surgery_data <- read.csv("week08_practice1_data.csv")
+surgery_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_practice1_data.csv")
 
 # View the first few rows
 head(surgery_data, 10)
@@ -1073,7 +1073,7 @@ Let's load the dataset using the code below:
 #| label: correlation-data
 
 # Data loading
-staffing_data <- read.csv("week08_correlation_data.csv")
+staffing_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_correlation_data.csv")
 
 # View summary
 staffing_data |> 
@@ -1256,7 +1256,7 @@ Run this code to load the ED dataset:
 #| label: practice-correlation-data
 
 # Practice dataset
-ed_data <- read.csv("week08_practice2_data.csv")
+ed_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_practice2_data.csv")
 
 head(ed_data, 10)
 ```
@@ -1380,7 +1380,7 @@ Let's load the dataset using the code here:
 #| label: spearman-example
 
 # data loading
-pain_data <- read.csv("week08_spearman_data.csv")
+pain_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_spearman_data.csv")
 
 # Display first 10 patients
 head(pain_data, 10)
@@ -1500,7 +1500,7 @@ The question we want to understand is: *Is there a significant monotonic relatio
 #| label: practice-spearman-data
 
 # Data Loading
-workload_data <- read.csv("week08_practice3_data.csv")
+workload_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_practice3_data.csv")
 
 head(workload_data, 10)
 ```

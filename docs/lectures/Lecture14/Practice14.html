@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="">
+<meta name="dcterms.date" content="2026-01-01">
+
+<title>Conjoint Analysis in Healthcare Management (Practice Workbook) – Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e3454d6c61f52a147682728788a76643.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Business Analytics in Healthcare Hanagement (MBA 642 - Spring 2026)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mba642-spring-26/mba642-spring-26.github.io/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Conjoint Analysis in Healthcare Management (Practice Workbook)</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#recap-what-is-conjoint-analysis" id="toc-recap-what-is-conjoint-analysis" class="nav-link" data-scroll-target="#recap-what-is-conjoint-analysis"><span class="header-section-number">1.1</span> Recap: What is Conjoint Analysis?</a></li>
+  <li><a href="#two-methods-youve-learned" id="toc-two-methods-youve-learned" class="nav-link" data-scroll-target="#two-methods-youve-learned"><span class="header-section-number">1.2</span> Two Methods You’ve Learned</a></li>
+  <li><a href="#what-youll-do-in-this-workbook" id="toc-what-youll-do-in-this-workbook" class="nav-link" data-scroll-target="#what-youll-do-in-this-workbook"><span class="header-section-number">1.3</span> What You’ll Do in This Workbook</a></li>
+  </ul></li>
+  <li><a href="#practice-activity" id="toc-practice-activity" class="nav-link" data-scroll-target="#practice-activity"><span class="header-section-number">2</span> Practice Activity</a>
+  <ul class="collapse">
+  <li><a href="#case-telehealth-program-preferences" id="toc-case-telehealth-program-preferences" class="nav-link" data-scroll-target="#case-telehealth-program-preferences"><span class="header-section-number">2.1</span> Case: Telehealth Program Preferences</a>
+  <ul class="collapse">
+  <li><a href="#background-and-context" id="toc-background-and-context" class="nav-link" data-scroll-target="#background-and-context"><span class="header-section-number">2.1.1</span> Background and Context</a></li>
+  <li><a href="#your-tasks-30-minutes" id="toc-your-tasks-30-minutes" class="nav-link" data-scroll-target="#your-tasks-30-minutes"><span class="header-section-number">2.1.2</span> Your Tasks (30 minutes)</a></li>
+  <li><a href="#generate-the-data" id="toc-generate-the-data" class="nav-link" data-scroll-target="#generate-the-data"><span class="header-section-number">2.1.3</span> Generate the Data</a></li>
+  <li><a href="#task-1-estimate-part-worth-utilities" id="toc-task-1-estimate-part-worth-utilities" class="nav-link" data-scroll-target="#task-1-estimate-part-worth-utilities"><span class="header-section-number">2.1.4</span> Task 1: Estimate Part-Worth Utilities</a></li>
+  <li><a href="#task-2-calculate-attribute-importance" id="toc-task-2-calculate-attribute-importance" class="nav-link" data-scroll-target="#task-2-calculate-attribute-importance"><span class="header-section-number">2.1.5</span> Task 2: Calculate Attribute Importance</a></li>
+  <li><a href="#task-3-calculate-willingness-to-pay-wtp" id="toc-task-3-calculate-willingness-to-pay-wtp" class="nav-link" data-scroll-target="#task-3-calculate-willingness-to-pay-wtp"><span class="header-section-number">2.1.6</span> Task 3: Calculate Willingness-to-Pay (WTP)</a></li>
+  <li><a href="#task-4-predict-market-share" id="toc-task-4-predict-market-share" class="nav-link" data-scroll-target="#task-4-predict-market-share"><span class="header-section-number">2.1.7</span> Task 4: Predict Market Share</a></li>
+  </ul></li>
+  <li><a href="#part-2-choice-based-conjoint-practice-optionaladvanced" id="toc-part-2-choice-based-conjoint-practice-optionaladvanced" class="nav-link" data-scroll-target="#part-2-choice-based-conjoint-practice-optionaladvanced"><span class="header-section-number">2.2</span> Part 2: Choice-Based Conjoint Practice (Optional/Advanced)</a>
+  <ul class="collapse">
+  <li><a href="#case-primary-care-clinic-selection" id="toc-case-primary-care-clinic-selection" class="nav-link" data-scroll-target="#case-primary-care-clinic-selection"><span class="header-section-number">2.2.1</span> Case: Primary Care Clinic Selection</a></li>
+  <li><a href="#your-tasks-20-25-minutes" id="toc-your-tasks-20-25-minutes" class="nav-link" data-scroll-target="#your-tasks-20-25-minutes"><span class="header-section-number">2.2.2</span> Your Tasks (20-25 minutes)</a></li>
+  <li><a href="#generate-the-choice-data" id="toc-generate-the-choice-data" class="nav-link" data-scroll-target="#generate-the-choice-data"><span class="header-section-number">2.2.3</span> Generate the Choice Data</a></li>
+  <li><a href="#task-1-reshape-data-to-long-format" id="toc-task-1-reshape-data-to-long-format" class="nav-link" data-scroll-target="#task-1-reshape-data-to-long-format"><span class="header-section-number">2.2.4</span> Task 1: Reshape Data to Long Format</a></li>
+  <li><a href="#task-2-index-data-for-mlogit" id="toc-task-2-index-data-for-mlogit" class="nav-link" data-scroll-target="#task-2-index-data-for-mlogit"><span class="header-section-number">2.2.5</span> Task 2: Index Data for mlogit</a></li>
+  <li><a href="#task-3-estimate-multinomial-logit-model" id="toc-task-3-estimate-multinomial-logit-model" class="nav-link" data-scroll-target="#task-3-estimate-multinomial-logit-model"><span class="header-section-number">2.2.6</span> Task 3: Estimate Multinomial Logit Model</a></li>
+  <li><a href="#task-4-calculate-attribute-importance" id="toc-task-4-calculate-attribute-importance" class="nav-link" data-scroll-target="#task-4-calculate-attribute-importance"><span class="header-section-number">2.2.7</span> Task 4: Calculate Attribute Importance</a></li>
+  <li><a href="#task-5-calculate-willingness-to-pay" id="toc-task-5-calculate-willingness-to-pay" class="nav-link" data-scroll-target="#task-5-calculate-willingness-to-pay"><span class="header-section-number">2.2.8</span> Task 5: Calculate Willingness-to-Pay</a></li>
+  <li><a href="#task-6-predict-market-share" id="toc-task-6-predict-market-share" class="nav-link" data-scroll-target="#task-6-predict-market-share"><span class="header-section-number">2.2.9</span> Task 6: Predict Market Share</a></li>
+  <li><a href="#key-questions-to-consider" id="toc-key-questions-to-consider" class="nav-link" data-scroll-target="#key-questions-to-consider"><span class="header-section-number">2.2.10</span> Key Questions to Consider</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">3</span> References</a>
+  <ul class="collapse">
+  <li><a href="#healthcare-applications" id="toc-healthcare-applications" class="nav-link" data-scroll-target="#healthcare-applications"><span class="header-section-number">3.1</span> Healthcare Applications</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Conjoint Analysis in Healthcare Management (Practice Workbook)</h1>
+<p class="subtitle lead">Rating-Based and Choice-Based Methods with R</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="recap-what-is-conjoint-analysis" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="recap-what-is-conjoint-analysis"><span class="header-section-number">1.1</span> Recap: What is Conjoint Analysis?</h2>
+<p>Conjoint analysis is a powerful survey-based technique that reveals how people make decisions when facing trade-offs between multiple attributes of a product or service. Instead of simply asking “Do you prefer low prices?” (which always gets a “yes”), conjoint analysis forces respondents to make realistic choices that reveal their true priorities.</p>
+<p>The key insight is that people evaluate products and services as bundles of attributes. A health insurance plan isn’t just about the premium—it’s a combination of premium, deductible, network size, and coverage. Conjoint analysis decomposes overall preferences into the contribution of each individual attribute, giving us <strong>part-worth utilities</strong> that quantify how much each feature matters.</p>
+</section>
+<section id="two-methods-youve-learned" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="two-methods-youve-learned"><span class="header-section-number">1.2</span> Two Methods You’ve Learned</h2>
+<p>In the lecture, you saw two approaches to conjoint analysis:</p>
+<ol type="1">
+<li><p><strong>Rating-Based Conjoint</strong>: Respondents rate each profile on a scale (e.g., 1-10). We analyze this using ordinary least squares (OLS) regression to estimate part-worth utilities.</p></li>
+<li><p><strong>Choice-Based Conjoint</strong>: Respondents choose their preferred option from a set of alternatives. We analyze this using multinomial logistic regression (mlogit) to estimate part-worth utilities. This method better mimics real-world decision-making.</p></li>
+</ol>
+<p>Both methods produce the same key outputs: part-worth utilities, attribute importance scores, willingness-to-pay estimates, and market share predictions.</p>
+</section>
+<section id="what-youll-do-in-this-workbook" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="what-youll-do-in-this-workbook"><span class="header-section-number">1.3</span> What You’ll Do in This Workbook</h2>
+<p>Now it’s your turn to apply these techniques. You’ll work through two practice activities:</p>
+<ul>
+<li><strong>Part 1</strong>: Rating-based conjoint analysis of telehealth program preferences</li>
+<li><strong>Part 2</strong>: Choice-based conjoint analysis of primary care clinic selection</li>
+</ul>
+<p>Each activity includes starter code with blanks (indicated by <code>___</code>) for you to fill in. Take your time, refer back to the lecture notes, and focus on understanding what each step accomplishes.</p>
+<hr>
+</section>
+</section>
+<section id="practice-activity" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Practice Activity</h1>
+<section id="case-telehealth-program-preferences" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="case-telehealth-program-preferences"><span class="header-section-number">2.1</span> Case: Telehealth Program Preferences</h2>
+<section id="background-and-context" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="background-and-context"><span class="header-section-number">2.1.1</span> Background and Context</h3>
+<p>The COVID-19 pandemic accelerated the adoption of telehealth services, and healthcare organizations now face decisions about how to structure “hybrid” care models. Understanding patient preferences for telehealth attributes is crucial for designing services that people will actually use.</p>
+<p>Research by Savira et al.&nbsp;(2023) in <em>PLOS ONE</em> examined consumer preferences for telehealth in Australia, finding that attributes like wait time, consultation mode, and cost significantly influenced preferences.</p>
+<p>Your healthcare organization is designing a new telehealth program and needs to understand which attributes matter most to patients. You will analyze three key attributes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Level 1</th>
+<th>Level 2</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Wait Time</td>
+<td>Same-day</td>
+<td>3 days</td>
+<td>How quickly patients can be seen</td>
+</tr>
+<tr class="even">
+<td>Mode</td>
+<td>Video</td>
+<td>Phone</td>
+<td>Communication richness</td>
+</tr>
+<tr class="odd">
+<td>Co-pay</td>
+<td>$20</td>
+<td>$40</td>
+<td>Out-of-pocket cost per visit</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="your-tasks-30-minutes" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="your-tasks-30-minutes"><span class="header-section-number">2.1.2</span> Your Tasks (30 minutes)</h3>
+<p><strong>Part 1: Rating-Based Conjoint Analysis (15 minutes)</strong></p>
+<p>Using the <code>rating_telehealth</code> dataset provided below:</p>
+<ol type="1">
+<li>Estimate part-worth utilities using linear regression</li>
+<li>Calculate attribute importance scores</li>
+<li>Calculate willingness-to-pay for same-day appointments and video mode</li>
+<li>Predict market shares for two program designs:
+<ul>
+<li><strong>Premium Program</strong>: Same-day, Video, $40 co-pay</li>
+<li><strong>Basic Program</strong>: 3-day wait, Phone, $20 co-pay</li>
+</ul></li>
+</ol>
+<p><strong>Part 2: Reflection and Discussion (5 minutes)</strong></p>
+<p>Consider these questions:</p>
+<ul>
+<li>Which attribute matters most to patients? Does this match your intuition?</li>
+<li>If you were managing this telehealth program, how would you use these WTP estimates?</li>
+<li>What would you recommend based on the market share predictions?</li>
+</ul>
+<p><strong>Instructions for Filling in Code Blanks:</strong></p>
+<p>Throughout this workbook, you’ll see blanks marked with <code>___</code>. Here’s how to fill them:</p>
+<ul>
+<li>Most blanks should be filled with <strong>variable names</strong> from the dataset (e.g., <code>wait_sameday</code>, <code>copay</code>)</li>
+<li>Some blanks need <strong>numeric values</strong> (these are indicated in nearby comments)</li>
+<li>If you get stuck, refer back to the lecture notes, especially the Insurance Example section</li>
+<li>The variable names you need are listed in the “Dataset Information” section above each task</li>
+</ul>
+</section>
+<section id="generate-the-data" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="generate-the-data"><span class="header-section-number">2.1.3</span> Generate the Data</h3>
+<p><strong>STEP 1: Generate the Data</strong></p>
+<p>Run the code chunk below first. This will create the <code>rating_telehealth</code> dataset that you’ll use in your analysis.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full factorial design</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>telehealth_profiles <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">wait_sameday =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),  <span class="co"># 1 = Same-day, 0 = 3 days</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode_video =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),    <span class="co"># 1 = Video, 0 = Phone</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">copay =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>telehealth_profiles<span class="sc">$</span>profile_id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(telehealth_profiles)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create display version</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>telehealth_display <span class="ot">&lt;-</span> telehealth_profiles <span class="sc">%&gt;%</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">wait_time =</span> <span class="fu">ifelse</span>(wait_sameday <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Same-day"</span>, <span class="st">"3 days"</span>),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">mode =</span> <span class="fu">ifelse</span>(mode_video <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Video"</span>, <span class="st">"Phone"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(wait_time, mode, copay, profile_id)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(telehealth_display,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Wait Time"</span>, <span class="st">"Mode"</span>, <span class="st">"Co-pay ($)"</span>, <span class="st">"Profile ID"</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">align =</span> <span class="st">"c"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Telehealth Program Profiles"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Telehealth Program Profiles</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Wait Time</th>
+<th style="text-align: center;">Mode</th>
+<th style="text-align: center;">Co-pay ($)</th>
+<th style="text-align: center;">Profile ID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Same-day</td>
+<td style="text-align: center;">Video</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3 days</td>
+<td style="text-align: center;">Video</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Same-day</td>
+<td style="text-align: center;">Phone</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3 days</td>
+<td style="text-align: center;">Phone</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Same-day</td>
+<td style="text-align: center;">Video</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3 days</td>
+<td style="text-align: center;">Video</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Same-day</td>
+<td style="text-align: center;">Phone</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3 days</td>
+<td style="text-align: center;">Phone</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate ratings from 100 respondents</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n_respondents <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>rating_telehealth <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (resp <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_respondents) {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(telehealth_profiles)) {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    utility <span class="ot">&lt;-</span> <span class="dv">50</span> <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="dv">4</span> <span class="sc">*</span> telehealth_profiles<span class="sc">$</span>wait_sameday[i] <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="dv">2</span> <span class="sc">*</span> telehealth_profiles<span class="sc">$</span>mode_video[i] <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span><span class="fl">0.1</span> <span class="sc">*</span> telehealth_profiles<span class="sc">$</span>copay[i] <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    rating <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">pmin</span>(<span class="fu">pmax</span>(utility <span class="sc">/</span> <span class="dv">5</span>, <span class="dv">1</span>), <span class="dv">10</span>), <span class="dv">1</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    rating_telehealth <span class="ot">&lt;-</span> <span class="fu">rbind</span>(rating_telehealth, <span class="fu">data.frame</span>(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">respondent_id =</span> resp,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">profile_id =</span> i,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">wait_sameday =</span> telehealth_profiles<span class="sc">$</span>wait_sameday[i],</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">mode_video =</span> telehealth_profiles<span class="sc">$</span>mode_video[i],</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">copay =</span> telehealth_profiles<span class="sc">$</span>copay[i],</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">rating =</span> rating</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Display first few rows</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rating_telehealth, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   respondent_id profile_id wait_sameday mode_video copay rating
+1              1          1            1          1    20   10.0
+2              1          2            0          1    20    9.6
+3              1          3            1          0    20   10.0
+4              1          4            0          0    20    9.6
+5              1          5            1          1    40   10.0
+6              1          6            0          1    40    8.6
+7              1          7            1          0    40    9.7
+8              1          8            0          0    40    8.8
+9              2          1            1          1    20   10.0
+10             2          2            0          1    20    9.8</code></pre>
+</div>
+</div>
+<p><strong>Dataset Information:</strong></p>
+<p>The <code>rating_telehealth</code> dataset contains 800 observations (100 respondents × 8 profiles each).</p>
+<p><strong>Variables:</strong></p>
+<ul>
+<li><code>respondent_id</code>: Unique identifier (1-100)</li>
+<li><code>profile_id</code>: Profile identifier (1-8)</li>
+<li><code>wait_sameday</code>: Binary indicator (1 = Same-day, 0 = 3 days)</li>
+<li><code>mode_video</code>: Binary indicator (1 = Video, 0 = Phone)</li>
+<li><code>copay</code>: Co-payment amount (20 or 40; continuous scale)</li>
+<li><code>rating</code>: Satisfaction rating on 1-10 scale (outcome variable)</li>
+</ul>
+</section>
+<section id="task-1-estimate-part-worth-utilities" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="task-1-estimate-part-worth-utilities"><span class="header-section-number">2.1.4</span> Task 1: Estimate Part-Worth Utilities</h3>
+<p>Fit a linear regression model to estimate the part-worth utilities (coefficients) for each attribute.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate part-worth utilities using linear regression</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model_rating_th <span class="ot">&lt;-</span> <span class="fu">lm</span>(rating <span class="sc">~</span> ___ <span class="sc">+</span> ___ <span class="sc">+</span> ___,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> rating_telehealth)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_rating_th)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> The formula should include all three attribute variables from the dataset.</p>
+<hr>
+</section>
+<section id="task-2-calculate-attribute-importance" class="level3" data-number="2.1.5">
+<h3 data-number="2.1.5" class="anchored" data-anchor-id="task-2-calculate-attribute-importance"><span class="header-section-number">2.1.5</span> Task 2: Calculate Attribute Importance</h3>
+<p>Calculate which attributes have the most impact on preferences.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract coefficients</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coef_th <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_rating_th)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate utility ranges for each attribute</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>range_wait <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_th[<span class="st">"___"</span>] <span class="sc">*</span> <span class="dv">1</span>)  <span class="co"># Wait Time: Binary 0 vs 1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>range_mode <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_th[<span class="st">"___"</span>] <span class="sc">*</span> <span class="dv">1</span>)  <span class="co"># Mode: Binary 0 vs 1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>range_copay <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_th[<span class="st">"___"</span>] <span class="sc">*</span> (<span class="dv">40</span> <span class="sc">-</span> <span class="dv">20</span>))  <span class="co"># Copay: $20 difference</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total range</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>total_range_th <span class="ot">&lt;-</span> range_wait <span class="sc">+</span> range_mode <span class="sc">+</span> range_copay</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate importance percentages</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>importance_rating_th <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">attribute =</span> <span class="fu">c</span>(<span class="st">"Wait Time"</span>, <span class="st">"Consultation Mode"</span>, <span class="st">"Co-pay"</span>),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">importance_pct =</span> <span class="fu">c</span>(range_wait, range_mode, range_copay) <span class="sc">/</span> total_range_th <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(importance_rating_th, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Attribute"</span>, <span class="st">"Importance (%)"</span>),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">align =</span> <span class="st">"c"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> Fill in the coefficient names from your regression model. These should match the variable names you used in Task 1.</p>
+<hr>
+</section>
+<section id="task-3-calculate-willingness-to-pay-wtp" class="level3" data-number="2.1.6">
+<h3 data-number="2.1.6" class="anchored" data-anchor-id="task-3-calculate-willingness-to-pay-wtp"><span class="header-section-number">2.1.6</span> Task 3: Calculate Willingness-to-Pay (WTP)</h3>
+<p>Calculate how much patients would pay for same-day access and video consultation.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate WTP for same-day access (vs 3-day wait)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wtp_sameday <span class="ot">&lt;-</span> <span class="sc">-</span>coef_th[<span class="st">"___"</span>] <span class="sc">/</span> coef_th[<span class="st">"___"</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate WTP for video consultation (vs phone)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>wtp_video <span class="ot">&lt;-</span> <span class="sc">-</span>coef_th[<span class="st">"___"</span>] <span class="sc">/</span> coef_th[<span class="st">"___"</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"WTP for Same-day access: $"</span>, <span class="fu">round</span>(wtp_sameday, <span class="dv">2</span>), <span class="st">" per visit</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"WTP for Video consultation: $"</span>, <span class="fu">round</span>(wtp_video, <span class="dv">2</span>), <span class="st">" per visit</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> WTP = -β_attribute / β_price. The price attribute here is <code>copay</code>.</p>
+<hr>
+</section>
+<section id="task-4-predict-market-share" class="level3" data-number="2.1.7">
+<h3 data-number="2.1.7" class="anchored" data-anchor-id="task-4-predict-market-share"><span class="header-section-number">2.1.7</span> Task 4: Predict Market Share</h3>
+<p>Compare two program designs and predict which would be more popular.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define two competing programs</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>program_A <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wait_sameday =</span> <span class="dv">1</span>, <span class="at">mode_video =</span> <span class="dv">1</span>, <span class="at">copay =</span> <span class="dv">40</span>)  <span class="co"># Premium: Same-day, Video, $40</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>program_B <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wait_sameday =</span> <span class="dv">0</span>, <span class="at">mode_video =</span> <span class="dv">0</span>, <span class="at">copay =</span> <span class="dv">20</span>)  <span class="co"># Basic: 3-day, Phone, $20</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict ratings</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>rating_A_th <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rating_th, ____)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>rating_B_th <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rating_th, ____)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate proportional market share</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>total_rating_th <span class="ot">&lt;-</span> rating_A_th <span class="sc">+</span> rating_B_th</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>share_A_th <span class="ot">&lt;-</span> rating_A_th <span class="sc">/</span> total_rating_th</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>share_B_th <span class="ot">&lt;-</span> rating_B_th <span class="sc">/</span> total_rating_th</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Premium Program (Same-day Video, $40): "</span>, <span class="fu">round</span>(share_A_th <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Basic Program (3-day Phone, $20): "</span>, <span class="fu">round</span>(share_B_th <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> Use the <code>predict()</code> function with your model and the program data frames.</p>
+<hr>
+</section>
+</section>
+<section id="part-2-choice-based-conjoint-practice-optionaladvanced" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="part-2-choice-based-conjoint-practice-optionaladvanced"><span class="header-section-number">2.2</span> Part 2: Choice-Based Conjoint Practice (Optional/Advanced)</h2>
+<section id="case-primary-care-clinic-selection" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="case-primary-care-clinic-selection"><span class="header-section-number">2.2.1</span> Case: Primary Care Clinic Selection</h3>
+<p><strong>Background and Context</strong></p>
+<p>As healthcare systems become more competitive, understanding what drives patients’ choice of primary care clinic is crucial. Patients must trade off multiple factors: convenience (location, wait times), provider credentials, and cost.</p>
+<p>You’ll analyze patient preferences for primary care clinics using <strong>choice-based conjoint analysis</strong> with four key attributes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Level 1</th>
+<th>Level 2</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Distance from Home</td>
+<td>5 minutes</td>
+<td>25 minutes</td>
+<td>Travel convenience</td>
+</tr>
+<tr class="even">
+<td>Appointment Wait</td>
+<td>Same-week</td>
+<td>3 weeks</td>
+<td>Access to care</td>
+</tr>
+<tr class="odd">
+<td>Provider Type</td>
+<td>MD (Physician)</td>
+<td>NP (Nurse Practitioner)</td>
+<td>Professional credentials</td>
+</tr>
+<tr class="even">
+<td>Copay</td>
+<td>$25</td>
+<td>$50</td>
+<td>Out-of-pocket cost</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="your-tasks-20-25-minutes" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="your-tasks-20-25-minutes"><span class="header-section-number">2.2.2</span> Your Tasks (20-25 minutes)</h3>
+<p><strong>Using choice-based conjoint (mlogit):</strong></p>
+<ol type="1">
+<li>Generate the choice data (code provided below)</li>
+<li>Reshape data to long format</li>
+<li>Index data with dfidx()</li>
+<li>Estimate multinomial logit model</li>
+<li>Calculate attribute importance</li>
+<li>Calculate WTP for key attributes</li>
+<li>Predict market shares for two clinic designs</li>
+</ol>
+</section>
+<section id="generate-the-choice-data" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="generate-the-choice-data"><span class="header-section-number">2.2.3</span> Generate the Choice Data</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create full factorial design for clinic profiles</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>clinic_profiles <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">distance_5min =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),     <span class="co"># 1 = 5 min, 0 = 25 min</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">wait_sameweek =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),     <span class="co"># 1 = Same-week, 0 = 3 weeks</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">provider_md =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),        <span class="co"># 1 = MD, 0 = NP</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">copay =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>clinic_profiles<span class="sc">$</span>profile_id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(clinic_profiles)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate choice data from 100 respondents</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>n_respondents <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>n_choice_sets <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>choice_clinic <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (resp <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_respondents) {</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (cs <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_choice_sets) {</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Randomly select two different profiles</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    profiles <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>, <span class="dv">2</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    alt_A <span class="ot">&lt;-</span> clinic_profiles[profiles[<span class="dv">1</span>], ]</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    alt_B <span class="ot">&lt;-</span> clinic_profiles[profiles[<span class="dv">2</span>], ]</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate utilities (true preferences for simulation)</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Distance: +2.5 for nearby clinic</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Wait: +3.0 for same-week appointments</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Provider: +1.0 for MD</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Copay: -0.08 per dollar</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    utility_A <span class="ot">&lt;-</span> <span class="fl">2.5</span> <span class="sc">*</span> alt_A<span class="sc">$</span>distance_5min <span class="sc">+</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">3.0</span> <span class="sc">*</span> alt_A<span class="sc">$</span>wait_sameweek <span class="sc">+</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">1.0</span> <span class="sc">*</span> alt_A<span class="sc">$</span>provider_md <span class="sc">+</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">-</span><span class="fl">0.08</span> <span class="sc">*</span> alt_A<span class="sc">$</span>copay <span class="sc">+</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    utility_B <span class="ot">&lt;-</span> <span class="fl">2.5</span> <span class="sc">*</span> alt_B<span class="sc">$</span>distance_5min <span class="sc">+</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">3.0</span> <span class="sc">*</span> alt_B<span class="sc">$</span>wait_sameweek <span class="sc">+</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>                 <span class="fl">1.0</span> <span class="sc">*</span> alt_B<span class="sc">$</span>provider_md <span class="sc">+</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">-</span><span class="fl">0.08</span> <span class="sc">*</span> alt_B<span class="sc">$</span>copay <span class="sc">+</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    choice_A <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(utility_A <span class="sc">&gt;</span> utility_B)</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    choice_clinic <span class="ot">&lt;-</span> <span class="fu">rbind</span>(choice_clinic, <span class="fu">data.frame</span>(</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">respondent_id =</span> resp,</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">choice_set =</span> cs,</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">distance_5min_A =</span> alt_A<span class="sc">$</span>distance_5min,</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">wait_sameweek_A =</span> alt_A<span class="sc">$</span>wait_sameweek,</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">provider_md_A =</span> alt_A<span class="sc">$</span>provider_md,</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">copay_A =</span> alt_A<span class="sc">$</span>copay,</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>      <span class="at">distance_5min_B =</span> alt_B<span class="sc">$</span>distance_5min,</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>      <span class="at">wait_sameweek_B =</span> alt_B<span class="sc">$</span>wait_sameweek,</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>      <span class="at">provider_md_B =</span> alt_B<span class="sc">$</span>provider_md,</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>      <span class="at">copay_B =</span> alt_B<span class="sc">$</span>copay,</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>      <span class="at">choice_A =</span> choice_A</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Display first few rows</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(choice_clinic, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   respondent_id choice_set distance_5min_A wait_sameweek_A provider_md_A
+1              1          1               0               1             1
+2              1          2               1               0             0
+3              1          3               0               1             0
+4              1          4               1               0             0
+5              1          5               0               0             1
+6              1          6               1               0             1
+7              1          7               0               1             0
+8              1          8               1               1             0
+9              2          1               1               1             1
+10             2          2               0               1             0
+   copay_A distance_5min_B wait_sameweek_B provider_md_B copay_B choice_A
+1       25               1               0             1      25        1
+2       50               0               1             0      50        1
+3       50               1               0             1      25        0
+4       50               0               1             1      25        0
+5       50               0               0             1      25        0
+6       25               0               0             0      50        1
+7       25               1               0             1      25        0
+8       25               1               1             1      50        1
+9       25               0               0             1      25        1
+10      50               1               0             0      25        0</code></pre>
+</div>
+</div>
+<p><strong>Dataset Information:</strong></p>
+<p>The <code>choice_clinic</code> dataset contains 800 observations (100 respondents × 8 choice sets each).</p>
+<p><strong>Variables:</strong></p>
+<ul>
+<li><code>respondent_id</code>: Unique identifier (1-100)</li>
+<li><code>choice_set</code>: Choice set identifier (1-8)</li>
+<li><code>distance_5min_A/B</code>: Binary (1 = 5 min away, 0 = 25 min away)</li>
+<li><code>wait_sameweek_A/B</code>: Binary (1 = Same-week, 0 = 3 weeks)</li>
+<li><code>provider_md_A/B</code>: Binary (1 = MD, 0 = NP)</li>
+<li><code>copay_A/B</code>: Copay amount (25 or 50)</li>
+<li><code>choice_A</code>: Binary outcome (1 = chose A, 0 = chose B)</li>
+</ul>
+</section>
+<section id="task-1-reshape-data-to-long-format" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="task-1-reshape-data-to-long-format"><span class="header-section-number">2.2.4</span> Task 1: Reshape Data to Long Format</h3>
+<p>Choice-based conjoint requires data in “long format” where each alternative gets its own row.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create unique choice set IDs</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>choice_clinic <span class="ot">&lt;-</span> choice_clinic <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">choice_set_id =</span> <span class="fu">paste0</span>(respondent_id, <span class="st">"_"</span>, choice_set))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape from wide to long format</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>clinic_long <span class="ot">&lt;-</span> choice_clinic <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(distance_5min_A, distance_5min_B,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>             wait_sameweek_A, wait_sameweek_B,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>             provider_md_A, provider_md_B,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>             copay_A, copay_B),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"alternative"</span>),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"(.*)_([AB])$"</span>  <span class="co"># Match everything before the final _A or _B</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create the choice variable (1 = chosen, 0 = not chosen)</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Logic: If alternative A was chosen (choice_A = 1):</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   - Row for alternative A gets choice = 1</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   - Row for alternative B gets choice = 0</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If alternative B was chosen (choice_A = 0):</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   - Row for alternative A gets choice = 0</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   - Row for alternative B gets choice = 1</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">choice =</span> <span class="fu">case_when</span>(</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>      alternative <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">&amp;</span> choice_A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> ___,</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>      alternative <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">&amp;</span> choice_A <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> ___,</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>      alternative <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">&amp;</span> choice_A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> ___,</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>      alternative <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">&amp;</span> choice_A <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> ___</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">choice_set =</span> choice_set_id, alternative,</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>         distance_5min, wait_sameweek, provider_md, copay, choice) <span class="sc">%&gt;%</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(choice_set, alternative) <span class="sc">%&gt;%</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the result</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(clinic_long, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> Fill in 1 or 0 for each case_when condition based on whether that alternative/choice combination means “chosen.”</p>
+<hr>
+</section>
+<section id="task-2-index-data-for-mlogit" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="task-2-index-data-for-mlogit"><span class="header-section-number">2.2.5</span> Task 2: Index Data for mlogit</h3>
+<p>Prepare the data structure that mlogit requires.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dfidx)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indexed data format</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>clinic_mlogit <span class="ot">&lt;-</span> <span class="fu">dfidx</span>(clinic_long,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">shape =</span> <span class="st">"___"</span>,      <span class="co"># Data format type</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">choice =</span> <span class="st">"___"</span>,     <span class="co"># Column containing choice outcome</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">idx =</span> <span class="fu">c</span>(<span class="st">"___"</span>, <span class="st">"___"</span>))  <span class="co"># c(choice set identifier, alternative identifier)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> The shape should indicate the data format. The choice parameter is the name of your binary choice variable. The idx parameter needs the names of your choice set identifier and alternative identifier columns.</p>
+<hr>
+</section>
+<section id="task-3-estimate-multinomial-logit-model" class="level3" data-number="2.2.6">
+<h3 data-number="2.2.6" class="anchored" data-anchor-id="task-3-estimate-multinomial-logit-model"><span class="header-section-number">2.2.6</span> Task 3: Estimate Multinomial Logit Model</h3>
+<p>Fit the choice model to estimate part-worth utilities.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlogit)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate multinomial logit model</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>model_clinic <span class="ot">&lt;-</span> <span class="fu">mlogit</span>(choice <span class="sc">~</span> ___ <span class="sc">+</span> ___ <span class="sc">+</span> ___ <span class="sc">+</span> ___ <span class="sc">|</span> <span class="dv">0</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> clinic_mlogit)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_clinic)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> Include all four attributes from your dataset. Refer to the variable names listed in the “Dataset Information” section above. The <code>| 0</code> means no alternative-specific constants.</p>
+<hr>
+</section>
+<section id="task-4-calculate-attribute-importance" class="level3" data-number="2.2.7">
+<h3 data-number="2.2.7" class="anchored" data-anchor-id="task-4-calculate-attribute-importance"><span class="header-section-number">2.2.7</span> Task 4: Calculate Attribute Importance</h3>
+<p>Determine which attributes matter most in clinic selection.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract coefficients</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>coef_clinic <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_clinic)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate utility ranges</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>range_distance <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_clinic[<span class="st">"___"</span>] <span class="sc">*</span> <span class="dv">1</span>)   <span class="co"># Distance: Binary 5 min vs 25 min</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>range_wait <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_clinic[<span class="st">"___"</span>] <span class="sc">*</span> <span class="dv">1</span>)       <span class="co"># Wait Time: Binary Same-week vs 3 weeks</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>range_provider <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_clinic[<span class="st">"___"</span>] <span class="sc">*</span> <span class="dv">1</span>)   <span class="co"># Provider Type: Binary MD vs NP</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>range_copay <span class="ot">&lt;-</span> <span class="fu">abs</span>(coef_clinic[<span class="st">"___"</span>] <span class="sc">*</span> (<span class="dv">50</span> <span class="sc">-</span> <span class="dv">25</span>))  <span class="co"># Copay: $25 difference</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total range</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>total_range <span class="ot">&lt;-</span> range_distance <span class="sc">+</span> range_wait <span class="sc">+</span> range_provider <span class="sc">+</span> range_copay</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate importance percentages</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>importance_clinic <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">attribute =</span> <span class="fu">c</span>(<span class="st">"Distance"</span>, <span class="st">"Appointment Wait"</span>, <span class="st">"Provider Type"</span>, <span class="st">"Copay"</span>),</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">importance_pct =</span> <span class="fu">c</span>(range_distance, range_wait, range_provider, range_copay) <span class="sc">/</span> total_range <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(importance_clinic, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Attribute"</span>, <span class="st">"Importance (%)"</span>),</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">align =</span> <span class="st">"c"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> Fill in the coefficient names matching the model variables.</p>
+<hr>
+</section>
+<section id="task-5-calculate-willingness-to-pay" class="level3" data-number="2.2.8">
+<h3 data-number="2.2.8" class="anchored" data-anchor-id="task-5-calculate-willingness-to-pay"><span class="header-section-number">2.2.8</span> Task 5: Calculate Willingness-to-Pay</h3>
+<p>Calculate how much patients would pay for each clinic feature.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate WTP for each attribute</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>wtp_nearby <span class="ot">&lt;-</span> <span class="sc">-</span>coef_clinic[<span class="st">"___"</span>] <span class="sc">/</span> coef_clinic[<span class="st">"___"</span>]      <span class="co"># For Distance: 5 min vs 25 min distance</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>wtp_sameweek <span class="ot">&lt;-</span> <span class="sc">-</span>coef_clinic[<span class="st">"___"</span>] <span class="sc">/</span> coef_clinic[<span class="st">"___"</span>]    <span class="co"># For Wait Time: Same-week vs 3-week wait</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>wtp_md <span class="ot">&lt;-</span> <span class="sc">-</span>coef_clinic[<span class="st">"___"</span>] <span class="sc">/</span> coef_clinic[<span class="st">"___"</span>]          <span class="co"># For Provider Type: MD vs NP</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"WTP for Nearby Clinic (5 min vs 25 min): $"</span>, <span class="fu">round</span>(wtp_nearby, <span class="dv">2</span>), <span class="st">" per visit</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"WTP for Same-week Appointment: $"</span>, <span class="fu">round</span>(wtp_sameweek, <span class="dv">2</span>), <span class="st">" per visit</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"WTP for MD vs NP: $"</span>, <span class="fu">round</span>(wtp_md, <span class="dv">2</span>), <span class="st">" per visit</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> WTP = -β_attribute / β_copay. The copay variable is the “price” in this analysis.</p>
+<hr>
+</section>
+<section id="task-6-predict-market-share" class="level3" data-number="2.2.9">
+<h3 data-number="2.2.9" class="anchored" data-anchor-id="task-6-predict-market-share"><span class="header-section-number">2.2.9</span> Task 6: Predict Market Share</h3>
+<p>Compare two competing clinics using the multinomial logit formula.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define two competing clinics</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Clinic A: Near (5 min), Same-week, NP, $50 copay</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Clinic B: Far (25 min), 3-week wait, MD, $25 copay</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate systematic utilities</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>utility_A_clinic <span class="ot">&lt;-</span> coef_clinic[<span class="st">"distance_5min"</span>] <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                    coef_clinic[<span class="st">"wait_sameweek"</span>] <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                    coef_clinic[<span class="st">"provider_md"</span>] <span class="sc">*</span> <span class="dv">0</span> <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                    coef_clinic[<span class="st">"copay"</span>] <span class="sc">*</span> <span class="dv">50</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>utility_B_clinic <span class="ot">&lt;-</span> coef_clinic[<span class="st">"distance_5min"</span>] <span class="sc">*</span> <span class="dv">0</span> <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                    coef_clinic[<span class="st">"wait_sameweek"</span>] <span class="sc">*</span> <span class="dv">0</span> <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>                    coef_clinic[<span class="st">"provider_md"</span>] <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                    coef_clinic[<span class="st">"copay"</span>] <span class="sc">*</span> <span class="dv">25</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply multinomial logit formula</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>share_A_clinic <span class="ot">&lt;-</span> _____ <span class="sc">/</span> (<span class="fu">exp</span>(utility_A_clinic) <span class="sc">+</span> <span class="fu">exp</span>(utility_B_clinic))</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>share_B_clinic <span class="ot">&lt;-</span> _____ <span class="sc">/</span> (<span class="fu">exp</span>(utility_A_clinic) <span class="sc">+</span> <span class="fu">exp</span>(utility_B_clinic))</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Clinic A (Convenient, NP, Higher copay): "</span>, <span class="fu">round</span>(share_A_clinic <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Clinic B (Far, MD, Lower copay): "</span>, <span class="fu">round</span>(share_B_clinic <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Hint:</strong> Fill in the numerators using the multinomial logit formula. The probability of choosing alternative i is exp(U_i) divided by the sum of exp(U_j) for all alternatives.</p>
+</section>
+<section id="key-questions-to-consider" class="level3" data-number="2.2.10">
+<h3 data-number="2.2.10" class="anchored" data-anchor-id="key-questions-to-consider"><span class="header-section-number">2.2.10</span> Key Questions to Consider</h3>
+<p>After completing your analysis, reflect on:</p>
+<ol type="1">
+<li><strong>Which attribute is most important for clinic choice?</strong>
+<ul>
+<li>Does distance or appointment wait matter more?</li>
+<li>How important is provider type (MD vs NP)?</li>
+</ul></li>
+<li><strong>What do the WTP estimates tell you?</strong>
+<ul>
+<li>How much would patients pay to reduce travel time from 25 to 5 minutes?</li>
+<li>Is the WTP for same-week appointments larger than for MD vs NP?</li>
+</ul></li>
+<li><strong>Based on market share predictions:</strong>
+<ul>
+<li>Should clinics prioritize convenience or provider credentials?</li>
+<li>What’s the optimal clinic configuration?</li>
+</ul></li>
+<li><strong>How do these results compare to the telehealth example?</strong>
+<ul>
+<li>Are similar patterns emerging (e.g., access time most important)?</li>
+<li>What’s different about in-person vs virtual care preferences?</li>
+</ul></li>
+</ol>
+<p><strong>Hints:</strong></p>
+<ul>
+<li>The choice variable should be 1 for chosen alternative, 0 otherwise</li>
+<li>For dfidx: shape = “long”, choice = “choice”, idx = c(“choice_set”, “alternative”)</li>
+<li>Model formula: Include all four attributes (distance_5min, wait_sameweek, provider_md, copay)</li>
+<li>For WTP: WTP = -β_attribute / β_copay</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="references" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> References</h1>
+<section id="healthcare-applications" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="healthcare-applications"><span class="header-section-number">3.1</span> Healthcare Applications</h2>
+<p>Examples are motivated by the following:</p>
+<ul>
+<li><p>Sinaiko, A. D., &amp; Hirth, R. A. (2011). Consumers, health insurance and dominated choices. <em>Journal of Health Economics</em>, 30(2), 450-457. https://doi.org/10.1016/j.jhealeco.2010.12.007</p></li>
+<li><p>Savira, F., Robinson, S., Toll, K., Spark, L., Thomas, E., Nesbitt, J., Frean, I., &amp; Norman, R. (2023). Consumer preferences for telehealth in Australia: A discrete choice experiment. <em>PLOS ONE</em>, 18(3), e0283821. https://doi.org/10.1371/journal.pone.0283821</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
