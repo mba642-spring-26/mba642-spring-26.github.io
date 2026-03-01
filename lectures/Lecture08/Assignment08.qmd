@@ -1,0 +1,317 @@
+---
+title: "Lab Assignment 4: Crosstabulation and Correlation (Week 08)"
+subtitle: "MBA642: Business Analytics in Healthcare Management"
+author: "Your Name"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme:
+      - cosmo
+      - lecture.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Assignment Overview
+
+- **Total Points**: 10 points
+- **Due Date**: March 8, 2026
+- **Submission**: Upload your completed .qmd (no need to submit the rendered HTML file)
+
+## Learning Objectives
+
+This assignment assesses your ability to:
+
+- Construct and interpret contingency tables (crosstabulation)
+- Conduct a chi-square test and interpret results
+- Calculate and interpret Pearson and Spearman correlation coefficients
+- Create appropriate visualizations for bivariate relationships
+- Choose the correct statistical method based on variable types
+
+## Instructions
+
+1. Complete all 3 tasks below
+2. Fill in the blanks (replace `___` with appropriate code or values)
+3. After completing each code chunk, change `#| eval: false` to `#| eval: true` to run it
+4. Answer all interpretation questions (1-2 sentences each)
+5. Run all code chunks to verify they work before submitting
+
+---
+
+# Grading Rubric
+
+| Task | Points | Breakdown |
+|------|--------|-----------|
+| Task 1: Crosstabulation | 4 | 1 coding + 1 percentages + 1 visualization + 1 interpretation |
+| Task 2: Pearson Correlation | 3 | 1 visualization + 1 coding + 1 interpretation |
+| Task 3: Spearman Correlation | 3 | 1 visualization + 1 coding + 1 interpretation |
+| **Total** | **10** | |
+
+**Interpretation Guidance**: Your interpretations should be brief but specific. For example:
+
+- **Good**: "The chi-square test shows a significant association between insurance type and readmission (χ² = 8.52, p = 0.014). Medicaid patients have the highest readmission rate (30%), suggesting they may need enhanced discharge planning."
+- **Too vague**: "The result is significant."
+
+---
+
+# Required Packages
+
+- Load the required packages using the code below:
+
+```{r}
+#| label: required-packages
+
+library(ggplot2)
+library(dplyr)
+```
+
+
+
+
+# Assignment Tasks
+
+## Task 1: Crosstabulation — Discharge Disposition and Readmission (4 points) {.unnumbered}
+
+A hospital quality team wants to know if there is an association between **discharge disposition** (Home, Skilled Nursing Facility, Rehabilitation Center) and **30-day readmission** (Yes, No). Understanding this relationship helps target post-discharge interventions.
+
+```{r}
+#| label: task1-data
+
+# Data Loading
+discharge_data <- read.csv("week08_assignment_data1.csv")
+head(discharge_data)
+```
+
+**Step 1 (Coding — 1 point)**: Create a contingency table and run a chi-square test.
+
+```{r}
+#| label: task1-chisq
+#| eval: false
+
+# Create contingency table
+discharge_table <- table(discharge_data$___, discharge_data$___)
+discharge_table
+
+# Run chi-square test
+chi_discharge <- chisq.test(___)
+
+# Check expected frequencies
+chi_discharge$___
+
+# Display test results
+chi_discharge
+```
+
+**Step 2 (Percentages — 1 point)**: Calculate row percentages to see readmission rates by disposition.
+
+```{r}
+#| label: task1-pct
+#| eval: false
+
+row_pct <- prop.table(___, margin = ___) * ___
+row_pct
+```
+
+**Step 3 (Visualization — 1 point)**: Create a grouped bar chart of readmission rates by disposition. (Hint: Use the `row_pct` result from Step 2)
+
+```{r}
+#| label: task1-plot
+#| eval: false
+
+plot_data <- as.data.frame(___)
+colnames(plot_data) <- c("disposition", "readmission", "percentage")
+
+ggplot(plot_data, aes(x = ___, y = ___, fill = ___)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8, width = 0.4) +
+  geom_text(aes(label = sprintf("%.1f%%", percentage)),
+            position = position_dodge(width = 0.4),
+            vjust = -0.5, size = 3.5) +
+  labs(title = "Readmission Rates by Discharge Disposition",
+       x = "Discharge Disposition",
+       y = "Percentage of Patients") +
+  theme_minimal() +
+  theme(legend.position = "top")
+```
+
+**Step 4 (Interpretation — 1 point)**:
+
+1. Are all expected frequencies ≥ 5? Is the chi-square test appropriate for this data?
+2. Is the association between discharge disposition and readmission statistically significant? Report the χ² value, df, and p-value.
+3. Which disposition type has the highest and lowest readmission rates? What does this suggest for care transition planning?
+
+::: {.callout-note icon=false title="Your Answer (1-2 sentences each)"}
+*[Write your answers here]*
+
+1. Question 1:
+
+
+2. Question 2:
+
+
+3. Question 3:
+
+
+:::
+
+---
+
+## Task 2: Pearson Correlation — Length of Stay and Total Charges (3 points) {.unnumbered}
+
+A hospital finance team wants to understand the relationship between **length of stay** (LOS, in days) and **total charges** (in thousands of dollars). Both variables are continuous, so Pearson correlation is appropriate. This analysis helps with budgeting and resource planning.
+
+```{r}
+#| label: task2-data
+
+# Data Loading
+finance_data <- read.csv("week08_assignment_data2.csv")
+head(finance_data)
+```
+
+**Step 1 (Visualization — 1 point)**: Create a scatterplot with a trend line.
+
+```{r}
+#| label: task2-plot
+#| eval: false
+
+ggplot(finance_data, aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.7, size = 3, color = "steelblue") +
+  geom_smooth(method = "___", se = TRUE, color = "red") +
+  labs(title = "Length of Stay vs. Total Charges",
+       x = "Length of Stay (days)",
+       y = "Total Charges ($1,000s)") +
+  theme_minimal()
+```
+
+**Step 2 (Coding — 1 point)**: Run a Pearson correlation test.
+
+```{r}
+#| label: task2-pearson
+#| eval: false
+
+with(finance_data, cor.test(___, ___, method = "___"))
+```
+
+**Step 3 (Interpretation — 1 point)**:
+
+1. What is the Pearson correlation coefficient (r)? What is the direction of the association, and how would you classify its strength (very weak, weak, moderate, strong, very strong)?
+2. Is the correlation statistically significant? Report the t-statistic and p-value.
+3. What does this relationship suggest for hospital financial planning?
+
+::: {.callout-note icon=false title="Your Answer (1-2 sentences each)"}
+*[Write your answers here]*
+
+1. Question 1:
+
+
+2. Question 2:
+
+
+3. Question 3:
+
+
+:::
+
+---
+
+## Task 3: Spearman Correlation — Triage Acuity and Time to Treatment (3 points) {.unnumbered}
+
+An emergency department manager wants to examine the relationship between **triage acuity level** (severity of illness) and **time to treatment** (the number of minutes from arrival to first clinical intervention). Triage acuity is measured using the Emergency Severity Index (ESI), a 5-level system used in emergency departments to prioritize patients: Level 1 (most acute, life-threatening) through Level 5 (non-urgent, least acute). Because ESI is an ordinal scale (the levels indicate rank order but the intervals between them are not necessarily equal), Spearman correlation is appropriate.
+
+**ESI Scale**: 1 = Resuscitation, 2 = Emergent, 3 = Urgent, 4 = Less Urgent, 5 = Non-urgent
+
+```{r}
+#| label: task3-data
+
+# Data Loading
+ed_triage_data <- read.csv("week08_assignment_data3.csv")
+head(ed_triage_data)
+```
+
+**Step 1 (Visualization — 1 point)**: Create a scatterplot (use jitter since acuity is discrete).
+
+```{r}
+#| label: task3-plot
+#| eval: false
+
+ggplot(ed_triage_data, aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.6, size = 3,
+             position = position_jitter(width = 0.15, height = 0)) +
+  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  scale_x_continuous(breaks = 1:5) +
+  labs(title = "Time to Treatment by Triage Acuity Level",
+       x = "Triage Acuity Level (1 = Most Acute, 5 = Non-urgent)",
+       y = "Time to Treatment (minutes)") +
+  theme_minimal()
+```
+
+**Step 2 (Coding — 1 point)**: Run a Spearman correlation test.
+
+```{r}
+#| label: task3-spearman
+#| eval: false
+
+with(ed_triage_data, cor.test(___, ___, method = "___"))
+```
+
+**Step 3 (Interpretation — 1 point)**:
+
+1. What is the Spearman correlation coefficient (ρ)? Is it positive or negative? Explain why the direction makes clinical sense.
+2. Is the correlation statistically significant? Report the p-value.
+3. Why is Spearman more appropriate than Pearson for this data? (Hint: think about the measurement scale of acuity)
+
+::: {.callout-note icon=false title="Your Answer (1-2 sentences each)"}
+*[Write your answers here]*
+
+1. Question 1:
+
+
+2. Question 2:
+
+
+3. Question 3:
+
+
+:::
+
+---
+
+# Submission Checklist
+
+Before submitting, verify:
+
+- [ ] All 3 tasks are completed
+- [ ] All blanks (`___`) are filled in with appropriate values
+- [ ] All `#| eval: false` changed to `#| eval: true`
+- [ ] All code chunks run without errors
+- [ ] All interpretation questions are answered (1-2 sentences each)
+- [ ] Visualizations have appropriate titles and axis labels
+- [ ] File renders to HTML successfully
+
+---
+
+# Points Summary
+
+| Task | Points | Topic | Method |
+|------|--------|-------|--------|
+| Task 1 | 4.0 | Discharge disposition & readmission | Crosstabulation (Chi-Square) |
+| Task 2 | 3.0 | Length of stay & total charges | Pearson Correlation |
+| Task 3 | 3.0 | Triage acuity & time to treatment | Spearman Correlation |
+| **Total** | **10.0** | | |
+
+---
+
+**Good luck!**
