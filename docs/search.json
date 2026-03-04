@@ -1282,7 +1282,7 @@
     "href": "lectures/Lecture08/Slide08.html#choosing-the-right-design-complete-picture",
     "title": "Bivariate Relationships:",
     "section": "Choosing the Right Design: Complete Picture",
-    "text": "Choosing the Right Design: Complete Picture\n\n\n\nIV Type\nDV Type\nTest\nWeek\n\n\n\n\nCategorical (2 groups)\nContinuous\nt-test\n5\n\n\nCategorical (3+ groups)\nContinuous\nANOVA\n6\n\n\nCategorical (2 factors)\nContinuous\nANOVA\n7\n\n\nCategorical\nCategorical\nChi-square\n8\n\n\nContinuous\nContinuous\nPearson correlation\n8\n\n\nOrdinal\nOrdinal\nSpearman correlation\n8"
+    "text": "Choosing the Right Design: Complete Picture\n\n\n\n\n\n\n\n\n\nIV Type\nDV Type\nTest\nWeek\n\n\n\n\nCategorical (2 groups)\nContinuous\nt-test\n5\n\n\nCategorical (3+ groups)\nContinuous\nANOVA\n6\n\n\nCategorical (2 factors)\nContinuous\nANOVA\n7\n\n\nCategorical\nCategorical\nChi-square\n8\n\n\nContinuous\nContinuous\nPearson correlation\n8\n\n\nOrdinal\nOrdinal\nSpearman correlation\n8"
   },
   {
     "objectID": "lectures/Lecture08/Slide08.html#assignments",

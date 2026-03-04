@@ -35,15 +35,14 @@ set.seed(2026)
 
 In Weeks 5 and 6, we learned mean comparison methods, which examine bivariate relationships between a **categorical** independent variable and a **continuous** dependent variable:
 
-::: {.incremental}
-- **Independent-samples t-test** (Week 5): Compare means across **2** groups
-- **One-way ANOVA** (Week 6): Compare means across **3+** groups
+::: incremental
+-   **Independent-samples t-test** (Week 5): Compare means across **2** groups
+-   **One-way ANOVA** (Week 6): Compare means across **3+** groups
 :::
 
 . . .
 
-<br>
-But what about other combinations of variable types?
+<br> But what about other combinations of variable types?
 
 ## This Week's New Questions
 
@@ -63,40 +62,38 @@ This week, we extend our toolkit to two new types of bivariate relationships:
 
 **Crosstabulation** answers questions like:
 
-::: {.incremental}
-- Is there an association between **insurance type** (Medicare, Medicaid, Private, Uninsured) and **readmission status** (Yes/No)?
-- Is **surgical approach** (Open, Laparoscopic, Robotic) associated with **complication occurrence** (Yes/No)?
+::: incremental
+-   Is there an association between **insurance type** (Medicare, Medicaid, Private, Uninsured) and **readmission status** (Yes/No)?
+-   Is **surgical approach** (Open, Laparoscopic, Robotic) associated with **complication occurrence** (Yes/No)?
 :::
 
 . . .
 
-<br>
-**Correlation** answers questions like:
+<br> **Correlation** answers questions like:
 
-::: {.incremental}
-- As **nurse staffing** (nurses per patient) increases, does **patient satisfaction** (1–10 rating) change?
-- Is **ED wait time** (minutes) related to **satisfaction ratings** (1–5 scale)?
+::: incremental
+-   As **nurse staffing** (nurses per patient) increases, does **patient satisfaction** (1–10 rating) change?
+-   Is **ED wait time** (minutes) related to **satisfaction ratings** (1–5 scale)?
 :::
 
 ## Today's Learning Goals
 
 By the end of this lecture, you will be able to:
 
-::: {.incremental}
-1. **Construct** and interpret contingency tables (crosstabs)
-2. **Conduct** chi-square tests in R 
-3. **Conduct** Pearson and Spearman correlation tests in R
-4. **Visualize** bivariate relationships 
+::: incremental
+1.  **Construct** and interpret contingency tables (crosstabs)
+2.  **Conduct** chi-square tests in R
+3.  **Conduct** Pearson and Spearman correlation tests in R
+4.  **Visualize** bivariate relationships
 :::
 
 ## Choosing the Right Method
 
 | Variable Types | Method | R Function |
-|:---:|:---:|:---:|
+|:----------------------:|:----------------------:|:----------------------:|
 | Categorical × Categorical | **Chi-square test** | `chisq.test()` |
 | Continuous × Continuous | **Pearson correlation** | `cor.test(..., method="pearson")` |
 | Ordinal × Ordinal | **Spearman correlation** | `cor.test(..., method="spearman")` |
-
 
 # Part 1: Crosstabulation {background-color="#40666e"}
 
@@ -106,18 +103,16 @@ By the end of this lecture, you will be able to:
 
 . . .
 
-<br>
-The **chi-square test of independence** compares:
+<br> The **chi-square test of independence** compares:
 
-::: {.incremental}
-- **Observed frequencies**: What we actually see in the data
-- **Expected frequencies**: What we would see if the variables were independent
+::: incremental
+-   **Observed frequencies**: What we actually see in the data
+-   **Expected frequencies**: What we would see if the variables were independent
 :::
 
 . . .
 
-<br>
-A large discrepancy between observed and expected → evidence of association.
+<br> A large discrepancy between observed and expected → evidence of association.
 
 ## The Chi-Square Formula
 
@@ -133,18 +128,18 @@ $$E_{ij} = \frac{(\text{Row Total}_i) \times (\text{Column Total}_j)}{\text{Gran
 
 <br>
 
-- **Larger χ²** → greater discrepancy → stronger evidence against independence
-- **p-value** tells us the probability of seeing such a large χ² if variables were truly independent
+-   **Larger χ²** → greater discrepancy → stronger evidence against independence
+-   **p-value** tells us the probability of seeing such a large χ² if variables were truly independent
 
 ## Example: Insurance × Appointment Status
 
 **Observed frequencies:**
 
-|              | No-show | Attended | **Row Total** |
-|:-------------|:-------:|:--------:|:-------------:|
-| Medicare     |   15    |    35    |     **50**    |
-| Private      |   25    |    25    |     **50**    |
-| **Col Total**|  **40** |  **60** |    **100**    |
+|               | No-show | Attended | **Row Total** |
+|:--------------|:-------:|:--------:|:-------------:|
+| Medicare      |   15    |    35    |    **50**     |
+| Private       |   25    |    25    |    **50**     |
+| **Col Total** | **40**  |  **60**  |    **100**    |
 
 . . .
 
@@ -166,15 +161,13 @@ For the chi-square test to be valid:
 
 . . .
 
-- Each cell in the contingency table should have an **expected frequency of at least 5**.
+-   Each cell in the contingency table should have an **expected frequency of at least 5**.
 
 . . .
 
-<br>
-When this assumption is violated → use **Fisher's exact test** instead.
+<br> When this assumption is violated → use **Fisher's exact test** instead.
 
-- See the lecture notes for more details
-
+-   See the lecture notes for more details
 
 ## Scenario: Insurance Type and Readmission
 
@@ -182,23 +175,21 @@ A hospital quality improvement team examines whether **insurance type** (Medicar
 
 . . .
 
-<br>
-**Why This Matters:**
+<br> **Why This Matters:**
 
-::: {.incremental}
-- Under HRRP (Hospital Readmissions Reduction Program), Medicare penalizes hospitals with excess readmissions (up to **3% of payments**)
-- Readmission rates are key quality indicators
-- Disparities by insurance type may reveal health equity issues
+::: incremental
+-   Under HRRP (Hospital Readmissions Reduction Program), Medicare penalizes hospitals with excess readmissions (up to **3% of payments**)
+-   Readmission rates are key quality indicators
+-   Disparities by insurance type may reveal health equity issues
 :::
 
 . . .
 
-<br>
-**Data**: 300 cardiology unit patients over the past year.
+<br> **Data**: 300 cardiology unit patients over the past year.
 
 ## Loading the Data
 
-Let's load the dataset and required packages using the code below: 
+Let's load the dataset and required packages using the code below:
 
 ```{r}
 #| label: crosstab-data
@@ -212,10 +203,9 @@ readmission_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26
 head(readmission_data)
 ```
 
-
 ## Creating the Contingency Table
 
-- We can get the contingency table using the `table()` function:
+-   We can get the contingency table using the `table()` function:
 
 ```{r}
 #| label: crosstab-table
@@ -226,9 +216,9 @@ table(readmission_data$insurance, readmission_data$readmission)
 
 ## Rowwise and Columnwise Percentages
 
-- We can get the rowwise or columnwise percentages using the `prop.table()` function:
-  - `margin = 1` for rowwise percentages
-  - `margin = 2` for columnwise percentages
+-   We can get the rowwise or columnwise percentages using the `prop.table()` function:
+    -   `margin = 1` for rowwise percentages
+    -   `margin = 2` for columnwise percentages
 
 ```{r}
 #| label: crosstab-pct
@@ -237,7 +227,6 @@ table(readmission_data$insurance, readmission_data$readmission)
 prop.table(table(readmission_data$insurance, readmission_data$readmission),
            margin = 1) * 100
 ```
-
 
 ## Visualizing the Association
 
@@ -269,16 +258,15 @@ ggplot(plot_data, aes(x = insurance, y = percentage, fill = readmission)) +
   ylim(0, 100)
 ```
 
-
 ## Null and Alternative Hypotheses
 
-- **H₀**: Insurance type and readmission status are **independent** 
-- **Hₐ**: Insurance type and readmission status are **not independent** 
+-   **H₀**: Insurance type and readmission status are **independent**
+-   **Hₐ**: Insurance type and readmission status are **not independent**
 
 ## Conducting the Chi-Square Test
 
-- We can get the chi-square test results using the `chisq.test()` function
-- Inside the function, we need to provide **the contingency table** of the two variables
+-   We can get the chi-square test results using the `chisq.test()` function
+-   Inside the function, we need to provide **the contingency table** of the two variables
 
 ```{r}
 #| label: chisq-test
@@ -290,8 +278,8 @@ chi_result
 
 ## Checking Expected Frequencies
 
-- To check the expected frequencies, we can use the `$expected` attribute of the chi-square test result
-- These expected frequencies are calculated under the assumption of independence (under the null hypothesis H₀)
+-   To check the expected frequencies, we can use the `$expected` attribute of the chi-square test result
+-   These expected frequencies are calculated under the assumption of independence (under the null hypothesis H₀)
 
 ```{r}
 #| label: expected-freq
@@ -302,32 +290,30 @@ chi_result$expected
 
 ## Interpreting the Results
 
-::: {.incremental}
-- **χ²** = `r round(chi_result$statistic, 3)`: Measures overall discrepancy between observed and expected
-- **df** = `r chi_result$parameter`: (rows - 1) × (cols - 1) = (3-1) × (2-1) = 2
-- **p-value** = `r format(chi_result$p.value, digits = 3)`: Probability of this χ² or more extreme results if the null hypothesis were true (i.e., if insurance type and readmission status were independent)
+::: incremental
+-   **χ²** = `r round(chi_result$statistic, 3)`: Measures overall discrepancy between observed and expected
+-   **df** = `r chi_result$parameter`: (rows - 1) × (cols - 1) = (3-1) × (2-1) = 2
+-   **p-value** = `r format(chi_result$p.value, digits = 3)`: Probability of this χ² or more extreme results if the null hypothesis were true (i.e., if insurance type and readmission status were independent)
 :::
 
 . . .
 
-<br>
-Since p `r ifelse(chi_result$p.value < 0.05, "< 0.05", "≥ 0.05")`, there **is** a statistically significant association between insurance type and readmission status.
+<br> Since p `r ifelse(chi_result$p.value < 0.05, "< 0.05", "≥ 0.05")`, there **is** a statistically significant association between insurance type and readmission status.
 
-- Readmission rates are significantly different depending on insurance type (Medicare > Medicaid > Private)
+-   Readmission rates are significantly different depending on insurance type (Medicare \> Medicaid \> Private)
 
 ## Clinical Implications
 
-::: {.incremental}
-- **Targeted discharge planning**: Medicaid/Medicare patients may benefit from enhanced follow-up
-- **Resource allocation**: Focus quality improvement efforts on high-risk patient groups
-- **Health equity**: Disparities may reflect social determinants of health
-- **Financial strategy**: Understanding patterns of readmission by insurance type helps focus HRRP interventions
+::: incremental
+-   **Targeted discharge planning**: Medicaid/Medicare patients may benefit from enhanced follow-up
+-   **Resource allocation**: Focus quality improvement efforts on high-risk patient groups
+-   **Health equity**: Disparities may reflect social determinants of health
+-   **Financial strategy**: Understanding patterns of readmission by insurance type helps focus HRRP interventions
 :::
-
 
 ## When Expected Frequencies Are Small
 
-When **any expected frequency < 5**, the chi-square approximation becomes unreliable. Use **Fisher's exact test** instead:
+When **any expected frequency \< 5**, the chi-square approximation becomes unreliable. Use **Fisher's exact test** instead:
 
 . . .
 
@@ -335,25 +321,24 @@ When **any expected frequency < 5**, the chi-square approximation becomes unreli
 
 **Decision Rule:**
 
-::: {.incremental}
-1. Run `chisq.test()` and check expected frequencies with `$expected`
-2. If **all expected frequencies ≥ 5** → report chi-square result
-3. If **any expected frequency < 5** → use `fisher.test()` for an exact p-value
+::: incremental
+1.  Run `chisq.test()` and check expected frequencies with `$expected`
+2.  If **all expected frequencies ≥ 5** → report chi-square result
+3.  If **any expected frequency \< 5** → use `fisher.test()` for an exact p-value
 :::
 
 . . .
 
-See the lecture notes for more detailed explanations and how to conduct Fisher's exact test in R. 
-
+See the lecture notes for more detailed explanations and how to conduct Fisher's exact test in R.
 
 ## Practice 1: Surgical Approach and Complications
 
-::: {.incremental}
-- Minimally invasive surgery (laparoscopic/robotic) uses small incisions, while open surgery requires a large incision. Minimally invasive approaches typically cost more but may reduce complications such as infection and longer recovery times.
+::: incremental
+-   Minimally invasive surgery (laparoscopic/robotic) uses small incisions, while open surgery requires a large incision. Minimally invasive approaches typically cost more but may reduce complications such as infection and longer recovery times.
 
-- A surgical department wants to know if **surgical approach** (Minimally Invasive vs. Open) is associated with **post-operative complications** (Yes vs. No).
+-   A surgical department wants to know if **surgical approach** (Minimally Invasive vs. Open) is associated with **post-operative complications** (Yes vs. No).
 
-- Use crosstabulation and the chi-square test to determine whether surgical approach and complications are significantly associated.
+-   Use crosstabulation and the chi-square test to determine whether surgical approach and complications are significantly associated.
 :::
 
 ## Practice 1: Data
@@ -366,7 +351,6 @@ Load the dataset using the code below.
 surgery_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_practice1_data.csv")
 head(surgery_data)
 ```
-
 
 ## Practice 1: Tasks (1/2)
 
@@ -408,12 +392,11 @@ chi_surgery$___
 chi_surgery
 ```
 
-**Questions**: 
+**Questions**:
 
-1. Are all expected frequencies ≥ 5? (Assumption check)
-2. Is the association significant? (Hypothesis testing)
-3. What do you conclude? (Interpretation)
-
+1.  Are all expected frequencies ≥ 5? (Assumption check)
+2.  Is the association significant? (Hypothesis testing)
+3.  What do you conclude? (Interpretation)
 
 # Part 2: Correlation Analysis {background-color="#40666e"}
 
@@ -423,17 +406,15 @@ chi_surgery
 
 . . .
 
-<br>
-It quantifies both the **direction** and **strength** of the relationship:
+<br> It quantifies both the **direction** and **strength** of the relationship:
 
-::: {.incremental}
-- **Positive correlation**: Both variables increase (or decrease) together
-- **Negative correlation**: One increases while the other decreases (or vice versa)
-- **No correlation**: No consistent pattern
+::: incremental
+-   **Positive correlation**: Both variables increase (or decrease) together
+-   **Negative correlation**: One increases while the other decreases (or vice versa)
+-   **No correlation**: No consistent pattern
 :::
 
 . . .
-
 
 ## The Correlation Coefficient
 
@@ -441,65 +422,60 @@ $$r = \frac{\sum(X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum(X_i - \bar{X})^2} \ti
 
 . . .
 
-![positive correlation](/images/image1.png){width="70%" fig-align="center"}
-
-
-## The Correlation Coefficient
-
-![negative correlation](/images/image2.png){width="70%" fig-align="center"}
-
+![positive correlation](./images/image1.png){width="70%" fig-align="center"}
 
 ## The Correlation Coefficient
 
-![no correlation](/images/image3.png){width="70%" fig-align="center"}
+![negative correlation](./images/image2.png){width="70%" fig-align="center"}
 
+## The Correlation Coefficient
+
+![no correlation](./images/image3.png){width="70%" fig-align="center"}
 
 ## The Correlation Coefficient Properties
 
-1. Ranges from **-1** to **+1**
-2. **Sign** indicates direction
-    - [**r > 0**: positive correlation]{style="font-size: 0.85em; margin-bottom: 0;"}
-    - [**r < 0**: negative correlation]{style="font-size: 0.85em; margin-bottom: 0;"}
-    - [**r = 0**: no linear relationship (null hypothesis)]{style="font-size: 0.85em; margin-bottom: 0;"}
-3. **Absolute value** indicates strength
+1.  Ranges from **-1** to **+1**
+2.  **Sign** indicates direction
+    -   [**r \> 0**: positive correlation]{style="font-size: 0.85em; margin-bottom: 0;"}
+    -   [**r \< 0**: negative correlation]{style="font-size: 0.85em; margin-bottom: 0;"}
+    -   [**r = 0**: no linear relationship (null hypothesis)]{style="font-size: 0.85em; margin-bottom: 0;"}
+3.  **Absolute value** indicates strength
 
 ::: {style="font-size: 0.85em;"}
-| \|r\| Range | Strength |
-|:---:|:---:|
+|     \|r\| Range     |     Strength      |
+|:-------------------:|:-----------------:|
 | \|0.00\| - \|0.19\| | Very weak or none |
-| \|0.20\| - \|0.39\| | Weak |
-| \|0.40\| - \|0.59\| | Moderate |
-| \|0.60\| - \|0.79\| | Strong |
-| \|0.80\| - \|1.00\| | Very strong |
+| \|0.20\| - \|0.39\| |       Weak        |
+| \|0.40\| - \|0.59\| |     Moderate      |
+| \|0.60\| - \|0.79\| |      Strong       |
+| \|0.80\| - \|1.00\| |    Very strong    |
 :::
 
 ## Pearson vs. Spearman
 
-:::: {.columns}
+::::: columns
 ::: {.column width="50%"}
 **Pearson Correlation**
 
-- Measures **linear** relationship
-- For **continuous** variables
-- Assumes normality
-- Sensitive to outliers
-
+-   Measures **linear** relationship
+-   For **continuous** variables
+-   Assumes normality
+-   Sensitive to outliers
 :::
+
 ::: {.column width="50%"}
 **Spearman Correlation**
 
-- Measures **monotonic** relationship
-- For **ordinal** variables
-- No normality assumption
-- Robust to outliers
-
+-   Measures **monotonic** relationship
+-   For **ordinal** variables
+-   No normality assumption
+-   Robust to outliers
 :::
-::::
+:::::
 
 ## Pearson vs. Spearman
 
-[![Pearson vs. Spearman](/images/image4.png){fig-align="center"}](https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient){target="_blank"}
-
+[![Pearson vs. Spearman](./images/image4.png){fig-align="center"}](https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient)
 
 # Pearson Correlation {background-color="#40666e"}
 
@@ -509,24 +485,21 @@ A hospital administrator examines whether **nursing hours per patient day** (NHP
 
 . . .
 
-<br>
-**Why This Matters:**
+<br> **Why This Matters:**
 
-::: {.incremental}
-- Nursing staff = 25-40% of hospital operating budgets
-- Each additional patient per nurse → ~7% increase in 30-day mortality
-- NHPPD typically ranges from 6-12 hours in acute care
+::: incremental
+-   Nursing staff = 25-40% of hospital operating budgets
+-   Each additional patient per nurse → \~7% increase in 30-day mortality
+-   NHPPD typically ranges from 6-12 hours in acute care
 :::
 
 . . .
 
-<br>
-**Data**: 50 nursing units across a health system.
-
+<br> **Data**: 50 nursing units across a health system.
 
 ## Loading the Data
 
-Let's load the data using the code below. 
+Let's load the data using the code below.
 
 ```{r}
 #| label: correlation-data
@@ -539,7 +512,6 @@ staffing_data |>
   select(nursing_hours, satisfaction) |>
   summary()
 ```
-
 
 ## Visualizing the Relationship
 
@@ -563,8 +535,8 @@ ggplot(staffing_data, aes(x = nursing_hours, y = satisfaction)) +
 
 ## Null vs. Alternative Hypotheses
 
-- **H₀**: There is no linear correlation between nursing hours and patient satisfaction (ρ = 0)
-- **Hₐ**: There is a linear correlation between nursing hours and patient satisfaction (ρ ≠ 0)
+-   **H₀**: There is no linear correlation between nursing hours and patient satisfaction (ρ = 0)
+-   **Hₐ**: There is a linear correlation between nursing hours and patient satisfaction (ρ ≠ 0)
 
 ## Conducting Pearson Correlation
 
@@ -579,26 +551,25 @@ pearson_result
 
 ## Interpreting the Results
 
-::: {.incremental}
-- **r** = `r round(pearson_result$estimate, 3)`: `r ifelse(abs(pearson_result$estimate) >= 0.6, "Strong", ifelse(abs(pearson_result$estimate) >= 0.4, "Moderate", "Weak"))` positive linear association
-- **t** = `r round(pearson_result$statistic, 3)`: Test statistic (how far r is from 0 in standard errors)
-- **df** = `r pearson_result$parameter` (n - 2 = `r nrow(staffing_data)` - 2)
-- **p-value** = `r format(pearson_result$p.value, digits = 3, scientific = TRUE)`: Statistically significant
+::: incremental
+-   **r** = `r round(pearson_result$estimate, 3)`: `r ifelse(abs(pearson_result$estimate) >= 0.6, "Strong", ifelse(abs(pearson_result$estimate) >= 0.4, "Moderate", "Weak"))` positive linear association
+-   **t** = `r round(pearson_result$statistic, 3)`: Test statistic (how far r is from 0 in standard errors)
+-   **df** = `r pearson_result$parameter` (n - 2 = `r nrow(staffing_data)` - 2)
+-   **p-value** = `r format(pearson_result$p.value, digits = 3, scientific = TRUE)`: Statistically significant
 :::
 
 . . .
 
 <br>
 
-- There is a statistically **significant positive** correlation between nurse staffing and patient satisfaction. 
-  - Units with **more** nursing hours per patient day tend to have **higher** satisfaction scores.
-
+-   There is a statistically **significant positive** correlation between nurse staffing and patient satisfaction.
+    -   Units with **more** nursing hours per patient day tend to have **higher** satisfaction scores.
 
 ## Practice 2: ED Wait Time and Satisfaction
 
-- An ED manager examines the relationship between **wait time** (minutes) and **patient satisfaction** (0-100).
+-   An ED manager examines the relationship between **wait time** (minutes) and **patient satisfaction** (0-100).
 
-- Load the dataset using the code below: 
+-   Load the dataset using the code below:
 
 ```{r}
 #| label: practice2-data
@@ -636,24 +607,21 @@ with(ed_data, cor.test(___, ___, method = "___"))
 
 **Questions**: What is the correlation coefficient? Is it significant? What direction?
 
-
 # Spearman Correlation {background-color="#40666e"}
 
 ## When to Use Spearman
 
 Use **Spearman rank correlation** when:
 
-::: {.incremental}
-1. Variables are **ordinal** (ranked data, not truly continuous)
-2. Data has **outliers** (Spearman uses ranks → less influenced)
-3. Relationship is **monotonic but not linear**
+::: incremental
+1.  Variables are **ordinal** (ranked data, not truly continuous)
+2.  Data has **outliers** (Spearman uses ranks → less influenced)
+3.  Relationship is **monotonic but not linear**
 :::
 
 . . .
 
-<br>
-Spearman converts raw values to **ranks**, then calculates Pearson correlation on the ranks.
-
+<br> Spearman converts raw values to **ranks**, then calculates Pearson correlation on the ranks.
 
 ## Scenario: Pain Level and Functional Mobility
 
@@ -663,17 +631,16 @@ An orthopedic rehab unit examines the relationship between **pain level** (0-10 
 
 <br>
 
-::: {.incremental}
-- Pain inhibits movement and physical therapy engagement
-- Pain level: **ordinal** (0-3: mild, 4-6: moderate, 7-10: severe)
-- Functional mobility: **ordinal** (1: dependent, 2: needs assistance, 3: moderate assistance, 4: modified independence, 5: complete independence)
-- **Data**: 40 patients, post-operative day 3 after total knee replacement
+::: incremental
+-   Pain inhibits movement and physical therapy engagement
+-   Pain level: **ordinal** (0-3: mild, 4-6: moderate, 7-10: severe)
+-   Functional mobility: **ordinal** (1: dependent, 2: needs assistance, 3: moderate assistance, 4: modified independence, 5: complete independence)
+-   **Data**: 40 patients, post-operative day 3 after total knee replacement
 :::
-
 
 ## Loading the Data
 
-Let's load the dataset using the code below: 
+Let's load the dataset using the code below:
 
 ```{r}
 #| label: spearman-data
@@ -684,7 +651,7 @@ head(pain_data, 5)
 
 ## Visualizing the Relationship
 
-- Let's visually inspect the relationship between pain level and functional mobility.
+-   Let's visually inspect the relationship between pain level and functional mobility.
 
 ```{r}
 #| label: spearman-viz
@@ -704,16 +671,14 @@ ggplot(pain_data, aes(x = pain_level, y = mobility_score)) +
   theme(plot.title = element_text(face = "bold"))
 ```
 
-
 ## Null vs. Alternative Hypotheses
 
-- **H₀**: There is no (monotonic) correlation between pain level and functional mobility (ρ = 0)
-- **Hₐ**: There is a (monotonic) correlation between pain level and functional mobility (ρ ≠ 0)
-
+-   **H₀**: There is no (monotonic) correlation between pain level and functional mobility (ρ = 0)
+-   **Hₐ**: There is a (monotonic) correlation between pain level and functional mobility (ρ ≠ 0)
 
 ## Conducting Spearman Correlation
 
-- Same as Pearson correlation, we can use the `cor.test()` function with `method = "spearman"` to calculate Spearman correlation.
+-   Same as Pearson correlation, we can use the `cor.test()` function with `method = "spearman"` to calculate Spearman correlation.
 
 ```{r}
 #| label: spearman-test
@@ -722,32 +687,29 @@ spearman_result <- with(pain_data, cor.test(pain_level, mobility_score, method =
 spearman_result
 ```
 
-
 ## Interpreting the Results
 
-::: {.incremental}
-- **ρ** = `r round(spearman_result$estimate, 3)`: `r ifelse(abs(spearman_result$estimate) >= 0.5, "Strong", ifelse(abs(spearman_result$estimate) >= 0.3, "Moderate", "Weak"))` negative monotonic association
-- As pain increases, mobility decreases
-- **p-value** = `r format(spearman_result$p.value, digits = 3, scientific = ifelse(spearman_result$p.value < 0.001, TRUE, FALSE))`: Statistically significant
+::: incremental
+-   **ρ** = `r round(spearman_result$estimate, 3)`: `r ifelse(abs(spearman_result$estimate) >= 0.5, "Strong", ifelse(abs(spearman_result$estimate) >= 0.3, "Moderate", "Weak"))` negative monotonic association
+-   As pain increases, mobility decreases
+-   **p-value** = `r format(spearman_result$p.value, digits = 3, scientific = ifelse(spearman_result$p.value < 0.001, TRUE, FALSE))`: Statistically significant
 :::
 
 . . .
 
 <br>
 
-- There is a statistically significant negative correlation between pain level and functional mobility (ρ = `r round(spearman_result$estimate, 3)`, p `r ifelse(spearman_result$p.value < 0.001, "< 0.001", paste("=", round(spearman_result$p.value, 3)))`). 
-- Higher pain levels are associated with lower functional mobility.
-  - Aggressive pain management may accelerate functional recovery and reduce length of stay.
-
-
+-   There is a statistically significant negative correlation between pain level and functional mobility (ρ = `r round(spearman_result$estimate, 3)`, p `r ifelse(spearman_result$p.value < 0.001, "< 0.001", paste("=", round(spearman_result$p.value, 3)))`).
+-   Higher pain levels are associated with lower functional mobility.
+    -   Aggressive pain management may accelerate functional recovery and reduce length of stay.
 
 ## Practice 3: Nursing Workload and Job Satisfaction
 
-- A nursing director examines the relationship between **perceived workload** and **job satisfaction** among 50 nurses.
-  - [**Perceived Workload**: 1 = very light, 2 = light, 3 = moderate, 4 = heavy, 5 = very heavy]{style="font-size: 0.85em;"}
-  - [**Job Satisfaction**: 1 = very dissatisfied, 2 = dissatisfied, 3 = neutral, 4 = satisfied, 5 = very satisfied]{style="font-size: 0.85em;"}
-- Both variables are **ordinal** (Likert scales) → use Spearman correlation
-- Test whether higher perceived workload is associated with lower job satisfaction.
+-   A nursing director examines the relationship between **perceived workload** and **job satisfaction** among 50 nurses.
+    -   [**Perceived Workload**: 1 = very light, 2 = light, 3 = moderate, 4 = heavy, 5 = very heavy]{style="font-size: 0.85em;"}
+    -   [**Job Satisfaction**: 1 = very dissatisfied, 2 = dissatisfied, 3 = neutral, 4 = satisfied, 5 = very satisfied]{style="font-size: 0.85em;"}
+-   Both variables are **ordinal** (Likert scales) → use Spearman correlation
+-   Test whether higher perceived workload is associated with lower job satisfaction.
 
 ## Practice 3: Data
 
@@ -790,7 +752,6 @@ with(workload_data, cor.test(___, ___, method = "___"))
 
 **Questions**: What is ρ? Is it significant? What does this result mean for nurse workload management?
 
-
 # Important Limitations {background-color="#40666e"}
 
 ## Correlation ≠ Causation
@@ -799,20 +760,16 @@ A significant correlation does **not** mean one variable causes the other.
 
 . . .
 
-<br>
-Always consider:
+<br> Always consider:
 
-::: {.incremental}
-- **Confounding variables**: A third variable causes both
-  - [e.g., Ice cream sales correlate with drowning deaths —> summer heat drives both]{style="font-size: 0.85em;"}
-- **Reverse causation**: The outcome influences the predictor
-  - [e.g., Hospitals with more specialists have sicker patients —> but sicker patients are *referred to* those hospitals]{style="font-size: 0.85em;"}
-- **Selection bias**: Sample selection creates artificial associations
-  - [e.g., ER-only surveys may show a correlation between flu severity and asthma —> because people with mild flu stay home unless they have asthma complications]{style="font-size: 0.85em;"}
+::: incremental
+-   **Confounding variables**: A third variable causes both
+    -   [e.g., Ice cream sales correlate with drowning deaths —\> summer heat drives both]{style="font-size: 0.85em;"}
+-   **Reverse causation**: The outcome influences the predictor
+    -   [e.g., Hospitals with more specialists have sicker patients —\> but sicker patients are *referred to* those hospitals]{style="font-size: 0.85em;"}
+-   **Selection bias**: Sample selection creates artificial associations
+    -   [e.g., ER-only surveys may show a correlation between flu severity and asthma —\> because people with mild flu stay home unless they have asthma complications]{style="font-size: 0.85em;"}
 :::
-
-
-
 
 ## Correlation Only Captures Linear Relationships
 
@@ -841,7 +798,6 @@ ggplot(nonlinear_data, aes(x = workload, y = performance)) +
 . . .
 
 A correlation coefficient of **zero** means no ***linear*** relationship. There could still be a strong non-linear pattern.
-
 
 ## Pearson is Sensitive to Outliers
 
@@ -893,102 +849,96 @@ p1 + p2
 
 A single outlier can create a **spurious** significant correlation. Always visualize your data!
 
-. . . 
+. . .
 
 **When outliers are present:**
 
-::: {.incremental}
-1. **Report Pearson with and without the outlier**: check if the result is robust
-2. **Use Spearman correlation**: ranks are less influenced by extreme values
+::: incremental
+1.  **Report Pearson with and without the outlier**: check if the result is robust
+2.  **Use Spearman correlation**: ranks are less influenced by extreme values
 :::
-
 
 # Summary {background-color="#40666e"}
 
 ## Key Takeaways: Method Selection
 
 | Variable Types | Method | R Function | Key Statistic |
-|:---:|:---:|:---:|:---:|
+|:----------------:|:----------------:|:----------------:|:----------------:|
 | Categorical × Categorical | Chi-square test | `chisq.test()` | χ² |
 | Continuous × Continuous | Pearson correlation | `cor.test(method="pearson")` | r |
 | Ordinal × Ordinal | Spearman correlation | `cor.test(method="spearman")` | ρ |
 
-
 ## Key Takeaways: Interpretation
 
-::: {.incremental}
-1. **Chi-square**: Compare observed vs. expected frequencies; p < 0.05 → significant association
-2. **Pearson r**: Ranges -1 to +1; measures direction and strength of **linear** relationship
-3. **Spearman ρ**: Ranges -1 to +1; measures **monotonic** relationship using ranks
-4. **Always remember**: Correlation ≠ Causation
+::: incremental
+1.  **Chi-square**: Compare observed vs. expected frequencies; p \< 0.05 → significant association
+2.  **Pearson r**: Ranges -1 to +1; measures direction and strength of **linear** relationship
+3.  **Spearman ρ**: Ranges -1 to +1; measures **monotonic** relationship using ranks
+4.  **Always remember**: Correlation ≠ Causation
 :::
-
 
 ## Choosing the Right Design: Complete Picture
 
-| IV Type | DV Type | Test | Week |
-|:---:|:---:|:---:|:---:|
-| Categorical (2 groups) | Continuous | t-test | 5 |
-| Categorical (3+ groups) | Continuous | ANOVA | 6 |
-| Categorical (2 factors) | Continuous | ANOVA | 7 |
-| **Categorical** | **Categorical** | **Chi-square** | **8** |
-| **Continuous** | **Continuous** | **Pearson correlation** | **8** |
-| **Ordinal** | **Ordinal** | **Spearman correlation** | **8** |
-
+|         IV Type         |     DV Type     |           Test           | Week  |
+|:-----------------------:|:---------------:|:------------------------:|:-----:|
+| Categorical (2 groups)  |   Continuous    |          t-test          |   5   |
+| Categorical (3+ groups) |   Continuous    |          ANOVA           |   6   |
+| Categorical (2 factors) |   Continuous    |          ANOVA           |   7   |
+|     **Categorical**     | **Categorical** |      **Chi-square**      | **8** |
+|     **Continuous**      | **Continuous**  | **Pearson correlation**  | **8** |
+|       **Ordinal**       |   **Ordinal**   | **Spearman correlation** | **8** |
 
 ## Assignments
 
-1. **Reflection**: Please share your thoughts on the lecture
-   - 3 interesting things
-   - 3 confusing things
-
-2. **Lab Assignment 4**: Crosstab and Correlation 
+1.  **Reflection**: Please share your thoughts on the lecture
+    -   3 interesting things
+    -   3 confusing things
+2.  **Lab Assignment 4**: Crosstab and Correlation
 
 Both are due by 11:59pm on Sunday, March 8.
 
 ## Next Week (3/11)
 
-::: {.incremental}
-- **No lecture**: mid-term exam day only
-- **Exam posted**: 12:00 AM on 3/11 (Wednesday) on Canvas (Week 9 page)
-  - Available until 11:59 PM of the day
-- **Office hours**: 6:00 - 7:00 PM via Zoom (use the office hours Zoom link). Feel free to join if you have any clarification questions.
+::: incremental
+-   **No lecture**: mid-term exam day only
+-   **Exam posted**: 12:00 AM on 3/11 (Wednesday) on Canvas (Week 9 page)
+    -   Available until 11:59 PM of the day
+-   **Office hours**: 6:00 - 7:00 PM via Zoom (use the office hours Zoom link). Feel free to join if you have any clarification questions.
 :::
 
 ## Mid-term Exam Details
 
-::: {.incremental}
-- **Format**: Quarto (.qmd) 
-  - Fill-in-the-blank code + interpretation questions (6 sections)
-- **Total Points**: 50 points | **Duration**: All day
-- **Policy**: Open-book, open-note (all course materials allowed)
-- **Submission**: Upload completed `.qmd` to Canvas (Exam 1 under Assignments)
-- **Coverage**: Weeks 1-8 (descriptive stats, visualization, t-test, ANOVA, crosstab, correlation)
+::: incremental
+-   **Format**: Quarto (.qmd)
+    -   Fill-in-the-blank code + interpretation questions (6 sections)
+-   **Total Points**: 50 points \| **Duration**: All day
+-   **Policy**: Open-book, open-note (all course materials allowed)
+-   **Submission**: Upload completed `.qmd` to Canvas (Exam 1 under Assignments)
+-   **Coverage**: Weeks 1-8 (descriptive stats, visualization, t-test, ANOVA, crosstab, correlation)
 :::
 
 ## Mid-term Exam: Grading & Expectations
 
-::: {.incremental}
-- **Grading breakdown**:
-  - [Code correctness (50%) | Completeness (30%) | Interpretation (20%)]{style="font-size: 0.85em;"}
-- **Interpretation expectations**: Reference specific statistics and connect to healthcare decisions
-  - [Good: "The p-value of 0.015 < 0.05, so we reject H₀. Satisfaction differs across departments, suggesting leadership should investigate why Emergency scores lowest."]{style="font-size: 0.8em;"}
-  - [Too vague: "The departments are different."]{style="font-size: 0.8em;"}
-- **Collaboration**: Individual work only. AI tools are permitted, but you must understand and write your own interpretations (i.e., do not copy and paste AI-generated answers)
+::: incremental
+-   **Grading breakdown**:
+    -   [Code correctness (50%) \| Completeness (30%) \| Interpretation (20%)]{style="font-size: 0.85em;"}
+-   **Interpretation expectations**: Reference specific statistics and connect to healthcare decisions
+    -   [Good: "The p-value of 0.015 \< 0.05, so we reject H₀. Satisfaction differs across departments, suggesting leadership should investigate why Emergency scores lowest."]{style="font-size: 0.8em;"}
+    -   [Too vague: "The departments are different."]{style="font-size: 0.8em;"}
+-   **Collaboration**: Individual work only. AI tools are permitted, but you must understand and write your own interpretations (i.e., do not copy and paste AI-generated answers)
 :::
-
 
 # References {background-color="#40666e"}
 
 ## Statistical Methods
 
-- Field, A., Miles, J., & Field, Z. (2012). *Discovering Statistics Using R*. SAGE Publications.
-- [Navarro, D. (2019). *Learning Statistics with R*.](https://learningstatisticswithr.com/lsr-0.6.pdf){target="_blank"}
-- Wickham, H., & Grolemund, G. (2017). *R for Data Science*. O'Reilly Media.
+-   Field, A., Miles, J., & Field, Z. (2012). *Discovering Statistics Using R*. SAGE Publications.
+-   [Navarro, D. (2019). *Learning Statistics with R*.](https://learningstatisticswithr.com/lsr-0.6.pdf){target="_blank"}
+-   Wickham, H., & Grolemund, G. (2017). *R for Data Science*. O'Reilly Media.
 
 ## Healthcare Applications
 
-- Aiken, L. H., et al. (2002). Hospital nurse staffing and patient mortality. *JAMA*, 288(16), 1987-1993.
-- Joynt, K. E., & Jha, A. K. (2013). Characteristics of hospitals receiving penalties under HRRP. *JAMA*, 309(4), 342-343.
-- Kutney-Lee, A., et al. (2009). Nursing: A key to patient satisfaction. *Health Affairs*, 28(4), w669-w677.
-- Harikesavan, K., et al. (2018). Influence of early mobilization on pain and function following TKR. *J Clin Orthop Trauma*, 10(2), 340-344.
+-   Aiken, L. H., et al. (2002). Hospital nurse staffing and patient mortality. *JAMA*, 288(16), 1987-1993.
+-   Joynt, K. E., & Jha, A. K. (2013). Characteristics of hospitals receiving penalties under HRRP. *JAMA*, 309(4), 342-343.
+-   Kutney-Lee, A., et al. (2009). Nursing: A key to patient satisfaction. *Health Affairs*, 28(4), w669-w677.
+-   Harikesavan, K., et al. (2018). Influence of early mobilization on pain and function following TKR. *J Clin Orthop Trauma*, 10(2), 340-344.
