@@ -352,13 +352,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>discharge_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week08_assignment_data1.csv"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(discharge_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  X   x
-1 1  No
-2 2 Yes
-3 3 Yes
-4 4  No
-5 5  No
-6 6 Yes</code></pre>
+<pre><code>  X disposition readmission
+1 1         SNF         Yes
+2 2         SNF          No
+3 3        Home         Yes
+4 4        Home         Yes
+5 5         SNF          No
+6 6        Home          No</code></pre>
 </div>
 </div>
 <p><strong>Step 1 (Coding — 1 point)</strong>: Create a contingency table and run a chi-square test.</p>
