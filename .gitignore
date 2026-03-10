@@ -6,3 +6,9 @@
 /.quarto/
 
 **/*.quarto_ipynb
+
+# Answer key source files (keep local only, never push to GitHub)
+answer-keys/*.qmd
+answer-keys/_template-answer-key.qmd
+encrypt-answers.sh
+.staticrypt.json
