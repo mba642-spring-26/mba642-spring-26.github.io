@@ -1,0 +1,151 @@
+patient_id,age,department,insurance,care_pathway,los_days,satisfaction,total_charges,readmitted,pain_admission,pain_24hr,pain_discharge,staffing_ratio,acuity,wait_minutes
+1,75,Cardiology,Medicare,Coordinated,1.6,72,9264,No,8.5,7.9,6.3,0.46,3,75
+2,64,Primary Care,Commercial,Coordinated,1.5,59,8411,No,6.3,5.5,4.3,0.43,2,39
+3,65,Neurology,Medicaid,Coordinated,4.5,69,17165,No,6.1,4.8,4,0.47,4,33
+4,47,Cardiology,Medicaid,Coordinated,10.6,80,33856,No,5.3,3.7,2.5,0.59,3,42
+5,57,Primary Care,Medicaid,Standard,2.2,58,8987,Yes,7.4,5.9,4,0.49,2,87
+6,64,Cardiology,Commercial,Coordinated,7,74,24062,Yes,8.3,6.6,4.4,0.51,3,83
+7,34,Primary Care,Commercial,Standard,11.2,56,44116,No,5.1,3.5,2.9,0.45,1,95
+8,54,Neurology,Commercial,Standard,4.4,60,20110,No,5.8,4.5,3.9,0.52,1,86
+9,70,Neurology,Commercial,Standard,2.1,67,8069,No,5,4.1,2.7,0.44,3,47
+10,61,Primary Care,Medicaid,Standard,5.6,76,20078,No,7.5,6.5,4.8,0.6,1,115
+11,64,Oncology,Medicare,Standard,1.4,62,7461,No,6.4,5.6,4.8,0.22,4,62
+12,70,Oncology,Commercial,Coordinated,16.2,55,54012,No,5.8,4.1,1.8,0.43,4,42
+13,50,Neurology,Medicare,Coordinated,1.5,72,7756,No,7.8,7.7,6.4,0.66,4,25
+14,79,Primary Care,Medicaid,Standard,1.9,53,9192,No,8.3,7.3,5.5,0.53,4,47
+15,64,Cardiology,Commercial,Standard,3,78,11901,No,5.9,4.3,4.2,0.5,5,52
+16,91,Neurology,Medicare,Standard,3.4,61,16098,No,4.1,3.6,2.1,0.37,5,83
+17,62,Cardiology,Medicaid,Coordinated,2.2,78,9533,Yes,6,5.4,3.2,0.48,5,51
+18,54,Cardiology,Medicare,Coordinated,4.7,53,15609,No,8.1,7.1,5.8,0.57,3,45
+19,46,Primary Care,Medicaid,Coordinated,2.2,69,8470,Yes,5.6,4.9,2.9,0.53,2,72
+20,84,Oncology,Medicaid,Coordinated,3.7,82,13240,Yes,6.7,5.8,4.2,0.59,3,41
+21,71,Primary Care,Medicaid,Standard,3.7,73,14686,Yes,6.1,4.2,2.8,0.58,3,71
+22,50,Cardiology,Medicare,Standard,4.5,85,18079,No,7.4,6.7,5.3,0.45,1,42
+23,52,Oncology,Medicare,Standard,2.4,75,9797,No,6.7,6,5.8,0.32,2,55
+24,55,Primary Care,Commercial,Coordinated,8.3,78,35140,No,9.1,8.5,7.9,0.31,2,60
+25,41,Neurology,Medicaid,Coordinated,3.4,58,14003,Yes,5.9,5.2,3.8,0.52,2,84
+26,67,Cardiology,Commercial,Standard,1.1,72,6391,No,5.9,5.5,4.8,0.67,2,111
+27,82,Oncology,Commercial,Standard,2.2,70,9264,No,6.5,5.5,4.6,0.55,5,24
+28,57,Neurology,Commercial,Coordinated,2.9,55,12393,No,6.2,5.7,4.9,0.62,3,80
+29,44,Oncology,Commercial,Standard,3.5,55,13015,No,6.8,4.9,4,0.37,5,50
+30,52,Oncology,Medicare,Standard,4.9,64,19062,No,6.7,5.6,4.7,0.59,4,74
+31,74,Oncology,Medicaid,Standard,3.9,57,19917,No,6.9,5.4,4.7,0.4,2,80
+32,66,Oncology,Medicare,Coordinated,3.6,80,14651,No,5,4,2.9,0.56,3,58
+33,60,Neurology,Medicare,Standard,10.5,92,42395,No,6.3,6.1,4.9,0.68,1,85
+34,55,Neurology,Medicare,Coordinated,2.8,64,12196,No,5.3,4.7,3.9,0.36,1,92
+35,45,Primary Care,Medicare,Coordinated,3.7,76,17452,No,6.2,5.4,4.8,0.52,2,76
+36,69,Cardiology,Medicare,Standard,6.2,63,22255,No,7.1,5.7,4.4,0.41,3,63
+37,60,Cardiology,Medicare,Coordinated,1.2,56,6649,No,8.1,8,7,0.55,3,66
+38,84,Neurology,Medicaid,Standard,4.6,63,17753,No,4.7,4.2,3.4,0.49,3,63
+39,33,Oncology,Commercial,Coordinated,2.6,82,10652,No,6.5,6.2,3,0.39,4,28
+40,89,Primary Care,Commercial,Coordinated,3.5,83,12801,Yes,8.8,8,7.9,0.5,4,31
+41,72,Primary Care,Medicare,Coordinated,2.8,82,10273,Yes,7.4,6.6,4.9,0.48,4,49
+42,56,Primary Care,Commercial,Coordinated,2.9,83,12050,No,7.9,6.4,6.3,0.66,2,120
+43,69,Neurology,Medicare,Standard,4.7,67,22229,No,6.2,6.1,4.2,0.38,1,113
+44,80,Cardiology,Medicaid,Coordinated,3.6,66,16360,Yes,5.3,4.4,3.3,0.48,5,10
+45,59,Neurology,Medicare,Standard,6.1,59,26664,No,5.5,4.7,3.6,0.46,3,32
+46,56,Primary Care,Commercial,Coordinated,2,92,8702,No,6.6,5.6,4.7,0.64,5,35
+47,69,Primary Care,Commercial,Coordinated,16.1,71,51769,No,7.7,7.2,6.5,0.51,4,76
+48,62,Oncology,Medicare,Standard,8.5,68,35427,No,6.5,5.5,5,0.55,1,110
+49,73,Cardiology,Commercial,Standard,3.8,73,16043,Yes,6.9,5.6,4.9,0.5,3,61
+50,65,Primary Care,Commercial,Coordinated,1,69,6739,No,7,5.8,3.5,0.5,1,58
+51,50,Primary Care,Medicare,Standard,2.9,66,14815,Yes,7.4,6.5,5.6,0.51,3,38
+52,69,Primary Care,Medicare,Coordinated,3.8,79,13530,Yes,6.5,5.3,4.3,0.48,2,85
+53,46,Neurology,Medicaid,Standard,5.3,68,21492,No,8.3,6.9,6.4,0.54,1,82
+54,68,Cardiology,Medicare,Standard,1.7,63,7538,Yes,6.5,5.4,4.3,0.64,3,81
+55,60,Primary Care,Commercial,Standard,2.7,71,10373,No,7,5.6,3.9,0.59,3,90
+56,73,Primary Care,Medicare,Standard,3,65,14286,No,5.3,3.9,1.5,0.42,3,63
+57,52,Primary Care,Commercial,Coordinated,2.2,79,10927,No,6.6,6.4,5.5,0.52,1,108
+58,36,Oncology,Commercial,Standard,10.8,87,40006,No,7.5,6.7,4.9,0.83,4,75
+59,86,Primary Care,Commercial,Standard,6.9,81,29860,No,4.9,4.4,3,0.56,3,60
+60,68,Cardiology,Commercial,Standard,5.4,75,20606,No,8,6.8,5,0.56,4,72
+61,68,Oncology,Commercial,Coordinated,4.6,71,19240,Yes,6.9,5.7,4.2,0.42,3,53
+62,60,Cardiology,Commercial,Coordinated,8.5,81,29770,No,6.9,5.7,3.7,0.48,5,20
+63,82,Neurology,Commercial,Standard,1.7,54,8797,No,5.4,5.3,4.3,0.44,3,67
+64,67,Neurology,Commercial,Standard,2.8,64,10972,No,5.2,4.7,4,0.55,1,81
+65,51,Oncology,Medicare,Coordinated,3,66,15214,Yes,5.9,4.6,4.5,0.38,4,5
+66,71,Primary Care,Medicare,Coordinated,4.1,86,15729,No,6.3,5.5,2.9,0.48,4,81
+67,62,Neurology,Medicare,Coordinated,8.2,70,28714,No,8.9,8.8,8.3,0.46,4,52
+68,43,Cardiology,Medicare,Coordinated,1.8,80,9323,Yes,5,4.9,4,0.79,3,63
+69,74,Primary Care,Commercial,Coordinated,4.5,71,15525,No,6.8,6.1,5.3,0.67,5,40
+70,63,Neurology,Medicare,Coordinated,2.5,74,12691,No,8.4,6.5,6.4,0.57,2,92
+71,71,Oncology,Commercial,Coordinated,4,61,14047,No,8.2,7.7,6.4,0.49,3,61
+72,68,Primary Care,Commercial,Coordinated,2.1,90,9857,No,8.3,8.2,5.9,0.45,4,46
+73,40,Cardiology,Medicare,Standard,5.7,63,21204,No,7.7,6.4,5.3,0.56,3,55
+74,83,Oncology,Commercial,Coordinated,1.4,74,6596,No,3.4,2.6,1.1,0.55,3,44
+75,77,Primary Care,Medicaid,Standard,4.2,96,18643,Yes,6.9,5.3,3.1,0.52,5,31
+76,75,Oncology,Medicare,Coordinated,4.9,54,19036,No,2.6,1.8,0.5,0.29,4,73
+77,44,Oncology,Medicaid,Standard,4.2,63,17684,No,6,4.9,3.5,0.39,1,72
+78,74,Neurology,Commercial,Standard,1.6,61,9421,Yes,5.2,5.1,3.6,0.22,3,48
+79,59,Primary Care,Commercial,Coordinated,2.5,83,11333,No,6.2,4.3,3.6,0.76,2,94
+80,72,Oncology,Commercial,Coordinated,1.9,79,7995,No,6.8,5.4,4.5,0.28,3,73
+81,83,Cardiology,Commercial,Coordinated,3.4,63,15004,No,4.7,4,2.6,0.59,1,91
+82,90,Primary Care,Medicare,Standard,7.3,67,29312,No,3.6,1.9,0.5,0.5,2,89
+83,52,Cardiology,Medicare,Standard,5.5,81,17516,No,5.2,4.4,3.6,0.65,4,67
+84,54,Neurology,Medicare,Standard,3.9,52,16844,No,7.5,6.2,5.8,0.48,1,68
+85,71,Primary Care,Medicaid,Standard,8.1,69,32510,No,3.7,2.6,1.2,0.65,2,70
+86,52,Primary Care,Medicaid,Coordinated,5.1,76,24704,No,7.1,6.2,4.4,0.65,2,86
+87,65,Oncology,Medicaid,Coordinated,3.5,73,14673,Yes,6.2,4.7,1.9,0.56,3,63
+88,36,Cardiology,Commercial,Standard,4,66,15129,No,8.8,7.7,6.2,0.4,2,86
+89,66,Neurology,Medicaid,Coordinated,3.3,62,15365,No,5.4,5.3,3.9,0.32,3,33
+90,62,Primary Care,Commercial,Coordinated,7.6,70,30875,No,5.8,5,3.4,0.59,4,60
+91,57,Oncology,Medicare,Standard,5.6,53,19538,Yes,5,4.4,2.6,0.36,4,44
+92,44,Neurology,Commercial,Coordinated,4.1,78,19027,No,4.9,3.9,2.8,0.49,3,70
+93,48,Cardiology,Commercial,Standard,5.7,56,24215,No,5.1,3.1,1.7,0.43,4,42
+94,46,Cardiology,Medicare,Standard,3.8,70,13075,No,8.7,8,6.6,0.64,2,81
+95,86,Neurology,Commercial,Coordinated,2.8,56,13388,No,8,7.6,5,0.34,1,77
+96,38,Oncology,Medicare,Coordinated,2.8,82,12057,No,4.4,3.4,2.8,0.85,3,68
+97,68,Oncology,Medicare,Coordinated,4.8,80,17026,Yes,6,4.9,4.5,0.57,3,68
+98,75,Neurology,Commercial,Coordinated,2.8,73,11378,No,7.4,7,5.2,0.56,4,55
+99,58,Cardiology,Medicaid,Standard,2.2,56,10737,No,5.5,3.9,2.6,0.5,4,43
+100,61,Cardiology,Commercial,Coordinated,8.9,66,34045,Yes,8.9,8.4,5.6,0.46,3,100
+101,59,Neurology,Medicare,Standard,7.2,77,28012,No,9.5,9,8,0.47,4,37
+102,67,Neurology,Medicare,Coordinated,3.6,68,16811,No,9,8,7.9,0.49,3,60
+103,89,Cardiology,Medicaid,Standard,7,76,29995,No,7.1,7,6.8,0.46,4,85
+104,28,Oncology,Medicare,Coordinated,2,66,8015,No,8.7,8.6,7.1,0.53,3,73
+105,54,Cardiology,Medicaid,Standard,7,74,27303,Yes,5.5,4.2,2.4,0.43,3,68
+106,68,Primary Care,Medicare,Standard,1.2,66,7010,No,5.5,5.4,4.6,0.56,2,56
+107,79,Primary Care,Commercial,Standard,2.5,68,10189,No,6.4,6.3,5.8,0.43,1,83
+108,49,Neurology,Medicare,Standard,3.5,50,15677,No,5.9,4.7,2.9,0.51,5,6
+109,77,Neurology,Medicare,Coordinated,2,62,8163,No,5.7,5,4.4,0.46,3,74
+110,72,Primary Care,Medicare,Standard,2.6,66,10285,Yes,3.5,2.5,0.9,0.44,1,89
+111,71,Primary Care,Medicaid,Standard,9,64,32295,No,5.1,3.2,2.5,0.22,3,55
+112,53,Neurology,Medicaid,Coordinated,7.4,79,28487,Yes,6.9,6.3,5.1,0.37,5,49
+113,67,Oncology,Commercial,Standard,2.9,58,12327,No,5.4,5.3,4.2,0.41,4,42
+114,73,Oncology,Medicaid,Standard,2.7,78,11535,No,5.6,4.2,4.1,0.36,3,55
+115,79,Cardiology,Medicare,Coordinated,3.5,60,14053,No,2.6,1.7,0.5,0.38,4,41
+116,46,Oncology,Medicaid,Standard,4.7,73,19955,Yes,7.2,5.8,4.7,0.6,4,27
+117,51,Oncology,Medicare,Coordinated,6.9,81,23943,No,5,3.8,2.1,0.66,4,88
+118,69,Primary Care,Commercial,Coordinated,3.7,68,15944,No,9.1,8.6,7.5,0.4,3,24
+119,62,Cardiology,Commercial,Standard,1.9,77,10236,Yes,7,6.6,4.3,0.41,3,84
+120,70,Neurology,Medicaid,Coordinated,5,74,23670,No,8.5,7.5,6.9,0.49,2,75
+121,65,Primary Care,Commercial,Coordinated,2,70,10161,No,6.3,5.1,4.9,0.38,4,57
+122,76,Oncology,Commercial,Coordinated,4.4,49,15683,No,7.1,6.1,4.7,0.49,3,42
+123,50,Cardiology,Commercial,Standard,5.9,67,21103,No,6,5.4,4.6,0.58,1,66
+124,84,Neurology,Commercial,Standard,9,55,37757,No,2,1.1,0.5,0.41,3,36
+125,63,Cardiology,Medicare,Standard,2.6,76,11920,No,7.3,6.7,5.1,0.44,3,71
+126,85,Neurology,Medicaid,Standard,7.4,55,24251,No,6.5,5.2,3.3,0.32,4,24
+127,70,Oncology,Commercial,Coordinated,6.5,67,28656,No,4.8,2.9,1,0.54,4,25
+128,58,Primary Care,Medicaid,Coordinated,3.5,88,13907,No,3.8,2.5,1.7,0.51,3,78
+129,62,Neurology,Medicaid,Coordinated,3.8,83,16003,No,5,3.5,2.1,0.54,3,72
+130,59,Neurology,Commercial,Standard,3.4,69,16428,No,8.5,8.3,6.9,0.43,4,43
+131,56,Oncology,Medicare,Coordinated,5.8,82,22008,No,6,4.6,3.6,0.39,4,68
+132,72,Primary Care,Commercial,Coordinated,5.1,72,24081,No,7.7,6.1,3.9,0.47,3,55
+133,35,Oncology,Medicaid,Coordinated,6.8,58,23075,Yes,6.2,5.4,4.9,0.38,2,66
+134,57,Cardiology,Medicare,Coordinated,4.6,76,18629,Yes,6.7,6.2,5.4,0.47,5,17
+135,66,Oncology,Commercial,Coordinated,1.2,80,5933,No,5.8,4.9,3.3,0.47,3,57
+136,73,Primary Care,Medicaid,Coordinated,6.3,78,28654,No,7.7,5.5,4.5,0.77,3,22
+137,64,Oncology,Medicare,Coordinated,2.9,70,13965,No,7.8,7,6.4,0.61,2,76
+138,59,Neurology,Commercial,Standard,4,81,16541,No,6.6,4.9,3.7,0.38,3,57
+139,48,Neurology,Commercial,Standard,4,56,17803,No,7.1,7,5.4,0.51,4,78
+140,46,Oncology,Medicare,Standard,16.2,36,68990,No,7.7,7,4.8,0.37,3,64
+141,43,Neurology,Medicare,Coordinated,3.9,82,18307,No,6.8,5.7,5.4,0.66,3,44
+142,90,Cardiology,Commercial,Coordinated,3.9,71,16752,No,5.8,4.8,4.5,0.6,3,78
+143,57,Neurology,Medicare,Standard,3.8,61,17722,No,7.1,6.7,6.6,0.41,4,26
+144,79,Neurology,Commercial,Standard,5.5,63,21985,No,8.9,8.1,6,0.56,4,69
+145,63,Neurology,Medicare,Coordinated,2.9,71,13318,No,5.5,4.7,4.3,0.51,3,61
+146,49,Cardiology,Medicare,Coordinated,2.8,88,14453,No,8.7,7.5,7.1,0.63,4,32
+147,76,Neurology,Medicaid,Coordinated,2.3,86,12393,No,5.2,3.5,1.8,0.52,3,55
+148,79,Cardiology,Commercial,Coordinated,6.4,80,24570,No,6.6,5.1,3.2,0.6,3,59
+149,64,Neurology,Medicare,Standard,2.5,56,11845,Yes,7.8,7.5,6.6,0.5,2,85
+150,65,Cardiology,Commercial,Standard,4.2,81,14425,No,5,4.1,3,0.58,3,78
