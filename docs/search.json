@@ -7865,5 +7865,173 @@
     "title": "Lab Assignment 2: t-tests (Week 05)",
     "section": "",
     "text": "# Create data frame for visualization\nanxiety_viz &lt;- data.frame(\n  patient = rep(1:40, 2),\n  time = factor(rep(c(\"Before\", \"After\"), each = 40),\n                levels = c(\"Before\", \"After\")),\n  score = c(anxiety_pre, anxiety_post)\n)\n\n# Create spaghetti plot\nggplot(anxiety_viz, aes(x = time, y = score, group = patient)) +\n  geom_line(alpha = 0.3, color = \"gray30\") +\n  geom_point(aes(color = time), size = 2, alpha = 0.7) +\n  stat_summary(aes(group = 1), fun = mean, geom = \"line\",\n               linewidth = 2, color = \"red\") +\n  stat_summary(aes(group = 1), fun = mean, geom = \"point\",\n               size = 4, color = \"red\") +\n  labs(title = \"Patient Anxiety Scores Before and After MBSR Program\",\n       subtitle = \"Red line shows mean change\",\n       x = \"\",\n       y = \"Anxiety Score (0-10)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\nInterpretation Question: What does the red line (mean) tell you about the overall effect? Do all patients show the same pattern, or is there individual variability?\n\n\n\n\n\n\nNoteAnswer Key\n\n\n\nThe red line shows a clear downward trend in mean anxiety from before to after the MBSR program, confirming the overall effectiveness of the program. However, the individual gray lines reveal substantial variability (i.e., the reduction is not the same across individuals; some patients show little change or even a slight increase)."
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html",
+    "href": "lectures/Lecture09/exam1_questions.html",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "",
+    "text": "Total Points: 50 points\nDuration: 90 minutes\nPolicy: Open-book, open-note (all course materials allowed)\nSubmission: Upload your completed .qmd and rendered .html files to Canvas\n\n\n\n\nReplace “Your Name Here” in the YAML header with your name\nComplete all 6 sections below\nFill in the blanks (replace ___ with appropriate code or values)\nAfter completing each code chunk, change #| eval: false to #| eval: true to run it\nAnswer all interpretation questions (1-2 sentences each)\nRender the document to HTML and verify all outputs display correctly before submitting\n\n\n\n\nEach section uses the following weighting:\n\n\n\n\n\n\n\n\nComponent\nWeight\nDescription\n\n\n\n\nCode correctness\n50%\nCode runs without errors and produces correct output\n\n\nCompleteness\n30%\nAll blanks filled in; correct variables, arguments, and aesthetics used\n\n\nInterpretation\n20%\nBrief, specific 1-2 sentence response that references statistics and connects to a healthcare decision\n\n\n\nInterpretation Guidance:\n\nGood: “The p-value of 0.015 is less than 0.05, so we reject the null hypothesis. Patient satisfaction significantly differs across departments, suggesting leadership should investigate why Oncology scores lowest.”\nToo vague: “The departments are different.”\nToo long: [3+ sentences restating the obvious]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#instructions",
+    "href": "lectures/Lecture09/exam1_questions.html#instructions",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "",
+    "text": "Replace “Your Name Here” in the YAML header with your name\nComplete all 6 sections below\nFill in the blanks (replace ___ with appropriate code or values)\nAfter completing each code chunk, change #| eval: false to #| eval: true to run it\nAnswer all interpretation questions (1-2 sentences each)\nRender the document to HTML and verify all outputs display correctly before submitting"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#grading-rubric",
+    "href": "lectures/Lecture09/exam1_questions.html#grading-rubric",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "",
+    "text": "Each section uses the following weighting:\n\n\n\n\n\n\n\n\nComponent\nWeight\nDescription\n\n\n\n\nCode correctness\n50%\nCode runs without errors and produces correct output\n\n\nCompleteness\n30%\nAll blanks filled in; correct variables, arguments, and aesthetics used\n\n\nInterpretation\n20%\nBrief, specific 1-2 sentence response that references statistics and connects to a healthcare decision\n\n\n\nInterpretation Guidance:\n\nGood: “The p-value of 0.015 is less than 0.05, so we reject the null hypothesis. Patient satisfaction significantly differs across departments, suggesting leadership should investigate why Oncology scores lowest.”\nToo vague: “The departments are different.”\nToo long: [3+ sentences restating the obvious]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#crestview-medical-center-quality-improvement-study",
+    "href": "lectures/Lecture09/exam1_questions.html#crestview-medical-center-quality-improvement-study",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "2.1 Crestview Medical Center Quality Improvement Study",
+    "text": "2.1 Crestview Medical Center Quality Improvement Study\nCrestview Medical Center is a 250-bed community hospital that launched a system-wide quality improvement (QI) initiative to evaluate patient outcomes, operational efficiency, and care delivery models. The hospital collected data on 150 patients across four clinical departments over a 6-month period. Two care delivery models were compared: the existing Standard pathway and a newly piloted Coordinated pathway featuring multidisciplinary care teams.\nAs a healthcare analyst, you are asked to analyze this dataset to provide actionable insights to hospital leadership."
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#loading-the-data",
+    "href": "lectures/Lecture09/exam1_questions.html#loading-the-data",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "2.2 Loading the Data",
+    "text": "2.2 Loading the Data\nRun the code below to load required packages and the dataset.\n\n# Load required packages\nlibrary(tidyverse)\nlibrary(emmeans)\n\n# Load the exam dataset\nexam_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/exam1_data.csv\")\n\n# Preview the data\nhead(exam_data, 5)\n\n  patient_id age   department  insurance care_pathway los_days satisfaction\n1          1  75   Cardiology   Medicare  Coordinated      1.6           72\n2          2  64 Primary Care Commercial  Coordinated      1.5           59\n3          3  65    Neurology   Medicaid  Coordinated      4.5           69\n4          4  47   Cardiology   Medicaid  Coordinated     10.6           80\n5          5  57 Primary Care   Medicaid     Standard      2.2           58\n  total_charges readmitted pain_admission pain_24hr pain_discharge\n1          9264         No            8.5       7.9            6.3\n2          8411         No            6.3       5.5            4.3\n3         17165         No            6.1       4.8            4.0\n4         33856         No            5.3       3.7            2.5\n5          8987        Yes            7.4       5.9            4.0\n  staffing_ratio acuity wait_minutes\n1           0.46      3           75\n2           0.43      2           39\n3           0.47      4           33\n4           0.59      3           42\n5           0.49      2           87"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#data-dictionary",
+    "href": "lectures/Lecture09/exam1_questions.html#data-dictionary",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "2.3 Data Dictionary",
+    "text": "2.3 Data Dictionary\n\n\n\n\n\n\n\n\nVariable\nType\nDescription\n\n\n\n\npatient_id\nInteger\nUnique patient identifier\n\n\nage\nContinuous\nPatient age in years\n\n\ndepartment\nCategorical\nClinical department: Cardiology, Neurology, Oncology, Primary Care\n\n\ninsurance\nCategorical\nInsurance type: Commercial, Medicare, Medicaid\n\n\ncare_pathway\nCategorical\nCare delivery model: Standard, Coordinated\n\n\nlos_days\nContinuous\nLength of stay (days)\n\n\nsatisfaction\nContinuous\nPatient satisfaction score (1-100)\n\n\ntotal_charges\nContinuous\nTotal hospital charges (USD)\n\n\nreadmitted\nCategorical\n30-day readmission: Yes or No\n\n\npain_admission\nContinuous\nPain score at admission (0-10)\n\n\npain_24hr\nContinuous\nPain score at 24 hours after admission (0-10)\n\n\npain_discharge\nContinuous\nPain score at discharge (0-10)\n\n\nstaffing_ratio\nContinuous\nNurse-to-patient ratio during stay\n\n\nacuity\nInteger\nPatient acuity level (1 = low, 2 = mild, 3 = moderate, 4 = severe, 5 = critical)\n\n\nwait_minutes\nContinuous\nTime from check-in to initial assessment (minutes)"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-1a-variable-classification-2.5-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-1a-variable-classification-2.5-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 1a: Variable Classification (2.5 points)",
+    "text": "Task 1a: Variable Classification (2.5 points)\nClassify each of the following variables by its scale of measurement (nominal, ordinal, interval, or ratio).\n\n\n\n\n\n\nNoteYour Answers\n\n\n\n\n\n\nVariable\nScale of Measurement\n\n\n\n\ndepartment\n[your answer]\n\n\nacuity\n[your answer]\n\n\nsatisfaction\n[your answer]\n\n\ntotal_charges\n[your answer]\n\n\nreadmitted\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-1b-descriptive-statistics-1.5-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-1b-descriptive-statistics-1.5-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 1b: Descriptive Statistics (1.5 points)",
+    "text": "Task 1b: Descriptive Statistics (1.5 points)\nCompute the mean, median, standard deviation, minimum, and maximum for length of stay (los_days).\n\nexam_data |&gt;\n  summarize(\n    mean_los   = ___,\n    median_los = ___,\n    sd_los     = ___,\n    min_los    = ___,\n    max_los    = ___\n  )"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-1c-distribution-interpretation-3-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-1c-distribution-interpretation-3-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 1c: Distribution Interpretation (3 points)",
+    "text": "Task 1c: Distribution Interpretation (3 points)\n\n\n\n\n\n\nNoteYour Answers (1-2 sentences each)\n\n\n\n\nBased on the mean and median you computed in Task 1b, is the distribution of los_days approximately symmetric, right-skewed, or left-skewed? How do you know?\n\n[your answer]\n\nGiven the distribution shape, which measure of central tendency (mean or median) is more appropriate for summarizing the typical patient’s length of stay? Why?\n\n[your answer]\n\nA hospital planner asks “What is the typical length of stay I should plan for?” Using the appropriate measure from Q2 and its actual value from Task 1b, write a one-sentence recommendation.\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-2a-histogram-length-of-stay-distribution-2.5-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-2a-histogram-length-of-stay-distribution-2.5-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 2a: Histogram — Length of Stay Distribution (2.5 points)",
+    "text": "Task 2a: Histogram — Length of Stay Distribution (2.5 points)\nCreate a histogram of length of stay (los_days) using the ggplot2 package. Include appropriate axis labels and a title.\nHint: Since los_days is measured in days, a binwidth of 1 (one bin per day) is a reasonable starting point.\n\nggplot(exam_data, aes(x = ___)) +\n  geom_histogram(binwidth = ___, fill = \"steelblue\", color = \"white\", alpha = 0.8) +\n  labs(\n    title = \"___\",\n    x     = \"___\",\n    y     = \"Count\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences)\n\n\n\nDescribe the shape of the distribution shown in the histogram. Does it confirm your answer from Task 1c?\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-2b-boxplot-satisfaction-by-department-2.5-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-2b-boxplot-satisfaction-by-department-2.5-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 2b: Boxplot — Satisfaction by Department (2.5 points)",
+    "text": "Task 2b: Boxplot — Satisfaction by Department (2.5 points)\nCreate a grouped boxplot comparing satisfaction scores across the four departments. Use different fill colors for each department.\n\nggplot(exam_data, aes(x = ___, y = ___, fill = ___)) +\n  geom_boxplot(alpha = 0.7) +\n  labs(\n    title = \"___\",\n    x     = \"___\",\n    y     = \"___\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences)\n\n\n\nWhich department appears to have the highest median satisfaction score? Do you notice any notable differences or outliers across departments?\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-2c-bar-chart-insurance-type-distribution-2-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-2c-bar-chart-insurance-type-distribution-2-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 2c: Bar Chart — Insurance Type Distribution (2 points)",
+    "text": "Task 2c: Bar Chart — Insurance Type Distribution (2 points)\nCreate a bar chart showing the count of patients by insurance type. Add a descriptive title and axis labels.\n\nggplot(exam_data, aes(x = ___, fill = ___)) +\n  geom_bar(alpha = 0.8) +\n  labs(\n    title = \"___\",\n    x     = \"___\",\n    y     = \"Number of Patients\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-3a-one-sample-t-test-satisfaction-benchmark-3-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-3a-one-sample-t-test-satisfaction-benchmark-3-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 3a: One-Sample t-test — Satisfaction Benchmark (3 points)",
+    "text": "Task 3a: One-Sample t-test — Satisfaction Benchmark (3 points)\nThe national average patient satisfaction benchmark is 65 out of 100. Hospital leadership wants to know whether Crestview Medical Center’s mean satisfaction score differs significantly from this benchmark.\nStep 1: Compute the sample mean and standard deviation.\n\nexam_data |&gt;\n  summarize(\n    n        = n(),\n    mean_sat = round(mean(___), 2),\n    sd_sat   = round(sd(___), 2)\n  )\n\nStep 2: Perform the one-sample t-test against the benchmark value of 65.\n\nresult_benchmark &lt;- t.test(exam_data$___, mu = ___)\nresult_benchmark\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences each)\n\n\n\n\nState the null and alternative hypotheses for this test.\n\n[your answer]\n\nReport the t-statistic and p-value. Does Crestview’s mean satisfaction significantly differ from the national benchmark of 65? What does this mean for the hospital’s quality standing?\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-3b-independent-samples-t-test-satisfaction-by-care-pathway-4-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-3b-independent-samples-t-test-satisfaction-by-care-pathway-4-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 3b: Independent Samples t-test — Satisfaction by Care Pathway (4 points)",
+    "text": "Task 3b: Independent Samples t-test — Satisfaction by Care Pathway (4 points)\nCompare mean patient satisfaction between the Standard and Coordinated care pathways.\nStep 1: Compute descriptive statistics by group.\n\nexam_data |&gt;\n  group_by(___) |&gt;\n  summarize(\n    n        = n(),\n    mean_sat = round(mean(___), 2),\n    sd_sat   = round(sd(___), 2)\n  )\n\nStep 2: Perform the independent-samples t-test.\n\nresult_pathway &lt;- t.test(___ ~ ___, data = exam_data, var.equal = TRUE)\nresult_pathway\n\nStep 3: Visualize the comparison with a boxplot.\n\nggplot(exam_data, aes(x = ___, y = ___, fill = ___)) +\n  geom_boxplot(alpha = 0.7) +\n  labs(\n    title = \"___\",\n    x     = \"___\",\n    y     = \"___\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences each)\n\n\n\n\nState the null and alternative hypotheses for this test.\n\n[your answer]\n\nReport the t-statistic and p-value. Based on the p-value (α = 0.05), do you reject or fail to reject the null hypothesis? What does this result mean for the Coordinated care pathway initiative?\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-3c-paired-samples-t-test-pain-management-effectiveness-3-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-3c-paired-samples-t-test-pain-management-effectiveness-3-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 3c: Paired Samples t-test — Pain Management Effectiveness (3 points)",
+    "text": "Task 3c: Paired Samples t-test — Pain Management Effectiveness (3 points)\nAll 150 patients had their pain measured at admission (pain_admission) and at discharge (pain_discharge) using a 0-10 scale. Test whether there is a significant reduction in pain scores from admission to discharge.\nStep 1: Compute descriptive statistics for pain scores.\n\nexam_data |&gt;\n  summarize(\n    admission_mean  = round(mean(___), 2),\n    admission_sd    = round(sd(___), 2),\n    discharge_mean  = round(mean(___), 2),\n    discharge_sd    = round(sd(___), 2),\n    mean_reduction  = round(mean(___ - ___), 2)\n  )\n\nStep 2: Perform the paired-samples t-test.\n\nresult_pain &lt;- t.test(\n  exam_data$___,\n  exam_data$___,\n  paired = ___\n)\nresult_pain\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences each)\n\n\n\n\nWhy is a paired t-test (rather than independent) appropriate here?\n\n[your answer]\n\nReport the t-statistic and p-value. Is the pain reduction statistically significant? What does this mean for the hospital’s pain management protocol?\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-4a-one-way-anova-post-hoc-4-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-4a-one-way-anova-post-hoc-4-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 4a: One-Way ANOVA + Post-Hoc (4 points)",
+    "text": "Task 4a: One-Way ANOVA + Post-Hoc (4 points)\nTest whether mean patient satisfaction differs across the four clinical departments.\nStep 1: Compute group-level descriptive statistics.\n\nexam_data |&gt;\n  group_by(___) |&gt;\n  summarize(\n    n        = n(),\n    mean_sat = round(mean(___), 2),\n    sd_sat   = round(sd(___), 2)\n  )\n\nStep 2: Run the one-way ANOVA.\n\nanova_dept &lt;- aov(___ ~ ___, data = exam_data)\nsummary(anova_dept)\n\nStep 3: If the overall ANOVA is significant, conduct Tukey-adjusted post-hoc pairwise comparisons using emmeans() and pairs() to identify which departments differ.\n\nemm_dept &lt;- emmeans(___, ~ ___)\npairs(emm_dept, adjust = \"___\")\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences each)\n\n\n\n\nReport the F-statistic and p-value. Is there a statistically significant difference in satisfaction across departments?\n\n[your answer]\n\nBased on the post-hoc results, which specific department pair(s) differ significantly? What does this suggest for hospital leadership?\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-4b-two-way-anova-interaction-analysis-4-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-4b-two-way-anova-interaction-analysis-4-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 4b: Two-Way ANOVA — Interaction Analysis (4 points)",
+    "text": "Task 4b: Two-Way ANOVA — Interaction Analysis (4 points)\nTest whether the effect of care_pathway on satisfaction depends on department (i.e., is there a significant interaction?).\nStep 1: Run the two-way ANOVA with an interaction term.\n\nanova_interaction &lt;- aov(___ ~ ___ * ___, data = exam_data)\nsummary(anova_interaction)\n\nStep 2: Compute group means and visualize the interaction with a grouped means plot.\n\ninteraction_means &lt;- exam_data |&gt;\n  group_by(___, ___) |&gt;\n  summarize(mean_sat = mean(___), .groups = \"drop\")\n\nggplot(interaction_means, aes(x = ___, y = ___, color = ___, group = ___)) +\n  geom_line(linewidth = 1) +\n  geom_point(size = 3) +\n  labs(\n    title = \"___\",\n    x     = \"___\",\n    y     = \"___\",\n    color = \"___\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences each)\n\n\n\n\nIs the interaction between care_pathway and department statistically significant? Report the p-value.\n\n[your answer]\n\nBased on the interaction result and the plot, should the hospital roll out the Coordinated care pathway uniformly across all departments, or should the implementation be department-specific? Explain your reasoning.\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-4c-repeated-measures-anova-pain-trajectory-over-time-3-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-4c-repeated-measures-anova-pain-trajectory-over-time-3-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 4c: Repeated-Measures ANOVA — Pain Trajectory Over Time (3 points)",
+    "text": "Task 4c: Repeated-Measures ANOVA — Pain Trajectory Over Time (3 points)\nPatients had their pain measured at three time points: admission, 24 hours, and discharge. Use a repeated-measures ANOVA to test whether pain scores differ significantly across these time points.\nStep 1: Reshape the data from wide to long format.\nRun the code below to reshape the pain scores into long format (one row per patient per time point).\n\npain_long &lt;- exam_data |&gt;\n  select(patient_id, pain_admission, pain_24hr, pain_discharge) |&gt;\n  pivot_longer(\n    cols      = starts_with(\"pain\"),\n    names_to  = \"timepoint\",\n    values_to = \"pain_score\",\n    names_prefix = \"pain_\"\n  ) |&gt;\n  mutate(\n    timepoint  = factor(timepoint, levels = c(\"admission\", \"24hr\", \"discharge\")),\n    patient_id = factor(patient_id)\n  )\n\n# Check the reshaped data\nhead(pain_long, 6)\n\nStep 2: Run the repeated-measures ANOVA.\n\naov_pain &lt;- aov(pain_score ~ ___ + Error(___ / ___), data = pain_long)\nsummary(aov_pain)\n\nStep 3: Conduct Tukey-adjusted post-hoc pairwise comparisons to identify which time points differ.\n\nemm_pain &lt;- emmeans(___, ~ ___)\npairs(emm_pain, adjust = \"___\")\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences each)\n\n\n\n\nReport the F-statistic and p-value for the effect of timepoint. Is there a significant difference in pain scores across the three time points?\n\n[your answer]\n\nBased on the post-hoc comparisons, are all transitions statistically significant? What does this suggest about the hospital’s pain management program across the entire stay?\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-5a-contingency-table-2.5-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-5a-contingency-table-2.5-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 5a: Contingency Table (2.5 points)",
+    "text": "Task 5a: Contingency Table (2.5 points)\nCreate a contingency table of insurance type × readmitted status and compute row proportions.\n\n# Create the contingency table\ninsurance_table &lt;- table(exam_data$___, exam_data$___)\ninsurance_table\n\n# Row proportions (readmission rates by insurance group)\n# Hint: margin = 1 means row proportions, margin = 2 means column proportions\nround(prop.table(insurance_table, margin = ___) * 100, 1)"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-5b-chi-square-test-2.5-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-5b-chi-square-test-2.5-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 5b: Chi-Square Test (2.5 points)",
+    "text": "Task 5b: Chi-Square Test (2.5 points)\nRun the chi-square test and verify the expected frequency assumption.\n\n# Run chi-square test\nchi_result &lt;- chisq.test(___)\nchi_result\n\n# Check expected frequencies (all should be &gt;= 5 for chi-square to be valid)\n# Hint: Access a stored component of chi_result using $\nchi_result$___"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-5c-interpretation-2-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-5c-interpretation-2-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 5c: Interpretation (2 points)",
+    "text": "Task 5c: Interpretation (2 points)\n\n\n\n\n\n\nNoteYour Answers (1-2 sentences each)\n\n\n\n\nAre all expected frequencies ≥ 5? Is the chi-square test valid for this data?\n\n[your answer]\n\nReport the chi-square statistic and p-value. Is there a significant association between insurance type and readmission?\n\n[your answer]\n\nWhich insurance group has the highest readmission rate? Why might this disparity be a concern for hospital leadership?\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-6a-pearson-correlation-staffing-and-satisfaction-3.5-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-6a-pearson-correlation-staffing-and-satisfaction-3.5-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 6a: Pearson Correlation — Staffing and Satisfaction (3.5 points)",
+    "text": "Task 6a: Pearson Correlation — Staffing and Satisfaction (3.5 points)\nExamine the linear relationship between nurse-to-patient staffing ratio and patient satisfaction.\nStep 1: Create a scatterplot with a linear trend line.\n\nggplot(exam_data, aes(x = ___, y = ___)) +\n  geom_point(alpha = 0.6, size = 2, color = \"steelblue\") +\n  geom_smooth(method = \"___\", se = TRUE, color = \"red\") +\n  labs(\n    title = \"___\",\n    x     = \"___\",\n    y     = \"___\"\n  ) +\n  theme_minimal()\n\nStep 2: Run the Pearson correlation test.\n\ncor.test(exam_data$___, exam_data$___, method = \"___\")\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences each)\n\n\n\n\nReport the Pearson correlation coefficient (r). What is the direction (positive/negative) of the relationship?\n\n[your answer]\n\nIs the correlation statistically significant? What does this relationship suggest for the chief nursing officer’s staffing decisions?\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-6b-spearman-correlation-acuity-and-wait-time-3.5-points",
+    "href": "lectures/Lecture09/exam1_questions.html#task-6b-spearman-correlation-acuity-and-wait-time-3.5-points",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 6b: Spearman Correlation — Acuity and Wait Time (3.5 points)",
+    "text": "Task 6b: Spearman Correlation — Acuity and Wait Time (3.5 points)\nExamine the monotonic relationship between patient acuity (1=low, 2=mild, 3=moderate, 4=severe, 5=critical) and wait time from check-in to initial assessment.\nStep 1: Run the Spearman correlation test.\n\ncor.test(exam_data$___, exam_data$___, method = \"___\")\n\nStep 2: Create a scatterplot with jitter (since acuity is discrete).\n\nggplot(exam_data, aes(x = ___, y = ___)) +\n  geom_point(alpha = 0.6, size = 2,\n             position = position_jitter(width = 0.15, height = 0)) +\n  geom_smooth(method = \"___\", se = TRUE, color = \"red\") +\n  scale_x_continuous(breaks = 1:5) +\n  labs(\n    title = \"___\",\n    x     = \"___\",\n    y     = \"___\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\nNoteInterpretation (1-2 sentences each)\n\n\n\n\nReport the Spearman correlation coefficient (ρ). What is the direction (positive/negative) of the relationship?\n\n[your answer]\n\nIs the correlation statistically significant? What does this relationship suggest about wait times for higher-acuity patients?\n\n[your answer]"
+  },
+  {
+    "objectID": "lectures/Lecture09/exam1_questions.html#task-6c-correlation-vs.-causation-1-point",
+    "href": "lectures/Lecture09/exam1_questions.html#task-6c-correlation-vs.-causation-1-point",
+    "title": "Midterm Exam: Healthcare Data Analytics",
+    "section": "Task 6c: Correlation vs. Causation (1 point)",
+    "text": "Task 6c: Correlation vs. Causation (1 point)\n\n\n\n\n\n\nNoteYour Answer (1-2 sentences)\n\n\n\nIn Task 6a, we found a significant positive correlation between staffing ratio and satisfaction. Does this mean that increasing the staffing ratio causes higher satisfaction? Explain why or why not, and name one potential confounding factor that could explain the relationship.\n[your answer]"
   }
 ]

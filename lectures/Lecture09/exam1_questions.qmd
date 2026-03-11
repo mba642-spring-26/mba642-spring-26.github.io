@@ -1,0 +1,725 @@
+---
+title: "Midterm Exam: Healthcare Data Analytics"
+subtitle: "MBA642: Business Analytics in Healthcare Management"
+author: "Your Name Here"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    theme: [lecture.scss, cosmo]
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Exam Overview
+
+-   **Total Points**: 50 points
+-   **Duration**: 90 minutes
+-   **Policy**: Open-book, open-note (all course materials allowed)
+-   **Submission**: Upload your completed `.qmd` **and** rendered `.html` files to Canvas
+
+## Instructions
+
+1.  Replace **"Your Name Here"** in the YAML header with your name
+2.  Complete all 6 sections below
+3.  Fill in the blanks (replace `___` with appropriate code or values)
+4.  After completing each code chunk, change `#| eval: false` to `#| eval: true` to run it
+5.  Answer all interpretation questions (**1-2 sentences each**)
+6.  Render the document to HTML and verify all outputs display correctly before submitting
+
+## Grading Rubric
+
+Each section uses the following weighting:
+
+| Component | Weight | Description |
+|----|----|----|
+| Code correctness | 50% | Code runs without errors and produces correct output |
+| Completeness | 30% | All blanks filled in; correct variables, arguments, and aesthetics used |
+| Interpretation | 20% | Brief, specific 1-2 sentence response that references statistics and connects to a healthcare decision |
+
+**Interpretation Guidance:**
+
+-   **Good**: "The p-value of 0.015 is less than 0.05, so we reject the null hypothesis. Patient satisfaction significantly differs across departments, suggesting leadership should investigate why Oncology scores lowest."
+-   **Too vague**: "The departments are different."
+-   **Too long**: \[3+ sentences restating the obvious\]
+
+------------------------------------------------------------------------
+
+# About the Dataset
+
+## Crestview Medical Center Quality Improvement Study
+
+Crestview Medical Center is a 250-bed community hospital that launched a system-wide **quality improvement (QI) initiative** to evaluate patient outcomes, operational efficiency, and care delivery models. The hospital collected data on **150 patients** across four clinical departments over a 6-month period. Two care delivery models were compared: the existing **Standard** pathway and a newly piloted **Coordinated** pathway featuring multidisciplinary care teams.
+
+As a healthcare analyst, you are asked to analyze this dataset to provide actionable insights to hospital leadership.
+
+## Loading the Data
+
+Run the code below to load required packages and the dataset.
+
+```{r}
+#| label: load-packages-data
+
+# Load required packages
+library(tidyverse)
+library(emmeans)
+
+# Load the exam dataset
+exam_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/exam1_data.csv")
+
+# Preview the data
+head(exam_data, 5)
+```
+
+## Data Dictionary
+
+| Variable | Type | Description |
+|----|----|----|
+| `patient_id` | Integer | Unique patient identifier |
+| `age` | Continuous | Patient age in years |
+| `department` | Categorical | Clinical department: Cardiology, Neurology, Oncology, Primary Care |
+| `insurance` | Categorical | Insurance type: Commercial, Medicare, Medicaid |
+| `care_pathway` | Categorical | Care delivery model: Standard, Coordinated |
+| `los_days` | Continuous | Length of stay (days) |
+| `satisfaction` | Continuous | Patient satisfaction score (1-100) |
+| `total_charges` | Continuous | Total hospital charges (USD) |
+| `readmitted` | Categorical | 30-day readmission: Yes or No |
+| `pain_admission` | Continuous | Pain score at admission (0-10) |
+| `pain_24hr` | Continuous | Pain score at 24 hours after admission (0-10) |
+| `pain_discharge` | Continuous | Pain score at discharge (0-10) |
+| `staffing_ratio` | Continuous | Nurse-to-patient ratio during stay |
+| `acuity` | Integer | Patient acuity level (1 = low, 2 = mild, 3 = moderate, 4 = severe, 5 = critical) |
+| `wait_minutes` | Continuous | Time from check-in to initial assessment (minutes) |
+
+------------------------------------------------------------------------
+
+# Section 1: Basic Statistical Concepts (7 points)
+
+*Before conducting any formal tests, the QI committee needs to understand the dataset, which includes (1) what types of variables they're working with, (2) how key outcomes are distributed, and (3) which summary statistics are appropriate.*
+
+## Task 1a: Variable Classification (2.5 points) {.unnumbered}
+
+Classify each of the following variables by its **scale of measurement** (nominal, ordinal, interval, or ratio).
+
+::: {.callout-note icon="false" title="Your Answers"}
+| Variable        | Scale of Measurement |
+|-----------------|----------------------|
+| `department`    | *\[your answer\]*    |
+| `acuity`        | *\[your answer\]*    |
+| `satisfaction`  | *\[your answer\]*    |
+| `total_charges` | *\[your answer\]*    |
+| `readmitted`    | *\[your answer\]*    |
+:::
+
+## Task 1b: Descriptive Statistics (1.5 points) {.unnumbered}
+
+Compute the mean, median, standard deviation, minimum, and maximum for **length of stay** (`los_days`).
+
+```{r}
+#| label: task1b-descriptives
+#| eval: false
+
+exam_data |>
+  summarize(
+    mean_los   = ___,
+    median_los = ___,
+    sd_los     = ___,
+    min_los    = ___,
+    max_los    = ___
+  )
+```
+
+## Task 1c: Distribution Interpretation (3 points) {.unnumbered}
+
+::: {.callout-note icon="false" title="Your Answers (1-2 sentences each)"}
+1.  Based on the mean and median you computed in Task 1b, is the distribution of `los_days` approximately **symmetric**, **right-skewed**, or **left-skewed**? How do you know?
+
+*\[your answer\]*
+
+2.  Given the distribution shape, which measure of central tendency (**mean** or **median**) is more appropriate for summarizing the typical patient's length of stay? Why?
+
+*\[your answer\]*
+
+3.  A hospital planner asks "What is the typical length of stay I should plan for?" Using the appropriate measure from Q2 and its **actual value** from Task 1b, write a one-sentence recommendation.
+
+*\[your answer\]*
+:::
+
+------------------------------------------------------------------------
+
+# Section 2: Data Visualization (7 points)
+
+*The QI committee wants clear visual summaries to present at the next board meeting. Create publication-quality visualizations that highlight key patterns in patient outcomes and operations.*
+
+## Task 2a: Histogram — Length of Stay Distribution (2.5 points) {.unnumbered}
+
+Create a histogram of length of stay (`los_days`) using the `ggplot2` package. Include appropriate axis labels and a title.
+
+*Hint: Since `los_days` is measured in days, a `binwidth` of 1 (one bin per day) is a reasonable starting point.*
+
+```{r}
+#| label: task2a-histogram
+#| eval: false
+
+ggplot(exam_data, aes(x = ___)) +
+  geom_histogram(binwidth = ___, fill = "steelblue", color = "white", alpha = 0.8) +
+  labs(
+    title = "___",
+    x     = "___",
+    y     = "Count"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences)"}
+Describe the shape of the distribution shown in the histogram. Does it confirm your answer from Task 1c?
+
+*\[your answer\]*
+:::
+
+## Task 2b: Boxplot — Satisfaction by Department (2.5 points) {.unnumbered}
+
+Create a grouped boxplot comparing `satisfaction` scores across the four departments. Use different fill colors for each department.
+
+```{r}
+#| label: task2b-boxplot
+#| eval: false
+
+ggplot(exam_data, aes(x = ___, y = ___, fill = ___)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+    title = "___",
+    x     = "___",
+    y     = "___"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences)"}
+Which department appears to have the highest median satisfaction score? Do you notice any notable differences or outliers across departments?
+
+*\[your answer\]*
+:::
+
+## Task 2c: Bar Chart — Insurance Type Distribution (2 points) {.unnumbered}
+
+Create a bar chart showing the **count** of patients by `insurance` type. Add a descriptive title and axis labels.
+
+```{r}
+#| label: task2c-barchart
+#| eval: false
+
+ggplot(exam_data, aes(x = ___, fill = ___)) +
+  geom_bar(alpha = 0.8) +
+  labs(
+    title = "___",
+    x     = "___",
+    y     = "Number of Patients"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+------------------------------------------------------------------------
+
+# Section 3: t-test (10 points)
+
+*Hospital leadership wants to evaluate three key questions: (1) Does the hospital meet the national satisfaction benchmark? (2) Does the new Coordinated care pathway improve patient satisfaction? (3) Is the hospital's pain management protocol effective?*
+
+## Task 3a: One-Sample t-test — Satisfaction Benchmark (3 points) {.unnumbered}
+
+The national average patient satisfaction benchmark is **65 out of 100**. Hospital leadership wants to know whether Crestview Medical Center's mean `satisfaction` score differs significantly from this benchmark.
+
+**Step 1**: Compute the sample mean and standard deviation.
+
+```{r}
+#| label: task3a-descriptives
+#| eval: false
+
+exam_data |>
+  summarize(
+    n        = n(),
+    mean_sat = round(mean(___), 2),
+    sd_sat   = round(sd(___), 2)
+  )
+```
+
+**Step 2**: Perform the one-sample t-test against the benchmark value of 65.
+
+```{r}
+#| label: task3a-onesample
+#| eval: false
+
+result_benchmark <- t.test(exam_data$___, mu = ___)
+result_benchmark
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences each)"}
+1.  State the null and alternative hypotheses for this test.
+
+*\[your answer\]*
+
+2.  Report the t-statistic and p-value. Does Crestview's mean satisfaction significantly differ from the national benchmark of 65? What does this mean for the hospital's quality standing?
+
+*\[your answer\]*
+:::
+
+## Task 3b: Independent Samples t-test — Satisfaction by Care Pathway (4 points) {.unnumbered}
+
+Compare mean patient satisfaction between the **Standard** and **Coordinated** care pathways.
+
+**Step 1**: Compute descriptive statistics by group.
+
+```{r}
+#| label: task3b-descriptives
+#| eval: false
+
+exam_data |>
+  group_by(___) |>
+  summarize(
+    n        = n(),
+    mean_sat = round(mean(___), 2),
+    sd_sat   = round(sd(___), 2)
+  )
+```
+
+**Step 2**: Perform the independent-samples t-test.
+
+```{r}
+#| label: task3b-ttest
+#| eval: false
+
+result_pathway <- t.test(___ ~ ___, data = exam_data, var.equal = TRUE)
+result_pathway
+```
+
+**Step 3**: Visualize the comparison with a boxplot.
+
+```{r}
+#| label: task3b-plot
+#| eval: false
+
+ggplot(exam_data, aes(x = ___, y = ___, fill = ___)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+    title = "___",
+    x     = "___",
+    y     = "___"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences each)"}
+1.  State the null and alternative hypotheses for this test.
+
+*\[your answer\]*
+
+2.  Report the t-statistic and p-value. Based on the p-value (α = 0.05), do you reject or fail to reject the null hypothesis? What does this result mean for the Coordinated care pathway initiative?
+
+*\[your answer\]*
+:::
+
+## Task 3c: Paired Samples t-test — Pain Management Effectiveness (3 points) {.unnumbered}
+
+All 150 patients had their pain measured at admission (`pain_admission`) and at discharge (`pain_discharge`) using a 0-10 scale. Test whether there is a significant reduction in pain scores from admission to discharge.
+
+**Step 1**: Compute descriptive statistics for pain scores.
+
+```{r}
+#| label: task3c-descriptives
+#| eval: false
+
+exam_data |>
+  summarize(
+    admission_mean  = round(mean(___), 2),
+    admission_sd    = round(sd(___), 2),
+    discharge_mean  = round(mean(___), 2),
+    discharge_sd    = round(sd(___), 2),
+    mean_reduction  = round(mean(___ - ___), 2)
+  )
+```
+
+**Step 2**: Perform the paired-samples t-test.
+
+```{r}
+#| label: task3c-ttest
+#| eval: false
+
+result_pain <- t.test(
+  exam_data$___,
+  exam_data$___,
+  paired = ___
+)
+result_pain
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences each)"}
+1.  Why is a **paired** t-test (rather than independent) appropriate here?
+
+*\[your answer\]*
+
+2.  Report the t-statistic and p-value. Is the pain reduction statistically significant? What does this mean for the hospital's pain management protocol?
+
+*\[your answer\]*
+:::
+
+------------------------------------------------------------------------
+
+# Section 4: ANOVA (11 points)
+
+*The QI committee wants to understand whether patient satisfaction varies across departments, whether the care pathway's effectiveness depends on the department context, and whether the hospital's pain management program shows sustained improvement across multiple time points.*
+
+## Task 4a: One-Way ANOVA + Post-Hoc (4 points) {.unnumbered}
+
+Test whether mean patient satisfaction differs across the four clinical departments.
+
+**Step 1**: Compute group-level descriptive statistics.
+
+```{r}
+#| label: task4a-descriptives
+#| eval: false
+
+exam_data |>
+  group_by(___) |>
+  summarize(
+    n        = n(),
+    mean_sat = round(mean(___), 2),
+    sd_sat   = round(sd(___), 2)
+  )
+```
+
+**Step 2**: Run the one-way ANOVA.
+
+```{r}
+#| label: task4a-anova
+#| eval: false
+
+anova_dept <- aov(___ ~ ___, data = exam_data)
+summary(anova_dept)
+```
+
+**Step 3**: If the overall ANOVA is significant, conduct Tukey-adjusted post-hoc pairwise comparisons using `emmeans()` and `pairs()` to identify which departments differ.
+
+```{r}
+#| label: task4a-posthoc
+#| eval: false
+
+emm_dept <- emmeans(___, ~ ___)
+pairs(emm_dept, adjust = "___")
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences each)"}
+1.  Report the F-statistic and p-value. Is there a statistically significant difference in satisfaction across departments?
+
+*\[your answer\]*
+
+2.  Based on the post-hoc results, which specific department pair(s) differ significantly? What does this suggest for hospital leadership?
+
+*\[your answer\]*
+:::
+
+## Task 4b: Two-Way ANOVA — Interaction Analysis (4 points) {.unnumbered}
+
+Test whether the effect of `care_pathway` on `satisfaction` depends on `department` (i.e., is there a significant interaction?).
+
+**Step 1**: Run the two-way ANOVA with an interaction term.
+
+```{r}
+#| label: task4b-twoway
+#| eval: false
+
+anova_interaction <- aov(___ ~ ___ * ___, data = exam_data)
+summary(anova_interaction)
+```
+
+**Step 2**: Compute group means and visualize the interaction with a grouped means plot.
+
+```{r}
+#| label: task4b-plot
+#| eval: false
+
+interaction_means <- exam_data |>
+  group_by(___, ___) |>
+  summarize(mean_sat = mean(___), .groups = "drop")
+
+ggplot(interaction_means, aes(x = ___, y = ___, color = ___, group = ___)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  labs(
+    title = "___",
+    x     = "___",
+    y     = "___",
+    color = "___"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences each)"}
+1.  Is the interaction between `care_pathway` and `department` statistically significant? Report the p-value.
+
+*\[your answer\]*
+
+2.  Based on the interaction result and the plot, should the hospital roll out the Coordinated care pathway **uniformly** across all departments, or should the implementation be **department-specific**? Explain your reasoning.
+
+*\[your answer\]*
+:::
+
+## Task 4c: Repeated-Measures ANOVA — Pain Trajectory Over Time (3 points) {.unnumbered}
+
+Patients had their pain measured at three time points: **admission**, **24 hours**, and **discharge**. Use a repeated-measures ANOVA to test whether pain scores differ significantly across these time points.
+
+**Step 1**: Reshape the data from wide to long format.
+
+Run the code below to reshape the pain scores into long format (one row per patient per time point).
+
+```{r}
+#| label: task4c-reshape
+#| eval: false
+
+pain_long <- exam_data |>
+  select(patient_id, pain_admission, pain_24hr, pain_discharge) |>
+  pivot_longer(
+    cols      = starts_with("pain"),
+    names_to  = "timepoint",
+    values_to = "pain_score",
+    names_prefix = "pain_"
+  ) |>
+  mutate(
+    timepoint  = factor(timepoint, levels = c("admission", "24hr", "discharge")),
+    patient_id = factor(patient_id)
+  )
+
+# Check the reshaped data
+head(pain_long, 6)
+```
+
+**Step 2**: Run the repeated-measures ANOVA.
+
+```{r}
+#| label: task4c-rmanova
+#| eval: false
+
+aov_pain <- aov(pain_score ~ ___ + Error(___ / ___), data = pain_long)
+summary(aov_pain)
+```
+
+**Step 3**: Conduct Tukey-adjusted post-hoc pairwise comparisons to identify which time points differ.
+
+```{r}
+#| label: task4c-posthoc
+#| eval: false
+
+emm_pain <- emmeans(___, ~ ___)
+pairs(emm_pain, adjust = "___")
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences each)"}
+1.  Report the F-statistic and p-value for the effect of `timepoint`. Is there a significant difference in pain scores across the three time points?
+
+*\[your answer\]*
+
+2.  Based on the post-hoc comparisons, are all transitions statistically significant? What does this suggest about the hospital's pain management program across the entire stay?
+
+*\[your answer\]*
+:::
+
+------------------------------------------------------------------------
+
+# Section 5: Crosstabulation (7 points)
+
+*The finance team is concerned about 30-day readmission penalties under the Centers for Medicare & Medicaid Services (CMS) Hospital Readmissions Reduction Program (HRRP), which reduces payments to hospitals with excess readmissions. They want to know whether readmission rates differ by insurance type to target discharge planning resources.*
+
+## Task 5a: Contingency Table (2.5 points) {.unnumbered}
+
+Create a contingency table of `insurance` type × `readmitted` status and compute row proportions.
+
+```{r}
+#| label: task5a-table
+#| eval: false
+
+# Create the contingency table
+insurance_table <- table(exam_data$___, exam_data$___)
+insurance_table
+
+# Row proportions (readmission rates by insurance group)
+# Hint: margin = 1 means row proportions, margin = 2 means column proportions
+round(prop.table(insurance_table, margin = ___) * 100, 1)
+```
+
+## Task 5b: Chi-Square Test (2.5 points) {.unnumbered}
+
+Run the chi-square test and verify the expected frequency assumption.
+
+```{r}
+#| label: task5b-chisq
+#| eval: false
+
+# Run chi-square test
+chi_result <- chisq.test(___)
+chi_result
+
+# Check expected frequencies (all should be >= 5 for chi-square to be valid)
+# Hint: Access a stored component of chi_result using $
+chi_result$___
+```
+
+## Task 5c: Interpretation (2 points) {.unnumbered}
+
+::: {.callout-note icon="false" title="Your Answers (1-2 sentences each)"}
+1.  Are all expected frequencies ≥ 5? Is the chi-square test valid for this data?
+
+*\[your answer\]*
+
+2.  Report the chi-square statistic and p-value. Is there a significant association between insurance type and readmission?
+
+*\[your answer\]*
+
+3.  Which insurance group has the **highest** readmission rate? Why might this disparity be a concern for hospital leadership?
+
+*\[your answer\]*
+:::
+
+------------------------------------------------------------------------
+
+# Section 6: Correlation (8 points)
+
+*The chief nursing officer wants to understand relationships between staffing levels and patient outcomes, and between patient acuity and wait times, to inform resource allocation decisions.*
+
+## Task 6a: Pearson Correlation — Staffing and Satisfaction (3.5 points) {.unnumbered}
+
+Examine the linear relationship between **nurse-to-patient staffing ratio** and **patient satisfaction**.
+
+**Step 1**: Create a scatterplot with a linear trend line.
+
+```{r}
+#| label: task6a-plot
+#| eval: false
+
+ggplot(exam_data, aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.6, size = 2, color = "steelblue") +
+  geom_smooth(method = "___", se = TRUE, color = "red") +
+  labs(
+    title = "___",
+    x     = "___",
+    y     = "___"
+  ) +
+  theme_minimal()
+```
+
+**Step 2**: Run the Pearson correlation test.
+
+```{r}
+#| label: task6a-pearson
+#| eval: false
+
+cor.test(exam_data$___, exam_data$___, method = "___")
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences each)"}
+1.  Report the Pearson correlation coefficient (r). What is the **direction** (positive/negative) of the relationship?
+
+*\[your answer\]*
+
+2.  Is the correlation statistically significant? What does this relationship suggest for the chief nursing officer's staffing decisions?
+
+*\[your answer\]*
+:::
+
+## Task 6b: Spearman Correlation — Acuity and Wait Time (3.5 points) {.unnumbered}
+
+Examine the monotonic relationship between **patient acuity** (1=low, 2=mild, 3=moderate, 4=severe, 5=critical) and **wait time** from check-in to initial assessment.
+
+**Step 1**: Run the Spearman correlation test.
+
+```{r}
+#| label: task6b-spearman
+#| eval: false
+
+cor.test(exam_data$___, exam_data$___, method = "___")
+```
+
+**Step 2**: Create a scatterplot with jitter (since acuity is discrete).
+
+```{r}
+#| label: task6b-plot
+#| eval: false
+
+ggplot(exam_data, aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.6, size = 2,
+             position = position_jitter(width = 0.15, height = 0)) +
+  geom_smooth(method = "___", se = TRUE, color = "red") +
+  scale_x_continuous(breaks = 1:5) +
+  labs(
+    title = "___",
+    x     = "___",
+    y     = "___"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-note icon="false" title="Interpretation (1-2 sentences each)"}
+1.  Report the Spearman correlation coefficient (ρ). What is the **direction** (positive/negative) of the relationship?
+
+*\[your answer\]*
+
+2.  Is the correlation statistically significant? What does this relationship suggest about wait times for higher-acuity patients?
+
+*\[your answer\]*
+:::
+
+## Task 6c: Correlation vs. Causation (1 point) {.unnumbered}
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences)"}
+In Task 6a, we found a significant positive correlation between staffing ratio and satisfaction. Does this mean that **increasing** the staffing ratio **causes** higher satisfaction? Explain why or why not, and name one potential confounding factor that could explain the relationship.
+
+*\[your answer\]*
+:::
+
+------------------------------------------------------------------------
+
+# Submission Checklist
+
+Before submitting, verify:
+
+-   [ ] Your name is in the YAML header
+-   [ ] All 6 sections are completed
+-   [ ] All blanks (`___`) are filled in with appropriate values
+-   [ ] All `#| eval: false` changed to `#| eval: true`
+-   [ ] All code chunks run without errors
+-   [ ] All interpretation questions are answered (1-2 sentences each)
+-   [ ] Visualizations have appropriate titles and axis labels
+-   [ ] Document renders to HTML successfully (a rendering error indicates a code error — fix it before submitting)
+
+------------------------------------------------------------------------
+
+# Points Summary
+
+| Section   | Topic                                       | Points |
+|-----------|---------------------------------------------|--------|
+| Section 1 | Basic Statistical Concepts                  | 7      |
+| Section 2 | Data Visualization                          | 7      |
+| Section 3 | t-test (one-sample, independent, paired)    | 10     |
+| Section 4 | ANOVA (one-way, two-way, repeated-measures) | 11     |
+| Section 5 | Crosstabulation                             | 7      |
+| Section 6 | Correlation (Pearson, Spearman, causation)  | 8      |
+| **Total** |                                             | **50** |
+
+------------------------------------------------------------------------
+
+**Good luck!**

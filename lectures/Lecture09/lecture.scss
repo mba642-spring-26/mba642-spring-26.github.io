@@ -1,0 +1,15 @@
+/*-- scss:defaults --*/
+@import url('https://fonts.cdnfonts.com/css/clear-sans');
+
+$headings-color: #4a6d94;
+$font-family-sans-serif: 'Clear Sans', -apple-system, system-ui, sans-serif;
+
+/*-- scss:rules --*/
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: #4a6d94;
+}
+
+strong, b {
+  color: #3a6a9b;
+}
