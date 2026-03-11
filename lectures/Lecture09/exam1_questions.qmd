@@ -2,7 +2,7 @@
 title: "Midterm Exam: Healthcare Data Analytics"
 subtitle: "MBA642: Business Analytics in Healthcare Management"
 author: "Your Name Here"
-date: today
+date: 3/11/2026
 format:
   html:
     toc: true
@@ -28,9 +28,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 # Exam Overview
 
 -   **Total Points**: 50 points
--   **Duration**: 90 minutes
+-   **Duration**: 24 hours (12:00 AM - 11:59 PM, 3/11 Wednesday)
 -   **Policy**: Open-book, open-note (all course materials allowed)
--   **Submission**: Upload your completed `.qmd` **and** rendered `.html` files to Canvas
+-   **Submission**: Upload your completed `.qmd` file to Canvas
 
 ## Instructions
 
@@ -46,7 +46,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Each section uses the following weighting:
 
 | Component | Weight | Description |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Code correctness | 50% | Code runs without errors and produces correct output |
 | Completeness | 30% | All blanks filled in; correct variables, arguments, and aesthetics used |
 | Interpretation | 20% | Brief, specific 1-2 sentence response that references statistics and connects to a healthcare decision |
@@ -88,7 +88,7 @@ head(exam_data, 5)
 ## Data Dictionary
 
 | Variable | Type | Description |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `patient_id` | Integer | Unique patient identifier |
 | `age` | Continuous | Patient age in years |
 | `department` | Categorical | Clinical department: Cardiology, Neurology, Oncology, Primary Care |
