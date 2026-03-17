@@ -1,26 +1,16 @@
 ---
-title: "Linear Regression in Healthcare Analytics"
-subtitle: "Part 1: Simple and Multiple Linear Regression"
-author: "MBA642: Business Analytics in Healthcare Management"
-Week: "Week 10"
-date: 01/01/2026
+title: "Linear Regression 1: Simple and Multiple Linear Regression"
+subtitle: "MBA642: Business Analytics in Healthcare Management"
+Week: "Week 11"
+date: 03/23/2026
 format:
   html:
     toc: true
     toc-depth: 3
-    toc-location: left
-    number-sections: true
     code-fold: false
     code-tools: false
-    code-copy: true
-    theme: custom-theme.scss
+    theme: [lecture.scss, cosmo]
     highlight-style: github
-    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
-    fontsize: 1.1em
-    grid:
-      sidebar-width: 200px
-      body-width: 900px
-      margin-width: 300px
 execute:
   warning: false
   message: false
@@ -32,51 +22,50 @@ execute:
 
 # Load required packages
 library(tidyverse)
-library(broom)
-library(knitr)
-library(kableExtra)
 library(car)
 library(GGally)
 library(patchwork)
 
 # Set seed for reproducibility
-set.seed(42)
+set.seed(2026)
 ```
 
-# Introduction to Linear Regression
+# Introduction
+
+## From Correlation to Regression
+
+In Week 8, we used correlation to answer whether there is a relationship between nurse staffing hours and patient satisfaction (e.g., r = 0.85).
+
+**Linear regression extends this** by answering more detailed questions:
+
+-   *How many points does satisfaction increase for each additional nursing hour?* (quantifying the relationship)
+-   *If we increase staffing to 8 hours per patient day, what satisfaction score can we expect?* (making predictions)
+-   *Among wait time, staffing, and facility age, which factors significantly explain patient satisfaction?* (identifying key drivers)
+-   *Does staffing still matter after controlling for facility age and patient severity?* (controlling for confounding variables)
 
 ## Why Linear Regression Matters
 
-Linear regression is one of the most fundamental and widely used statistical techniques in data analytics. Healthcare managers will frequently encounter situations where understanding relationships between variables is crucial for decision-making:
+Healthcare managers frequently encounter situations where understanding relationships between variables is crucial for decision-making:
 
-- **Resource allocation**: How does nurse staffing level affect patient outcomes?
-- **Cost management**: What factors drive hospital readmission costs?
-- **Quality improvement**: How does patient wait time impact satisfaction scores?
-- **Performance prediction**: Can we predict length of stay based on patient characteristics?
+-   **Resource allocation**: How does nurse staffing level affect patient outcomes?
+-   **Cost management**: What factors drive hospital readmission costs?
+-   **Quality improvement**: How does patient wait time impact satisfaction scores?
+-   **Performance prediction**: Can we predict length of stay based on patient characteristics?
 
 Linear regression provides a powerful framework to:
 
-1. **Quantify relationships** between variables (e.g., "For every additional nurse per patient, satisfaction increases by X points")
-2. **Test hypotheses** about whether relationships are statistically significant
-3. **Make predictions** about future outcomes
-4. **Control for confounding variables** when examining effects of interest
+1.  **Quantify relationships** between variables (e.g., "For every additional nurse per patient, satisfaction increases by X points")
+2.  **Test hypotheses** about whether relationships are statistically significant
+3.  **Make predictions** about future outcomes
+4.  **Identify key drivers** (among multiple factors, determine which significantly explain the outcome)
+5.  **Control for confounding variables** when examining effects of interest
 
 ## Overview of Linear Regression Types
 
-| Type | Number of Predictors | Example |
-|------|---------------------|---------|
+| Type | Predictors | Example |
+|:---|:--:|:---|
 | Simple Linear Regression | 1 | Patient age → Length of stay |
 | Multiple Linear Regression | 2+ | Patient age + Severity + Insurance → Length of stay |
-
-## Key Concepts and Terminology
-
-Before we dive in, let's establish key terminology:
-
-- **Dependent Variable (DV)**: The outcome we want to predict or explain (also called response variable or Y)
-- **Independent Variable (IV)**: The predictor(s) we use to explain the outcome (also called predictor variable or X)
-- **Regression Coefficient (β)**: The slope that quantifies the relationship between an IV and the DV
-- **Intercept (α or β₀)**: The predicted value of Y when all X variables equal zero
-- **Residual (ε)**: The difference between observed and predicted values
 
 ------------------------------------------------------------------------
 
@@ -84,20 +73,20 @@ Before we dive in, let's establish key terminology:
 
 ## What is it?
 
-Simple linear regression models the relationship between **one independent variable (X)** and **one dependent variable (Y)** using a linear model (straight line). It is the foundation for understanding more complex regression models and allows us to quantify how changes in one variable are associated with changes in another.
+Simple linear regression models the relationship between **one independent variable (X)** and **one dependent variable (Y)** using a linear model (straight line). It is the foundation for understanding more complex regression models, and allows us to quantify how changes in one variable are associated with changes in another.
 
 ## When to Use It
 
-Use simple linear regression when you want to:
+You can use simple linear regression when you want to:
 
-- Examine the relationship between two continuous variables
-- Predict an outcome based on a single predictor
-- Quantify the strength and direction of a linear relationship
-- Test whether a relationship is statistically significant
+-   Examine the (linear) relationship between two continuous variables
+-   Predict an outcome based on a single predictor
+-   Quantify the strength and direction of a linear relationship
+-   Test whether a relationship is statistically significant
 
 ## The Concept
 
-Simple linear regression finds the "best-fitting" line through the data points using a method called Ordinary Least Squares (OLS).
+Simple linear regression finds the "best-fitting" line (linear model) through the data points using a method called Ordinary Least Squares (OLS).
 
 ### The Model Equation
 
@@ -107,75 +96,175 @@ $$Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$$
 
 Where:
 
-- $Y_i$ = Observed value of the dependent variable for observation $i$
-- $\beta_0$ = Intercept (the value of Y when X = 0)
-- $\beta_1$ = Slope (the change in Y for a one-unit increase in X)
-- $X_i$ = Value of the independent variable for observation $i$
-- $\epsilon_i$ = Residual for observation $i$
+-   $Y_i$ (Dependent Variable; DV): The outcome we want to predict or explain. *(e.g., patient satisfaction score)*
+-   $X_i$ (Independent Variable; IV): The predictor we use to explain the outcome. *(e.g., wait time in minutes)*
+-   $\beta_0$ (Intercept): The predicted value of Y when X = 0. *(Think of it as the starting point of the regression line)*
+-   $\beta_1$ (Regression Coefficient; Slope): The change in Y for a one-unit increase in X. *(i.e., For each one-unit increase in X, how much does Y change)*
+-   $\epsilon_i$ (Residual): The difference between an observed value and the model's prediction *(i.e., the "leftover" the model does not explain)*
 
-### Understanding the Components
+The following diagram shows how all components of the regression equation relate to each other using a simple example with three data points:
 
-**The Intercept (β₀)**:
-The intercept represents the predicted value of Y when X equals zero. In healthcare contexts, this may or may not have a meaningful interpretation. For example, if X is "years of nursing experience," an intercept would represent the predicted outcome for a nurse with zero years of experience.
+```{r}
+#| label: fig-regression-components
+#| fig-cap: "All components of the regression equation shown together"
+#| fig-width: 7
+#| fig-height: 5
+#| echo: false
 
-**The Slope (β₁)**:
-The slope is the key parameter of interest. It tells us:
+# Manually set a clean line for conceptual illustration
+demo_b0 <- 3      # intercept
+demo_b1 <- 0.5    # slope: Y increases by 0.5 for each 1-unit increase in X
 
-- **Direction**: Positive slope = positive relationship; Negative slope = negative relationship
-- **Magnitude**: How much Y changes for each one-unit increase in X
-- **Statistical significance**: Whether the relationship is likely to exist in the population (not just due to chance)
+# 3 data points positioned around the line
+demo_pts <- tibble(
+  x = c(2, 5, 8),
+  y = c(3.6, 6.5, 6.0),                          # observed
+  predicted = demo_b0 + demo_b1 * c(2, 5, 8)     # on the line: 4, 5.5, 7
+)
+
+# Build labels
+intercept_label <- paste0("bold('Intercept')~(beta[0])==", demo_b0)
+slope_label <- paste0("bold('Slope')~(beta[1])==", demo_b1)
+
+ggplot(demo_pts, aes(x = x, y = y)) +
+  # Explicit axis lines through origin
+  geom_hline(yintercept = 0, linewidth = 0.6, color = "gray30") +
+  geom_vline(xintercept = 0, linewidth = 0.6, color = "gray30") +
+  # Regression line
+  geom_abline(intercept = demo_b0, slope = demo_b1,
+              color = "blue", linewidth = 1.2) +
+  # Residual segments
+  geom_segment(aes(xend = x, yend = predicted),
+               color = "red", linewidth = 0.9, linetype = "dashed") +
+  # Observed points
+  geom_point(size = 4, color = "black") +
+  # Predicted points on the line
+  geom_point(aes(y = predicted), size = 3, color = "blue", shape = 17) +
+  # Intercept point
+  geom_point(aes(x = 0, y = demo_b0), size = 4, color = "darkgreen", shape = 15) +
+  # --- Intercept label (above intercept, to the right) ---
+  annotate("text", x = 0.3, y = demo_b0,
+           label = intercept_label, parse = TRUE,
+           color = "darkgreen", size = 3.5, hjust = 0) +
+  # --- Legend area (top-right corner, away from all data) ---
+  annotate("point", x = 2.0, y = 9, size = 3, color = "black") +
+  annotate("text", x = 2.3, y = 9, parse = TRUE,
+           label = "'Observed'~(Y[i])",
+           color = "black", size = 3.5, hjust = 0) +
+  annotate("point", x = 2.0, y = 8.3, size = 2.5, color = "blue", shape = 17) +
+  annotate("text", x = 2.3, y = 8.3, parse = TRUE,
+           label = "'Predicted'~(hat(Y)[i])",
+           color = "blue", size = 3.5, hjust = 0) +
+  # --- Residual label (right of 3rd point's residual) ---
+  annotate("text", x = 8.5,
+           y = mean(c(demo_pts$y[3], demo_pts$predicted[3])),
+           label = "'Residual'~(epsilon[i])", parse = TRUE,
+           color = "red", size = 3.5, hjust = 0) +
+  # --- Slope bracket (between x=3 and x=4) ---
+  annotate("segment", x = 3, xend = 4,
+           y = demo_b0 + demo_b1 * 3, yend = demo_b0 + demo_b1 * 3,
+           color = "purple", linewidth = 0.7) +
+  annotate("segment", x = 4, xend = 4,
+           y = demo_b0 + demo_b1 * 3, yend = demo_b0 + demo_b1 * 4,
+           color = "purple", linewidth = 0.7) +
+  annotate("text", x = 4.1, y = demo_b0 + demo_b1 * 3.5,
+           label = slope_label, parse = TRUE,
+           color = "purple", size = 3.5, hjust = 0) +
+  annotate("text", x = 3.5, y = demo_b0 + demo_b1 * 3 - 0.4,
+           label = "1 unit", color = "purple", size = 3, hjust = 0.5) +
+  # X label near first point
+  scale_x_continuous(limits = c(-0.5, 10.5), breaks = 0:10, expand = c(0, 0)) +
+  scale_y_continuous(limits = c(-0.5, 9.8), breaks = 0:9, expand = c(0, 0)) +
+  labs(x = "Independent Variable (X)",
+       y = "Dependent Variable (Y)",
+       title = expression("Anatomy of a Regression Equation: " ~
+                           Y == beta[0] + beta[1] * X + epsilon)) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank())
+```
 
 ## The Ordinary Least Squares (OLS) Method
 
 ### How OLS Works
 
-Linear regression finds the "best" line by minimizing the **sum of squared residuals (SSR)**:
+The shape of a linear model (with one predictor) is determined by two components: the intercept and the slope.
 
-$$SSR = \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 = \sum_{i=1}^{n} \epsilon_i^2$$
+The question we have now is: how do we define the "best" linear model given data? If we find a linear model that has the smallest *squared* differences between our predictions and the actual outcome values, we can say that the model is the best linear model.
 
-Where $\hat{Y}_i$ is the predicted value for observation $i$.
+Linear regression finds this "best" line by minimizing the **residual sum of squares (RSS)**, also called the sum of squared residuals:
+
+$$RSS = \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 = \sum_{i=1}^{n} \epsilon_i^2$$
+
+Where $Y_i$ is the observed value and $\hat{Y}_i$ is the predicted value for observation $i$.
 
 Why squared residuals?
 
-1. Squaring ensures positive and negative errors don't cancel out
-2. Squaring penalizes larger errors more heavily
-3. Leads to closed-form mathematical solutions
+1.  Squaring ensures positive and negative errors don't cancel out
+2.  Squaring penalizes larger errors more heavily
+3.  Leads to closed-form mathematical solutions
 
-### Visual Intuition
+The figure below shows three different lines fitted to the same data. Each line has a different intercept and slope, producing different residuals (red dashed lines) and therefore different RSS values.
+
+Notice that the OLS line (right panel) has the **smallest RSS**. No other intercept-slope pair can produce a smaller sum of squared residuals.
 
 ```{r}
-#| label: fig-ols-concept
-#| fig-cap: "OLS finds the line that minimizes the sum of squared residuals (vertical distances)"
-#| fig-width: 6
+#| label: fig-ols-comparison
+#| echo: false
+#| fig-width: 9
 #| fig-height: 4
 
-# Create example data
-example_data <- tibble(
+# Same data for all three panels
+ols_demo <- tibble(
   x = c(1, 2, 3, 4, 5, 6, 7),
   y = c(1.8, 2.5, 3.8, 3.7, 5.1, 5.8, 6.2)
 )
 
-# Fit model
-fit <- lm(y ~ x, data = example_data)
+# OLS fit (the best line)
+ols_fit <- lm(y ~ x, data = ols_demo)
+ols_b0 <- coef(ols_fit)[1]
+ols_b1 <- coef(ols_fit)[2]
+ols_rss <- sum(residuals(ols_fit)^2)
 
-# Create plot showing residuals
-example_data <- example_data %>%
-  mutate(predicted = predict(fit),
-         residual = y - predicted)
+# Three candidate lines: too flat, too steep, OLS best
+candidates <- list(
+  list(b0 = 2.5, b1 = 0.3, label = "Too Flat"),
+  list(b0 = -0.5, b1 = 1.1, label = "Too Steep"),
+  list(b0 = ols_b0, b1 = ols_b1, label = "OLS Best Fit")
+)
 
-ggplot(example_data, aes(x = x, y = y)) +
-  geom_segment(aes(xend = x, yend = predicted),
-               color = "red", linetype = "dashed", size = 0.8) +
-  geom_smooth(method = "lm", se = FALSE, color = "blue", size = 1) +
-  geom_point(size = 4, color = "black") +
-  annotate("text", x = 4.5, y = 3.5,
-           label = paste("Residuals: red dashed lines\nOLS minimizes:",
-                        expression(sum(epsilon^2))),
-           hjust = 0, size = 3.5) +
-  labs(x = "Independent Variable (X)",
-       y = "Dependent Variable (Y)",
-       title = "OLS Regression: Minimizing Squared Residuals") +
-  theme_minimal(base_size = 12)
+plots <- map(candidates, function(cand) {
+  pred_y <- cand$b0 + cand$b1 * ols_demo$x
+  rss_val <- sum((ols_demo$y - pred_y)^2)
+
+  ols_demo_aug <- ols_demo |>
+    mutate(predicted = pred_y)
+
+  ggplot(ols_demo_aug, aes(x = x, y = y)) +
+    # Residual segments
+    geom_segment(aes(xend = x, yend = predicted),
+                 color = "darkred", linewidth = 0.7, linetype = "dashed") +
+    # Candidate line
+    geom_abline(intercept = cand$b0, slope = cand$b1,
+                color = "steelblue", linewidth = 1.2) +
+    # Observed points
+    geom_point(size = 3, color = "black") +
+    # RSS annotation
+    annotate("label", x = 1, y = 7, size = 3.5, hjust = 0, fontface = "bold",
+             label = paste0("RSS = ", round(rss_val, 2)),
+             fill = if (cand$label == "OLS Best Fit") "#e8f5e9" else "#ffebee",
+             color = if (cand$label == "OLS Best Fit") "#2e7d32" else "#c62828",
+             label.size = 0) +
+    # Equation annotation
+    annotate("text", x = 1, y = 6.3, size = 3, hjust = 0, color = "steelblue",
+             label = paste0("Y = ", round(cand$b0, 1), " + ", round(cand$b1, 2), " X")) +
+    labs(title = cand$label, x = "X", y = "Y") +
+    coord_cartesian(xlim = c(0, 8), ylim = c(0, 8)) +
+    theme_minimal(base_size = 11) +
+    theme(plot.title = element_text(hjust = 0.5, face = "bold", size = 12))
+})
+
+plots[[1]] + plots[[2]] + plots[[3]] +
+  plot_layout(ncol = 3)
 ```
 
 ## Using the Fitted Model for Predictions
@@ -188,16 +277,16 @@ $$\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X$$
 
 Where:
 
-- $\hat{Y}$ = Predicted value of the dependent variable
-- $\hat{\beta}_0$ = Estimated intercept from the fitted model
-- $\hat{\beta}_1$ = Estimated slope from the fitted model
-- $X$ = Value of the independent variable for which we want to make a prediction
+-   $\hat{Y}$ = Predicted value of the dependent variable
+-   $\hat{\beta}_0$ = Estimated intercept from the fitted model
+-   $\hat{\beta}_1$ = Estimated slope from the fitted model
+-   $X$ = Value of the independent variable for which we want to make a prediction
 
-**Key insight**: The "hat" notation (^) indicates these are **estimated** values from our sample data, not the true population parameters. We use the estimated coefficients to predict outcomes for:
+The "hat" notation (\^) indicates these are **estimated** values from our sample data, not the true population parameters. We use the estimated coefficients to predict outcomes for:
 
-1. **Observations within our dataset** - to assess model fit
-2. **New observations** - to forecast outcomes based on predictor values
-3. **Hypothetical scenarios** - to evaluate "what if" questions (e.g., "What if we reduce wait time to 30 minutes?")
+1.  **Observations within our dataset** to assess model fit
+2.  **New observations** to forecast outcomes based on predictor values
+3.  **Hypothetical scenarios** to evaluate "what if" questions (e.g., "What if we reduce wait time to 30 minutes?")
 
 Let's see this in action with a real healthcare example.
 
@@ -207,33 +296,28 @@ Let's see this in action with a real healthcare example.
 
 ### Background and Context
 
-Research has consistently shown that emergency department wait times are negatively associated with patient satisfaction. A 2021 study found that being informed about waiting time showed a moderately strong positive correlation with patients' overall rating, highlighting the importance of wait time management for patient experience.
+Research has consistently shown that emergency department wait times are negatively associated with patient satisfaction. A 2021 study (Abass et al.) found that being informed about waiting time showed a moderately strong positive correlation with patients' overall rating, highlighting the importance of wait time management for patient experience.
 
 Let's examine whether emergency department wait time affects patient satisfaction scores using synthetic data that mirrors these real-world relationships.
 
-### Creating Synthetic Healthcare Data
+### Loading the Dataset
+
+Run the code below to load the dataset and ruquired packages:
 
 ```{r}
 #| label: create-simple-data
 
-# Generate synthetic ED data
-n <- 150
+# Load required packages
+library(tidyverse)
+library(car)
+library(GGally)
+set.seed(2026)
 
-ed_data <- tibble(
-  patient_id = 1:n,
-  wait_time_minutes = round(rnorm(n, mean = 45, sd = 20), 0),
-  satisfaction_score = round(85 - 0.4 * wait_time_minutes + rnorm(n, 0, 8), 1)
-) %>%
-  # Ensure realistic bounds
-  mutate(
-    wait_time_minutes = pmax(5, pmin(wait_time_minutes, 120)),
-    satisfaction_score = pmax(0, pmin(satisfaction_score, 100))
-  )
+# Load synthetic ED data
+ed_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week11_ed_data.csv")
 
 # Preview the data
-head(ed_data, 10) %>%
-  kable(caption = "Sample of Emergency Department Patient Data") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+head(ed_data, 10)
 ```
 
 ### Exploratory Data Analysis
@@ -243,6 +327,7 @@ Before running regression, always visualize your data. Let's take a look at the 
 ```{r}
 #| label: fig-eda-simple
 #| fig-cap: "Relationship between ED wait time and patient satisfaction"
+#| echo: false
 #| fig-height: 4
 #| fig-width: 6
 
@@ -253,15 +338,14 @@ ggplot(ed_data, aes(x = wait_time_minutes, y = satisfaction_score)) +
   labs(
     x = "Wait Time (minutes)",
     y = "Patient Satisfaction Score (0-100)",
-    title = "ED Wait Time vs. Patient Satisfaction",
-    subtitle = "Each point represents one patient"
+    title = "ED Wait Time vs. Patient Satisfaction"
   ) +
   theme_minimal(base_size = 12)
 ```
 
 ### Fitting the Simple Linear Regression Model
 
-Let's fit the simple linear regression model to quantify the relationship. We can fit a linear model using `lm()` function in R.
+Let's fit the simple linear regression model to quantify the relationship. We can fit a linear model using the `lm()` function in R.
 
 ```{r}
 #| label: fit-simple-model
@@ -292,15 +376,10 @@ $$\hat{Y}_i = `r b0` + (`r b1`) \times X_i$$
 
 Where:
 
-- $\hat{Y}_i$ = Predicted patient satisfaction score for patient $i$
-- $X_i$ = Wait time in minutes for patient $i$
-- `r b0` = Estimated intercept ($\hat{\beta}_0$)
-- `r b1` = Estimated slope ($\hat{\beta}_1$)
-
-This equation allows us to predict patient satisfaction for any given wait time. For example:
-
-- If wait time = 30 minutes: $\hat{Y} = `r b0` + (`r b1`) \times 30 = `r round(b0 + b1 * 30, 1)`$
-- If wait time = 60 minutes: $\hat{Y} = `r b0` + (`r b1`) \times 60 = `r round(b0 + b1 * 60, 1)`$
+-   $\hat{Y}_i$ = Predicted patient satisfaction score for patient $i$
+-   $X_i$ = Wait time in minutes for patient $i$
+-   `r b0` = Estimated intercept ($\hat{\beta}_0$)
+-   `r b1` = Estimated slope ($\hat{\beta}_1$)
 
 ### Interpreting the Results
 
@@ -317,6 +396,8 @@ intercept <- round(coef(model_simple)[1], 2)
 
 **Interpretation**: When wait time is 0 minutes, the predicted patient satisfaction score is `r intercept` points. This represents the baseline satisfaction when there is no wait.
 
+*Note*: Intercepts should be interpreted cautiously. If zero falls outside the range of observed X values (e.g., if no patient had a 0-minute wait), the intercept is an extrapolation and may not represent a realistic scenario. Here, a 0-minute wait is plausible, so the interpretation is reasonable.
+
 #### 2. The Slope (Regression Coefficient)
 
 ```{r}
@@ -327,13 +408,18 @@ p_value <- summary(model_simple)$coefficients[2, 4]
 
 **Value**: β₁ = `r slope`
 
-**Interpretation** (The Three Key Questions):
+**Interpretation**:
 
-1. **Direction**: The coefficient is **negative** (`r slope`), indicating that longer wait times are associated with **lower** satisfaction scores.
+1.  **Direction**: The coefficient is **negative** (`r slope`), indicating that longer wait times are associated with **lower** satisfaction scores.
 
-2. **Magnitude**: For every **one-minute increase** in wait time, patient satisfaction decreases by **`r abs(slope)` points** on the 0-100 scale.
+2.  **Magnitude**: For every **one-minute increase** in wait time, patient satisfaction decreases by **`r abs(slope)` points** (on the 0-100 scale).
 
-3. **Statistical Significance**: The p-value is `r format(p_value, scientific = TRUE)`, which is less than 0.05. We **reject the null hypothesis** that there is no relationship between wait time and satisfaction. The relationship is statistically significant.
+3.  **Statistical Significance**: In regression, the null and alternative hypotheses for each coefficient are:
+
+    -   $H_0$: $\beta_1 = 0$ (no linear relationship between X and Y)
+    -   $H_1$: $\beta_1 \neq 0$ (a linear relationship between X and Y)
+
+    The p-value is `r ifelse(p_value < 2.2e-16, "< 2.2e-16", format(p_value, scientific = TRUE))`, which is less than 0.05. We **reject the null hypothesis** (there is a linear relationship between X and Y).
 
 #### 3. Model Fit (R-squared)
 
@@ -344,14 +430,13 @@ r_squared <- round(summary(model_simple)$r.squared, 3)
 
 **R² = `r r_squared`**
 
-**Interpretation**: Wait time explains **`r r_squared * 100`%** of the variance in patient satisfaction scores. The remaining `r (1 - r_squared) * 100`% is explained by other factors not included in this model (e.g., staff friendliness, treatment effectiveness, facility cleanliness).
+R² indicates the amount of the variance in the outcome variable explained by the model. In this case, wait time explains **`r r_squared * 100`%** of the variance in patient satisfaction scores. The remaining `r (1 - r_squared) * 100`% is attributable to other factors not included in this model (e.g., staff friendliness, treatment effectiveness, facility cleanliness).
 
-#### Visualizing R-squared: Explained vs. Unexplained Variance
-
-To understand R² visually, let's see how the regression model reduces prediction error compared to simply using the mean:
+To understand R² visually, let's see how the regression model explains more variance compared to simply using the mean:
 
 ```{r}
 #| label: fig-rsquared-concept
+#| echo: false
 #| fig-cap: "R² measures how much variance is explained by the regression model"
 #| fig-height: 6
 #| fig-width: 10
@@ -378,13 +463,13 @@ R2 <- ESS / TSS
 # Create two comparison plots
 p1 <- ggplot(ed_data_variance, aes(x = wait_time_minutes, y = satisfaction_score)) +
   geom_hline(yintercept = mean(ed_data_variance$satisfaction_score),
-             color = "darkgreen", size = 1.2, linetype = "dashed") +
+             color = "darkgreen", linewidth = 1.2, linetype = "dashed") +
   geom_segment(aes(xend = wait_time_minutes, yend = mean_y),
-               color = "purple", alpha = 0.4, size = 0.6) +
+               color = "purple", alpha = 0.4, linewidth = 0.6) +
   geom_point(size = 2, color = "black", alpha = 0.6) +
   annotate("text", x = 100, y = mean(ed_data_variance$satisfaction_score) + 3,
            label = "Mean (baseline model)", color = "darkgreen", size = 3, hjust = 1) +
-  annotate("text", x = 20, y = 95,
+  annotate("text", x = 25, y = 95,
            label = paste0("Total Variance (TSS)\nAll deviations from mean\nTSS = ",
                          round(TSS, 0)),
            color = "purple", size = 3, hjust = 0) +
@@ -398,14 +483,14 @@ p1 <- ggplot(ed_data_variance, aes(x = wait_time_minutes, y = satisfaction_score
 
 p2 <- ggplot(ed_data_variance, aes(x = wait_time_minutes, y = satisfaction_score)) +
   geom_hline(yintercept = mean(ed_data_variance$satisfaction_score),
-             color = "darkgreen", size = 0.8, linetype = "dotted", alpha = 0.5) +
-  geom_smooth(method = "lm", se = FALSE, color = "blue", size = 1.2) +
+             color = "darkgreen", linewidth = 0.8, linetype = "dotted", alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue", linewidth = 1.2) +
   geom_segment(aes(xend = wait_time_minutes, yend = predicted),
-               color = "red", alpha = 0.5, size = 0.6, linetype = "dashed") +
+               color = "red", alpha = 0.5, linewidth = 0.6, linetype = "dashed") +
   geom_point(size = 2, color = "black", alpha = 0.6) +
   annotate("text", x = 100, y = 45,
            label = "Regression line", color = "blue", size = 3, hjust = 1) +
-  annotate("text", x = 20, y = 95,
+  annotate("text", x = 25, y = 95,
            label = paste0("Residual Variance (RSS)\nUnexplained by model\nRSS = ",
                          round(RSS, 0)),
            color = "red", size = 3, hjust = 0) +
@@ -425,13 +510,11 @@ p2 <- ggplot(ed_data_variance, aes(x = wait_time_minutes, y = satisfaction_score
 p1 + p2
 ```
 
-**Key Insight**:
+-   **Left plot**: Without any predictors, we'd predict every patient's satisfaction as the mean (dark green line). The purple lines show how far each observation deviates from this mean. This is the **total variance (TSS)** we want to explain.
 
-- **Left plot**: Without any predictors, we'd predict every patient's satisfaction as the mean (green line). The purple lines show how far each observation deviates from this mean. This is the **total variance (TSS)** we want to explain.
+-   **Right plot**: With wait time as a predictor, the regression line (blue) does a better job. The red dashed lines show the remaining errors (residuals). This is the **residual variance (RSS)** left unexplained.
 
-- **Right plot**: With wait time as a predictor, the regression line (blue) does a better job. The red dashed lines show the remaining errors (residuals). This is the **residual variance (RSS)** left unexplained.
-
-- **R² = 1 - (RSS/TSS)** = The proportion of total variance that our model explains. An R² of `r round(R2, 3)` means the regression model reduces prediction error by `r round(R2*100, 1)`% compared to just using the mean.
+-   **R² = 1 - (RSS/TSS)** = The proportion of total variance that our model explains. An R² of `r round(R2, 3)` means the regression model explains `r round(R2*100, 1)`% of the variance in patient satisfaction compared to just using the mean.
 
 ### Making Predictions
 
@@ -440,42 +523,23 @@ One powerful application of regression is predicting outcomes for new observatio
 ```{r}
 #| label: simple-new-data-points
 
-# Predict satisfaction for specific wait times
-new_patients <- tibble(
+# Predict satisfaction for specific wait times 
+# New data need to be data frame or a list
+new_patients <- data.frame(
   wait_time_minutes = c(15, 30, 45, 60, 90)
 )
 head(new_patients)
 
 ```
 
-
-By using the `predict` function we can get predicted satisfaction scores for these new patients based on their wait times.
+By using the `predict()` function we can get predicted satisfaction scores for these new patients based on their wait times.
 
 ```{r}
 #| label: predictions
 
-predictions <- new_patients %>%
-  mutate(
-    predicted_satisfaction = predict(model_simple, newdata = new_patients),
-    prediction_interval = predict(model_simple, newdata = new_patients,
-                                  interval = "prediction") %>%
-      as_tibble()
-  ) %>%
-  unnest(prediction_interval)
-
-predictions %>%
-  mutate(across(where(is.numeric), ~round(., 2))) %>%
-  rename(
-    "Wait Time (min)" = wait_time_minutes,
-    "Predicted Score" = predicted_satisfaction,
-    "Fit" = fit,
-    "Lower 95%" = lwr,
-    "Upper 95%" = upr
-  ) %>%
-  select(-Fit) %>%
-  kable(caption = "Predicted Satisfaction Scores by Wait Time (with 95% Prediction Intervals)") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
-
+# Get predicted satisfaction scores
+new_patients$predicted_score <- predict(model_simple, newdata = new_patients)
+new_patients
 ```
 
 #### Manual Calculation Example
@@ -486,16 +550,11 @@ Let's manually calculate one prediction to understand what the `predict()` funct
 
 $$\widehat{\text{Satisfaction}} = `r b0` + (`r b1`) \times \text{Wait Time}$$
 
-**Step 2: Substitute the wait time value**
-
-For Wait Time = 45 minutes:
-
-$$\widehat{\text{Satisfaction}} = `r b0` + (`r b1`) \times 45$$
-
-**Step 3: Calculate**
+**Step 2: Substitute and calculate**
 
 ```{r}
 #| label: manual-prediction-calculation
+#| echo: false
 
 # Extract coefficients
 intercept_val <- coef(model_simple)[1]
@@ -504,104 +563,142 @@ slope_val <- coef(model_simple)[2]
 # Manual calculation
 wait_time_example <- 45
 predicted_satisfaction_manual <- intercept_val + slope_val * wait_time_example
-
-# Display the calculation
-cat("Intercept (β₀):", round(intercept_val, 2), "\n")
-cat("Slope (β₁):", round(slope_val, 3), "\n")
-cat("Wait Time:", wait_time_example, "minutes\n\n")
-cat("Calculation:", round(intercept_val, 2), "+",
-    paste0("(", round(slope_val, 3), ")"), "×", wait_time_example, "\n")
-cat("          =", round(intercept_val, 2), "+",
-    round(slope_val * wait_time_example, 2), "\n")
-cat("          =", round(predicted_satisfaction_manual, 2), "\n")
 ```
 
-**Result**: The predicted satisfaction score for a patient with a 45-minute wait is **`r round(predicted_satisfaction_manual, 2)`** points.
+For Wait Time = 45 minutes:
 
-You can verify this matches the value in the prediction table above for the 45-minute wait time!
+$$\widehat{\text{Satisfaction}} = `r b0` + (`r b1`) \times 45 = `r round(predicted_satisfaction_manual, 2)`$$
+
+The predicted satisfaction score for a patient with a 45-minute wait is **`r round(predicted_satisfaction_manual, 2)`** points. You can verify this matches the value in the prediction table above!
 
 #### Practical Application
 
-If your ED currently has an average wait time of 60 minutes and you implement process improvements to reduce it to 30 minutes, you could expect satisfaction scores to increase by approximately `r abs(round(30 * slope, 1))` points (for every one-minute reduction in waiting time, satisfaction scores improve by `r abs(round(slope, 3))` points).
+If your ED currently has an average wait time of 60 minutes and you implement process improvements to reduce it to 30 minutes, the model predicts satisfaction would increase by approximately `r abs(round(30 * slope, 2))` points. Since each additional minute of wait time decreases satisfaction by `r abs(round(slope, 3))` points, a 30-minute reduction corresponds to a meaningful improvement in patient experience.
 
-### Visualizing the Fitted Model
+### Practice 1: Simple Linear Regression {.unnumbered}
+
+::: callout-note
+## Your Turn!
+
+Practice fitting and interpreting simple linear regression models on your own using a different healthcare scenario.
+:::
+
+### Scenario
+
+You are analyzing the relationship between **nurse staffing levels** and **patient mortality rates** across 100 hospitals. Hospital administrators want to know **whether having more nurses per patient reduces mortality rates**.
+
+This question has important implications for staffing policies and patient safety. If the data show that higher nurse-to-patient ratios are associated with lower mortality, hospital administrators could use the regression results to justify hiring additional nursing staff, estimate how much mortality might decrease with a specific staffing increase, and make evidence-based budget decisions that balance costs against patient outcomes.
+
+### Data Loading
+
+Run this code to load the dataset:
 
 ```{r}
-#| label: fig-fitted-model
-#| fig-cap: "Fitted regression line with prediction intervals"
-#| fig-height: 4
-#| fig-width: 6
+#| label: generate-simple-practice-data
 
-# Create prediction data
-pred_data <- tibble(
-  wait_time_minutes = seq(5, 120, by = 1)
-)
+# Loading dataset
 
-# Get prediction intervals and bind to data
-pred_intervals <- predict(model_simple, newdata = pred_data, interval = "prediction")
-pred_data <- bind_cols(pred_data, as_tibble(pred_intervals))
+simple_practice_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week11_practice_data1.csv")
 
-ggplot() +
-  geom_ribbon(data = pred_data,
-              aes(x = wait_time_minutes, ymin = lwr, ymax = upr),
-              fill = "lightblue", alpha = 0.5) +
-  geom_point(data = ed_data,
-             aes(x = wait_time_minutes, y = satisfaction_score),
-             alpha = 0.5, color = "steelblue") +
-  geom_line(data = pred_data,
-            aes(x = wait_time_minutes, y = fit),
-            color = "darkred", size = 1.2) +
-  labs(
-    x = "Wait Time (minutes)",
-    y = "Patient Satisfaction Score",
-    title = "Simple Linear Regression: ED Wait Time → Patient Satisfaction",
-    subtitle = paste0("Satisfaction = ", round(intercept, 1), " + (",
-                     round(slope, 2), ") × Wait Time")
-  ) +
-  annotate("text", x = 90, y = 90,
-           label = paste0("R² = ", round(r_squared, 3)),
-           size = 4, fontface = "bold") +
-  theme_minimal(base_size = 12)
+# Preview data
+head(simple_practice_data, 5) 
 ```
 
-### Practice Checkpoint 1 {.unnumbered}
+**Dataset Variables:**
 
-::: {.callout-important}
-## Try It Yourself! (10 minutes)
+| Variable | Description | Type |
+|----|----|----|
+| `hospital_id` | Unique hospital identifier | Numeric |
+| `nurses_per_patient` | Ratio of nurses to patients (higher = better staffing) | Numeric (continuous) |
+| `mortality_rate` | Hospital mortality rate (deaths per 100 patients) | Numeric (continuous) |
 
-**Pause here!** Open `week11_linear_regression_practice.qmd` and complete:
+### Task 1.1: Visualize the Relationship
 
-- **Activity 1: Simple Linear Regression Practice**
-  - Task 1.1: Fit a simple regression model
-  - Task 1.2: Interpret the coefficients
-  - Task 1.3: Visualize the relationship
-  - Task 1.4: Make predictions
+Before fitting a model, create a scatterplot to visualize the relationship between nurse staffing and mortality rates.
 
-This will help you practice fitting and interpreting simple linear regression models on your own.
+```{r}
+#| label: task-1-1
+#| eval: false
 
-**After 10 minutes**, we'll continue with the lecture.
-:::
+# Fill in the blanks
+ggplot(data = ___, aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.6, color = "steelblue", size = 2) +
+  geom_smooth(method = "___", se = TRUE, color = "darkred") +
+  labs(
+    title = "Nurse Staffing vs. Mortality Rate",
+    x = "Nurses per Patient",
+    y = "Mortality Rate (%)"
+  ) +
+  theme_minimal()
+```
+
+**Question**: Based on the scatterplot, do you expect a positive or negative relationship? Why?
+
+### Task 1.2: Fit the Simple Linear Regression Model
+
+Now fit a simple linear regression model predicting `mortality_rate` from `nurses_per_patient`.
+
+```{r}
+#| label: task-1-2
+#| eval: false
+
+# Fill in the blanks
+model_simple_practice <- lm(___ ~ ___, data = ___)
+
+# Display the summary
+summary(___)
+```
+
+**Questions:**
+
+1.  What is the **intercept**? What does it represent in this context?
+2.  What is the **slope** coefficient for `nurses_per_patient`?
+    -   **Direction**: Is it positive or negative? What does this mean?
+    -   **Magnitude**: If a hospital increases staffing by 1 nurse per patient, how much does mortality rate change?
+    -   **Significance**: Is the p-value less than 0.05?
+3.  What is the **R²** value? What percentage of variance in mortality rates is explained by nurse staffing?
+
+### Task 1.3: Make Predictions
+
+Use your fitted model to predict mortality rates for hospitals with different staffing levels.
+
+```{r}
+#| label: task-1-3
+#| eval: false
+
+# Create new data for prediction (fill in the blank)
+new_hospitals <- data.frame(
+  nurses_per_patient = c(1.0, 1.5, 2.0, 2.5, 3.0)
+)
+
+# Make predictions (fill in the blank)
+new_hospitals$predicted_mortality = predict(___, newdata = ___)
+new_hospitals
+
+```
+
+**Question**: A hospital currently has 1.5 nurses per patient and wants to reduce mortality. If they increase staffing to 2.5 nurses per patient, how much would you expect mortality to decrease?
 
 ------------------------------------------------------------------------
 
 # Multiple Linear Regression
 
+Now that we've seen how to model the relationship between a single predictor and an outcome, the next question we would have is *What happens when multiple factors influence the outcome simultaneously?* In healthcare, outcomes are rarely driven by a single variable. Patient satisfaction depends on more than just wait time, and length of stay depends on more than just age. Multiple linear regression addresses this reality.
+
 ## What is it?
 
-Multiple linear regression extends simple regression to model the relationship between **multiple independent variables** and **one dependent variable**. It allows us to examine how several predictors simultaneously influence an outcome.
+Multiple linear regression extends simple regression to model the relationship between **multiple independent variables** and **one dependent variable**. It allows us to examine how several predictors ***simultaneously*** influence an outcome.
 
 ## When to Use It
 
 Use multiple linear regression when you need to:
 
-- Include multiple predictors to better explain variance in an outcome
-- Control for confounding variables when examining specific relationships
-- Compare the relative importance of different factors
-- Make predictions based on multiple characteristics simultaneously
+-   Include **multiple predictors** to better explain variance in an outcome
+-   **Control for confounding variables** when examining specific relationships
+-   Compare **the relative importance** of different factors
+-   Make predictions based on multiple characteristics simultaneously
 
 ## Extending to Multiple Predictors
-
-In reality, outcomes of interest are influenced by many factors simultaneously. Multiple linear regression allows us to account for this complexity.
 
 ### The Model Equation
 
@@ -609,10 +706,10 @@ $$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + \e
 
 Where:
 
-- $\beta_0$ = Intercept
-- $\beta_1, \beta_2, \ldots, \beta_k$ = Regression coefficients for each predictor
-- $X_{1i}, X_{2i}, \ldots, X_{ki}$ = Values of predictors for observation $i$
-- $\epsilon_i$ = Residual
+-   $\beta_0$ = Intercept
+-   $\beta_1, \beta_2, \ldots, \beta_k$ = Regression coefficients for each predictor
+-   $X_{1i}, X_{2i}, \ldots, X_{ki}$ = Values of predictors for observation $i$
+-   $\epsilon_i$ = Residual
 
 In multiple regression, each coefficient represents the effect of that variable **holding all other variables constant** (also called the "partial" or "conditional" effect).
 
@@ -620,67 +717,50 @@ In multiple regression, each coefficient represents the effect of that variable 
 
 ### Background and Context
 
-A 2023 systematic review identified age, comorbidities, and severity as the most frequently cited predictors of hospital length of stay across 15 studies. Understanding these factors is crucial for healthcare operations and resource planning.
+A 2022 systematic review identified age, comorbidities, and severity as the most frequently cited predictors of hospital length of stay across 15 studies. Understanding these factors is crucial for healthcare operations and resource planning.
 
 Let's predict hospital length of stay (LOS) based on three key patient characteristics using synthetic data that reflects these evidence-based relationships:
 
-1. **Age** - Patient age in years
-2. **Severity Score** - Illness severity on a 1-10 scale
-3. **Number of Comorbidities** - Count of concurrent chronic conditions
+1.  **Age** - Patient age in years
+2.  **Severity Score** - Illness severity on a 1-10 scale
+3.  **Number of Comorbidities** - Count of concurrent chronic conditions
 
-### Creating Comprehensive Healthcare Data
+### Loading the Dataset
 
-Let's create a dataset using the code below.
+Let's load the dataset using the code below:
 
 ```{r}
 #| label: create-multiple-data
 
-# Generate synthetic hospital data
-n <- 300
+# Loading the dataset
 
-hospital_data <- tibble(
-  patient_id = 1:n,
-  age = round(rnorm(n, mean = 55, sd = 18)),
-  severity_score = round(runif(n, 1, 10), 1),  # 1-10 scale
-  num_comorbidities = rpois(n, lambda = 2)
-) %>%
-  mutate(
-    # Ensure realistic age bounds
-    age = pmax(18, pmin(age, 95)),
-    # Generate LOS based on predictors
-    length_of_stay = round(
-      1.5 +                          # Base stay
-      0.04 * age +                   # Age effect
-      0.6 * severity_score +         # Severity effect
-      0.8 * num_comorbidities +      # Comorbidity effect
-      rnorm(n, 0, 1.5),              # Random error
-      1
-    ),
-    # Ensure positive LOS
-    length_of_stay = pmax(1, length_of_stay)
-  )
+hospital_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week11_hospital_data.csv")
 
 # Summary statistics
-hospital_data %>%
-  select(age, severity_score, num_comorbidities, length_of_stay) %>%
-  summary()
+head(hospital_data, 5)
 ```
 
 ### Exploratory Data Analysis
 
-Before fitting the model, let's visually explore the distributions of our variables and their pairwise relationships. This helps us understand the data structure and identify potential patterns.
+Before fitting the model, let's visually explore the distributions of our variables and their pairwise relationships.
 
 ```{r}
 #| label: fig-eda-multiple
+#| code-fold: true
 #| fig-cap: "Pairwise relationships between predictors and length of stay"
 #| fig-height: 7
 #| fig-width: 9
 
 # Pairs plot for continuous variables
+# To use ggpairs(), you need to install the GGally package.
+# wrap() customizes what each section of the matrix displays:
+#   "smooth"     = scatterplot with a trend line
+#   "cor"        = correlation coefficient (numeric summary)
+#   "densityDiag" = density curve (distribution shape)
 hospital_data %>%
   select(age, severity_score, num_comorbidities, length_of_stay) %>%
   ggpairs(
-    lower = list(continuous = wrap("smooth", alpha = 0.3, size = 0.5)),
+    lower = list(continuous = wrap("smooth", alpha = 0.3, linewidth = 0.5)),
     upper = list(continuous = wrap("cor", size = 3)),
     diag = list(continuous = wrap("densityDiag", alpha = 0.5))
   ) +
@@ -702,32 +782,7 @@ model_multiple <- lm(length_of_stay ~ age + severity_score + num_comorbidities,
 summary(model_multiple)
 ```
 
-### Interpreting Multiple Regression Results
-
-Now let's extract and examine the regression coefficients to understand how each predictor affects length of stay.
-
-```{r}
-#| label: interpret-multiple
-
-# Extract coefficients
-multiple_coefs <- tidy(model_multiple, conf.int = TRUE) %>%
-  mutate(
-    significance = case_when(
-      p.value < 0.001 ~ "***",
-      p.value < 0.01 ~ "**",
-      p.value < 0.05 ~ "*",
-      TRUE ~ ""
-    )
-  )
-
-# Display formatted table
-multiple_coefs %>%
-  mutate(across(where(is.numeric), ~round(., 4))) %>%
-  kable(caption = "Multiple Regression Coefficients for Length of Stay") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
-```
-
-#### Interpreting Each Coefficient
+### Interpreting the Results
 
 Each coefficient represents the effect of that variable **while holding all other variables constant**.
 
@@ -736,37 +791,28 @@ Each coefficient represents the effect of that variable **while holding all othe
 coefs <- coef(model_multiple)
 ```
 
-1. **Intercept (β₀ = `r round(coefs[1], 2)`)**: The predicted length of stay for a patient who is 0 years old, has a severity score of 0, and has 0 comorbidities. This value is not practically meaningful but is mathematically necessary.
+1.  **Intercept (β₀ = `r round(coefs[1], 2)`)**: The predicted length of stay for a patient who is 0 years old, has a severity score of 0, and has 0 comorbidities. This value is not practically meaningful but is mathematically necessary.
 
-2. **Age (β₁ = `r round(coefs[2], 3)`)**: Holding severity and comorbidities constant, each additional year of age is associated with a **`r round(coefs[2], 3)`-day increase** in length of stay.
+2.  **Age (β₁ = `r round(coefs[2], 3)`)**: Holding severity and comorbidities constant, each additional year of age is associated with a **`r round(coefs[2], 3)`-day increase** in length of stay.
 
-3. **Severity Score (β₂ = `r round(coefs[3], 3)`)**: Holding age and comorbidities constant, each one-point increase in severity score is associated with a **`r round(coefs[3], 2)`-day increase** in length of stay.
+3.  **Severity Score (β₂ = `r round(coefs[3], 3)`)**: Holding age and comorbidities constant, each one-point increase in severity score is associated with a **`r round(coefs[3], 2)`-day increase** in length of stay.
 
-4. **Number of Comorbidities (β₃ = `r round(coefs[4], 3)`)**: Holding age and severity constant, each additional comorbidity is associated with a **`r round(coefs[4], 2)`-day increase** in length of stay.
+4.  **Number of Comorbidities (β₃ = `r round(coefs[4], 3)`)**: Holding age and severity constant, each additional comorbidity is associated with a **`r round(coefs[4], 2)`-day increase** in length of stay.
 
-#### Model Fit Statistics
-
-Let's examine overall model fit using R² and adjusted R² to see how well our predictors explain variation in length of stay.
+#### Model Fit (R² and Adjusted R²)
 
 ```{r}
-#| label: model-fit-multiple
-
-# Model fit statistics
-fit_stats <- glance(model_multiple)
-
-fit_stats %>%
-  select(r.squared, adj.r.squared, sigma, statistic, p.value, df, nobs) %>%
-  mutate(across(where(is.numeric), ~round(., 4))) %>%
-  pivot_longer(everything(), names_to = "Statistic", values_to = "Value") %>%
-  kable(caption = "Model Fit Statistics") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+#| echo: false
+r_squared_multi <- round(summary(model_multiple)$r.squared, 3)
+adj_r_squared_multi <- round(summary(model_multiple)$adj.r.squared, 3)
 ```
 
+From the `summary()` output above:
 
-**R² vs. Adjusted R²**:
+-   **R² = `r r_squared_multi`**: `r round(r_squared_multi * 100, 1)`% of variance in LOS is explained by the model
+-   **Adjusted R² = `r adj_r_squared_multi`**: Adjusted R² penalizes for the number of predictors and is preferred when comparing models with different numbers of variables
 
-- **R² = `r round(fit_stats$r.squared, 3)`**: `r round(fit_stats$r.squared * 100, 1)`% of variance in LOS is explained by the model
-- **Adjusted R² = `r round(fit_stats$adj.r.squared, 3)`**: Adjusted for the number of predictors; use this when comparing models with different numbers of variables
+**Why Adjusted R²?** Regular R² can only increase (or stay the same) when you add more predictors, even if those predictors have no real relationship with the outcome. Adjusted R² penalizes for the number of predictors, so it only increases if a new predictor significantly improves the model. This makes it a fairer metric for comparing models with different numbers of variables.
 
 ### Practical Application: Predicting LOS
 
@@ -774,21 +820,15 @@ Now let's use our fitted model to predict length of stay for different patient p
 
 ```{r}
 #| label: multiple-new-patients
-#| echo: false
 
-# Create example patients
-example_patients <- tibble(
-  patient_profile = c("Young, Low Severity", "Elderly, Moderate",
-                      "Middle-aged, High Severity", "Elderly, Complex"),
+# Create example patients with different characteristics
+example_patients <- data.frame(
   age = c(35, 75, 50, 80),
   severity_score = c(2, 5, 8, 7),
   num_comorbidities = c(0, 2, 3, 5)
 )
-
-head(example_patients)
-
+example_patients
 ```
-
 
 Let's get the predicted LOS. We can do this using the `predict()` function in R.
 
@@ -796,21 +836,13 @@ Let's get the predicted LOS. We can do this using the `predict()` function in R.
 #| label: multiple-predictions
 
 # Make predictions
-example_patients <- example_patients %>%
-  mutate(
-    predicted_los = round(predict(model_multiple, newdata = .), 2)
-  )
-
-example_patients %>%
-  kable(caption = "Predicted Length of Stay by Patient Profile",
-        col.names = c("Patient Profile", "Age", "Severity",
-                     "Comorbidities", "Predicted LOS (days)")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+example_patients$predicted_los <- predict(model_multiple, newdata = example_patients)
+example_patients 
 ```
 
 #### Manual Calculation Example
 
-Let's manually calculate one prediction to understand how multiple regression works. We'll predict LOS for the **"Elderly, Moderate"** patient (Age = 75, Severity = 5, Comorbidities = 2; the second new patient in the table above).
+Let's manually calculate one prediction to understand how multiple regression works. We'll predict LOS for the **second patient** in the table above (Age = 75, Severity = 5, Comorbidities = 2).
 
 **Step 1: Write the fitted regression equation**
 
@@ -833,139 +865,137 @@ $$\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X_1 + \hat{\beta}_2 X_2 + \hat{\beta}_
 
 Where:
 
-- $\hat{Y}$ = Predicted length of stay
-- $X_1$ = Age (years)
-- $X_2$ = Severity score (1-10)
-- $X_3$ = Number of comorbidities
-- $\hat{\beta}_0$ = `r b0_multi` (Intercept)
-- $\hat{\beta}_1$ = `r b1_multi` (Age coefficient)
-- $\hat{\beta}_2$ = `r b2_multi` (Severity coefficient)
-- $\hat{\beta}_3$ = `r b3_multi` (Comorbidity coefficient)
+-   $\hat{Y}$ = Predicted length of stay
+-   $X_1$ = Age (years)
+-   $X_2$ = Severity score (1-10)
+-   $X_3$ = Number of comorbidities
+-   $\hat{\beta}_0$ = `r b0_multi` (Intercept)
+-   $\hat{\beta}_1$ = `r b1_multi` (Age coefficient)
+-   $\hat{\beta}_2$ = `r b2_multi` (Severity coefficient)
+-   $\hat{\beta}_3$ = `r b3_multi` (Comorbidity coefficient)
 
-**Step 2: Substitute the patient's values**
-
-For the "Elderly, Moderate" patient:
-
-- Age = 75 years
-- Severity = 5
-- Comorbidities = 2
-
-$$\widehat{\text{LOS}} = `r b0_multi` + `r b1_multi` \times 75 + `r b2_multi` \times 5 + `r b3_multi` \times 2$$
-
-**Step 3: Calculate step-by-step**
+**Step 2: Substitute and calculate**
 
 ```{r}
 #| label: manual-multiple-prediction
 #| echo: false
 
-# Extract coefficients
-b0_val <- coef(model_multiple)[1]
-b1_val <- coef(model_multiple)[2]
-b2_val <- coef(model_multiple)[3]
-b3_val <- coef(model_multiple)[4]
-
-# Patient characteristics
-age_val <- 75
-severity_val <- 5
-comorbid_val <- 2
-
-# Manual calculation
-pred_los_manual <- b0_val + b1_val * age_val + b2_val * severity_val + b3_val * comorbid_val
-
-# Display step-by-step calculation
-cat("Step-by-step calculation:\n\n")
-cat("Intercept:              ", round(b0_val, 2), "\n")
-cat("Age effect:             ", round(b1_val, 3), "×", age_val, "=", round(b1_val * age_val, 2), "\n")
-cat("Severity effect:        ", round(b2_val, 3), "×", severity_val, "=", round(b2_val * severity_val, 2), "\n")
-cat("Comorbidity effect:     ", round(b3_val, 3), "×", comorbid_val, "=", round(b3_val * comorbid_val, 2), "\n")
-cat("                        ", strrep("-", 40), "\n")
-cat("Predicted LOS:          ", round(pred_los_manual, 2), "days\n")
+# Manual calculation for Elderly, Moderate patient
+pred_los_manual <- coef(model_multiple)[1] + coef(model_multiple)[2] * 75 +
+                   coef(model_multiple)[3] * 5 + coef(model_multiple)[4] * 2
 ```
 
-**Result**: The predicted length of stay for a 75-year-old patient with severity score of 5 and 2 comorbidities is **`r round(pred_los_manual, 2)` days**.
+For the "Elderly, Moderate" patient (Age = 75, Severity = 5, Comorbidities = 2):
 
-You can verify this matches the value in the prediction table above for the "Elderly, Moderate" patient!
+$$\widehat{\text{LOS}} = `r b0_multi` + `r b1_multi` \times 75 + `r b2_multi` \times 5 + `r b3_multi` \times 2 = `r round(pred_los_manual, 2)`$$
 
-In multiple regression, each predictor contributes to the final prediction. We simply add up all the effects (intercept + age effect + severity effect + comorbidity effect) to get the total predicted outcome.
+The predicted length of stay is **`r round(pred_los_manual, 2)` days**. You can verify this matches the value in the prediction result above!
 
+### Practice 2: Multiple Linear Regression {.unnumbered}
 
-### Visualizing Multiple Regression Effects
+::: callout-note
+## Your Turn!
 
-Let's visualize how each predictor independently affects length of stay while holding other variables at their mean values. This helps us understand the individual contribution of each factor.
+Practice building and interpreting multiple regression models with a new scenario.
+:::
+
+### Scenario
+
+You are now analyzing **patient satisfaction scores** across hospitals. You hypothesize that satisfaction is influenced by multiple factors:
+
+-   **Wait time** (minutes): Longer waits → lower satisfaction
+-   **Nurse staffing** (nurses per patient): Better staffing → higher satisfaction
+-   **Facility age** (years): Older facilities → lower satisfaction
+
+Your task is to build a multiple regression model to understand how these factors simultaneously influence patient satisfaction.
+
+### Loading the Dataset
+
+Run this code to load the practice dataset:
 
 ```{r}
-#| label: fig-multiple-effects
-#| fig-cap: "Effect of each predictor on length of stay (holding others at mean)"
-#| fig-height: 4
-#| fig-width: 10
+#| label: generate-multiple-practice-data
 
-# Create effect plots
-# Age effect
-age_effect <- tibble(
-  age = seq(20, 90, by = 5),
-  severity_score = mean(hospital_data$severity_score),
-  num_comorbidities = mean(hospital_data$num_comorbidities)
-) %>%
-  mutate(predicted = predict(model_multiple, newdata = .))
+# Loading the dataset
 
-p1 <- ggplot(age_effect, aes(x = age, y = predicted)) +
-  geom_line(color = "steelblue", size = 1.2) +
-  geom_point() +
-  labs(x = "Patient Age (years)", y = "Predicted LOS (days)",
-       title = "Effect of Age") +
-  theme_minimal()
+multiple_practice_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week11_practice_data2.csv")
 
-# Severity effect
-severity_effect <- tibble(
-  age = mean(hospital_data$age),
-  severity_score = seq(1, 10, by = 0.5),
-  num_comorbidities = mean(hospital_data$num_comorbidities)
-) %>%
-  mutate(predicted = predict(model_multiple, newdata = .))
-
-p2 <- ggplot(severity_effect, aes(x = severity_score, y = predicted)) +
-  geom_line(color = "darkred", size = 1.2) +
-  geom_point() +
-  labs(x = "Severity Score (1-10)", y = "Predicted LOS (days)",
-       title = "Effect of Severity") +
-  theme_minimal()
-
-# Comorbidities effect
-comorbid_effect <- tibble(
-  age = mean(hospital_data$age),
-  severity_score = mean(hospital_data$severity_score),
-  num_comorbidities = 0:8
-) %>%
-  mutate(predicted = predict(model_multiple, newdata = .))
-
-p3 <- ggplot(comorbid_effect, aes(x = num_comorbidities, y = predicted)) +
-  geom_line(color = "darkgreen", size = 1.2) +
-  geom_point(size = 2) +
-  labs(x = "Number of Comorbidities", y = "Predicted LOS (days)",
-       title = "Effect of Comorbidities") +
-  theme_minimal()
-
-# Combine plots
-p1 + p2 + p3
+# Preview data
+head(multiple_practice_data, 5)
 ```
 
-### Practice Checkpoint 2 {.unnumbered}
+**Dataset Variables:**
 
-::: {.callout-important}
-## Try It Yourself! (10 minutes)
+| Variable | Description | Type |
+|----|----|----|
+| `hospital_id` | Unique hospital identifier | Numeric |
+| `wait_time_min` | Average patient wait time (minutes) | Numeric (continuous) |
+| `nurse_ratio` | Nurses per patient ratio | Numeric (continuous) |
+| `facility_age_years` | Age of hospital building (years) | Numeric (continuous) |
+| `satisfaction_score` | Average patient satisfaction (0-100 scale) | Numeric (continuous) |
 
-Open `week11_linear_regression_practice.qmd` and complete:
+### Task 2.1: Fit the Multiple Regression Model
 
-- **Activity 2: Multiple Linear Regression Practice**
-  - Task 2.1: Fit a multiple regression model
-  - Task 2.2: Interpret the coefficients
-  - Task 2.3: Compare model fit (R²) with simple regression
-  - Task 2.4: Make predictions for new patients
+Fit a multiple regression model predicting `satisfaction_score` from all three predictors: `wait_time_min`, `nurse_ratio`, and `facility_age_years`.
 
-This will help you practice building and interpreting multiple regression models.
+```{r}
+#| label: task-2-1
+#| eval: false
 
-**After 10 minutes**, we'll continue with model diagnostics.
-:::
+# Fill in the blanks
+model_multiple_practice <- lm(___ ~ ___ + ___ + ___, data = ___)
+
+# Display the summary
+summary(___)
+```
+
+**Questions:**
+
+1.  What is the coefficient for **wait_time_min**? Holding nurse ratio and facility age constant, what happens to satisfaction when wait time increases by 1 minute? Is this effect statistically significant (p \< 0.05)?
+
+2.  What is the coefficient for **nurse_ratio**? Holding wait time and facility age constant, what happens to satisfaction when nurse staffing increases by 1 nurse per patient? Is this effect statistically significant?
+
+3.  What is the coefficient for **facility_age_years**? Holding wait time and nurse ratio constant, what happens to satisfaction for each additional year of facility age? Is this effect statistically significant?
+
+### Task 2.2: Compare Model Fit
+
+Compare the multiple regression model to a simple regression model that only includes `wait_time_min`.
+
+```{r}
+#| label: task-2-2
+#| eval: false
+
+# Fit simple model with only wait time (fill in the blank)
+model_simple_wait <- lm(___ ~ ___, data = multiple_practice_data)
+
+# Compare R-squared values
+cat("Simple model R²:", round(summary(___)$r.squared, 3), "\n")
+cat("Multiple model R²:", round(summary(___)$r.squared, 3), "\n")
+```
+
+**Question**: How much additional variance is explained by adding nurse ratio and facility age to the model? Is the multiple regression model better?
+
+### Task 2.3: Make Predictions
+
+Use your multiple regression model to predict satisfaction for two different hospital scenarios.
+
+```{r}
+#| label: task-2-3
+#| eval: false
+
+# Create new hospital new_hospitals_multi (fill in the blanks)
+new_hospitals_multi <- data.frame(
+  wait_time_min = c(20, 70),         # Short vs. long wait
+  nurse_ratio = c(3.5, 1.8),         # High vs. low staffing
+  facility_age_years = c(5, 35)      # New vs. old facility
+)
+
+# Make predictions (fill in the blank)
+new_hospitals_multi$predicted_satisfaction <- predict(___, newdata = ___)
+new_hospitals_multi
+```
+
+**Question**: What is the difference in predicted satisfaction between the best-case and worst-case scenarios? What does this tell you about the combined impact of these factors?
 
 ------------------------------------------------------------------------
 
@@ -975,57 +1005,59 @@ This will help you practice building and interpreting multiple regression models
 
 Linear regression relies on several assumptions. Understanding these assumptions helps ensure valid statistical inference and reliable predictions.
 
-### 1. Linearity:
+### 1. Linearity
 
-- The relationship between predictor(s) and outcome is linear.
-- If the true relationship is curved but we fit a straight line, predictions will be systematically biased.
-- We can visually check by drawing a scatterplot
-- **If violated**: Consider transforming variables (log, square root) or using polynomial terms.
+-   The relationship between predictor(s) and outcome is linear.
+-   If the true relationship is curved but we fit a straight line, predictions will be systematically biased.
+-   We can visually check by drawing a scatterplot.
+-   **If violated**, consider transforming variables (log, square root) or using polynomial terms.
 
 ### 2. Independence of Observations
 
-- Each observation's residual is unrelated to others' residuals.
-- Correlated errors (e.g., repeated measures, clustered data) underestimate standard errors, making p-values too small.
-- Know your data structure (longitudinal? clustered?)
-- **If violated**: Use mixed models, clustered standard errors, or time-series methods.
+-   Each observation's residual is unrelated to others' residuals.
+-   Correlated errors (e.g., repeated measures, clustered data) underestimate standard errors, making p-values too small.
+-   Know your data structure and study design (longitudinal? clustered?)
+-   **If violated**, use mixed models, clustered standard errors, or time-series methods.
 
 ### 3. Homoscedasticity (Equal Variance)
 
-- Variance of residuals is constant across all fitted values.
-- Unequal variance (heteroscedasticity) makes standard errors unreliable and confidence intervals inaccurate.
-- We can visually inspect by drawing a Residuals vs Fitted plot (vertical spread should be roughly equal across x-axis)
-- **If violated**: Use weighted least squares or robust standard errors; consider transforming Y.
+-   Variance of residuals is constant across all fitted values.
+-   Unequal variance (heteroscedasticity) makes standard errors unreliable and confidence intervals inaccurate.
+-   We can visually inspect by drawing a Residuals vs Fitted plot (vertical spread should be roughly equal across x-axis)
+-   **If violated**, use robust standard errors or transform Y.
 
 ### 4. Normality of Residuals
 
-- Residuals follow a normal distribution.
-- Critical for valid p-values and confidence intervals
-- We can visually inspect using Q-Q plot (points should follow diagonal line)
-- **If violated**: Consider transforming Y or using robust methods.
+-   Residuals follow a normal distribution.
+-   Critical for valid p-values and confidence intervals
+-   We can visually inspect using a Q-Q plot (points should follow the diagonal line)
+-   **If violated**, consider transforming Y or using robust methods.
 
 ### 5. No (Perfect) Multicollinearity (Multiple Regression Only)
 
-- Predictors are not highly correlated with each other.
-- High correlation between predictors inflates standard errors, making coefficients unstable and hard to interpret.
-- We can check this visually (with correlation matrix) and check Variance Inflation Factor (VIF; VIF > 10 indicates problematic multicollinearity)
-- **If violated**: Remove redundant predictors, combine correlated predictors, or use penalized regression (we will cover this later in the semester).
+-   Predictors are not highly correlated with each other.
+-   High correlation between predictors inflates standard errors, making coefficients unstable and hard to interpret.
+-   We can check the Variance Inflation Factor (VIF; VIF \> 10 indicates problematic multicollinearity)
+-   **If violated**, remove redundant predictors, combine correlated predictors, or use penalized regression (we will cover this later in the semester).
 
----
+------------------------------------------------------------------------
 
 ### Summary: Which Plot Checks Which Assumption?
 
-| Assumption | Primary Diagnostic |
-|------------|-------------------|
-| **Linearity** | Residuals vs Fitted (look for no pattern) |
-| **Independence** | Know your study design |
-| **Homoscedasticity** | Residuals vs Fitted (equal vertical spread) |
-| **Normality** | Q-Q plot |
-| **Multicollinearity** | VIF values (not a plot) |
-
+| Assumption            | Primary Diagnostic                          |
+|-----------------------|---------------------------------------------|
+| **Linearity**         | Residuals vs Fitted (look for no pattern)   |
+| **Independence**      | Know your study design                      |
+| **Homoscedasticity**  | Residuals vs Fitted (equal vertical spread) |
+| **Normality**         | Q-Q plot                                    |
+| **Multicollinearity** | VIF values (not a plot)                     |
 
 ## Diagnostic Plots
 
 We can draw diagnostic plots by using the `plot()` function in R.
+
+-   `which = 1`: Residuals vs Fitted
+-   `which = 2`: Q-Q plot
 
 ```{r}
 #| label: fig-diagnostics
@@ -1042,208 +1074,55 @@ par(mfrow = c(1, 1))  # Reset to default
 
 ### Interpreting the Two Standard Diagnostic Plots
 
-**Plot 1: Residuals vs Fitted**
+**Plot 1: Residuals vs Fitted (left)**
 
-- **What to look for**: Random scatter around horizontal line at 0
-- **What it checks**: Linearity and homoscedasticity
-- **Good sign**: No pattern, equal spread across x-axis
-- **Red flags**:
-  - Curved pattern = non-linearity
-  - Funnel shape = heteroscedasticity
+-   **What to look for**: Random scatter around horizontal line at 0
+-   **What it checks**: Linearity and homoscedasticity
+-   **Good sign**: No pattern, equal spread across x-axis
+-   **Red flags**:
+    -   Curved pattern = non-linearity
+    -   Funnel shape = heteroscedasticity
 
-**Plot 2: Normal Q-Q (Quantile-Quantile)**
+**Plot 2: Normal Q-Q (Quantile-Quantile; right)**
 
-- A Q-Q plot compares the distribution of your residuals to a theoretical normal distribution.
-- **What to look for**: Points following the diagonal reference line
-- **What it checks**: Normality of residuals
-- Points close around the diagonal indicate residuals are normally distributed
-
+-   A Q-Q plot compares the distribution of your residuals to a theoretical normal distribution.
+-   **What to look for**: Points following the diagonal reference line
+-   **What it checks**: Normality of residuals
+-   Points close around the diagonal indicate residuals are normally distributed
 
 ## Checking for Multicollinearity
 
 Multicollinearity occurs when predictors are highly correlated, which can:
 
-- Inflate standard errors
-- Make individual coefficients unstable
-- Lead to counterintuitive results
+-   Inflate standard errors
+-   Make individual coefficients unstable
+-   Lead to counterintuitive results
 
 ### Variance Inflation Factor (VIF)
 
-VIF quantifies how much multicollinearity inflates the variance (and standard errors) of regression coefficients.
+VIF quantifies how much multicollinearity inflates the variance of regression coefficients.
 
 **How VIF works**:
 
-For each predictor $X_1$:
+For each predictor $X_j$:
 
-1. Regress $X_1$ on all other predictors
-2. Get $R^2$ from that regression (how well other predictors explain $X_1$)
-3. Calculate: $\text{VIF} = \frac{1}{1 - R^2}$
+1.  Regress $X_j$ on all other predictors
+2.  Get $R^2_j$ from that regression (how well other predictors explain $X_j$)
+3.  Calculate: $\text{VIF}_j = \frac{1}{1 - R^2_j}$
 
-- **Rule of Thumb**: VIF > 10 (or Tolerance < 0.1) indicates problematic multicollinearity.
+-   **Rule of Thumb**: VIF \> 10 (or Tolerance \< 0.1) indicates problematic multicollinearity.
 
-We can get VIF values by using the `vif()` function in R.
+We can get VIF values by using the `vif()` function in R (to use it, we first need to load the package `car`).
 
 ```{r}
 #| label: vif-check
 
 # Calculate VIF
 vif_values <- car::vif(model_multiple)
-
-tibble(
-  Variable = names(vif_values),
-  VIF = round(vif_values, 2),
-  Tolerance = round(1/vif_values, 3),
-  Interpretation = case_when(
-    vif_values < 5 ~ "Acceptable",
-    vif_values < 10 ~ "Moderate concern",
-    TRUE ~ "High - consider removing"
-  )
-) %>%
-  kable(caption = "Multicollinearity Diagnostics") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+vif_values
 ```
 
-### Demonstrating the Impact of Multicollinearity
-
-Let's see what happens when we include two highly correlated predictors in the same model.
-
-**Scenario**: We want to understand what predicts longer hospital length of stay. We have two predictors:
-
-- **Number of comorbidities** (chronic conditions like diabetes, COPD, etc.)
-- **Number of medications** (prescribed at admission)
-
-These variables are highly correlated (r ≈ 0.90) because patients with more conditions naturally take more medications.
-
-```{r}
-#| label: multicollinearity-demo
-#| code-fold: false
-
-# Generate demonstration data
-set.seed(2026)
-n <- 200
-
-demo_data <- tibble(
-  num_comorbidities = sample(0:5, n, replace = TRUE, prob = c(0.15, 0.25, 0.25, 0.20, 0.10, 0.05)),
-  num_medications = round(2.5 * num_comorbidities + rnorm(n, mean = 1, sd = 1.2)),
-  los = round(3 + 2.0 * num_comorbidities - 0.4 * num_medications + rnorm(n, 0, 1.5), 1)
-) %>%
-  mutate(
-    num_medications = pmax(0, num_medications),  # No negative medications
-    los = pmax(1, los)  # Minimum 1 day stay
-  )
-
-# Check correlation
-correlation <- cor(demo_data$num_comorbidities, demo_data$num_medications)
-cat("Correlation between comorbidities and medications:", round(correlation, 3), "\n")
-```
-
-**Now let's fit three models and compare**:
-
-```{r}
-#| label: multicollinearity-comparison
-
-# Model 1: Comorbidities alone
-model_1 <- lm(los ~ num_comorbidities, data = demo_data)
-
-# Model 2: Medications alone
-model_2 <- lm(los ~ num_medications, data = demo_data)
-
-# Model 3: Both together (multicollinearity!)
-model_3 <- lm(los ~ num_comorbidities + num_medications, data = demo_data)
-
-# Compare coefficients and significance
-comparison <- tibble(
-  Model = c("Model 1: Comorbidities only",
-            "Model 2: Medications only",
-            "Model 3: Both: Comorbidities",
-            "Model 3: Both: Medications"),
-  Coefficient = c(
-    coef(model_1)[2],
-    coef(model_2)[2],
-    coef(model_3)[2],
-    coef(model_3)[3]
-  ),
-  SE = c(
-    summary(model_1)$coefficients[2, 2],
-    summary(model_2)$coefficients[2, 2],
-    summary(model_3)$coefficients[2, 2],
-    summary(model_3)$coefficients[3, 2]
-  ),
-  `p-value` = c(
-    summary(model_1)$coefficients[2, 4],
-    summary(model_2)$coefficients[2, 4],
-    summary(model_3)$coefficients[2, 4],
-    summary(model_3)$coefficients[3, 4]
-  ),
-  VIF = c(
-    NA,  # Not applicable for single predictor
-    NA,  # Not applicable for single predictor
-    car::vif(model_3)[1],
-    car::vif(model_3)[2]
-  )
-) %>%
-  mutate(
-    Coefficient = round(Coefficient, 3),
-    SE = round(SE, 3),
-    `p-value` = ifelse(`p-value` < 0.001, "<.001", round(`p-value`, 3)),
-    VIF = round(VIF, 2),
-    Significance = case_when(
-      `p-value` == "<.001" ~ "***",
-      `p-value` < 0.01 ~ "**",
-      `p-value` < 0.05 ~ "*",
-      TRUE ~ ""
-    )
-  )
-
-comparison %>%
-  kable(caption = "Impact of Multicollinearity on Coefficient Estimates") %>%
-  kable_styling(bootstrap_options = c("striped", "hover")) %>%
-  footnote(general = "Note: *** p < .001, ** p < .01, * p < .05")
-```
-
-**What happened?**
-
-1. **Model 1** (comorbidities alone):
-   - Significant positive effect (each additional comorbidity increases LOS)
-
-2. **Model 2** (medications alone):
-   - Significant positive effect (each additional medication increases LOS)
-
-3. **Model 3** (both together): The truth is revealed!
-   - **Comorbidities**: Remains positive and significant
-   - **Medications**: Coefficient dramatically changes (from +`r round(coef(model_2)[2], 2)` to `r round(coef(model_3)[3], 2)`)!
-   - Standard errors inflate dramatically (VIF ≈ `r round(car::vif(model_3)[1], 1)`)
-
-**Why the dramatic change?**
-
-- When medications is alone in the model, it picks up the effect of comorbidities (since they're correlated). It looks important!
-
-- But when both are included, the model separates their effects. Now we see that **after controlling for** comorbidities, medications shows its true relationship (which may be weak, non-significant, or even negative)
-
-- Multicollinearity doesn't just inflate standard errors. It can completely mislead you about which predictors matter and even the direction of their effects!
-
-**What to do**:
-
-- Choose the most theoretically important predictor (usually **comorbidities**)
-- Or create a composite measure (e.g., "patient complexity index")
-- Check correlation matrix before modeling to identify problems early
-
-### Practice Checkpoint 3 {.unnumbered}
-
-::: {.callout-important}
-## Try It Yourself! (10 minutes)
-
-Open `week11_linear_regression_practice.qmd` and complete:
-
-- **Activity 3: Model Diagnostics Practice**
-  - Task 3.1: Create and interpret diagnostic plots
-  - Task 3.2: Check for multicollinearity using VIF
-  - Task 3.3: Assess model assumptions
-
-This will help you practice evaluating regression model assumptions.
-
-**After 10 minutes**, we'll wrap up with a summary.
-:::
+As all of them are less than 10, they are not highly correlated with each other.
 
 ------------------------------------------------------------------------
 
@@ -1253,70 +1132,40 @@ This will help you practice evaluating regression model assumptions.
 
 ### Simple vs. Multiple Linear Regression
 
-- **Simple regression**: Examines how one factor relates to an outcome ("If X increases by 1, how much does Y change?")
-- **Multiple regression**: Examines how several factors together relate to an outcome, showing each factor's unique contribution while holding others constant
+-   **Simple regression**: Examines how one factor relates to an outcome ("If X increases by 1, how much does Y change?")
+-   **Multiple regression**: Examines how several factors together relate to an outcome, showing each factor's unique contribution while holding others constant
 
 ### How OLS Finds the Best Line
 
-- Ordinary Least Squares (OLS) finds the line that minimizes the sum of squared residuals
-- "Residuals" = vertical distance between actual data points and the fitted line
+-   Ordinary Least Squares (OLS) finds the line that minimizes the sum of squared residuals
+-   "Residuals" = vertical distance between actual data points and the fitted line
 
 ### Model Fit: R²
 
-- R² tells you what percentage of variation your model explains
-- Adjusted R² is better for multiple regression (accounts for number of predictors)
-- Higher is better, but context matters
+-   R² tells you what percentage of variation your model explains
+-   Adjusted R² is better for multiple regression (accounts for number of predictors)
+-   Higher is better, but context matters
 
 ### Making Predictions
 
-- Use fitted models to predict outcomes for new situations
-- Useful for "what-if" scenarios and planning
+-   Use fitted models to predict outcomes for new situations
+-   Useful for "what-if" scenarios and planning
 
 ### Interpreting Coefficients
 
 Ask three questions for each coefficient:
 
-1. **Direction**: Positive or negative relationship?
-2. **Magnitude**: How large is the effect practically?
-3. **Significance**: Is p < 0.05? (But practical significance matters too!)
+1.  **Direction**: Positive or negative relationship?
+2.  **Magnitude**: How large is the effect practically?
+3.  **Significance**: Is p \< 0.05? (But practical significance matters too!)
 
-**Key concept**: In multiple regression, coefficients show effects **while controlling for other variables**.
+In multiple regression, coefficients show effects **while controlling for other variables**.
 
 ### Multicollinearity
 
-- **Problem**: When predictors are highly correlated, coefficients become unstable and can even flip signs
-- **Check**: VIF > 10 indicates problems
-- **Solution**: Remove or combine correlated predictors
-
-## Next Steps: Practice and Comprehensive Exercises
-
-::: {.callout-note icon=false}
-## Practice Activity (Completion-Based)
-
-Complete the hands-on practice in **`week11_linear_regression_practice.qmd`**:
-
-### Activities 1-3: Guided Practice (with fill-in-the-blank)
-
-- Activity 1: Simple Linear Regression Practice
-- Activity 2: Multiple Linear Regression Practice
-- Activity 3: Model Diagnostics Practice
-
-**Format**: Fill-in-the-blank code templates with hints and solutions
-
-**Skills practiced**: All regression techniques from lecture
-
-### Exercises 1-3: Comprehensive Analysis (open-ended)
-
-- Exercise 1: Simple regression with hospital readmission data
-- Exercise 2: Multiple regression controlling for confounders
-- Exercise 3: Making predictions and scenario analysis
-
-**Format**: Independent work with provided solutions
-
-**Expected time**: 2-3 hours (in-class practice + homework)
-
-**Purpose**: Build confidence and fluency with linear regression analysis
-:::
+-   When predictors are highly correlated, coefficients become unstable and can even flip signs
+-   **Check**: VIF \> 10 indicates problems
+-   **Solution**: Remove or combine correlated predictors
 
 ------------------------------------------------------------------------
 
@@ -1324,16 +1173,16 @@ Complete the hands-on practice in **`week11_linear_regression_practice.qmd`**:
 
 ## Statistical Methods
 
-- James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning with Applications in R* (2nd ed.). Springer.
-- Fox, J. (2015). *Applied Regression Analysis and Generalized Linear Models* (3rd ed.). SAGE Publications.
-- Gelman, A., & Hill, J. (2006). *Data Analysis Using Regression and Multilevel/Hierarchical Models*. Cambridge University Press.
+-   James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning with Applications in R* (2nd ed.). Springer.
+-   Fox, J. (2015). *Applied Regression Analysis and Generalized Linear Models* (3rd ed.). SAGE Publications.
+-   Gelman, A., & Hill, J. (2006). *Data Analysis Using Regression and Multilevel/Hierarchical Models*. Cambridge University Press.
 
 ## Healthcare Applications
 
 Examples are motivated by the following:
 
-- Alreshidi, N. M., Alaseeri, R. M., Alzoraigi, U. S., et al. (2021). Patient satisfaction with the emergency department services at an academic teaching hospital. *BMC Health Services Research*, 21, Article 423. https://pmc.ncbi.nlm.nih.gov/articles/PMC8144764/
+-   Abass, G., Asery, A., Al Badr, A., AlMaghlouth, A., AlOtaiby, S., & Heena, H. (2021). Patient satisfaction with the emergency department services at an academic teaching hospital. *Journal of Family Medicine and Primary Care*, 10(4), 1718-1725.
 
-- Stone, K., Zwiggelaar, R., Jones, P., & Mac Parthaláin, N. (2023). A systematic review of the prediction of hospital length of stay: Towards a unified framework. *PLOS Digital Health*, 2(2), e0000017. https://pmc.ncbi.nlm.nih.gov/articles/PMC9931263/
+-   Stone, K., Zwiggelaar, R., Jones, P., & Mac Parthaláin, N. (2022). A systematic review of the prediction of hospital length of stay: Towards a unified framework. *PLOS Digital Health*, 1(4), e0000017.
 
-- McHugh, M. D., Tubbs-Cooley, H. L., Ghazarian, S. R., Hegarty, S. E., et al. (2021). Effects of nurse-to-patient ratio legislation on nurse staffing and patient mortality, readmissions, and length of stay: a prospective study in a panel of hospitals. *The Lancet*, 397(10288), 1905-1913. https://pmc.ncbi.nlm.nih.gov/articles/PMC8408834/
+-   McHugh, M. D., Aiken, L. H., Sloane, D. M., Windsor, C., Douglas, C., & Yates, P. (2021). Effects of nurse-to-patient ratio legislation on nurse staffing and patient mortality, readmissions, and length of stay: a prospective study in a panel of hospitals. *The Lancet*, 397(10288), 1905-1913.
