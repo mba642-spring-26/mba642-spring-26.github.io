@@ -27,7 +27,7 @@ Any changes will be announced in class and posted on the course website and Canv
 | 8 | Mar 4 | Crosstab and correlation | [{{< fa file-alt >}}](/lectures/Lecture08/Slide08.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture08/Lecture08.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture08/Assignment08.qmd){target="_blank"} | Reflection 7, Assignment 4 |
 | 9 | Mar 11 | Midterm Exam | \- | \- | [{{< fa file-alt >}}](/lectures/Lecture09/exam1_questions.qmd){target="_blank"} | Midterm Exam |
 | 10 | Mar 18 | Spring break (no class) | \- | \- | \- | \- |
-| 11 | Mar 25 | Linear regression analysis 1 | \- | [{{< fa file-alt >}}](/lectures/Lecture11/Lecture11.qmd){target="_blank"} | \- | Reflection 8 |
+| 11 | Mar 25 | Linear regression analysis 1 | [{{< fa file-alt >}}](/lectures/Lecture11/Slide11.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture11/Lecture11.qmd){target="_blank"} | \- | Reflection 8 |
 | 12 | Apr 1 | Linear regression analysis 2 | \- | [{{< fa file-alt >}}](/lectures/Lecture12/Lecture12.qmd){target="_blank"} | \- | Reflection 9, Assignment 5 |
 | 13 | Apr 8 | Logistic regression analysis | \- | [{{< fa file-alt >}}](/lectures/Lecture13/Lecture13.qmd){target="_blank"} | \- | Reflection 10, Assignment 6 |
 | 14 | Apr 15 | Conjoint analysis | \- | [{{< fa file-alt >}}](/lectures/Lecture14/Lecture14.qmd){target="_blank"} | \- | Reflection 11, Assignment 7 |
