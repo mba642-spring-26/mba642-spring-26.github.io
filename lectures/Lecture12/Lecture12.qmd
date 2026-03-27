@@ -139,7 +139,7 @@ library(interactions)
 set.seed(2026)
 
 # Loading the dataset
-surgical_data <- read.csv("./week12_surgical_data.csv")
+surgical_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_surgical_data.csv")
 
 # Display the dataset
 head(surgical_data, 5) 
@@ -286,7 +286,7 @@ Let's load a dataset using the code below:
 #| label: multi-dummy-data
 
 # Generate hospital data
-hospital_type_data <- read.csv("./week12_hospital_type_data.csv")
+hospital_type_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_hospital_type_data.csv")
 
 # Summary by hospital type
 head(hospital_type_data, 5)
@@ -454,7 +454,7 @@ Let's load the dataset using the code below.
 #| label: interaction-data
 
 # Load the dataset
-satisfaction_data <- read.csv("./week12_satisfaction_data.csv")
+satisfaction_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_satisfaction_data.csv")
 head(satisfaction_data, 5)
 ```
 
@@ -564,7 +564,7 @@ Let's load a dataset using the code below:
 #| label: catcat-interaction
 
 # load data
-diabetes_data <- read.csv("./week12_diabetes_data.csv")
+diabetes_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_diabetes_data.csv")
 head(diabetes_data, 5)
 ```
 
@@ -699,7 +699,7 @@ Let's load a dataset using the code below:
 
 # load data
 
-pt_data <- read.csv("./week12_pt_data.csv")
+pt_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_pt_data.csv")
 head(pt_data, 5)
 ```
 
@@ -854,14 +854,14 @@ Run this code to load the dataset:
 ```{r}
 #| label: practice-quality-data
 
-quality_data <- read.csv("./week12_quality_data.csv")
+quality_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_quality_data.csv")
 head(quality_data, 5)
 ```
 
 **Dataset Variables:**
 
 | Variable | Description | Type |
-|----|----|----|
+|------------------------|-------------------------------|-----------------|
 | `hospital_id` | Unique hospital identifier | Numeric |
 | `region` | Geographic region (Midwest, Northeast, South, West) | Categorical |
 | `teaching_status` | Hospital type (Non-Teaching or Teaching) | Categorical |
