@@ -1,0 +1,367 @@
+---
+title: "Lab Assignment 5: Linear Regression"
+subtitle: "Weeks 11-12"
+author: "Your Name Here"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: true
+    code-copy: true
+    theme:
+      - cosmo
+      - lecture.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Assignment Overview
+
+-   **Total Points**: 10 points
+-   **Due Date**: April 5, 2026
+-   **Submission**: Upload your completed .qmd (no need to submit the rendered HTML file). I'll render your .qmd to HTML to check your work and assign points, so please make sure your file renders without errors before submitting.
+
+## Learning Objectives
+
+This assignment assesses your ability to:
+
+-   Fit and interpret simple and multiple linear regression models using `lm()`
+-   Create and interpret dummy variables for categorical predictors
+-   Conduct pairwise comparisons using `emmeans()`
+-   Fit and interpret interaction models (continuous x categorical)
+
+## Instructions
+
+1.  Complete all 3 tasks below
+2.  Fill in the blanks (replace `___` with appropriate code or values)
+3.  After completing each code chunk, change `#| eval: false` to `#| eval: true` to run it
+4.  Answer all interpretation questions (1-2 sentences each)
+5.  Run all code chunks to verify they work before submitting
+
+------------------------------------------------------------------------
+
+# Grading Rubric
+
+| Task | Points | Breakdown |
+|----|----|----|
+| Task 1: Simple & Multiple Regression | 4 | 0.5 visualization + 0.5 simple model + 0.5 multiple model + 0.5 prediction + 2 interpretation |
+| Task 2: Dummy Variables | 3 | 0.5 visualization + 0.5 model + 0.5 emmeans + 1.5 interpretation |
+| Task 3: Interaction Effects | 3 | 0.5 visualization + 0.5 model + 2 interpretation |
+| **Total** | **10** |  |
+
+**Interpretation Guidance**: Your interpretations should be brief but specific. For example:
+
+-   **Good**: "The slope for wait time is -0.42 (p \< 0.001), meaning each additional minute of waiting is associated with a 0.42-point decrease in satisfaction, holding other variables constant. This is both statistically and practically significant."
+-   **Too vague**: "The result is significant."
+
+------------------------------------------------------------------------
+
+# Required Packages
+
+-   Load the required packages using the code below:
+
+```{r}
+#| label: required-packages
+
+library(tidyverse)
+library(emmeans)
+```
+
+# Assignment Tasks
+
+## Task 1: Simple and Multiple Linear Regression — ED Length of Stay (4 points) {.unnumbered}
+
+A hospital operations team wants to understand what factors drive **emergency department length of stay** (ED LOS, in hours). They collected data on 150 ED visits including prior visit history, triage acuity, and number of diagnostic tests ordered. Understanding these drivers can help the hospital reduce ED boarding times and improve patient flow.
+
+Your goal is to identify which factors are associated with longer ED stays and use the model to predict outcomes for a new patient.
+
+Load the data using the code below and review the key variables.
+
+```{r}
+#| label: task1-data
+
+ed_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/lab5_ed_data.csv")
+
+head(ed_data, 8)
+```
+
+**Key variables**:
+
+| Variable | Description | Type |
+|----|----|----|
+| `num_prior_visits` | Number of ED visits in the past 12 months | Continuous |
+| `triage_acuity` | Emergency Severity Index (1 = most acute, 5 = non-urgent) | Continuous |
+| `num_tests` | Number of diagnostic tests ordered (labs, imaging, etc.) | Continuous |
+| `ed_los_hours` | Total time spent in the ED (hours) — **outcome variable** | Continuous |
+
+**Step 1 (Visualization — 0.5 points)**: Create a scatterplot of `num_prior_visits` (x-axis) vs. `ed_los_hours` (y-axis) with a linear trend line.
+
+```{r}
+#| label: task1-scatter
+#| eval: false
+
+ggplot(ed_data, aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.6, color = "steelblue", size = 2) +
+  geom_smooth(method = "___", se = TRUE, color = "darkred") +
+  labs(title = "Prior ED Visits vs. Length of Stay",
+       x = "Number of Prior ED Visits (past 12 months)",
+       y = "ED Length of Stay (hours)") +
+  theme_minimal()
+```
+
+**Step 2 (Simple Regression — 0.5 points)**: Fit a **simple linear regression** model predicting `ed_los_hours` from `num_prior_visits`.
+
+```{r}
+#| label: task1-simple
+#| eval: false
+
+# Fit simple regression model
+model_simple <- lm(___ ~ ___, data = ___)
+summary(___)
+```
+
+**Step 3 (Multiple Regression — 0.5 points)**: Fit a **multiple linear regression** model predicting `ed_los_hours` from all three predictors.
+
+```{r}
+#| label: task1-multiple
+#| eval: false
+
+# Fit multiple regression model
+model_multiple <- lm(___ ~ ___ + ___ + ___, data = ___)
+summary(___)
+```
+
+**Step 4 (Prediction — 0.5 points)**: A new patient arrives at the ED with 3 prior visits in the past year, a triage acuity of 2, and the physician orders 5 diagnostic tests. Use the multiple regression model to predict this patient's ED length of stay. Complete the `new_patient` data frame and generate the prediction.
+
+```{r}
+#| label: task1-predict
+#| eval: false
+
+# Create the new patient profile (fill in the values)
+new_patient <- data.frame(
+  num_prior_visits = ___,
+  triage_acuity = ___,
+  num_tests = ___
+)
+
+# Predict ED LOS using the multiple regression model
+round(predict(___, newdata = ___), 2)
+```
+
+**Interpretation (2 points)**:
+
+1.  In the **simple regression**, what is the slope for `num_prior_visits`? Is it positive or negative? Is it statistically significant?
+2.  In the **multiple regression**, what is the coefficient for `triage_acuity`? What does it mean in practical terms (i.e., what happens to ED LOS when acuity increases by one level)?
+3.  What is the predicted ED LOS for the new patient? Based on the model coefficients, which predictor contributes the most to this patient's predicted LOS?
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+
+3.  Question 3:
+:::
+
+------------------------------------------------------------------------
+
+## Task 2: Dummy Variables — Wound Care Protocol Comparison (3 points) {.unnumbered}
+
+A wound care center wants to compare the effectiveness of three wound care protocols on **healing time** (days). They collected data on 240 patients with chronic wounds, tracking protocol type, wound characteristics, and patient demographics.
+
+**Protocols**:
+
+-   **Standard Dressing**: Traditional gauze and bandage changes
+-   **Negative Pressure**: Vacuum-assisted closure (VAC) therapy
+-   **Advanced Biologics**: Skin substitutes and growth factor treatments
+
+Your goal is to determine whether healing time differs across protocols, after controlling for wound size, patient age, and diabetes status.
+
+Load the data using the code below and review the key variables.
+
+```{r}
+#| label: task2-data
+
+wound_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/lab5_wound_data.csv")
+
+wound_data <- wound_data %>%
+  mutate(
+    wound_protocol = factor(wound_protocol, levels = c("Standard Dressing", "Negative Pressure", "Advanced Biologics")),
+    diabetes = factor(diabetes, levels = c("No", "Yes"))
+  )
+
+head(wound_data, 8)
+```
+
+**Key variables**:
+
+| Variable | Description | Type |
+|----|----|----|
+| `wound_protocol` | Wound care protocol (Standard Dressing, Negative Pressure, Advanced Biologics) | Categorical |
+| `wound_size_cm2` | Wound surface area in cm² | Continuous |
+| `patient_age` | Patient age in years | Continuous |
+| `diabetes` | Diabetes status (Yes or No) | Categorical |
+| `healing_days` | Time to wound healing in days — **outcome variable** | Continuous |
+
+**Step 1 (Visualization — 0.5 points)**: Before fitting the model, create a boxplot comparing healing days across protocols.
+
+```{r}
+#| label: task2-plot
+#| eval: false
+
+ggplot(wound_data, aes(x = ___, y = ___, fill = ___)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Healing Time by Wound Care Protocol",
+       x = "Wound Care Protocol",
+       y = "Healing Time (days)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**Step 2 (Model Fitting — 0.5 points)**: Fit a regression model predicting `healing_days` from protocol, wound size, age, and diabetes status.
+
+```{r}
+#| label: task2-model
+#| eval: false
+
+model_wound <- lm(___ ~ ___ + ___ + ___ + ___, data = ___)
+summary(___)
+```
+
+**Step 3 (Pairwise Comparisons — 0.5 points)**: Use `emmeans()` to compare all pairs of wound protocols.
+
+```{r}
+#| label: task2-emmeans
+#| eval: false
+
+emm_wound <- emmeans(___, ~ ___)
+pairs(___, adjust = "tukey")
+```
+
+**Interpretation (1.5 points)**:
+
+1.  What is the coefficient for "Negative Pressure"? What does it mean compared to the reference category (Standard Dressing)?
+2.  What is the coefficient for "Advanced Biologics"? What does it mean compared to the reference category (Standard Dressing)?
+3.  Based on the regression output alone, can you tell whether "Negative Pressure" and "Advanced Biologics" are significantly different from each other? Using the `emmeans()` pairwise comparison results, are these two protocols significantly different? Explain.
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+
+3.  Question 3:
+:::
+
+------------------------------------------------------------------------
+
+## Task 3: Interaction Effects — Nurse Training and Patient Safety (3 points) {.unnumbered}
+
+A hospital network wants to understand whether investing in **nurse training hours** improves **patient safety scores**. They suspect the effect may differ by hospital setting: rural hospitals, which often have fewer baseline resources and less specialized staff, might benefit **more** from additional training than urban hospitals.
+
+Your goal is to test whether the effect of nurse training hours on patient safety scores is significantly different between rural and urban hospitals.
+
+Load the data using the code below and review the key variables.
+
+```{r}
+#| label: task3-data
+
+safety_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/lab5_safety_data.csv")
+
+safety_data <- safety_data %>%
+  mutate(hospital_setting = factor(hospital_setting, levels = c("Urban", "Rural")))
+
+head(safety_data, 8)
+```
+
+**Key variables**:
+
+| Variable | Description | Type |
+|----|----|----|
+| `hospital_id` | Unique hospital identifier | Numeric |
+| `hospital_setting` | Hospital location (Urban or Rural) | Categorical |
+| `training_hours` | Annual nurse training hours per FTE | Continuous |
+| `bed_count` | Number of hospital beds | Continuous |
+| `safety_score` | Patient safety composite score (0-100) — **outcome variable** | Continuous |
+
+**Step 1 (Visualization — 0.5 points)**: Create a scatterplot of `training_hours` (x-axis) vs. `safety_score` (y-axis), colored by `hospital_setting`, with separate linear trend lines for each group.
+
+```{r}
+#| label: task3-plot
+#| eval: false
+
+ggplot(safety_data, aes(x = ___, y = ___, color = ___)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "___", se = TRUE) +
+  labs(title = "Does Training Effect on Safety Differ by Hospital Setting?",
+       x = "Annual Training Hours per FTE",
+       y = "Patient Safety Score",
+       color = "Hospital Setting") +
+  theme_minimal()
+```
+
+**Step 2 (Interaction Model — 0.5 points)**: Fit a regression model with the interaction between `training_hours` and `hospital_setting`. (Focus on these two variables only — do not include `bed_count`.)
+
+```{r}
+#| label: task3-model
+#| eval: false
+
+# Fit interaction model (use * for main effects + interaction)
+model_safety <- lm(___ ~ ___ * ___, data = ___)
+summary(___)
+```
+
+**Interpretation (2 points)**:
+
+1.  Based on the regression output, what is the effect of one additional training hour on patient safety scores for **urban** hospitals? Is it statistically significant?
+2.  What is the effect of one additional training hour on patient safety scores for **rural** hospitals? Based on your answers to Q1 and Q2, what recommendation would you make to the hospital network about allocating training resources?
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+:::
+
+------------------------------------------------------------------------
+
+# Submission Checklist
+
+Before submitting, verify:
+
+-   [ ] All 3 tasks are completed
+-   [ ] All blanks (`___`) are filled in with appropriate values
+-   [ ] All `#| eval: false` changed to `#| eval: true`
+-   [ ] All code chunks run without errors
+-   [ ] All interpretation questions are answered (1-2 sentences each)
+-   [ ] Visualizations have appropriate titles and axis labels
+-   [ ] File renders to HTML successfully
+
+------------------------------------------------------------------------
+
+# Points Summary
+
+| Task | Points | Topic | Method |
+|----|----|----|----|
+| Task 1 | 4.0 | ED length of stay factors | Simple & Multiple Linear Regression |
+| Task 2 | 3.0 | Wound care protocol comparison | Dummy Variables & emmeans |
+| Task 3 | 3.0 | Nurse training and patient safety | Continuous x Categorical Interaction |
+| **Total** | **10.0** |  |  |
+
+------------------------------------------------------------------------
+
+**Good luck!**
