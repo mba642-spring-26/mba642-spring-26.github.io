@@ -1,0 +1,955 @@
+---
+title: "Linear Regression 2: <br> Dummy Variables and Interaction Effects"
+subtitle: "Week 12"
+author: ""
+date: "2026-04-01"
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    preview-links: auto
+    logo: ""
+    footer: "Week 12 | Linear Regression 2"
+    scrollable: true
+    incremental: false
+    code-line-numbers: false
+    highlight-style: github
+    navigation-mode: linear
+execute:
+  warning: false
+  message: false
+  echo: true
+---
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(broom)
+library(knitr)
+library(kableExtra)
+library(emmeans)
+library(interactions)
+```
+
+## Today's Learning Goals
+
+By the end of this lecture, you will be able to:
+
+::: incremental
+1.  **Create and interpret** dummy variables for categorical predictors in regression (binary and multi-level)
+2.  **Test and interpret** interaction effects in regression
+3.  **Compute** marginal effects to describe how a predictor's impact varies across groups
+:::
+
+## Beyond Continuous Predictors
+
+In Week 11, we used continuous predictors (e.g., wait time, staffing hours) to predict outcomes.
+
+. . .
+
+<br>
+
+But many important variables in healthcare are **categorical** (e.g., hospital type, insurance status, treatment protocol, or region).
+
+. . .
+
+Moreover, the effect of a continuous variable can differ depending on those categories.
+
+. . .
+
+<br>
+
+**Dummy variables and interactions** answer more nuanced questions:
+
+::: incremental
+-   *Do outcomes differ across groups, after controlling for other factors?*
+-   *Does the effect of one variable change depending on the level of another?*
+:::
+
+## Why This Matters for Healthcare Management
+
+These techniques directly support real management decisions:
+
+::: incremental
+-   **Resource allocation**: Should we prioritize staffing investments in non-profit hospitals, where the satisfaction payoff may be larger?
+-   **Cost management**: Does the Enhanced Recovery After Surgery (ERAS) protocol reduce length of stay *equally* across patient severity levels, or should we target it to specific groups?
+-   **Performance benchmarking**: Are we comparing hospitals fairly if we don't account for differences in patient mix and hospital type?
+:::
+
+## Today's Roadmap
+
+::: incremental
+1.  **Dummy Variables** -- Including categorical predictors (binary and multi-level) in regression
+2.  **Interaction Effects** -- Testing whether the effect of one variable depends on another
+    -   Continuous x Categorical
+    -   Categorical x Categorical
+    -   Continuous x Continuous
+:::
+
+# 1. Dummy Variables {background-color="#40666e"}
+
+## What Are Dummy Variables?
+
+Dummy variables (indicator variables) are **binary** variables representing categorical group membership using 0s and 1s.
+
+. . .
+
+<br>
+
+For a categorical variable with **k categories**, we create **k-1 dummy variables**, with one category serving as the reference group.
+
+. . .
+
+**Example**: 3 Hospital Types (Teaching, Community, Critical Access) → 2 dummy variables:
+
+::: incremental
+-   Dummy 1: Teaching (1 if Teaching, 0 otherwise)
+-   Dummy 2: Critical Access (1 if Critical Access, 0 otherwise)
+-   Community = reference (both dummies = 0)
+:::
+
+## When to Use Dummy Variables
+
+Regression requires numerical inputs, but categorical variables are not inherently numerical. Simply assigning numbers (e.g., Teaching=1, Community=2, Critical Access=3) would imply a false ordering.
+
+. . .
+
+Dummy variables solve this by representing group membership as 0s and 1s, allowing us to:
+
+::: incremental
+-   Include **categorical predictors** in regression (hospital type, insurance status, treatment group)
+-   Test whether **group differences** are statistically significant while *controlling for other variables*
+-   **Quantify** the magnitude of differences between categories
+:::
+
+## Binary Categorical Variables
+
+For a variable with **two categories**, we need **one dummy variable**:
+
+| Patient | Insurance Status | Dummy: Insured |
+|:-------:|:----------------:|:--------------:|
+|    1    |     Insured      |       1        |
+|    2    |    Uninsured     |       0        |
+|    3    |     Insured      |       1        |
+|    4    |    Uninsured     |       0        |
+
+. . .
+
+<br>
+
+The coefficient on the dummy variable represents the **difference in the outcome** between the two groups (Insured vs. Uninsured).
+
+## Example Case: Treatment Protocol Comparison
+
+**The problem**: Traditional surgical recovery involves extended hospital stays, which are costly and can lead to complications.
+
+. . .
+
+<br>
+
+**A better approach**: Enhanced Recovery After Surgery (ERAS) protocols use evidence-based practices: better pain management, early mobilization, and earlier nutrition.
+
+. . .
+
+<br>
+
+Let's compare patient outcomes between ***Standard care*** and ***ERAS protocols*** to quantify the treatment effect using a dummy variable.
+
+## Loading Packages and Data
+
+Let's load the required packages and the data using the code below:
+
+```{r}
+#| label: binary-dummy-data
+
+library(tidyverse)    # data wrangling and visualization
+library(emmeans)      # pairwise comparisons across groups
+library(interactions) # visualizing interaction effects
+
+surgical_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_surgical_data.csv")
+head(surgical_data, 5)
+```
+
+## Setting the Reference Category
+
+We use `factor()` to set "Standard" as the reference category:
+
+```{r}
+#| label: make-binary-dummy
+
+surgical_data <- surgical_data %>%
+  mutate(protocol = factor(protocol, levels = c("Standard", "ERAS")))
+```
+
+. . .
+
+<br>
+
+-   When we include `protocol` in the model, R **automatically creates** the dummy variable for us.
+-   The first level specified in `factor()` (here, `"Standard"`) becomes the **reference category**.
+
+## Visualizing the Data
+
+Let's visually check the patterns in the data before fitting the model:
+
+```{r}
+#| label: fig-protocol-effect
+#| code-fold: true
+#| fig-width: 6
+#| fig-height: 4
+
+ggplot(surgical_data, aes(x = protocol, y = length_of_stay, fill = protocol)) +
+  geom_boxplot(alpha = 0.7, width = 0.4) +
+  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +
+  labs(
+    x = "Treatment Protocol",
+    y = "Length of Stay (days)",
+    title = "Does ERAS Protocol Affect Length of Stay?"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "none")
+```
+
+## Fitting the Model
+
+-   Now we can fit a linear regression model to estimate the effect of the ERAS protocol on length of stay, controlling for age, BMI, and surgery complexity
+-   We can use the same `lm()` function as before, just including the `protocol` variable as a predictor
+
+```{r}
+#| label: binary-dummy-model
+#| results: false
+
+model_protocol <- lm(length_of_stay ~ protocol + age + bmi + surgery_complexity,
+                     data = surgical_data)
+summary(model_protocol)
+```
+
+```{r}
+#| label: binary-dummy-coeffs
+#| include: false
+
+coeffs <- coef(model_protocol)
+```
+
+## Understanding the Dummy Variable Output
+
+```{r}
+#| label: interpret-binary
+#| echo: false
+
+protocol_tidy <- tidy(model_protocol, conf.int = TRUE)
+
+protocol_tidy %>%
+  mutate(across(where(is.numeric), ~round(., 3))) %>%
+  kable(caption = "Regression Results: Protocol Comparison") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+**Key Interpretation**:
+
+-   The coefficient for `protocolERAS` is approximately `r round(coef(model_protocol)["protocolERAS"], 2)`.
+    -   **Patients in the ERAS protocol have `r abs(round(coef(model_protocol)["protocolERAS"], 2))` days shorter** length of stay than patients in the Standard protocol, holding age, BMI, and surgery complexity constant.
+
+## Manual Calculation with Dummy Variables
+
+**Patient profile**: A 65-year-old patient with BMI of 30 and surgery complexity of 2.
+
+. . .
+
+The fitted equation:
+
+$$\widehat{\text{LOS}} = `r round(coeffs[1], 3)` + `r round(coeffs[2], 3)`(\text{ERAS}) + `r round(coeffs[3], 3)`(\text{Age}) + `r round(coeffs[4], 3)`(\text{BMI}) + `r round(coeffs[5], 3)`(\text{Complexity})$$
+
+. . .
+
+**Standard protocol** (ERAS = 0):
+
+$$\widehat{\text{LOS}} = `r round(coeffs[1], 3)` + `r round(coeffs[2], 3)`(0) + `r round(coeffs[3], 3)`(65) + `r round(coeffs[4], 3)`(30) + `r round(coeffs[5], 3)`(2) = `r round(coeffs[1] + 0 * coeffs[2] + 65 * coeffs[3] + 30 * coeffs[4] + 2 * coeffs[5], 2)` \text{ days}$$
+
+. . .
+
+**ERAS protocol** (ERAS = 1):
+
+$$\widehat{\text{LOS}} = `r round(coeffs[1], 3)` + `r round(coeffs[2], 3)`(1) + `r round(coeffs[3], 3)`(65) + `r round(coeffs[4], 3)`(30) + `r round(coeffs[5], 3)`(2) = `r round(coeffs[1] + 1 * coeffs[2] + 65 * coeffs[3] + 30 * coeffs[4] + 2 * coeffs[5], 2)` \text{ days}$$
+
+## The Difference Is Exactly the Coefficient
+
+```{r}
+#| label: dummy-diff
+#| echo: false
+
+pred_standard <- coeffs[1] + 0 * coeffs[2] + 65 * coeffs[3] + 30 * coeffs[4] + 2 * coeffs[5]
+pred_eras <- coeffs[1] + 1 * coeffs[2] + 65 * coeffs[3] + 30 * coeffs[4] + 2 * coeffs[5]
+```
+
+For the same patient (age 65, BMI 30, complexity 2):
+
+-   **Standard protocol**: `r round(pred_standard, 2)` days
+-   **ERAS protocol**: `r round(pred_eras, 2)` days
+-   **Difference**: `r round(pred_eras - pred_standard, 2)` days = ERAS coefficient (`r round(coeffs[2], 2)`)
+
+. . .
+
+<br> The dummy variable coefficient represents the difference in predicted outcomes between the two groups, holding all other variables constant. This is true **regardless of the patient profile** we plug in.
+
+# 2. Multi-Level Categorical Variables {background-color="#40666e"}
+
+## Why k-1 Dummy Variables?
+
+When a categorical variable has **more than two levels**, we need **k-1 dummy variables** (where k is the number of categories).
+
+. . .
+
+<br>
+
+Including a dummy for every category would create **perfect multicollinearity**.
+
+-   The dummy variables would sum to 1 for every observation, perfectly correlated with the intercept.
+
+. . .
+
+<br> Each of the k-1 dummy coefficients represents the **difference** between that category and the reference category.
+
+## Example Case: Hospital Type Comparison
+
+**Question**: Do 30-day readmission rates differ across 3 hospital types?
+
+::: incremental
+-   **Teaching hospitals**: Large academic medical centers handling complex cases
+-   **Community hospitals**: General hospitals serving local populations
+-   **Critical Access hospitals**: Small rural hospitals with limited resources
+:::
+
+. . .
+
+<br> Let's compare readmission rates across these three hospital types while controlling for patient characteristics.
+
+## Loading the Data
+
+Let's load the data using the code below:
+
+```{r}
+#| label: multi-dummy-data
+
+hospital_type_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_hospital_type_data.csv")
+head(hospital_type_data, 5)
+```
+
+## Visualizing the Data
+
+Let's visually inspect the pattern:
+
+```{r}
+#| label: fig-hospital-type-explore
+#| code-fold: true
+#| fig-width: 9
+#| fig-height: 4.5
+
+ggplot(hospital_type_data, aes(x = hospital_type, y = readmission_rate, fill = hospital_type)) +
+  geom_boxplot(alpha = 0.7, width = 0.5) +
+  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +
+  labs(
+    x = "Hospital Type",
+    y = "30-Day Readmission Rate (%)",
+    title = "Do Readmission Rates Differ by Hospital Type?"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "none")
+```
+
+## Setting Reference Category and Fitting the Model
+
+Let's set the reference category to "Community":
+
+```{r}
+#| label: creating-multilevel-dummy
+
+hospital_type_data <- hospital_type_data %>%
+  mutate(
+    hospital_type = factor(hospital_type,
+                          levels = c("Community", "Teaching", "Critical Access"))
+  )
+```
+
+. . .
+
+Let's fit the model using the referenced factor variable:
+
+```{r}
+#| label: multi-dummy-model
+#| results: false
+
+model_hospital <- lm(readmission_rate ~ hospital_type + avg_patient_severity +
+                     nurse_per_patient, data = hospital_type_data)
+
+summary(model_hospital)
+```
+
+## Interpreting Multi-Level Dummy Output
+
+```{r}
+#| label: interpret-multi
+#| echo: false
+
+hospital_coefs <- tidy(model_hospital, conf.int = TRUE) %>%
+  mutate(
+    term = case_when(
+      term == "(Intercept)" ~ "Intercept",
+      term == "hospital_typeTeaching" ~ "Hospital Type: Teaching",
+      term == "hospital_typeCritical Access" ~ "Hospital Type: Critical Access",
+      term == "avg_patient_severity" ~ "Average Patient Severity",
+      term == "nurse_per_patient" ~ "Nurse-to-Patient Ratio"
+    )
+  )
+
+hospital_coefs %>%
+  mutate(across(where(is.numeric), ~round(., 3))) %>%
+  kable(caption = "Regression Results: Hospital Type Effect on Readmissions") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+## Interpreting Multi-Level Dummy Output
+
+```{r}
+#| echo: false
+coef_teach <- round(coef(model_hospital)["hospital_typeTeaching"], 3)
+coef_crit <- round(coef(model_hospital)["hospital_typeCritical Access"], 3)
+```
+
+Key interpretations:
+
+-   **Reference Category**: Community hospitals (omitted from output)
+-   **Teaching Hospitals**: Readmission rate `r abs(coef_teach)` percentage points **`r ifelse(coef_teach < 0, "lower", "higher")`** than Community
+-   **Critical Access Hospitals**: Readmission rate `r abs(coef_crit)` percentage points **`r ifelse(coef_crit > 0, "higher", "lower")`** than Community
+
+## Testing Non-Reference Comparisons
+
+The regression output only compares against the reference category. To compare **Teaching vs. Critical Access** directly using the `emmeans()` function:
+
+```{r}
+#| label: emmeans-pairwise
+
+emm <- emmeans(model_hospital, ~ hospital_type)
+pairs(emm, adjust = "tukey")
+```
+
+## Changing the Reference Category
+
+You can change the reference with `relevel()`:
+
+```{r}
+#| label: relevel
+
+hospital_type_data_reref <- hospital_type_data %>%
+  mutate(hospital_type = relevel(hospital_type, ref = "Teaching"))
+
+model_reref <- lm(readmission_rate ~ hospital_type + avg_patient_severity +
+                  nurse_per_patient, data = hospital_type_data_reref)
+summary(model_reref)
+```
+
+# 3. Interaction Effects {background-color="#40666e"}
+
+## What Is an Interaction Effect?
+
+An **interaction effect** occurs when the effect of one variable on the outcome **depends on the value of another variable**.
+
+. . .
+
+<br>
+
+Mathematically:
+
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \epsilon$$
+
+<br>
+
+-   The interaction coefficient $\beta_3$ captures how the effect of $X_1$ **changes across levels** of $X_2$ (or vice versa)
+
+## When to Use Interactions
+
+Use interaction terms when:
+
+::: incremental
+-   **Theory** or prior research suggests an effect should vary across groups
+-   **Visual inspection** shows different slopes for different groups
+-   You want to test whether an intervention **works differently** for different populations or conditions
+:::
+
+. . .
+
+<br>
+
+**Examples**:
+
+::: incremental
+-   A medication may work better for younger vs. older patients
+-   Additional staffing may have different impacts in big vs. small hospitals
+-   A new policy may affect urban and rural hospitals differently
+:::
+
+# 3.1. Continuous x Categorical Interaction {background-color="#40666e"}
+
+## Example: <br> Does Staffing Effect Vary by Hospital Ownership?
+
+**Question**: Does improving nurse staffing increase patient satisfaction equally in all hospitals?
+
+. . .
+
+<br>
+
+**Why it might differ**:
+
+::: incremental
+-   **For-Profit hospitals**: Investor-owned, focused on financial performance
+-   **Non-Profit hospitals**: Community-owned, mission-driven, may invest more in quality
+-   **Hypothesis**: Additional nurses might have a bigger impact in non-profit hospitals
+:::
+
+## Loading the Data
+
+Let's load the data using the code below:
+
+```{r}
+#| label: interaction-data
+
+satisfaction_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_satisfaction_data.csv")
+
+# Set ownership as a factor with For-Profit as the reference category
+satisfaction_data <- satisfaction_data %>%
+  mutate(ownership = factor(ownership, levels = c("For-Profit", "Non-Profit")))
+
+head(satisfaction_data, 5)
+```
+
+## Visualizing the Potential Interaction
+
+Before running the model, always visualize to see if an interaction might exist:
+
+```{r}
+#| label: fig-interaction-visual
+#| code-fold: true
+#| fig-width: 9
+#| fig-height: 4.5
+
+ggplot(satisfaction_data, aes(x = nurse_ratio, y = patient_satisfaction,
+                              color = ownership)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    x = "Nurse-to-Patient Ratio",
+    y = "Patient Satisfaction Score",
+    color = "Ownership Type",
+    title = "Does Staffing Effect Differ by Hospital Ownership?",
+    subtitle = "Different slopes suggest an interaction effect"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+## Fitting the Interaction Model
+
+Use `*` to include both main effects and the interaction (as we did in two-way ANOVA):
+
+```{r}
+#| label: fit-interaction
+#| results: false
+
+# nurse_ratio * ownership = nurse_ratio + ownership + nurse_ratio:ownership
+model_interact <- lm(patient_satisfaction ~ nurse_ratio * ownership,
+                     data = satisfaction_data)
+summary(model_interact)
+```
+
+## Interpreting the Interaction
+
+```{r}
+#| label: interpret-interaction
+#| echo: false
+
+int_coefs <- coef(model_interact)
+
+tidy(model_interact, conf.int = TRUE) %>%
+  mutate(across(where(is.numeric), ~round(., 3))) %>%
+  kable(caption = "Regression with Interaction Effect") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+<br> The full model: $$\widehat{\text{Satisfaction}} = `r round(int_coefs[1], 2)` + `r round(int_coefs[2], 2)`(\text{Nurse Ratio}) + `r round(int_coefs[3], 2)`(\text{Non-Profit}) + `r round(int_coefs[4], 2)`(\text{Nurse Ratio} \times \text{Non-Profit})$$
+
+## Understanding the Coefficients
+
+::: incremental
+1.  **nurse_ratio (`r round(int_coefs["nurse_ratio"], 2)`)**: Effect of staffing **for For-Profit hospitals** (reference group)
+2.  **ownershipNon-Profit (`r round(int_coefs["ownershipNon-Profit"], 2)`)**: Difference between Non-Profit and For-Profit **when nurse_ratio = 0** (mathematical baseline, not a realistic scenario)
+3.  **nurse_ratio:ownershipNon-Profit (`r round(int_coefs["nurse_ratio:ownershipNon-Profit"], 2)`)**: **THE INTERACTION** -- the additional effect of staffing in Non-Profit hospitals beyond the For-Profit effect
+:::
+
+. . .
+
+**Computing the Effect for Each Group**:
+
+::: incremental
+-   **For-Profit**: Each additional nurse → `r round(int_coefs["nurse_ratio"], 2)` satisfaction points
+-   **Non-Profit**: Each additional nurse → `r round(int_coefs["nurse_ratio"], 2)` + `r round(int_coefs["nurse_ratio:ownershipNon-Profit"], 2)` = `r round(int_coefs["nurse_ratio"] + int_coefs["nurse_ratio:ownershipNon-Profit"], 2)` satisfaction points
+:::
+
+## Visualizing the Interaction Effect
+
+```{r}
+#| label: fig-interaction-plot
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4.5
+
+pred_grid <- expand_grid(
+  nurse_ratio = seq(2, 6, by = 0.1),
+  ownership = c("For-Profit", "Non-Profit")
+) %>%
+  mutate(predicted = predict(model_interact, newdata = .))
+
+ggplot(pred_grid, aes(x = nurse_ratio, y = predicted, color = ownership)) +
+  geom_line(linewidth = 1.5) +
+  scale_color_manual(values = c("For-Profit" = "coral", "Non-Profit" = "steelblue")) +
+  labs(
+    x = "Nurse-to-Patient Ratio",
+    y = "Predicted Patient Satisfaction",
+    color = "Ownership Type",
+    title = "Interaction Effect: Staffing x Ownership",
+    subtitle = paste0("For-Profit slope: ", round(int_coefs["nurse_ratio"], 2),
+                     " | Non-Profit slope: ",
+                     round(int_coefs["nurse_ratio"] + int_coefs["nurse_ratio:ownershipNon-Profit"], 2))
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+# 3.2. Categorical x Categorical Interaction {background-color="#40666e"}
+
+## Example: <br> Does Treatment Effect Vary by Insurance Type?
+
+**Question**: Does an intensive diabetes (vs. standard) program work differently for patients with different insurance types?
+
+. . .
+
+<br>
+
+**Why it might vary**:
+
+::: incremental
+-   **Private**: Fewest access barriers -- broader networks, more specialist availability
+-   **Medicaid**: Logistical barriers -- fewer accepting providers, transportation, time off work
+-   **Medicare**: More time for appointments (often retired), but mobility/health limitations
+:::
+
+## Loading the Data
+
+Let's load the data using the code below:
+
+```{r}
+#| label: catcat-interaction
+
+diabetes_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_diabetes_data.csv")
+head(diabetes_data, 5)
+```
+
+## Visualizing the Data
+
+Let's visually inspect the patterns in the data before fitting the model:
+
+```{r}
+#| label: fig-catcat-explore
+#| code-fold: true
+#| fig-width: 9
+#| fig-height: 4.5
+
+ggplot(diabetes_data, aes(x = insurance, y = a1c_reduction, fill = treatment)) +
+  geom_boxplot(alpha = 0.7, width = 0.7) +
+  labs(
+    x = "Insurance Type",
+    y = "HbA1c Reduction",
+    fill = "Treatment",
+    title = "Does Treatment Effectiveness Vary by Insurance Type?"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+## Setting Factors and Fitting the Model
+
+Let's set the reference categories for both treatment and insurance:
+
+```{r}
+#| label: factor-diabetes-vars
+
+diabetes_data <- diabetes_data %>%
+  mutate(
+    treatment = factor(treatment, levels = c("Standard Care", "Intensive Program")),
+    insurance = factor(insurance, levels = c("Medicaid", "Medicare", "Private"))
+  )
+```
+
+. . .
+
+Let's fit the model with the interaction between treatment and insurance:
+
+```{r}
+#| label: catcat-model
+#| results: false
+
+# treatment * insurance = treatment + insurance + treatment:insurance
+model_diabetes <- lm(a1c_reduction ~ treatment * insurance,
+                     data = diabetes_data)
+summary(model_diabetes)
+```
+
+## Interpreting Categorical x Categorical Interactions
+
+```{r}
+#| label: interpret-catcat
+#| echo: false
+
+tidy(model_diabetes, conf.int = TRUE) %>%
+  mutate(across(where(is.numeric), ~round(., 3))) %>%
+  kable(caption = "Regression Results: Treatment x Insurance Interaction") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+```{r}
+#| echo: false
+diab_coefs <- coef(model_diabetes)
+```
+
+## Understanding Each Coefficient
+
+**Reference Group**: Standard Care + Medicaid
+
+::: incremental
+1.  **Intercept (`r round(diab_coefs["(Intercept)"], 3)`)**: Predicted HbA1c reduction for Standard Care with Medicaid
+2.  **treatmentIntensive Program (`r round(diab_coefs["treatmentIntensive Program"], 3)`)**: Additional effect of Intensive Program **for Medicaid patients only**
+3.  **insuranceMedicare (`r round(diab_coefs["insuranceMedicare"], 3)`)**: Medicare vs. Medicaid difference **for Standard Care only**
+4.  **insurancePrivate (`r round(diab_coefs["insurancePrivate"], 3)`)**: Private vs. Medicaid difference **for Standard Care only**
+5.  **Interaction: Medicare (`r round(diab_coefs["treatmentIntensive Program:insuranceMedicare"], 3)`)**: How much more effective the Intensive Program is for Medicare **compared to** Medicaid
+6.  **Interaction: Private (`r round(diab_coefs["treatmentIntensive Program:insurancePrivate"], 3)`)**: How much more effective the Intensive Program is for Private **compared to** Medicaid
+:::
+
+## Treatment Effects by Insurance Group
+
+**Computing treatment effects for each group**:
+
+::: incremental
+-   **Medicaid**: Treatment effect = `r round(diab_coefs["treatmentIntensive Program"], 3)`
+-   **Medicare**: Treatment effect = `r round(diab_coefs["treatmentIntensive Program"], 3)` + `r round(diab_coefs["treatmentIntensive Program:insuranceMedicare"], 3)` = `r round(diab_coefs["treatmentIntensive Program"] + diab_coefs["treatmentIntensive Program:insuranceMedicare"], 3)`
+-   **Private**: Treatment effect = `r round(diab_coefs["treatmentIntensive Program"], 3)` + `r round(diab_coefs["treatmentIntensive Program:insurancePrivate"], 3)` = `r round(diab_coefs["treatmentIntensive Program"] + diab_coefs["treatmentIntensive Program:insurancePrivate"], 3)`
+:::
+
+. . .
+
+<br>
+
+> The Intensive Program is effective across all insurance types, but **most effective** for `r c("Medicaid", "Medicare", "Private")[which.max(c(diab_coefs["treatmentIntensive Program"], diab_coefs["treatmentIntensive Program"] + diab_coefs["treatmentIntensive Program:insuranceMedicare"], diab_coefs["treatmentIntensive Program"] + diab_coefs["treatmentIntensive Program:insurancePrivate"]))]` insurance patients.
+
+## Visualizing Categorical x Categorical Interaction
+
+```{r}
+#| label: fig-catcat-bar
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4.5
+
+emm_df <- as.data.frame(emmeans(model_diabetes, ~ treatment * insurance))
+
+ggplot(emm_df, aes(x = insurance, y = emmean, fill = treatment)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL),
+                position = position_dodge(width = 0.8), width = 0.2) +
+  scale_fill_manual(values = c("Standard Care" = "gray60",
+                               "Intensive Program" = "steelblue")) +
+  labs(
+    x = "Insurance Type",
+    y = "Predicted HbA1c Reduction",
+    fill = "Treatment",
+    title = "Interaction: Treatment x Insurance"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+# 3.3. Continuous x Continuous Interaction {background-color="#40666e"}
+
+## Example: <br> Does PT Session Benefit Depend on Patient Age?
+
+**Question**: Does the benefit of additional physical therapy (PT) sessions depend on patient age?
+
+. . .
+
+<br>
+
+**Why it might vary**:
+
+::: incremental
+-   Younger patients may have faster tissue repair and adaptation
+-   Older patients may have comorbidities limiting response to therapy
+-   Thus, additional PT sessions might provide greater improvement for younger patients
+:::
+
+## Loading the Data
+
+Let's load the data using the code below:
+
+```{r}
+#| label: contcont-interaction
+
+pt_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_pt_data.csv")
+head(pt_data, 5)
+```
+
+## Visualizing the Data
+
+Let's visually inspect the patterns in the data before fitting the model:
+
+```{r}
+#| label: fig-contcont-explore
+#| code-fold: true
+#| fig-width: 9
+#| fig-height: 4.5
+
+ggplot(pt_data, aes(x = pt_sessions, y = function_improvement, color = age)) +
+  geom_point(alpha = 0.6) +
+  scale_color_gradient(low = "steelblue", high = "coral") +
+  labs(
+    x = "Number of PT Sessions",
+    y = "Function Improvement",
+    color = "Age",
+    title = "Does PT Session Effectiveness Vary by Age?"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+## Fitting the Model
+
+Let's fit the model with the interaction between PT sessions and age:
+
+```{r}
+#| label: fit-contcont
+#| results: false
+
+# pt_sessions * age = pt_sessions + age + pt_sessions:age
+model_pt <- lm(function_improvement ~ pt_sessions * age,
+               data = pt_data)
+summary(model_pt)
+```
+
+## Interpreting the Results
+
+```{r}
+#| label: interpret-contcont
+#| echo: false
+
+tidy(model_pt, conf.int = TRUE) %>%
+  mutate(across(where(is.numeric), ~round(., 4))) %>%
+  kable(caption = "Regression Results: PT Sessions x Age Interaction") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+```{r}
+#| echo: false
+pt_coefs <- coef(model_pt)
+```
+
+## Understanding the Coefficients
+
+::: incremental
+1.  **pt_sessions (`r round(pt_coefs["pt_sessions"], 2)`)**: Effect of one additional PT session **when age = 0** (not meaningful)
+2.  **age (`r round(pt_coefs["age"], 2)`)**: Effect of one year of age **when pt_sessions = 0** (not meaningful)
+3.  **pt_sessions:age (`r round(pt_coefs["pt_sessions:age"], 4)`)**: **THE INTERACTION** -- for each additional year of age, the benefit of one PT session decreases by `r abs(round(pt_coefs["pt_sessions:age"], 4))` points
+:::
+
+. . .
+
+**Marginal effect formula**:
+
+$$\text{Effect of PT Sessions} = \beta_{\text{pt_sessions}} + \beta_{\text{interaction}} \times \text{Age}$$
+
+## Computing Marginal Effects at Different Ages
+
+::: incremental
+-   **Age 30**: Effect = `r round(pt_coefs["pt_sessions"], 2)` + (30 × `r round(pt_coefs["pt_sessions:age"], 4)`) = `r round(pt_coefs["pt_sessions"] + 30 * pt_coefs["pt_sessions:age"], 2)` points per session
+-   **Age 50**: Effect = `r round(pt_coefs["pt_sessions"], 2)` + (50 × `r round(pt_coefs["pt_sessions:age"], 4)`) = `r round(pt_coefs["pt_sessions"] + 50 * pt_coefs["pt_sessions:age"], 2)` points per session
+-   **Age 70**: Effect = `r round(pt_coefs["pt_sessions"], 2)` + (70 × `r round(pt_coefs["pt_sessions:age"], 4)`) = `r round(pt_coefs["pt_sessions"] + 70 * pt_coefs["pt_sessions:age"], 2)` points per session
+:::
+
+. . .
+
+<br>
+
+The effect of PT sessions **changes dramatically with age**. Positive for younger patients, potentially negative for older patients.
+
+## Visualizing with `probe_interaction()`
+
+We can understand the interaction better by visualizing the predicted improvement across PT sessions for different ages using `probe_interaction()`, which is a part of the `interactions` package:
+
+```{r}
+#| label: fig-contcont
+#| fig-width: 9
+#| fig-height: 4.5
+
+probe_interaction(model_pt,              # fitted model
+                  pred = pt_sessions,     # x-axis variable
+                  modx = age,             # moderator variable
+                  modx.values = c(30, 50, 70))  # values to plot separate lines
+```
+
+## Interpreting the Visualization
+
+**Simple Slopes Analysis**:
+
+```{r}
+#| echo: false
+#| results: asis
+ages <- c(30, 50, 70)
+for (a in ages) {
+  eff <- pt_coefs["pt_sessions"] + a * pt_coefs["pt_sessions:age"]
+  direction <- ifelse(eff > 0, "beneficial", "associated with worse outcomes")
+  cat(sprintf("- **Age %d**: %s slope -- PT sessions are **%s**\n",
+              a, ifelse(eff > 0, "Positive", "Negative"), direction))
+}
+```
+
+. . .
+
+<br> **Key insight**:
+
+-   The interaction creates a **crossover effect** where the treatment benefit reverses direction in different subgroups.
+-   In practice, this would warrant investigation into confounding factors (e.g., sicker older patients may be prescribed more PT sessions, making PT *appear* less effective).
+
+# Summary {background-color="#40666e"}
+
+## Key Takeaways
+
+::: incremental
+-   **Dummy variables** let us include categorical predictors in regression using 0s and 1s
+-   We can not only compare two categories or groups, but also **multiple categories** by creating k-1 dummy variables
+-   Use `emmeans()` for **pairwise comparisons** across multi-level categorical variables
+-   **Interaction effects** test whether the effect of one variable depends on another
+-   In interaction models, **main effects** have conditional interpretations (at zero or reference level)
+-   Use `probe_interaction()` for **visualizing interaction effects**
+:::
+
+## Assignments
+
+1.  **Reflection**: Please share your thoughts on the lecture
+    -   3 interesting things
+    -   3 confusing things
+2.  **Lab Assignment 5**: Linear Regression
+
+Both are due by 11:59pm on Sunday, April 5.
+
+## References
+
+**Statistical Methods**:
+
+-   Gelman, A., & Hill, J. (2006). *Data Analysis Using Regression and Multilevel/Hierarchical Models*. Cambridge University Press.
+-   James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning with Applications in R* (2nd ed.). Springer.
+
+**Healthcare Applications**:
+
+-   Katikam, S. M., et al. (2025). Evaluation of ERAS Protocols in Abdominal Surgery. *Journal of Pharmacy & Bioallied Sciences*, 17(Suppl 2), S1805-S1807.
+-   Horwitz, L. I., et al. (2017). Hospital characteristics associated with risk-standardized readmission rates. *Medical Care*, 55(5), 528-534.
+-   Turk, M. T., et al. (2023). Stakeholder Analysis: Medicare Diabetes Prevention Program. *American Journal of Managed Care*, 29(6), 308-312.

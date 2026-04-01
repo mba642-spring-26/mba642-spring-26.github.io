@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Slides\nLecture Notes\nAssignment Instruction\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\n-\nReflection 2\n\n\n4\nFeb 4\nData visualization\n\n\n\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n\n\n\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n\n\n-\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n\n\n\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n\n\n\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n\nMidterm Exam\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n\n\n-\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n-\n\n\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n-\n\n-\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n-\n\n-\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n-\n\n-\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n-\n\n-\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\n\nAssignments will be informed during the class",
+    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Slides\nLecture Notes\nAssignment Instruction\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\n-\nReflection 2\n\n\n4\nFeb 4\nData visualization\n\n\n\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n\n\n\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n\n\n-\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n\n\n\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n\n\n\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n\nMidterm Exam\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n\n\n-\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n\n\n\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n-\n\n-\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n-\n\n-\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n-\n\n-\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n-\n\n-\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\n\nAssignments will be informed during the class",
     "crumbs": [
       "Home",
       "Schedule"
@@ -8495,5 +8495,376 @@
     "title": "Lab Assignment 5: Linear Regression",
     "section": "Task 3: Interaction Effects — Nurse Training and Patient Safety (3 points)",
     "text": "Task 3: Interaction Effects — Nurse Training and Patient Safety (3 points)\nA hospital network wants to understand whether investing in nurse training hours improves patient safety scores. They suspect the effect may differ by hospital setting: rural hospitals, which often have fewer baseline resources and less specialized staff, might benefit more from additional training than urban hospitals.\nYour goal is to test whether the effect of nurse training hours on patient safety scores is significantly different between rural and urban hospitals.\nLoad the data using the code below and review the key variables.\n\nsafety_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/lab5_safety_data.csv\")\n\nsafety_data &lt;- safety_data %&gt;%\n  mutate(hospital_setting = factor(hospital_setting, levels = c(\"Urban\", \"Rural\")))\n\nhead(safety_data, 8)\n\n  hospital_id hospital_setting training_hours bed_count safety_score\n1           1            Urban           22.7       115         53.0\n2           2            Rural           28.6        28         73.0\n3           3            Rural           14.4       125         56.5\n4           4            Rural           16.4       188         64.2\n5           5            Rural           12.3       179         70.7\n6           6            Rural           17.8       153         65.1\n7           7            Urban           32.5       176         71.0\n8           8            Urban           19.1       137         53.4\n\n\nKey variables:\n\n\n\n\n\n\n\n\nVariable\nDescription\nType\n\n\n\n\nhospital_id\nUnique hospital identifier\nNumeric\n\n\nhospital_setting\nHospital location (Urban or Rural)\nCategorical\n\n\ntraining_hours\nAnnual nurse training hours per FTE\nContinuous\n\n\nbed_count\nNumber of hospital beds\nContinuous\n\n\nsafety_score\nPatient safety composite score (0-100) — outcome variable\nContinuous\n\n\n\nStep 1 (Visualization — 0.5 points): Create a scatterplot of training_hours (x-axis) vs. safety_score (y-axis), colored by hospital_setting, with separate linear trend lines for each group.\n\nggplot(safety_data, aes(x = ___, y = ___, color = ___)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"___\", se = TRUE) +\n  labs(title = \"Does Training Effect on Safety Differ by Hospital Setting?\",\n       x = \"Annual Training Hours per FTE\",\n       y = \"Patient Safety Score\",\n       color = \"Hospital Setting\") +\n  theme_minimal()\n\nStep 2 (Interaction Model — 0.5 points): Fit a regression model with the interaction between training_hours and hospital_setting. (Focus on these two variables only — do not include bed_count.)\n\n# Fit interaction model (use * for main effects + interaction)\nmodel_safety &lt;- lm(___ ~ ___ * ___, data = ___)\nsummary(___)\n\nInterpretation (2 points):\n\nBased on the regression output, what is the effect of one additional training hour on patient safety scores for urban hospitals? Is it statistically significant?\nWhat is the effect of one additional training hour on patient safety scores for rural hospitals? Based on your answers to Q1 and Q2, what recommendation would you make to the hospital network about allocating training resources?\n\n\n\n\n\n\n\nNoteYour Answer (1-2 sentences each)\n\n\n\n[Write your answers here]\n\nQuestion 1:\nQuestion 2:"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#todays-learning-goals",
+    "href": "lectures/Lecture12/Slide12.html#todays-learning-goals",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Today’s Learning Goals",
+    "text": "Today’s Learning Goals\nBy the end of this lecture, you will be able to:\n\nCreate and interpret dummy variables for categorical predictors in regression (binary and multi-level)\nTest and interpret interaction effects in regression\nCompute marginal effects to describe how a predictor’s impact varies across groups"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#beyond-continuous-predictors",
+    "href": "lectures/Lecture12/Slide12.html#beyond-continuous-predictors",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Beyond Continuous Predictors",
+    "text": "Beyond Continuous Predictors\nIn Week 11, we used continuous predictors (e.g., wait time, staffing hours) to predict outcomes.\n\n\nBut many important variables in healthcare are categorical (e.g., hospital type, insurance status, treatment protocol, or region).\n\n\nMoreover, the effect of a continuous variable can differ depending on those categories.\n\n\n\nDummy variables and interactions answer more nuanced questions:\n\nDo outcomes differ across groups, after controlling for other factors?\nDoes the effect of one variable change depending on the level of another?"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#why-this-matters-for-healthcare-management",
+    "href": "lectures/Lecture12/Slide12.html#why-this-matters-for-healthcare-management",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Why This Matters for Healthcare Management",
+    "text": "Why This Matters for Healthcare Management\nThese techniques directly support real management decisions:\n\nResource allocation: Should we prioritize staffing investments in non-profit hospitals, where the satisfaction payoff may be larger?\nCost management: Does the Enhanced Recovery After Surgery (ERAS) protocol reduce length of stay equally across patient severity levels, or should we target it to specific groups?\nPerformance benchmarking: Are we comparing hospitals fairly if we don’t account for differences in patient mix and hospital type?"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#todays-roadmap",
+    "href": "lectures/Lecture12/Slide12.html#todays-roadmap",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Today’s Roadmap",
+    "text": "Today’s Roadmap\n\nDummy Variables – Including categorical predictors (binary and multi-level) in regression\nInteraction Effects – Testing whether the effect of one variable depends on another\n\nContinuous x Categorical\nCategorical x Categorical\nContinuous x Continuous"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#what-are-dummy-variables",
+    "href": "lectures/Lecture12/Slide12.html#what-are-dummy-variables",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "What Are Dummy Variables?",
+    "text": "What Are Dummy Variables?\nDummy variables (indicator variables) are binary variables representing categorical group membership using 0s and 1s.\n\n\nFor a categorical variable with k categories, we create k-1 dummy variables, with one category serving as the reference group.\n\n\nExample: 3 Hospital Types (Teaching, Community, Critical Access) → 2 dummy variables:\n\nDummy 1: Teaching (1 if Teaching, 0 otherwise)\nDummy 2: Critical Access (1 if Critical Access, 0 otherwise)\nCommunity = reference (both dummies = 0)"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#when-to-use-dummy-variables",
+    "href": "lectures/Lecture12/Slide12.html#when-to-use-dummy-variables",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "When to Use Dummy Variables",
+    "text": "When to Use Dummy Variables\nRegression requires numerical inputs, but categorical variables are not inherently numerical. Simply assigning numbers (e.g., Teaching=1, Community=2, Critical Access=3) would imply a false ordering.\n\nDummy variables solve this by representing group membership as 0s and 1s, allowing us to:\n\nInclude categorical predictors in regression (hospital type, insurance status, treatment group)\nTest whether group differences are statistically significant while controlling for other variables\nQuantify the magnitude of differences between categories"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#binary-categorical-variables",
+    "href": "lectures/Lecture12/Slide12.html#binary-categorical-variables",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Binary Categorical Variables",
+    "text": "Binary Categorical Variables\nFor a variable with two categories, we need one dummy variable:\n\n\n\nPatient\nInsurance Status\nDummy: Insured\n\n\n\n\n1\nInsured\n1\n\n\n2\nUninsured\n0\n\n\n3\nInsured\n1\n\n\n4\nUninsured\n0\n\n\n\n\n\nThe coefficient on the dummy variable represents the difference in the outcome between the two groups (Insured vs. Uninsured)."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#example-case-treatment-protocol-comparison",
+    "href": "lectures/Lecture12/Slide12.html#example-case-treatment-protocol-comparison",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Example Case: Treatment Protocol Comparison",
+    "text": "Example Case: Treatment Protocol Comparison\nThe problem: Traditional surgical recovery involves extended hospital stays, which are costly and can lead to complications.\n\n\nA better approach: Enhanced Recovery After Surgery (ERAS) protocols use evidence-based practices: better pain management, early mobilization, and earlier nutrition.\n\n\n\nLet’s compare patient outcomes between Standard care and ERAS protocols to quantify the treatment effect using a dummy variable."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#loading-packages-and-data",
+    "href": "lectures/Lecture12/Slide12.html#loading-packages-and-data",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Loading Packages and Data",
+    "text": "Loading Packages and Data\nLet’s load the required packages and the data using the code below:\n\nlibrary(tidyverse)    # data wrangling and visualization\nlibrary(emmeans)      # pairwise comparisons across groups\nlibrary(interactions) # visualizing interaction effects\n\nsurgical_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_surgical_data.csv\")\nhead(surgical_data, 5)\n\n  X patient_id protocol age  bmi surgery_complexity length_of_stay\n1 1          1 Standard  77 27.3                  3            9.8\n2 2          2 Standard  56 27.1                  3           10.4\n3 3          3 Standard  59 23.7                  3            9.3\n4 4          4     ERAS  49 32.8                  3            9.6\n5 5          5 Standard  74 23.8                  3           11.0"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#setting-the-reference-category",
+    "href": "lectures/Lecture12/Slide12.html#setting-the-reference-category",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Setting the Reference Category",
+    "text": "Setting the Reference Category\nWe use factor() to set “Standard” as the reference category:\n\nsurgical_data &lt;- surgical_data %&gt;%\n  mutate(protocol = factor(protocol, levels = c(\"Standard\", \"ERAS\")))\n\n\n\n\nWhen we include protocol in the model, R automatically creates the dummy variable for us.\nThe first level specified in factor() (here, \"Standard\") becomes the reference category."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#visualizing-the-data",
+    "href": "lectures/Lecture12/Slide12.html#visualizing-the-data",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Visualizing the Data",
+    "text": "Visualizing the Data\nLet’s visually check the patterns in the data before fitting the model:\n\n\nCode\nggplot(surgical_data, aes(x = protocol, y = length_of_stay, fill = protocol)) +\n  geom_boxplot(alpha = 0.7, width = 0.4) +\n  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +\n  labs(\n    x = \"Treatment Protocol\",\n    y = \"Length of Stay (days)\",\n    title = \"Does ERAS Protocol Affect Length of Stay?\"\n  ) +\n  theme_minimal(base_size = 12) +\n  theme(legend.position = \"none\")\n\n\n\n\nFigure 1"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#fitting-the-model",
+    "href": "lectures/Lecture12/Slide12.html#fitting-the-model",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Fitting the Model",
+    "text": "Fitting the Model\n\nNow we can fit a linear regression model to estimate the effect of the ERAS protocol on length of stay, controlling for age, BMI, and surgery complexity\nWe can use the same lm() function as before, just including the protocol variable as a predictor\n\n\nmodel_protocol &lt;- lm(length_of_stay ~ protocol + age + bmi + surgery_complexity,\n                     data = surgical_data)\nsummary(model_protocol)"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#understanding-the-dummy-variable-output",
+    "href": "lectures/Lecture12/Slide12.html#understanding-the-dummy-variable-output",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Understanding the Dummy Variable Output",
+    "text": "Understanding the Dummy Variable Output\n\n\n\nRegression Results: Protocol Comparison\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\nconf.low\nconf.high\n\n\n\n\n(Intercept)\n3.218\n0.587\n5.482\n0\n2.060\n4.376\n\n\nprotocolERAS\n-1.788\n0.143\n-12.468\n0\n-2.071\n-1.505\n\n\nage\n0.027\n0.007\n4.100\n0\n0.014\n0.040\n\n\nbmi\n0.048\n0.013\n3.698\n0\n0.022\n0.073\n\n\nsurgery_complexity\n1.497\n0.087\n17.218\n0\n1.325\n1.668\n\n\n\n\n\nKey Interpretation:\n\nThe coefficient for protocolERAS is approximately -1.79.\n\nPatients in the ERAS protocol have 1.79 days shorter length of stay than patients in the Standard protocol, holding age, BMI, and surgery complexity constant."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#manual-calculation-with-dummy-variables",
+    "href": "lectures/Lecture12/Slide12.html#manual-calculation-with-dummy-variables",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Manual Calculation with Dummy Variables",
+    "text": "Manual Calculation with Dummy Variables\nPatient profile: A 65-year-old patient with BMI of 30 and surgery complexity of 2.\n\nThe fitted equation:\n\\[\\widehat{\\text{LOS}} = 3.218 + -1.788(\\text{ERAS}) + 0.027(\\text{Age}) + 0.048(\\text{BMI}) + 1.497(\\text{Complexity})\\]\n\n\nStandard protocol (ERAS = 0):\n\\[\\widehat{\\text{LOS}} = 3.218 + -1.788(0) + 0.027(65) + 0.048(30) + 1.497(2) = 9.41 \\text{ days}\\]\n\n\nERAS protocol (ERAS = 1):\n\\[\\widehat{\\text{LOS}} = 3.218 + -1.788(1) + 0.027(65) + 0.048(30) + 1.497(2) = 7.62 \\text{ days}\\]"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#the-difference-is-exactly-the-coefficient",
+    "href": "lectures/Lecture12/Slide12.html#the-difference-is-exactly-the-coefficient",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "The Difference Is Exactly the Coefficient",
+    "text": "The Difference Is Exactly the Coefficient\nFor the same patient (age 65, BMI 30, complexity 2):\n\nStandard protocol: 9.41 days\nERAS protocol: 7.62 days\nDifference: -1.79 days = ERAS coefficient (-1.79)\n\n\n The dummy variable coefficient represents the difference in predicted outcomes between the two groups, holding all other variables constant. This is true regardless of the patient profile we plug in."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#why-k-1-dummy-variables",
+    "href": "lectures/Lecture12/Slide12.html#why-k-1-dummy-variables",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Why k-1 Dummy Variables?",
+    "text": "Why k-1 Dummy Variables?\nWhen a categorical variable has more than two levels, we need k-1 dummy variables (where k is the number of categories).\n\n\nIncluding a dummy for every category would create perfect multicollinearity.\n\nThe dummy variables would sum to 1 for every observation, perfectly correlated with the intercept.\n\n\n\n Each of the k-1 dummy coefficients represents the difference between that category and the reference category."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#example-case-hospital-type-comparison",
+    "href": "lectures/Lecture12/Slide12.html#example-case-hospital-type-comparison",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Example Case: Hospital Type Comparison",
+    "text": "Example Case: Hospital Type Comparison\nQuestion: Do 30-day readmission rates differ across 3 hospital types?\n\nTeaching hospitals: Large academic medical centers handling complex cases\nCommunity hospitals: General hospitals serving local populations\nCritical Access hospitals: Small rural hospitals with limited resources\n\n\n Let’s compare readmission rates across these three hospital types while controlling for patient characteristics."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#loading-the-data",
+    "href": "lectures/Lecture12/Slide12.html#loading-the-data",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Loading the Data",
+    "text": "Loading the Data\nLet’s load the data using the code below:\n\nhospital_type_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_hospital_type_data.csv\")\nhead(hospital_type_data, 5)\n\n  X hospital_id hospital_type bed_count avg_patient_severity nurse_per_patient\n1 1           1     Community       160                 2.51              4.11\n2 2           2     Community       303                 2.69              2.35\n3 3           3     Community        34                 2.24              4.78\n4 4           4     Community       316                 1.70              3.82\n5 5           5     Community       315                 1.83              3.88\n  readmission_rate\n1             19.0\n2             21.0\n3             17.0\n4             17.0\n5             17.5"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#visualizing-the-data-1",
+    "href": "lectures/Lecture12/Slide12.html#visualizing-the-data-1",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Visualizing the Data",
+    "text": "Visualizing the Data\nLet’s visually inspect the pattern:\n\n\nCode\nggplot(hospital_type_data, aes(x = hospital_type, y = readmission_rate, fill = hospital_type)) +\n  geom_boxplot(alpha = 0.7, width = 0.5) +\n  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +\n  labs(\n    x = \"Hospital Type\",\n    y = \"30-Day Readmission Rate (%)\",\n    title = \"Do Readmission Rates Differ by Hospital Type?\"\n  ) +\n  theme_minimal(base_size = 12) +\n  theme(legend.position = \"none\")\n\n\n\n\nFigure 2"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#setting-reference-category-and-fitting-the-model",
+    "href": "lectures/Lecture12/Slide12.html#setting-reference-category-and-fitting-the-model",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Setting Reference Category and Fitting the Model",
+    "text": "Setting Reference Category and Fitting the Model\nLet’s set the reference category to “Community”:\n\nhospital_type_data &lt;- hospital_type_data %&gt;%\n  mutate(\n    hospital_type = factor(hospital_type,\n                          levels = c(\"Community\", \"Teaching\", \"Critical Access\"))\n  )\n\n\nLet’s fit the model using the referenced factor variable:\n\nmodel_hospital &lt;- lm(readmission_rate ~ hospital_type + avg_patient_severity +\n                     nurse_per_patient, data = hospital_type_data)\n\nsummary(model_hospital)"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#interpreting-multi-level-dummy-output",
+    "href": "lectures/Lecture12/Slide12.html#interpreting-multi-level-dummy-output",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Interpreting Multi-Level Dummy Output",
+    "text": "Interpreting Multi-Level Dummy Output\n\n\n\nRegression Results: Hospital Type Effect on Readmissions\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\nconf.low\nconf.high\n\n\n\n\nIntercept\n15.577\n0.693\n22.466\n0\n14.211\n16.942\n\n\nHospital Type: Teaching\n-2.356\n0.294\n-8.009\n0\n-2.935\n-1.776\n\n\nHospital Type: Critical Access\n3.258\n0.300\n10.864\n0\n2.667\n3.848\n\n\nAverage Patient Severity\n2.235\n0.218\n10.251\n0\n1.805\n2.664\n\n\nNurse-to-Patient Ratio\n-0.860\n0.159\n-5.411\n0\n-1.173\n-0.547"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#interpreting-multi-level-dummy-output-1",
+    "href": "lectures/Lecture12/Slide12.html#interpreting-multi-level-dummy-output-1",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Interpreting Multi-Level Dummy Output",
+    "text": "Interpreting Multi-Level Dummy Output\nKey interpretations:\n\nReference Category: Community hospitals (omitted from output)\nTeaching Hospitals: Readmission rate 2.356 percentage points lower than Community\nCritical Access Hospitals: Readmission rate 3.258 percentage points higher than Community"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#testing-non-reference-comparisons",
+    "href": "lectures/Lecture12/Slide12.html#testing-non-reference-comparisons",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Testing Non-Reference Comparisons",
+    "text": "Testing Non-Reference Comparisons\nThe regression output only compares against the reference category. To compare Teaching vs. Critical Access directly using the emmeans() function:\n\nemm &lt;- emmeans(model_hospital, ~ hospital_type)\npairs(emm, adjust = \"tukey\")\n\n contrast                    estimate    SE  df t.ratio p.value\n Community - Teaching            2.36 0.294 245   8.009 &lt;0.0001\n Community - Critical Access    -3.26 0.300 245 -10.864 &lt;0.0001\n Teaching - Critical Access     -5.61 0.344 245 -16.324 &lt;0.0001\n\nP value adjustment: tukey method for comparing a family of 3 estimates"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#changing-the-reference-category",
+    "href": "lectures/Lecture12/Slide12.html#changing-the-reference-category",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Changing the Reference Category",
+    "text": "Changing the Reference Category\nYou can change the reference with relevel():\n\nhospital_type_data_reref &lt;- hospital_type_data %&gt;%\n  mutate(hospital_type = relevel(hospital_type, ref = \"Teaching\"))\n\nmodel_reref &lt;- lm(readmission_rate ~ hospital_type + avg_patient_severity +\n                  nurse_per_patient, data = hospital_type_data_reref)\nsummary(model_reref)\n\n\nCall:\nlm(formula = readmission_rate ~ hospital_type + avg_patient_severity + \n    nurse_per_patient, data = hospital_type_data_reref)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-5.3053 -1.2590  0.0879  1.3945  5.0647 \n\nCoefficients:\n                             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                   13.2207     0.7333  18.028  &lt; 2e-16 ***\nhospital_typeCommunity         2.3559     0.2942   8.009 4.68e-14 ***\nhospital_typeCritical Access   5.6137     0.3439  16.324  &lt; 2e-16 ***\navg_patient_severity           2.2348     0.2180  10.251  &lt; 2e-16 ***\nnurse_per_patient             -0.8597     0.1589  -5.411 1.49e-07 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1.909 on 245 degrees of freedom\nMultiple R-squared:  0.6199,    Adjusted R-squared:  0.6137 \nF-statistic: 99.88 on 4 and 245 DF,  p-value: &lt; 2.2e-16"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#what-is-an-interaction-effect",
+    "href": "lectures/Lecture12/Slide12.html#what-is-an-interaction-effect",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "What Is an Interaction Effect?",
+    "text": "What Is an Interaction Effect?\nAn interaction effect occurs when the effect of one variable on the outcome depends on the value of another variable.\n\n\nMathematically:\n\\[Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\beta_3 (X_1 \\times X_2) + \\epsilon\\]\n\n\nThe interaction coefficient \\(\\beta_3\\) captures how the effect of \\(X_1\\) changes across levels of \\(X_2\\) (or vice versa)"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#when-to-use-interactions",
+    "href": "lectures/Lecture12/Slide12.html#when-to-use-interactions",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "When to Use Interactions",
+    "text": "When to Use Interactions\nUse interaction terms when:\n\nTheory or prior research suggests an effect should vary across groups\nVisual inspection shows different slopes for different groups\nYou want to test whether an intervention works differently for different populations or conditions\n\n\n\nExamples:\n\nA medication may work better for younger vs. older patients\nAdditional staffing may have different impacts in big vs. small hospitals\nA new policy may affect urban and rural hospitals differently"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#example-does-staffing-effect-vary-by-hospital-ownership",
+    "href": "lectures/Lecture12/Slide12.html#example-does-staffing-effect-vary-by-hospital-ownership",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Example:  Does Staffing Effect Vary by Hospital Ownership?",
+    "text": "Example:  Does Staffing Effect Vary by Hospital Ownership?\nQuestion: Does improving nurse staffing increase patient satisfaction equally in all hospitals?\n\n\nWhy it might differ:\n\nFor-Profit hospitals: Investor-owned, focused on financial performance\nNon-Profit hospitals: Community-owned, mission-driven, may invest more in quality\nHypothesis: Additional nurses might have a bigger impact in non-profit hospitals"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#loading-the-data-1",
+    "href": "lectures/Lecture12/Slide12.html#loading-the-data-1",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Loading the Data",
+    "text": "Loading the Data\nLet’s load the data using the code below:\n\nsatisfaction_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_satisfaction_data.csv\")\n\n# Set ownership as a factor with For-Profit as the reference category\nsatisfaction_data &lt;- satisfaction_data %&gt;%\n  mutate(ownership = factor(ownership, levels = c(\"For-Profit\", \"Non-Profit\")))\n\nhead(satisfaction_data, 5)\n\n  X hospital_id  ownership nurse_ratio patient_volume avg_acuity\n1 1           1 For-Profit        3.18            472       1.87\n2 2           2 For-Profit        4.84            308       2.15\n3 3           3 For-Profit        4.64            272       1.64\n4 4           4 Non-Profit        5.18            673       1.88\n5 5           5 For-Profit        3.21            494       2.22\n  patient_satisfaction\n1                 45.5\n2                 57.8\n3                 60.5\n4                 78.5\n5                 43.4"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#visualizing-the-potential-interaction",
+    "href": "lectures/Lecture12/Slide12.html#visualizing-the-potential-interaction",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Visualizing the Potential Interaction",
+    "text": "Visualizing the Potential Interaction\nBefore running the model, always visualize to see if an interaction might exist:\n\n\nCode\nggplot(satisfaction_data, aes(x = nurse_ratio, y = patient_satisfaction,\n                              color = ownership)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = TRUE) +\n  labs(\n    x = \"Nurse-to-Patient Ratio\",\n    y = \"Patient Satisfaction Score\",\n    color = \"Ownership Type\",\n    title = \"Does Staffing Effect Differ by Hospital Ownership?\",\n    subtitle = \"Different slopes suggest an interaction effect\"\n  ) +\n  theme_minimal(base_size = 12)\n\n\n\n\nFigure 3"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#fitting-the-interaction-model",
+    "href": "lectures/Lecture12/Slide12.html#fitting-the-interaction-model",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Fitting the Interaction Model",
+    "text": "Fitting the Interaction Model\nUse * to include both main effects and the interaction (as we did in two-way ANOVA):\n\n# nurse_ratio * ownership = nurse_ratio + ownership + nurse_ratio:ownership\nmodel_interact &lt;- lm(patient_satisfaction ~ nurse_ratio * ownership,\n                     data = satisfaction_data)\nsummary(model_interact)"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#interpreting-the-interaction",
+    "href": "lectures/Lecture12/Slide12.html#interpreting-the-interaction",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Interpreting the Interaction",
+    "text": "Interpreting the Interaction\n\n\n\nRegression with Interaction Effect\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\nconf.low\nconf.high\n\n\n\n\n(Intercept)\n37.543\n1.445\n25.987\n0.000\n34.700\n40.386\n\n\nnurse_ratio\n3.211\n0.351\n9.155\n0.000\n2.521\n3.901\n\n\nownershipNon-Profit\n3.879\n2.140\n1.812\n0.071\n-0.334\n8.091\n\n\nnurse_ratio:ownershipNon-Profit\n2.917\n0.520\n5.607\n0.000\n1.893\n3.941\n\n\n\n\n\n The full model: \\[\\widehat{\\text{Satisfaction}} = 37.54 + 3.21(\\text{Nurse Ratio}) + 3.88(\\text{Non-Profit}) + 2.92(\\text{Nurse Ratio} \\times \\text{Non-Profit})\\]"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#understanding-the-coefficients",
+    "href": "lectures/Lecture12/Slide12.html#understanding-the-coefficients",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Understanding the Coefficients",
+    "text": "Understanding the Coefficients\n\nnurse_ratio (3.21): Effect of staffing for For-Profit hospitals (reference group)\nownershipNon-Profit (3.88): Difference between Non-Profit and For-Profit when nurse_ratio = 0 (mathematical baseline, not a realistic scenario)\nnurse_ratio:ownershipNon-Profit (2.92): THE INTERACTION – the additional effect of staffing in Non-Profit hospitals beyond the For-Profit effect\n\n\nComputing the Effect for Each Group:\n\nFor-Profit: Each additional nurse → 3.21 satisfaction points\nNon-Profit: Each additional nurse → 3.21 + 2.92 = 6.13 satisfaction points"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#visualizing-the-interaction-effect",
+    "href": "lectures/Lecture12/Slide12.html#visualizing-the-interaction-effect",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Visualizing the Interaction Effect",
+    "text": "Visualizing the Interaction Effect\n\n\nFigure 4"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#example-does-treatment-effect-vary-by-insurance-type",
+    "href": "lectures/Lecture12/Slide12.html#example-does-treatment-effect-vary-by-insurance-type",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Example:  Does Treatment Effect Vary by Insurance Type?",
+    "text": "Example:  Does Treatment Effect Vary by Insurance Type?\nQuestion: Does an intensive diabetes (vs. standard) program work differently for patients with different insurance types?\n\n\nWhy it might vary:\n\nPrivate: Fewest access barriers – broader networks, more specialist availability\nMedicaid: Logistical barriers – fewer accepting providers, transportation, time off work\nMedicare: More time for appointments (often retired), but mobility/health limitations"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#loading-the-data-2",
+    "href": "lectures/Lecture12/Slide12.html#loading-the-data-2",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Loading the Data",
+    "text": "Loading the Data\nLet’s load the data using the code below:\n\ndiabetes_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_diabetes_data.csv\")\nhead(diabetes_data, 5)\n\n  X patient_id         treatment insurance baseline_a1c age a1c_reduction\n1 1          1     Standard Care   Private          7.2  67          0.50\n2 2          2     Standard Care  Medicaid          9.2  64          1.08\n3 3          3 Intensive Program  Medicaid          8.8  64          1.34\n4 4          4     Standard Care  Medicaid          8.8  78          1.16\n5 5          5 Intensive Program  Medicare          7.6  66          1.14"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#visualizing-the-data-2",
+    "href": "lectures/Lecture12/Slide12.html#visualizing-the-data-2",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Visualizing the Data",
+    "text": "Visualizing the Data\nLet’s visually inspect the patterns in the data before fitting the model:\n\n\nCode\nggplot(diabetes_data, aes(x = insurance, y = a1c_reduction, fill = treatment)) +\n  geom_boxplot(alpha = 0.7, width = 0.7) +\n  labs(\n    x = \"Insurance Type\",\n    y = \"HbA1c Reduction\",\n    fill = \"Treatment\",\n    title = \"Does Treatment Effectiveness Vary by Insurance Type?\"\n  ) +\n  theme_minimal(base_size = 12)\n\n\n\n\nFigure 5"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#setting-factors-and-fitting-the-model",
+    "href": "lectures/Lecture12/Slide12.html#setting-factors-and-fitting-the-model",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Setting Factors and Fitting the Model",
+    "text": "Setting Factors and Fitting the Model\nLet’s set the reference categories for both treatment and insurance:\n\ndiabetes_data &lt;- diabetes_data %&gt;%\n  mutate(\n    treatment = factor(treatment, levels = c(\"Standard Care\", \"Intensive Program\")),\n    insurance = factor(insurance, levels = c(\"Medicaid\", \"Medicare\", \"Private\"))\n  )\n\n\nLet’s fit the model with the interaction between treatment and insurance:\n\n# treatment * insurance = treatment + insurance + treatment:insurance\nmodel_diabetes &lt;- lm(a1c_reduction ~ treatment * insurance,\n                     data = diabetes_data)\nsummary(model_diabetes)"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#interpreting-categorical-x-categorical-interactions",
+    "href": "lectures/Lecture12/Slide12.html#interpreting-categorical-x-categorical-interactions",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Interpreting Categorical x Categorical Interactions",
+    "text": "Interpreting Categorical x Categorical Interactions\n\n\n\nRegression Results: Treatment x Insurance Interaction\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\nconf.low\nconf.high\n\n\n\n\n(Intercept)\n0.904\n0.048\n18.851\n0.000\n0.809\n0.998\n\n\ntreatmentIntensive Program\n0.349\n0.070\n4.965\n0.000\n0.211\n0.488\n\n\ninsuranceMedicare\n0.147\n0.068\n2.156\n0.032\n0.013\n0.280\n\n\ninsurancePrivate\n0.180\n0.074\n2.430\n0.016\n0.034\n0.326\n\n\ntreatmentIntensive Program:insuranceMedicare\n0.218\n0.098\n2.232\n0.026\n0.026\n0.410\n\n\ntreatmentIntensive Program:insurancePrivate\n0.703\n0.105\n6.704\n0.000\n0.497\n0.909"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#understanding-each-coefficient",
+    "href": "lectures/Lecture12/Slide12.html#understanding-each-coefficient",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Understanding Each Coefficient",
+    "text": "Understanding Each Coefficient\nReference Group: Standard Care + Medicaid\n\nIntercept (0.904): Predicted HbA1c reduction for Standard Care with Medicaid\ntreatmentIntensive Program (0.349): Additional effect of Intensive Program for Medicaid patients only\ninsuranceMedicare (0.147): Medicare vs. Medicaid difference for Standard Care only\ninsurancePrivate (0.18): Private vs. Medicaid difference for Standard Care only\nInteraction: Medicare (0.218): How much more effective the Intensive Program is for Medicare compared to Medicaid\nInteraction: Private (0.703): How much more effective the Intensive Program is for Private compared to Medicaid"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#treatment-effects-by-insurance-group",
+    "href": "lectures/Lecture12/Slide12.html#treatment-effects-by-insurance-group",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Treatment Effects by Insurance Group",
+    "text": "Treatment Effects by Insurance Group\nComputing treatment effects for each group:\n\nMedicaid: Treatment effect = 0.349\nMedicare: Treatment effect = 0.349 + 0.218 = 0.567\nPrivate: Treatment effect = 0.349 + 0.703 = 1.052\n\n\n\n\nThe Intensive Program is effective across all insurance types, but most effective for Private insurance patients."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#visualizing-categorical-x-categorical-interaction",
+    "href": "lectures/Lecture12/Slide12.html#visualizing-categorical-x-categorical-interaction",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Visualizing Categorical x Categorical Interaction",
+    "text": "Visualizing Categorical x Categorical Interaction\n\n\nFigure 6"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#example-does-pt-session-benefit-depend-on-patient-age",
+    "href": "lectures/Lecture12/Slide12.html#example-does-pt-session-benefit-depend-on-patient-age",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Example:  Does PT Session Benefit Depend on Patient Age?",
+    "text": "Example:  Does PT Session Benefit Depend on Patient Age?\nQuestion: Does the benefit of additional physical therapy (PT) sessions depend on patient age?\n\n\nWhy it might vary:\n\nYounger patients may have faster tissue repair and adaptation\nOlder patients may have comorbidities limiting response to therapy\nThus, additional PT sessions might provide greater improvement for younger patients"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#loading-the-data-3",
+    "href": "lectures/Lecture12/Slide12.html#loading-the-data-3",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Loading the Data",
+    "text": "Loading the Data\nLet’s load the data using the code below:\n\npt_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_pt_data.csv\")\nhead(pt_data, 5)\n\n  X patient_id pt_sessions age baseline_function function_improvement\n1 1          1          16  31                53                 27.1\n2 2          2          22  51                31                  0.0\n3 3          3           5  30                40                  7.5\n4 4          4          11  37                31                 14.6\n5 5          5           5  48                49                 10.3"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#visualizing-the-data-3",
+    "href": "lectures/Lecture12/Slide12.html#visualizing-the-data-3",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Visualizing the Data",
+    "text": "Visualizing the Data\nLet’s visually inspect the patterns in the data before fitting the model:\n\n\nCode\nggplot(pt_data, aes(x = pt_sessions, y = function_improvement, color = age)) +\n  geom_point(alpha = 0.6) +\n  scale_color_gradient(low = \"steelblue\", high = \"coral\") +\n  labs(\n    x = \"Number of PT Sessions\",\n    y = \"Function Improvement\",\n    color = \"Age\",\n    title = \"Does PT Session Effectiveness Vary by Age?\"\n  ) +\n  theme_minimal(base_size = 12)\n\n\n\n\nFigure 7"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#fitting-the-model-1",
+    "href": "lectures/Lecture12/Slide12.html#fitting-the-model-1",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Fitting the Model",
+    "text": "Fitting the Model\nLet’s fit the model with the interaction between PT sessions and age:\n\n# pt_sessions * age = pt_sessions + age + pt_sessions:age\nmodel_pt &lt;- lm(function_improvement ~ pt_sessions * age,\n               data = pt_data)\nsummary(model_pt)"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#interpreting-the-results",
+    "href": "lectures/Lecture12/Slide12.html#interpreting-the-results",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Interpreting the Results",
+    "text": "Interpreting the Results\n\n\n\nRegression Results: PT Sessions x Age Interaction\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\nconf.low\nconf.high\n\n\n\n\n(Intercept)\n22.2460\n3.1492\n7.0639\n0.0000\n16.0431\n28.4490\n\n\npt_sessions\n0.8206\n0.2137\n3.8399\n0.0002\n0.3997\n1.2415\n\n\nage\n-0.1612\n0.0583\n-2.7647\n0.0061\n-0.2761\n-0.0464\n\n\npt_sessions:age\n-0.0200\n0.0040\n-4.9948\n0.0000\n-0.0278\n-0.0121"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#understanding-the-coefficients-1",
+    "href": "lectures/Lecture12/Slide12.html#understanding-the-coefficients-1",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Understanding the Coefficients",
+    "text": "Understanding the Coefficients\n\npt_sessions (0.82): Effect of one additional PT session when age = 0 (not meaningful)\nage (-0.16): Effect of one year of age when pt_sessions = 0 (not meaningful)\npt_sessions:age (-0.02): THE INTERACTION – for each additional year of age, the benefit of one PT session decreases by 0.02 points\n\n\nMarginal effect formula:\n\\[\\text{Effect of PT Sessions} = \\beta_{\\text{pt_sessions}} + \\beta_{\\text{interaction}} \\times \\text{Age}\\]"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#computing-marginal-effects-at-different-ages",
+    "href": "lectures/Lecture12/Slide12.html#computing-marginal-effects-at-different-ages",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Computing Marginal Effects at Different Ages",
+    "text": "Computing Marginal Effects at Different Ages\n\nAge 30: Effect = 0.82 + (30 × -0.02) = 0.22 points per session\nAge 50: Effect = 0.82 + (50 × -0.02) = -0.18 points per session\nAge 70: Effect = 0.82 + (70 × -0.02) = -0.58 points per session\n\n\n\nThe effect of PT sessions changes dramatically with age. Positive for younger patients, potentially negative for older patients."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#visualizing-with-probe_interaction",
+    "href": "lectures/Lecture12/Slide12.html#visualizing-with-probe_interaction",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Visualizing with probe_interaction()",
+    "text": "Visualizing with probe_interaction()\nWe can understand the interaction better by visualizing the predicted improvement across PT sessions for different ages using probe_interaction(), which is a part of the interactions package:\n\nprobe_interaction(model_pt,              # fitted model\n                  pred = pt_sessions,     # x-axis variable\n                  modx = age,             # moderator variable\n                  modx.values = c(30, 50, 70))  # values to plot separate lines\n\nJOHNSON-NEYMAN INTERVAL\n\nWhen age is OUTSIDE the interval [31.18, 47.33], the slope of pt_sessions\nis p &lt; .05.\n\nNote: The range of observed values of age is [25.00, 80.00]\n\nSIMPLE SLOPES ANALYSIS\n\nSlope of pt_sessions when age = 30.00: \n\n  Est.   S.E.   t val.      p\n------ ------ -------- ------\n  0.22   0.10     2.12   0.03\n\nSlope of pt_sessions when age = 50.00: \n\n   Est.   S.E.   t val.      p\n------- ------ -------- ------\n  -0.18   0.06    -2.90   0.00\n\nSlope of pt_sessions when age = 70.00: \n\n   Est.   S.E.   t val.      p\n------- ------ -------- ------\n  -0.58   0.10    -5.97   0.00\n\n\n\n\nFigure 8"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#interpreting-the-visualization",
+    "href": "lectures/Lecture12/Slide12.html#interpreting-the-visualization",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Interpreting the Visualization",
+    "text": "Interpreting the Visualization\nSimple Slopes Analysis:\n\nAge 30: Positive slope – PT sessions are beneficial\nAge 50: Negative slope – PT sessions are associated with worse outcomes\nAge 70: Negative slope – PT sessions are associated with worse outcomes\n\n\n Key insight:\n\nThe interaction creates a crossover effect where the treatment benefit reverses direction in different subgroups.\nIn practice, this would warrant investigation into confounding factors (e.g., sicker older patients may be prescribed more PT sessions, making PT appear less effective)."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#key-takeaways",
+    "href": "lectures/Lecture12/Slide12.html#key-takeaways",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nDummy variables let us include categorical predictors in regression using 0s and 1s\nWe can not only compare two categories or groups, but also multiple categories by creating k-1 dummy variables\nUse emmeans() for pairwise comparisons across multi-level categorical variables\nInteraction effects test whether the effect of one variable depends on another\nIn interaction models, main effects have conditional interpretations (at zero or reference level)\nUse probe_interaction() for visualizing interaction effects"
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#assignments",
+    "href": "lectures/Lecture12/Slide12.html#assignments",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "Assignments",
+    "text": "Assignments\n\nReflection: Please share your thoughts on the lecture\n\n3 interesting things\n3 confusing things\n\nLab Assignment 5: Linear Regression\n\nBoth are due by 11:59pm on Sunday, April 5."
+  },
+  {
+    "objectID": "lectures/Lecture12/Slide12.html#references",
+    "href": "lectures/Lecture12/Slide12.html#references",
+    "title": "Linear Regression 2:  Dummy Variables and Interaction Effects",
+    "section": "References",
+    "text": "References\nStatistical Methods:\n\nGelman, A., & Hill, J. (2006). Data Analysis Using Regression and Multilevel/Hierarchical Models. Cambridge University Press.\nJames, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). An Introduction to Statistical Learning with Applications in R (2nd ed.). Springer.\n\nHealthcare Applications:\n\nKatikam, S. M., et al. (2025). Evaluation of ERAS Protocols in Abdominal Surgery. Journal of Pharmacy & Bioallied Sciences, 17(Suppl 2), S1805-S1807.\nHorwitz, L. I., et al. (2017). Hospital characteristics associated with risk-standardized readmission rates. Medical Care, 55(5), 528-534.\nTurk, M. T., et al. (2023). Stakeholder Analysis: Medicare Diabetes Prevention Program. American Journal of Managed Care, 29(6), 308-312."
   }
 ]
