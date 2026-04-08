@@ -1,0 +1,348 @@
+---
+title: "Lab Assignment 6: Logistic Regression"
+subtitle: "Week 13"
+author: "Your Name Here"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-copy: true
+    code-fold: false
+    theme:
+      - cosmo
+      - lecture.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Assignment Overview
+
+-   **Total Points**: 10 points
+-   **Due Date**: April 19, 2026
+-   **Submission**: Upload your completed .qmd (no need to submit the rendered HTML file). I'll render your .qmd to HTML to check your work and assign points, so please make sure your file renders without errors before submitting.
+
+## Learning Objectives
+
+This assignment assesses your ability to:
+
+-   Fit and interpret simple and multiple logistic regression models using `glm()`
+-   Convert log odds to odds ratios and interpret them in context
+-   Make predictions using `predict()` with `type = "response"`
+-   Evaluate classification performance using a confusion matrix
+
+## Instructions
+
+1.  Complete all 3 tasks below
+2.  Fill in the blanks (replace `___` with appropriate code or values)
+3.  After completing each code chunk, change `#| eval: false` to `#| eval: true` to run it
+4.  Answer all interpretation questions (1-2 sentences each)
+5.  Run all code chunks to verify they work before submitting
+
+------------------------------------------------------------------------
+
+# Grading Rubric
+
+| Task | Points | Breakdown |
+|----|----|----|
+| Task 1: Simple Logistic Regression | 4 | 0.5 visualization + 0.5 model + 0.5 odds ratio + 0.5 prediction + 2 interpretation |
+| Task 2: Multiple Logistic Regression | 3 | 0.5 model + 0.5 odds ratio table + 0.5 patient profiles + 1.5 interpretation |
+| Task 3: Classification & Evaluation | 3 | 0.5 confusion matrix + 0.5 accuracy + 2 interpretation |
+| **Total** | **10** |  |
+
+**Interpretation Guidance**: Your interpretations should be brief but specific. For example:
+
+-   **Good**: "The odds ratio for mobility_score is 0.72 (p = 0.003), meaning each 1-point increase in mobility score is associated with a 28% decrease in the odds of falling. This suggests patients with lower mobility are at significantly higher fall risk."
+-   **Too vague**: "The result is significant."
+
+------------------------------------------------------------------------
+
+# Required Packages
+
+-   Load the required packages using the code below:
+
+```{r}
+#| label: required-packages
+
+library(tidyverse)
+```
+
+# Assignment Tasks
+
+## Task 1: Simple Logistic Regression — Patient Fall Risk (4 points) {.unnumbered}
+
+A hospital quality improvement team wants to predict whether patients will experience a **fall** during their hospital stay. Falls are a major safety concern, leading to injuries, longer stays, and increased costs. The team collected data on 180 patients including their mobility assessment score and whether they fell during their stay.
+
+Your goal is to identify whether mobility score is a significant predictor of fall risk and use the model to predict fall probabilities.
+
+Load the data using the code below and review the key variables.
+
+```{r}
+#| label: task1-data
+
+fall_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/lab6_fall_data.csv")
+
+fall_data <- fall_data %>%
+  mutate(has_cognitive_impairment = factor(has_cognitive_impairment, levels = c("No", "Yes")))
+
+head(fall_data, 5)
+```
+
+**Key variables**:
+
+| Variable | Description | Type |
+|----|----|----|
+| `mobility_score` | Mobility assessment (1-10, higher = better mobility) | Continuous |
+| `age` | Patient age in years | Continuous |
+| `num_medications` | Number of medications the patient is taking | Continuous |
+| `has_cognitive_impairment` | Cognitive impairment status (Yes/No) | Categorical |
+| `fell` | Whether the patient fell during their stay (1 = yes, 0 = no) — **outcome variable** | Binary |
+
+**Step 1 (Visualization — 0.5 points)**: Create a boxplot showing `mobility_score` by fall status.
+
+```{r}
+#| label: task1-viz
+#| eval: false
+
+ggplot(fall_data, aes(x = factor(___), y = ___)) +
+  geom_boxplot(width = 0.4) +
+  geom_jitter(width = 0.15, alpha = 0.5) +
+  labs(title = "Mobility Score by Fall Status",
+       x = "Fall Status (0 = No Fall, 1 = Fall)",
+       y = "Mobility Score (1-10)") +
+  theme_minimal()
+```
+
+**Step 2 (Simple Logistic Regression — 0.5 points)**: Fit a simple logistic regression model predicting `fell` from `mobility_score`.
+
+```{r}
+#| label: task1-model
+#| eval: false
+
+# Fit simple logistic regression
+model_fall <- glm(___ ~ ___,
+                  data = ___,
+                  family = ___)
+
+summary(___)
+```
+
+**Step 3 (Odds Ratio — 0.5 points)**: Calculate the odds ratio for `mobility_score` and interpret the percent change in odds.
+
+```{r}
+#| label: task1-or
+#| eval: false
+
+# Calculate odds ratio
+or_mobility <- exp(coef(___)["mobility_score"])
+round(or_mobility, 4)
+```
+
+**Step 4 (Prediction — 0.5 points)**: Predict the probability of falling for four hypothetical patients with different mobility levels:
+
+-   **Patient A** — mobility score 3 (very low mobility)
+-   **Patient B** — mobility score 5 (low mobility)
+-   **Patient C** — mobility score 7 (good mobility)
+-   **Patient D** — mobility score 9 (excellent mobility)
+
+```{r}
+#| label: task1-predict
+#| eval: false
+
+# Create patients with varying mobility
+new_patients <- data.frame(
+  patient_id = c("Patient A", "Patient B", "Patient C", "Patient D"),
+  mobility_score = c(3, 5, 7, 9)
+)
+
+# Predict probabilities
+new_patients$predicted_prob <- round(predict(___,
+                                       newdata = ___,
+                                       type = "___"), 4)
+
+new_patients
+```
+
+**Interpretation (2 points)**:
+
+1.  What is the coefficient (log odds ratio) for `mobility_score`? Is it positive or negative? Is it statistically significant (p \< 0.05)?
+2.  What is the odds ratio for `mobility_score`? How do the odds of falling change for each 1-point increase in mobility?
+3.  Based on the predictions, how does fall probability change as mobility improves from 3 to 9? Which patient(s) would you flag as high risk (high risk = predicted probability \> 0.5)?
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+
+3.  Question 3:
+:::
+
+------------------------------------------------------------------------
+
+## Task 2: Multiple Logistic Regression — Comprehensive Fall Risk Model (3 points) {.unnumbered}
+
+The quality improvement team now wants to build a more comprehensive fall risk model. They believe fall risk depends not only on mobility but also on **patient age**, **number of medications** (taking many medications at once increases fall risk), and **cognitive impairment** (confusion and disorientation increase fall risk).
+
+Using the same `fall_data` dataset, fit a multiple logistic regression model with all four predictors.
+
+**Step 1 (Multiple Model — 0.5 points)**: Fit a multiple logistic regression model with all four predictors.
+
+```{r}
+#| label: task2-model
+#| eval: false
+
+# Fit multiple logistic regression
+model_fall_multiple <- glm(___ ~ ___ + ___ + ___ + ___,
+                           data = ___,
+                           family = ___)
+
+summary(___)
+```
+
+**Step 2 (Odds Ratio Table — 0.5 points)**: Create a summary table of odds ratios for all predictors.
+
+```{r}
+#| label: task2-or-table
+#| eval: false
+
+# Calculate odds ratios for all predictors
+round(exp(coef(___)), 4)
+```
+
+**Step 3 (Patient Risk Profiles — 0.5 points)**: Predict fall probabilities for three hypothetical patient profiles:
+
+-   **Patient A**: 60 years old, mobility score 8, takes 2 medications, no cognitive impairment
+-   **Patient B**: 72 years old, mobility score 5, takes 5 medications, no cognitive impairment
+-   **Patient C**: 85 years old, mobility score 2, takes 10 medications, has cognitive impairment
+
+```{r}
+#| label: task2-profiles
+#| eval: false
+
+# Create patient profiles
+patient_profiles <- data.frame(
+  Profile = c("Patient A", "Patient B", "Patient C"),
+  mobility_score = c(8, ___, ___),
+  age = c(___, 72, ___),
+  num_medications = c(___, ___, 10),
+  has_cognitive_impairment = factor(c("No", "___", "___"), levels = c("No", "Yes"))
+)
+
+# Predict probabilities
+patient_profiles$predicted_prob <- round(predict(___,
+                                                  newdata = ___,
+                                                  type = "___"), 4)
+
+patient_profiles
+```
+
+**Interpretation (1.5 points)**:
+
+1.  Which predictors are statistically significant (p \< 0.05) in the multiple model? For each significant predictor, state whether it increases or decreases fall risk.
+2.  Interpret the odds ratio for `num_medications`. How do the odds of falling change for each additional medication a patient takes?
+3.  If the hospital provides special fall prevention care to patients with a predicted fall probability above 50%, how many of the three patient profiles would receive this special care?
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+
+3.  Question 3:
+:::
+
+------------------------------------------------------------------------
+
+## Task 3: Classification and Model Evaluation (3 points) {.unnumbered}
+
+Using the **multiple regression model from Task 2**, evaluate how well the model classifies patients. Create a confusion matrix and calculate accuracy.
+
+**Step 1 (Confusion Matrix — 0.5 points)**: Add predicted probabilities to the data and classify each patient using 50% as the threshold (above 50% → predicted to fall; 50% or below → predicted not to fall). Then create a confusion matrix.
+
+```{r}
+#| label: task3-confusion
+#| eval: false
+
+# Add predictions to the data
+fall_data$predicted_prob <- predict(___, type = "___")
+fall_data$predicted_class <- ifelse(fall_data$predicted_prob > ___, 1, 0)
+
+# Create confusion matrix
+confusion_matrix <- table(
+  Predicted = factor(fall_data$___, levels = c(0, 1)),
+  Actual = factor(fall_data$___, levels = c(0, 1))
+)
+
+confusion_matrix
+```
+
+**Step 2 (Accuracy — 0.5 points)**: Extract values from the confusion matrix and calculate accuracy.
+
+```{r}
+#| label: task3-accuracy
+#| eval: false
+
+# Extract values
+tn <- confusion_matrix[1, 1]  # True Negatives
+fp <- confusion_matrix[2, 1]  # False Positives
+fn <- confusion_matrix[1, 2]  # False Negatives
+tp <- confusion_matrix[2, 2]  # True Positives
+
+# Calculate accuracy
+accuracy <- (___ + ___) / (tp + tn + fp + fn)
+round(accuracy, 4)
+```
+
+**Interpretation (2 points)**:
+
+1.  What is the model's overall accuracy? How many patients were correctly classified out of the total?
+2.  Looking at the confusion matrix, how many patients who actually fell did the model miss (i.e., predicted they would not fall)? In a hospital setting, why might missing these patients be a serious concern?
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+:::
+
+------------------------------------------------------------------------
+
+# Submission Checklist
+
+Before submitting, verify:
+
+-   [ ] All 3 tasks are completed
+-   [ ] All blanks (`___`) are filled in with appropriate values
+-   [ ] All `#| eval: false` changed to `#| eval: true`
+-   [ ] All code chunks run without errors
+-   [ ] All interpretation questions are answered (1-2 sentences each)
+-   [ ] Visualizations have appropriate titles and axis labels
+-   [ ] File renders to HTML successfully
+
+------------------------------------------------------------------------
+
+# Points Summary
+
+| Task | Points | Topic | Method |
+|----|----|----|----|
+| Task 1 | 4.0 | Patient fall risk factors | Simple Logistic Regression |
+| Task 2 | 3.0 | Comprehensive fall risk model | Multiple Logistic Regression & Odds Ratios |
+| Task 3 | 3.0 | Classification performance | Confusion Matrix & Accuracy |
+| **Total** | **10.0** |  |  |
+
+------------------------------------------------------------------------
+
+**Good luck!**

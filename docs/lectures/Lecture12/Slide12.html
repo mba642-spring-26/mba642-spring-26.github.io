@@ -929,7 +929,113 @@ Figure&nbsp;3
 
 <img data-src="Slide12_files/figure-revealjs/fig-interaction-plot-1.png" id="fig-interaction-plot" width="864" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;4
-</p></section></section>
+</p></section>
+<section id="practice-1-continuous-x-categorical-interaction" class="slide level2">
+<h2>Practice 1: Continuous x Categorical Interaction</h2>
+<p><strong>Question</strong>: Does IT investment improve hospital quality scores equally for Teaching and Non-Teaching hospitals?</p>
+<div class="fragment">
+<p><br></p>
+<p><strong>Why it might differ</strong>:</p>
+<ul>
+<li class="fragment"><strong>Teaching hospitals</strong>: Have research missions, complex case mixes, and specialized staff who can leverage advanced IT tools (e.g., clinical decision support, predictive analytics)</li>
+<li class="fragment"><strong>Non-Teaching hospitals</strong>: May lack the technical workforce and workflows to fully utilize IT investments</li>
+<li class="fragment"><strong>Hypothesis</strong>: IT investment may have a stronger effect in Teaching hospitals where the infrastructure and expertise exist to translate technology into quality gains</li>
+</ul>
+</div>
+</section>
+<section id="practice-dataset-hospital-quality" class="slide level2">
+<h2>Practice Dataset: Hospital Quality</h2>
+<p>We will use a dataset of <strong>350 U.S. hospitals</strong> with the following variables (for all three practice activities):</p>
+<div style="font-size: 0.8em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 38%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>hospital_id</code></td>
+<td style="text-align: center;">ID</td>
+<td style="text-align: left;">Unique hospital identifier</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>region</code></td>
+<td style="text-align: center;">Categorical</td>
+<td style="text-align: left;">U.S. region (Midwest, Northeast, South, West)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>teaching_status</code></td>
+<td style="text-align: center;">Categorical</td>
+<td style="text-align: left;">Teaching or Non-Teaching</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>it_investment</code></td>
+<td style="text-align: center;">Continuous</td>
+<td style="text-align: left;">Annual IT spending (in $1,000s)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>avg_los</code></td>
+<td style="text-align: center;">Continuous</td>
+<td style="text-align: left;">Average length of stay (days)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>quality_score</code></td>
+<td style="text-align: center;">Continuous</td>
+<td style="text-align: left;">Composite quality score (0–100)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="practice-1-continuous-x-categorical-interaction-1" class="slide level2">
+<h2>Practice 1: Continuous x Categorical Interaction</h2>
+<p><strong>Step 1.</strong> Load the data and set the reference category:</p>
+<p>Let’s load the dataset and set “Non-Teaching” as the reference category for <code>teaching_status</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>quality_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_quality_data.csv"</span>)</span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>quality_data <span class="ot">&lt;-</span> quality_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">teaching_status =</span> <span class="fu">factor</span>(teaching_status,</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Non-Teaching"</span>, <span class="st">"Teaching"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="practice-1-continuous-x-categorical-interaction-2" class="slide level2">
+<h2>Practice 1: Continuous x Categorical Interaction</h2>
+<p><strong>Step 2.</strong> Visualize the relationship between <code>it_investment</code> and <code>quality_score</code>, colored by <code>teaching_status</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(quality_data, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">color =</span> ___)) <span class="sc">+</span></span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"IT Investment ($K)"</span>, <span class="at">y =</span> <span class="st">"Quality Score"</span>,</span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Teaching Status"</span>,</span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Does IT Investment Effect Differ by Teaching Status?"</span>) <span class="sc">+</span></span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Do the slopes appear different? What does this suggest?</p>
+</section>
+<section id="practice-1-continuous-x-categorical-interaction-3" class="slide level2 scrollable">
+<h2>Practice 1: Continuous x Categorical Interaction</h2>
+<p><strong>Step 3.</strong> Fit the interaction model and interpret the results:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>model_quality <span class="ot">&lt;-</span> <span class="fu">lm</span>(___ <span class="sc">~</span> ___ <span class="sc">*</span> ___,</span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> quality_data)</span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_quality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>What is the effect of IT investment for <strong>Non-Teaching</strong> hospitals?</li>
+<li>What is the effect of IT investment for <strong>Teaching</strong> hospitals? (Hint: add the main effect and interaction coefficients)</li>
+<li>Is the interaction term statistically significant? What does this mean for hospital administrators?</li>
+</ol>
+</section></section>
 <section>
 <section id="categorical-x-categorical-interaction" class="title-slide slide level1 center" data-background-color="#40666e">
 <h1>3.2. Categorical x Categorical Interaction</h1>
@@ -952,8 +1058,8 @@ Figure&nbsp;4
 <h2>Loading the Data</h2>
 <p>Let’s load the data using the code below:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_diabetes_data.csv"</span>)</span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diabetes_data, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_diabetes_data.csv"</span>)</span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diabetes_data, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X patient_id         treatment insurance baseline_a1c age a1c_reduction
 1 1          1     Standard Care   Private          7.2  67          0.50
@@ -970,15 +1076,15 @@ Figure&nbsp;4
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diabetes_data, <span class="fu">aes</span>(<span class="at">x =</span> insurance, <span class="at">y =</span> a1c_reduction, <span class="at">fill =</span> treatment)) <span class="sc">+</span></span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Insurance Type"</span>,</span>
-<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"HbA1c Reduction"</span>,</span>
-<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Treatment"</span>,</span>
-<span id="cb21-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Does Treatment Effectiveness Vary by Insurance Type?"</span></span>
-<span id="cb21-8"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb21-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diabetes_data, <span class="fu">aes</span>(<span class="at">x =</span> insurance, <span class="at">y =</span> a1c_reduction, <span class="at">fill =</span> treatment)) <span class="sc">+</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Insurance Type"</span>,</span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"HbA1c Reduction"</span>,</span>
+<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Treatment"</span>,</span>
+<span id="cb24-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Does Treatment Effectiveness Vary by Insurance Type?"</span></span>
+<span id="cb24-8"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 
 </div>
@@ -989,19 +1095,19 @@ Figure&nbsp;5
 <h2>Setting Factors and Fitting the Model</h2>
 <p>Let’s set the reference categories for both treatment and insurance:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> diabetes_data <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Standard Care"</span>, <span class="st">"Intensive Program"</span>)),</span>
-<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">insurance =</span> <span class="fu">factor</span>(insurance, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Medicaid"</span>, <span class="st">"Medicare"</span>, <span class="st">"Private"</span>))</span>
-<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> diabetes_data <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Standard Care"</span>, <span class="st">"Intensive Program"</span>)),</span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">insurance =</span> <span class="fu">factor</span>(insurance, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Medicaid"</span>, <span class="st">"Medicare"</span>, <span class="st">"Private"</span>))</span>
+<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <p>Let’s fit the model with the interaction between treatment and insurance:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># treatment * insurance = treatment + insurance + treatment:insurance</span></span>
-<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>model_diabetes <span class="ot">&lt;-</span> <span class="fu">lm</span>(a1c_reduction <span class="sc">~</span> treatment <span class="sc">*</span> insurance,</span>
-<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> diabetes_data)</span>
-<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_diabetes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># treatment * insurance = treatment + insurance + treatment:insurance</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>model_diabetes <span class="ot">&lt;-</span> <span class="fu">lm</span>(a1c_reduction <span class="sc">~</span> treatment <span class="sc">*</span> insurance,</span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> diabetes_data)</span>
+<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_diabetes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -1104,9 +1210,7 @@ Figure&nbsp;5
 </ul>
 <div class="fragment">
 <p><br></p>
-<blockquote>
 <p>The Intensive Program is effective across all insurance types, but <strong>most effective</strong> for Private insurance patients.</p>
-</blockquote>
 </div>
 </section>
 <section id="visualizing-categorical-x-categorical-interaction" class="slide level2">
@@ -1114,7 +1218,74 @@ Figure&nbsp;5
 
 <img data-src="Slide12_files/figure-revealjs/fig-catcat-bar-1.png" id="fig-catcat-bar" width="864" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;6
-</p></section></section>
+</p></section>
+<section id="practice-2-categorical-x-categorical-interaction" class="slide level2">
+<h2>Practice 2: Categorical x Categorical Interaction</h2>
+<p><strong>Question</strong>: Does the quality advantage of Teaching hospitals vary across U.S. regions?</p>
+<div class="fragment">
+<p><br></p>
+<p><strong>Why it might differ</strong> (potentially):</p>
+<ul>
+<li class="fragment"><strong>Northeast</strong>: High concentration of academic medical centers and research funding, so teaching hospitals may have a large quality edge</li>
+<li class="fragment"><strong>South/Midwest</strong>: Fewer teaching hospitals, potentially serving underserved populations, so the teaching advantage may be smaller</li>
+<li class="fragment"><strong>West</strong>: Strong tech and innovation culture, so even Non-Teaching hospitals may adopt best practices, narrowing the gap</li>
+</ul>
+</div>
+</section>
+<section id="practice-2-categorical-x-categorical-interaction-1" class="slide level2">
+<h2>Practice 2: Categorical x Categorical Interaction</h2>
+<p><strong>Step 1.</strong> Using the same <code>quality_data</code>, set the reference categories:</p>
+<p>Let’s set “Non-Teaching” as the reference for <code>teaching_status</code> and “Midwest” as the reference for <code>region</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>quality_data <span class="ot">&lt;-</span> quality_data <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">teaching_status =</span> <span class="fu">factor</span>(teaching_status,</span>
+<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Non-Teaching"</span>, <span class="st">"Teaching"</span>)),</span>
+<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">region =</span> <span class="fu">factor</span>(region,</span>
+<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Midwest"</span>, <span class="st">"Northeast"</span>, <span class="st">"South"</span>, <span class="st">"West"</span>))</span>
+<span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="practice-2-categorical-x-categorical-interaction-2" class="slide level2">
+<h2>Practice 2: Categorical x Categorical Interaction</h2>
+<p><strong>Step 2.</strong> Visualize quality scores by teaching status and region:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(quality_data, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">fill =</span> ___)) <span class="sc">+</span></span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Quality Score"</span>, <span class="at">fill =</span> <span class="st">"Teaching Status"</span>,</span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Does the Teaching Hospital Advantage Vary by Region?"</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Does the gap between Teaching and Non-Teaching hospitals look the same in every region?</p>
+</section>
+<section id="practice-2-categorical-x-categorical-interaction-3" class="slide level2 scrollable">
+<h2>Practice 2: Categorical x Categorical Interaction</h2>
+<p><strong>Step 3.</strong> Fit the interaction model and interpret the results:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>model_region <span class="ot">&lt;-</span> <span class="fu">lm</span>(___ <span class="sc">~</span> ___ <span class="sc">*</span> ___,</span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> quality_data)</span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_region)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>What is the predicted quality score for a <strong>Non-Teaching</strong> hospital in the <strong>Midwest</strong> (reference group)?</li>
+<li>What is the teaching advantage in the <strong>Midwest</strong> vs.&nbsp;in the <strong>West</strong>? (Hint: add the teaching main effect and the relevant interaction coefficient)</li>
+</ol>
+</section>
+<section id="practice-2-categorical-x-categorical-interaction-4" class="slide level2 scrollable">
+<h2>Practice 2: Categorical x Categorical Interaction</h2>
+<ol start="3" type="1">
+<li>Use <code>emmeans()</code> to compare Teaching vs.&nbsp;Non-Teaching within each region.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a>emm <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(model_region, <span class="sc">~</span> teaching_status <span class="sc">|</span> region)</span>
+<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm, <span class="at">adjust=</span><span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br> <strong>Question</strong>:</p>
+<ol start="3" type="1">
+<li>In which region shows the largest gap? In which region shows the smallest gap?</li>
+</ol>
+</section></section>
 <section>
 <section id="continuous-x-continuous-interaction" class="title-slide slide level1 center" data-background-color="#40666e">
 <h1>3.3. Continuous x Continuous Interaction</h1>
@@ -1137,8 +1308,8 @@ Figure&nbsp;6
 <h2>Loading the Data</h2>
 <p>Let’s load the data using the code below:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>pt_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_pt_data.csv"</span>)</span>
-<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pt_data, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>pt_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_pt_data.csv"</span>)</span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pt_data, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X patient_id pt_sessions age baseline_function function_improvement
 1 1          1          16  31                53                 27.1
@@ -1155,16 +1326,16 @@ Figure&nbsp;6
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pt_data, <span class="fu">aes</span>(<span class="at">x =</span> pt_sessions, <span class="at">y =</span> function_improvement, <span class="at">color =</span> age)) <span class="sc">+</span></span>
-<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"steelblue"</span>, <span class="at">high =</span> <span class="st">"coral"</span>) <span class="sc">+</span></span>
-<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of PT Sessions"</span>,</span>
-<span id="cb26-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Function Improvement"</span>,</span>
-<span id="cb26-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Age"</span>,</span>
-<span id="cb26-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Does PT Session Effectiveness Vary by Age?"</span></span>
-<span id="cb26-9"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb26-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pt_data, <span class="fu">aes</span>(<span class="at">x =</span> pt_sessions, <span class="at">y =</span> function_improvement, <span class="at">color =</span> age)) <span class="sc">+</span></span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"steelblue"</span>, <span class="at">high =</span> <span class="st">"coral"</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of PT Sessions"</span>,</span>
+<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Function Improvement"</span>,</span>
+<span id="cb33-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Age"</span>,</span>
+<span id="cb33-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Does PT Session Effectiveness Vary by Age?"</span></span>
+<span id="cb33-9"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb33-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 
 </div>
@@ -1175,10 +1346,10 @@ Figure&nbsp;7
 <h2>Fitting the Model</h2>
 <p>Let’s fit the model with the interaction between PT sessions and age:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># pt_sessions * age = pt_sessions + age + pt_sessions:age</span></span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>model_pt <span class="ot">&lt;-</span> <span class="fu">lm</span>(function_improvement <span class="sc">~</span> pt_sessions <span class="sc">*</span> age,</span>
-<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> pt_data)</span>
-<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_pt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># pt_sessions * age = pt_sessions + age + pt_sessions:age</span></span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>model_pt <span class="ot">&lt;-</span> <span class="fu">lm</span>(function_improvement <span class="sc">~</span> pt_sessions <span class="sc">*</span> age,</span>
+<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> pt_data)</span>
+<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_pt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="interpreting-the-results" class="slide level2">
@@ -1268,10 +1439,10 @@ Figure&nbsp;7
 <h2>Visualizing with <code>probe_interaction()</code></h2>
 <p>We can understand the interaction better by visualizing the predicted improvement across PT sessions for different ages using <code>probe_interaction()</code>, which is a part of the <code>interactions</code> package:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">probe_interaction</span>(model_pt,              <span class="co"># fitted model</span></span>
-<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">pred =</span> pt_sessions,     <span class="co"># x-axis variable</span></span>
-<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">modx =</span> age,             <span class="co"># moderator variable</span></span>
-<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">modx.values =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">70</span>))  <span class="co"># values to plot separate lines</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">probe_interaction</span>(model_pt,              <span class="co"># fitted model</span></span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">pred =</span> pt_sessions,     <span class="co"># x-axis variable</span></span>
+<span id="cb35-3"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">modx =</span> age,             <span class="co"># moderator variable</span></span>
+<span id="cb35-4"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">modx.values =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">70</span>))  <span class="co"># values to plot separate lines</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>JOHNSON-NEYMAN INTERVAL
 
@@ -1320,6 +1491,63 @@ Figure&nbsp;8
 <li>In practice, this would warrant investigation into confounding factors (e.g., sicker older patients may be prescribed more PT sessions, making PT <em>appear</em> less effective).</li>
 </ul>
 </div>
+</section>
+<section id="practice-3-continuous-x-continuous-interaction" class="slide level2">
+<h2>Practice 3: Continuous x Continuous Interaction</h2>
+<p><strong>Question</strong>: Does the benefit of IT investment on quality depend on a hospital’s average length of stay?</p>
+<div class="fragment">
+<p><br></p>
+<p><strong>Why it might differ</strong>:</p>
+<ul>
+<li class="fragment"><strong>Low avg LOS hospitals</strong>: Likely efficient, high-turnover facilities – IT investments in scheduling and throughput tools may directly boost quality metrics</li>
+<li class="fragment"><strong>High avg LOS hospitals</strong>: Often treating sicker or more complex patients – IT alone may not overcome the clinical challenges that drive longer stays</li>
+<li class="fragment"><strong>Hypothesis</strong>: IT investment may have a stronger quality impact in hospitals with lower average length of stay</li>
+</ul>
+</div>
+</section>
+<section id="practice-3-continuous-x-continuous-interaction-1" class="slide level2">
+<h2>Practice 3: Continuous x Continuous Interaction</h2>
+<p><strong>Step 1.</strong> Using the same <code>quality_data</code>, visualize the relationship:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(quality_data, <span class="fu">aes</span>(<span class="at">x =</span> ___, <span class="at">y =</span> ___, <span class="at">color =</span> ___)) <span class="sc">+</span></span>
+<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"steelblue"</span>, <span class="at">high =</span> <span class="st">"coral"</span>) <span class="sc">+</span></span>
+<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"IT Investment ($K)"</span>, <span class="at">y =</span> <span class="st">"Quality Score"</span>, <span class="at">color =</span> <span class="st">"Avg LOS"</span>,</span>
+<span id="cb37-5"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Does IT Investment Effectiveness Depend on Avg LOS?"</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="practice-3-continuous-x-continuous-interaction-2" class="slide level2">
+<h2>Practice 3: Continuous x Continuous Interaction</h2>
+<p><strong>Step 2.</strong> Fit the interaction model:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a>model_it_los <span class="ot">&lt;-</span> <span class="fu">lm</span>(___ <span class="sc">~</span> ___ <span class="sc">*</span> ___,</span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> quality_data)</span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_it_los)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="practice-3-continuous-x-continuous-interaction-3" class="slide level2 scrollable">
+<h2>Practice 3: Continuous x Continuous Interaction</h2>
+<p><strong>Step 3.</strong> Interpret the results:</p>
+<p><strong>Questions</strong>:</p>
+<ol type="1">
+<li>Write out the marginal effect formula for <code>it_investment</code>: <span class="math display">\[\text{Effect of IT Investment} = \beta_{\text{it_investment}} + \beta_{\text{interaction}} \times \text{Avg LOS}\]</span></li>
+<li>Compute the effect of IT investment at avg LOS = <strong>3 days</strong>, <strong>5 days</strong>, and <strong>7 days</strong></li>
+</ol>
+</section>
+<section id="practice-3-continuous-x-continuous-interaction-4" class="slide level2 scrollable">
+<h2>Practice 3: Continuous x Continuous Interaction</h2>
+<p><strong>Step 4.</strong> Visualize and discuss:</p>
+<ol start="3" type="1">
+<li>Use <code>probe_interaction()</code> to visualize the effect of IT investment at avg LOS = <strong>3 days</strong>, <strong>5 days</strong>, and <strong>7 days</strong> (the same values from Q2):</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">probe_interaction</span>(model_it_los,</span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">pred =</span> ___,</span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">modx =</span> ___,</span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>                  <span class="at">modx.values =</span> <span class="fu">c</span>(___, ___, ___))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br> 4. Is the interaction term statistically significant? If not, what does that tell hospital administrators – should they differentiate their IT investment strategy based on average length of stay, or can they apply a uniform approach?</p>
 </section></section>
 <section>
 <section id="summary" class="title-slide slide level1 center" data-background-color="#40666e">
@@ -1340,14 +1568,18 @@ Figure&nbsp;8
 <section id="assignments" class="slide level2 scrollable">
 <h2>Assignments</h2>
 <ol type="1">
-<li><strong>Reflection</strong>: Please share your thoughts on the lecture
+<li><strong>Week 12 Reflection</strong>: Please share your thoughts on the lecture</li>
+</ol>
 <ul>
 <li>3 interesting things</li>
-<li>3 confusing things</li>
-</ul></li>
+<li>3 confusing or unclear things</li>
+</ul>
+<p>Due by 11:59pm on Sunday, April 5.</p>
+<p><br></p>
+<ol start="2" type="1">
 <li><strong>Lab Assignment 5</strong>: Linear Regression</li>
 </ol>
-<p>Both are due by 11:59pm on Sunday, April 5.</p>
+<p>Due by 11:59pm on Sunday, April 12.</p>
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>

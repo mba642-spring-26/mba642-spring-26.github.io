@@ -38,10 +38,10 @@ set.seed(2026)
 
 In healthcare management, many of the most critical decisions involve predicting binary outcomes. For example,
 
-- Will an event happen or not?
-- Will a patient be readmitted within 30 days or not?
-- Will a patient adhere to their medication regimen or not?
-- Will a treatment be successful or not?
+-   Will an event happen or not?
+-   Will a patient be readmitted within 30 days or not?
+-   Will a patient adhere to their medication regimen or not?
+-   Will a treatment be successful or not?
 
 These yes/no questions are fundamentally different from predicting continuous outcomes like blood pressure or length of stay.
 
@@ -51,10 +51,10 @@ A hospital administrator wants to identify patients at high risk of readmission 
 
 **Logistic regression** is an appropriate statistical technique when your outcome variable is binary. It allows us to:
 
-- Predict the **probability** that an event will occur
-- Identify which factors **increase or decrease** the likelihood of the outcome
-- **Quantify the strength** of each predictor's effect 
-- Make **data-driven decisions** about resource allocation and interventions
+-   Predict the **probability** that an event will occur
+-   Identify which factors **increase or decrease** the likelihood of the outcome
+-   **Quantify the strength** of each predictor's effect
+-   Make **data-driven decisions** about resource allocation and interventions
 
 ## The Problem with Linear Regression for Binary Outcomes
 
@@ -76,9 +76,9 @@ Linear regression assumes a straight-line relationship that extends infinitely i
 
 Logistic regression solves this problem by using a special S-shaped curve (called the **logistic** function) that naturally stays between 0 and 1. Instead of predicting the probability directly with a straight line, logistic regression:
 
-1. Transforms the probability into something called **log odds**
-2. Models the log odds as a linear function of the predictors
-3. Transforms the result back to a probability
+1.  Transforms the probability into something called **log odds**
+2.  Models the log odds as a linear function of the predictors
+3.  Transforms the result back to a probability
 
 This transformation ensures that no matter what values your predictors take, the predicted probability will always be between 0 and 1. The relationship "flattens out" at the extremes, creating the characteristic S-shape.
 
@@ -121,8 +121,7 @@ As you can see in the graph above, the linear regression line (red) extends beyo
 
 Now that we understand **why** we need logistic regression and **how** it solves the boundary problem, let's explore the mathematical foundations that make it work.
 
--------------------------------
-
+------------------------------------------------------------------------
 
 # Understanding the Core Concepts
 
@@ -138,9 +137,9 @@ $$\text{Odds} = \frac{p}{1-p} = \frac{\text{Probability of event happening}}{\te
 
 Using our readmission example:
 
-- Probability of readmission = 0.30
-- Probability of NOT being readmitted = 0.70
-- Odds of readmission = 0.30 / 0.70 = 0.429
+-   Probability of readmission = 0.30
+-   Probability of NOT being readmitted = 0.70
+-   Odds of readmission = 0.30 / 0.70 = 0.429
 
 This means that for every patient who is readmitted, there are about 2.3 patients who are not readmitted (since 1/0.429 ≈ 2.3). Alternatively, we can say the odds are "0.429 to 1" or roughly "7 to 3" in favor of not being readmitted.
 
@@ -176,13 +175,12 @@ kable(odds_table, col.names = c("Probability (p)", "1 - p", "Odds", "Interpretat
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
-
 **Key insight about odds:**
 
-- When odds = 1, the event is equally likely to happen or not happen (50/50 chance)
-- When odds < 1, the event is less likely than 50/50
-- When odds > 1, the event is more likely than 50/50
-- Odds can only be **positive** values (they range **from 0 to infinity**)
+-   When odds = 1, the event is equally likely to happen or not happen (50/50 chance)
+-   When odds \< 1, the event is less likely than 50/50
+-   When odds \> 1, the event is more likely than 50/50
+-   Odds can only be **positive** values (they range **from 0 to infinity**)
 
 ## From Odds to Log Odds (Logit)
 
@@ -212,13 +210,12 @@ kable(logit_table, col.names = c("Probability (p)", "1 - p", "Odds", "Log Odds (
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
-
 **Key insight about log odds:**
 
-- When log odds = 0, the event has a 50/50 chance (probability = 0.5)
-- When log odds < 0, the event is less likely than 50/50
-- When log odds > 0, the event is more likely than 50/50
-- Log odds can be any real number (positive or negative)
+-   When log odds = 0, the event has a 50/50 chance (probability = 0.5)
+-   When log odds \< 0, the event is less likely than 50/50
+-   When log odds \> 0, the event is more likely than 50/50
+-   Log odds can be any real number (positive or negative)
 
 The **log odds transformation** is what makes logistic regression work. It converts the bounded probability (0 to 1) into an unbounded scale that can be modeled with a linear equation.
 
@@ -236,38 +233,34 @@ The coefficients ($\beta$ values) in this equation are **log odds ratios**, whic
 
 By using this equation, we can get **predicted log odds**.
 
-
 ### Converting Back to Probability
 
 Once we have predicted log odds, we can convert back to probability using these relationships:
 
-1. **From log odds to odds:** $\text{Odds} = e^{\text{log odds}}$ (exponentiated log odds)
-2. **From odds to probability:** $p = \frac{\text{Odds}}{1 + \text{Odds}}$
+1.  **From log odds to odds:** $\text{Odds} = e^{\text{log odds}}$ (exponentiated log odds)
+2.  **From odds to probability:** $p = \frac{\text{Odds}}{1 + \text{Odds}}$
 
 Or in one step:
 
 $$p = \frac{e^{\beta_0 + \beta_1 X_1 + \cdots}}{1 + e^{\beta_0 + \beta_1 X_1 + \cdots}}$$
 
-Don't worry if these formulas seem complex. R will do all these calculations for us (that's why we use statistical software!).
-The important thing is to understand the conceptual flow: (1) we model log odds linearly, then (2) transform the results back to probabilities.
+Don't worry if these formulas seem complex. R will do all these calculations for us (that's why we use statistical software!). The important thing is to understand the conceptual flow: (1) we model log odds linearly, then (2) transform the results back to probabilities.
 
 ## Estimation Method: Maximum Likelihood Estimation
 
 Unlike linear regression, we cannot use the OLS method, because:
 
-1. **Probability must stay between 0 and 1**: OLS could predict probabilities outside this range (e.g., -0.3 or 1.4), which doesn't make sense.
-2. **Binary outcomes violate OLS assumptions**: The residuals in binary outcomes can't be normally distributed (as they can only take on two values).
-3. **Non-constant variance**: When outcomes are binary, the variance changes systematically with the predicted probability, violating the OLS assumption of constant variance (homoscedasticity).
-
+1.  **Probability must stay between 0 and 1**: OLS could predict probabilities outside this range (e.g., -0.3 or 1.4), which doesn't make sense.
+2.  **Binary outcomes violate OLS assumptions**: The residuals in binary outcomes can't be normally distributed (as they can only take on two values).
+3.  **Non-constant variance**: When outcomes are binary, the variance changes systematically with the predicted probability, violating the OLS assumption of constant variance (homoscedasticity).
 
 Logistic regression uses **Maximum Likelihood Estimation (MLE)**, a different approach that:
 
-- Finds the coefficient values (parameters) that make the observed data **most likely** to have occurred
-- Naturally respects the probability boundaries (predictions always stay between 0 and 1)
-- Works well with the binomial distribution of binary outcomes
+-   Finds the coefficient values (parameters) that make the observed data **most likely** to have occurred
+-   Naturally respects the probability boundaries (predictions always stay between 0 and 1)
+-   Works well with the binomial distribution of binary outcomes
 
 You don't need to understand the mathematics of MLE for this course. The key point is that **the estimation method is different from linear regression**, but R handles all the computation automatically. When you use the `glm()` function with `family = binomial`, R is using MLE behind the scenes.
-
 
 ------------------------------------------------------------------------
 
@@ -283,10 +276,10 @@ Simple logistic regression models the relationship between **one predictor varia
 
 Use simple logistic regression when:
 
-- Your **outcome variable is binary** (two possible values: 0/1, yes/no)
-- You have **one predictor variable** you want to examine
-- You want to understand **how the predictor affects the probability** of the outcome
-- You want to **quantify the effect** using log odds ratios and odds ratios
+-   Your **outcome variable is binary** (two possible values: 0/1, yes/no)
+-   You have **one predictor variable** you want to examine
+-   You want to understand **how the predictor affects the probability** of the outcome
+-   You want to **quantify the effect** using log odds ratios and odds ratios
 
 ## 1.3 Example Case: Predicting Hospital Readmission
 
@@ -297,7 +290,6 @@ Your hospital has been assessing patient discharge readiness (measured on a 1-10
 The hypothesis is that patients who feel more ready for discharge have a better understanding of their follow-up care instructions, are more confident in managing their health at home, and therefore are less likely to be readmitted.
 
 The Hospital Readmissions Reduction Program (HRRP), established by the Affordable Care Act, penalizes hospitals with excess readmissions for specific conditions. Research has shown that perceived readiness for hospital discharge is associated with post-discharge outcomes including readmission rates, though the relationship is influenced by multiple factors including patient demographics, clinical complexity, and post-discharge support systems.
-
 
 ## 1.4 Loading and Exploring the Data
 
@@ -320,12 +312,12 @@ head(readmit_data, 10)
 
 **Variables in the dataset**:
 
-- `patient_id`: Unique identifier for each patient (1 to `r nrow(readmit_data)`)
-- `discharge_readiness`: Discharge readiness score (1-10 scale, where higher scores indicate greater readiness for discharge)
-- `age`: Patient age in years
-- `comorbidities`: Number of chronic health conditions (e.g., diabetes, hypertension, heart disease)
-- `insurance`: Insurance type (Private, Medicare, or Medicaid)
-- `readmitted`: Whether the patient was readmitted within 30 days (1 = yes, 0 = no)
+-   `patient_id`: Unique identifier for each patient (1 to `r nrow(readmit_data)`)
+-   `discharge_readiness`: Discharge readiness score (1-10 scale, where higher scores indicate greater readiness for discharge)
+-   `age`: Patient age in years
+-   `comorbidities`: Number of chronic health conditions (e.g., diabetes, hypertension, heart disease)
+-   `insurance`: Insurance type (Private, Medicare, or Medicaid)
+-   `readmitted`: Whether the patient was readmitted within 30 days (1 = yes, 0 = no)
 
 Let's visually look at the relationship between discharge readiness and readmission:
 
@@ -361,14 +353,13 @@ p1
 
 Looking at this boxplot, we can see that patients who were readmitted tend to have lower discharge readiness scores than those who were not readmitted. This suggests there may be a relationship worth investigating with logistic regression.
 
-
 ## 1.5 Running the Logistic Regression
 
 In R, we use the `glm()` function (Generalized Linear Model) to run logistic regression. The key arguments are:
 
-- `formula`: Specifies the outcome and predictors (e.g., `readmitted ~ discharge_readiness`)
-- `data`: The dataset to use
-- `family = binomial`: Tells R to use logistic regression for binary outcomes
+-   `formula`: Specifies the outcome and predictors (e.g., `readmitted ~ discharge_readiness`)
+-   `data`: The dataset to use
+-   `family = binomial`: Tells R to use logistic regression for binary outcomes
 
 The syntax is similar to linear regression with `lm()`, but we add `family = binomial(link = "logit")` or just `family = binomial` (the default link function for binomial is logit):
 
@@ -404,15 +395,15 @@ kable(coef_table, digits = 4) %>%
 
 Each row in this table represents one term in our model:
 
-- **`(Intercept)`**: This is $\beta_0$, the predicted log odds when discharge readiness = 0
-- **`discharge_readiness`**: This is $\beta_1$, the change in log odds for each one-unit increase in discharge readiness
+-   **`(Intercept)`**: This is $\beta_0$, the predicted log odds when discharge readiness = 0
+-   **`discharge_readiness`**: This is $\beta_1$, the change in log odds for each one-unit increase in discharge readiness
 
 The columns tell us:
 
-- **Estimate**: The coefficient value (log odds ratio)
-- **Std. Error**: The uncertainty in our estimate
-- **z value**: The test statistic (Estimate / Std. Error)
-- **Pr(>|z|)**: The p-value for testing whether the coefficient significantly differs from zero
+-   **Estimate**: The coefficient value (log odds ratio)
+-   **Std. Error**: The uncertainty in our estimate
+-   **z value**: The test statistic (Estimate / Std. Error)
+-   **Pr(\>\|z\|)**: The p-value for testing whether the coefficient significantly differs from zero
 
 ### Step 2: Writing the Model Equation
 
@@ -428,11 +419,9 @@ b1_p <- format(summary(model_simple)$coefficients[2, 4], digits = 3)
 
 ```
 
-
 **Log Odds of Readmission = `r b0` + (`r b1`) × Discharge Readiness**
 
 This equation tells us that, for each one-unit increase in discharge readiness score, the log odds of readmission changes by the coefficient value.
-
 
 ### Step 3: Interpreting the Log Odds Ratio
 
@@ -442,11 +431,11 @@ The coefficient for discharge readiness is our **log odds ratio**. Let's interpr
 
 **Interpretation:**
 
-1. **DIRECTION**: The coefficient is `r if(b1 < 0) "NEGATIVE" else "POSITIVE"`, which means higher discharge readiness is associated with `r if(b1 < 0) "LOWER" else "HIGHER"` log odds of readmission.
+1.  **DIRECTION**: The coefficient is `r if(b1 < 0) "NEGATIVE" else "POSITIVE"`, which means higher discharge readiness is associated with `r if(b1 < 0) "LOWER" else "HIGHER"` log odds of readmission.
 
-2. **STATISTICAL SIGNIFICANCE**: The p-value is `r b1_p`. Since p `r if(b1_p < 0.05) "< 0.05" else ">= 0.05"`, this relationship is `r if(b1_p < 0.05) "statistically significant" else "NOT statistically significant"`.
+2.  **STATISTICAL SIGNIFICANCE**: The p-value is `r b1_p`. Since p `r if(b1_p < 0.05) "< 0.05" else ">= 0.05"`, this relationship is `r if(b1_p < 0.05) "statistically significant" else "NOT statistically significant"`.
 
-3. **MAGNITUDE**: For each one-unit increase in discharge readiness score, the log odds of readmission change by `r b1`.
+3.  **MAGNITUDE**: For each one-unit increase in discharge readiness score, the log odds of readmission change by `r b1`.
 
 ### Step 4: Converting to Odds Ratio
 
@@ -456,8 +445,8 @@ $$\text{Odds Ratio} = e^{\text{Log Odds Ratio}}$$
 
 We can get Odds Ratio by using the following **R functions**:
 
-- `coef()`: Extracts coefficients from the model
-- `exp()`: Exponentiates values (raises e to the power of the value) to convert log odds ratios to odds ratios
+-   `coef()`: Extracts coefficients from the model
+-   `exp()`: Exponentiates values (raises e to the power of the value) to convert log odds ratios to odds ratios
 
 ```{r}
 #| label: simple-odds-ratio1
@@ -469,11 +458,10 @@ odds_ratios <- exp(coef(model_simple))
 
 Then, we get **Odds Ratios:**
 
-- Intercept: `r round(odds_ratios[1], 4)`
-- Discharge Readiness: `r round(odds_ratios[2], 4)`
+-   Intercept: `r round(odds_ratios[1], 4)`
+-   Discharge Readiness: `r round(odds_ratios[2], 4)`
 
 Let's interpret the odds ratio for discharge readiness:
-
 
 **Interpretation:**
 
@@ -485,11 +473,9 @@ or_dr <- odds_ratios[2]
 pct_change <- if(or_dr < 1) round((1 - or_dr) * 100, 1) else round((or_dr - 1) * 100, 1)
 ```
 
+-   Since the odds ratio is `r if(or_dr < 1) "LESS than 1" else "GREATER than 1"`, higher discharge readiness is associated with `r if(or_dr < 1) "LOWER" else "HIGHER"` odds of readmission.
 
-- Since the odds ratio is `r if(or_dr < 1) "LESS than 1" else "GREATER than 1"`, higher discharge readiness is associated with `r if(or_dr < 1) "LOWER" else "HIGHER"` odds of readmission.
-
-- For each one-unit increase in discharge readiness score, the odds of readmission `r if(or_dr < 1) "DECREASE" else "INCREASE"` by `r pct_change`%. (or alternatively, the odds of readmission are multiplied by `r round(or_dr, 3)` for each one-unit increase in discharge readiness).
-
+-   For each one-unit increase in discharge readiness score, the odds of readmission `r if(or_dr < 1) "DECREASE" else "INCREASE"` by `r pct_change`%. (or alternatively, the odds of readmission are multiplied by `r round(or_dr, 3)` for each one-unit increase in discharge readiness).
 
 ## 1.7 Predicting Probabilities
 
@@ -542,9 +528,7 @@ Finally, we convert odds to probability using the formula: Probability = Odds / 
 
 $$\text{Probability} = \frac{`r round(odds_pred, 4)`}{1 + `r round(odds_pred, 4)`} = `r round(prob_pred, 4)`$$
 
-
 A patient with a discharge readiness score of `r dr_value` has a `r round(prob_pred * 100, 1)`% predicted probability of being readmitted within 30 days. This means that if we had 100 patients with this discharge readiness level, we would expect approximately `r round(prob_pred * 100)` of them to be readmitted.
-
 
 ### 1.7.2 Using R's predict() Function
 
@@ -552,12 +536,11 @@ While the manual calculation helps us understand the underlying process, in prac
 
 The `predict()` function in R generates predictions from a fitted model. Key arguments are:
 
-- First argument: The fitted model object
-- `newdata`: A data frame containing the predictor values for which you want predictions
-- `type = "response"`: Returns predicted probabilities (for logistic regression). Without this, it returns log odds.
+-   First argument: The fitted model object
+-   `newdata`: A data frame containing the predictor values for which you want predictions
+-   `type = "response"`: Returns predicted probabilities (for logistic regression). Without this, it returns log odds.
 
 Let's predict readmission probabilities for patients with different discharge readiness levels:
-
 
 **Predicted Probabilities of Readmission:**
 
@@ -579,8 +562,6 @@ kable(round(new_patients, 3),
       align = c("c", "c")) %>%
   kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
 ```
-
-
 
 As discharge readiness scores increase from 4 to 8, the predicted probability of readmission systematically decreases. This quantifies the relationship we observed in our earlier boxplot: higher discharge readiness is associated with lower readmission risk. We can use these probabilities to identify which patients may need additional discharge support.
 
@@ -625,17 +606,16 @@ The **blue curve** represents our model's predicted probabilities across all dis
 
 Key features of the logistic curve:
 
-- **At low discharge readiness scores** (left side): The probability of readmission is relatively high.
-- **At high discharge readiness scores** (right side): The probability of readmission is relatively low.
+-   **At low discharge readiness scores** (left side): The probability of readmission is relatively high.
+-   **At high discharge readiness scores** (right side): The probability of readmission is relatively low.
 
 The **dashed line at 0.5** (50%) represents the traditional classification threshold used in many statistical applications. However, **in practice, we would likely use a much lower threshold for readmission prediction** (e.g., 10-20%). Why? Because:
 
-- Actual readmission rates are typically around 15%, not 50%
-- The cost of missing a high-risk patient (false negative) is high
-- The cost of providing extra discharge support to a lower-risk patient (false positive) is relatively low
+-   Actual readmission rates are typically around 15%, not 50%
+-   The cost of missing a high-risk patient (false negative) is high
+-   The cost of providing extra discharge support to a lower-risk patient (false positive) is relatively low
 
 For example, if we used a 15% threshold, any patient with predicted probability ≥ 15 % would receive enhanced discharge planning. This more conservative approach helps ensure we don't miss high-risk patients who could benefit from intervention.
-
 
 ## 1.8 Evaluating Model Performance
 
@@ -647,8 +627,8 @@ To evaluate classification performance, we first convert predicted probabilities
 
 **For this example, we'll use the traditional 0.5 (50%) threshold** to demonstrate how classification tables work:
 
-- If predicted probability ≥ 0.5 → predict "readmitted" (class = 1)
-- If predicted probability < 0.5 → predict "not readmitted" (class = 0)
+-   If predicted probability ≥ 0.5 → predict "readmitted" (class = 1)
+-   If predicted probability \< 0.5 → predict "not readmitted" (class = 0)
 
 While 0.5 is the standard default, in practice a lower threshold (e.g., 0.15-0.20) may be more appropriate for readmission prediction, since readmission rates are typically well below 50%.
 
@@ -688,10 +668,10 @@ kable(cm_df, align = "c") %>%
 
 This 2×2 table shows four possible outcomes:
 
-- **True Negatives (TN, top-left)**: Patients we correctly predicted would NOT be readmitted
-- **False Negatives (FN, top-right)**: Patients we incorrectly predicted would NOT be readmitted (missed case)
-- **False Positives (FP, bottom-left)**: Patients we incorrectly predicted would be readmitted (false alarm)
-- **True Positives (TP, bottom-right)**: Patients we correctly predicted would be readmitted
+-   **True Negatives (TN, top-left)**: Patients we correctly predicted would NOT be readmitted
+-   **False Negatives (FN, top-right)**: Patients we incorrectly predicted would NOT be readmitted (missed case)
+-   **False Positives (FP, bottom-left)**: Patients we incorrectly predicted would be readmitted (false alarm)
+-   **True Positives (TP, bottom-right)**: Patients we correctly predicted would be readmitted
 
 ### 1.8.3 Calculating Model Accuracy
 
@@ -719,35 +699,33 @@ tp <- class_table[2, 2]  # True positives
 
 **Model Performance:**
 
-- Correctly classified: `r correct` out of `r total` patients
-- Overall accuracy: `r round(accuracy * 100, 1)`%
+-   Correctly classified: `r correct` out of `r total` patients
+-   Overall accuracy: `r round(accuracy * 100, 1)`%
 
 **Breakdown:**
 
-- Correctly predicted NOT readmitted (True Negatives): `r tn`
-- Correctly predicted readmitted (True Positives): `r tp`
-- Incorrectly predicted readmitted (False Positives - false alarm): `r fp`
-- Incorrectly predicted NOT readmitted (False Negatives - missed): `r fn`
+-   Correctly predicted NOT readmitted (True Negatives): `r tn`
+-   Correctly predicted readmitted (True Positives): `r tp`
+-   Incorrectly predicted readmitted (False Positives - false alarm): `r fp`
+-   Incorrectly predicted NOT readmitted (False Negatives - missed): `r fn`
 
 **What does this mean?**
 
 Our model correctly classified `r round(accuracy * 100, 1)`% of patients. While accuracy is a useful starting point, in healthcare applications we often care more about specific types of errors. For example:
 
-- **False negatives** (missed readmissions) mean high-risk patients don't receive intervention
-- **False positives** (false alarms) mean resources are spent on patients who don't need extra support
+-   **False negatives** (missed readmissions) mean high-risk patients don't receive intervention
+-   **False positives** (false alarms) mean resources are spent on patients who don't need extra support
 
 The relative importance of these errors depends on the costs and benefits of intervention in your specific context.
 
 ## 1.9 Practice: Simple Logistic Regression {.unnumbered}
 
-::: {.callout-note}
-
+::: callout-note
 Complete the activity below. This activity will help you practice:
 
-- Running simple logistic regression models
-- Interpreting log odds ratios and odds ratios
-- Making predictions from the model
-
+-   Running simple logistic regression models
+-   Interpreting log odds ratios and odds ratios
+-   Making predictions from the model
 :::
 
 **Practice Activity: Medication Adherence**
@@ -769,7 +747,6 @@ adherence_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/m
 # View the data
 head(adherence_data, 5)
 ```
-
 
 **Task 1: Explore the Data**
 
@@ -795,7 +772,6 @@ adherence_summary
 
 **Question**: What pattern do you see? Does adherence seem related to number of medications?
 
-
 **Task 2: Run Simple Logistic Regression**
 
 **Fill in the blanks** to run a logistic regression predicting adherence from number of medications:
@@ -817,10 +793,9 @@ summary(model_adhere)
 
 From your `summary()` output, find the row for `num_medications` and answer the following:
 
-1. What is the **coefficient** (log odds ratio) for `num_medications`?
-2. What is the **p-value**? Is it statistically significant (p < 0.05)?
-3. What is the **direction** of the effect? (Does taking more medications increase or decrease the odds of adherence?)
-
+1.  What is the **coefficient** (log odds ratio) for `num_medications`?
+2.  What is the **p-value**? Is it statistically significant (p \< 0.05)?
+3.  What is the **direction** of the effect? (Does taking more medications increase or decrease the odds of adherence?)
 
 **Task 4: Calculate and Interpret Odds Ratio**
 
@@ -838,9 +813,8 @@ round(or_medications, 2)
 
 **Questions**:
 
-1. For each additional medication, how much do the odds of adherence change (in %)?
-2. What does this mean for patient management?
-
+1.  For each additional medication, how much do the odds of adherence change (in %)?
+2.  What does this mean for patient management?
 
 **Task 5: Make Predictions**
 
@@ -866,10 +840,7 @@ new_patients$predicted_prob <- predict(___,
 new_patients
 ```
 
-
 **Question**: Suppose your clinic wants to provide timely medication reminders (e.g., text messages or phone calls) to patients at risk of non-adherence. If you offer this intervention to patients whose predicted adherence probability falls below 0.5, which of the three patients (A, B, C) would receive the intervention?
-
-
 
 ------------------------------------------------------------------------
 
@@ -885,15 +856,15 @@ Multiple logistic regression extends simple logistic regression by including **t
 
 Use multiple logistic regression when:
 
-- Your **outcome variable is binary** (0/1)
-- You have **two or more predictor variables** (continuous, categorical, or both)
-- You want to **control for confounding variables**
-- You want to understand the **independent effect** of each predictor
+-   Your **outcome variable is binary** (0/1)
+-   You have **two or more predictor variables** (continuous, categorical, or both)
+-   You want to **control for confounding variables**
+-   You want to understand the **independent effect** of each predictor
 
 Multiple logistic regression enables us to:
 
-1. **Control for confounding variables** (factors that might distort the relationship we're studying)
-2. **Make more accurate predictions** by incorporating more information
+1.  **Control for confounding variables** (factors that might distort the relationship we're studying)
+2.  **Make more accurate predictions** by incorporating more information
 
 ## 2.3 Example Case: Comprehensive Readmission Risk Model
 
@@ -901,14 +872,13 @@ In the simple regression section, we used only discharge readiness to predict re
 
 Our `readmit_data` dataset (n = `r nrow(readmit_data)`) already includes additional variables we can use to build a more comprehensive model:
 
-- `discharge_readiness`: Discharge readiness score (1-10 scale)
-- `age`: Patient age in years
-- `comorbidities`: Number of chronic health conditions (e.g., diabetes, hypertension, heart disease)
-- `insurance`: Insurance type (Private, Medicare, or Medicaid) — a **categorical predictor**
-- `readmitted`: Whether the patient was readmitted within 30 days (1 = yes, 0 = no)
+-   `discharge_readiness`: Discharge readiness score (1-10 scale)
+-   `age`: Patient age in years
+-   `comorbidities`: Number of chronic health conditions (e.g., diabetes, hypertension, heart disease)
+-   `insurance`: Insurance type (Private, Medicare, or Medicaid) — a **categorical predictor**
+-   `readmitted`: Whether the patient was readmitted within 30 days (1 = yes, 0 = no)
 
 Let's test whether discharge readiness still predicts readmission when we account for age, health complexity, and insurance type.
-
 
 ## 2.4 Running Multiple Logistic Regression
 
@@ -978,37 +948,35 @@ pct_comorbid <- round((ors["comorbidities"] - 1) * 100, 1)
 
 **1. Discharge Readiness**
 
-- **Log Odds Ratio:** `r round(coefs["discharge_readiness"], 4)` (p = `r format(round(pvals["discharge_readiness"], 4), scientific = FALSE)`)
-  - This means that for each one-unit increase in discharge readiness, the log odds of readmission change by `r round(coefs["discharge_readiness"], 4)`, holding other variables constant.
-- **Odds Ratio:** `r round(ors["discharge_readiness"], 3)`
-  - This means that for each one-unit increase in discharge readiness, the odds of readmission are multiplied by `r round(ors["discharge_readiness"], 3)`, holding other variables constant. (i.e., the odds `r if(ors["discharge_readiness"] < 1) "DECREASE" else "INCREASE"` by `r pct_readiness`%)
+-   **Log Odds Ratio:** `r round(coefs["discharge_readiness"], 4)` (p = `r format(round(pvals["discharge_readiness"], 4), scientific = FALSE)`)
+    -   This means that for each one-unit increase in discharge readiness, the log odds of readmission change by `r round(coefs["discharge_readiness"], 4)`, holding other variables constant.
+-   **Odds Ratio:** `r round(ors["discharge_readiness"], 3)`
+    -   This means that for each one-unit increase in discharge readiness, the odds of readmission are multiplied by `r round(ors["discharge_readiness"], 3)`, holding other variables constant. (i.e., the odds `r if(ors["discharge_readiness"] < 1) "DECREASE" else "INCREASE"` by `r pct_readiness`%)
 
 **2. Age**
 
-- **Log Odds Ratio:** `r round(coefs["age"], 4)` (p = `r format(round(pvals["age"], 4), scientific = FALSE)`)
-  - For each one-year increase in age, the log odds of readmission change by `r round(coefs["age"], 4)`, holding other variables constant.
-- **Odds Ratio:** `r round(ors["age"], 4)`
-  - For each one-year increase in age, the odds of readmission are multiplied by `r round(ors["age"], 4)`, holding other variables constant. (i.e., the odds `r if(ors["age"] < 1) "decrease" else "increase"` by `r pct_age`%)
+-   **Log Odds Ratio:** `r round(coefs["age"], 4)` (p = `r format(round(pvals["age"], 4), scientific = FALSE)`)
+    -   For each one-year increase in age, the log odds of readmission change by `r round(coefs["age"], 4)`, holding other variables constant.
+-   **Odds Ratio:** `r round(ors["age"], 4)`
+    -   For each one-year increase in age, the odds of readmission are multiplied by `r round(ors["age"], 4)`, holding other variables constant. (i.e., the odds `r if(ors["age"] < 1) "decrease" else "increase"` by `r pct_age`%)
 
 **3. Comorbidities**
 
-- **Log Odds Ratio:** `r round(coefs["comorbidities"], 4)` (p = `r format(round(pvals["comorbidities"], 4), scientific = FALSE)`)
-  - For each additional comorbidity, the log odds of readmission change by `r round(coefs["comorbidities"], 4)`, holding other variables constant.
-- **Odds Ratio:** `r round(ors["comorbidities"], 3)`
-  - For each additional comorbidity, the odds of readmission are multiplied by `r round(ors["comorbidities"], 3)`, holding other variables constant. (i.e., the odds `r if(ors["comorbidities"] < 1) "decrease" else "increase"` by `r pct_comorbid`%)
-
+-   **Log Odds Ratio:** `r round(coefs["comorbidities"], 4)` (p = `r format(round(pvals["comorbidities"], 4), scientific = FALSE)`)
+    -   For each additional comorbidity, the log odds of readmission change by `r round(coefs["comorbidities"], 4)`, holding other variables constant.
+-   **Odds Ratio:** `r round(ors["comorbidities"], 3)`
+    -   For each additional comorbidity, the odds of readmission are multiplied by `r round(ors["comorbidities"], 3)`, holding other variables constant. (i.e., the odds `r if(ors["comorbidities"] < 1) "decrease" else "increase"` by `r pct_comorbid`%)
 
 **4. Insurance Type** (Reference category: Medicaid)
 
-- **Medicare vs. Medicaid:**
-  - **Log Odds Ratio:** `r round(coefs["insuranceMedicare"], 4)` (p = `r format(round(pvals["insuranceMedicare"], 4), scientific = FALSE)`)
-  - **Odds Ratio:** `r round(ors["insuranceMedicare"], 3)`
-  - **Interpretation:** Holding discharge readiness, age, and comorbidities constant, patients with Medicare have odds of readmission that are `r round(ors["insuranceMedicare"], 3)` times the odds for patients with Medicaid. `r if(ors["insuranceMedicare"] < 1) paste0("In other words, Medicare patients have ", round((1 - ors["insuranceMedicare"]) * 100, 1), "% lower odds compared to Medicaid patients.") else paste0("In other words, Medicare patients have ", round((ors["insuranceMedicare"] - 1) * 100, 1), "% higher odds compared to Medicaid patients.")`
-
-- **Private vs. Medicaid:**
-  - **Log Odds Ratio:** `r round(coefs["insurancePrivate"], 4)` (p = `r format(round(pvals["insurancePrivate"], 4), scientific = FALSE)`)
-  - **Odds Ratio:** `r round(ors["insurancePrivate"], 3)`
-  - **Interpretation:** Holding discharge readiness, age, and comorbidities constant, patients with Private insurance have odds of readmission that are `r round(ors["insurancePrivate"], 3)` times the odds for patients with Medicaid. `r if(ors["insurancePrivate"] < 1) paste0("In other words, Private insurance patients have ", round((1 - ors["insurancePrivate"]) * 100, 1), "% lower odds compared to Medicaid patients.") else paste0("In other words, Private insurance patients have ", round((ors["insurancePrivate"] - 1) * 100, 1), "% higher odds compared to Medicaid patients.")`
+-   **Medicare vs. Medicaid:**
+    -   **Log Odds Ratio:** `r round(coefs["insuranceMedicare"], 4)` (p = `r format(round(pvals["insuranceMedicare"], 4), scientific = FALSE)`)
+    -   **Odds Ratio:** `r round(ors["insuranceMedicare"], 3)`
+    -   **Interpretation:** Holding discharge readiness, age, and comorbidities constant, patients with Medicare have odds of readmission that are `r round(ors["insuranceMedicare"], 3)` times the odds for patients with Medicaid. `r if(ors["insuranceMedicare"] < 1) paste0("In other words, Medicare patients have ", round((1 - ors["insuranceMedicare"]) * 100, 1), "% lower odds compared to Medicaid patients.") else paste0("In other words, Medicare patients have ", round((ors["insuranceMedicare"] - 1) * 100, 1), "% higher odds compared to Medicaid patients.")`
+-   **Private vs. Medicaid:**
+    -   **Log Odds Ratio:** `r round(coefs["insurancePrivate"], 4)` (p = `r format(round(pvals["insurancePrivate"], 4), scientific = FALSE)`)
+    -   **Odds Ratio:** `r round(ors["insurancePrivate"], 3)`
+    -   **Interpretation:** Holding discharge readiness, age, and comorbidities constant, patients with Private insurance have odds of readmission that are `r round(ors["insurancePrivate"], 3)` times the odds for patients with Medicaid. `r if(ors["insurancePrivate"] < 1) paste0("In other words, Private insurance patients have ", round((1 - ors["insurancePrivate"]) * 100, 1), "% lower odds compared to Medicaid patients.") else paste0("In other words, Private insurance patients have ", round((ors["insurancePrivate"] - 1) * 100, 1), "% higher odds compared to Medicaid patients.")`
 
 ## 2.6 Making Predictions with Multiple Predictors
 
@@ -1020,17 +988,16 @@ To understand how multiple predictors combine, let's walk through a manual calcu
 
 The multiple logistic regression equation extends the simple version by adding more terms:
 
-$$\text{Log Odds} = \beta_0 + \beta_1 \times \text{Discharge Readiness} + \beta_2 \times \text{Age} + \beta_3 \times \text{Comorbidities}$$
-$$+ \beta_4 \times \text{Medicare} + \beta_5 \times \text{Private}$$
+$$\text{Log Odds} = \beta_0 + \beta_1 \times \text{Discharge Readiness} + \beta_2 \times \text{Age} + \beta_3 \times \text{Comorbidities}$$ $$+ \beta_4 \times \text{Medicare} + \beta_5 \times \text{Private}$$
 
 **Example Patient:**
 
 Let's assume that we have a new patient whose data is as follows, and we would like to predict this patient's predicted probability of readmission using our multiple logistic regression model.
 
-- Discharge Readiness = 6
-- Age = 70
-- Comorbidities = 3
-- Insurance = Medicare
+-   Discharge Readiness = 6
+-   Age = 70
+-   Comorbidities = 3
+-   Insurance = Medicare
 
 ```{r}
 #| label: multiple-manual-predict
@@ -1111,16 +1078,13 @@ patient_profiles$predicted_prob <- predict(model_multiple,
 patient_profiles
 ```
 
-
 Notice how combining multiple risk factors leads to dramatically different predicted probabilities. The third patient (low discharge readiness, age 80, 4 comorbidities, Medicaid) has a much higher predicted probability than the first patient (high readiness, age 50, 1 comorbidity, Private insurance). This demonstrates the power of multiple regression — it captures the cumulative effect of multiple risk factors.
-
 
 ## 2.7 Evaluating the Multiple Regression Model
 
 Finally, let's assess how well our multiple regression model performs at classifying patients. Just as we did with simple regression, we'll create a confusion matrix to see how many patients are correctly classified as readmitted or not readmitted.
 
 As before, we'll use the 0.5 (50%) threshold:
-
 
 ```{r}
 #| label: multiple-evaluation
@@ -1168,31 +1132,29 @@ fn_m <- class_table_multiple[1, 2]  # False negatives
 tp_m <- class_table_multiple[2, 2]  # True positives
 ```
 
-
 **Model Performance:**
 
-- Correctly classified: `r correct_m` out of `r total_m` patients
-- Overall accuracy: `r round(accuracy_m * 100, 1)`%
+-   Correctly classified: `r correct_m` out of `r total_m` patients
+-   Overall accuracy: `r round(accuracy_m * 100, 1)`%
 
 **Breakdown:**
 
-- Correctly predicted NOT readmitted (True Negatives): `r tn_m`
-- Correctly predicted readmitted (True Positives): `r tp_m`
-- Incorrectly predicted readmitted (False Positives): `r fp_m`
-- Incorrectly predicted NOT readmitted (False Negatives): `r fn_m`
+-   Correctly predicted NOT readmitted (True Negatives): `r tn_m`
+-   Correctly predicted readmitted (True Positives): `r tp_m`
+-   Incorrectly predicted readmitted (False Positives): `r fp_m`
+-   Incorrectly predicted NOT readmitted (False Negatives): `r fn_m`
 
 The multiple logistic regression model achieves `r round(accuracy_m * 100, 1)`% accuracy. This demonstrates the value of incorporating multiple risk factors in predicting readmission.
 
 ## 2.8 Practice: Multiple Logistic Regression {.unnumbered}
 
-::: {.callout-note}
+::: callout-note
 Complete the activity below. This activity will help you practice:
 
-- Running multiple logistic regression with several predictors
-- Interpreting odds ratios while controlling for confounders
-- Comparing effects of different predictors
-- Making predictions with multiple risk factors
-
+-   Running multiple logistic regression with several predictors
+-   Interpreting odds ratios while controlling for confounders
+-   Comparing effects of different predictors
+-   Making predictions with multiple risk factors
 :::
 
 **Practice Activity: Surgical Complication Risk**
@@ -1239,7 +1201,6 @@ surgery_summary
 
 **Question**: What initial patterns do you notice? Do emergency surgeries appear to have different characteristics?
 
-
 **Task 2: Run Multiple Logistic Regression**
 
 **Fill in the blanks** to fit a model with all four predictors:
@@ -1261,9 +1222,8 @@ summary(___)
 
 From your `summary()` output, answer the following:
 
-1. Which predictors are statistically significant (p < 0.05)?
-2. For each significant predictor, what is the direction of the effect (increases or decreases complication risk)?
-
+1.  Which predictors are statistically significant (p \< 0.05)?
+2.  For each significant predictor, what is the direction of the effect (increases or decreases complication risk)?
 
 **Task 4: Calculate and Interpret Odds Ratios**
 
@@ -1279,17 +1239,16 @@ ___(coef(model_surg))
 
 Using the output, answer the following:
 
-1. What is the odds ratio for `age`? For each additional year of age, how do the odds of complication change (in %)?
-2. What does the odds ratio for `surgery_typeEmergency` tell you about emergency vs. elective surgeries?
-
+1.  What is the odds ratio for `age`? For each additional year of age, how do the odds of complication change (in %)?
+2.  What does the odds ratio for `surgery_typeEmergency` tell you about emergency vs. elective surgeries?
 
 **Task 5: Make Predictions for Patient Profiles**
 
 Assume you have three new patients scheduled for surgery:
 
-- **Patient A**: 45 years old, BMI of 24, scheduled for a 90-minute **elective** procedure
-- **Patient B**: 65 years old, BMI of 30, scheduled for a 150-minute **elective** procedure
-- **Patient C**: 80 years old, BMI of 38, undergoing a 210-minute **emergency** procedure
+-   **Patient A**: 45 years old, BMI of 24, scheduled for a 90-minute **elective** procedure
+-   **Patient B**: 65 years old, BMI of 30, scheduled for a 150-minute **elective** procedure
+-   **Patient C**: 80 years old, BMI of 38, undergoing a 210-minute **emergency** procedure
 
 **Fill in the blanks** to predict each patient's complication risk:
 
@@ -1316,8 +1275,7 @@ patient_profiles
 
 **Question**: Which patient(s) have the highest predicted complication risk? What combination of factors seems to drive the difference?
 
-
-------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 # Summary
 
@@ -1325,24 +1283,24 @@ patient_profiles
 
 ### When to Use Logistic Regression
 
-- Use logistic regression when your **outcome variable is binary** (two possible values)
-- Use `glm(outcome ~ predictors, data = data, family = binomial)` in R
-- The model predicts the **probability** of the event occurring
+-   Use logistic regression when your **outcome variable is binary** (two possible values)
+-   Use `glm(outcome ~ predictors, data = data, family = binomial)` in R
+-   The model predicts the **probability** of the event occurring
 
 ### Interpreting Coefficients
 
 Ask three questions for each coefficient:
 
-1. **Direction**: Is the log odds ratio positive or negative? (Positive = increases odds; Negative = decreases odds)
-2. **Magnitude**: What is the odds ratio? How much do the odds change per unit increase in the predictor?
-3. **Significance**: Is p < 0.05? (But practical significance matters too!)
+1.  **Direction**: Is the log odds ratio positive or negative? (Positive = increases odds; Negative = decreases odds)
+2.  **Magnitude**: What is the odds ratio? How much do the odds change per unit increase in the predictor?
+3.  **Significance**: Is p \< 0.05? (But practical significance matters too!)
 
 ### Log Odds Ratios vs. Odds Ratios
 
-| Measure | No Effect | Decreases Risk | Increases Risk |
-|---------|-----------|---------------|---------------|
-| Log Odds Ratio | = 0 | < 0 | > 0 |
-| Odds Ratio | = 1 | < 1 | > 1 |
+| Measure        | No Effect | Decreases Risk | Increases Risk |
+|----------------|-----------|----------------|----------------|
+| Log Odds Ratio | = 0       | \< 0           | \> 0           |
+| Odds Ratio     | = 1       | \< 1           | \> 1           |
 
 ### Converting Between Measures
 
@@ -1360,19 +1318,18 @@ $$\text{Probability} = \frac{\text{Odds}}{1 + \text{Odds}}$$
 
 ### Simple vs. Multiple Logistic Regression
 
-| Aspect | Simple | Multiple |
-|--------|--------|----------|
-| Predictors | One | Two or more |
-| Interpretation | Direct effect | Effect controlling for other variables |
-| Use case | Initial exploration | Comprehensive modeling |
-| Confounding | Not addressed | Can be controlled |
+| Aspect         | Simple              | Multiple                               |
+|----------------------|----------------------|----------------------------|
+| Predictors     | One                 | Two or more                            |
+| Interpretation | Direct effect       | Effect controlling for other variables |
+| Use case       | Initial exploration | Comprehensive modeling                 |
+| Confounding    | Not addressed       | Can be controlled                      |
 
 ### Model Evaluation
 
-- **Accuracy** measures overall correct predictions but can be misleading with imbalanced outcomes
-- Use the **confusion matrix** (classification table) to see where the model makes errors (false positives vs. false negatives)
-- In healthcare, consider which type of error is more costly for your specific application
-
+-   **Accuracy** measures overall correct predictions but can be misleading with imbalanced outcomes
+-   Use the **confusion matrix** (classification table) to see where the model makes errors (false positives vs. false negatives)
+-   In healthcare, consider which type of error is more costly for your specific application
 
 ------------------------------------------------------------------------
 
@@ -1380,18 +1337,18 @@ $$\text{Probability} = \frac{\text{Odds}}{1 + \text{Odds}}$$
 
 ## Statistical Methods
 
-- Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X. (2013). *Applied Logistic Regression* (3rd ed.). Wiley.
-- Field, A. (2018). *Discovering Statistics Using IBM SPSS Statistics* (5th ed.). SAGE Publications.
-- James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning* (2nd ed.). Springer.
+-   Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X. (2013). *Applied Logistic Regression* (3rd ed.). Wiley.
+-   Field, A. (2018). *Discovering Statistics Using IBM SPSS Statistics* (5th ed.). SAGE Publications.
+-   James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning* (2nd ed.). Springer.
 
 ## Healthcare Applications
 
 Examples are motivated by the following:
 
-- Weiss, M. E., Piacentine, L. B., Lokken, L., Ancona, J., Archer, J., Ber, S., ... & Vega-Stromberg, T. (2007). Perceived readiness for hospital discharge in adult medical-surgical patients. *Clinical Nurse Specialist*, 21(1), 31-42. https://doi.org/10.1097/00002800-200701000-00006
+-   Weiss, M. E., Piacentine, L. B., Lokken, L., Ancona, J., Archer, J., Ber, S., ... & Vega-Stromberg, T. (2007). Perceived readiness for hospital discharge in adult medical-surgical patients. *Clinical Nurse Specialist*, 21(1), 31-42. https://doi.org/10.1097/00002800-200701000-00006
 
-- Wang, W., Gong, Y., Zhang, W., Zhong, Z., Xu, P., Hu, Y., & Chen, H. (2025). Factors influencing medication adherence among Chinese older adults with physical multimorbidity and polypharmacy: A cross‐sectional study. *Nursing & Health Sciences*. https://doi.org/10.1111/nhs.70192
+-   Wang, W., Gong, Y., Zhang, W., Zhong, Z., Xu, P., Hu, Y., & Chen, H. (2025). Factors influencing medication adherence among Chinese older adults with physical multimorbidity and polypharmacy: A cross‐sectional study. *Nursing & Health Sciences*. https://doi.org/10.1111/nhs.70192
 
-- Sheikh, S., Booth-Norse, A., Smotherman, C., Kalynych, C., Lukens-Bull, K., Guerrido, E., Henson, M., Gautam, S., & Hendry, P. (2020). Predicting pain-related 30-day emergency department return visits in middle-aged and older adults. *Pain Medicine*, 21(11), 2748-2756. https://pmc.ncbi.nlm.nih.gov/articles/PMC8557807/
+-   Sheikh, S., Booth-Norse, A., Smotherman, C., Kalynych, C., Lukens-Bull, K., Guerrido, E., Henson, M., Gautam, S., & Hendry, P. (2020). Predicting pain-related 30-day emergency department return visits in middle-aged and older adults. *Pain Medicine*, 21(11), 2748-2756. https://pmc.ncbi.nlm.nih.gov/articles/PMC8557807/
 
-- Dharap, S. B., Barbaniya, P., & Navgale, S. (2022). Incidence and risk factors of postoperative complications in general surgery patients. *Cureus*, 14(11), e30975. https://doi.org/10.7759/cureus.30975
+-   Dharap, S. B., Barbaniya, P., & Navgale, S. (2022). Incidence and risk factors of postoperative complications in general surgery patients. *Cureus*, 14(11), e30975. https://doi.org/10.7759/cureus.30975

@@ -40,18 +40,16 @@ The core idea is simple: in real life, we rarely get everything we want. When ch
 
 The term "conjoint" comes from "considered jointly" (we're studying how attributes are evaluated together rather than in isolation). This is crucial because asking someone "Do you prefer low cost?" will always get a "yes," but asking them to choose between a low-cost option with long wait times vs. a high-cost option with short wait times reveals their true priorities.
 
-
 ## Why Use Conjoint Analysis in Healthcare Management?
 
 Healthcare managers face constant decisions about service design:
 
-- **Insurance plan design**: What combination of premium, deductible, and coverage will attract people?
-- **Clinic operations**: Should we prioritize shorter wait times or extended hours?
-- **Telehealth services**: Do patients value video consultations enough to pay more for them?
-- **Hospital services**: What amenities matter most to patients choosing where to receive care?
+-   **Insurance plan design**: What combination of premium, deductible, and coverage will attract people?
+-   **Clinic operations**: Should we prioritize shorter wait times or extended hours?
+-   **Telehealth services**: Do patients value video consultations enough to pay more for them?
+-   **Hospital services**: What amenities matter most to patients choosing where to receive care?
 
 Conjoint analysis answers these questions by quantifying preferences. Instead of relying on intuition or simple surveys (e.g., "Would you like shorter wait times?"), conjoint analysis reveals how much each feature actually matters when people must make realistic trade-offs.
-
 
 ## Key Outputs from Conjoint Analysis
 
@@ -67,25 +65,21 @@ Think of it this way: every product or service is a bundle of attributes. A heal
 
 For example, if the part-worth for "Large Network" is +3 and for "Small Network" is 0, then having a large network adds 3 utility units to the overall plan value. These numbers are relative; they represent **relative values**, not absolute values on their own.
 
-
 ### 2. Attribute Importance
 
 Once we have part-worth utilities, we can calculate how important each attribute is relative to others. This is done by looking at the **range** of utilities within each attribute (highest level minus lowest level) and comparing these ranges across attributes.
 
 For example, if premium ranges from 0 to 5 utility units and network size ranges from 0 to 2 units, then premium has a larger impact on preferences and is therefore more "**important**."
 
-
 ### 3. Willingness-to-Pay (WTP)
 
 **When price or cost is one of the attributes**, we can convert utility differences into dollar values. This tells us how much extra a person would be willing to pay for an improvement in another attribute. (Without a price attribute in the study design, WTP cannot be calculated because there is no price coefficient to serve as the conversion rate between utility and dollars)
 
-For example, if people would pay $50 more per month for a large network versus a small network, this helps managers decide whether investing in network expansion is worthwhile.
-
+For example, if people would pay \$50 more per month for a large network versus a small network, this helps managers decide whether investing in network expansion is worthwhile.
 
 ### 4. Market Share Prediction
 
 By knowing the utilities for each attribute level, we can predict what percentage of people would choose one option over another. This is invaluable for **forecasting demand and competitive positioning**.
-
 
 ## Two Main Approaches
 
@@ -93,17 +87,17 @@ In this class, we will cover the two most common conjoint methods:
 
 ### 1. Rating-Based Conjoint
 
-- **What respondents do**: Rate each profile on a scale (e.g., 1-10)
-- **Analysis approach**: Linear regression (OLS)
-- **Advantages**: Simple to understand and implement; builds on familiar regression
-- **Limitations**: Respondents may rate all options similarly, not revealing true trade-offs
+-   **What respondents do**: Rate each profile on a scale (e.g., 1-10)
+-   **Analysis approach**: Linear regression (OLS)
+-   **Advantages**: Simple to understand and implement; builds on familiar regression
+-   **Limitations**: Respondents may rate all options similarly, not revealing true trade-offs
 
 ### 2. Choice-Based Conjoint (Discrete Choice Experiment)
 
-- **What respondents do**: Choose their preferred option from a set
-- **Analysis approach**: Multinomial logistic regression
-- **Advantages**: Mimics real-world decisions; forces explicit trade-offs
-- **Limitations**: Requires more data preparation and more complicated statistical method
+-   **What respondents do**: Choose their preferred option from a set
+-   **Analysis approach**: Multinomial logistic regression
+-   **Advantages**: Mimics real-world decisions; forces explicit trade-offs
+-   **Limitations**: Requires more data preparation and more complicated statistical method
 
 Both methods ultimately produce the same types of outputs (part-worths, importance, WTP, market share), but choice-based conjoint is generally preferred in academic research and practice because it better reflects actual decision-making behavior (Louviere et al., 2000).
 
@@ -119,14 +113,13 @@ Research has shown that employees often struggle with this decision due to the c
 
 Our example uses three key attributes that consistently appear in health plan conjoint studies:
 
-| Attribute | Level 1 | Level 2 | Why It Matters |
-|-----------|---------|---------|----------------|
-| Monthly Premium | $200 | $300 | Direct, visible cost paid every month |
-| Annual Deductible | $500 | $1,500 | Amount paid before insurance kicks in |
-| Network Size | Large | Small | Access to preferred doctors/hospitals |
+| Attribute         | Level 1 | Level 2 | Why It Matters                        |
+|----------------|----------------|----------------|-----------------------|
+| Monthly Premium   | \$200   | \$300   | Direct, visible cost paid every month |
+| Annual Deductible | \$500   | \$1,500 | Amount paid before insurance kicks in |
+| Network Size      | Large   | Small   | Access to preferred doctors/hospitals |
 
 With 3 attributes and 2 levels each, there are $2^3 = 8$ possible profile combinations (a **full factorial design**). This is small enough to show every combination to respondents. In practice, when the number of attributes and levels is larger (e.g., 5 attributes × 3 levels = 243 profiles), researchers use a **fractional factorial design** that presents only a carefully selected subset of profiles.
-
 
 ## 1. Rating-Based Conjoint Analysis
 
@@ -134,16 +127,13 @@ With 3 attributes and 2 levels each, there are $2^3 = 8$ possible profile combin
 
 In rating-based conjoint analysis, we show respondents hypothetical profiles one at a time and ask them to rate how attractive each option is. For example:
 
-> **Profile 1**: Monthly premium $200, Deductible $1,500, Small network
-> *How likely would you be to choose this plan? (Rate 1-10)*
+> **Profile 1**: Monthly premium \$200, Deductible \$1,500, Small network *How likely would you be to choose this plan? (Rate 1-10)*
 
-> **Profile 2**: Monthly premium $300, Deductible $500, Large network
-> *How likely would you be to choose this plan? (Rate 1-10)*
+> **Profile 2**: Monthly premium \$300, Deductible \$500, Large network *How likely would you be to choose this plan? (Rate 1-10)*
 
 A respondent might rate Profile 1 as 4/10 and Profile 2 as 7/10.
 
 By collecting ratings for multiple profiles across many respondents, we can use regression analysis to decompose these ratings into the contribution of each attribute. This works because we have systematically varied the attributes across profiles.
-
 
 ### 1.2 The Statistical Model
 
@@ -153,11 +143,11 @@ $$\text{Rating} = \beta_0 + \beta_1(\text{Premium}) + \beta_2(\text{Deductible})
 
 Where:
 
-- $\beta_0$ is the intercept (baseline rating)
-- $\beta_1, \beta_2, \beta_3$ are the **part-worth utilities** for each attribute 
-  - For continuous attributes like premium, this is the marginal utility per dollar 
-  - For categorical attributes like network size, this is the utility difference between levels
-- $\varepsilon$ is random error (individual variation, measurement error, etc.)
+-   $\beta_0$ is the intercept (baseline rating)
+-   $\beta_1, \beta_2, \beta_3$ are the **part-worth utilities** for each attribute
+    -   For continuous attributes like premium, this is the marginal utility per dollar
+    -   For categorical attributes like network size, this is the utility difference between levels
+-   $\varepsilon$ is random error (individual variation, measurement error, etc.)
 
 **The coefficients we estimate ARE the part-worth utilities**. They tell us how much each unit change in an attribute affects the rating.
 
@@ -165,8 +155,8 @@ Where:
 
 In conjoint analysis, we can code attributes in different ways depending on their nature:
 
-- **Continuous variables** (e.g., premium in dollars, deductible in dollars): Treated as numeric values. The coefficient tells us the utility change per unit (e.g., per dollar).
-- **Categorical variables** (e.g., network size): Coded as dummy variables (0 or 1). The coefficient represents the utility difference between categories (e.g., Large network vs. Small network).
+-   **Continuous variables** (e.g., premium in dollars, deductible in dollars): Treated as numeric values. The coefficient tells us the utility change per unit (e.g., per dollar).
+-   **Categorical variables** (e.g., network size): Coded as dummy variables (0 or 1). The coefficient represents the utility difference between categories (e.g., Large network vs. Small network).
 
 In our insurance example, Premium and Deductible are continuous (dollar amounts), while Network Size is categorical (Large vs. Small).
 
@@ -200,7 +190,7 @@ Let's load survey data collected using these profiles. In practice, you would de
 ```{r}
 #| label: rating-insurance-simulate
 
-rating_insurance <- read.csv("week14_rating_insurance_data.csv")
+rating_insurance <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week14_rating_insurance_data.csv")
 
 # Show first few rows
 head(rating_insurance, 10)
@@ -211,7 +201,7 @@ head(rating_insurance, 10)
 The `rating_insurance` dataset has 800 observations (100 respondents × 8 profiles each):
 
 | Variable | Description |
-|----------|-------------|
+|-------------------------------|----------------------------------------|
 | `respondent_id` | Unique identifier for each survey respondent (1 to 100) |
 | `profile_id` | Identifier for each insurance plan profile (1 to 8) |
 | `premium` | Monthly premium cost in dollars (200 or 300) |
@@ -237,7 +227,6 @@ model_rating_ins <- lm(rating ~ premium + deductible + network,
 # Display results
 summary(model_rating_ins)
 ```
-
 
 ```{r}
 #| label: rating-insurance-coef-table
@@ -267,13 +256,12 @@ effect_premium_100 <- abs(round(coef(model_rating_ins)["premium"] * 100, 2))
 effect_deductible_1000 <- format(abs(round(coef(model_rating_ins)["deductible"], 4) * 1000), nsmall=2, scientific = FALSE)
 ```
 
-
 **Interpreting the coefficients (Part-Worth Utilities):**
 
-- **Intercept (`r coef_intercept`)**: The predicted rating when premium = $0, deductible = $0, and network = Small (the reference level). Since no real plan has a $0 premium and $0 deductible, this value is an extrapolation far outside our data range and should not be interpreted substantively. It simply serves as the mathematical starting point from which the attribute effects shift the predicted rating.
-- **Premium (`r coef_premium`)**: Each $100 increase in monthly premium decreases the rating by about `r effect_premium_100` points.
-- **Deductible (`r coef_deductible`)**: Each $1,000 increase in annual deductible decreases rating by about `r effect_deductible_1000` points.
-- **networkLarge (`r coef_network`)**: Having a large network (vs. small) increases rating by about `r coef_network` points.
+-   **Intercept (`r coef_intercept`)**: The predicted rating when premium = \$0, deductible = \$0, and network = Small (the reference level). Since no real plan has a \$0 premium and \$0 deductible, this value is an extrapolation far outside our data range and should not be interpreted substantively. It simply serves as the mathematical starting point from which the attribute effects shift the predicted rating.
+-   **Premium (`r coef_premium`)**: Each \$100 increase in monthly premium decreases the rating by about `r effect_premium_100` points.
+-   **Deductible (`r coef_deductible`)**: Each \$1,000 increase in annual deductible decreases rating by about `r effect_deductible_1000` points.
+-   **networkLarge (`r coef_network`)**: Having a large network (vs. small) increases rating by about `r coef_network` points.
 
 The regression coefficients (excluding the intercept) ARE the part-worth utilities. They directly tell us how much each attribute contributes to the overall rating.
 
@@ -281,16 +269,15 @@ The regression coefficients (excluding the intercept) ARE the part-worth utiliti
 
 Attribute importance tells us which features have the biggest impact on preferences. The calculation:
 
-1. For each attribute, calculate the **utility range**: difference between highest and lowest part-worth values
-2. Sum all the ranges
-3. Express each range as a percentage of the total
+1.  For each attribute, calculate the **utility range**: difference between highest and lowest part-worth values
+2.  Sum all the ranges
+3.  Express each range as a percentage of the total
 
 **Why does a larger range mean more important?**
 
 An attribute's range tells us how much it can change someone's overall evaluation. If *premium* has a utility range of 5 points and *network* has a range of 2 points, switching from worst to best premium gives you 5 utility points, while switching network levels only gives 2 points. The attribute with the larger range has more power to influence preferences.
 
-**CRITICAL CAVEAT**: These importance scores are completely dependent on the range of levels you test. Testing premium of $200 vs. $201 would make premium appear unimportant, while $200 vs. $500 would make it appear very important. Importance scores do NOT tell us which attributes are "objectively most important." They tell us which attributes have the most impact **GIVEN THE SPECIFIC LEVELS YOU TESTED**. Always choose attribute levels that reflect realistic market variation.
-
+**CRITICAL CAVEAT**: These importance scores are completely dependent on the range of levels you test. Testing premium of \$200 vs. \$201 would make premium appear unimportant, while \$200 vs. \$500 would make it appear very important. Importance scores do NOT tell us which attributes are "objectively most important." They tell us which attributes have the most impact **GIVEN THE SPECIFIC LEVELS YOU TESTED**. Always choose attribute levels that reflect realistic market variation.
 
 Let's get regression coefficients and calculate importance:
 
@@ -368,7 +355,6 @@ third_important <- importance_order$attribute[3]
 
 **Interpretation**: `r most_important` is the most important attribute (`r round(importance_order$importance_pct[1], 1)`%), followed by `r second_important` (`r round(importance_order$importance_pct[2], 1)`%), and then `r third_important` (`r round(importance_order$importance_pct[3], 1)`%). This suggests that when choosing health plans, employees are most sensitive to differences in `r tolower(most_important)` (within the ranges tested).
 
-
 ### 1.7 Calculating Willingness-to-Pay (WTP)
 
 Willingness-to-pay converts abstract utility values into concrete dollar amounts. This is possible because we included **a price attribute** (monthly premium) in our study.
@@ -377,10 +363,9 @@ Willingness-to-pay converts abstract utility values into concrete dollar amounts
 
 If we know (1) how much utility a person gets from each attribute and (2) how much utility they lose per dollar of cost, we can calculate the dollar amount that would exactly offset any utility gain.
 
-For example, if the utility of a large network is +0.6 points, and the utility loss per dollar of premium is -0.012 points, then: 0.6 / 0.012 = $50. This means respondents value a large network as much as they would value a $50 reduction in monthly premium.
+For example, if the utility of a large network is +0.6 points, and the utility loss per dollar of premium is -0.012 points, then: 0.6 / 0.012 = \$50. This means respondents value a large network as much as they would value a \$50 reduction in monthly premium.
 
-**The Formula**:
-$$\text{WTP} = -\frac{\beta_{\text{attribute}}}{\beta_{\text{price}}}$$
+**The Formula**: $$\text{WTP} = -\frac{\beta_{\text{attribute}}}{\beta_{\text{price}}}$$
 
 ```{r}
 #| label: rating-insurance-wtp
@@ -402,38 +387,38 @@ wtp_deductible_reduction <- -(beta_deductible * -1000) / beta_premium
 
 From our regression model:
 
-- Premium coefficient: `r round(beta_premium, 4)` utility points per dollar
-- Network coefficient: `r round(beta_network, 4)` utility points for large network
-- Deductible coefficient: `r format(round(beta_deductible, 4), nsmall = 4, scientific = FALSE)` utility points per dollar
+-   Premium coefficient: `r round(beta_premium, 4)` utility points per dollar
+-   Network coefficient: `r round(beta_network, 4)` utility points for large network
+-   Deductible coefficient: `r format(round(beta_deductible, 4), nsmall = 4, scientific = FALSE)` utility points per dollar
 
 **WTP for Large Network (vs. Small Network)**:
 
 $$\text{WTP}_{\text{network}} = -\frac{`r round(beta_network, 4)`}{`r round(beta_premium, 4)`} = \$`r round(wtp_network, 2)`$$
 
-**Interpretation**: Respondents would be willing to pay an additional **$`r round(wtp_network, 2)` per month** to have access to a large provider network instead of a small network.
+**Interpretation**: Respondents would be willing to pay an additional **\$`r round(wtp_network, 2)` per month** to have access to a large provider network instead of a small network.
 
-**WTP for $1,000 Lower Deductible**:
+**WTP for \$1,000 Lower Deductible**:
 
-Applying the same logic, but scaling the deductible coefficient to a $1,000 change:
+Applying the same logic, but scaling the deductible coefficient to a \$1,000 change:
 
 $$\text{WTP}_{\text{deductible}} = -\frac{\beta_{\text{deductible}} \times (-1000)}{\beta_{\text{premium}}} = -\frac{`r format(round(beta_deductible * -1000, 4), nsmall = 4, scientific = FALSE)`}{`r round(beta_premium, 4)`} = \$`r round(wtp_deductible_reduction, 2)`$$
 
-**Interpretation**: Respondents would be willing to pay an additional **$`r round(wtp_deductible_reduction, 2)` per month** to reduce their annual deductible by $1,000.
+**Interpretation**: Respondents would be willing to pay an additional **\$`r round(wtp_deductible_reduction, 2)` per month** to reduce their annual deductible by \$1,000.
 
 **Summary of WTP Estimates:**
 
-| Attribute | WTP per Month |
-|:---------:|:-------------:|
-| Large Network (vs. Small) | $`r round(wtp_network, 2)` |
-| $1,000 Lower Deductible | $`r round(wtp_deductible_reduction, 2)` |
+|         Attribute         |              WTP per Month               |
+|:-------------------------:|:----------------------------------------:|
+| Large Network (vs. Small) |       \$`r round(wtp_network, 2)`        |
+| \$1,000 Lower Deductible  | \$`r round(wtp_deductible_reduction, 2)` |
 
 **Managerial Application**:
 
 These WTP values help managers make cost-benefit decisions:
 
-- **Network expansion decision**: If expanding the provider network costs the insurer $30 per member per month, and members are willing to pay $`r round(wtp_network, 2)` for it, the expansion is financially viable: the insurer can charge an additional $`r round(wtp_network, 2)` in premium while only incurring $30 in costs, creating a $`r round(wtp_network - 30, 2)` per member margin.
+-   **Network expansion decision**: If expanding the provider network costs the insurer \$30 per member per month, and members are willing to pay \$`r round(wtp_network, 2)` for it, the expansion is financially viable: the insurer can charge an additional \$`r round(wtp_network, 2)` in premium while only incurring \$30 in costs, creating a \$`r round(wtp_network - 30, 2)` per member margin.
 
-- **Premium pricing for deductible tiers**: Members are willing to pay $`r round(wtp_deductible_reduction, 2)` per month (or $`r round(wtp_deductible_reduction * 12, 0)` annually) to reduce their deductible by $1,000. Offering a $1,000 lower deductible means insurance kicks in sooner, costing the insurer approximately $400 per year in additional claims. Since members would pay ~$`r round(wtp_deductible_reduction * 12, 0)`/year in extra premium for this benefit, the insurer captures a margin of approximately $`r round(wtp_deductible_reduction * 12 - 400, 0)` per member per year.
+-   **Premium pricing for deductible tiers**: Members are willing to pay \$`r round(wtp_deductible_reduction, 2)` per month (or \$`r round(wtp_deductible_reduction * 12, 0)` annually) to reduce their deductible by \$1,000. Offering a \$1,000 lower deductible means insurance kicks in sooner, costing the insurer approximately $400 per year in additional claims. Since members would pay ~$`r round(wtp_deductible_reduction * 12, 0)`/year in extra premium for this benefit, the insurer captures a margin of approximately \$`r round(wtp_deductible_reduction * 12 - 400, 0)` per member per year.
 
 ### 1.8 Market Share Simulation
 
@@ -441,9 +426,9 @@ One of the most powerful applications of conjoint analysis is predicting how the
 
 **The Process for Rating-Based Conjoint**:
 
-1. Define two (or more) competing options
-2. Calculate the predicted rating for each option using the regression model
-3. Convert ratings to market shares using proportional allocation
+1.  Define two (or more) competing options
+2.  Calculate the predicted rating for each option using the regression model
+3.  Convert ratings to market shares using proportional allocation
 
 **Proportional Allocation**: If Plan A receives a predicted rating of 8 and Plan B receives 6, we allocate market share proportionally:
 
@@ -453,8 +438,8 @@ $$\text{Share}_A = \frac{8}{8+6} = 57\% \qquad \text{Share}_B = \frac{6}{8+6} = 
 
 Let's compare two common plan designs:
 
-- **Plan A (Premium Plan)**: $250/month premium, $500 annual deductible, Large network
-- **Plan B (Budget Plan)**: $200/month premium, $1,500 annual deductible, Small network
+-   **Plan A (Premium Plan)**: \$250/month premium, \$500 annual deductible, Large network
+-   **Plan B (Budget Plan)**: \$200/month premium, \$1,500 annual deductible, Small network
 
 Neither plan dominates the other: Plan A is better on deductible and network, while Plan B is better on premium.
 
@@ -493,18 +478,17 @@ share_B <- rating_B / total_rating
 
 Using the regression equation $\text{Rating} = \beta_0 + \beta_1(\text{Premium}) + \beta_2(\text{Deductible}) + \beta_3(\text{Network})$:
 
-**Plan A** (Premium Plan: $250, $500 deductible, Large network):
+**Plan A** (Premium Plan: \$250, \$500 deductible, Large network):
 
 $$\text{Rating}_A = `r coef_intercept` + (`r coef_premium` \times 250) + (`r coef_deductible` \times 500) + (`r coef_network` \times 1) = `r round(rating_A, 2)`$$
 
-**Plan B** (Budget Plan: $200, $1,500 deductible, Small network):
+**Plan B** (Budget Plan: \$200, \$1,500 deductible, Small network):
 
 $$\text{Rating}_B = `r coef_intercept` + (`r coef_premium` \times 200) + (`r coef_deductible` \times 1500) + (`r coef_network` \times 0) = `r round(rating_B, 2)`$$
 
 **Step 2: Convert to market shares using proportional allocation**
 
 $$\text{Share}_A = \frac{`r round(rating_A, 2)`}{`r round(rating_A, 2)` + `r round(rating_B, 2)`} = `r round(share_A * 100, 1)`\% \qquad \text{Share}_B = \frac{`r round(rating_B, 2)`}{`r round(rating_A, 2)` + `r round(rating_B, 2)`} = `r round(share_B * 100, 1)`\%$$
-
 
 ```{r}
 #| label: rating-insurance-marketshare-display
@@ -524,22 +508,20 @@ knitr::kable(market_share_rating,
              caption = "Market Share Simulation: Two Competing Plans (Rating-Based)")
 ```
 
-
 **Interpretation**: Based on the predicted ratings, approximately `r round(share_A * 100, 0)`% of respondents would prefer the Premium Plan despite its higher cost, because the low deductible and large network compensate for the price difference. This helps managers:
 
-- Forecast enrollment in different plan designs
-- Understand competitive positioning
-- Optimize plan configurations
+-   Forecast enrollment in different plan designs
+-   Understand competitive positioning
+-   Optimize plan configurations
 
 **Note on Method**: Proportional allocation is a simple and intuitive approach, but it lacks theoretical grounding. It assumes that if Plan A gets a rating of 8 and Plan B gets a rating of 6, then exactly 57% of people will choose Plan A (8 ÷ 14 = 0.57). However, in reality, people make discrete yes/no choices, not proportional splits—someone either picks Plan A or they don't. The method assumes market shares directly mirror rating differences, which oversimplifies how people actually choose. For important strategic decisions, choice-based methods with multinomial logit formulas (shown later) are theoretically more sound and preferred in practice because they model the actual choice process.
 
 ## 2. Practice: Rating-Based Conjoint Analysis {.unnumbered}
 
-::: {.callout-note}
+::: callout-note
 ## Your Turn!
 
 Practice estimating and interpreting a rating-based conjoint model using a different healthcare scenario.
-
 :::
 
 ### Scenario
@@ -550,11 +532,11 @@ Research by Savira et al. (2023) in *PLOS ONE* examined consumer preferences for
 
 Your healthcare organization is designing a new telehealth program and needs to understand which attributes matter most to patients. You will analyze three key attributes:
 
-| Attribute | Level 1 | Level 2 | Why It Matters |
-|-----------|---------|---------|----------------|
-| Wait Time | Same-day | 3 days | How quickly patients can be seen |
-| Mode | Video | Phone | Communication richness |
-| Co-pay | $20 | $40 | Out-of-pocket cost per visit |
+| Attribute | Level 1  | Level 2 | Why It Matters                   |
+|-----------|----------|---------|----------------------------------|
+| Wait Time | Same-day | 3 days  | How quickly patients can be seen |
+| Mode      | Video    | Phone   | Communication richness           |
+| Co-pay    | \$20     | \$40    | Out-of-pocket cost per visit     |
 
 With 3 attributes × 2 levels each, there are $2^3 = 8$ possible profiles:
 
@@ -591,7 +573,7 @@ Run this code to load the dataset:
 ```{r}
 #| label: activity1-data
 
-rating_telehealth <- read.csv("week14_practice_data1.csv")
+rating_telehealth <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week14_practice_data1.csv")
 head(rating_telehealth, 10)
 ```
 
@@ -600,7 +582,7 @@ head(rating_telehealth, 10)
 The `rating_telehealth` dataset contains 800 observations (100 respondents × 8 profiles each).
 
 | Variable | Description | Type |
-|----------|-------------|------|
+|------------------------|-------------------------------|-----------------|
 | `respondent_id` | Unique identifier (1-100) | Numeric |
 | `profile_id` | Profile identifier (1-8) | Numeric |
 | `wait_sameday` | Binary indicator (1 = Same-day, 0 = 3 days) | Numeric (binary) |
@@ -627,9 +609,8 @@ summary(model_rating_th)
 
 **Questions:**
 
-1. What is the sign and magnitude of each coefficient? Do they match your expectations?
-2. Is each coefficient statistically significant (p < 0.05)?
-
+1.  What is the sign and magnitude of each coefficient? Do they match your expectations?
+2.  Is each coefficient statistically significant (p \< 0.05)?
 
 ### Task 1.2: Calculate Attribute Importance
 
@@ -664,7 +645,6 @@ importance_rating_th
 
 **Question:** Which attribute is most important? Does this match your intuition about telehealth preferences?
 
-
 ### Task 1.3: Calculate Willingness-to-Pay (WTP)
 
 Calculate how much patients would pay for same-day access and video consultation.
@@ -686,15 +666,14 @@ cat("WTP for Video consultation: $", round(wtp_video, 2), " per visit\n")
 
 **Hint:** WTP = -β_attribute / β_price. The price attribute here is `copay`.
 
-**Question:** If adding same-day scheduling costs the organization $30 per visit, is it financially viable based on WTP?
-
+**Question:** If adding same-day scheduling costs the organization \$30 per visit, is it financially viable based on WTP?
 
 ### Task 1.4: Predict Market Share
 
 Compare two program designs and predict which would be more popular:
 
-- **Program A (Premium)**: Same-day access, Video consultation, $40 co-pay
-- **Program B (Basic)**: 3-day wait, Phone consultation, $20 co-pay
+-   **Program A (Premium)**: Same-day access, Video consultation, \$40 co-pay
+-   **Program B (Basic)**: 3-day wait, Phone consultation, \$20 co-pay
 
 ```{r}
 #| label: activity1-task4
@@ -720,7 +699,7 @@ cat("Basic Program (3-day Phone, $20): ", round(share_B_th * 100, 1), "%\n")
 
 **Hint:** Use the `predict()` function with your model and the program data frames.
 
-**Question:** Which program captures the larger market share? Given that Program A costs $20 more per visit, does the higher share justify offering it as the primary program?
+**Question:** Which program captures the larger market share? Given that Program A costs \$20 more per visit, does the higher share justify offering it as the primary program?
 
 ------------------------------------------------------------------------
 
@@ -734,13 +713,13 @@ Instead of rating profiles individually, respondents are shown **choice sets** c
 
 > **Choice Set 1:**
 >
-> | | Plan A | Plan B |
-> |---|--------|--------|
-> | Premium | $200 | $300 |
-> | Deductible | $1,500 | $500 |
-> | Network | Small | Large |
+> |            | Plan A  | Plan B |
+> |------------|---------|--------|
+> | Premium    | \$200   | \$300  |
+> | Deductible | \$1,500 | \$500  |
+> | Network    | Small   | Large  |
 >
-> **Which plan would you choose?** ☐ Plan A  ☐ Plan B
+> **Which plan would you choose?** ☐ Plan A ☐ Plan B
 
 By forcing a choice, we ensure that respondents make explicit trade-offs. Someone who wants both low premium AND low deductible must decide which matters more.
 
@@ -748,14 +727,14 @@ By forcing a choice, we ensure that respondents make explicit trade-offs. Someon
 
 Choice-based conjoint uses **multinomial logistic regression** to analyze choice data. This method can handle choice sets with any number of alternatives (2, 3, 4, or more). We'll use the `mlogit` package in R, which is the standard tool for discrete choice analysis.
 
-**Key Concept**: 
+**Key Concept**:
 
 The model assumes people choose the alternative with the highest total utility. Each alternative's total utility has two components:
 
 $$U_i = V_i + \varepsilon_i$$
 
-- $V_i = \beta_1 X_{i1} + \beta_2 X_{i2} + ... + \beta_k X_{ik}$ is the **systematic** (predictable) component, based on observed attributes
-- $\varepsilon_i$ is the **random** component, representing individual taste variation and unmeasured factors
+-   $V_i = \beta_1 X_{i1} + \beta_2 X_{i2} + ... + \beta_k X_{ik}$ is the **systematic** (predictable) component, based on observed attributes
+-   $\varepsilon_i$ is the **random** component, representing individual taste variation and unmeasured factors
 
 The logit formula converts the systematic utilities into choice probabilities (the random component is integrated out through the derivation):
 
@@ -763,8 +742,8 @@ $$P(\text{Choose alternative } i) = \frac{e^{V_i}}{\sum_{j=1}^{J} e^{V_j}}$$
 
 where:
 
-- $J$ is the total number of alternatives in the choice set
-- The coefficients ($\beta_1, \beta_2, ..., \beta_k$) are the **part-worth utilities**
+-   $J$ is the total number of alternatives in the choice set
+-   The coefficients ($\beta_1, \beta_2, ..., \beta_k$) are the **part-worth utilities**
 
 **Intuition**: Alternatives with higher utility have exponentially higher choice probabilities. The model estimates the part-worth utilities ($\beta$ coefficients) that best explain the observed choices.
 
@@ -772,12 +751,12 @@ where:
 
 The `mlogit` package requires data in **long format** — each row represents one alternative within a choice set, not one choice set per row. Note that the `choice_set` identifier must be **unique across all respondents**. That's why we use IDs like `1_1`, `1_2`, ... (meaning "respondent 1, choice set 1", "respondent 1, choice set 2", etc.) rather than simple numbers like 1, 2, 3. If two respondents both had a choice set labeled "1", `mlogit` would incorrectly treat them as alternatives within the same choice set.
 
-In other words, we need to clarify **what each respondent saw and chose in each choice set**. 
+In other words, we need to clarify **what each respondent saw and chose in each choice set**.
 
 The dataset must have this structure:
 
 | Column | Description |
-|--------|-------------|
+|----------------------------|--------------------------------------------|
 | `choice_set` | Identifier linking alternatives in the same set (e.g., "1_1" = respondent 1, choice set 1) |
 | `alternative` | Label for each option (e.g., A, B) |
 | attribute columns | One column per attribute (e.g., `premium`, `deductible`, `network_large`) |
@@ -787,14 +766,14 @@ For example, one choice set with two alternatives looks like this:
 
 | choice_set | alternative | premium | deductible | network_large | choice |
 |:----------:|:-----------:|:-------:|:----------:|:-------------:|:------:|
-| 1_1        | A           | 200     | 1500       | 0             | 1      |
-| 1_1        | B           | 300     | 500        | 1             | 0      |
+|    1_1     |      A      |   200   |    1500    |       0       |   1    |
+|    1_1     |      B      |   300   |    500     |       1       |   0    |
 
 ```{r}
 #| label: choice-insurance-data
 
 # Load choice data (already in long format)
-choice_long <- read.csv("week14_choice_insurance_long.csv")
+choice_long <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week14_choice_insurance_long.csv")
 
 # Display the data structure
 head(choice_long, 8)
@@ -833,8 +812,8 @@ summary(model_mlogit_ins)
 
 **Understanding the formula**:
 
-- `choice ~ premium + deductible + network_large` specifies the attributes
-- `| 0` means "no alternative-specific constants"
+-   `choice ~ premium + deductible + network_large` specifies the attributes
+-   `| 0` means "no alternative-specific constants"
 
 We exclude alternative-specific constants because "Plan A" and "Plan B" are just generic labels (i.e., there's no inherent preference for "A" vs. "B" independent of their attributes).
 
@@ -852,9 +831,9 @@ knitr::kable(coef_choice_ins, digits = 4,
 
 **Interpretation**: The estimated coefficients are the part-worth utilities, representing how much each attribute contributes to the **systematic utility** ($V_i$) of an alternative.
 
-- **Premium** (`r round(coef(model_mlogit_ins)["premium"], 4)`): Each additional $1 increase in monthly premium **decreases the utility** of that plan option by `r abs(round(coef(model_mlogit_ins)["premium"], 4))` points
-- **Deductible** (`r format(round(coef(model_mlogit_ins)["deductible"], 4), nsmall = 4, scientific = FALSE)`): Each additional $1 increase in annual deductible **decreases the utility** of that plan option by `r format(abs(round(coef(model_mlogit_ins)["deductible"], 4)), nsmall = 4, scientific = FALSE)` points
-- **Network_large** (`r round(coef(model_mlogit_ins)["network_large"], 4)`): Having a large network (vs. small) **increases the utility** of that plan option by `r round(coef(model_mlogit_ins)["network_large"], 4)` points
+-   **Premium** (`r round(coef(model_mlogit_ins)["premium"], 4)`): Each additional \$1 increase in monthly premium **decreases the utility** of that plan option by `r abs(round(coef(model_mlogit_ins)["premium"], 4))` points
+-   **Deductible** (`r format(round(coef(model_mlogit_ins)["deductible"], 4), nsmall = 4, scientific = FALSE)`): Each additional \$1 increase in annual deductible **decreases the utility** of that plan option by `r format(abs(round(coef(model_mlogit_ins)["deductible"], 4)), nsmall = 4, scientific = FALSE)` points
+-   **Network_large** (`r round(coef(model_mlogit_ins)["network_large"], 4)`): Having a large network (vs. small) **increases the utility** of that plan option by `r round(coef(model_mlogit_ins)["network_large"], 4)` points
 
 **How do utilities translate to choice probabilities?**
 
@@ -870,9 +849,9 @@ where $V_i = \beta_{\text{premium}} \times \text{premium}_i + \beta_{\text{deduc
 
 The calculation is identical to rating-based conjoint:
 
-1. First, get the range of utilities for each attribute (highest - lowest)
-2. Then, calculate total range (sum all the ranges)
-3. Finally, get each range as a percentage of the total 
+1.  First, get the range of utilities for each attribute (highest - lowest)
+2.  Then, calculate total range (sum all the ranges)
+3.  Finally, get each range as a percentage of the total
 
 ```{r}
 #| label: choice-insurance-importance
@@ -957,18 +936,18 @@ wtp_deductible_c <- -(beta_deductible_c * -1000) / beta_premium_c
 
 $$\text{WTP}_{\text{network}} = -\frac{`r round(beta_network_c, 4)`}{`r round(beta_premium_c, 4)`} = \$`r round(wtp_network_c, 2)`$$
 
-**WTP for $1,000 Lower Deductible** (scaling the per-dollar coefficient to a $1,000 change):
+**WTP for \$1,000 Lower Deductible** (scaling the per-dollar coefficient to a \$1,000 change):
 
 $$\text{WTP}_{\text{deductible}} = -\frac{\beta_{\text{deductible}} \times (-1000)}{\beta_{\text{premium}}} = -\frac{`r format(round(beta_deductible_c * -1000, 4), nsmall = 4, scientific = FALSE)`}{`r round(beta_premium_c, 4)`} = \$`r round(wtp_deductible_c, 2)`$$
 
 **Summary of WTP Estimates:**
 
-| Attribute | WTP per Month |
-|:---------:|:-------------:|
-| Large Network (vs. Small) | $`r round(wtp_network_c, 2)` |
-| $1,000 Lower Deductible | $`r round(wtp_deductible_c, 2)` |
+|         Attribute         |          WTP per Month           |
+|:-------------------------:|:--------------------------------:|
+| Large Network (vs. Small) |  \$`r round(wtp_network_c, 2)`   |
+| \$1,000 Lower Deductible  | \$`r round(wtp_deductible_c, 2)` |
 
-**Interpretation**: Respondents are willing to pay **$`r round(wtp_network_c, 2)` more per month** for a large network and **$`r round(wtp_deductible_c, 2)` more per month** for a plan with a $1,000 lower deductible.
+**Interpretation**: Respondents are willing to pay $`r round(wtp_network_c, 2)` more per month** for a large network and **$`r round(wtp_deductible_c, 2)` more per month for a plan with a \$1,000 lower deductible.
 
 **Managerial Application**: These WTP values from the choice model can be directly compared to the rating-based estimates. Consistent WTP findings across methods strengthen managerial confidence in the results. When the two methods produce similar WTP estimates, managers can trust that the preference data is robust — the underlying preferences are stable regardless of how respondents express them.
 
@@ -1021,11 +1000,11 @@ share_B_c <- exp(utility_B_c) / (exp(utility_A_c) + exp(utility_B_c))
 
 Using $V = \beta_{\text{premium}} \times \text{premium} + \beta_{\text{deductible}} \times \text{deductible} + \beta_{\text{network}} \times \text{network}$:
 
-**Plan A** (Premium Plan: $250, $500 deductible, Large network):
+**Plan A** (Premium Plan: \$250, \$500 deductible, Large network):
 
 $$V_A = (`r round(coef_mlogit["premium"], 4)` \times 250) + (`r format(round(coef_mlogit["deductible"], 4), nsmall = 4, scientific = FALSE)` \times 500) + (`r round(coef_mlogit["network_large"], 4)` \times 1) = `r round(utility_A_c, 2)`$$
 
-**Plan B** (Budget Plan: $200, $1,500 deductible, Small network):
+**Plan B** (Budget Plan: \$200, \$1,500 deductible, Small network):
 
 $$V_B = (`r round(coef_mlogit["premium"], 4)` \times 200) + (`r format(round(coef_mlogit["deductible"], 4), nsmall = 4, scientific = FALSE)` \times 1500) + (`r round(coef_mlogit["network_large"], 4)` \times 0) = `r round(utility_B_c, 2)`$$
 
@@ -1037,16 +1016,15 @@ $$\text{Share}_A = \frac{e^{`r round(utility_A_c, 2)`}}{e^{`r round(utility_A_c,
 
 **Interpretation**: Based on the choice model, the Premium Plan is predicted to capture approximately `r round(share_A_c * 100, 0)`% of the market. This is consistent with the rating-based results, reinforcing that the low deductible and large network more than compensate for the higher premium. From a managerial perspective:
 
-- The Premium Plan captures approximately `r round(share_A_c * 100, 0)`% of the market despite costing $50/month more, indicating that the low deductible and large network are valued enough to justify the higher price
-- The Budget Plan still captures approximately `r round(share_B_c * 100, 0)`%, suggesting a price-sensitive segment exists that prioritizes lower premiums
+-   The Premium Plan captures approximately `r round(share_A_c * 100, 0)`% of the market despite costing \$50/month more, indicating that the low deductible and large network are valued enough to justify the higher price
+-   The Budget Plan still captures approximately `r round(share_B_c * 100, 0)`%, suggesting a price-sensitive segment exists that prioritizes lower premiums
 
 ## 4. Practice: Choice-Based Conjoint Analysis {.unnumbered}
 
-::: {.callout-note}
+::: callout-note
 ## Your Turn!
 
 Practice estimating and interpreting a choice-based conjoint model using a different healthcare scenario.
-
 :::
 
 ### Scenario
@@ -1056,11 +1034,11 @@ As healthcare systems become more competitive, understanding what drives patient
 You'll analyze patient preferences for primary care clinics using **choice-based conjoint analysis** with four key attributes:
 
 | Attribute | Level 1 | Level 2 | Why It Matters |
-|-----------|---------|---------|----------------|
+|----------------|----------------|----------------|-----------------------|
 | Distance from Home | 5 minutes | 25 minutes | Travel convenience |
 | Appointment Wait | Same-week | 3 weeks | Access to care |
 | Provider Type | MD (Physician) | NP (Nurse Practitioner) | Professional credentials |
-| Copay | $25 | $50 | Out-of-pocket cost |
+| Copay | \$25 | \$50 | Out-of-pocket cost |
 
 ### Data Loading
 
@@ -1070,7 +1048,7 @@ The data is provided in long format (one row per alternative per choice set). Ru
 #| label: activity2-data
 
 # Load clinic choice data (already in long format)
-clinic_long <- read.csv("week14_practice_data2_long.csv")
+clinic_long <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week14_practice_data2_long.csv")
 head(clinic_long, 8)
 ```
 
@@ -1079,7 +1057,7 @@ head(clinic_long, 8)
 The `clinic_long` dataset contains 1,600 rows (100 respondents × 8 choice sets × 2 alternatives per set).
 
 | Variable | Description | Type |
-|----------|-------------|------|
+|------------------------|-------------------------------|-----------------|
 | `choice_set` | Unique choice set identifier (e.g., "1_1") | Character |
 | `alternative` | Alternative label (A or B) | Character |
 | `distance_5min` | Binary (1 = 5 min away, 0 = 25 min away) | Numeric (binary) |
@@ -1117,9 +1095,8 @@ summary(model_clinic)
 
 **Questions:**
 
-1. What do the signs of the coefficients tell you about patient preferences?
-2. Which coefficients are statistically significant?
-
+1.  What do the signs of the coefficients tell you about patient preferences?
+2.  Which coefficients are statistically significant?
 
 ### Task 2.2: Calculate Attribute Importance
 
@@ -1153,7 +1130,6 @@ importance_clinic
 
 **Hint:** Fill in the coefficient names matching the model variables.
 
-
 ### Task 2.3: Calculate Willingness-to-Pay
 
 Calculate how much patients would pay for each clinic feature.
@@ -1177,13 +1153,12 @@ cat("WTP for MD vs NP: $", round(wtp_md, 2), " per visit\n")
 
 **Question:** Which feature has the highest WTP? What does this suggest for clinic management?
 
-
 ### Task 2.4: Predict Market Share
 
 Compare two competing clinics using the multinomial logit formula:
 
-- **Clinic A (Convenient)**: 5-minute drive, Same-week appointment, NP provider, $50 copay
-- **Clinic B (Credentialed)**: 25-minute drive, 3-week wait, MD provider, $25 copay
+-   **Clinic A (Convenient)**: 5-minute drive, Same-week appointment, NP provider, \$50 copay
+-   **Clinic B (Credentialed)**: 25-minute drive, 3-week wait, MD provider, \$25 copay
 
 ```{r}
 #| label: activity2-task4
@@ -1220,7 +1195,7 @@ cat("Clinic B (Far, MD, Lower copay): ", round(share_B_clinic * 100, 1), "%\n")
 ## Two Approaches, Same Goal
 
 | Aspect | Rating-Based | Choice-Based |
-|--------|:------------:|:------------:|
+|------------------|:-------------------------:|:-------------------------:|
 | Data Collection | Rate each profile (e.g., 1-10 scale) | Choose preferred option from a set |
 | Analysis Method | OLS Linear Regression (`lm`) | Multinomial Logit (`mlogit`) |
 | Data Format | One row per profile per respondent | Long format (one row per alternative) |
@@ -1231,34 +1206,33 @@ Both methods produce the same types of outputs: **part-worth utilities**, **attr
 
 ## Key Takeaways
 
-1. **Part-worth utilities** (regression coefficients) tell us how much each attribute level contributes to overall preference
+1.  **Part-worth utilities** (regression coefficients) tell us how much each attribute level contributes to overall preference
 
-2. **Attribute importance** is calculated from the range of utilities within each attribute — the wider the range, the more influence that attribute has on preferences
+2.  **Attribute importance** is calculated from the range of utilities within each attribute — the wider the range, the more influence that attribute has on preferences
 
-3. **WTP** converts utility into dollar values using the price coefficient as the exchange rate: $\text{WTP} = -\beta_{\text{attribute}} / \beta_{\text{price}}$. This requires a price attribute in the study design
+3.  **WTP** converts utility into dollar values using the price coefficient as the exchange rate: $\text{WTP} = -\beta_{\text{attribute}} / \beta_{\text{price}}$. This requires a price attribute in the study design
 
-4. **Market share simulation** predicts how respondents would split across competing options — using proportional allocation (rating-based) or the logit formula (choice-based)
+4.  **Market share simulation** predicts how respondents would split across competing options — using proportional allocation (rating-based) or the logit formula (choice-based)
 
-5. **Data structure matters**: Choice-based conjoint requires long-format data with proper indexing so that `mlogit` knows which alternatives belong to each choice set
+5.  **Data structure matters**: Choice-based conjoint requires long-format data with proper indexing so that `mlogit` knows which alternatives belong to each choice set
 
-6. **The managerial insight**: Conjoint analysis transforms subjective preferences into quantitative data that supports concrete decisions about pricing, feature prioritization, and competitive strategy
+6.  **The managerial insight**: Conjoint analysis transforms subjective preferences into quantitative data that supports concrete decisions about pricing, feature prioritization, and competitive strategy
 
-
----
+------------------------------------------------------------------------
 
 # References and Further Reading
 
 ## Statistical Methods
 
-- Green, P. E., & Srinivasan, V. (1990). Conjoint analysis in marketing: New developments with implications for research and practice. *Journal of Marketing*, 54(4), 3-19.
-- Louviere, J. J., Hensher, D. A., & Swait, J. D. (2000). *Stated Choice Methods: Analysis and Applications*. Cambridge University Press.
-- McFadden, D. (1974). Conditional logit analysis of qualitative choice behavior. In P. Zarembka (Ed.), *Frontiers in Econometrics* (pp. 105-142). Academic Press.
-- Orme, B. (2010). *Getting Started with Conjoint Analysis: Strategies for Product Design and Pricing Research* (2nd ed.). Research Publishers LLC.
+-   Green, P. E., & Srinivasan, V. (1990). Conjoint analysis in marketing: New developments with implications for research and practice. *Journal of Marketing*, 54(4), 3-19.
+-   Louviere, J. J., Hensher, D. A., & Swait, J. D. (2000). *Stated Choice Methods: Analysis and Applications*. Cambridge University Press.
+-   McFadden, D. (1974). Conditional logit analysis of qualitative choice behavior. In P. Zarembka (Ed.), *Frontiers in Econometrics* (pp. 105-142). Academic Press.
+-   Orme, B. (2010). *Getting Started with Conjoint Analysis: Strategies for Product Design and Pricing Research* (2nd ed.). Research Publishers LLC.
 
 ## Healthcare Applications
 
 Examples are motivated by the following:
 
-- Sinaiko, A. D., & Hirth, R. A. (2011). Consumers, health insurance and dominated choices. *Journal of Health Economics*, 30(2), 450-457. https://doi.org/10.1016/j.jhealeco.2010.12.007
+-   Sinaiko, A. D., & Hirth, R. A. (2011). Consumers, health insurance and dominated choices. *Journal of Health Economics*, 30(2), 450-457. https://doi.org/10.1016/j.jhealeco.2010.12.007
 
-- Savira, F., Robinson, S., Toll, K., Spark, L., Thomas, E., Nesbitt, J., Frean, I., & Norman, R. (2023). Consumer preferences for telehealth in Australia: A discrete choice experiment. *PLOS ONE*, 18(3), e0283821. https://doi.org/10.1371/journal.pone.0283821
+-   Savira, F., Robinson, S., Toll, K., Spark, L., Thomas, E., Nesbitt, J., Frean, I., & Norman, R. (2023). Consumer preferences for telehealth in Australia: A discrete choice experiment. *PLOS ONE*, 18(3), e0283821. https://doi.org/10.1371/journal.pone.0283821

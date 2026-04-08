@@ -622,6 +622,92 @@ ggplot(pred_grid, aes(x = nurse_ratio, y = predicted, color = ownership)) +
   theme_minimal(base_size = 12)
 ```
 
+## Practice 1: Continuous x Categorical Interaction
+
+**Question**: Does IT investment improve hospital quality scores equally for Teaching and Non-Teaching hospitals?
+
+. . .
+
+<br>
+
+**Why it might differ**:
+
+::: incremental
+-   **Teaching hospitals**: Have research missions, complex case mixes, and specialized staff who can leverage advanced IT tools (e.g., clinical decision support, predictive analytics)
+-   **Non-Teaching hospitals**: May lack the technical workforce and workflows to fully utilize IT investments
+-   **Hypothesis**: IT investment may have a stronger effect in Teaching hospitals where the infrastructure and expertise exist to translate technology into quality gains
+:::
+
+## Practice Dataset: Hospital Quality
+
+We will use a dataset of **350 U.S. hospitals** with the following variables (for all three practice activities):
+
+::: {style="font-size: 0.8em;"}
+| Variable | Type | Description |
+|:---------------------|:--------------------------:|:---------------------|
+| `hospital_id` | ID | Unique hospital identifier |
+| `region` | Categorical | U.S. region (Midwest, Northeast, South, West) |
+| `teaching_status` | Categorical | Teaching or Non-Teaching |
+| `it_investment` | Continuous | Annual IT spending (in \$1,000s) |
+| `avg_los` | Continuous | Average length of stay (days) |
+| `quality_score` | Continuous | Composite quality score (0--100) |
+:::
+
+## Practice 1: Continuous x Categorical Interaction
+
+**Step 1.** Load the data and set the reference category:
+
+Let's load the dataset and set "Non-Teaching" as the reference category for `teaching_status`:
+
+```{r}
+#| label: practice-contcat-load
+#| eval: false
+
+quality_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week12_quality_data.csv")
+
+quality_data <- quality_data %>%
+  mutate(teaching_status = factor(teaching_status,
+                                  levels = c("Non-Teaching", "Teaching")))
+```
+
+## Practice 1: Continuous x Categorical Interaction
+
+**Step 2.** Visualize the relationship between `it_investment` and `quality_score`, colored by `teaching_status`:
+
+```{r}
+#| label: practice-contcat-viz
+#| eval: false
+
+ggplot(quality_data, aes(x = ___, y = ___, color = ___)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(x = "IT Investment ($K)", y = "Quality Score",
+       color = "Teaching Status",
+       title = "Does IT Investment Effect Differ by Teaching Status?") +
+  theme_minimal(base_size = 12)
+```
+
+Do the slopes appear different? What does this suggest?
+
+## Practice 1: Continuous x Categorical Interaction
+
+**Step 3.** Fit the interaction model and interpret the results:
+
+```{r}
+#| label: practice-contcat-model
+#| eval: false
+
+model_quality <- lm(___ ~ ___ * ___,
+                    data = quality_data)
+summary(model_quality)
+```
+
+**Questions**:
+
+1.  What is the effect of IT investment for **Non-Teaching** hospitals?
+2.  What is the effect of IT investment for **Teaching** hospitals? (Hint: add the main effect and interaction coefficients)
+3.  Is the interaction term statistically significant? What does this mean for hospital administrators?
+
 # 3.2. Categorical x Categorical Interaction {background-color="#40666e"}
 
 ## Example: <br> Does Treatment Effect Vary by Insurance Type?
@@ -744,7 +830,7 @@ diab_coefs <- coef(model_diabetes)
 
 <br>
 
-> The Intensive Program is effective across all insurance types, but **most effective** for `r c("Medicaid", "Medicare", "Private")[which.max(c(diab_coefs["treatmentIntensive Program"], diab_coefs["treatmentIntensive Program"] + diab_coefs["treatmentIntensive Program:insuranceMedicare"], diab_coefs["treatmentIntensive Program"] + diab_coefs["treatmentIntensive Program:insurancePrivate"]))]` insurance patients.
+The Intensive Program is effective across all insurance types, but **most effective** for `r c("Medicaid", "Medicare", "Private")[which.max(c(diab_coefs["treatmentIntensive Program"], diab_coefs["treatmentIntensive Program"] + diab_coefs["treatmentIntensive Program:insuranceMedicare"], diab_coefs["treatmentIntensive Program"] + diab_coefs["treatmentIntensive Program:insurancePrivate"]))]` insurance patients.
 
 ## Visualizing Categorical x Categorical Interaction
 
@@ -770,6 +856,92 @@ ggplot(emm_df, aes(x = insurance, y = emmean, fill = treatment)) +
   ) +
   theme_minimal(base_size = 12)
 ```
+
+## Practice 2: Categorical x Categorical Interaction
+
+**Question**: Does the quality advantage of Teaching hospitals vary across U.S. regions?
+
+. . .
+
+<br>
+
+**Why it might differ** (potentially):
+
+::: incremental
+-   **Northeast**: High concentration of academic medical centers and research funding, so teaching hospitals may have a large quality edge
+-   **South/Midwest**: Fewer teaching hospitals, potentially serving underserved populations, so the teaching advantage may be smaller
+-   **West**: Strong tech and innovation culture, so even Non-Teaching hospitals may adopt best practices, narrowing the gap
+:::
+
+## Practice 2: Categorical x Categorical Interaction
+
+**Step 1.** Using the same `quality_data`, set the reference categories:
+
+Let's set "Non-Teaching" as the reference for `teaching_status` and "Midwest" as the reference for `region`:
+
+```{r}
+#| label: practice-catcat-load
+#| eval: false
+
+quality_data <- quality_data %>%
+  mutate(
+    teaching_status = factor(teaching_status,
+                             levels = c("Non-Teaching", "Teaching")),
+    region = factor(region,
+                    levels = c("Midwest", "Northeast", "South", "West"))
+  )
+```
+
+## Practice 2: Categorical x Categorical Interaction
+
+**Step 2.** Visualize quality scores by teaching status and region:
+
+```{r}
+#| label: practice-catcat-viz
+#| eval: false
+
+ggplot(quality_data, aes(x = ___, y = ___, fill = ___)) +
+  geom_boxplot(alpha = 0.7, width = 0.7) +
+  labs(x = "Region", y = "Quality Score", fill = "Teaching Status",
+       title = "Does the Teaching Hospital Advantage Vary by Region?") +
+  theme_minimal(base_size = 12)
+```
+
+Does the gap between Teaching and Non-Teaching hospitals look the same in every region?
+
+## Practice 2: Categorical x Categorical Interaction
+
+**Step 3.** Fit the interaction model and interpret the results:
+
+```{r}
+#| label: practice-catcat-model
+#| eval: false
+
+model_region <- lm(___ ~ ___ * ___,
+                   data = quality_data)
+summary(model_region)
+```
+
+**Questions**:
+
+1.  What is the predicted quality score for a **Non-Teaching** hospital in the **Midwest** (reference group)?
+2.  What is the teaching advantage in the **Midwest** vs. in the **West**? (Hint: add the teaching main effect and the relevant interaction coefficient)
+
+## Practice 2: Categorical x Categorical Interaction
+
+3.  Use `emmeans()` to compare Teaching vs. Non-Teaching within each region.
+
+```{r}
+#| label: practice-catcat-emmeans
+#| eval: false
+
+emm <- emmeans(model_region, ~ teaching_status | region)
+pairs(emm, adjust="tukey")
+```
+
+<br> **Question**:
+
+3.  In which region shows the largest gap? In which region shows the smallest gap?
 
 # 3.3. Continuous x Continuous Interaction {background-color="#40666e"}
 
@@ -919,6 +1091,78 @@ for (a in ages) {
 -   The interaction creates a **crossover effect** where the treatment benefit reverses direction in different subgroups.
 -   In practice, this would warrant investigation into confounding factors (e.g., sicker older patients may be prescribed more PT sessions, making PT *appear* less effective).
 
+## Practice 3: Continuous x Continuous Interaction
+
+**Question**: Does the benefit of IT investment on quality depend on a hospital's average length of stay?
+
+. . .
+
+<br>
+
+**Why it might differ**:
+
+::: incremental
+-   **Low avg LOS hospitals**: Likely efficient, high-turnover facilities -- IT investments in scheduling and throughput tools may directly boost quality metrics
+-   **High avg LOS hospitals**: Often treating sicker or more complex patients -- IT alone may not overcome the clinical challenges that drive longer stays
+-   **Hypothesis**: IT investment may have a stronger quality impact in hospitals with lower average length of stay
+:::
+
+## Practice 3: Continuous x Continuous Interaction
+
+**Step 1.** Using the same `quality_data`, visualize the relationship:
+
+```{r}
+#| label: practice-contcont-viz
+#| eval: false
+
+ggplot(quality_data, aes(x = ___, y = ___, color = ___)) +
+  geom_point(alpha = 0.6) +
+  scale_color_gradient(low = "steelblue", high = "coral") +
+  labs(x = "IT Investment ($K)", y = "Quality Score", color = "Avg LOS",
+       title = "Does IT Investment Effectiveness Depend on Avg LOS?") +
+  theme_minimal(base_size = 12)
+```
+
+## Practice 3: Continuous x Continuous Interaction
+
+**Step 2.** Fit the interaction model:
+
+```{r}
+#| label: practice-contcont-model
+#| eval: false
+
+model_it_los <- lm(___ ~ ___ * ___,
+                   data = quality_data)
+summary(model_it_los)
+```
+
+## Practice 3: Continuous x Continuous Interaction
+
+**Step 3.** Interpret the results:
+
+**Questions**:
+
+1.  Write out the marginal effect formula for `it_investment`: $$\text{Effect of IT Investment} = \beta_{\text{it_investment}} + \beta_{\text{interaction}} \times \text{Avg LOS}$$
+2.  Compute the effect of IT investment at avg LOS = **3 days**, **5 days**, and **7 days**
+
+## Practice 3: Continuous x Continuous Interaction
+
+**Step 4.** Visualize and discuss:
+
+3.  Use `probe_interaction()` to visualize the effect of IT investment at avg LOS = **3 days**, **5 days**, and **7 days** (the same values from Q2):
+
+```{r}
+#| label: practice-contcont-probe
+#| eval: false
+
+probe_interaction(model_it_los,
+                  pred = ___,
+                  modx = ___,
+                  modx.values = c(___, ___, ___))
+```
+
+<br> 4. Is the interaction term statistically significant? If not, what does that tell hospital administrators -- should they differentiate their IT investment strategy based on average length of stay, or can they apply a uniform approach?
+
 # Summary {background-color="#40666e"}
 
 ## Key Takeaways
@@ -934,12 +1178,18 @@ for (a in ages) {
 
 ## Assignments
 
-1.  **Reflection**: Please share your thoughts on the lecture
-    -   3 interesting things
-    -   3 confusing things
+1.  **Week 12 Reflection**: Please share your thoughts on the lecture
+
+- 3 interesting things
+- 3 confusing or unclear things
+
+Due by 11:59pm on Sunday, April 5.
+
+<br>
+
 2.  **Lab Assignment 5**: Linear Regression
 
-Both are due by 11:59pm on Sunday, April 5.
+Due by 11:59pm on Sunday, April 12.
 
 ## References
 
