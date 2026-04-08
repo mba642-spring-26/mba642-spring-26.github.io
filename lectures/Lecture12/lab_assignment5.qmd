@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 # Assignment Overview
 
 -   **Total Points**: 10 points
--   **Due Date**: April 5, 2026
+-   **Due Date**: April 12, 2026
 -   **Submission**: Upload your completed .qmd (no need to submit the rendered HTML file). I'll render your .qmd to HTML to check your work and assign points, so please make sure your file renders without errors before submitting.
 
 ## Learning Objectives
@@ -54,7 +54,7 @@ This assignment assesses your ability to:
 # Grading Rubric
 
 | Task | Points | Breakdown |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Task 1: Simple & Multiple Regression | 4 | 0.5 visualization + 0.5 simple model + 0.5 multiple model + 0.5 prediction + 2 interpretation |
 | Task 2: Dummy Variables | 3 | 0.5 visualization + 0.5 model + 0.5 emmeans + 1.5 interpretation |
 | Task 3: Interaction Effects | 3 | 0.5 visualization + 0.5 model + 2 interpretation |
@@ -99,7 +99,7 @@ head(ed_data, 8)
 **Key variables**:
 
 | Variable | Description | Type |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `num_prior_visits` | Number of ED visits in the past 12 months | Continuous |
 | `triage_acuity` | Emergency Severity Index (1 = most acute, 5 = non-urgent) | Continuous |
 | `num_tests` | Number of diagnostic tests ordered (labs, imaging, etc.) | Continuous |
@@ -208,7 +208,7 @@ head(wound_data, 8)
 **Key variables**:
 
 | Variable | Description | Type |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `wound_protocol` | Wound care protocol (Standard Dressing, Negative Pressure, Advanced Biologics) | Categorical |
 | `wound_size_cm2` | Wound surface area in cm² | Continuous |
 | `patient_age` | Patient age in years | Continuous |
@@ -290,7 +290,7 @@ head(safety_data, 8)
 **Key variables**:
 
 | Variable | Description | Type |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `hospital_id` | Unique hospital identifier | Numeric |
 | `hospital_setting` | Hospital location (Urban or Rural) | Categorical |
 | `training_hours` | Annual nurse training hours per FTE | Continuous |
@@ -356,7 +356,7 @@ Before submitting, verify:
 # Points Summary
 
 | Task | Points | Topic | Method |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | Task 1 | 4.0 | ED length of stay factors | Simple & Multiple Linear Regression |
 | Task 2 | 3.0 | Wound care protocol comparison | Dummy Variables & emmeans |
 | Task 3 | 3.0 | Nurse training and patient safety | Continuous x Categorical Interaction |
