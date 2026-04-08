@@ -29,7 +29,7 @@ Any changes will be announced in class and posted on the course website and Canv
 | 10 | Mar 18 | Spring break (no class) | \- | \- | \- | \- |
 | 11 | Mar 25 | Linear regression analysis 1 | [{{< fa file-alt >}}](/lectures/Lecture11/Slide11.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture11/Lecture11.qmd){target="_blank"} | \- | Reflection 8 |
 | 12 | Apr 1 | Linear regression analysis 2 | [{{< fa file-alt >}}](/lectures/Lecture12/Slide12.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture12/Lecture12.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture12/lab_assignment5.qmd){target="_blank"} | Reflection 9, Assignment 5 |
-| 13 | Apr 8 | Logistic regression analysis | \- | [{{< fa file-alt >}}](/lectures/Lecture13/Lecture13.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture13/lab_assignment6.qmd){target="_blank"} | Reflection 10, Assignment 6 |
+| 13 | Apr 8 | Logistic regression analysis | [{{< fa file-alt >}}](/lectures/Lecture13/Slide13.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture13/Lecture13.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture13/lab_assignment6.qmd){target="_blank"} | Reflection 10, Assignment 6 |
 | 14 | Apr 15 | Conjoint analysis | \- | [{{< fa file-alt >}}](/lectures/Lecture14/Lecture14.qmd){target="_blank"} | \- | Reflection 11, Assignment 7 |
 | 15 | Apr 22 | Predictive analytics 1: Penalized Regression | \- | [{{< fa file-alt >}}](/lectures/Lecture15/Lecture15.qmd){target="_blank"} | \- | Reflection 12, Assignment 8 |
 | 16 | Apr 29 | Predictive analytics 2: Decision Trees | \- | [{{< fa file-alt >}}](/lectures/Lecture16/Lecture16.qmd){target="_blank"} | \- | Reflection 13, Assignment 9 |

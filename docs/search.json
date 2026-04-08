@@ -4,7 +4,7 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Slides\nLecture Notes\nAssignment Instruction\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\n-\nReflection 2\n\n\n4\nFeb 4\nData visualization\n\n\n\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n\n\n\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n\n\n-\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n\n\n\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n\n\n\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n\nMidterm Exam\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n\n\n-\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n\n\n\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n-\n\n\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n-\n\n-\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n-\n\n-\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n-\n\n-\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\n\nAssignments will be informed during the class",
+    "text": "The schedule can vary depending on the progress of the course or unforeseen circumstances.\nAny changes will be announced in class and posted on the course website and Canvas.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nLecture Slides\nLecture Notes\nAssignment Instruction\nAssignments\n\n\n\n\n1\nJan 14\nIntroduction & Course Overview\n\n-\n-\n-\n\n\n2\nJan 21\nA primer on R, R-Studio, Quarto, and Data Wrangling\n\n\n-\nReflection 1\n\n\n3\nJan 28\nBasic Statistical Concepts\n\n\n-\nReflection 2\n\n\n4\nFeb 4\nData visualization\n\n\n\nReflection 3, Assignment 1\n\n\n5\nFeb 11\nMean difference 1: t-test\n\n\n\nReflection 4, Assignment 2\n\n\n6\nFeb 18\nMean difference 2: ANOVA 1\n\n\n-\nReflection 5\n\n\n7\nFeb 25\nMean difference 2: ANOVA 2\n\n\n\nReflection 6, Assignment 3\n\n\n8\nMar 4\nCrosstab and correlation\n\n\n\nReflection 7, Assignment 4\n\n\n9\nMar 11\nMidterm Exam\n-\n-\n\nMidterm Exam\n\n\n10\nMar 18\nSpring break (no class)\n-\n-\n-\n-\n\n\n11\nMar 25\nLinear regression analysis 1\n\n\n-\nReflection 8\n\n\n12\nApr 1\nLinear regression analysis 2\n\n\n\nReflection 9, Assignment 5\n\n\n13\nApr 8\nLogistic regression analysis\n\n\n\nReflection 10, Assignment 6\n\n\n14\nApr 15\nConjoint analysis\n-\n\n-\nReflection 11, Assignment 7\n\n\n15\nApr 22\nPredictive analytics 1: Penalized Regression\n-\n\n-\nReflection 12, Assignment 8\n\n\n16\nApr 29\nPredictive analytics 2: Decision Trees\n-\n\n-\nReflection 13, Assignment 9\n\n\n17\nMay 6\nFinal Exam\n-\n-\n-\n\n\n\n\n\nAssignments will be informed during the class",
     "crumbs": [
       "Home",
       "Schedule"
@@ -9104,5 +9104,341 @@
     "title": "Conjoint Analysis in Healthcare Management",
     "section": "Two Approaches, Same Goal",
     "text": "Two Approaches, Same Goal\n\n\n\n\n\n\n\n\nAspect\nRating-Based\nChoice-Based\n\n\n\n\nData Collection\nRate each profile (e.g., 1-10 scale)\nChoose preferred option from a set\n\n\nAnalysis Method\nOLS Linear Regression (lm)\nMultinomial Logit (mlogit)\n\n\nData Format\nOne row per profile per respondent\nLong format (one row per alternative)\n\n\nMarket Share Prediction\nProportional allocation\nLogit formula (\\(e^V\\) based)\n\n\nRealism\nLower: no forced trade-offs\nHigher: mimics actual decisions\n\n\n\nBoth methods produce the same types of outputs: part-worth utilities, attribute importance, WTP, and market share predictions. Choice-based conjoint is generally preferred in practice because it forces respondents to make explicit trade-offs, mimicking real-world decision-making."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#todays-learning-goals",
+    "href": "lectures/Lecture13/Slide13.html#todays-learning-goals",
+    "title": "Logistic Regression",
+    "section": "Today’s Learning Goals",
+    "text": "Today’s Learning Goals\nBy the end of this lecture, you will be able to:\n\nExplain why logistic regression is necessary for binary outcomes and how it differs from linear regression\nInterpret logistic regression coefficients including log odds ratios and odds ratios\nRun and interpret both simple and multiple logistic regression models in R\nEvaluate model performance using classification tables"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#why-logistic-regression",
+    "href": "lectures/Lecture13/Slide13.html#why-logistic-regression",
+    "title": "Logistic Regression",
+    "section": "Why Logistic Regression?",
+    "text": "Why Logistic Regression?\nIn healthcare management, many critical decisions involve binary outcomes:\n\nWill a patient be readmitted within 30 days?\nWill a patient adhere to their medication?\nWill a treatment be successful or not?\nWill a patient develop a complication after surgery?\n\n\n\nThese yes/no questions are fundamentally different from predicting continuous outcomes (e.g., blood pressure, weight, LOS). We cannot use linear regression because it is designed for continuous outcomes.\n\n\nWe need a different approach: logistic regression."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#the-problem-with-linear-regression-for-binary-outcomes",
+    "href": "lectures/Lecture13/Slide13.html#the-problem-with-linear-regression-for-binary-outcomes",
+    "title": "Logistic Regression",
+    "section": "The Problem with Linear Regression for Binary Outcomes",
+    "text": "The Problem with Linear Regression for Binary Outcomes\nImagine predicting readmission (1 = yes, 0 = no) from length of hospital stay (in days):\n\\[P(\\text{Readmission}) = -0.2 + 0.05 \\times \\text{Length of Stay}\\]\n\nWhat if a patient has a very long length of stay of 30 days?\n\\[P(\\text{Readmission}) = -0.2 + 0.05 \\times 30 = 1.3\\]\n\n\n\nProbabilities must be between 0 and 1, but the predicted probability of readmission exceeds 1. Linear regression can produce impossible predictions for binary outcomes."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#the-logistic-solution-an-s-shaped-curve",
+    "href": "lectures/Lecture13/Slide13.html#the-logistic-solution-an-s-shaped-curve",
+    "title": "Logistic Regression",
+    "section": "The Logistic Solution: An S-Shaped Curve",
+    "text": "The Logistic Solution: An S-Shaped Curve\nLogistic regression uses a special S-shaped curve (logistic function) that naturally stays between 0 and 1:\n\n\nFigure 1"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#from-probability-to-odds",
+    "href": "lectures/Lecture13/Slide13.html#from-probability-to-odds",
+    "title": "Logistic Regression",
+    "section": "From Probability to Odds",
+    "text": "From Probability to Odds\nProbability: Chance that something happens (0 to 1)\n\nOdds: Ratio of event happening to event not happening\n\\[\\text{Odds} = \\frac{p}{1-p} \\qquad \\Longleftrightarrow \\qquad p = \\frac{\\text{Odds}}{1 + \\text{Odds}}\\]\n\n\n Example (readmission probability = 0.30):\n\nProbability of readmission = 0.30\nProbability of NOT readmitted = 0.70\nOdds = 0.30 / 0.70 = 0.429"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#understanding-odds-values",
+    "href": "lectures/Lecture13/Slide13.html#understanding-odds-values",
+    "title": "Logistic Regression",
+    "section": "Understanding Odds Values",
+    "text": "Understanding Odds Values\n\n\n\n\n\nProbability (p)\n1 - p\nOdds\nInterpretation\n\n\n\n\n0.10\n0.90\n0.11\nVery unlikely\n\n\n0.25\n0.75\n0.33\n\n\n\n0.33\n0.67\n0.49\n\n\n\n0.50\n0.50\n1.00\nEqual chance (50/50)\n\n\n0.67\n0.33\n2.03\n\n\n\n0.75\n0.25\n3.00\n\n\n\n0.90\n0.10\n9.00\nVery likely\n\n\n\n\n\n\nKey:\n\nOdds = 1 means 50/50 chance\nOdds &lt; 1 = less likely; Odds &gt; 1 = more likely\nOdds can be from 0 to positive infinity  (unbounded above, but cannot be negative)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#from-odds-to-log-odds-logit",
+    "href": "lectures/Lecture13/Slide13.html#from-odds-to-log-odds-logit",
+    "title": "Logistic Regression",
+    "section": "From Odds to Log Odds (Logit)",
+    "text": "From Odds to Log Odds (Logit)\nOdds cannot be negative (range: 0 to positive infinity). We need an unbounded scale (-∞ to +∞) for linear modeling.\n\nLog Odds = natural logarithm of odds:\n\\[\\text{Log Odds} = \\ln\\left(\\frac{p}{1-p}\\right)\\]\n\n\n\n\n\n\n\n\n\nProbability (p)\n1 - p\nOdds\nLog Odds (Logit)\n\n\n\n\n0.10\n0.90\n0.11\n-2.207\n\n\n0.25\n0.75\n0.33\n-1.109\n\n\n0.33\n0.67\n0.49\n-0.713\n\n\n0.50\n0.50\n1.00\n0.000\n\n\n0.67\n0.33\n2.03\n0.708\n\n\n0.75\n0.25\n3.00\n1.099\n\n\n0.90\n0.10\n9.00\n2.197\n\n\n\n\n\n\nKey points\n\n\nWhen p = 0.5, log odds = 0\nWhen p &gt; 0.5, log odds are positive\nWhen p &lt; 0.5, log odds are negative\nLog odds map probabilities (0, 1) onto the full real line (−∞, +∞)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#visualizing-the-three-scales",
+    "href": "lectures/Lecture13/Slide13.html#visualizing-the-three-scales",
+    "title": "Logistic Regression",
+    "section": "Visualizing the Three Scales",
+    "text": "Visualizing the Three Scales\n\n\nFigure 2"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#the-logistic-regression-equation",
+    "href": "lectures/Lecture13/Slide13.html#the-logistic-regression-equation",
+    "title": "Logistic Regression",
+    "section": "The Logistic Regression Equation",
+    "text": "The Logistic Regression Equation\nInstead of predicting probability directly, we predict the log odds:\n\\[\\ln\\left(\\frac{p}{1-p}\\right) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\cdots + \\beta_k X_k\\]\n\n The coefficients (\\(\\beta\\) values) represent the change in log odds per one-unit increase in the predictor.\n\n\n Converting back to probability:\n\\[p = \\frac{e^{\\beta_0 + \\beta_1 X_1 + \\cdots}}{1 + e^{\\beta_0 + \\beta_1 X_1 + \\cdots}} = \\frac{odds}{1 + odds}\\]"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#maximum-likelihood-estimation-mle",
+    "href": "lectures/Lecture13/Slide13.html#maximum-likelihood-estimation-mle",
+    "title": "Logistic Regression",
+    "section": "Maximum Likelihood Estimation (MLE)",
+    "text": "Maximum Likelihood Estimation (MLE)\nUnlike linear regression (OLS), logistic regression uses MLE because:\n\nOLS could predict probabilities outside the plausible range (0-1)\nBinary outcomes violate OLS assumptions (non-normal residuals, non-constant variance)\nMLE finds coefficient values that make the observed data most likely\n\n\n\nYou don’t need to understand the math of MLE as R does it for you (glm() with family = binomial, R uses MLE automatically)."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#what-is-it-when-to-use-it",
+    "href": "lectures/Lecture13/Slide13.html#what-is-it-when-to-use-it",
+    "title": "Logistic Regression",
+    "section": "What Is It? / When to Use It",
+    "text": "What Is It? / When to Use It\nSimple logistic regression models the relationship between one predictor and a binary outcome (0/1).\n\n Use it when:\n\nYour outcome variable is binary (two possible values)\nYou have one predictor variable to examine\nYou want to understand how the predictor affects the probability of the outcome, quantified through log odds ratios and odds ratios"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#example-case-predicting-hospital-readmission",
+    "href": "lectures/Lecture13/Slide13.html#example-case-predicting-hospital-readmission",
+    "title": "Logistic Regression",
+    "section": "Example Case: Predicting Hospital Readmission",
+    "text": "Example Case: Predicting Hospital Readmission\nScenario: A quality improvement analyst wants to understand whether discharge readiness predicts 30-day readmission.\n The dataset contains records for 200 patients discharged from a single hospital, with each row representing one patient and including their discharge readiness score, demographics, clinical characteristics, and whether they were readmitted within 30 days.\n\n Hypothesis: Patients who feel more ready for discharge have a better understanding of follow-up care and are less likely to be readmitted.\n\n\n Hospital Readmissions Reduction Program (HRRP): Hospitals with excess readmissions face financial penalties under Medicare. Understanding predictors of readmission helps target interventions."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#loading-and-exploring-the-data",
+    "href": "lectures/Lecture13/Slide13.html#loading-and-exploring-the-data",
+    "title": "Logistic Regression",
+    "section": "Loading and Exploring the Data",
+    "text": "Loading and Exploring the Data\nLet’s load the data and required packages.\n\n# load required packages\nlibrary(tidyverse)\n\n# load data\nreadmit_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week13_readmit_data.csv\")\n\n# Set the Medicaid as the reference category for insurance\nreadmit_data &lt;- readmit_data |&gt;\n  mutate(insurance = factor(insurance, levels = c(\"Medicaid\", \"Medicare\", \"Private\")))\n\nhead(readmit_data, 3) \n\n  X patient_id discharge_readiness age comorbidities insurance readmitted\n1 1          1                 7.9  80             2  Medicaid          1\n2 2          2                 6.9  59             2  Medicare          1\n3 3          3                 4.0  62             2   Private          0"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#key-variables",
+    "href": "lectures/Lecture13/Slide13.html#key-variables",
+    "title": "Logistic Regression",
+    "section": "Key Variables",
+    "text": "Key Variables\n\n\n\n\n\n\n\n\nVariable\nDescription\nType\n\n\n\n\npatient_id\nUnique identifier for each patient\nID\n\n\ndischarge_readiness\nDischarge readiness score (1-10, higher = more ready)\nContinuous\n\n\nage\nPatient age in years\nContinuous\n\n\ncomorbidities\nNumber of chronic conditions (e.g., diabetes, hypertension)\nContinuous\n\n\ninsurance\nInsurance type (Medicaid, Medicare, or Private)\nCategorical\n\n\nreadmitted\nWhether readmitted within 30 days (1 = yes, 0 = no) — outcome\nBinary"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#exploring-the-data",
+    "href": "lectures/Lecture13/Slide13.html#exploring-the-data",
+    "title": "Logistic Regression",
+    "section": "Exploring the Data",
+    "text": "Exploring the Data\nLet’s start by exploring the distribution of our outcome variable (readmission) and how it relates to our key predictor (discharge readiness).\n\n\n\n\n\n\n\nOutcome\nN\n%\n\n\n\n\nNot Readmitted\n156\n78\n\n\nReadmitted\n44\n22\n\n\nTotal\n200\n100\n\n\n\n\n\n\n\n\nCode\nggplot(readmit_data, aes(x = factor(readmitted), y = discharge_readiness,\n                          fill = factor(readmitted))) +\n  geom_boxplot(alpha = 0.7, width = 0.3) +\n  geom_jitter(width = 0.2, alpha = 0.3) +\n  labs(title = \"Discharge Readiness by Readmission Status\",\n       x = \"Readmission Status\",\n       y = \"Discharge Readiness Score (1-10)\") +\n  theme_minimal(base_size = 10) +\n  theme(legend.position = \"none\",\n        plot.title = element_text(face = \"bold\"))\n\n\n\n\n\n\n\n\nFigure 3"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#running-simple-logistic-regression",
+    "href": "lectures/Lecture13/Slide13.html#running-simple-logistic-regression",
+    "title": "Logistic Regression",
+    "section": "Running Simple Logistic Regression",
+    "text": "Running Simple Logistic Regression\nLet’s run a simple logistic regression model to see if discharge readiness predicts readmission. We can do this by using glm() with family = binomial:\n\nmodel_simple &lt;- glm(readmitted ~ discharge_readiness,\n                    data = readmit_data,\n                    family = binomial(link = \"logit\")) # link = \"logit\" is the default, so you can omit this\n\nsummary(model_simple)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#running-simple-logistic-regression-output",
+    "href": "lectures/Lecture13/Slide13.html#running-simple-logistic-regression-output",
+    "title": "Logistic Regression",
+    "section": "Running Simple Logistic Regression",
+    "text": "Running Simple Logistic Regression\n\n\nCall:\nglm(formula = readmitted ~ discharge_readiness, family = binomial(link = \"logit\"), \n    data = readmit_data)\n\nCoefficients:\n                    Estimate Std. Error z value Pr(&gt;|z|)  \n(Intercept)         -0.18297    0.53772  -0.340   0.7336  \ndischarge_readiness -0.18136    0.08834  -2.053   0.0401 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 210.76  on 199  degrees of freedom\nResidual deviance: 206.35  on 198  degrees of freedom\nAIC: 210.35\n\nNumber of Fisher Scoring iterations: 4"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#step-1-understanding-the-coefficients",
+    "href": "lectures/Lecture13/Slide13.html#step-1-understanding-the-coefficients",
+    "title": "Logistic Regression",
+    "section": "Step 1: Understanding the Coefficients",
+    "text": "Step 1: Understanding the Coefficients\n\n\n\n\n\n\nEstimate\nStd. Error\nz value\np-value\n\n\n\n\n(Intercept)\n-0.1830\n0.5377\n-0.3403\n0.7336\n\n\ndischarge_readiness\n-0.1814\n0.0883\n-2.0531\n0.0401\n\n\n\n\n\n\n Model equation:\n\nLog Odds of Readmission = -0.183 + (-0.1814) x Discharge Readiness\n\n\n\n\nFor each one-unit increase in discharge readiness (IV), the log odds of readmission change by -0.1814.\nThe p-value for discharge readiness is 0.0401, which indicates the effect of discharge readiness on readmission is statistically significant."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#step-2-converting-to-odds-ratio",
+    "href": "lectures/Lecture13/Slide13.html#step-2-converting-to-odds-ratio",
+    "title": "Logistic Regression",
+    "section": "Step 2: Converting to Odds Ratio",
+    "text": "Step 2: Converting to Odds Ratio\nLog odds ratios are hard to interpret. Exponentiate to get odds ratios:\n\n\ncoef(): to get regression coefficients (log odds ratios)\nexp(): to exponentiate log odds ratios to get odds ratios\n\n\n\nodds_ratios &lt;- exp(coef(model_simple))\nodds_ratios\n\n        (Intercept) discharge_readiness \n          0.8327902           0.8341325 \n\n\n\nInterpretation:\n\n\nDirection: Odds ratio is LESS than 1 -&gt; higher discharge readiness = LOWER odds of readmission\nMagnitude: For each 1-point increase in discharge readiness, odds of readmission DECREASE by 16.6%"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#step-3-predicting-probabilities",
+    "href": "lectures/Lecture13/Slide13.html#step-3-predicting-probabilities",
+    "title": "Logistic Regression",
+    "section": "Step 3: Predicting Probabilities",
+    "text": "Step 3: Predicting Probabilities\nWe can use the logistic regression model to get a predicted probability. For a patient with discharge readiness = 5:\n\nLog odds = -0.183 + (-0.181) x 5 = -1.0898\nOdds = \\(e^{-1.0898}\\) = 0.3363\nProbability = 0.3363 / (1 + 0.3363) = 0.2517 (25.2%)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#step-4-using-rs-predict-function",
+    "href": "lectures/Lecture13/Slide13.html#step-4-using-rs-predict-function",
+    "title": "Logistic Regression",
+    "section": "Step 4: Using R’s predict() Function",
+    "text": "Step 4: Using R’s predict() Function\nLet’s get the predicted probabilities of readmission for a range of discharge readiness scores using R’s predict() function with type = \"response\":\n\nnew_patients &lt;- data.frame(\n  discharge_readiness = c(4, 5, 6, 7, 8)\n)\n\nnew_patients$predicted_prob &lt;- predict(model_simple,\n                                        newdata = new_patients,\n                                        type = \"response\") # to get predicted probabilities, type = \"response\" is required. Without it, you would get log odds instead.\nround(head(new_patients, 3), 3)\n\n  discharge_readiness predicted_prob\n1                   4          0.287\n2                   5          0.252\n3                   6          0.219"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#step-5-visualizing-predicted-probabilities",
+    "href": "lectures/Lecture13/Slide13.html#step-5-visualizing-predicted-probabilities",
+    "title": "Logistic Regression",
+    "section": "Step 5: Visualizing Predicted Probabilities",
+    "text": "Step 5: Visualizing Predicted Probabilities\n\n\nCode\nlibrary(scales)\npred_data &lt;- data.frame(discharge_readiness = seq(3, 10, by = 0.1))\npred_data$probability &lt;- predict(model_simple, newdata = pred_data, type = \"response\")\n\nggplot() +\n  geom_line(data = pred_data, aes(x = discharge_readiness, y = probability),\n            color = \"steelblue\", linewidth = 1.2) +\n  geom_point(data = readmit_data, aes(x = discharge_readiness, y = readmitted),\n             alpha = 0.3, position = position_jitter(width = 0.1, height = 0)) +\n  geom_hline(yintercept = 0.5, linetype = \"dashed\", color = \"gray50\") +\n  labs(title = \"Predicted Probability of Readmission by Discharge Readiness Score\",\n       subtitle = \"Points show actual outcomes (0 = not readmitted, 1 = readmitted)\",\n       x = \"Discharge Readiness Score\",\n       y = \"Predicted Probability of Readmission\") +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  theme_minimal(base_size = 12) +\n  theme(plot.title = element_text(face = \"bold\"))\n\n\n\n\nFigure 4"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#step-6-from-probabilities-to-decisions",
+    "href": "lectures/Lecture13/Slide13.html#step-6-from-probabilities-to-decisions",
+    "title": "Logistic Regression",
+    "section": "Step 6: From Probabilities to Decisions",
+    "text": "Step 6: From Probabilities to Decisions\nOur model gives us probabilities, but in practice we often need to make binary decisions (e.g., “provide extra discharge support” vs. “standard discharge”).\n\n To classify patients, we use a decision threshold (default = 0.5):\n\nIf predicted probability ≥ 0.5 → predict readmitted (1)\nIf predicted probability &lt; 0.5 → predict not readmitted (0)\n\n\n\n We then compare our predictions to actual outcomes using a classification table (also called a confusion matrix)."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#understanding-the-classification-table",
+    "href": "lectures/Lecture13/Slide13.html#understanding-the-classification-table",
+    "title": "Logistic Regression",
+    "section": "Understanding the Classification Table",
+    "text": "Understanding the Classification Table\nThe confusion matrix has four possible outcomes:\n\n\n\n\n\n\n\n\n\nActual: Not Readmitted\nActual: Readmitted\n\n\n\n\nPredicted: Not Readmitted\nTrue Negative (TN)\nFalse Negative (FN)\n\n\nPredicted: Readmitted\nFalse Positive (FP)\nTrue Positive (TP)\n\n\n\n\n\nTrue Negative (TN): Correctly predicted NOT readmitted\nTrue Positive (TP): Correctly predicted readmitted\nFalse Positive (FP): Predicted readmitted, but was NOT (false alarm)\nFalse Negative (FN): Predicted NOT readmitted, but WAS (miss)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#our-models-classification-table",
+    "href": "lectures/Lecture13/Slide13.html#our-models-classification-table",
+    "title": "Logistic Regression",
+    "section": "Our Model’s Classification Table",
+    "text": "Our Model’s Classification Table\nLet’s make a classification table for our simple logistic regression model using a 0.5 threshold:\n\nreadmit_data$predicted_prob &lt;- predict(model_simple, type = \"response\")\nreadmit_data$predicted_class &lt;- ifelse(readmit_data$predicted_prob &gt;= 0.5, 1, 0)\n\nclass_table &lt;- table(\n  Predicted = factor(readmit_data$predicted_class, levels = c(0, 1)),\n  Actual = factor(readmit_data$readmitted, levels = c(0, 1))\n)\nclass_table\n\n         Actual\nPredicted   0   1\n        0 156  44\n        1   0   0\n\n\n\nAccuracy = (TP + TN) / Total = 156 / 200 = 78%"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-1-medication-adherence",
+    "href": "lectures/Lecture13/Slide13.html#practice-1-medication-adherence",
+    "title": "Logistic Regression",
+    "section": "Practice 1: Medication Adherence",
+    "text": "Practice 1: Medication Adherence\nScenario: A pharmacy wants to understand whether the number of medications a patient takes predicts whether they actually take their medications as prescribed.\n\n Sample & data: The dataset contains records for 100 patients from a single community pharmacy. For each patient, staff recorded the number of medications currently prescribed and whether the patient was classified as adherent (1 = took medications as prescribed, 0 = did not) based on refill history and self-report during a follow-up visit.\n\n\n Hypothesis: When patients have more medications to take, it becomes harder to keep track of everything; more pills to remember, different times of day, and more possible side effects. So we expect patients with more medications to be less likely to take their medications as prescribed."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-1-load-data",
+    "href": "lectures/Lecture13/Slide13.html#practice-1-load-data",
+    "title": "Logistic Regression",
+    "section": "Practice 1: Load Data",
+    "text": "Practice 1: Load Data\nLet’s load the data using the code below.\n\n# Medication adherence data\nadherence_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week13_adherence.data.csv\")\n\n# View the data\nhead(adherence_data, 5)\n\n  X patient_id num_medications adherent\n1 1          1               9        0\n2 2          2               7        1\n3 3          3               3        0\n4 4          4               4        1\n5 5          5               7        1"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-1-key-variables",
+    "href": "lectures/Lecture13/Slide13.html#practice-1-key-variables",
+    "title": "Logistic Regression",
+    "section": "Practice 1: Key Variables",
+    "text": "Practice 1: Key Variables\n\n\n\n\n\n\n\n\nVariable\nDescription\nType\n\n\n\n\npatient_id\nUnique identifier for each patient\nID\n\n\nnum_medications\nNumber of medications the patient is taking\nContinuous\n\n\nadherent\nWhether the patient is adherent to medication (1 = yes, 0 = no) — outcome\nBinary"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-1-tasks-13",
+    "href": "lectures/Lecture13/Slide13.html#practice-1-tasks-13",
+    "title": "Logistic Regression",
+    "section": "Practice 1: Tasks (1/3)",
+    "text": "Practice 1: Tasks (1/3)\nTask 1: Explore the data\nLet’s first explore the relationship between the number of medications and adherence rates by creating medication groups.\n\nadherence_summary &lt;- adherence_data %&gt;%\n  mutate(med_group = cut(num_medications,\n                         breaks = c(0, 4, 8, 12),\n                         labels = c(\"1-4 meds\", \"5-8 meds\", \"9-12 meds\"))) %&gt;% # create medication groups\n  group_by(___) %&gt;%\n  summarize(\n    n_patients = n(),\n    adherence_rate = round(mean(___) * 100, 1)\n  )\nadherence_summary"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-1-tasks-23",
+    "href": "lectures/Lecture13/Slide13.html#practice-1-tasks-23",
+    "title": "Logistic Regression",
+    "section": "Practice 1: Tasks (2/3)",
+    "text": "Practice 1: Tasks (2/3)\nTask 2: Run simple logistic regression\n\nmodel_adhere &lt;- glm(___ ~ ___,\n                    data = ___,\n                    family = ___)\nsummary(model_adhere)\n\n\n Task 3: Calculate and interpret odds ratio\n\nor_medications &lt;- exp(___(model_adhere)[\"num_medications\"])\nround(or_medications, 3)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-1-tasks-33",
+    "href": "lectures/Lecture13/Slide13.html#practice-1-tasks-33",
+    "title": "Logistic Regression",
+    "section": "Practice 1: Tasks (3/3)",
+    "text": "Practice 1: Tasks (3/3)\nTask 4: Make predictions for three new patients\nUse your fitted model to predict the probability of adherence for the following patients:\n\nPatient A — takes 2 medications\nPatient B — takes 6 medications\nPatient C — takes 10 medications\n\n\nnew_patients &lt;- data.frame(num_medications = c(___, ___, ___))\nnew_patients$predicted_prob &lt;- predict(___,\n                                       newdata = ___,\n                                       type = ___)\nround(new_patients, 3)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#what-is-it-when-to-use-it-1",
+    "href": "lectures/Lecture13/Slide13.html#what-is-it-when-to-use-it-1",
+    "title": "Logistic Regression",
+    "section": "What Is It? / When to Use It",
+    "text": "What Is It? / When to Use It\nMultiple logistic regression includes two or more predictors to predict a binary outcome.\n\n Use it when:\n\nYour outcome is binary (0/1)\nYou have multiple predictor variables (continuous, categorical, or both)\nYou want the independent effect of each predictor while controlling for other variables"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#example-case-comprehensive-readmission-model",
+    "href": "lectures/Lecture13/Slide13.html#example-case-comprehensive-readmission-model",
+    "title": "Logistic Regression",
+    "section": "Example Case: Comprehensive Readmission Model",
+    "text": "Example Case: Comprehensive Readmission Model\nOur readmit_data already contains additional predictors:\n\nDischarge Readiness: Discharge readiness score (1-10)\nAge: Patient age in years\nComorbidities: Number of chronic conditions\nInsurance: Private, Medicare, or Medicaid (reference)\n\n\n\nThe questions we have are:\n\nDoes discharge readiness still predict readmission when we account for age, health complexity, and insurance type?\nAnd, what are the effects of age, health complexity, and insurance type on the odds of readmission?"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#running-multiple-logistic-regression",
+    "href": "lectures/Lecture13/Slide13.html#running-multiple-logistic-regression",
+    "title": "Logistic Regression",
+    "section": "Running Multiple Logistic Regression",
+    "text": "Running Multiple Logistic Regression\nWe can run a multiple logistic regression model by including all predictors in the formula with the same glm() function and family = binomial:\n\nmodel_multiple &lt;- glm(readmitted ~ discharge_readiness + age + comorbidities + insurance,\n                      data = readmit_data,\n                      family = binomial(link = \"logit\"))\n\nsummary(model_multiple)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#running-multiple-logistic-regression-output",
+    "href": "lectures/Lecture13/Slide13.html#running-multiple-logistic-regression-output",
+    "title": "Logistic Regression",
+    "section": "Running Multiple Logistic Regression",
+    "text": "Running Multiple Logistic Regression\n\n\nCall:\nglm(formula = readmitted ~ discharge_readiness + age + comorbidities + \n    insurance, family = binomial(link = \"logit\"), data = readmit_data)\n\nCoefficients:\n                    Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)         -2.18252    1.28948  -1.693  0.09054 .  \ndischarge_readiness -0.21828    0.09580  -2.278  0.02270 *  \nage                  0.03432    0.01666   2.061  0.03933 *  \ncomorbidities        0.40688    0.13602   2.991  0.00278 ** \ninsuranceMedicare   -1.18757    0.44030  -2.697  0.00699 ** \ninsurancePrivate    -1.71410    0.49612  -3.455  0.00055 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 210.76  on 199  degrees of freedom\nResidual deviance: 182.55  on 194  degrees of freedom\nAIC: 194.55\n\nNumber of Fisher Scoring iterations: 5"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#interpreting-multiple-predictors-odds-ratios",
+    "href": "lectures/Lecture13/Slide13.html#interpreting-multiple-predictors-odds-ratios",
+    "title": "Logistic Regression",
+    "section": "Interpreting Multiple Predictors: Odds Ratios",
+    "text": "Interpreting Multiple Predictors: Odds Ratios\n\n\n\n\n\nVariable\nLog.Odds.Ratio\nOdds.Ratio\np.value\n\n\n\n\n(Intercept)\n-2.1825\n0.1128\n0.0905\n\n\ndischarge_readiness\n-0.2183\n0.8039\n0.0227\n\n\nage\n0.0343\n1.0349\n0.0393\n\n\ncomorbidities\n0.4069\n1.5021\n0.0028\n\n\ninsuranceMedicare\n-1.1876\n0.3050\n0.0070\n\n\ninsurancePrivate\n-1.7141\n0.1801\n0.0006\n\n\n\n\n\n\n Each coefficient represents the effect while holding all other variables constant."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#interpreting-each-predictor",
+    "href": "lectures/Lecture13/Slide13.html#interpreting-each-predictor",
+    "title": "Logistic Regression",
+    "section": "Interpreting Each Predictor",
+    "text": "Interpreting Each Predictor\n\nDischarge Readiness (OR = 0.804, p = 0.0227): Each 1-point increase -&gt; odds of readmission DECREASE by 19.6%, holding other variables constant\nAge (OR = 1.0349, p = 0.0393): Each additional year -&gt; odds increase by 3.5%\nComorbidities (OR = 1.502, p = 0.0028): Each additional condition -&gt; odds increase by 50.2%\nInsurance (Medicare) (OR = 0.305, p = 0.007): Compared to Medicaid, Medicare patients have 69.5% lower odds of readmission\nInsurance (Private) (OR = 0.18, p = 0.00055): Compared to Medicaid, Private insurance patients have 82% lower odds of readmission"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#making-predictions-manual-calculation",
+    "href": "lectures/Lecture13/Slide13.html#making-predictions-manual-calculation",
+    "title": "Logistic Regression",
+    "section": "Making Predictions: Manual Calculation",
+    "text": "Making Predictions: Manual Calculation\nLet’s predict readmission probability for a patient manually:\n\nDischarge readiness = 6, Age = 65, Comorbidities = 2, Insurance = Medicare\n\n\nLog odds = -2.183 + (-0.218) x 6 + (0.034) x 65 + (0.407) x 2 + (-1.188) x 1 = -1.6349\nOdds = \\(e^{-1.6349}\\) = 0.195\nProbability = 0.195 / (1 + 0.195) = 0.1632 (16.3%)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#making-predictions-using-predict",
+    "href": "lectures/Lecture13/Slide13.html#making-predictions-using-predict",
+    "title": "Logistic Regression",
+    "section": "Making Predictions: Using predict()",
+    "text": "Making Predictions: Using predict()\nWe can more easily use predict() with type = \"response\" to obtain predicted probabilities for multiple patients at once. Consider three hypothetical patients:\n\n\nPatient A: discharge readiness = 8, age = 50, 1 comorbidity, Private insurance\nPatient B: discharge readiness = 6, age = 65, 2 comorbidities, Medicare\nPatient C: discharge readiness = 4, age = 80, 4 comorbidities, Medicaid\n\n\n\n\nCode\npatient_profiles &lt;- data.frame(\n  discharge_readiness = c(8, 6, 4),\n  age = c(50, 65, 80),\n  comorbidities = c(1, 2, 4),\n  insurance = c(\"Private\", \"Medicare\", \"Medicaid\")\n)\n\npatient_profiles$predicted_prob &lt;- predict(model_multiple,\n                                           newdata = patient_profiles,\n                                           type = \"response\")\npatient_profiles\n\n\n  discharge_readiness age comorbidities insurance predicted_prob\n1                   8  50             1   Private     0.02875452\n2                   6  65             2  Medicare     0.16315549\n3                   4  80             4  Medicaid     0.78882182"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#evaluating-the-multiple-regression-model",
+    "href": "lectures/Lecture13/Slide13.html#evaluating-the-multiple-regression-model",
+    "title": "Logistic Regression",
+    "section": "Evaluating the Multiple Regression Model",
+    "text": "Evaluating the Multiple Regression Model\nLet’s check the accuracy of our multiple logistic regression model by creating a classification table using the same 0.5 threshold:\n\nreadmit_data$pred_prob_multiple &lt;- predict(model_multiple, type = \"response\") # getting predicted probabilities of the data\nreadmit_data$pred_class_multiple &lt;- ifelse(readmit_data$pred_prob_multiple &gt;= 0.5, 1, 0) # classification\n\nclass_table_multiple &lt;- table(\n  Predicted = readmit_data$pred_class_multiple,\n  Actual = readmit_data$readmitted\n)\nclass_table_multiple\n\n         Actual\nPredicted   0   1\n        0 153  36\n        1   3   8\n\n\n\nMultiple regression accuracy: 80.5% (161 / 200 patients correctly classified)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-2-surgical-complication-risk",
+    "href": "lectures/Lecture13/Slide13.html#practice-2-surgical-complication-risk",
+    "title": "Logistic Regression",
+    "section": "Practice 2: Surgical Complication Risk",
+    "text": "Practice 2: Surgical Complication Risk\nScenario: A surgical department wants to predict the risk of post-operative complications from patient age, BMI, surgery duration, and surgery type.\n\n Sample & data: The dataset contains records for 180 patients who underwent surgery at a single hospital. For each patient, the team recorded age, BMI, surgery duration (minutes), whether the surgery was elective or emergency, and whether the patient experienced a post-operative complication (1 = yes, 0 = no) within 30 days of surgery.\n\n\n Hypothesis: Older patients, patients with higher BMI, longer surgeries, and emergency (vs. elective) procedures are each expected to be associated with higher odds of complications."
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-2-load-data",
+    "href": "lectures/Lecture13/Slide13.html#practice-2-load-data",
+    "title": "Logistic Regression",
+    "section": "Practice 2: Load Data",
+    "text": "Practice 2: Load Data\nLet’s start by loading the surgical complications dataset and converting surgery_type into a factor so R treats it as a categorical variable:\n\n# Surgical complication data\nsurgery_data &lt;- read.csv(\"https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week13_surgery_data.csv\")\nsurgery_data$surgery_type &lt;- as.factor(surgery_data$surgery_type)\n\n# View the data\nhead(surgery_data, 5)\n\n  X patient_id age  bmi surgery_duration surgery_type complication\n1 1          1  68 24.1              170     Elective            1\n2 2          2  44 34.6               30    Emergency            0\n3 3          3  62 29.3               30    Emergency            0\n4 4          4  59 33.1               62     Elective            1\n5 5          5  50 29.1              168    Emergency            0"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-2-key-variables",
+    "href": "lectures/Lecture13/Slide13.html#practice-2-key-variables",
+    "title": "Logistic Regression",
+    "section": "Practice 2: Key Variables",
+    "text": "Practice 2: Key Variables\nBefore we build the model, let’s review the variables we’ll be working with:\n\n\n\n\n\n\n\n\nVariable\nDescription\nType\n\n\n\n\npatient_id\nUnique identifier for each patient\nID\n\n\nage\nPatient age in years\nContinuous\n\n\nbmi\nBody mass index (weight relative to height)\nContinuous\n\n\nsurgery_duration\nDuration of surgery in minutes\nContinuous\n\n\nsurgery_type\nType of surgery (Elective or Emergency)\nCategorical\n\n\ncomplication\nWhether a post-operative complication occurred (1 = yes, 0 = no) — outcome\nBinary"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-2-tasks-12",
+    "href": "lectures/Lecture13/Slide13.html#practice-2-tasks-12",
+    "title": "Logistic Regression",
+    "section": "Practice 2: Tasks (1/2)",
+    "text": "Practice 2: Tasks (1/2)\nNow it’s your turn. Fit a multiple logistic regression model using all four predictors, then interpret what each coefficient tells you about complication risk.\nTask 1: Run multiple logistic regression\n\nmodel_surg &lt;- glm(complication ~ ___ + ___ + ___ + ___,\n                  data = ___,\n                  family = ___)\nsummary(___)\n\n\n Task 2: Interpret odds ratios\n\nround(___(___(model_surg)), 3)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#practice-2-tasks-22",
+    "href": "lectures/Lecture13/Slide13.html#practice-2-tasks-22",
+    "title": "Logistic Regression",
+    "section": "Practice 2: Tasks (2/2)",
+    "text": "Practice 2: Tasks (2/2)\nTask 3: Predict for three patient profiles\nSuppose we have three new patient profiles. Using the multiple logistic regression model you just fitted, predict each patient’s probability of experiencing a post-surgery complication.\n\nPatient A — age 45, BMI 24, 90-min elective surgery\nPatient B — age 65, BMI 30, 150-min elective surgery\nPatient C — age 80, BMI 38, 210-min emergency surgery\n\n\npatient_profiles &lt;- data.frame(\n  age = c(___, ___, ___),\n  bmi = c(___, ___, ___),\n  surgery_duration = c(___, ___, ___),\n  surgery_type = c(___, ___, ___)\n)\npatient_profiles$predicted_prob &lt;- predict(___, newdata = ___, type = ___)\npatient_profiles"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#key-takeaways",
+    "href": "lectures/Lecture13/Slide13.html#key-takeaways",
+    "title": "Logistic Regression",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nLogistic regression is for explaining or predicting binary outcomes\n\nUse glm() with family = binomial in R\n\nCoefficients are log odds ratios. Exponentiate with exp() to get odds ratios\n\nOdds ratio &lt; 1 = decreases risk; OR = 1 = no effect; OR &gt; 1 = increases risk\n\nIn multiple regression, each coefficient shows the individual effect holding other variables constant\nAccuracy measures the overall percentage of correct predictions\n\nThe confusion matrix is helpful to understand where errors occur\nIn healthcare, consider which type of error (false positive vs. false negative) is more costly for your specific application"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#assignments",
+    "href": "lectures/Lecture13/Slide13.html#assignments",
+    "title": "Logistic Regression",
+    "section": "Assignments",
+    "text": "Assignments\n\nWeek 13 Reflection: Please share your thoughts on the lecture\n\n\n3 interesting things\n3 confusing or unclear things\n\nDue by 11:59 PM on Sunday, April 12.\n\n 2. Lab Assignment 6: Logistic Regression\nWe will postpone this assignment (will inform you next week)"
+  },
+  {
+    "objectID": "lectures/Lecture13/Slide13.html#references",
+    "href": "lectures/Lecture13/Slide13.html#references",
+    "title": "Logistic Regression",
+    "section": "References",
+    "text": "References\n\n\nHosmer, D. W., Lemeshow, S., & Sturdivant, R. X. (2013). Applied Logistic Regression (3rd ed.). Wiley.\nWeiss, M. E., Piacentine, L. B., Lokken, L., Ancona, J., Archer, J., Ber, S., … & Vega-Stromberg, T. (2007). Perceived readiness for hospital discharge in adult medical-surgical patients. Clinical Nurse Specialist, 21(1), 31-42.\nWang, X., Juntasopeepun, P., Panuthai, S., & Suwankruhasn, N. (2025). Factors influencing medication adherence among Chinese older adults with physical multimorbidity and polypharmacy: A cross-sectional study. Nursing & Health Sciences, 27(3), e70192.\nDharap, S. B., Barbaniya, P., & Navgale, S. (2022). Incidence and risk factors of postoperative complications in general surgery patients. Cureus, 14(11), e30975."
   }
 ]
