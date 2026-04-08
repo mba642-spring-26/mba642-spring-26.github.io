@@ -1319,7 +1319,7 @@ $$\text{Probability} = \frac{\text{Odds}}{1 + \text{Odds}}$$
 ### Simple vs. Multiple Logistic Regression
 
 | Aspect         | Simple              | Multiple                               |
-|----------------------|----------------------|----------------------------|
+|----------------|---------------------|----------------------------------------|
 | Predictors     | One                 | Two or more                            |
 | Interpretation | Direct effect       | Effect controlling for other variables |
 | Use case       | Initial exploration | Comprehensive modeling                 |
@@ -1347,7 +1347,7 @@ Examples are motivated by the following:
 
 -   Weiss, M. E., Piacentine, L. B., Lokken, L., Ancona, J., Archer, J., Ber, S., ... & Vega-Stromberg, T. (2007). Perceived readiness for hospital discharge in adult medical-surgical patients. *Clinical Nurse Specialist*, 21(1), 31-42. https://doi.org/10.1097/00002800-200701000-00006
 
--   Wang, W., Gong, Y., Zhang, W., Zhong, Z., Xu, P., Hu, Y., & Chen, H. (2025). Factors influencing medication adherence among Chinese older adults with physical multimorbidity and polypharmacy: A cross‐sectional study. *Nursing & Health Sciences*. https://doi.org/10.1111/nhs.70192
+-   Wang, X., Juntasopeepun, P., Panuthai, S., & Suwankruhasn, N. (2025). Factors influencing medication adherence among Chinese older adults with physical multimorbidity and polypharmacy: A cross-sectional study. *Nursing & Health Sciences*, 27(3), e70192. https://doi.org/10.1111/nhs.70192
 
 -   Sheikh, S., Booth-Norse, A., Smotherman, C., Kalynych, C., Lukens-Bull, K., Guerrido, E., Henson, M., Gautam, S., & Hendry, P. (2020). Predicting pain-related 30-day emergency department return visits in middle-aged and older adults. *Pain Medicine*, 21(11), 2748-2756. https://pmc.ncbi.nlm.nih.gov/articles/PMC8557807/
 
