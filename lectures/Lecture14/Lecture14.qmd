@@ -1,8 +1,8 @@
 ---
 title: "Conjoint Analysis in Healthcare Management"
 subtitle: "MBA642: Business Analytics in Healthcare Management"
-Week: "Week 14"
-date: 04/13/2026
+Week: "Week 15"
+date: 04/20/2026
 format:
   html:
     toc: true
@@ -114,7 +114,7 @@ Research has shown that employees often struggle with this decision due to the c
 Our example uses three key attributes that consistently appear in health plan conjoint studies:
 
 | Attribute         | Level 1 | Level 2 | Why It Matters                        |
-|----------------|----------------|----------------|-----------------------|
+|-------------------|---------|---------|---------------------------------------|
 | Monthly Premium   | \$200   | \$300   | Direct, visible cost paid every month |
 | Annual Deductible | \$500   | \$1,500 | Amount paid before insurance kicks in |
 | Network Size      | Large   | Small   | Access to preferred doctors/hospitals |
@@ -201,7 +201,7 @@ head(rating_insurance, 10)
 The `rating_insurance` dataset has 800 observations (100 respondents × 8 profiles each):
 
 | Variable | Description |
-|-------------------------------|----------------------------------------|
+|----|----|
 | `respondent_id` | Unique identifier for each survey respondent (1 to 100) |
 | `profile_id` | Identifier for each insurance plan profile (1 to 8) |
 | `premium` | Monthly premium cost in dollars (200 or 300) |
@@ -582,7 +582,7 @@ head(rating_telehealth, 10)
 The `rating_telehealth` dataset contains 800 observations (100 respondents × 8 profiles each).
 
 | Variable | Description | Type |
-|------------------------|-------------------------------|-----------------|
+|----|----|----|
 | `respondent_id` | Unique identifier (1-100) | Numeric |
 | `profile_id` | Profile identifier (1-8) | Numeric |
 | `wait_sameday` | Binary indicator (1 = Same-day, 0 = 3 days) | Numeric (binary) |
@@ -756,7 +756,7 @@ In other words, we need to clarify **what each respondent saw and chose in each 
 The dataset must have this structure:
 
 | Column | Description |
-|----------------------------|--------------------------------------------|
+|----|----|
 | `choice_set` | Identifier linking alternatives in the same set (e.g., "1_1" = respondent 1, choice set 1) |
 | `alternative` | Label for each option (e.g., A, B) |
 | attribute columns | One column per attribute (e.g., `premium`, `deductible`, `network_large`) |
@@ -1034,7 +1034,7 @@ As healthcare systems become more competitive, understanding what drives patient
 You'll analyze patient preferences for primary care clinics using **choice-based conjoint analysis** with four key attributes:
 
 | Attribute | Level 1 | Level 2 | Why It Matters |
-|----------------|----------------|----------------|-----------------------|
+|----|----|----|----|
 | Distance from Home | 5 minutes | 25 minutes | Travel convenience |
 | Appointment Wait | Same-week | 3 weeks | Access to care |
 | Provider Type | MD (Physician) | NP (Nurse Practitioner) | Professional credentials |
@@ -1057,7 +1057,7 @@ head(clinic_long, 8)
 The `clinic_long` dataset contains 1,600 rows (100 respondents × 8 choice sets × 2 alternatives per set).
 
 | Variable | Description | Type |
-|------------------------|-------------------------------|-----------------|
+|----|----|----|
 | `choice_set` | Unique choice set identifier (e.g., "1_1") | Character |
 | `alternative` | Alternative label (A or B) | Character |
 | `distance_5min` | Binary (1 = 5 min away, 0 = 25 min away) | Numeric (binary) |
@@ -1195,7 +1195,7 @@ cat("Clinic B (Far, MD, Lower copay): ", round(share_B_clinic * 100, 1), "%\n")
 ## Two Approaches, Same Goal
 
 | Aspect | Rating-Based | Choice-Based |
-|------------------|:-------------------------:|:-------------------------:|
+|----|:--:|:--:|
 | Data Collection | Rate each profile (e.g., 1-10 scale) | Choose preferred option from a set |
 | Analysis Method | OLS Linear Regression (`lm`) | Multinomial Logit (`mlogit`) |
 | Data Format | One row per profile per respondent | Long format (one row per alternative) |
