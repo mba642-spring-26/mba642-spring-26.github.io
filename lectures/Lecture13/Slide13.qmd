@@ -1,15 +1,15 @@
 ---
 title: "Logistic Regression"
-subtitle: "Week 13"
+subtitle: "Week 14"
 author: ""
-date: "2026-04-8"
+date: "2026-04-15"
 format:
   revealjs:
     theme: [default, custom.scss]
     slide-number: true
     preview-links: auto
     logo: ""
-    footer: "Week 13 | Logistic Regression"
+    footer: "Week 14 | Logistic Regression"
     scrollable: true
     incremental: false
     code-line-numbers: false
@@ -1019,18 +1019,14 @@ patient_profiles
 
 ## Assignments
 
-1.  **Week 13 Reflection**: Please share your thoughts on the lecture
+1.  **Week 14 Reflection**: Please share your thoughts on the lecture
 
 -   3 interesting things
 -   3 confusing or unclear things
 
-Due by 11:59 PM on Sunday, April 12.
+2.  **Lab Assignment 6**: Logistic Regression
 
-. . .
-
-<br> 2. **Lab Assignment 6**: Logistic Regression
-
-We will postpone this assignment (will inform you next week)
+Both are due by 11:59 PM on Sunday, April 19.
 
 ## References
 

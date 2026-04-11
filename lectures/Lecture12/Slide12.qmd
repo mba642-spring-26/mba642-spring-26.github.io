@@ -1,6 +1,6 @@
 ---
 title: "Linear Regression 2: <br> Dummy Variables and Interaction Effects"
-subtitle: "Week 12"
+subtitle: "Week 12 and Week 13"
 author: ""
 date: "2026-04-01"
 format:
@@ -1180,16 +1180,23 @@ probe_interaction(model_it_los,
 
 1.  **Week 12 Reflection**: Please share your thoughts on the lecture
 
-- 3 interesting things
-- 3 confusing or unclear things
+-   3 interesting things
+-   3 confusing or unclear things
 
 Due by 11:59pm on Sunday, April 5.
 
+## Assignments
+
+2. **Week 13 Reflection**: Please share your thoughts on the lecture
+
+-   3 interesting things
+-   3 confusing or unclear things
+
 <br>
 
-2.  **Lab Assignment 5**: Linear Regression
+3.  **Lab Assignment 5**: Linear Regression
 
-Due by 11:59pm on Sunday, April 12.
+Both are due by 11:59pm on Sunday, April 12.
 
 ## References
 

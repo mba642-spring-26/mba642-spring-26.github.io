@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression 2: Dummy Variables and Interaction Effects"
 subtitle: "MBA642: Business Analytics in Healthcare Management"
-Week: "Week 12"
+Week: "Week 12 and Week 13"
 date: 03/30/2026
 format:
   html:
@@ -861,7 +861,7 @@ head(quality_data, 5)
 **Dataset Variables:**
 
 | Variable | Description | Type |
-|------------------------|-------------------------------|-----------------|
+|------------------------|------------------------------|------------------|
 | `hospital_id` | Unique hospital identifier | Numeric |
 | `region` | Geographic region (Midwest, Northeast, South, West) | Categorical |
 | `teaching_status` | Hospital type (Non-Teaching or Teaching) | Categorical |

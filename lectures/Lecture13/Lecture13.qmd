@@ -1,8 +1,8 @@
 ---
 title: "Logistic Regression: Predicting Binary Outcomes in Healthcare"
 subtitle: "MBA642: Business Analytics in Healthcare Management"
-Week: "Week 13"
-date: 04/06/2026
+Week: "Week 14"
+date: 04/13/2026
 format:
   html:
     toc: true
