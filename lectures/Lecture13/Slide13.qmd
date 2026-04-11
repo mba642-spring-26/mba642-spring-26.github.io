@@ -361,7 +361,7 @@ head(readmit_data, 3)
 ## Key Variables
 
 | Variable | Description | Type |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `patient_id` | Unique identifier for each patient | ID |
 | `discharge_readiness` | Discharge readiness score (1-10, higher = more ready) | Continuous |
 | `age` | Patient age in years | Continuous |
@@ -584,7 +584,7 @@ Our model gives us **probabilities**, but in practice we often need to make **bi
 The confusion matrix has four possible outcomes:
 
 |   | **Actual: Not Readmitted** | **Actual: Readmitted** |
-|:---|:--:|:--:|
+|:-----------------------|:----------------------:|:----------------------:|
 | **Predicted: Not Readmitted** | True Negative (TN) | False Negative (FN) |
 | **Predicted: Readmitted** | False Positive (FP) | True Positive (TP) |
 
@@ -659,7 +659,7 @@ head(adherence_data, 5)
 ## Practice 1: Key Variables
 
 | Variable | Description | Type |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `patient_id` | Unique identifier for each patient | ID |
 | `num_medications` | Number of medications the patient is taking | Continuous |
 | `adherent` | Whether the patient is adherent to medication (1 = yes, 0 = no) — **outcome** | Binary |
@@ -943,7 +943,7 @@ head(surgery_data, 5)
 Before we build the model, let's review the variables we'll be working with:
 
 | Variable | Description | Type |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `patient_id` | Unique identifier for each patient | ID |
 | `age` | Patient age in years | Continuous |
 | `bmi` | Body mass index (weight relative to height) | Continuous |
@@ -1023,6 +1023,8 @@ patient_profiles
 
 -   3 interesting things
 -   3 confusing or unclear things
+
+<br>
 
 2.  **Lab Assignment 6**: Logistic Regression
 
