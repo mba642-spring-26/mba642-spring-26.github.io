@@ -1,6 +1,6 @@
 ---
 title: "Lab Assignment 6: Logistic Regression"
-subtitle: "Week 13"
+subtitle: "Week 14"
 author: "Your Name Here"
 format:
   html:
@@ -53,7 +53,7 @@ This assignment assesses your ability to:
 # Grading Rubric
 
 | Task | Points | Breakdown |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Task 1: Simple Logistic Regression | 4 | 0.5 visualization + 0.5 model + 0.5 odds ratio + 0.5 prediction + 2 interpretation |
 | Task 2: Multiple Logistic Regression | 3 | 0.5 model + 0.5 odds ratio table + 0.5 patient profiles + 1.5 interpretation |
 | Task 3: Classification & Evaluation | 3 | 0.5 confusion matrix + 0.5 accuracy + 2 interpretation |
@@ -100,7 +100,7 @@ head(fall_data, 5)
 **Key variables**:
 
 | Variable | Description | Type |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `mobility_score` | Mobility assessment (1-10, higher = better mobility) | Continuous |
 | `age` | Patient age in years | Continuous |
 | `num_medications` | Number of medications the patient is taking | Continuous |
@@ -337,7 +337,7 @@ Before submitting, verify:
 # Points Summary
 
 | Task | Points | Topic | Method |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | Task 1 | 4.0 | Patient fall risk factors | Simple Logistic Regression |
 | Task 2 | 3.0 | Comprehensive fall risk model | Multiple Logistic Regression & Odds Ratios |
 | Task 3 | 3.0 | Classification performance | Confusion Matrix & Accuracy |

@@ -9243,7 +9243,7 @@
     "href": "lectures/Lecture13/Slide13.html#step-3-predicting-probabilities",
     "title": "Logistic Regression",
     "section": "Step 3: Predicting Probabilities",
-    "text": "Step 3: Predicting Probabilities\nWe can use the logistic regression model to get a predicted probability. For a patient with discharge readiness = 5:\n\nLog odds = -0.183 + (-0.181) x 5 = -1.0898\nOdds = \\(e^{-1.0898}\\) = 0.3363\nProbability = 0.3363 / (1 + 0.3363) = 0.2517 (25.2%)"
+    "text": "Step 3: Predicting Probabilities\nWe can use the logistic regression model to get a predicted probability. For a patient with discharge readiness = 5:\n\nLog odds = -0.183 + (-0.181) x 5 = -1.088\nOdds = \\(e^{-1.088}\\) = 0.3369\nProbability = 0.3369 / (1 + 0.3369) = 0.252 (25.2%)"
   },
   {
     "objectID": "lectures/Lecture13/Slide13.html#step-4-using-rs-predict-function",
@@ -9369,7 +9369,7 @@
     "href": "lectures/Lecture13/Slide13.html#making-predictions-manual-calculation",
     "title": "Logistic Regression",
     "section": "Making Predictions: Manual Calculation",
-    "text": "Making Predictions: Manual Calculation\nLet’s predict readmission probability for a patient manually:\n\nDischarge readiness = 6, Age = 65, Comorbidities = 2, Insurance = Medicare\n\n\nLog odds = -2.183 + (-0.218) x 6 + (0.034) x 65 + (0.407) x 2 + (-1.188) x 1 = -1.6349\nOdds = \\(e^{-1.6349}\\) = 0.195\nProbability = 0.195 / (1 + 0.195) = 0.1632 (16.3%)"
+    "text": "Making Predictions: Manual Calculation\nLet’s predict readmission probability for a patient manually:\n\nDischarge readiness = 6, Age = 65, Comorbidities = 2, Insurance = Medicare\n\n\nLog odds = -2.183 + (-0.218) x 6 + (0.034) x 65 + (0.407) x 2 + (-1.188) x 1 = -1.655\nOdds = \\(e^{-1.655}\\) = 0.1911\nProbability = 0.1911 / (1 + 0.1911) = 0.1604 (16%)"
   },
   {
     "objectID": "lectures/Lecture13/Slide13.html#making-predictions-using-predict",
@@ -9425,14 +9425,14 @@
     "href": "lectures/Lecture13/Slide13.html#key-takeaways",
     "title": "Logistic Regression",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\n\nLogistic regression is for explaining or predicting binary outcomes\n\nUse glm() with family = binomial in R\n\nCoefficients are log odds ratios. Exponentiate with exp() to get odds ratios\n\nOdds ratio &lt; 1 = decreases risk; OR = 1 = no effect; OR &gt; 1 = increases risk\n\nIn multiple regression, each coefficient shows the individual effect holding other variables constant\nAccuracy measures the overall percentage of correct predictions\n\nThe confusion matrix is helpful to understand where errors occur\nIn healthcare, consider which type of error (false positive vs. false negative) is more costly for your specific application"
+    "text": "Key Takeaways\n\nLogistic regression is for explaining or predicting binary outcomes\n\nUse glm() with family = binomial in R\n\nCoefficients are log odds ratios. Exponentiate with exp() to get odds ratios\n\nOdds ratio &lt; 1 = decreases risk; OR = 1 = no effect; OR &gt; 1 = increases risk\n\nIn multiple logistic regression, each coefficient shows the individual effect holding other variables constant\nAccuracy measures the overall percentage of correct predictions\n\nThe confusion matrix is helpful to understand where errors occur\nIn healthcare, consider which type of error (false positive vs. false negative) is more costly for your specific application"
   },
   {
     "objectID": "lectures/Lecture13/Slide13.html#assignments",
     "href": "lectures/Lecture13/Slide13.html#assignments",
     "title": "Logistic Regression",
     "section": "Assignments",
-    "text": "Assignments\n\nWeek 14 Reflection: Please share your thoughts on the lecture\n\n\n3 interesting things\n3 confusing or unclear things\n\n\n\nLab Assignment 6: Logistic Regression\n\nBoth are due by 11:59 PM on Sunday, April 19."
+    "text": "Assignments\n\nWeek 14 Reflection: Please share your thoughts on the lecture\n\n\n3 interesting things\n3 confusing or unclear things\n\n\n 2. Lab Assignment 6: Logistic Regression\n\nBoth are due by 11:59 PM on Sunday, April 19."
   },
   {
     "objectID": "lectures/Lecture13/Slide13.html#references",

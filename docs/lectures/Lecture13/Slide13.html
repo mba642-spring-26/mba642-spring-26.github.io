@@ -730,9 +730,9 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <h2>Step 3: Predicting Probabilities</h2>
 <p>We can use the logistic regression model to get a predicted probability. For a patient with discharge readiness = 5:</p>
 <ol type="1">
-<li class="fragment"><strong>Log odds</strong> = -0.183 + (-0.181) x 5 = -1.0898</li>
-<li class="fragment"><strong>Odds</strong> = <span class="math inline">\(e^{-1.0898}\)</span> = 0.3363</li>
-<li class="fragment"><strong>Probability</strong> = 0.3363 / (1 + 0.3363) = 0.2517 (<strong>25.2%</strong>)</li>
+<li class="fragment"><strong>Log odds</strong> = -0.183 + (-0.181) x 5 = -1.088</li>
+<li class="fragment"><strong>Odds</strong> = <span class="math inline">\(e^{-1.088}\)</span> = 0.3369</li>
+<li class="fragment"><strong>Probability</strong> = 0.3369 / (1 + 0.3369) = 0.252 (<strong>25.2%</strong>)</li>
 </ol>
 </section>
 <section id="step-4-using-rs-predict-function" class="slide level2">
@@ -1124,9 +1124,9 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <li>Discharge readiness = 6, Age = 65, Comorbidities = 2, Insurance = Medicare</li>
 </ul>
 <ol type="1">
-<li class="fragment"><strong>Log odds</strong> = -2.183 + (-0.218) x 6 + (0.034) x 65 + (0.407) x 2 + (-1.188) x 1 = -1.6349</li>
-<li class="fragment"><strong>Odds</strong> = <span class="math inline">\(e^{-1.6349}\)</span> = 0.195</li>
-<li class="fragment"><strong>Probability</strong> = 0.195 / (1 + 0.195) = 0.1632 (<strong>16.3%</strong>)</li>
+<li class="fragment"><strong>Log odds</strong> = -2.183 + (-0.218) x 6 + (0.034) x 65 + (0.407) x 2 + (-1.188) x 1 = -1.655</li>
+<li class="fragment"><strong>Odds</strong> = <span class="math inline">\(e^{-1.655}\)</span> = 0.1911</li>
+<li class="fragment"><strong>Probability</strong> = 0.1911 / (1 + 0.1911) = 0.1604 (<strong>16%</strong>)</li>
 </ol>
 </section>
 <section id="making-predictions-using-predict" class="slide level2">
@@ -1323,7 +1323,7 @@ Predicted   0   1
 <ul>
 <li class="fragment"><strong>Odds ratio &lt; 1</strong> = decreases risk; <strong>OR = 1</strong> = no effect; <strong>OR &gt; 1</strong> = increases risk</li>
 </ul></li>
-<li class="fragment">In <strong>multiple regression</strong>, each coefficient shows the <strong>individual effect</strong> holding other variables constant</li>
+<li class="fragment">In <strong>multiple logistic regression</strong>, each coefficient shows the <strong>individual effect</strong> holding other variables constant</li>
 <li class="fragment"><strong>Accuracy</strong> measures the overall percentage of correct predictions
 <ul>
 <li class="fragment">The <strong>confusion matrix</strong> is helpful to understand where errors occur</li>
@@ -1340,11 +1340,11 @@ Predicted   0   1
 <li>3 interesting things</li>
 <li>3 confusing or unclear things</li>
 </ul>
+<div class="fragment">
+<p><br> 2. <strong>Lab Assignment 6</strong>: Logistic Regression</p>
 <p><br></p>
-<ol start="2" type="1">
-<li><strong>Lab Assignment 6</strong>: Logistic Regression</li>
-</ol>
 <p>Both are due by 11:59 PM on Sunday, April 19.</p>
+</div>
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>
