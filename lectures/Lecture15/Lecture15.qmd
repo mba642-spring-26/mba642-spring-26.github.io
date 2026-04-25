@@ -1,9 +1,9 @@
 ---
-title: "Penalized Regression in Healthcare Analytics (Lecture Notes)"
+title: "Penalized Regression in Healthcare Analytics"
 subtitle: " "
 author: ""
-Week: "Week 14"
-date: 01/01/2026
+Week: "Week 16"
+date: 04/27/2026
 format:
   html:
     toc: true
@@ -13,7 +13,7 @@ format:
     code-fold: false
     code-tools: false
     code-copy: true
-    theme: custom-theme.scss
+    theme: [lecture.scss, cosmo]
     highlight-style: github
     mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
     fontsize: 1.1em
@@ -51,7 +51,7 @@ set.seed(2026)
 
 ## Prediction vs. Explanation: A Critical Distinction
 
-In previous courses, we learned to use regression to **explain** why things happen (e.g., understand which factors cause higher costs or worse outcomes). This module takes a different approach: we focus on **prediction**, how we can more accurately predict outcomes, rather than explanation.
+In previous courses, we learned to use regression to **explain** why things happen (e.g., understand which factors cause higher costs or worse outcomes). This module takes a different approach: we focus on **prediction**, how we can **more accurately predict** outcomes, rather than explanation.
 
 **What's the difference?**
 
@@ -70,23 +70,23 @@ Healthcare managers routinely need accurate forecasts:
 
 Traditional regression often fails at prediction when we have many potential factors to consider, like age, diagnoses, medications, prior utilization, and more. With dozens or hundreds of variables, standard methods either break down mathematically or produce unreliable forecasts.
 
-**Penalized regression** addresses this by penalizing overly complex models: it automatically reduces the influence of less important variables (sometimes to zero), keeping only what matters for prediction. 
+**Penalized regression** addresses this by penalizing overly complex models: it automatically reduces the influence of less important variables (sometimes to zero), keeping only what matters for prediction.
 
 ## Learning Objectives
 
 By the end of this module, you will be able to:
 
-1. **Distinguish** between prediction and explanation, and recognize when each approach is appropriate for healthcare management decisions
+1.  **Distinguish** between prediction and explanation, and recognize when each approach is appropriate for healthcare management decisions
 
-2. **Explain** why standard regression struggles with prediction when you have many potential factors, and how penalized regression addresses this challenge
+2.  **Explain** why standard regression struggles with prediction when you have many potential factors, and how penalized regression addresses this challenge
 
-3. **Compare** the three main types of penalized regression (Ridge, LASSO, and Elastic Net) and choose the right method for different situations
+3.  **Compare** the three main types of penalized regression (Ridge, LASSO, and Elastic Net) and choose the right method for different situations
 
-4. **Build** penalized regression models in R to predict healthcare outcomes like costs and readmissions
+4.  **Build** penalized regression models in R to predict healthcare outcomes like costs and readmissions
 
-5. **Interpret** prediction results appropriately, understanding what the model tells you (future outcomes) and what it doesn't tell you (causal relationships)
+5.  **Interpret** prediction results appropriately, understanding what the model tells you (future outcomes) and what it doesn't tell you (causal relationships)
 
----
+------------------------------------------------------------------------
 
 # Conceptual Foundations
 
@@ -120,35 +120,31 @@ We square the prediction errors (so positive and negative errors don't cancel ou
 
 This approach works excellently when:
 
-- We have many more observations than predictors ($n >> p$)
+- We have many more observations than predictors ($n \gg p$)
 - Predictors are not highly correlated with each other
-- Our primary goal is to understand relationships (statistical inference)
+- Our primary goal is to understand relationships and statistical inference (how each predictor affects the outcome)
 
-However, modern healthcare analytics often violates these conditions, leading to several major problems.
+However, many healthcare analytics applications violate these conditions, leading to several major problems.
 
-##  Problems with Standard Regression in Healthcare
+## Problems with Standard Regression in Healthcare
 
-1. Related variables create confusion
+1.  Related variables create confusion
 
 - Healthcare factors naturally cluster together. For example, diabetes patients often have high blood pressure and obesity, patients with many doctor visits also have many prescriptions, etc.
 
-- When variables are related, standard regression can't determine which one truly drives the outcome. This leads to unstable results: coefficients can become wildly inflated, have wrong signs, or change dramatically with small data changes. 
+- When variables are related, standard regression can't determine which one truly drives the outcome. This leads to unstable results: coefficients can become wildly inflated, have wrong signs, or change dramatically with small data changes.
 
-
-2. Too many variables, too few observations
+2.  Too many variables, too few observations
 
 - Healthcare data often has hundreds of potential predictors (diagnosis codes, medications, lab tests) but limited patients. For example, a hospital might have 300 patients but 250 potential predictor variables (or even more predictors than patients)
 
-- The result: the model "memorizes" your specific patients rather than learning general patterns (overfitting). It predicts your current patients perfectly but fails miserably on new patients.
+- Then, the model "memorizes" your specific patients rather than learning general patterns (overfitting). It predicts your current patients perfectly but fails miserably on new patients.
 
-
-3. Hard to identify what factors are really important
+3.  Hard to identify what factors are really important
 
 - Standard regression uses *every* variable you give it, even irrelevant ones. You end up with all hundreds of variables in your model.
 
 - Healthcare organizations need interpretable, actionable models (clinicians can't use hundreds of factors to make decisions).
-
-
 
 ## The Solution: Penalized Regression
 
@@ -160,7 +156,7 @@ We do this by modifying the OLS objective function:
 
 $$\text{Minimize: } SSE + \lambda \times \text{Penalty}$$
 
-*In plain language, find coefficients that balance [prediction accuracy] + [penalty for model complexity]*
+In plain language, find coefficients that balance **prediction accuracy** + **penalty for model complexity**
 
 Where:
 
@@ -170,22 +166,21 @@ Where:
 
 ### How the Penalty Helps
 
-**Why does the penalty improve predictions?** Without constraints, standard regression overfits—it "memorizes" the quirks of your specific patients rather than learning general patterns. The penalty prevents this by keeping the model simple enough to work well on new patients. Think of it like studying concepts versus memorizing answers: concepts work on new problems, memorization doesn't.
+**Why does the penalty improve predictions?** Without constraints, standard regression overfits; it "memorizes" the idiosyncrasies of your specific patients rather than learning general patterns. The penalty prevents this by keeping the model simple enough to work well on new patients. Think of it like studying concepts versus memorizing answers: concepts work on new problems, memorization doesn't.
 
 The penalty term creates a tradeoff:
 
-- **Making SSE smaller** (better fit) typically requires larger, more complex coefficients
-- **Making the penalty smaller** requires smaller coefficients
+- **Making SSE smaller** (better fit) typically requires larger, more complex coefficients (lower bias, higher variance)
+- **Making the penalty smaller** requires smaller coefficients (higher bias, lower variance)
 - **The optimal solution balances** these competing goals: slightly worse fit on your current data in exchange for better predictions on new patients
 
 **How this addresses each problem**:
 
-- **Handles correlated variables**: When variables are related (like diabetes, obesity, and blood pressure), the penalty prevents coefficients from becoming wildly inflated. 
+- **Handles correlated variables**: When variables are related (like diabetes, obesity, and blood pressure), the penalty prevents OLS's typical instability; exaggerated coefficients, lost significance, or sign flips relative to single-variable models.
 
 - **Prevents overfitting with many variables**: The penalty stops the model from "memorizing" your specific patients. By shrinking coefficients, it forces the model to focus only on the strongest, most reliable patterns that will generalize to new patients.
 
 - **Automatic variable selection (LASSO)**: The L1 penalty pushes weak predictors to exactly zero, eliminating them from the model entirely. You end up with a small set of important variables instead of hundreds.
-
 
 ### The Role of Lambda (λ)
 
@@ -196,10 +191,10 @@ The tuning parameter λ controls how much we care about the penalty:
 - **Large λ**: Heavy penalty, coefficients shrunk toward zero
 - **λ → ∞**: All coefficients forced to zero (except intercept)
 
-We need to choose λ carefully (too small and we don't solve our problems; too large and we throw away useful information). We'll discuss how to select λ using cross-validation later.
+We need to choose λ carefully (too small and we don't solve our problems; too large and we throw away useful information). We'll discuss how to select λ in practice (using cross-validation) after introducing the three penalized regression methods.
 
+# Penalized Regression Models
 
-# Penalized Regression Models 
 ## Ridge Regression: The L2 Penalty
 
 Now let's examine the first specific type of penalized regression: Ridge regression. This method addresses multicollinearity and overfitting by shrinking all coefficients toward zero.
@@ -212,87 +207,59 @@ $$\text{Minimize: } \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 + \lambda \sum_{j=1}^{p} 
 
 The penalty term $\sum_{j=1}^{p} \beta_j^2$ is called the **L2 penalty** or **squared penalty** because we're summing squared coefficients.
 
-
 **What this formula says:**
 
 "Find the coefficients that make predictions accurate (small SSE) while also keeping coefficients small (small sum of squared betas). The parameter λ controls how much we care about keeping coefficients small."
-
 
 ### How Ridge Regression Works
 
 Ridge regression works by gently discouraging large coefficients. Instead of allowing the model to rely too heavily on any single predictor, it nudges all coefficients toward smaller values. This has several important consequences.
 
-1. Ridge regression shrinks all coefficients toward zero, but does not remove variables.
+1.  Ridge regression shrinks all coefficients toward zero, but does not remove variables.
 
-As the penalty becomes stronger, coefficient values get smaller and smaller. However, they do not drop all the way to zero. This means Ridge regression keeps all predictors in the model, but limits how strongly each one can influence the outcome. 
+As the penalty becomes stronger, coefficient values get smaller and smaller. However, they do not drop all the way to zero. This means Ridge regression keeps all predictors in the model, but limits how strongly each one can influence the outcome.
 
-2. Larger coefficients are shrunk more than smaller ones.
+2.  Larger coefficients are shrunk more than smaller ones.
 
 Ridge regression is especially uncomfortable with very large coefficients. If one predictor has a much larger effect than others, the penalty pushes it down more strongly. Smaller coefficients are affected less. This helps prevent the model from overreacting to noise or peculiarities in the data.
 
-3. Ridge regression handles correlated predictors smoothly.
+3.  Ridge regression handles correlated predictors smoothly.
 
 When predictors are highly correlated, ordinary regression often struggles to decide which one deserves credit, leading to unstable or counterintuitive estimates. Ridge regression avoids this problem by sharing the effect across correlated variables. Instead of picking one variable and inflating its coefficient, it assigns moderate coefficients to both, producing more sensible and reliable results.
-
 
 ### Visual Understanding: The Constraint Region
 
 One of the best ways to understand Ridge regression is geometrically. Imagine we have just two predictors, so we're looking for β₁ and β₂.
 
-![[LASSO and Ridge Penalty](https://towardsdatascience.com/courage-to-learn-ml-unraveling-l1-l2-regularization-part-2-1bb171e43b35/)](https://towardsdatascience.com/wp-content/uploads/2023/11/1VdcJFf5CEOsXojxHG9b9Yw.jpeg) 
-
+![[LASSO and Ridge Penalty](https://towardsdatascience.com/courage-to-learn-ml-unraveling-l1-l2-regularization-part-2-1bb171e43b35/)](https://towardsdatascience.com/wp-content/uploads/2023/11/1VdcJFf5CEOsXojxHG9b9Yw.jpeg)
 
 **Understanding the figure:**
 
 - **Red ellipses**: Contour lines of SSE. The center is where SSE is minimized (the OLS solution). Moving away from the center increases SSE.
 
-- **Blue shaded region**: The constraint region - all combinations of β₁ and β₂ that satisfy the penalty constraint. For Ridge, this is a circle because we're constraining $\beta_1^2 + \beta_2^2 \leq c$ (equation of a circle).
+- **Blue shaded region**: The constraint region; all combinations of β₁ and β₂ that satisfy the penalty constraint. For Ridge, this is a circle because we're constraining $\beta_1^2 + \beta_2^2 \leq c$ (equation of a circle).
 
 - **The solution**: We want to be as close to the OLS center as possible (small SSE) while staying within the constraint region (small penalty). The Ridge solution is where the (smallest) ellipse touches the circle.
 
 **Key insight**: Because the constraint region is a circle, the solution rarely lands exactly on an axis. This means Ridge keeps all variables with non-zero coefficients.
 
-### Advantages of Ridge Regression
+### Advantages and Disadvantages of Ridge Regression
 
-**1. Handles correlated predictors well**
+Ridge's defining feature (shrinking but never removing predictors) is both its strength and its limitation. The same property that stabilizes correlated variables and protects against overfitting also makes the model hard to interpret and unable to discard noise.
 
-When predictors overlap heavily, Ridge regression avoids extreme or unstable estimates. Instead of forcing the model to “choose sides,” it spreads influence across related variables in a balanced way.
-
-**2. Reduces coefficient instability from multicollinearity**
-
-When predictors are correlated, ordinary regression produces unstable coefficient estimates that can change dramatically with small data changes. Ridge regression stabilizes these estimates by limiting how large they can grow.
-
-**3. Improves prediction accuracy on new data**
-
-By preventing overfitting to training data, Ridge regression often achieves better prediction performance on new, unseen patients compared to ordinary regression.
-
-**4. Keeps all relevant information**
-
-If most predictors are believed to matter at least a little, Ridge regression retains them all while preventing any single variable from dominating.
-
-### Disadvantages of Ridge Regression
-
-**1. Does not simplify the model**
-
-Ridge regression keeps every predictor in the model. When there are many variables, this can make the model hard to summarize or deploy.
-
-**2. Limited interpretability**
-
-Because effects are spread across many small coefficients, it is difficult to identify which predictors are truly important. Ridge is better suited for prediction than explanation.
-
-**3. Retains noisy predictors**
-
-Variables with no real signal are not removed, only weakened. When many such variables are present, their combined influence can reduce performance.
+| Advantages | Disadvantages |
+|----|----|
+| **Stabilizes correlated predictors.** Limits the coefficient inflation, lost significance, and sign flips that OLS produces under multicollinearity, spreading influence across related variables. | **Limited interpretability.** Effects are split across many small coefficients, making it hard to identify which predictors truly matter. Better suited for prediction than explanation. |
+| **Better prediction on new data.** The penalty prevents overfitting, often outperforming OLS on unseen patients. | **Retains noisy predictors.** Irrelevant variables are weakened but never removed; many noise variables together can still degrade performance. |
+| **Keeps all relevant information.** When most predictors plausibly matter at least a little, Ridge retains them all rather than discarding any. | **Hard to simplify or deploy.** Keeping every predictor makes the model unwieldy for clinical or operational use, where simpler models are often required. |
 
 ### When to Use Ridge Regression
 
 Ridge regression is best when:
 
 - Predictors are strongly correlated
-- Most variables are expected to carry some information
 - Prediction is the main goal (interpretation is less important)
-- The number of predictors is moderate rather than very large
-
+- Most variables are expected to carry some information (so, you don't need automatic variable selection)
 
 ## LASSO Regression: The L1 Penalty
 
@@ -304,50 +271,27 @@ LASSO adds a penalty based on the **absolute values** of coefficients:
 
 $$\text{Minimize: } \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 + \lambda \sum_{j=1}^{p} |\beta_j|$$
 
-The penalty term $\sum_{j=1}^{p} |\beta_j|$ is called the **L1 penalty** or **absolute value penalty**.
+The penalty term $\sum_{j=1}^{p} |\beta_j|$ is called the **L1 penalty** (because it is the L1 norm of the coefficient vector — the sum of absolute values).
 
 The critical difference from Ridge is that LASSO uses absolute values instead of squared values, which changes the geometry in a way that allows coefficients to become exactly zero.
 
 ### How LASSO Achieves Feature Selection
 
-LASSO’s key feature selection property comes from its constraint shape (see the figure above).
-The LASSO constraint has sharp corners along the axes. When the model searches for the best fit, it often lands on one of these corners—where one or more coefficients are exactly zero.
+LASSO's key feature selection property comes from its constraint shape (see the figure in the Ridge section above, which shows both the diamond-shaped LASSO constraint and the circular Ridge constraint).
+
+The LASSO constraint has sharp corners along the axes. When the model searches for the best fit, it often lands on one of these corners, where one or more coefficients are exactly zero.
 
 In contrast, Ridge regression uses a smooth, round constraint. This makes it unlikely for coefficients to be driven all the way to zero, so all predictors remain in the model.
 
+### Advantages and Disadvantages of LASSO Regression
 
-### Advantages of LASSO Regression
+LASSO's defining feature (setting weak coefficients exactly to zero) is both its strength and its limitation. The same property that produces sparse, interpretable models also forces arbitrary choices among correlated predictors and discards information from variables that carry partial signal.
 
-**1. Automatic feature selection**
-
-LASSO identifies a small set of important predictors and removes the rest, making it especially useful when many variables are available but only some are informative.
-
-**2. Interpretability**
-
-With fewer active predictors, the model’s logic is easier to understand and explain in practical terms.
-
-**3. Effective in high-dimensional settings**
-
-LASSO works even when the number of predictors exceeds the number of observations, which is common with diagnostic codes, procedures, or lab measures.
-
-**4. Controls overfitting**
-
-By excluding noisy predictors, LASSO reduces the risk of capturing patterns that do not generalize.
-
-### Disadvantages of LASSO Regression
-
-**1. Unstable with correlated predictors**
-
-When predictors are highly correlated, LASSO tends to select one and drop the others. Which variable is chosen can vary across samples, making interpretation fragile.
-
-**2. May discard useful information**
-
-By setting coefficients exactly to zero, LASSO can remove predictors that still carry some signal. In purely predictive tasks, Ridge may perform slightly better.
-
-**3. Selection is limited in very small samples**
-
-When the sample size is small, LASSO can only select a limited number of predictors, potentially missing relevant factors.
-
+| Advantages | Disadvantages |
+|----|----|
+| **Automatic feature selection.** Identifies a small set of important predictors and removes the rest, controlling overfitting and producing a sparse model that generalizes better. | **Unstable with correlated predictors.** When predictors are highly correlated, LASSO arbitrarily picks one and drops the others; which variable is chosen can vary across samples, making interpretation fragile. |
+| **Interpretability.** With fewer active predictors, the model's logic is easier to understand and explain in practical terms. | **May discard useful information.** Setting coefficients exactly to zero can eliminate predictors that still carry some signal. In purely predictive tasks, Ridge may perform slightly better. |
+| **Effective in high-dimensional settings.** Works even when the number of predictors exceeds the number of observations (p \> n), common with diagnostic codes, procedures, or lab measures. | **Selection limited in very small samples.** When the sample size is small, LASSO can only select a limited number of predictors, potentially missing relevant factors. |
 
 ### When to Use LASSO Regression
 
@@ -356,8 +300,7 @@ LASSO is best when:
 - Identifying key predictors is a primary goal
 - Simplicity and interpretability matters
 - You have many potential predictors and need feature selection
-- Predictors are not highly correlated 
-
+- Predictors are not highly correlated
 
 ## Elastic Net
 
@@ -374,15 +317,15 @@ Where:
 - **α (alpha)** controls the mix of L1 and L2 penalties
 - **α = 1**: Pure LASSO
 - **α = 0**: Pure Ridge
-- **0 < α < 1**: Elastic Net blend
+- **0 \< α \< 1**: Elastic Net blend
 
 ### How Elastic Net Handles Correlated Variables
 
 When predictors are strongly correlated, LASSO tends to select one and discard the rest, even if they all carry meaningful information. Ridge takes the opposite approach, keeping everything and shrinking coefficients together. Elastic Net sits between these two.
 
-The key idea is the grouping effect. Elastic Net tends to keep or remove groups of related variables together, rather than making arbitrary choices among them. The Ridge component encourages correlated predictors to stay together, while the LASSO component removes predictors (or groups) that contribute little to prediction.
+The key idea is **the grouping effect**. Elastic Net tends to keep or remove groups of related variables together, rather than making arbitrary choices among them. The Ridge component encourages correlated predictors (or groups) to stay together, while the LASSO component removes predictors (or groups) that contribute little to prediction.
 
-For example, imagine you include several variables that capture a patient's overall health status in different ways (e.g., past diagnoses, prior hospital use, overall medical complexity, etc.) along with many unrelated predictors. 
+For example, imagine you include several variables that capture a patient's overall health status in different ways (e.g., past diagnoses, prior hospital use, overall medical complexity, etc.) along with many unrelated predictors.
 
 - LASSO might keep one of these health measures and drop others
 - Ridge would keep all measures, including many irrelevant ones
@@ -390,52 +333,26 @@ For example, imagine you include several variables that capture a patient's over
 
 ### Tuning Elastic Net
 
-Elastic Net balances two competing goals: simplicity and stability. 
-It uses two parameters two control this balance. 
+Elastic Net balances two competing goals: simplicity and stability. It uses two parameters to control this balance.
 
-1. **λ (lambda)**: How strongly coefficients are penalized overall
-2. **α (alpha)**: How much the model behaves like LASSO vs. Ridge
+1.  **λ (lambda)**: How strongly coefficients are penalized overall
+2.  **α (alpha)**: How much the model behaves like LASSO vs. Ridge
 
 In practice, the model tries different balances and selects the one that performs best on new data. Rather than committing to LASSO or Ridge upfront, Elastic Net lets the data decide how much feature selection and how much stabilization are needed.
 
+### Advantages and Disadvantages of Elastic Net
 
-### Advantages of Elastic Net
+Elastic Net's defining feature (combining L1 and L2 penalties through the α parameter) is both its strength and its limitation. The same flexibility that lets it perform feature selection while handling correlated predictors also adds tuning complexity and may be unnecessary when a single penalty would suffice.
 
-1. Combines feature selection and stability 
-
-Elastic Net can remove unimportant predictors while keeping correlated, meaningful ones together.
-
-2. More stable than LASSO
-
-When predictors overlap, Elastic Net produces more consistent selections across samples, reducing the risk of arbitrary choices.
-
-3. Effective in very high dimensions
-
-Unlike LASSO, Elastic Net can retain more predictors when the number of variables far exceeds the number of observations.
-
-4. Highly adaptable
-
-By adjusting the balance between LASSO and Ridge, Elastic Net can be tailored to different data structures and research goals.
-
-
-### Disadvantages of Elastic Net
-
-1. More tuning required
-
-Elastic Net introduces an extra decision (parameter) compared to Ridge or LASSO, which significantly increases complexity. 
-
-2. Same modeling assumptions as linear regression
-
-Elastic Net improves estimation and selection, but it does not address nonlinearity or misspecified relationships.
-
-3. Not always necessary
-
-If predictors are largely independent, LASSO alone may suffice. If feature selection is unnecessary, Ridge alone may be simpler.
-
+| Advantages | Disadvantages |
+|----|----|
+| **Combines feature selection and stability.** Removes unimportant predictors (LASSO-like) while keeping correlated, meaningful ones together (Ridge-like), and produces more consistent selections across samples than pure LASSO. | **More tuning required.** Combining both penalties introduces an extra parameter (α) on top of λ, increasing computational cost and the risk of overfitting the tuning process itself. |
+| **Highly adaptable.** Adjusting α lets the model be tailored to different data structures and research goals, from pure Ridge (α = 0) to pure LASSO (α = 1) and anywhere in between. | **Not always necessary.** If predictors are largely independent, LASSO alone may suffice. If feature selection is unnecessary, Ridge alone may be simpler. The added flexibility is wasted when the data doesn't need it. |
+| **Effective in very high dimensions.** Unlike LASSO (which selects at most n predictors), Elastic Net can retain more predictors when the number of variables far exceeds the number of observations (p \>\> n). | \- |
 
 ### When to Use Elastic Net
 
-Elastic Net is often a strong default choice, especially when: 
+Elastic Net is often a strong default choice, especially when:
 
 - Predictors are correlated and feature selection is desired
 - You are not sure whether Ridge or LASSO is more appropriate
@@ -444,7 +361,6 @@ Elastic Net is often a strong default choice, especially when:
 
 Elastic Net is often the best starting choice because it combines Ridge's stability with LASSO's feature selection. If you're unsure which method to use, start with Elastic Net and let cross-validation determine the optimal balance between Ridge and LASSO.
 
-
 ## Comparing the Three Methods
 
 Let's summarize the key differences to help you choose the right method for your healthcare analytics problem.
@@ -452,169 +368,86 @@ Let's summarize the key differences to help you choose the right method for your
 ### Side-by-Side Comparison
 
 | Criterion | Ridge | LASSO | Elastic Net |
-|-----------|-------|-------|-------------|
+|----|----|----|----|
 | **Penalty** | L2 (squared) | L1 (absolute) | Both L1 and L2 |
 | **Feature selection** | No - keeps all variables | Yes - zeros out variables | Yes - zeros out variables |
-| **Correlated predictors** | Excellent - shrinks together | Poor - arbitrary selection | Good - groups together |
-| **Works when p > n** | Yes | Yes (selects ≤ n) | Yes (can select > n) |
+| **Correlated predictors** | Excellent — shrinks together | Unstable — selects one arbitrarily | Good — groups together |
+| **Works when p \> n** | Yes | Yes (selects ≤ n) | Yes (can select \> n) |
 | **Number of tuning parameters** | 1 (λ) | 1 (λ) | 2 (λ and α) |
 | **Interpretability** | Low (many variables) | High (sparse model) | Moderate |
 | **Best for** | Correlated predictors, all relevant | Feature selection, uncorrelated | General use, correlated with selection |
 
-
-
 ## Choosing Lambda: Cross-Validation
 
-We need to choose the right λ value, but how?
+All three methods share the same practical question: **how do we pick the right λ?**
 
-**The challenge:** We can't just pick the λ that works best on our current patients. That would be like a student memorizing practice test answers. We need to know which λ will work best on *new* patients we haven't seen yet.
+We can't just pick the λ that works best on our current patients. That would be like a student memorizing practice test answers — they ace the practice but fail on new questions on the real exam. We need to know which λ will work best on *new* patients we haven't seen yet.
 
-**The solution: Cross-validation**
+**The solution: Cross-validation**!
 
 Think of cross-validation as creating multiple "practice tests":
 
-1. **Divide your data into 10 groups** (called "folds"; the number of groups can vary)
-2. **For each λ value you want to try:**
-   - Train the model on 9 groups, test on the 10th group
-   - Repeat 10 times, each time holding out a different group
-   - Average the prediction errors across all 10 tests
-3. **Pick the λ with the lowest average error**
+1.  **Divide your data into 10 groups** (called "folds"; the number of groups can vary)
+2.  **For each λ value you want to try:**
+    - Train the model on 9 groups, test on the 10th group
+    - Repeat 10 times, each time holding out a different group
+    - Average the prediction errors across all 10 tests
+3.  **Pick the λ with the lowest average error**
 
 **Why this works:** Every patient gets used for both training AND testing (just not at the same time). This efficiently uses all your data to estimate how well each λ will perform on new patients.
 
-**In practice:** The software (like R's `glmnet` package) does this automatically. You'll see which λ performs best, and we'll discuss how to interpret the results in the hands-on section.
-
----
+**In practice:** The software (like R's `glmnet` package) does this automatically via the `cv.glmnet` function. You'll see which λ performs best in the hands-on section that follows.
 
 # Hands-On Implementation with R
 
 Now that you understand the theory behind penalized regression, let's apply these methods to a realistic healthcare analytics problem. In this section, you'll learn how to implement Ridge, LASSO, and Elastic Net in R and interpret the results.
 
-**What You'll Learn in This Section:**
-
-- How to fit Ridge, LASSO, and Elastic Net models in R
-- Use cross-validation to select optimal penalty parameters
-- Interpret coefficient paths and model comparisons
-- Evaluate prediction performance on test data
-
 ## The Case: Predicting Patient Healthcare Costs
 
-**Problem:**
-
-Imagine you work for a health insurance company. Every year, your company needs to predict how much each patient will cost in healthcare spending so you can:
+**Problem:** Imagine you work for a health insurance company. Every year, your company needs to predict how much each patient will cost in healthcare spending so you can:
 
 - Set appropriate insurance premiums
 - Budget for the coming year
 - Identify high-cost patients who might benefit from care management programs (like helping diabetics control their blood sugar to avoid expensive complications)
 
-**Your Task:**
+**Your Task:** Build a model that predicts next year's total healthcare spending for each patient based on information you currently have about them.
 
-Build a model that predicts next year's total healthcare spending for each patient based on information you currently have about them.
+**Available Data:** You have data on **80 patients** from a small specialty clinic, including the following **clinically meaningful predictors**:
 
-**Available Data:**
+| Category | \# of variables | Variables |
+|----|----|----|
+| **Demographics** | 2 | Age, sex |
+| **Socioeconomic factors** | 2 | Income level, insurance status |
+| **Health behaviors** | 3 | Smoking, BMI, exercise frequency |
+| **Chronic conditions** | 6 | Diabetes, hypertension, heart disease, COPD\*, depression, arthritis |
+| **Prior healthcare use** | 4 | Emergency room visits, hospitalizations, doctor visits, number of medications |
+| **Subtotal (real predictors)** | **17** |  |
 
-You have data on 500 patients, including:
+\*COPD = chronic obstructive pulmonary disease, a chronic lung disease.
 
-- **Demographics**: Age, sex
-- **Socioeconomic factors**: Income level, insurance status
-- **Health behaviors**: Smoking, BMI, exercise frequency
-- **Chronic conditions**: Diabetes, hypertension, heart disease, COPD (chronic obstructive pulmonary disease; a chronic lung disease), depression, arthritis
-- **Prior healthcare use**: Emergency room visits, hospitalizations, doctor visits, number of medications
+In addition, the dataset contains **12 administrative or incidental fields** (e.g., floor number, room temperature, chart color, parking lot used, physician ID) that are routinely recorded but are *not expected* to actually drive healthcare costs. **Total predictors: 29.** Part of the analysis will be to see whether the methods correctly recognize these incidental fields as irrelevant — a particular strength of LASSO and Elastic Net.
 
-- Outcome variable is annual healthcare cost (the total cost of care; the insurance company pays out to hospitals, doctors, and other healthcare providers for a patient's care over a year).
+**Outcome variable**: Annual healthcare cost — the total amount an insurance company pays out to hospitals, doctors, and other providers for a patient's care over a year.
 
-**The Challenge:**
+**The Challenge:** With only 80 patients but 29 candidate predictors (many incidental, some correlated), standard OLS regression is likely to overfit. We'll use penalized regression to build a model that predicts well on *new* patients.
 
-With so many potential predictors (some of which are related to each other), standard regression may struggle. We'll use penalized regression to build a model that predicts well on new patients.
+## Loading a Healthcare Cost Prediction Dataset
 
----
-
-## Creating a Healthcare Cost Prediction Dataset
-
-For this tutorial, we'll create a realistic simulated dataset representing this scenario.
+Let's load the dataset and required packages using the code below.
 
 ```{r}
 #| label: create-data
-#| code-fold: true
+#| code-fold: false
 
-# Number of patients in our dataset
-n <- 500
+# Load required packages
+library(glmnet)     # Penalized regression (Ridge, LASSO, Elastic Net)
+library(tidyverse)  # Data manipulation and visualization (dplyr, ggplot2, tidyr, etc.)
 
-# Generate patient characteristics
-healthcare_data <- data.frame(
-  patient_id = 1:n,
-
-  # Demographics
-  age = round(rnorm(n, mean = 55, sd = 15)),
-  female = rbinom(n, 1, 0.52),
-
-  # Socioeconomic factors
-  income_level = sample(1:5, n, replace = TRUE,
-                        prob = c(0.15, 0.20, 0.30, 0.20, 0.15)),
-  has_insurance = rbinom(n, 1, 0.88),
-
-  # Health behaviors
-  smoker = rbinom(n, 1, 0.18),
-  bmi = round(rnorm(n, mean = 28, sd = 6), 1),
-  exercise_days = rpois(n, lambda = 2),
-
-  # Chronic conditions - these will be major cost drivers
-  diabetes = rbinom(n, 1, 0.12),
-  hypertension = rbinom(n, 1, 0.30),
-  heart_disease = rbinom(n, 1, 0.08),
-  copd = rbinom(n, 1, 0.06),
-  depression = rbinom(n, 1, 0.15),
-  arthritis = rbinom(n, 1, 0.22),
-
-  # Healthcare utilization from prior year
-  ed_visits = rpois(n, lambda = 0.5),
-  hospitalizations = rpois(n, lambda = 0.15),
-  physician_visits = rpois(n, lambda = 4),
-  num_medications = rpois(n, lambda = 3)
-)
-
-# Make chronic conditions more realistic by adding correlations
-healthcare_data <- healthcare_data %>%
-  mutate(
-    diabetes = ifelse(bmi > 30 & age > 50,
-                      rbinom(n(), 1, 0.25), diabetes),
-    hypertension = ifelse(diabetes == 1,
-                          rbinom(n(), 1, 0.65), hypertension),
-    heart_disease = ifelse(diabetes == 1 & hypertension == 1 & age > 60,
-                           rbinom(n(), 1, 0.30), heart_disease)
-  )
-
-# Generate the outcome variable: Annual healthcare costs
-healthcare_data <- healthcare_data %>%
-  mutate(
-    annual_cost =
-      # Base cost
-      2000 +
-      # Demographics
-      age * 50 +
-      (1 - has_insurance) * 1500 +
-      # Health behaviors
-      smoker * 2000 +
-      pmax(bmi - 25, 0) * 100 +
-      # Chronic conditions
-      diabetes * 5000 +
-      hypertension * 2000 +
-      heart_disease * 8000 +
-      copd * 6000 +
-      depression * 1500 +
-      arthritis * 1000 +
-      # Prior utilization
-      ed_visits * 1500 +
-      hospitalizations * 15000 +
-      physician_visits * 200 +
-      num_medications * 500 +
-      # Random noise
-      rnorm(n(), 0, 3000)
-  ) %>%
-  mutate(annual_cost = pmax(annual_cost, 500))
+# Load the healthcare cost dataset
+healthcare_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week16_healthcare_costs.csv")
 
 # Display first few rows
-head(healthcare_data)
+head(healthcare_data, 5)
 ```
 
 Let's examine the distribution of annual healthcare costs in our dataset:
@@ -628,11 +461,8 @@ summary(healthcare_data$annual_cost)
 # Visualize distribution
 ggplot(healthcare_data, aes(x = annual_cost)) +
   geom_histogram(bins = 30, fill = "steelblue", color = "white", alpha = 0.8) +
-  scale_x_continuous(labels = scales::dollar_format()) +
   labs(
     title = "Distribution of Annual Healthcare Costs",
-    subtitle = paste0("n = ", n, " patients | Mean = $",
-                      format(round(mean(healthcare_data$annual_cost)), big.mark = ",")),
     x = "Annual Cost ($)",
     y = "Number of Patients"
   ) +
@@ -640,25 +470,33 @@ ggplot(healthcare_data, aes(x = annual_cost)) +
   theme(plot.title = element_text(face = "bold"))
 ```
 
-The distribution shows that most patients have moderate costs (around $8,000-$18,000), but some have very high costs. This right-skewed pattern is typical of healthcare data: most people use healthcare moderately, but a small number have very expensive care (major surgeries, long hospitalizations, etc.).
+The distribution shows that most patients have moderate costs (around \$9,000-\$16,000), but some have very high costs. This right-skewed pattern is typical of healthcare data: most people use healthcare moderately, but a small number have very expensive care (major surgeries, long hospitalizations, etc.).
 
 ## Data Preparation for glmnet
 
-Before we can use penalized regression, we need to prepare our data in a specific format and split it into training and test sets.
+Before we can use penalized regression, we need to prepare our data and split it appropriately:
 
-Let's use 70% of the data to build the model (training set) and 30% to evaluate how well the model predicts on new patients (test set; data not used for training the model). Within the training set, we perform 10-fold cross-validation to choose λ.
-
+- **Training set (70%)**: Used to fit the model and tune λ via 10-fold cross-validation.
+- **Test set (30%)**: Held out entirely; used only at the end to evaluate prediction accuracy on patients the model has never seen.
 
 ```{r}
 #| label: data-prep
+
+# Set seed for reproducibility
+set.seed(2026)
+
+# Total number of patients
+n <- nrow(healthcare_data)
 
 # Split into training (70%) and test (30%) sets
 train_index <- sample(1:n, size = 0.7 * n)
 train_data <- healthcare_data[train_index, ] # Training Dataset
 test_data <- healthcare_data[-train_index, ] # Test Dataset
 
-# Define predictor variables
-predictor_vars <- setdiff(names(healthcare_data), c("patient_id", "annual_cost"))
+# Define predictor variables (use all variables except patient_id and annual_cost)
+predictor_vars <- healthcare_data |>
+  select(-patient_id, -annual_cost) |>
+  names()
 
 # Create matrix format required by glmnet
 x_train <- as.matrix(train_data[, predictor_vars])
@@ -668,10 +506,9 @@ x_test <- as.matrix(test_data[, predictor_vars])
 y_test <- test_data$annual_cost
 ```
 
-Our dataset now contains 350 patients (70%) in the training set and 150 (30%) in the test set. We have 17 predictor variables (age, sex, income, insurance status, health behaviors, chronic conditions, and prior healthcare use).
+Our dataset now contains 56 patients (70%) in the training set and 24 (30%) in the test set. We have 29 predictor variables in total (17 clinically meaningful predictors and 12 administrative or incidental fields).
 
-**Note**: The `glmnet` package requires predictors in matrix format (not a data frame) and automatically standardizes them before fitting.
-
+**Note**: The `glmnet` package requires **predictors in matrix format** (not a data frame) and automatically standardizes them before fitting.
 
 ## Baseline: Ordinary Least Squares (OLS) Regression
 
@@ -687,7 +524,7 @@ ols_model <- lm(annual_cost ~ ., data = train_data[, c(predictor_vars, "annual_c
 summary(ols_model)
 ```
 
-Evaluate on test set:
+Let's evaluate the model on the test dataset using **root mean squared error (RMSE)**, a measure of how far, on average, the model's predictions deviate from the actual outcomes, in the original units of the outcome (here, dollars).
 
 ```{r}
 #| label: ols-performance
@@ -708,6 +545,14 @@ Now let's fit a Ridge regression model using the L2 penalty.
 
 ### Fitting the Ridge Model
 
+Recall that Ridge adds an L2 penalty to OLS: $\sum (y_i - \hat{y}_i)^2 + \lambda \sum \beta_j^2$. We implement this in R using the `glmnet()` function from the **glmnet** package, where the `alpha` argument selects which penalty to apply:
+
+- `alpha = 0` → pure Ridge (L2 only)
+- `alpha = 1` → pure LASSO (L1 only)
+- `0 < alpha < 1` → Elastic Net (blend of L1 and L2)
+
+Note that `glmnet()` requires the predictors as a **matrix** (`x_train`) and the outcome as a **vector** (`y_train`).
+
 ```{r}
 #| label: ridge-fit
 
@@ -721,8 +566,9 @@ ridge_model <- glmnet(
 
 The `glmnet` package automatically tests a sequence of lambda values to explore different levels of penalty strength.
 
-
 ### Visualizing the Coefficient Paths
+
+Before picking a single λ, it helps to see how the coefficients behave across the full range of penalty values that `glmnet()` tested. A **coefficient path plot** shows each predictor as a line, traced across different λ values, making it easy to visualize how the penalty affects each variable's coefficient.
 
 ```{r}
 #| label: ridge-paths
@@ -736,14 +582,18 @@ title("Ridge Regression: Coefficient Paths", line = 3)
 
 **Interpretation of the plot:**
 
-- **X-axis**: -Log(λ) (negative log lambda). Left = large penalty (heavy shrinkage), Right = small penalty (close to OLS)
+- **X-axis**: -Log(λ) (negative log lambda).
+  - Left = large penalty (heavy shrinkage)
+  - Right = small penalty (close to OLS)
 - **Y-axis**: Coefficient values
-- **Each line**: One predictor variable
+- **Each line**: Each predictor variable
 - **Key observation**: As we move left on the plot (larger λ, stronger penalty), all coefficients shrink toward zero, but none reach exactly zero
 
 ### Cross-Validation to Find Optimal Lambda
 
-Let's find an optimal Lambda value by using a cross-validation approach. We will use a 10-fold cross-validation to evaluate different Lambda values and select the one that minimizes the prediction error.
+Now let's use cross-validation to find the optimal λ. The `cv.glmnet()` function automates the entire process: it tests a sequence of λ values, evaluates each one with k-fold cross-validation, and reports which performs best.
+
+The `nfolds = 10` argument tells the function to use **10-fold cross-validation**; split the training data into 10 groups, fit the model 10 times (each time holding one fold out as a mini test set), and average the prediction errors across folds. Ten folds is the most common choice in practice: large enough for stable estimates, small enough to stay computationally fast.
 
 ```{r}
 #| label: ridge-cv
@@ -770,10 +620,9 @@ Cross-validation provides two options:
 - **lambda.min**: The λ with the absolute lowest prediction error (best accuracy)
 - **lambda.1se**: Uses the "1 standard error rule": selects the largest λ (simplest model) whose prediction error is within 1 standard error of the minimum. This provides a simpler, more robust model with negligible loss in accuracy.
 
-Let's use **lambda.1se** as it is often preferred in practice. It produces simpler models that are less likely to overfit and more likely to generalize well to new patients.
-
-
 ### Examining Ridge Coefficients
+
+Let's use **lambda.1se** in this class as it is often preferred in practice. It produces simpler models that are less likely to overfit and more likely to generalize well to new patients.
 
 ```{r}
 #| label: ridge-coef
@@ -782,17 +631,23 @@ Let's use **lambda.1se** as it is often preferred in practice. It produces simpl
 ridge_coef <- coef(ridge_cv, s = "lambda.1se")
 ridge_coef
 
-# All coefficients are non-zero
+# All coefficients are non-zero (dropping the intercept)
 n_nonzero_ridge <- sum(ridge_coef[-1] != 0)
 n_nonzero_ridge
 ```
 
 Notice that Ridge regression keeps all variables in the model (i.e., every coefficient is non-zero). Ridge shrinks the coefficients toward zero but never eliminates variables entirely.
 
-
 ### Ridge Test Set Performance
 
-Let's get the RMSE of the Ridge model using the test dataset. 
+Now we evaluate the Ridge model on the **test set** (the 30% of data we held out at the start) to see how well it predicts for patients the model has never seen.
+
+The `predict()` function generates Ridge predictions for the test data, with two key arguments:
+
+- **`s = "lambda.1se"`** specifies which λ to use (the simpler model selected by cross-validation)
+- **`newx = x_test`** is the test predictor matrix (must be a matrix, just like `x_train`)
+
+We then compute the test RMSE and compare it to the OLS baseline to see whether the L2 penalty actually improves prediction accuracy.
 
 ```{r}
 #| label: ridge-performance
@@ -808,13 +663,25 @@ ridge_rmse <- sqrt(ridge_mse)
 improvement <- (ols_rmse - ridge_rmse) / ols_rmse * 100
 ```
 
-Ridge regression's test set RMSE (`r round(ridge_rmse, 2)`) shows whether the penalty improves prediction accuracy compared to OLS. The improvement percentage (`r round(improvement, 2)`%) indicates how much better Ridge performs on new, unseen patients (untrained data).
+Ridge's test RMSE is **\$`r format(round(ridge_rmse), big.mark = ",")`** versus OLS's **\$`r format(round(ols_rmse), big.mark = ",")`**, an improvement of **`r round(improvement, 2)`%**, or about **\$`r format(round(ols_rmse - ridge_rmse), big.mark = ",")` closer per patient** on average. In other words, Ridge produces noticeably better predictions for new patients than OLS.
+
+**Why does Ridge help here?** This dataset has the exact conditions under which penalization pays off:
+
+- **Small n relative to p** (only 80 patients for 29 predictors, leaving just 56 training observations to estimate 29 coefficients): OLS estimates are unstable and overfit to the training data. Ridge's shrinkage adds a small amount of bias but dramatically reduces variance.
+- **Many irrelevant predictors**: 12 of the 29 variables are administrative fields with no real effect on cost, but OLS still assigns them non-zero coefficients that chase noise in the training data. Ridge shrinks those coefficients toward zero (though, as we saw above, it never sets them exactly to zero).
+- **Some correlation among chronic conditions** (e.g., diabetes ↔ hypertension ↔ heart disease): Ridge handles this gracefully by spreading effects across correlated variables, rather than producing the unstable, sign-flipping coefficients OLS can yield under multicollinearity.
+
+Notice, however, that Ridge **keeps all 29 variables in the model**; it just shrinks each coefficient toward zero. This makes the model harder to interpret because you can't easily identify which predictors actually matter. Next, we'll see whether **LASSO** can do even better by eliminating the irrelevant predictors entirely.
 
 ## LASSO Regression
 
 Now let's fit a LASSO model using the L1 penalty for automatic feature selection.
 
 ### Fitting the LASSO Model
+
+Recall that LASSO uses an **L1 penalty** instead of L2: $\sum (y_i - \hat{y}_i)^2 + \lambda \sum |\beta_j|$. Because the penalty is based on absolute values rather than squares, LASSO can drive some coefficients **exactly to zero**, effectively removing those variables from the model. This is what makes LASSO uniquely useful for **automatic feature selection**.
+
+The R code looks almost identical to Ridge. We use the same `glmnet()` function with the same `x_train` matrix and `y_train` vector. The only change is **`alpha = 1`** to switch from L2 to L1 penalty.
 
 ```{r}
 #| label: lasso-fit
@@ -829,6 +696,8 @@ lasso_model <- glmnet(
 
 ### Visualizing LASSO Coefficient Paths
 
+Just as we did for Ridge, let's visualize how LASSO's coefficients change across λ values. Pay close attention to what happens to individual lines as the penalty grows.
+
 ```{r}
 #| label: lasso-paths
 #| fig-width: 10
@@ -839,8 +708,7 @@ plot(lasso_model, xvar = "lambda", label = TRUE)
 title("LASSO Regression: Coefficient Paths", line = 3)
 ```
 
-**Key observation**: Unlike Ridge, the LASSO paths hit zero! As we move left on the plot (larger λ, stronger penalty), variables are progressively eliminated. This is feature selection.
-
+Unlike Ridge, the LASSO paths **hit zero**. As we move left on the plot (larger λ, stronger penalty), variables are progressively eliminated. This is feature selection.
 
 ### Cross-Validation for LASSO
 
@@ -862,10 +730,11 @@ plot(lasso_cv)
 title("LASSO Regression: Cross-Validation Results", line = 3)
 ```
 
-The cross-validation plot for LASSO is similar to Ridge, but notice the numbers at the top—they show how many variables remain in the model at each lambda value. As we move left on the plot (larger λ, stronger penalty), LASSO eliminates more variables.
-
+The cross-validation plot for LASSO is similar to Ridge, but notice the numbers at the top; they show how many variables remain in the model at each lambda value. As we move left on the plot (larger λ, stronger penalty), LASSO eliminates more variables.
 
 ### LASSO Feature Selection
+
+Now we extract the coefficients LASSO actually selected at `lambda.1se` (chosen via cross-validation). Predictors with non-zero coefficients are the ones LASSO judged worth keeping; the rest have been eliminated entirely. This is the feature-selection payoff that distinguishes LASSO from Ridge.
 
 ```{r}
 #| label: lasso-coef
@@ -881,58 +750,13 @@ n_nonzero_1se
 
 LASSO's key feature is automatic variable selection. At lambda.1se (the more conservative choice), even fewer variables are selected, resulting in a simpler model.
 
-### Visualizing Important Predictors
+**Interpreting coefficient magnitudes**: These coefficients represent the change in annual cost (in dollars) for a one-unit change in each predictor, holding the **other surviving (non-zero) predictors** constant.
 
-```{r}
-#| label: lasso-important
-#| fig-width: 8
-#| fig-height: 6
-
-# Extract non-zero coefficients
-lasso_coef_df <- data.frame(
-  variable = rownames(lasso_coef_1se),
-  coefficient = as.vector(lasso_coef_1se)
-) %>%
-  filter(variable != "(Intercept)", coefficient != 0) %>%
-  arrange(desc(abs(coefficient)))
-
-# Display
-lasso_coef_df
-
-# Visualize
-ggplot(lasso_coef_df, aes(x = reorder(variable, abs(coefficient)),
-                          y = coefficient,
-                          fill = coefficient > 0)) +
-  geom_col() +
-  coord_flip() +
-  scale_fill_manual(
-    values = c("firebrick", "steelblue"),
-    labels = c("Decreases Cost", "Increases Cost"),
-    name = "Effect on Cost"
-  ) +
-  labs(
-    title = "LASSO: Key Predictors of Healthcare Costs",
-    subtitle = paste0("Variables with non-zero coefficients (", length(rownames(lasso_coef_df)),
-                      " of ", length(predictor_vars), " selected)"),
-    x = "",
-    y = "Coefficient (Effect on Annual Cost)"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = "bold"),
-    legend.position = "bottom"
-  )
-```
-
-LASSO has identified the most important cost drivers. Hospitalizations has the largest coefficient, followed by chronic conditions like heart disease and COPD.
-
-**Interpreting coefficient magnitudes**: These coefficients represent the change in annual cost (in dollars) for a one-unit change in each predictor, holding others constant. For example, if hospitalizations has a coefficient of approximately 15,000, this means each additional hospitalization is associated with roughly $15,000 higher annual costs.
-
-
+The eliminated predictors don't enter the prediction equation, so they don't need to be held constant; their values don't affect the prediction at all. For example, if hospitalizations has a coefficient of approximately 15,000, this means each additional hospitalization is associated with roughly \$15,000 higher annual costs (holding the other surviving predictors constant).
 
 ### LASSO Test Set Performance
 
-Let's test the performance of our LASSO model using the test dataset. 
+Let's test the performance of our LASSO model using the test dataset.
 
 ```{r}
 #| label: lasso-performance
@@ -950,15 +774,13 @@ improvement_lasso <- (ols_rmse - lasso_rmse) / ols_rmse * 100
 
 LASSO achieves competitive prediction accuracy (RMSE = `r round(lasso_rmse, 2)`, reduction of `r round(improvement_lasso, 2)`% compared to the OLS model) while using far fewer variables than OLS. This demonstrates the power of automatic feature selection (better predictions with simpler models).
 
-
-
 ## Elastic Net Regression
 
 Finally, let's fit an Elastic Net model that combines Ridge and LASSO penalties.
 
 ### Tuning Alpha and Lambda
 
-For the alpha parameter (weights of L1 and L2 regularization), we will use a grid search method (starting from 0, we will increase alpha by 0.1 every time). 
+For the alpha parameter (weights of L1 and L2 regularization), we will use a grid search method (starting from 0, we will increase alpha by 0.1 every time).
 
 ```{r}
 #| label: elastic-net-tuning
@@ -987,6 +809,7 @@ for (i in seq_along(alpha_grid)) {
   )
 
   elastic_results$lambda_1se[i] <- cv_fit$lambda.1se
+  
   # Get MSE at lambda.1se
   idx_1se <- which(cv_fit$lambda == cv_fit$lambda.1se)
   elastic_results$mse_1se[i] <- cv_fit$cvm[idx_1se]
@@ -1032,6 +855,8 @@ ggplot(elastic_results, aes(x = alpha, y = mse_1se)) +
 
 ### Fit Final Elastic Net Model
 
+Now that cross-validation has identified the best `alpha` (`r best_alpha`), we refit Elastic Net using that value and evaluate it on the test set; exactly the same workflow we used for Ridge and LASSO. We extract the coefficients (to see how many predictors survive), generate test-set predictions, and compute RMSE for direct comparison with OLS.
+
 ```{r}
 #| label: elastic-net-final
 
@@ -1053,14 +878,12 @@ elastic_pred <- predict(elastic_cv, s = "lambda.1se", newx = x_test)
 # Calculate metrics
 elastic_mse <- mean((y_test - elastic_pred)^2)
 elastic_rmse <- sqrt(elastic_mse)
-elastic_rmse
 
 # Compare to OLS
 improvement_elastic <- (ols_rmse - elastic_rmse) / ols_rmse * 100
-improvement_elastic
 ```
 
-Elastic Net combines the strengths of Ridge and LASSO, achieving strong prediction accuracy while performing feature selection. The model uses the optimal alpha value identified through cross-validation.
+With **α = `r best_alpha`**, Elastic Net keeps **`r n_features_elastic` of the 29 predictors**, performing feature selection like LASSO, while spreading effects across correlated variables like Ridge. Its test RMSE is **\$`r format(round(elastic_rmse), big.mark = ",")`** versus OLS's **\$`r format(round(ols_rmse), big.mark = ",")`**, an improvement of **`r round(improvement_elastic, 2)`%** (about **\$`r format(round(ols_rmse - elastic_rmse), big.mark = ",")` closer per patient** on average). This combines the strengths of Ridge and LASSO: strong prediction accuracy *and* a simpler, more interpretable model.
 
 ## Comprehensive Model Comparison
 
@@ -1070,22 +893,19 @@ Now let's compare all four models:
 
 ```{r}
 #| label: model-comparison
+#| code-fold: true
 
 # Create comparison table
 comparison <- data.frame(
   Model = c("OLS", "Ridge", "LASSO", "Elastic Net"),
   RMSE = round(c(ols_rmse, ridge_rmse, lasso_rmse, elastic_rmse), 2),
   MSE = round(c(ols_mse, ridge_mse, lasso_mse, elastic_mse), 0),
-  Features = c(length(predictor_vars),
-               length(predictor_vars),
-               length(rownames(lasso_coef_df)),
-               n_features_elastic)
+  Features = c(length(predictor_vars), length(predictor_vars),
+               n_nonzero_1se, n_features_elastic)
 )
 
-# Calculate improvement over OLS
-comparison$Improvement = paste0(
-  round((1 - comparison$RMSE / ols_rmse) * 100, 2), "%"
-)
+# Calculate improvement over OLS (in percent)
+comparison$Improvement <- round((1 - comparison$RMSE / ols_rmse) * 100, 2)
 
 # Display
 comparison
@@ -1124,103 +944,435 @@ comparison %>%
 
 ### Coefficient Comparison
 
+Beyond comparing test-set performance, it's instructive to see the actual **coefficients** each method assigned to each predictor. The table below shows side-by-side coefficients for all 29 predictors across the four models, sorted by the absolute size of the OLS coefficient. (Note: because OLS overfits, some top-ranked OLS coefficients near the top of the table are spurious noise — LASSO and Elastic Net correctly zero them out.) Watch for three patterns:
+
+1.  **OLS produces large, sometimes erratic coefficients**, including for the administrative/incidental variables that have no real effect on cost.
+2.  **Ridge keeps every coefficient non-zero** but shrinks each toward zero (notice how most Ridge coefficients are smaller in magnitude than the corresponding OLS coefficients).
+3.  **LASSO and Elastic Net set many coefficients to exactly zero**; these are the variables they judged irrelevant for prediction. The remaining non-zero coefficients are the predictors that *survive* the penalty.
+
 ```{r}
 #| label: coef-comparison
-#| fig-width: 12
-#| fig-height: 8
+#| code-fold: true
 
-# Extract all coefficients
+# Build comparison table of coefficients across all four models
 coef_comparison <- data.frame(
-  variable = rownames(ridge_coef),
-  OLS = c(coef(ols_model)),
-  Ridge = as.vector(ridge_coef),
-  LASSO = as.vector(lasso_coef_1se),
-  ElasticNet = as.vector(elastic_coef)
+  Variable    = rownames(ridge_coef),
+  OLS         = round(as.vector(coef(ols_model)), 2),
+  Ridge       = round(as.vector(ridge_coef), 2),
+  LASSO       = round(as.vector(lasso_coef_1se), 2),
+  ElasticNet  = round(as.vector(elastic_coef), 2)
 ) %>%
-  filter(variable != "(Intercept)") %>%
-  pivot_longer(
-    cols = -variable,
-    names_to = "Model",
-    values_to = "Coefficient"
-  )
+  filter(Variable != "(Intercept)") %>%
+  arrange(desc(abs(OLS)))
 
-# Plot
-ggplot(coef_comparison, aes(x = variable, y = Coefficient, fill = Model)) +
-  geom_col(position = "dodge") +
-  coord_flip() +
-  scale_fill_brewer(palette = "Set1") +
-  labs(
-    title = "Coefficient Comparison Across Models",
-    subtitle = "Note how LASSO zeros out less important variables while others keep all",
-    x = "",
-    y = "Coefficient Value"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom",
-    plot.title = element_text(face = "bold")
-  )
+knitr::kable(coef_comparison)
 ```
 
-**Key observations:**
+------------------------------------------------------------------------
 
-1. **OLS** has the largest coefficients (no shrinkage)
-2. **Ridge** shrinks all coefficients but keeps them non-zero
-3. **LASSO** eliminates several variables entirely (zero coefficients)
-4. **Elastic Net** balances between Ridge and LASSO
+# Practice: Predicting Hospital Length of Stay
 
----
+## Background and Context
+
+**The Business Problem:**
+
+You work for the operations team at Metropolitan General Hospital, a 400-bed facility. One of your biggest challenges is managing patient flow, and knowing how long patients will stay helps you:
+
+- **Plan bed capacity**: Ensure enough beds are available for incoming patients
+- **Schedule staffing**: Assign the right number of nurses and support staff each day
+- **Coordinate discharges**: Start discharge planning early for patients expected to stay longer
+- **Reduce bottlenecks**: Prevent emergency department overcrowding when hospital beds are full
+
+When a patient is admitted, you need to predict their length of stay (how many days they'll be in the hospital). The problem is complex because many factors influence how long a patient stays:
+
+- Some factors are obvious (older patients tend to stay longer)
+- Many factors are correlated (patients admitted through the emergency department often have more complications)
+- You have dozens of potential predictors but limited historical data
+
+This is where penalized regression helps: it can handle many correlated predictors and identify which factors truly matter for predicting length of stay.
+
+## Activity Overview
+
+You'll complete the following tasks:
+
+**Part 1: Data Preparation**: Load and explore the hospital admission dataset, split into training and test sets, prepare data in the format required by `glmnet`.
+
+**Part 2: OLS Baseline**: Fit a baseline OLS regression model (no penalization) for later comparison.
+
+**Part 3: Ridge Regression**: Fit a Ridge model with cross-validation, evaluate on the test set.
+
+**Part 4: LASSO Regression**: Fit a LASSO model with cross-validation, identify which variables are selected, evaluate on the test set.
+
+**Part 5: Elastic Net**: Tune the alpha parameter, fit the best Elastic Net model, evaluate on the test set.
+
+**Part 6: Model Comparison**: Compare all four models (OLS, Ridge, LASSO, Elastic Net) and decide which to implement.
+
+## Part 1: Data Preparation
+
+### The Hospital Admission Dataset
+
+Load the dataset using the code below:
+
+```{r}
+#| label: los-data
+
+# Load the hospital length-of-stay dataset
+los_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/week16_hospital_los.csv")
+head(los_data, 4)
+```
+
+There are **`r nrow(los_data)` admissions** in the dataset with **`r ncol(los_data) - 1` predictor variables**. Some are clinically meaningful (e.g., age, chronic conditions, prior admissions), while others are administrative or incidental fields (e.g., `floor_number`, `chart_color`, `room_temperature`) that aren't expected to drive length of stay.
+
+### Task 1: Split Data and Prepare Matrices
+
+Split the data into training (70%) and test (30%) sets, then convert to matrix format required by `glmnet`.
+
+```{r}
+#| label: task1-data-prep
+#| eval: false
+
+# Split into training and test sets
+train_idx <- sample(1:nrow(los_data), ___ * nrow(los_data))   # FILL IN: training proportion
+train_los <- los_data[train_idx, ]
+test_los <- los_data[-train_idx, ]
+
+# Identify predictor variables (all except the outcome)
+predictor_vars_los <- los_data |>
+  select(-length_of_stay) |>
+  names()
+
+# Create predictor matrices (X) and outcome vectors (y)
+# FILL IN: Convert training predictors to matrix
+x_train_los <- as.matrix(train_los[, ___])
+
+# FILL IN: Extract training outcome vector (length_of_stay)
+y_train_los <- ___
+
+# FILL IN: Convert test predictors to matrix
+x_test_los <- as.matrix(test_los[, ___])
+
+# FILL IN: Extract test outcome vector
+y_test_los <- ___
+
+# Display dimensions
+cat("Training set:", nrow(x_train_los), "admissions,", ncol(x_train_los), "predictors\n")
+cat("Test set:", nrow(x_test_los), "admissions,", ncol(x_test_los), "predictors\n")
+```
+
+**Hint:**
+
+- Use `predictor_vars_los` to select the correct columns.
+- The outcome variable is `length_of_stay`.
+
+------------------------------------------------------------------------
+
+## Part 2: OLS Baseline
+
+Before fitting the penalized models, let's fit a baseline OLS regression, just like in the demonstration. We'll use this as a reference point to evaluate whether penalized methods improve prediction.
+
+### Task 2: Fit OLS Baseline
+
+```{r}
+#| label: task2-ols
+#| eval: false
+
+# Fit OLS regression (no penalization)
+ols_los <- lm(length_of_stay ~ ., data = train_los)
+
+# Make predictions on the test set
+ols_pred_los <- predict(ols_los, newdata = test_los)
+
+# FILL IN: Calculate RMSE for OLS
+ols_mse_los <- mean((y_test_los - ___)^2)
+ols_rmse_los <- sqrt(ols_mse_los)
+
+cat("OLS Test Set RMSE:", round(ols_rmse_los, 2), "days\n")
+```
+
+**Hint:** OLS uses the formula interface `length_of_stay ~ .` to use all predictors. The OLS RMSE will be your baseline for comparison.
+
+------------------------------------------------------------------------
+
+## Part 3: Ridge Regression
+
+Ridge regression shrinks all coefficients but keeps all variables. Let's fit a Ridge model and examine how it performs.
+
+### Task 3: Fit Ridge Model with Cross-Validation
+
+```{r}
+#| label: task3-ridge
+#| eval: false
+
+# Fit Ridge regression 
+ridge_los <- cv.glmnet(
+  x = ___,           # Training predictor matrix
+  y = ___,           # Training outcome vector
+  alpha = ___,       
+  nfolds = 10
+)
+
+# Plot cross-validation results
+plot(ridge_los)
+title("Ridge Regression: Cross-Validation", line = 3)
+
+# Display optimal lambda (1-SE rule, what we use throughout)
+cat("Ridge lambda.1se:", round(ridge_los$lambda.1se, 4), "\n")
+```
+
+**Hint:** alpha = 0 for Ridge regression.
+
+### Task 4: Examine Ridge Coefficients and Performance
+
+```{r}
+#| label: task4-ridge-eval
+#| eval: false
+
+# Extract coefficients at lambda.1se (prefer simpler model)
+ridge_coef_los <- coef(ridge_los, s = "lambda.1se")
+
+cat("Number of non-zero coefficients:", sum(ridge_coef_los[-1] != 0), "\n")
+
+# Make predictions on test set
+ridge_pred_los <- predict(ridge_los, s = "lambda.1se", newx = x_test_los)
+
+# FILL IN: Calculate RMSE for Ridge
+ridge_mse_los <- mean((y_test_los - ___)^2)
+ridge_rmse_los <- sqrt(ridge_mse_los)
+
+cat("Ridge Test Set RMSE:", round(ridge_rmse_los, 2), "days\n")
+```
+
+**Hint:** Notice that Ridge keeps ALL variables (all coefficients are non-zero); it does not eliminate even the noise variables.
+
+------------------------------------------------------------------------
+
+## Part 4: LASSO Regression
+
+LASSO performs automatic feature selection by setting some coefficients exactly to zero. Let's see which variables it selects for predicting length of stay.
+
+### Task 5: Fit LASSO Model with Cross-Validation
+
+```{r}
+#| label: task5-lasso
+#| eval: false
+
+# Fit LASSO regression 
+lasso_los <- cv.glmnet(
+  x = ___,
+  y = ___,
+  alpha = ___,       
+  nfolds = 10
+)
+
+# Plot cross-validation results
+plot(lasso_los)
+title("LASSO Regression: Cross-Validation", line = 3)
+
+# Display optimal lambda (1-SE rule, what we use throughout)
+cat("LASSO lambda.1se:", round(lasso_los$lambda.1se, 4), "\n")
+```
+
+**Hint:** alpha = 1 for LASSO.
+
+### Task 6: Identify Selected Variables
+
+```{r}
+#| label: task6-lasso-select
+#| eval: false
+
+# Extract coefficients at lambda.1se
+lasso_coef_los <- coef(lasso_los, s = "lambda.1se")
+
+# Create data frame of non-zero coefficients
+selected_vars_los <- data.frame(
+  variable = rownames(lasso_coef_los),
+  coefficient = as.vector(lasso_coef_los)
+) %>%
+  filter(variable != "(Intercept)", coefficient != 0) %>%
+  arrange(desc(abs(coefficient)))
+
+cat("Selected:", nrow(selected_vars_los), "out of", length(predictor_vars_los), "\n\n")
+print(selected_vars_los)
+```
+
+**Question**: Did LASSO eliminate the administrative/incidental variables (e.g., `floor_number`, `chart_color`, `room_temperature`, `physician_id`, ...)? Did it retain the variables that actually generated the outcome?
+
+### Task 7: Evaluate LASSO Performance
+
+```{r}
+#| label: task7-lasso-eval
+#| eval: false
+
+# Make predictions on test set
+lasso_pred_los <- predict(lasso_los, s = "lambda.1se", newx = x_test_los)
+
+# FILL IN: Calculate RMSE for LASSO
+lasso_mse_los <- mean((y_test_los - ___)^2)
+lasso_rmse_los <- sqrt(lasso_mse_los)
+
+cat("LASSO Test Set RMSE:", round(lasso_rmse_los, 2), "days\n")
+cat("Variables used:", nrow(selected_vars_los), "\n")
+```
+
+------------------------------------------------------------------------
+
+## Part 5: Elastic Net
+
+Elastic Net combines Ridge and LASSO. We need to tune both lambda (penalty strength) and alpha (mix of L1 and L2).
+
+### Task 8: Tune Alpha Parameter
+
+```{r}
+#| label: task8-elastic-tune
+#| eval: false
+
+# Test different alpha values
+alpha_grid <- seq(0, 1, by = 0.2)  # Test 0, 0.2, 0.4, 0.6, 0.8, 1.0
+
+# Store results
+elastic_results_los <- data.frame(
+  alpha = alpha_grid,
+  lambda_1se = NA,
+  rmse_cv = NA
+)
+
+# Use consistent CV folds for fair comparison across alpha values
+fold_id <- sample(1:10, size = length(y_train_los), replace = TRUE)
+
+# Test each alpha value
+for (i in seq_along(alpha_grid)) {
+  cv_fit <- cv.glmnet(
+    x = x_train_los,
+    y = y_train_los,
+    alpha = alpha_grid[i],
+    foldid = fold_id
+  )
+
+  elastic_results_los$lambda_1se[i] <- cv_fit$lambda.1se
+  idx <- which(cv_fit$lambda == cv_fit$lambda.1se)
+  elastic_results_los$rmse_cv[i] <- sqrt(cv_fit$cvm[idx])
+}
+
+# Display results
+print(elastic_results_los)
+
+# FILL IN: Find best alpha (the one with the lowest cross-validated RMSE)
+best_alpha_los <- elastic_results_los$alpha[which.min(elastic_results_los$___)]
+cat("\nBest alpha:", best_alpha_los, "\n")
+```
+
+**Hint:** Use `foldid` to ensure all alpha values are tested on the same CV folds for fair comparison.
+
+### Task 9: Fit Final Elastic Net Model
+
+```{r}
+#| label: task9-elastic-final
+#| eval: false
+
+# Fit Elastic Net with best alpha
+elastic_los <- cv.glmnet(
+  x = x_train_los,
+  y = y_train_los,
+  alpha = ___,           # FILL IN: use the best alpha from Task 8
+  nfolds = 10
+)
+
+# Extract coefficients
+elastic_coef_los <- coef(elastic_los, s = "lambda.1se")
+n_features_elastic_los <- sum(elastic_coef_los[-1] != 0)
+
+cat("Elastic Net (alpha =", best_alpha_los, "):\n")
+cat("  Variables selected:", n_features_elastic_los, "\n")
+```
+
+### Task 10: Evaluate Elastic Net Performance
+
+```{r}
+#| label: task10-elastic-eval
+#| eval: false
+
+# Make predictions
+elastic_pred_los <- predict(elastic_los, s = "lambda.1se", newx = x_test_los)
+
+# FILL IN: Calculate RMSE
+elastic_mse_los <- mean((y_test_los - ___)^2)
+elastic_rmse_los <- sqrt(elastic_mse_los)
+
+cat("Elastic Net Test Set RMSE:", round(elastic_rmse_los, 2), "days\n")
+```
+
+------------------------------------------------------------------------
+
+## Part 6: Model Comparison and Recommendation
+
+Now let's compare all four approaches and decide which to implement. (OLS was already fit in Part 2, so we use those results directly.)
+
+### Task 11: Compare All Models
+
+```{r}
+#| label: task11-comparison
+#| eval: false
+
+# Create comparison table (OLS already fit in Part 2)
+comparison_los <- data.frame(
+  Model = c("OLS", "Ridge", "LASSO", "Elastic Net"),
+  RMSE = round(c(ols_rmse_los, ridge_rmse_los, lasso_rmse_los, elastic_rmse_los), 2),
+  Features = c(length(predictor_vars_los),
+               length(predictor_vars_los),
+               nrow(selected_vars_los),
+               n_features_elastic_los)
+)
+
+# Calculate improvement over OLS
+comparison_los$Improvement <- round((1 - comparison_los$RMSE / round(ols_rmse_los, 2)) * 100, 1)
+
+print(comparison_los)
+
+```
+
+### Interpretation Questions
+
+Based on your results, answer these questions:
+
+1.  **Which model performed best?** Why do you think this is?
+2.  **How many variables did LASSO eliminate?** Were the eliminated variables the noise variables, the real predictors, or a mix?
+3.  **What was the optimal alpha value for Elastic Net?** Was it closer to Ridge (0) or LASSO (1)?
+4.  **Which model would you recommend implementing?** Consider both accuracy and operational feasibility (how many variables need to be collected at admission).
+5.  **Based on your recommended model, what are the top 3 predictors of length of stay (by absolute coefficient magnitude)?** Do these make intuitive sense for hospital operations?
+
+------------------------------------------------------------------------
 
 # Summary and Key Takeaways
 
-## When to Use Each Method
+## Three Methods at a Glance
 
-**Ridge Regression**:
+| Method | Penalty | Feature selection | Tuning | Best for |
+|----|:--:|:--:|:--:|----|
+| **Ridge** | L2 (squared) | No — keeps all | 1 (λ) | Correlated predictors, all relevant |
+| **LASSO** | L1 (absolute) | Yes — zeros out | 1 (λ) | Sparse, interpretable models |
+| **Elastic Net** | L1 + L2 | Yes | 2 (λ + α) | Feature selection with correlated predictors (good default) |
 
-- Use when you have correlated predictors and want to keep all variables
-- Best for prediction when you believe most variables are relevant
-- Handles multicollinearity well
-- Not suitable when you need feature selection
+## Key Takeaways
 
-**LASSO Regression**:
+1.  **Penalized regression trades a small amount of bias for a large reduction in variance**: often outperforming OLS when n is small relative to p, predictors are correlated, or many predictors carry no signal.
 
-- Use when you need automatic feature selection
-- Best for interpretability and sparse models
-- Works well with many potential predictors
-- Caution with highly correlated predictors (arbitrary selection)
+2.  **Two parameters control the penalty**: α selects the *type* (0 = Ridge, 1 = LASSO, in between = Elastic Net); λ selects the *strength*. Both must be tuned with cross-validation.
 
-**Elastic Net**:
+3.  **Use `lambda.1se`** (the largest λ within 1 standard error of the CV minimum) for simpler, more robust models. Use `lambda.min` only when prediction accuracy is the only concern.
 
-- Often the best default choice
-- Combines strengths of Ridge and LASSO
-- Handles correlated predictors better than LASSO
-- Performs feature selection like LASSO
-- Requires tuning two parameters (α and λ)
+4.  **LASSO performs automatic feature selection** by setting some coefficients exactly to zero. Ridge shrinks but keeps all variables; Elastic Net does both.
 
-## Cross-Validation Best Practices
+5.  **Penalized regression is for prediction, not causal inference.** Coefficients are biased toward zero and lack standard errors; selected variables are *associated with*, not necessarily *causes of*, the outcome. Validate selected variables clinically before acting on them.
 
-1. **Always use cross-validation** to select λ (and α for Elastic Net)
-2. **Use consistent folds** when comparing different α values
-3. **Consider lambda.1se** for simpler, more interpretable models 
-4. **Use lambda.min** when prediction accuracy is paramount
-5. **Check the CV curve** - flat regions indicate room for simplification
+6.  **Always evaluate final performance on a held-out test set**, separate from the data used for cross-validation. CV is for tuning; the test set is for honest reporting.
 
-
-## Important Caveats
-
-1. **Prediction vs. Causation**: Penalized regression is for prediction, not causal inference. Selected variables are associated with outcomes, not necessarily causal drivers.
-
-2. **Feature Selection Stability**: LASSO selections can be unstable, especially with correlated predictors. Run multiple samples or use Elastic Net.
-
-3. **Clinical Validation**: Always validate that selected features make clinical sense. Statistical selection doesn't guarantee clinical relevance.
-
-4. **Generalizability**: Models should be validated on external data from different time periods or institutions.
-
----
+------------------------------------------------------------------------
 
 # References and Additional Resources
 
 ## Primary Methodological Papers
+
+- **Hoerl, A. E., & Kennard, R. W. (1970)**. Ridge regression: Biased estimation for nonorthogonal problems. *Technometrics*, 12(1), 55-67.
 
 - **Tibshirani, R. (1996)**. Regression shrinkage and selection via the lasso. *Journal of the Royal Statistical Society Series B*, 58(1), 267-288.
 
@@ -1230,11 +1382,10 @@ ggplot(coef_comparison, aes(x = variable, y = Coefficient, fill = Model)) +
 
 - **James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021)**. *An Introduction to Statistical Learning with Applications in R* (2nd ed.). Springer.
 
-- **Etzioni, R., et. al. (2020)**. *Statistics for Health Data Science*. Springer.
+- **Etzioni, R., Mandrekar, J., & Engeland, A. (2020)**. *Statistics for Health Data Science: An Organic Approach*. Springer.
 
 ## R Package Documentation
 
 - **glmnet package**: https://glmnet.stanford.edu/articles/glmnet.html
 
 - **UC Business Analytics R Programming Guide**: [Regularized Regression](https://uc-r.github.io/regularized_regression)
-

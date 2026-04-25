@@ -12,3 +12,4 @@ answer-keys/*.qmd
 answer-keys/_template-answer-key.qmd
 encrypt-answers.sh
 .staticrypt.json
+.positai
