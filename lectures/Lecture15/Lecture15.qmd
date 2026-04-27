@@ -248,7 +248,7 @@ One of the best ways to understand Ridge regression is geometrically. Imagine we
 Ridge's defining feature (shrinking but never removing predictors) is both its strength and its limitation. The same property that stabilizes correlated variables and protects against overfitting also makes the model hard to interpret and unable to discard noise.
 
 | Advantages | Disadvantages |
-|----|----|
+|------------------------------------|------------------------------------|
 | **Stabilizes correlated predictors.** Limits the coefficient inflation, lost significance, and sign flips that OLS produces under multicollinearity, spreading influence across related variables. | **Limited interpretability.** Effects are split across many small coefficients, making it hard to identify which predictors truly matter. Better suited for prediction than explanation. |
 | **Better prediction on new data.** The penalty prevents overfitting, often outperforming OLS on unseen patients. | **Retains noisy predictors.** Irrelevant variables are weakened but never removed; many noise variables together can still degrade performance. |
 | **Keeps all relevant information.** When most predictors plausibly matter at least a little, Ridge retains them all rather than discarding any. | **Hard to simplify or deploy.** Keeping every predictor makes the model unwieldy for clinical or operational use, where simpler models are often required. |
@@ -288,7 +288,7 @@ In contrast, Ridge regression uses a smooth, round constraint. This makes it unl
 LASSO's defining feature (setting weak coefficients exactly to zero) is both its strength and its limitation. The same property that produces sparse, interpretable models also forces arbitrary choices among correlated predictors and discards information from variables that carry partial signal.
 
 | Advantages | Disadvantages |
-|----|----|
+|------------------------------------|------------------------------------|
 | **Automatic feature selection.** Identifies a small set of important predictors and removes the rest, controlling overfitting and producing a sparse model that generalizes better. | **Unstable with correlated predictors.** When predictors are highly correlated, LASSO arbitrarily picks one and drops the others; which variable is chosen can vary across samples, making interpretation fragile. |
 | **Interpretability.** With fewer active predictors, the model's logic is easier to understand and explain in practical terms. | **May discard useful information.** Setting coefficients exactly to zero can eliminate predictors that still carry some signal. In purely predictive tasks, Ridge may perform slightly better. |
 | **Effective in high-dimensional settings.** Works even when the number of predictors exceeds the number of observations (p \> n), common with diagnostic codes, procedures, or lab measures. | **Selection limited in very small samples.** When the sample size is small, LASSO can only select a limited number of predictors, potentially missing relevant factors. |
@@ -345,7 +345,7 @@ In practice, the model tries different balances and selects the one that perform
 Elastic Net's defining feature (combining L1 and L2 penalties through the α parameter) is both its strength and its limitation. The same flexibility that lets it perform feature selection while handling correlated predictors also adds tuning complexity and may be unnecessary when a single penalty would suffice.
 
 | Advantages | Disadvantages |
-|----|----|
+|------------------------------------|------------------------------------|
 | **Combines feature selection and stability.** Removes unimportant predictors (LASSO-like) while keeping correlated, meaningful ones together (Ridge-like), and produces more consistent selections across samples than pure LASSO. | **More tuning required.** Combining both penalties introduces an extra parameter (α) on top of λ, increasing computational cost and the risk of overfitting the tuning process itself. |
 | **Highly adaptable.** Adjusting α lets the model be tailored to different data structures and research goals, from pure Ridge (α = 0) to pure LASSO (α = 1) and anywhere in between. | **Not always necessary.** If predictors are largely independent, LASSO alone may suffice. If feature selection is unnecessary, Ridge alone may be simpler. The added flexibility is wasted when the data doesn't need it. |
 | **Effective in very high dimensions.** Unlike LASSO (which selects at most n predictors), Elastic Net can retain more predictors when the number of variables far exceeds the number of observations (p \>\> n). | \- |
@@ -368,7 +368,7 @@ Let's summarize the key differences to help you choose the right method for your
 ### Side-by-Side Comparison
 
 | Criterion | Ridge | LASSO | Elastic Net |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | **Penalty** | L2 (squared) | L1 (absolute) | Both L1 and L2 |
 | **Feature selection** | No - keeps all variables | Yes - zeros out variables | Yes - zeros out variables |
 | **Correlated predictors** | Excellent — shrinks together | Unstable — selects one arbitrarily | Good — groups together |
@@ -415,7 +415,7 @@ Now that you understand the theory behind penalized regression, let's apply thes
 **Available Data:** You have data on **80 patients** from a small specialty clinic, including the following **clinically meaningful predictors**:
 
 | Category | \# of variables | Variables |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Demographics** | 2 | Age, sex |
 | **Socioeconomic factors** | 2 | Income level, insurance status |
 | **Health behaviors** | 3 | Smoking, BMI, exercise frequency |
@@ -1347,7 +1347,7 @@ Based on your results, answer these questions:
 ## Three Methods at a Glance
 
 | Method | Penalty | Feature selection | Tuning | Best for |
-|----|:--:|:--:|:--:|----|
+|---------------|:-------------:|:-------------:|:-------------:|---------------|
 | **Ridge** | L2 (squared) | No — keeps all | 1 (λ) | Correlated predictors, all relevant |
 | **LASSO** | L1 (absolute) | Yes — zeros out | 1 (λ) | Sparse, interpretable models |
 | **Elastic Net** | L1 + L2 | Yes | 2 (λ + α) | Feature selection with correlated predictors (good default) |

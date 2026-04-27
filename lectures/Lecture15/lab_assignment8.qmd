@@ -1,0 +1,352 @@
+---
+title: "Lab Assignment 8: Penalized Regression"
+subtitle: "Week 16"
+author: "Your Name Here"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    theme:
+      - cosmo
+      - lecture.scss
+    highlight-style: github
+    mainfont: "Clear Sans, -apple-system, system-ui, sans-serif"
+    fontsize: 1.1em
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Assignment Overview
+
+- **Total Points**: 10 points
+- **Due Date**: May 3, 2026
+- **Submission**: Upload your completed .qmd (no need to submit the rendered HTML file). I'll render your .qmd to HTML to check your work and assign points, so please make sure your file renders without errors before submitting. Failed rendering due to code errors will be treated as incomplete work, so double-check that all code chunks run successfully.
+
+## Learning Objectives
+
+This assignment assesses your ability to:
+
+- Prepare data for penalized regression (matrix format, train/test split)
+- Fit and interpret Ridge regression models using `glmnet` with cross-validation
+- Fit LASSO regression models and interpret automatic feature selection
+- Compare Ridge and LASSO on test set performance and the accuracy–parsimony trade-off
+
+## Instructions
+
+1.  Complete all 3 tasks below
+2.  Fill in the blanks (replace `___` with appropriate code or values)
+3.  After completing each code chunk, change `#| eval: false` to `#| eval: true` to run it
+4.  Answer all interpretation questions (1-2 sentences each)
+5.  Run all code chunks to verify they work before submitting
+
+------------------------------------------------------------------------
+
+# Grading Rubric
+
+| Task | Points | Breakdown |
+|----|----|----|
+| Task 1: Data Preparation & Ridge Regression | 4 | 0.5 data prep + 0.5 Ridge fit + 0.5 CV plot + 0.5 coefficients & RMSE + 2 interpretation |
+| Task 2: LASSO & Feature Selection | 3 | 0.5 LASSO fit + 0.5 feature selection + 2 interpretation |
+| Task 3: Ridge vs LASSO Comparison & Recommendation | 3 | 0.5 comparison table + 2.5 interpretation |
+| **Total** | **10** |  |
+
+**Interpretation Guidance**: Your interpretations should be brief but specific. For example:
+
+- **Good**: "LASSO selected 10 out of 20 predictors, eliminating administrative fields like operating room number and gown color. The strongest predictor is emergency surgery (coefficient = 2.45), meaning emergency cases stay approximately 2.5 days longer. This sparse model is easier for clinical teams to implement."
+- **Too vague**: "LASSO selected fewer variables."
+
+------------------------------------------------------------------------
+
+# Required Packages
+
+- Load the required packages using the code below:
+
+```{r}
+#| label: required-packages
+
+library(tidyverse)
+library(glmnet)
+set.seed(2026) # set seed for reproducibility
+```
+
+# Assignment Tasks
+
+## Task 1: Data Preparation & Ridge Regression (4 points) {.unnumbered}
+
+A regional hospital network wants to predict **surgical patient length of stay (LOS)** to improve bed management and discharge planning. They collected data on 450 surgical patients with **20 candidate predictor variables**: 10 clinical/surgical fields the team believes matter, plus 10 administrative/operational fields the hospital routinely records but is unsure about. Part of your job is to let the model decide which ones actually matter.
+
+Load the data using the code below and review the key variables.
+
+```{r}
+#| label: task1-data
+
+surgical_data <- read.csv("https://raw.githubusercontent.com/mba642-spring-26/mba642-spring-26.github.io/refs/heads/main/datasets/lab8_surgical_data.csv")
+
+head(surgical_data, 4)
+```
+
+**Clinical & surgical variables** (10):
+
+| Variable | Description | Type |
+|----|----|----|
+| `age` | Patient age in years | Continuous |
+| `asa_score` | ASA physical status (1-4, higher = sicker) | Ordinal |
+| `num_comorbidities` | Total comorbid conditions | Count |
+| `surgery_duration_min` | Length of surgery in minutes | Continuous |
+| `emergency_surgery` | Emergency vs. elective (1 = emergency) | Binary |
+| `num_procedures` | Number of procedures performed | Count |
+| `preop_hemoglobin` | Pre-operative hemoglobin (g/dL) | Continuous |
+| `preop_albumin` | Pre-operative albumin (g/dL) | Continuous |
+| `prior_admissions_6mo` | Hospital admissions in prior 6 months | Count |
+| `functional_status` | Functional status (1=independent, 2=partial, 3=dependent) | Ordinal |
+
+**Administrative & operational variables** (10) — recorded for every patient, but their relationship to LOS is unknown:
+
+| Variable | Description | Type |
+|----|----|----|
+| `or_room_number` | Operating room used (1-8) | Categorical |
+| `surgery_day_of_week` | Day of surgery (1=Mon, ..., 5=Fri) | Categorical |
+| `anesthesiologist_id` | ID of attending anesthesiologist (1-14) | Categorical |
+| `preop_holding_minutes` | Minutes spent in pre-op holding area | Continuous |
+| `chart_template_version` | Version of EHR chart template (1-3) | Categorical |
+| `gown_color_code` | Color code of patient gown (1-4) | Categorical |
+| `intake_form_pages` | Pages in intake paperwork (3-8) | Count |
+| `transport_method` | Transport to OR (1=stretcher, 2=walk, 3=wheelchair) | Categorical |
+| `visitor_count_admit_day` | Visitors on admission day (0-6) | Count |
+| `discharge_planner_id` | ID of assigned discharge planner (1-9) | Categorical |
+
+**Outcome variable**:
+
+| Variable   | Description                                   | Type       |
+|------------|-----------------------------------------------|------------|
+| `los_days` | Length of stay in days — **outcome variable** | Continuous |
+
+**Step 1 (Data Preparation; 0.5 points)**: Split the data into training (70%) and test (30%) sets, then create matrix format for `glmnet`.
+
+```{r}
+#| label: task1-dataprep
+#| eval: false
+
+# Define predictor variable names
+predictor_vars <- surgical_data %>%
+  select(-patient_id, -los_days) %>%
+  names()
+
+# Split data: 70% training, 30% test
+train_idx <- sample(1:nrow(surgical_data), size = ___ * nrow(surgical_data))
+train_data <- surgical_data[train_idx, ]
+test_data <- surgical_data[-train_idx, ]
+
+# Create matrix format for glmnet
+x_train <- as.matrix(train_data[, ___])
+y_train <- train_data$___
+
+x_test <- as.matrix(test_data[, ___])
+y_test <- test_data$___
+
+cat("Training set:", nrow(x_train), "patients,", ncol(x_train), "predictors\n")
+cat("Test set:", nrow(x_test), "patients\n")
+```
+
+**Step 2 (Ridge Regression; 0.5 points)**: Fit a Ridge regression model using 10-fold cross-validation.
+
+```{r}
+#| label: task1-ridge
+#| eval: false
+
+# Fit Ridge regression (alpha = 0) with cross-validation
+ridge_cv <- cv.glmnet(
+  x = ___,
+  y = ___,
+  alpha = ___,
+  nfolds = 10
+)
+```
+
+**Step 3 (CV Plot; 0.5 points)**: Plot cross-validation results and report lambda values.
+
+```{r}
+#| label: task1-cvplot
+#| eval: false
+
+plot(___)
+title("Ridge Regression: Cross-Validation Results", line = 3)
+
+cat("lambda.min:", round(ridge_cv$lambda.min, 4), "\n")
+cat("lambda.1se:", round(ridge_cv$lambda.1se, 4), "\n")
+```
+
+**Step 4 (Coefficients & RMSE; 0.5 points)**: Extract Ridge coefficients at `lambda.1se` and calculate test RMSE.
+
+```{r}
+#| label: task1-coef
+#| eval: false
+
+# Extract coefficients at lambda.1se
+ridge_coef <- coef(ridge_cv, s = "___")
+
+# Count non-zero coefficients (excluding intercept)
+cat("Non-zero coefficients:", sum(ridge_coef[-1] != 0),
+    "out of", length(predictor_vars), "\n\n")
+
+# Predict on test set and calculate RMSE
+ridge_pred <- predict(ridge_cv, s = "___", newx = ___)
+ridge_rmse <- sqrt(mean((___ - ridge_pred)^2))
+cat("Ridge test RMSE:", round(ridge_rmse, 3), "days\n")
+```
+
+**Interpretation (2 points)**:
+
+1.  Looking at the CV plot, is the curve relatively flat or does prediction error change substantially across lambda values? What are the lambda.min and lambda.1se values?
+2.  How many coefficients are non-zero in the Ridge model? Is this expected for Ridge regression, and why?
+3.  What is the Ridge RMSE? In practical terms, what does this mean for the hospital's discharge planning (i.e., on average, how far off are the LOS predictions)?
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+
+3.  Question 3:
+:::
+
+------------------------------------------------------------------------
+
+## Task 2: LASSO Regression & Feature Selection (3 points) {.unnumbered}
+
+Now fit a LASSO model on the same data. LASSO can automatically select the most important predictors by shrinking some coefficients to exactly zero.
+
+**Step 1 (LASSO Model; 0.5 points)**: Fit LASSO regression with cross-validation.
+
+```{r}
+#| label: task2-lasso
+#| eval: false
+
+# Fit LASSO regression (alpha = 1) with cross-validation
+lasso_cv <- cv.glmnet(
+  x = ___,
+  y = ___,
+  alpha = ___,
+  nfolds = 10
+)
+
+plot(___)
+title("LASSO Regression: Cross-Validation Results", line = 3)
+```
+
+**Step 2 (Feature Selection; 0.5 points)**: Extract LASSO coefficients and identify selected variables.
+
+```{r}
+#| label: task2-features
+#| eval: false
+
+# Extract coefficients at lambda.1se
+lasso_coef <- coef(lasso_cv, s = "___")
+lasso_coef
+
+# Count and list selected features
+n_selected <- sum(lasso_coef[-1] != 0)
+selected_vars <- rownames(lasso_coef)[which(lasso_coef != 0)][-1]
+eliminated_vars <- tibble(variable = predictor_vars) %>%
+  filter(!variable %in% selected_vars) %>%
+  pull(variable)
+
+cat("Selected features:", n_selected, "out of", length(predictor_vars), "\n")
+cat("Selected:", paste(selected_vars, collapse = ", "), "\n")
+cat("Eliminated:", paste(eliminated_vars, collapse = ", "), "\n")
+```
+
+**Interpretation (2 points)**:
+
+1.  How many variables did LASSO select? Which variables were eliminated? Does the elimination make clinical sense?
+2.  Which variable has the largest positive coefficient (increases LOS the most)? Which has the largest negative coefficient? What do they mean in terms of days?
+3.  How does LASSO's feature selection compare to Ridge (which kept all variables)? Why might a hospital administrator prefer a simpler model?
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+
+3.  Question 3:
+:::
+
+------------------------------------------------------------------------
+
+## Task 3: Ridge vs LASSO Comparison & Recommendation (3 points) {.unnumbered}
+
+Compare Ridge and LASSO on the test set, focusing on the trade-off between prediction accuracy (RMSE) and model simplicity (number of predictors retained).
+
+**Step 1 (Comparison Table; 0.5 points)**: Compute LASSO test RMSE and build a side-by-side comparison of Ridge and LASSO.
+
+```{r}
+#| label: task3-comparison
+#| eval: false
+
+# LASSO RMSE
+lasso_pred <- predict(lasso_cv, s = "lambda.1se", newx = ___)
+lasso_rmse <- sqrt(mean((y_test - ___)^2))
+
+# Comparison table
+comparison <- data.frame(
+  Model    = c("Ridge", "LASSO"),
+  RMSE     = round(c(ridge_rmse, lasso_rmse), 3),
+  Features = c(sum(ridge_coef[-1] != 0), n_selected),
+  Total_Candidates = length(predictor_vars)
+)
+
+comparison
+```
+
+**Interpretation (2.5 points)**:
+
+1.  How many predictors does each model retain out of the 20 candidate variables? Why does Ridge keep them all while LASSO drops most of them (what does each method's penalty actually do to the coefficients)?
+2.  Which model has the lower test RMSE? Is the difference practically meaningful for hospital discharge planning (i.e., on the scale of a typical length-of-stay decision)?
+3.  If the hospital wants a model that is **both reasonably accurate and easy to explain** to clinical staff, which model would you recommend and why? Consider the trade-off between prediction accuracy and the cognitive/operational cost of carrying many predictors in a clinical workflow.
+
+::: {.callout-note icon="false" title="Your Answer (1-2 sentences each)"}
+*\[Write your answers here\]*
+
+1.  Question 1:
+
+2.  Question 2:
+
+3.  Question 3:
+:::
+
+------------------------------------------------------------------------
+
+# Submission Checklist
+
+Before submitting, verify:
+
+- [ ] All 3 tasks are completed
+- [ ] All blanks (`___`) are filled in with appropriate values
+- [ ] All `#| eval: false` changed to `#| eval: true`
+- [ ] All code chunks run without errors
+- [ ] All interpretation questions are answered (1-2 sentences each)
+- [ ] File renders to HTML successfully
+
+------------------------------------------------------------------------
+
+# Points Summary
+
+| Task | Points | Topic | Method |
+|----|----|----|----|
+| Task 1 | 4.0 | Data prep & Ridge regression | Train/test split, `cv.glmnet(alpha=0)` |
+| Task 2 | 3.0 | LASSO & feature selection | `cv.glmnet(alpha=1)`, coefficient extraction |
+| Task 3 | 3.0 | Ridge vs LASSO comparison & recommendation | Accuracy + parsimony trade-off, business recommendation |
+| **Total** | **10.0** |  |  |
+
+------------------------------------------------------------------------
+
+**Good luck!**
