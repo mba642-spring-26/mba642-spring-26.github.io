@@ -10427,5 +10427,26 @@
     "title": "Lab Assignment 8: Penalized Regression",
     "section": "Task 3: Ridge vs LASSO Comparison & Recommendation (3 points)",
     "text": "Task 3: Ridge vs LASSO Comparison & Recommendation (3 points)\nCompare Ridge and LASSO on the test set, focusing on the trade-off between prediction accuracy (RMSE) and model simplicity (number of predictors retained).\nStep 1 (Comparison Table; 0.5 points): Compute LASSO test RMSE and build a side-by-side comparison of Ridge and LASSO.\n\n# LASSO RMSE\nlasso_pred &lt;- predict(lasso_cv, s = \"lambda.1se\", newx = ___)\nlasso_rmse &lt;- sqrt(mean((y_test - ___)^2))\n\n# Comparison table\ncomparison &lt;- data.frame(\n  Model    = c(\"Ridge\", \"LASSO\"),\n  RMSE     = round(c(ridge_rmse, lasso_rmse), 3),\n  Features = c(sum(ridge_coef[-1] != 0), n_selected),\n  Total_Candidates = length(predictor_vars)\n)\n\ncomparison\n\nInterpretation (2.5 points):\n\nHow many predictors does each model retain out of the 20 candidate variables? Why does Ridge keep them all while LASSO drops most of them (what does each method’s penalty actually do to the coefficients)?\nWhich model has the lower test RMSE? Is the difference practically meaningful for hospital discharge planning (i.e., on the scale of a typical length-of-stay decision)?\nIf the hospital wants a model that is both reasonably accurate and easy to explain to clinical staff, which model would you recommend and why? Consider the trade-off between prediction accuracy and the cognitive/operational cost of carrying many predictors in a clinical workflow.\n\n\n\n\n\n\n\nNoteYour Answer (1-2 sentences each)\n\n\n\n[Write your answers here]\n\nQuestion 1:\nQuestion 2:\nQuestion 3:"
+  },
+  {
+    "objectID": "lectures/Lecture15/Slide15.html#announcements",
+    "href": "lectures/Lecture15/Slide15.html#announcements",
+    "title": "Penalized Regression",
+    "section": "Announcements",
+    "text": "Announcements\n\nStudent Feedback Tool (SFT): first 10 minutes\nFinal Exam next week (5/6)\nLab Assignment 8: Penalized Regression\nLab Assignment 9: Course Feedback"
+  },
+  {
+    "objectID": "lectures/Lecture15/Slide15.html#announcements-12",
+    "href": "lectures/Lecture15/Slide15.html#announcements-12",
+    "title": "Penalized Regression",
+    "section": "Announcements (1/2)",
+    "text": "Announcements (1/2)\n\nStudent Feedback Tool (SFT): first 10 minutes\n\n\n\nFinal Exam next week (5/6, from 12:00 AM to 11:59 PM)\n\n\n\n\nLab Assignment 8: Penalized Regression\n\n\n\n\nLab Assignment 9: Course Feedback (separate from SFT)"
+  },
+  {
+    "objectID": "lectures/Lecture15/Slide15.html#announcements-22",
+    "href": "lectures/Lecture15/Slide15.html#announcements-22",
+    "title": "Penalized Regression",
+    "section": "Announcements (2/2)",
+    "text": "Announcements (2/2)\nPlease complete Student Feedback Tool survey! (10 minutes)"
   }
 ]

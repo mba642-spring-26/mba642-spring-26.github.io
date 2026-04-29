@@ -33,6 +33,28 @@ library(kableExtra)
 set.seed(2026)
 ```
 
+## Announcements (1/2)
+
+1. Student Feedback Tool (SFT): first 10 minutes
+
+. . . 
+
+2. Final Exam next week (5/6, from 12:00 AM to 11:59 PM) 
+
+. . . 
+
+2. Lab Assignment 8: Penalized Regression 
+
+. . . 
+
+3. Lab Assignment 9: Course Feedback (separate from SFT)
+
+
+## Announcements (2/2)
+
+Please complete Student Feedback Tool survey! (10 minutes)
+
+
 ## Today's Learning Goals
 
 By the end of this lecture, you will be able to:
@@ -268,7 +290,7 @@ $$\text{Minimize: } \sum_{i=1}^{n} (Y_i - \widehat{Y}_i)^2 + \lambda \left[ \alp
 ## Comparing the Three Methods
 
 | Criterion | Ridge | LASSO | Elastic Net |
-|:--:|:--:|:--:|:--:|
+|:----------------:|:----------------:|:----------------:|:----------------:|
 | **Penalty** | L2 (squared) | L1 (absolute) | Both |
 | **Feature selection** | No | Yes | Yes |
 | **Correlated predictors** | Excellent | Unstable | Good |
@@ -1001,7 +1023,7 @@ comparison_los
 ## Three Methods at a Glance
 
 | Method | Penalty | Feature selection | Tuning | Best for |
-|:--:|:--:|:--:|:--:|:---|
+|:-------------:|:-------------:|:-------------:|:-------------:|:--------------|
 | **Ridge** | L2 | No (keeps all) | 1 (λ) | Correlated predictors, all relevant |
 | **LASSO** | L1 | Yes (zeros out) | 1 (λ) | Sparse, interpretable models |
 | **Elastic Net** | L1 + L2 | Yes | 2 (λ + α) | Feature selection with correlation |
