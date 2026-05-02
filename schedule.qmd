@@ -25,7 +25,7 @@ Any changes will be announced in class and posted on the course website and Canv
 | 6 | Feb 18 | Mean difference 2: ANOVA 1 | [{{< fa file-alt >}}](/lectures/Lecture06/Slide06.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture06/Lecture06.qmd){target="_blank"} | \- | Reflection 5 |
 | 7 | Feb 25 | Mean difference 2: ANOVA 2 | [{{< fa file-alt >}}](/lectures/Lecture07/Slide07.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture07/Lecture07.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture07/Assignment07.qmd){target="_blank"} | Reflection 6, Assignment 3 |
 | 8 | Mar 4 | Crosstab and correlation | [{{< fa file-alt >}}](/lectures/Lecture08/Slide08.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture08/Lecture08.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture08/Assignment08.qmd){target="_blank"} | Reflection 7, Assignment 4 |
-| 9 | Mar 11 | Midterm Exam | \- | \- | [{{< fa file-alt >}}](/lectures/Lecture09/exam1_questions.qmd){target="_blank"} | Midterm Exam |
+| 9 | Mar 11 | Midterm Exam | \- | \- | \- | Midterm Exam |
 | 10 | Mar 18 | Spring break (no class) | \- | \- | \- | \- |
 | 11 | Mar 25 | Linear regression analysis 1 | [{{< fa file-alt >}}](/lectures/Lecture11/Slide11.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture11/Lecture11.qmd){target="_blank"} | \- | Reflection 8 |
 | 12 | Apr 1 | Linear regression analysis 2 | [{{< fa file-alt >}}](/lectures/Lecture12/Slide12.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture12/Lecture12.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture12/lab_assignment5.qmd){target="_blank"} | Reflection 9, Assignment 5 |
