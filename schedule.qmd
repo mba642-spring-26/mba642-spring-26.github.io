@@ -33,7 +33,7 @@ Any changes will be announced in class and posted on the course website and Canv
 | 14 | Apr 15 | Conjoint analysis | [{{< fa file-alt >}}](/lectures/Lecture14/Slide14.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture14/Lecture14.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture14/lab_assignment7.qmd){target="_blank"} | Reflection 11, Assignment 7 |
 | 15 | Apr 22 | Predictive analytics 1: Penalized Regression | [{{< fa file-alt >}}](/lectures/Lecture15/Slide15.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture15/Lecture15.qmd){target="_blank"} | [{{< fa file-alt >}}](/lectures/Lecture15/lab_assignment8.qmd){target="_blank"} | Reflection 12, Assignment 8 |
 | 16 | Apr 29 | Predictive analytics 2: Decision Trees | \- | [{{< fa file-alt >}}](/lectures/Lecture16/Lecture16.qmd){target="_blank"} | \- | Reflection 13, Assignment 9 |
-| 17 | May 6 | Final Exam | \- | \- | [{{< fa file-alt >}}](/lectures/Lecture17/exam2_questions.qmd){target="_blank"} | Final Exam |
+| 17 | May 6 | Final Exam | \- | \- | \- | Final Exam |
 :::
 
 [*Assignments will be informed during the class*]{style="font-size: 15px;"}
